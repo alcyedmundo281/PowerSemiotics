@@ -1,16 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>My Topics</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 1 - Medicina de Precisión</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .content-area h2 {
+            font-size: 1.875rem; /* 30px */
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb; /* gray-200 */
+            padding-bottom: 0.5rem;
+        }
+        .content-area p {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+        .content-area ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
-<body>
-  <h1>My Awesome Topics</h1>
-  <p>Here I will write about different interesting topics. Click on one to learn more!</p>
+<body class="bg-gray-50 text-gray-800">
 
-  <ul>
-    <li><a href="topics/topic1.html">Read about Topic 1</a></li>
-    </ul>
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
 
-  <a href="index.html">Back to Home</a>
+        <!-- Header Section -->
+        <header class="text-left mb-10">
+            <p class="text-blue-600 font-semibold">Semana 1</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-2">
+                Fundamentos de la Medicina de Precisión y la Era Digital
+            </h1>
+        </header>
+
+        <!-- Main Content -->
+        <main class="bg-white rounded-xl shadow-lg p-6 md:p-8 content-area">
+            
+            <h2>Conceptos, historia y evolución</h2>
+            <p>
+                La Medicina de Precisión (MP) representa un cambio de paradigma desde un enfoque de "talla única" hacia una atención médica personalizada. Su objetivo es tener en cuenta la variabilidad individual en los genes, el ambiente y el estilo de vida de cada persona para guiar las decisiones sobre prevención, diagnóstico y tratamiento.
+            </p>
+
+            <h2>Subtemas Clave de la Semana</h2>
+            <ul>
+                <li>Conceptos, historia, evolución y alcance de la MP.</li>
+                <li>Variabilidad individual y su impacto en salud y enfermedad.</li>
+                <li>La promesa de la MP: diagnóstico, pronóstico, tratamiento.</li>
+                <li>Desafíos y oportunidades de la MP en Latinoamérica y Ecuador.</li>
+                <li>El rol transformador de las tecnologías digitales.</li>
+            </ul>
+
+            <h2>Actividades de Aprendizaje</h2>
+            <p>
+                Durante esta semana, realizaremos una conferencia magistral sobre "El Panorama de la Medicina de Precisión" y discutiremos en grupo artículos relevantes que abordan los desafíos y oportunidades en nuestra región.
+            </p>
+            
+        </main>
+
+        <!-- Footer with Back Link -->
+        <footer class="text-center mt-12">
+            <!-- The ../ tells the browser to go up one level from the 'medicina_de_precision' folder -->
+            <a href="../medicina_de_precision.html" class="text-blue-600 hover:underline">← Volver al temario del curso</a>
+        </footer>
+
+    </div>
 </body>
 </html>
