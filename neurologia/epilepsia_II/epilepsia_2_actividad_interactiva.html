@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad Interactiva: Caso Clínico de EE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        #timeline li {
+            transition: all 0.5s ease-in-out;
+        }
+        .step-active {
+            transform: scale(1.05);
+            border-color: #0ea5e9 !important; /* sky-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-white">Actividad Interactiva: Manejo del Estado Epiléptico</h1>
+            <p class="text-lg text-gray-400 mt-2">Toma decisiones críticas en una simulación de caso clínico.</p>
+        </header>
+
+        <main class="grid lg:grid-cols-3 gap-8">
+            <!-- Columna de Información del Paciente -->
+            <div class="lg:col-span-1 bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg h-fit lg:sticky top-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Caso Clínico</h2>
+                <div id="patient-info" class="space-y-3">
+                    <p><strong class="text-sky-400">Paciente:</strong> Hombre, 30 años.</p>
+                    <p><strong class="text-sky-400">Presentación:</strong> Traído por servicio de emergencias.</p>
+                    <p><strong class="text-sky-400">Historia:</strong> Encontrado convulsionando (movimientos tónico-clónicos generalizados).</p>
+                    <p><strong class="text-sky-400">Tiempo de Crisis:</strong> <span id="timer" class="font-bold text-xl text-red-400">00:00</span></p>
+                    <p><strong class="text-sky-400">Estado Actual:</strong> <span id="status" class="font-semibold text-white">Convulsionando</span></p>
+                </div>
+            </div>
+
+            <!-- Columna de Acciones y Timeline -->
+            <div class="lg:col-span-2">
+                <div id="actions-container" class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg mb-8">
+                    <h3 id="action-title" class="text-2xl font-bold text-white mb-4">Paso 1: Estabilización Inicial (0-5 min)</h3>
+                    <div id="action-buttons" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Botones se generan con JS -->
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg">
+                    <h3 class="text-2xl font-bold text-white mb-4">Línea de Tiempo del Manejo</h3>
+                    <ol id="timeline" class="relative border-l border-gray-600 space-y-6">
+                       <!-- Eventos se generan con JS -->
+                    </ol>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-12 pt-6 border-t border-gray-700">
+             <a href="index.html" class="text-blue-500 hover:underline">← Volver al Menú del Módulo</a>
+        </footer>
+    </div>
+
+    <script>
+        const patientStatusEl = document.getElementById('status');
+        const timerEl = document.getElementById('timer');
+        const actionTitleEl = document.getElementById('action-title');
+        const actionButtonsEl = document.getElementById('action-buttons');
+        const timelineEl = document.getElementById('timeline');
+        
+        let gameTime = 0;
+        let gameInterval;
+        let currentStep = 0;
+        let hasIVAccess = false;
+
+        const steps = [
+            {
+                title: "Paso 1: Estabilización Inicial (0-5 min)",
+                actions: [
+                    { text: "Asegurar vía aérea (ABC)", correct: true, feedback: "Vía aérea permeable. Paciente posicionado para evitar aspiración." },
+                    { text: "Administrar Benzodiacepinas IV", correct: false, feedback: "Error crítico: Aún no has monitorizado ni obtenido acceso IV. Primero, estabiliza y evalúa." },
+                    { text: "Monitorizar signos vitales", correct: true, feedback: "Monitor conectado. FC: 130, TA: 150/95, SatO2: 92%." },
+                    { text: "Obtener acceso IV y tomar muestras", correct: true, feedback: "Acceso IV periférico logrado. Muestras enviadas para labs y glucemia." }
+                ],
+                required: 3
+            },
+            {
+                title: "Paso 2: Tratamiento de Primera Línea (5-20 min)",
+                actions: [
+                    { text: "Administrar Lorazepam IV", correct: true, feedback: "Dosis de 4mg de Lorazepam IV administrada. Monitorizando respuesta." },
+                    { text: "Administrar Fenitoína IV", correct: false, feedback: "Error: La Fenitoína es de segunda línea. Debes usar una benzodiacepina primero." },
+                    { text: "Administrar Midazolam IM", correct: false, feedback: "Incorrecto: Ya tienes un acceso IV funcional. Se prefiere la vía IV." }
+                ],
+                required: 1
+            },
+            {
+                title: "Paso 3: Tratamiento de Segunda Línea (20-40 min)",
+                actions: [
+                    { text: "Repetir dosis de Lorazepam", correct: false, feedback: "Error: No se recomienda repetir las benzodiacepinas. Se debe proceder a un FAE de segunda línea." },
+                    { text: "Cargar Fenitoína IV", correct: true, feedback: "Iniciando carga de Fenitoína 20mg/kg. Monitorizando TA y ECG de cerca." },
+                    { text: "Preparar para intubación", correct: false, feedback: "Aún no. La intubación se reserva para la fase 4 si los FAE de segunda línea fallan." }
+                ],
+                required: 1
+            },
+            {
+                title: "Paso 4: Manejo en UCI (>40 min)",
+                actions: [
+                    { text: "Llamar a UCI y preparar para traslado", correct: true, feedback: "Equipo de UCI notificado. Se preparan para recibir al paciente." },
+                    { text: "Iniciar infusión de Propofol", correct: true, feedback: "Paciente en UCI. Iniciando anestesia general con Propofol bajo monitorización EEG continua." }
+                ],
+                required: 2
+            }
+        ];
+
+        function startGame() {
+            gameTime = 0;
+            currentStep = 0;
+            hasIVAccess = false;
+            timelineEl.innerHTML = '';
+            patientStatusEl.textContent = "Convulsionando";
+            patientStatusEl.classList.remove('text-green-400');
+            patientStatusEl.classList.add('text-red-400');
+            
+            clearInterval(gameInterval);
+            gameInterval = setInterval(() => {
+                gameTime++;
+                const minutes = Math.floor(gameTime / 60).toString().padStart(2, '0');
+                const seconds = (gameTime % 60).toString().padStart(2, '0');
+                timerEl.textContent = `${minutes}:${seconds}`;
+
+                if (gameTime === 5 * 60) addTimelineEvent("5 min", "Umbral T1 alcanzado. Riesgo de autoperpetuación.", "text-yellow-400");
+                if (gameTime === 20 * 60) addTimelineEvent("20 min", "EE establecido. Riesgo de farmacorresistencia.", "text-orange-400");
+                if (gameTime === 30 * 60) addTimelineEvent("30 min", "Umbral T2 alcanzado. Riesgo de daño neuronal.", "text-red-500");
+                if (gameTime === 40 * 60) addTimelineEvent("40 min", "EE refractario establecido.", "text-red-700");
+            }, 1000/60); // Acelerado para la simulación (1 segundo real = 1 minuto de juego)
+
+            loadStep(0);
+        }
+
+        function loadStep(stepIndex) {
+            const step = steps[stepIndex];
+            actionTitleEl.textContent = step.title;
+            actionButtonsEl.innerHTML = '';
+            
+            let correctActionsTaken = 0;
+
+            step.actions.forEach(action => {
+                const button = document.createElement('button');
+                button.textContent = action.text;
+                button.className = "p-4 bg-gray-700 text-white rounded-lg hover:bg-sky-700 transition-colors w-full";
+                button.onclick = () => {
+                    button.disabled = true;
+                    button.classList.add('opacity-50', 'cursor-not-allowed');
+                    
+                    if (action.correct) {
+                        button.classList.add('bg-green-700');
+                        addTimelineEvent(timerEl.textContent, action.feedback, 'text-green-400');
+                        correctActionsTaken++;
+                        if (action.text.includes("acceso IV")) hasIVAccess = true;
+                        
+                        // Stop seizure checks
+                        if (currentStep === 1) { // 1st line treatment
+                             patientStatusEl.textContent = "Crisis controlada";
+                             patientStatusEl.classList.remove('text-red-400');
+                             patientStatusEl.classList.add('text-green-400');
+                             clearInterval(gameInterval);
+                             endGame(true);
+                        } else if (currentStep === 2) { // 2nd line
+                             patientStatusEl.textContent = "Crisis controlada";
+                             patientStatusEl.classList.remove('text-red-400');
+                             patientStatusEl.classList.add('text-green-400');
+                             clearInterval(gameInterval);
+                             endGame(true);
+                        }
+
+                    } else {
+                        button.classList.add('bg-red-800');
+                        addTimelineEvent(timerEl.textContent, action.feedback, 'text-red-400');
+                    }
+
+                    if (correctActionsTaken >= step.required) {
+                        currentStep++;
+                        if (currentStep < steps.length) {
+                            setTimeout(() => loadStep(currentStep), 1500);
+                        }
+                    }
+                };
+                actionButtonsEl.appendChild(button);
+            });
+        }
+        
+        function addTimelineEvent(time, text, colorClass) {
+            const li = document.createElement('li');
+            li.className = `ml-6 p-4 bg-gray-800 border-l-4 border-gray-700 rounded-r-lg ${colorClass}`;
+            li.innerHTML = `
+                <span class="absolute flex items-center justify-center w-6 h-6 bg-gray-600 rounded-full -left-3 ring-8 ring-gray-900">
+                    <svg class="w-2.5 h-2.5 text-sky-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4Z"/><path d="M0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/></svg>
+                </span>
+                <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Tiempo de Simulación: ${time}</time>
+                <p class="text-base font-normal">${text}</p>`;
+            timelineEl.prepend(li);
+            // Highlight the new step
+            setTimeout(() => li.classList.add('step-active'), 100);
+        }
+        
+        function endGame(success) {
+            actionTitleEl.textContent = success ? "¡Caso Resuelto con Éxito!" : "Fin de la Simulación";
+            actionButtonsEl.innerHTML = `<button onclick="startGame()" class="p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors w-full md:col-span-2">Reiniciar Simulación</button>`;
+        }
+
+        startGame();
+    </script>
+
+</body>
+</html>
+
