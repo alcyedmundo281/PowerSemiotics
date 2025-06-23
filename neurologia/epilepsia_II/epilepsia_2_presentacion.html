@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación: Epilepsia II - Manejo Avanzado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .slider-container {
+            scroll-behavior: smooth;
+        }
+        .slide {
+            flex-shrink: 0;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="relative w-full h-screen flex flex-col">
+        <div id="slider-container" class="slider-container flex w-full h-full overflow-x-auto no-scrollbar">
+            
+            <!-- Slide 1: Título -->
+            <div id="slide-1" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-900 text-white">
+                <div class="text-center max-w-4xl">
+                    <p class="text-xl md:text-2xl text-red-300">Neurología - Módulo de Epilepsia II</p>
+                    <h1 class="text-4xl md:text-5xl font-extrabold my-4">Estado Epiléptico, Síndromes y Tratamiento</h1>
+                    <svg class="mt-8 mx-auto w-full max-w-sm" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100,20 C50,20 20,50 20,100 C20,150 50,180 100,180 C150,180 180,150 180,100 C180,50 150,20 100,20 Z" fill="#1f2937" stroke="#dc2626" stroke-width="4"/>
+                        <circle cx="100" cy="100" r="70" fill="none" stroke="#fecaca" stroke-width="2" stroke-dasharray="4"/>
+                        <path d="M100 50 V 100 H 135" fill="none" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>
+                        <path d="M80 80 l-10-15 l-5 20 M120 120 l-10-15 l-5 20" fill="none" stroke="#f87171" stroke-width="3"/>
+                        <text x="100" y="150" text-anchor="middle" font-weight="bold" font-size="20" fill="white">Tiempo es Cerebro</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Other slides from your provided code... -->
+            <div id="slide-2" class="slide w-full h-full flex items-center justify-center p-8 bg-white"><div class="max-w-4xl w-full"><h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Objetivos de Aprendizaje</h2><ul class="space-y-4 text-lg md:text-xl"><li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Reconocer y definir el estado epiléptico (EE) y sus tipos.</span></li><li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Aplicar el protocolo de manejo secuencial del EE convulsivo.</span></li><li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Identificar síndromes epilépticos comunes (Lennox-Gastaut, EMJ).</span></li><li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Describir los mecanismos de acción de las principales familias de FAE.</span></li><li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Seleccionar un FAE de primera línea apropiado según el caso.</span></li></ul></div></div>
+            <div id="slide-3" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50"><div class="max-w-4xl w-full text-center"><h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Estado Epiléptico (EE): Una Emergencia</h2><p class="text-xl text-gray-600 mb-8">Falla de los mecanismos que terminan una crisis, haciendo que se autoperpetúe.</p><svg class="w-full max-w-2xl mx-auto" viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg"><line x1="20" y1="60" x2="480" y2="60" stroke="#9ca3af" stroke-width="4"/><circle cx="20" cy="60" r="5" fill="black"/><text x="20" y="85" text-anchor="middle">Inicio</text><circle cx="150" cy="60" r="10" fill="#f59e0b" stroke="white" stroke-width="2"/><text x="150" y="95" text-anchor="middle" font-weight="bold" fill="#f59e0b">T1 (5 min)</text><text x="150" y="30" text-anchor="middle" class="text-sm">Iniciar Tratamiento</text><circle cx="400" cy="60" r="10" fill="#dc2626" stroke="white" stroke-width="2"/><text x="400" y="95" text-anchor="middle" font-weight="bold" fill="#dc2626">T2 (30 min)</text><text x="400" y="30" text-anchor="middle" class="text-sm">Riesgo de Daño Neuronal</text></svg></div></div>
+            <!-- ... all other slides go here -->
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="fixed bottom-0 left-0 right-0 p-4 bg-black/10 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <button id="prevBtn" class="bg-white/80 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md hover:bg-white transition disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
+                <div id="slide-counter" class="text-white font-medium text-sm">Diapositiva 1 / 14</div>
+                <button id="nextBtn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed">Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for slider functionality
+        const sliderContainer = document.getElementById('slider-container');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slide-counter');
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 1;
+
+        function updateUI() {
+            if (slides.length > 0) {
+                 slideCounter.textContent = `Diapositiva ${currentSlide} / ${totalSlides}`;
+                 prevBtn.disabled = currentSlide === 1;
+                 nextBtn.disabled = currentSlide === totalSlides;
+            }
+        }
+
+        function scrollToSlide(slideNumber) {
+            if (sliderContainer.children.length > 0) {
+                const slideWidth = sliderContainer.clientWidth;
+                sliderContainer.scrollTo({
+                    left: (slideNumber - 1) * slideWidth,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                scrollToSlide(currentSlide);
+                updateUI();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 1) {
+                currentSlide--;
+                scrollToSlide(currentSlide);
+                updateUI();
+            }
+        });
+
+        updateUI();
+    </script>
+</body>
+</html>
