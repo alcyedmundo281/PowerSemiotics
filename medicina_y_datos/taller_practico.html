@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Práctico: Teorema de Bayes en la Práctica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .input-field {
+            background-color: #374151; /* gray-700 */
+            border: 1px solid #4b5563; /* gray-600 */
+            color: #d1d5db; /* gray-300 */
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        .step-card {
+            background-color: #1f2937; /* gray-800 */
+            border: 1px solid #374151; /* gray-700 */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .radio-label {
+            display: block;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #374151; /* gray-700 */
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+        }
+        input[type="radio"]:checked + .radio-label {
+            border-color: #2dd4bf; /* teal-500 */
+            background-color: #134e4a; /* teal-900 */
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+    <div class="container mx-auto p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-white">Taller Práctico: Del Pre-test al Post-test</h1>
+            <p class="text-lg text-gray-400 mt-2">Aplica el Teorema de Bayes usando Razones de Verosimilitud (LR).</p>
+        </header>
+        
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-5 gap-8">
+            
+            <!-- Columna Izquierda: Caso y Pasos -->
+            <main class="lg:col-span-3 space-y-8">
+                <!-- Caso Clínico -->
+                <div class="step-card">
+                    <h2 class="text-2xl font-bold text-white mb-4">Caso Clínico</h2>
+                    <p>Paciente masculino de 60 años, fumador, con disnea de esfuerzo. Una radiografía de tórax muestra un nódulo pulmonar solitario de 1.5 cm. Se debe determinar la probabilidad de que el nódulo sea maligno.</p>
+                </div>
+
+                <!-- Paso 1 -->
+                <div class="step-card">
+                    <h2 class="text-2xl font-bold text-white mb-4">Paso 1: Probabilidad Pre-Test</h2>
+                    <label for="pretest" class="block mb-2 text-gray-400">Basado en la prevalencia y los factores de riesgo del paciente, estime la probabilidad inicial (pre-test) de que el nódulo sea maligno (ingrese un valor de 1 a 99%).</label>
+                    <input type="number" id="pretest" class="input-field text-xl" min="1" max="99" placeholder="ej: 30">
+                </div>
+                
+                <!-- Paso 2 -->
+                <div class="step-card">
+                    <h2 class="text-2xl font-bold text-white mb-4">Paso 2: Seleccionar Prueba Diagnóstica</h2>
+                    <div id="test-options" class="space-y-3">
+                        <div class="relative">
+                            <input type="radio" id="pet" name="test" value="3.1" class="hidden">
+                            <label for="pet" class="radio-label">
+                                <span class="font-bold text-lg text-white">PET Scan (Positivo)</span>
+                                <span class="block text-sm text-gray-400">Razón de Verosimilitud Positiva (LR+): 3.1</span>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="radio" id="biopsy" name="test" value="0.1" class="hidden">
+                            <label for="biopsy" class="radio-label">
+                                <span class="font-bold text-lg text-white">Biopsia por Aspiración (Negativa)</span>
+                                <span class="block text-sm text-gray-400">Razón de Verosimilitud Negativa (LR-): 0.1</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 4 -->
+                 <div class="step-card">
+                    <h2 class="text-2xl font-bold text-white mb-4">Paso 4: Calcular Probabilidad Post-Test</h2>
+                    <button onclick="calculate()" class="w-full bg-teal-600 text-white font-bold py-3 rounded-lg hover:bg-teal-700 transition-all text-lg transform hover:scale-105">
+                        Calcular
+                    </button>
+                    <p id="error-msg" class="text-red-400 text-center mt-2 h-4"></p>
+                </div>
+            </main>
+
+            <!-- Columna Derecha: Nomograma y Resultados -->
+            <aside class="lg:col-span-2 space-y-8">
+                <!-- Paso 3 -->
+                <div class="step-card h-fit lg:sticky top-8">
+                    <h2 class="text-2xl font-bold text-white mb-4">Paso 3: Nomograma de Fagan</h2>
+                    <p class="text-sm text-gray-400 mb-4">Visualice cómo la probabilidad pre-test se conecta con el LR para obtener la probabilidad post-test.</p>
+                    <!-- CORRECTED IMAGE LINK -->
+                    <img src="https://i.imgur.com/8T4fF2y.png" alt="Nomograma de Fagan" class="rounded-lg bg-white p-1">
+                </div>
+                
+                <!-- Resultados -->
+                <div id="results" class="step-card h-fit lg:sticky top-8 hidden">
+                     <h2 class="text-2xl font-bold text-white mb-4">Resultado</h2>
+                     <div class="text-center">
+                         <p class="text-gray-400">Probabilidad Post-Test de Malignidad:</p>
+                         <p id="posttest-prob" class="text-5xl font-extrabold text-teal-400 my-2">0%</p>
+                         <p id="interpretation" class="text-lg"></p>
+                     </div>
+                </div>
+            </aside>
+
+        </div>
+
+        <footer class="text-center mt-12 pt-6 border-t border-gray-700">
+            <a href="index.html" class="text-blue-500 hover:underline">← Volver al Menú del Módulo</a>
+        </footer>
+    </div>
+
+    <script>
+        function getInterpretation(pre, post) {
+            const change = Math.abs(post - pre);
+            if (change >= 30) return { text: 'Cambio Concluyente en la Probabilidad', class: 'text-green-400' };
+            if (change >= 15) return { text: 'Cambio Moderadamente Útil', class: 'text-yellow-400' };
+            return { text: 'Cambio Pequeño, poco útil', class: 'text-orange-400' };
+        }
+
+        function calculate() {
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.textContent = '';
+
+            const preTestInput = document.getElementById('pretest').value;
+            const selectedTest = document.querySelector('input[name="test"]:checked');
+
+            if (!preTestInput || !selectedTest) {
+                errorMsg.textContent = 'Por favor, ingrese la probabilidad y seleccione una prueba.';
+                return;
+            }
+
+            const preTestProb = parseInt(preTestInput) / 100;
+            const likelihoodRatio = parseFloat(selectedTest.value);
+
+            if (isNaN(preTestProb) || preTestProb <= 0 || preTestProb >= 1) {
+                errorMsg.textContent = 'La probabilidad pre-test debe ser entre 1 y 99.';
+                return;
+            }
+
+            // Teorema de Bayes con Odds
+            const preTestOdds = preTestProb / (1 - preTestProb);
+            const postTestOdds = preTestOdds * likelihoodRatio;
+            const postTestProb = postTestOdds / (1 + postTestOdds);
+            const postTestPercentage = postTestProb * 100;
+            
+            document.getElementById('posttest-prob').textContent = postTestPercentage.toFixed(1) + '%';
+            
+            const interp = getInterpretation(preTestProb * 100, postTestPercentage);
+            const interpEl = document.getElementById('interpretation');
+            interpEl.textContent = interp.text;
+            interpEl.className = `text-lg ${interp.class}`;
+
+            document.getElementById('results').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
