@@ -3,42 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo: Pruebas Diagnósticas</title>
+    <title>Razonamiento Clínico - Powersemiotics</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#4F46E5, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-300">
-    <div class="container mx-auto p-4 sm:p-6 md:p-8">
-        <header class="text-center mb-10 md:mb-16">
-            <p class="text-lg text-teal-400">Módulo de Medicina y Datos</p>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white mt-2">Pruebas Diagnósticas y su Interpretación</h1>
-        </header>
-        <main class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-            <a href="presentacion.html" class="bg-gray-800 border border-gray-700 rounded-lg p-6 group hover:border-teal-500 transition-all">
-                <h3 class="text-xl font-bold text-white">1. Presentación de Diapositivas</h3>
-                <p class="text-gray-400 mt-2">Revisa los conceptos clave de las propiedades de las pruebas diagnósticas.</p>
-                <span class="mt-4 inline-block text-teal-400 font-semibold group-hover:underline">Ver Presentación →</span>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/PowerSemiotics/" class="flex items-center space-x-2">
+                <img src="../assets/images/logo_ps.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
             </a>
-            <a href="autoevaluacion.html" class="bg-gray-800 border border-gray-700 rounded-lg p-6 group hover:border-teal-500 transition-all">
-                <h3 class="text-xl font-bold text-white">2. Autoevaluación Formativa</h3>
-                <p class="text-gray-400 mt-2">Pon a prueba tu conocimiento con un test interactivo sobre cálculo e interpretación.</p>
-                <span class="mt-4 inline-block text-teal-400 font-semibold group-hover:underline">Iniciar Test →</span>
+            <div>
+                <a href="/PowerSemiotics/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">Medicina y Datos</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-6 py-16">
+        
+        <!-- Sección de Introducción -->
+        <section class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                La Arquitectura del Juicio Clínico
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                Un análisis profundo sobre cómo el razonamiento clínico está siendo transformado por la ciencia de datos, la inferencia probabilística y los modelos computacionales.
+            </p>
+        </section>
+
+        <!-- Sección de Descarga del PDF -->
+        <section class="bg-white p-8 rounded-xl shadow-lg mb-16 border border-gray-200">
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-1 text-center">
+                     <i class="fas fa-file-pdf text-8xl text-indigo-500"></i>
+                </div>
+                <div class="md:col-span-2">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">El Documento Fundacional</h2>
+                    <p class="text-gray-600 mb-6">
+                        Nuestro documento "Razonamiento Clínico: Modelos y Aplicaciones" es la base de esta sección. Profundiza en el cambio desde el aprendizaje tradicional hacia un modelo basado en el pensamiento estructurado y probabilístico.
+                    </p>
+                    <a href="../assets/pdf/Razonamiento_Clinico_Modelos_y_Aplicaciones.pdf" download="Razonamiento_Clinico_Modelos_y_Aplicaciones.pdf" 
+                       class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-md">
+                        <i class="fas fa-download mr-2"></i> Descargar Anexo PDF
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid de Sub-Tópicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Card 1: IA Explicable (XAI) -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-search-plus text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">IA Explicable (XAI)</h2>
+                <p class="text-gray-600">
+                    Desmitificando los modelos de "caja negra" para construir confianza y seguridad en las herramientas de diagnóstico basadas en IA.
+                </p>
             </a>
-            <a href="taller_practico.html" class="bg-gray-800 border border-gray-700 rounded-lg p-6 group hover:border-teal-500 transition-all">
-                <h3 class="text-xl font-bold text-white">3. Taller Práctico</h3>
-                <p class="text-gray-400 mt-2">Calcula S, E, VPP, VPN y LRs a partir de una tabla de 2x2 en un caso clínico.</p>
-                <span class="mt-4 inline-block text-teal-400 font-semibold group-hover:underline">Comenzar Taller →</span>
+
+            <!-- Card 2: Inferencia Probabilística -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-project-diagram text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Inferencia Probabilística</h2>
+                <p class="text-gray-600">
+                    Modelando la incertidumbre con herramientas como las Redes Bayesianas para reflejar el proceso de pensamiento diferencial del médico experto.
+                </p>
             </a>
-            <a href="pagina_conocimiento.html" class="bg-gray-800 border border-gray-700 rounded-lg p-6 group hover:border-teal-500 transition-all">
-                <h3 class="text-xl font-bold text-white">4. Página de Conocimiento</h3>
-                <p class="text-gray-400 mt-2">Consulta una guía rápida con las fórmulas y el nomograma de Fagan.</p>
-                <span class="mt-4 inline-block text-teal-400 font-semibold group-hover:underline">Consultar Guía →</span>
+
+            <!-- Card 3: Modelos Computacionales -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-cogs text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Modelos Computacionales</h2>
+                <p class="text-gray-600">
+                    Un vistazo a las diferentes arquitecturas, desde sistemas basados en reglas hasta Deep Learning, y su aplicación en problemas clínicos.
+                </p>
             </a>
-        </main>
-        <footer class="text-center mt-16 py-6 border-t border-gray-700">
-            <a href="../../medicina_y_datos.html" class="text-blue-500 hover:underline">← Volver al Hub de Medicina y Datos</a>
-        </footer>
-    </div>
+            
+            <!-- Card 4: Ética y Sesgos -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-balance-scale text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Ética y Mitigación de Sesgos</h2>
+                <p class="text-gray-600">
+                   El desafío crítico de asegurar la equidad y evitar la perpetuación de disparidades en los datos de salud que alimentan a la IA.
+                </p>
+            </a>
+            
+            <!-- Card 5: Aplicaciones Prácticas -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-notes-medical text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Aplicaciones Prácticas</h2>
+                <p class="text-gray-600">
+                    Casos de estudio donde la aplicación de estos modelos ha llevado a diagnósticos más rápidos y tratamientos más personalizados.
+                </p>
+            </a>
+            
+            <!-- Card 6: Dashboard de IA -->
+            <a href="https://powersemiotics-alcy.vercel.app/" target="_blank" class="block bg-gradient-to-r from-indigo-600 to-pink-600 p-8 rounded-xl text-white group card-hover-effect">
+                 <i class="fas fa-rocket text-4xl mb-4"></i>
+                <h2 class="text-2xl font-bold mb-2">Ponlo en Práctica</h2>
+                <p>
+                    Utiliza nuestro Dashboard de IA para cargar documentos, analizarlos y extraer los símbolos clave para potenciar tu propio juicio clínico.
+                </p>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
