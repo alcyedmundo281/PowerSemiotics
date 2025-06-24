@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación: Enfermedad Hepática I</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slider-container { scroll-behavior: smooth; }
+        .slide { flex-shrink: 0; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="relative w-full h-screen flex flex-col">
+        <div id="slider-container" class="slider-container flex w-full h-full overflow-x-auto no-scrollbar">
+            <!-- Slides will be injected here by JS -->
+        </div>
+        <div class="fixed bottom-0 left-0 right-0 p-4 bg-black/10 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <button id="prevBtn" class="bg-white/80 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md hover:bg-white transition disabled:opacity-50">Anterior</button>
+                <div id="slide-counter" class="text-white font-medium text-sm"></div>
+                <button id="nextBtn" class="bg-rose-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-rose-700">Siguiente</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const slidesData = [
+            { type: 'title', title: 'Enfermedad Hepática I', subtitle: 'Interpretación de Pruebas de Función Hepática y Patrones de Lesión', theme: 'bg-gray-900 text-white' },
+            { type: 'objectives', title: 'Objetivos de Aprendizaje', objectives: ['Diferenciar entre pruebas de función y de lesión hepática.', 'Reconocer los patrones de lesión: hepatocelular y colestásico.', 'Interpretar un perfil hepático básico en un contexto clínico.', 'Calcular e interpretar los scores de Child-Pugh y MELD.'] },
+            { type: 'concept', title: 'Función vs. Lesión Hepática', content: 'Es crucial diferenciar: <ul><li><strong>Pruebas de FUNCIÓN (SÍNTESIS):</strong> Miden la capacidad del hígado de producir sustancias (Albúmina, Tiempos de Coagulación).</li><li><strong>Pruebas de LESIÓN (ENZIMAS):</strong> Indican daño a los hepatocitos (AST/ALT) o colestasis (FA/GGT).</li></ul>', theme: 'bg-gray-50' },
+            { type: 'pattern', title: 'Patrón Hepatocelular', content: 'Se caracteriza por una elevación predominante de las transaminasas (AST y ALT) muy por encima de la Fosfatasa Alcalina (FA). Indica daño directo a los hepatocitos.', details: ['Causas comunes: Hepatitis virales, toxicidad por fármacos (paracetamol), isquemia.','El ratio AST/ALT > 2 sugiere fuertemente una etiología alcohólica.'] },
+            { type: 'pattern', title: 'Patrón Colestásico', content: 'Elevación predominante de la Fosfatasa Alcalina (FA) y GGT, con bilirrubina que puede estar elevada. Indica obstrucción del flujo biliar.', details: ['Causas comunes: Coledocolitiasis, tumores de páncreas o vía biliar, colangitis biliar primaria.','Puede ser intrahepático o extrahepático. La ecografía es el primer paso diagnóstico.'] },
+            { type: 'case', title: 'Caso Clínico 1', case: 'Mujer de 45 años, con fatiga y prurito. Laboratorio: AST 120, ALT 150, FA 800, GGT 950, Bilirrubina Total 3.5 mg/dL.', question: '¿Cuál es el patrón de lesión más probable?' },
+            { type: 'scores', title: 'Scores Pronósticos en Cirrosis', scores: [{name: 'Child-Pugh', components: 'Bilirrubina, Albúmina, Ascitis, Encefalopatía, INR. Clasifica en A, B, C.', use: 'Evalúa pronóstico a corto plazo.'}, {name: 'MELD', components: 'Bilirrubina, Creatinina, INR. Score numérico.', use: 'Prioriza pacientes para trasplante hepático.'}] },
+            { type: 'summary', title: 'Resumen y Puntos Clave', points: ['Diferenciar siempre entre lesión y función.', 'El patrón AST/ALT vs FA/GGT orienta la etiología.', 'La ecografía es clave en el patrón colestásico.', 'Los scores pronósticos son fundamentales en la cirrosis.'] },
+            { type: 'final', title: 'Preguntas y Cierre', theme: 'bg-gray-900 text-white' }
+        ];
+        
+        const sliderContainer = document.getElementById('slider-container');
+        slidesData.forEach((data, index) => {
+            const slide = document.createElement('div');
+            slide.className = `slide w-full h-full flex items-center justify-center p-8 ${data.theme || 'bg-white'}`;
+            let innerHTML = '';
+            switch (data.type) {
+                case 'title':
+                    innerHTML = `<div class="text-center"><p class="text-xl md:text-2xl text-rose-300">Gastroenterología</p><h1 class="text-4xl md:text-5xl font-extrabold my-4">${data.title}</h1><p class="text-lg text-gray-400">${data.subtitle}</p></div>`;
+                    break;
+                case 'objectives':
+                    innerHTML = `<div class="max-w-4xl w-full"><h2 class="text-3xl font-bold mb-6">${data.title}</h2><ul class="space-y-4 text-lg">${data.objectives.map(o => `<li class="flex items-start"><span class="text-rose-500 mr-3 mt-1">&#10003;</span><span>${o}</span></li>`).join('')}</ul></div>`;
+                    break;
+                case 'concept':
+                    innerHTML = `<div class="max-w-4xl w-full"><h2 class="text-3xl font-bold mb-6">${data.title}</h2><div class="text-xl text-gray-700">${data.content}</div></div>`;
+                    break;
+                case 'pattern':
+                    innerHTML = `<div class="max-w-4xl w-full"><h2 class="text-3xl font-bold mb-6">${data.title}</h2><div class="p-6 bg-yellow-100 text-yellow-800 rounded-lg"><p class="text-xl">${data.content}</p></div><ul class="mt-4 list-disc list-inside text-gray-600">${data.details.map(d => `<li>${d}</li>`).join('')}</ul></div>`;
+                    break;
+                case 'case':
+                    innerHTML = `<div class="text-center max-w-2xl"><h2 class="text-3xl font-bold mb-4">${data.title}</h2><div class="p-6 bg-blue-100 rounded-lg text-blue-800"><p>${data.case}</p></div><p class="mt-6 text-2xl font-bold text-gray-800">${data.question}</p></div>`;
+                    break;
+                case 'scores':
+                    innerHTML = `<div class="max-w-4xl w-full"><h2 class="text-3xl font-bold mb-6">${data.title}</h2><div class="grid md:grid-cols-2 gap-8">${data.scores.map(s => `<div class="p-4 bg-gray-50 rounded-lg border"><h3 class="font-bold text-xl text-gray-800">${s.name}</h3><p class="text-sm text-gray-500">Componentes: ${s.components}</p><p class="mt-2 text-gray-700">${s.use}</p></div>`).join('')}</div></div>`;
+                    break;
+                case 'summary':
+                    innerHTML = `<div class="max-w-4xl w-full"><h2 class="text-3xl font-bold mb-6">${data.title}</h2><ul class="space-y-4 text-xl">${data.points.map(p => `<li class="p-4 bg-gray-50 rounded-lg">${p}</li>`).join('')}</ul></div>`;
+                    break;
+                case 'final':
+                    innerHTML = `<div class="text-center"><h2 class="text-4xl md:text-6xl font-bold">${data.title}</h2></div>`;
+                    break;
+            }
+            slide.innerHTML = innerHTML;
+            sliderContainer.appendChild(slide);
+        });
+        
+        // Slider navigation logic
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slide-counter');
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 1;
+
+        function updateUI() {
+            if (totalSlides > 0) {
+                 slideCounter.textContent = `Diapositiva ${currentSlide} / ${totalSlides}`;
+                 prevBtn.disabled = currentSlide === 1;
+                 nextBtn.disabled = currentSlide === totalSlides;
+            }
+        }
+        function scrollToSlide(slideNumber) {
+            const slideWidth = sliderContainer.clientWidth;
+            sliderContainer.scrollTo({ left: (slideNumber - 1) * slideWidth, behavior: 'smooth' });
+        }
+        nextBtn.addEventListener('click', () => { if (currentSlide < totalSlides) { currentSlide++; scrollToSlide(currentSlide); updateUI(); } });
+        prevBtn.addEventListener('click', () => { if (currentSlide > 1) { currentSlide--; scrollToSlide(currentSlide); updateUI(); } });
+        updateUI();
+    </script>
+</body>
+</html>
