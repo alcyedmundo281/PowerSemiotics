@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Conocimientos: Modelos de Razonamiento Clínico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .content-section h2 { font-size: 1.875rem; font-weight: 800; color: #1e3a8a; border-bottom: 3px solid #93c5fd; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .content-section h3 { font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
+        .pearl { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1rem; border-radius: 0 0.5rem 0.5rem 0; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg">
+        <header class="bg-slate-800 text-white p-8 rounded-t-2xl">
+            <h1 class="text-4xl font-extrabold">Banco de Conocimientos: Modelos de Razonamiento Clínico</h1>
+            <p class="mt-2 text-lg text-slate-300">Guía Profunda para el Estudio y la Docencia.</p>
+        </header>
+        <div class="p-8 content-section">
+            <section>
+                <h2>Módulo 1: Las Formas del Pensamiento Clínico</h2>
+                <p class="text-gray-700">El diagnóstico no es un acto único, sino un proceso que combina tres tipos de inferencia lógica.</p>
+                <h3 class="border-t pt-6 mt-8">Deducción, Inducción y Abducción</h3>
+                <ul class="list-disc list-inside space-y-2 mt-4 text-gray-600">
+                    <li><strong>Deducción (De la Regla al Caso):</strong> Es el razonamiento de la certeza. "Si la regla es cierta y el caso pertenece a la regla, la conclusión es inevitable." Se usa para aplicar conocimiento establecido.</li>
+                    <li><strong>Inducción (De los Casos a la Regla):</strong> Es el razonamiento de la experiencia. "He visto esto muchas veces y siempre pasa lo mismo, así que probablemente sea una regla." Se usa para generar nuevo conocimiento a partir de la práctica.</li>
+                    <li><strong>Abducción (De la Observación a la Hipótesis):</strong> Es el razonamiento del detective. "Veo una pista. ¿Cuál es la historia más probable que la explique?". Es el motor del diagnóstico diferencial.</li>
+                </ul>
+                <div class="pearl"><p class="font-semibold text-amber-900">Guion del Expositor:</p><p class="text-amber-800 text-sm mt-1">"Pregunten a la clase: ¿Cuál de estos tres tipos de razonamiento creen que es el más común, y el más propenso a errores, en la práctica diaria? La respuesta es la abducción. Generar la lista correcta de sospechosos es el paso más crítico y creativo del diagnóstico."</p></div>
+            </section>
+            <section class="mt-12">
+                <h2>Módulo 2: Arquitecturas del Razonamiento</h2>
+                <h3 class="border-t pt-6 mt-8">Modelos Determinísticos vs. Probabilísticos</h3>
+                <p class="text-gray-700">Los modelos determinísticos son como recetas: sigue los pasos y llegarás a una única respuesta. Son útiles para guías de práctica clínica simples. Sin embargo, la medicina real es inherentemente incierta. Los modelos probabilísticos son superiores porque cuantifican esta incertidumbre, asignando probabilidades a cada diagnóstico y actualizándolas a medida que llega nueva información.</p>
+            </section>
+            <section class="mt-12">
+                <h2>Módulo 3: Modelos Avanzados y su Aplicación</h2>
+                <h3 class="border-t pt-6 mt-8">Modelos Bayesianos</h3>
+                <p class="text-gray-700">El pensamiento Bayesiano es la formalización de la intuición clínica. Nos obliga a declarar nuestras "creencias previas" (probabilidad pre-prueba) y nos da un método matemático para ajustarlas de forma racional basándonos en la evidencia (los resultados de las pruebas).</p>
+                <div class="pearl"><p class="font-semibold text-amber-900">Guion del Expositor:</p><p class="text-amber-800 text-sm mt-1">"El Teorema de Bayes nos libera de la tiranía del pensamiento binario (positivo/negativo). En lugar de preguntar '¿es o no es?', nos enseña a preguntar '¿qué tan más o menos probable es ahora?'. Esta es una forma mucho más realista y segura de practicar la medicina."</p></div>
+                <h3 class="border-t pt-6 mt-8">Redes Neuronales</h3>
+                <p class="text-gray-700">Son un tipo de inteligencia artificial que aprende a reconocer patrones sin ser programado con reglas explícitas. En medicina, son excelentes para tareas de clasificación en áreas ricas en datos, como la interpretación de imágenes radiológicas (ej. detectar un nódulo canceroso en una tomografía) o la predicción de sepsis en la UCI a partir de datos de monitores. Su desventaja es que a menudo son "cajas negras": nos dan una respuesta muy precisa, pero no siempre podemos entender su proceso de razonamiento interno.</p>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
