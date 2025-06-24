@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoevaluación: Modelos de Razonamiento Clínico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .slider-container {
+            scroll-behavior: smooth;
+        }
+        .slide {
+            flex-shrink: 0;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .option-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .feedback-box {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="relative w-full h-screen flex flex-col">
+        <!-- Contenedor del Slider -->
+        <div id="slider-container" class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar">
+
+            <!-- Slide 0: Pantalla de Inicio -->
+            <div id="slide-0" class="slide w-full h-full flex items-center justify-center p-8">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
+                    <h1 class="text-4xl font-extrabold text-gray-800 mb-2">Autoevaluación Formativa</h1>
+                    <p class="text-xl text-amber-600 font-semibold mb-6">Modelos de Razonamiento Clínico</p>
+                    <p class="mb-8 text-lg text-gray-600">Evalúa tu conocimiento sobre los distintos tipos de inferencia y modelos utilizados en el diagnóstico médico.</p>
+                    <button onclick="scrollToSlide(1)" class="w-full bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-amber-700 transition-all transform hover:scale-105 text-lg">
+                        Comenzar Evaluación
+                    </button>
+                    <a href="index.html" class="mt-4 block text-gray-500 hover:text-amber-600 transition">← Volver al menú del módulo</a>
+                </div>
+            </div>
+
+            <!-- Slides de Preguntas se generarán con JS -->
+
+            <!-- Slide Final: Resultados -->
+            <div id="slide-results" class="slide w-full h-full flex items-center justify-center p-8">
+                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
+                    <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Evaluación Completada</h1>
+                    <div id="score-circle" class="w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-gray-400">
+                    </div>
+                    <p id="score-text" class="text-xl text-gray-700 mb-2"></p>
+                    <p id="result-message" class="text-lg text-gray-600 mb-8"></p>
+                    <button onclick="restartQuiz()" class="w-full bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-amber-700 transition-all text-lg">
+                        Intentar de Nuevo
+                    </button>
+                    <a href="index.html" class="mt-4 block text-gray-500 hover:text-amber-600 transition">← Volver al menú del módulo</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            { question: 'Un paciente joven sin factores de riesgo presenta dolor torácico pleurítico y un dímero-D negativo. Concluir que no tiene una embolia pulmonar es un ejemplo de:', options: ['Inducción', 'Abducción', 'Deducción (usando una regla clínica)', 'Modelo Categórico'], correctAnswerIndex: 2, explanations: ['<b>Incorrecto.</b> La inducción va de lo específico a lo general.', '<b>Incorrecto.</b> La abducción busca la mejor explicación, pero aquí se aplica una regla fija.', '<b>Correcto.</b> Se aplica una regla clínica bien establecida (Dímero-D negativo en bajo riesgo descarta TEP) para llegar a una conclusión específica.', '<b>Incorrecto.</b> Aunque usa una categoría (bajo riesgo), el proceso lógico es deductivo.'] },
+            { question: 'Observar que múltiples pacientes con infección por un nuevo virus desarrollan una erupción cutánea y proponer que la erupción es un síntoma del virus es un ejemplo de:', options: ['Deducción', 'Inducción', 'Abducción', 'Razonamiento Bayesiano'], correctAnswerIndex: 1, explanations: ['<b>Incorrecto.</b> La deducción parte de una regla general, la cual aún no existe.', '<b>Correcto.</b> Se parte de observaciones específicas (múltiples pacientes) para crear una regla general o una hipótesis (el virus causa erupción).', '<b>Incorrecto.</b> La abducción se centraría en explicar por qué un solo paciente tiene erupción; la inducción generaliza a partir de muchos.', '<b>Incorrecto.</b> El razonamiento bayesiano cuantificaría la probabilidad, no solo propondría la conexión.'] },
+            { question: 'En un paciente con fiebre, rigidez de nuca y fotofobia, la hipótesis diagnóstica más probable es meningitis. Este proceso de inferir la "mejor explicación" se conoce como:', options: ['Deducción', 'Inducción', 'Abducción', 'Clasificación'], correctAnswerIndex: 2, explanations: ['<b>Incorrecto.</b> No se está aplicando una regla general garantizada.', '<b>Incorrecto.</b> No se está generalizando a partir de múltiples casos para crear una regla.', '<b>Correcto.</b> La abducción busca la explicación más simple y probable para un conjunto de observaciones en un caso particular.', '<b>Incorrecto.</b> Clasificación es agrupar, pero la inferencia de la causa es abductiva.'] },
+            { question: 'El modelo que actualiza la probabilidad de una enfermedad basándose en un nuevo resultado de una prueba es el:', options: ['Determinístico', 'Categórico', 'Bayesiano', 'Inductivo'], correctAnswerIndex: 2, explanations: ['<b>Incorrecto.</b> Un modelo determinístico no maneja probabilidades, sino certezas (si A, entonces B).', '<b>Incorrecto.</b> Un modelo categórico agrupa, pero no actualiza probabilidades de forma inherente.', '<b>Correcto.</b> El Teorema de Bayes es la base matemática para actualizar probabilidades pre-test a post-test a la luz de nueva evidencia.', '<b>Incorrecto.</b> La inducción genera hipótesis, mientras que el modelo bayesiano las cuantifica y actualiza.'] }
+        ];
+        
+        const sliderContainer = document.getElementById('slider-container');
+        const totalQuestions = quizData.length;
+        let score = 0;
+
+        function buildQuiz() {
+            const resultsSlide = document.getElementById('slide-results');
+            quizData.forEach((q, index) => {
+                const slide = document.createElement('div');
+                slide.id = `slide-${index + 1}`;
+                slide.className = 'slide w-full h-full flex items-center justify-center p-4 md:p-8';
+                slide.innerHTML = `
+                    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl">
+                        <div class="mb-6">
+                            <p class="text-base font-semibold text-amber-600">Pregunta ${index + 1} de ${totalQuestions}</p>
+                            <h2 class="text-2xl font-bold text-gray-800 mt-2">${q.question}</h2>
+                        </div>
+                        <div id="options-container-${index}" class="space-y-3">
+                            ${q.options.map((option, i) => `
+                                <button onclick="selectAnswer(${index}, ${i})" class="option-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-amber-100 transition-colors border-2 border-transparent text-lg">
+                                    <span class="text-amber-500 font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="feedback-container-${index}" class="mt-6 space-y-2 hidden">
+                           ${q.explanations.map((exp, i) => `
+                                <div id="feedback-${index}-${i}" class="feedback-box p-3 rounded-lg text-base">
+                                     <span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> <span class="feedback-content">${exp}</span>
+                                </div>
+                           `).join('')}
+                        </div>
+                    </div>
+                `;
+                sliderContainer.insertBefore(slide, resultsSlide);
+            });
+        }
+        
+        function selectAnswer(questionIndex, selectedIndex) {
+            const question = quizData[questionIndex];
+            const optionsContainer = document.getElementById(`options-container-${questionIndex}`);
+            const feedbackContainer = document.getElementById(`feedback-container-${questionIndex}`);
+            const isCorrect = selectedIndex === question.correctAnswerIndex;
+
+            if (optionsContainer.dataset.answered) return;
+            optionsContainer.dataset.answered = 'true';
+
+            if (isCorrect) {
+                score++;
+            }
+
+            Array.from(optionsContainer.children).forEach((button, index) => {
+                const feedbackBox = document.getElementById(`feedback-${questionIndex}-${index}`);
+                if (index === question.correctAnswerIndex) {
+                    button.className = 'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-green-100 border-green-500 text-green-800';
+                    feedbackBox.className = 'feedback-box p-3 rounded-lg text-base bg-green-50 text-green-800';
+                } else if (index === selectedIndex) {
+                    button.className = 'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-red-100 border-red-500 text-red-800';
+                    feedbackBox.className = 'feedback-box p-3 rounded-lg text-base bg-red-50 text-red-800';
+                } else {
+                     button.className = 'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-gray-50 text-gray-500';
+                     feedbackBox.className = 'feedback-box p-3 rounded-lg text-base text-gray-600';
+                }
+            });
+
+            feedbackContainer.classList.remove('hidden');
+
+            if (areAllQuestionsAnswered()) {
+                 setTimeout(() => scrollToSlide(totalQuestions + 1), 3000);
+            }
+        }
+        
+        function areAllQuestionsAnswered() {
+            for(let i=0; i < totalQuestions; i++) {
+                if(!document.getElementById(`options-container-${i}`).dataset.answered) {
+                    return false;
+                }
+            }
+            showResults();
+            return true;
+        }
+
+        function showResults() {
+            const scoreCircle = document.getElementById('score-circle');
+            const scoreText = document.getElementById('score-text');
+            const resultMessage = document.getElementById('result-message');
+            const scorePercentage = Math.round((score / totalQuestions) * 100);
+            
+            scoreCircle.textContent = `${scorePercentage}%`;
+            scoreText.textContent = `Tu calificación: ${score} de ${totalQuestions} correctas.`;
+            
+            if(scorePercentage === 100) {
+                scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-green-500";
+                resultMessage.textContent = "¡Excelente! Dominas los modelos de razonamiento clínico.";
+            } else if (scorePercentage >= 60) {
+                 scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-yellow-500";
+                 resultMessage.textContent = "¡Buen trabajo! Revisa las explicaciones para afianzar los conceptos.";
+            } else {
+                 scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-red-500";
+                 resultMessage.textContent = "Sigue estudiando. Diferenciar estos modelos es clave. Revisa la presentación.";
+            }
+        }
+
+        function restartQuiz() {
+            score = 0;
+            for(let i=0; i < totalQuestions; i++) {
+                const optionsCont = document.getElementById(`options-container-${i}`);
+                const feedbackCont = document.getElementById(`feedback-container-${i}`);
+                delete optionsCont.dataset.answered;
+                feedbackCont.classList.add('hidden');
+                 Array.from(optionsCont.children).forEach((button) => {
+                     button.className = 'option-button w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-amber-100 transition-colors border-2 border-transparent text-lg';
+                 });
+            }
+            scrollToSlide(0);
+        }
+
+        function scrollToSlide(slideIndex) {
+            const slideWidth = sliderContainer.clientWidth;
+            sliderContainer.scrollTo({
+                left: slideIndex * slideWidth,
+                behavior: 'smooth'
+            });
+        }
+
+        buildQuiz();
+    </script>
+</body>
+</html>
 
