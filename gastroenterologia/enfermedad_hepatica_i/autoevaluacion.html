@@ -6,19 +6,207 @@
     <title>Autoevaluación: Enfermedad Hepática I</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; background-color: #111827; }</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slider-container { scroll-behavior: smooth; }
+        .slide { flex-shrink: 0; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
-    <!-- Contenido del Quiz aquí. El código completo está en el historial, se omite por brevedad. -->
-    <!-- Este es el mismo esqueleto del quiz de epilepsia, pero con datos de gastroenterología. -->
-    <!-- Por favor, copia el cuerpo completo del quiz de epilepsia y solo cambia el quizData. -->
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="relative w-full h-screen flex flex-col">
+        <div id="slider-container" class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar">
+
+            <!-- Slide 0: Inicio -->
+            <div id="slide-0" class="slide w-full h-full flex items-center justify-center p-8">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
+                    <h1 class="text-4xl font-extrabold text-gray-800 mb-2">Autoevaluación Formativa</h1>
+                    <p class="text-xl text-cyan-600 font-semibold mb-6">Gastroenterología - Enfermedad Hepática I</p>
+                    <p class="mb-8 text-lg text-gray-600">Evalúa tu conocimiento sobre hepatitis virales y enfermedad hepática grasa. Cada pregunta incluye explicaciones detalladas.</p>
+                    <button onclick="scrollToSlide(1)" class="w-full bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-cyan-700 transition-all transform hover:scale-105 text-lg">
+                        Comenzar Evaluación
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slides de Preguntas (generadas por JS) -->
+
+            <!-- Slide Final: Resultados -->
+            <div id="slide-results" class="slide w-full h-full flex items-center justify-center p-8">
+                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
+                    <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Evaluación Completada</h1>
+                    <div id="score-circle" class="w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-gray-400"></div>
+                    <p id="score-text" class="text-xl text-gray-700 mb-2"></p>
+                    <p id="result-message" class="text-lg text-gray-600 mb-8"></p>
+                    <button onclick="restartQuiz()" class="w-full bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-cyan-700 transition-all text-lg">
+                        Intentar de Nuevo
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <script>
         const quizData = [
-            { question: 'En un paciente con AST 800 U/L, ALT 950 U/L y FA 150 U/L, ¿cuál es el patrón de lesión hepática predominante?', options: ['Colestásico', 'Hepatocelular', 'Mixto', 'Normal'], correctAnswerIndex: 1, explanations: ['Incorrecto. El patrón colestásico mostraría una elevación predominante de FA.', 'Correcto. Una elevación marcada de transaminasas (AST/ALT) es característica de un daño hepatocelular.', 'Incorrecto. Aunque hay una leve elevación de FA, el aumento desproporcionado de AST/ALT define el patrón.', 'Incorrecto. Los valores están significativamente elevados.'] },
-            { question: '¿Cuál de las siguientes pruebas refleja mejor la capacidad de SÍNTESIS del hígado?', options: ['ALT', 'GGT', 'Tiempo de Protrombina (TP/INR)', 'Bilirrubina Directa'], correctAnswerIndex: 2, explanations: ['Incorrecto. La ALT es una enzima que indica lesión de los hepatocitos.', 'Incorrecto. La GGT es una enzima que indica colestasis o inducción enzimática.', 'Correcto. El hígado sintetiza la mayoría de los factores de coagulación. Un TP prolongado (INR elevado) indica una pobre función de síntesis.', 'Incorrecto. La bilirrubina refleja metabolismo y excreción, no síntesis.'] },
-            { question: 'Un ratio AST/ALT > 2 en un paciente con evidencia de lesión hepatocelular es altamente sugestivo de:', options: ['Hepatitis viral aguda', 'Toxicidad por paracetamol', 'Hepatopatía alcohólica', 'Hígado graso no alcohólico'], correctAnswerIndex: 2, explanations: ['Incorrecto. La hepatitis viral suele tener un ratio < 1.', 'Incorrecto. La toxicidad por paracetamol causa elevaciones masivas de AST y ALT, pero el ratio no es específico.', 'Correcto. El daño mitocondrial inducido por el alcohol libera preferentemente AST, llevando a un ratio > 2.', 'Incorrecto. El hígado graso no alcohólico típicamente presenta un ratio < 1.'] }
+            {
+                question: 'Un paciente presenta los siguientes marcadores de Hepatitis B: HBsAg (+), Anti-HBs (-), Anti-HBc IgM (+). ¿Cuál es el diagnóstico más probable?',
+                options: ["Inmunidad por vacuna.", "Infección crónica por VHB.", "Infección aguda por VHB.", "Infección pasada y curada."],
+                correctAnswerIndex: 2,
+                explanations: [
+                    "<b>Incorrecto.</b> La inmunidad por vacuna se caracteriza por Anti-HBs (+) como único marcador positivo.",
+                    "<b>Incorrecto.</b> Aunque el HBsAg (+) indica infección, el Anti-HBc IgM (+) es el marcador específico de una infección aguda (reciente, de menos de 6 meses).",
+                    "<b>Correcto.</b> La combinación de HBsAg (+) y Anti-HBc IgM (+) es el perfil serológico clásico de una hepatitis B aguda.",
+                    "<b>Incorrecto.</b> Una infección curada se caracteriza por Anti-HBs (+) y Anti-HBc IgG (+)."
+                ]
+            },
+            {
+                question: '¿Cuál es la vía de transmisión más común para el virus de la Hepatitis C (VHC) a nivel mundial?',
+                options: ["Fecal-Oral.", "Sexual.", "Parenteral (uso de drogas IV, transfusiones antiguas).", "Perinatal (madre a hijo)."],
+                correctAnswerIndex: 2,
+                explanations: [
+                    "<b>Incorrecto.</b> La transmisión fecal-oral es característica de la Hepatitis A y E.",
+                    "<b>Incorrecto.</b> Aunque posible, la transmisión sexual del VHC es mucho menos eficiente y común que la del VHB.",
+                    "<b>Correcto.</b> La principal vía de transmisión del VHC es a través del contacto con sangre infectada, siendo el uso compartido de agujas el factor de riesgo más importante en la actualidad.",
+                    "<b>Incorrecto.</b> La transmisión perinatal es una vía importante para el VHB, pero es menos frecuente para el VHC."
+                ]
+            },
+            {
+                question: 'Un paciente de 50 años con diabetes tipo 2 y obesidad presenta una ecografía que reporta "hígado brillante", compatible con esteatosis. Sus transaminasas están levemente elevadas (ALT > AST). ¿Cuál es el siguiente paso más importante para evaluar su riesgo de progresión a cirrosis?',
+                options: ["Iniciar tratamiento con antivirales inmediatamente.", "Realizar una biopsia hepática a todos los pacientes con esteatosis.", "Tratar de diferenciar entre esteatosis simple (NAFLD) y esteatohepatitis (NASH).", "Asumir que es benigno y controlar en un año."],
+                correctAnswerIndex: 2,
+                explanations: [
+                    "<b>Incorrecto.</b> Los antivirales son para hepatitis virales, no para la enfermedad hepática grasa no alcohólica.",
+                    "<b>Incorrecto.</b> La biopsia es el estándar de oro, pero es invasiva. Se reserva para casos de alta sospecha de fibrosis avanzada o duda diagnóstica.",
+                    "<b>Correcto.</b> El pronóstico depende de si hay solo grasa (NAFLD) o grasa más inflamación (NASH). La NASH es la forma que progresa a fibrosis y cirrosis, por lo que estratificar este riesgo (con scores no invasivos o elastografía) es crucial.",
+                    "<b>Incorrecto.</b> La presencia de transaminasas elevadas y factores de riesgo metabólico sugiere que podría haber inflamación (NASH), por lo que no se puede asumir que es benigno sin una evaluación más profunda."
+                ]
+            },
+            {
+                question: '¿Cuál de las siguientes hepatitis virales NUNCA cronifica?',
+                options: ["Hepatitis B", "Hepatitis C", "Hepatitis A", "Hepatitis D"],
+                correctAnswerIndex: 2,
+                explanations: [
+                    "<b>Incorrecto.</b> La Hepatitis B puede cronificar en un 5-10% de los adultos inmunocompetentes.",
+                    "<b>Incorrecto.</b> La Hepatitis C es el virus con mayor tasa de cronicidad, superando el 80%.",
+                    "<b>Correcto.</b> La Hepatitis A es una enfermedad aguda autolimitada que confiere inmunidad de por vida y nunca progresa a un estado crónico.",
+                    "<b>Incorrecto.</b> La Hepatitis D es un virus 'defectuoso' que requiere la presencia del VHB para infectar, y la coinfección o sobreinfección puede llevar a una enfermedad crónica severa."
+                ]
+            }
         ];
-        // Aquí iría el resto del script del quiz, igual al del módulo de epilepsia.
+        
+        const sliderContainer = document.getElementById('slider-container');
+        const totalQuestions = quizData.length;
+        let score = 0;
+
+        function buildQuiz() {
+            const resultsSlide = document.getElementById('slide-results');
+            quizData.forEach((q, index) => {
+                const slide = document.createElement('div');
+                slide.id = `slide-${index + 1}`;
+                slide.className = 'slide w-full h-full flex items-center justify-center p-4 md:p-8';
+                slide.innerHTML = `
+                    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl">
+                        <p class="text-base font-semibold text-cyan-600">Pregunta ${index + 1} de ${totalQuestions}</p>
+                        <h2 class="text-2xl font-bold text-gray-800 mt-2">${q.question}</h2>
+                        <div id="options-container-${index}" class="mt-6 space-y-3">
+                            ${q.options.map((option, i) => `
+                                <button onclick="selectAnswer(${index}, ${i})" class="w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-cyan-100 transition-colors border-2 border-transparent text-lg">
+                                    <span class="text-cyan-500 font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="feedback-container-${index}" class="mt-6 space-y-2 hidden">
+                           ${q.explanations.map((exp, i) => `
+                                <div id="feedback-${index}-${i}" class="p-3 rounded-lg text-base">
+                                     <span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> <span class="feedback-content">${exp}</span>
+                                </div>
+                           `).join('')}
+                        </div>
+                    </div>
+                `;
+                sliderContainer.insertBefore(slide, resultsSlide);
+            });
+        }
+        
+        function selectAnswer(questionIndex, selectedIndex) {
+            const optionsContainer = document.getElementById(`options-container-${questionIndex}`);
+            if (optionsContainer.dataset.answered) return;
+            optionsContainer.dataset.answered = 'true';
+
+            const question = quizData[questionIndex];
+            const isCorrect = selectedIndex === question.correctAnswerIndex;
+            if (isCorrect) score++;
+
+            const feedbackContainer = document.getElementById(`feedback-container-${questionIndex}`);
+            Array.from(optionsContainer.children).forEach((button, index) => {
+                const feedbackBox = document.getElementById(`feedback-${questionIndex}-${index}`);
+                if (index === question.correctAnswerIndex) {
+                    button.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-green-100 border-green-500 text-green-800';
+                    feedbackBox.className = 'p-3 rounded-lg text-base bg-green-50 text-green-800';
+                } else if (index === selectedIndex) {
+                    button.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-red-100 border-red-500 text-red-800';
+                    feedbackBox.className = 'p-3 rounded-lg text-base bg-red-50 text-red-800';
+                } else {
+                     button.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-gray-50 text-gray-500';
+                     feedbackBox.className = 'p-3 rounded-lg text-base bg-gray-50 text-gray-600';
+                }
+            });
+            feedbackContainer.classList.remove('hidden');
+
+            if (areAllQuestionsAnswered()) {
+                 setTimeout(() => scrollToSlide(totalQuestions + 1), 2000);
+            }
+        }
+        
+        function areAllQuestionsAnswered() {
+            for(let i=0; i < totalQuestions; i++) {
+                if(!document.getElementById(`options-container-${i}`).dataset.answered) return false;
+            }
+            showResults();
+            return true;
+        }
+
+        function showResults() {
+            const scoreCircle = document.getElementById('score-circle');
+            const scoreText = document.getElementById('score-text');
+            const resultMessage = document.getElementById('result-message');
+            const scorePercentage = Math.round((score / totalQuestions) * 100);
+            scoreCircle.textContent = `${scorePercentage}%`;
+            scoreText.textContent = `Tu calificación: ${score} de ${totalQuestions} correctas.`;
+            
+            if(scorePercentage === 100) {
+                scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-green-500";
+                resultMessage.textContent = "¡Excelente! Dominas los conceptos fundamentales de la hepatología.";
+            } else if (scorePercentage >= 75) {
+                 scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-yellow-500";
+                 resultMessage.textContent = "¡Muy bien! Tienes una base sólida. Sigue repasando los detalles.";
+            } else {
+                 scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-red-500";
+                 resultMessage.textContent = "Sigue estudiando. Revisa con atención las explicaciones para fortalecer tus conocimientos.";
+            }
+        }
+
+        function restartQuiz() {
+            score = 0;
+            for(let i=0; i < totalQuestions; i++) {
+                const optionsCont = document.getElementById(`options-container-${i}`);
+                const feedbackCont = document.getElementById(`feedback-container-${i}`);
+                delete optionsCont.dataset.answered;
+                feedbackCont.classList.add('hidden');
+                Array.from(optionsCont.children).forEach(button => {
+                     button.className = 'w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-cyan-100 transition-colors border-2 border-transparent text-lg';
+                });
+            }
+            scrollToSlide(0);
+        }
+
+        function scrollToSlide(slideIndex) {
+            sliderContainer.scrollTo({ left: slideIndex * sliderContainer.clientWidth, behavior: 'smooth' });
+        }
+        buildQuiz();
     </script>
 </body>
 </html>
