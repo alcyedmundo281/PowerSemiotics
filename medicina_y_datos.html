@@ -3,31 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicina y Datos - Power Semiotics</title>
+    <title>Medicina y Datos - Powersemiotics</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#4F46E5, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-300">
-    <div class="container mx-auto p-4 sm:p-6 md:p-8">
-        <header class="text-center mb-10 md:mb-16">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3">Medicina y Datos</h1>
-            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">Módulos sobre la aplicación de la evidencia y los datos en la práctica clínica.</p>
-        </header>
-        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Módulo de Razonamiento Clínico -->
-            <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 flex flex-col hover:shadow-amber-500/20 hover:-translate-y-1 transition-all duration-300">
-                <h3 class="text-2xl font-bold text-white mb-2">Modelos de Razonamiento Clínico</h3>
-                <p class="text-gray-400 mb-4 flex-grow">Explora los modelos de deducción, inducción, abducción y el razonamiento Bayesiano.</p>
-                <!-- ENLACE CORREGIDO -->
-                <a href="medicina_y_datos/razonamiento_clinico/index.html" class="mt-auto block text-center bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-amber-700">Iniciar Módulo</a>
-            </div>
+<body class="bg-gray-50 text-gray-800">
 
-        </main>
-        <footer class="text-center mt-16 py-6 border-t border-gray-700">
-            <a href="index.html" class="text-blue-500 hover:underline">← Volver al Inicio</a>
-        </footer>
-    </div>
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/PowerSemiotics/" class="text-2xl font-bold gradient-text">Powersemiotics</a>
+            <div>
+                <a href="/PowerSemiotics/medicina_y_datos.html" class="text-indigo-600 font-semibold">Medicina y Datos</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-6 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                El Universo de la Medicina y los Datos
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Explora las intersecciones clave entre la ciencia de datos, la inteligencia artificial y la vanguardia de la práctica clínica. Cada sección es una puerta a un campo de conocimiento.
+            </p>
+        </div>
+
+        <!-- Grid de Tópicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Card 1: Razonamiento Clínico -->
+            <a href="./Razonamiento_clinico/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-brain text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Razonamiento Clínico</h2>
+                <p class="text-gray-600">
+                    Analiza la nueva arquitectura del juicio clínico en la era computacional, desde modelos probabilísticos hasta la mitigación de sesgos.
+                </p>
+            </a>
+
+            <!-- Card 2: IA Explicable (XAI) -->
+            <a href="./IA_Explicable/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-search-plus text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">IA Explicable (XAI)</h2>
+                <p class="text-gray-600">
+                    La confianza en la IA depende de la transparencia. Explora las técnicas que abren la "caja negra" de los algoritmos diagnósticos.
+                </p>
+            </a>
+            
+            <!-- Card 3: Genómica Computacional -->
+            <a href="./Genomica_Computacional/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-dna text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Genómica Computacional</h2>
+                <p class="text-gray-600">
+                    Desde el alineamiento de secuencias hasta el análisis de variantes, descubre las herramientas computacionales que descifran el lenguaje de la vida.
+                </p>
+            </a>
+            
+            <!-- Card 4: Medicina Personalizada -->
+            <a href="./Medicina_Personalizada/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-user-md text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Medicina Personalizada</h2>
+                <p class="text-gray-600">
+                    Cómo la integración de datos multiómicos, clínicos y de estilo de vida permite diseñar terapias a la medida de cada paciente.
+                </p>
+            </a>
+
+            <!-- Card 5: Fenotipado Digital -->
+            <a href="./Fenotipado_Digital/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-mobile-alt text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Fenotipado Digital</h2>
+                <p class="text-gray-600">
+                    Utilizando datos de sensores y dispositivos móviles para construir una imagen dinámica y continua del estado de salud de una persona.
+                </p>
+            </a>
+
+            <!-- Card 6: Ética y Gobernanza de Datos -->
+            <a href="./Etica_y_Datos/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-balance-scale text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Ética y Gobernanza de Datos</h2>
+                <p class="text-gray-600">
+                    Abordando los desafíos críticos de la privacidad, el consentimiento y la equidad en la era de la medicina basada en Big Data.
+                </p>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-4 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
