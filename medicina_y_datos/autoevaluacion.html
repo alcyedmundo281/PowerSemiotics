@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoevaluación: Pruebas Diagnósticas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+        }
+        .slider-container {
+            scroll-behavior: smooth;
+        }
+        .slide {
+            flex-shrink: 0;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .option-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .feedback-box {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="relative w-full h-screen flex flex-col">
+        <!-- Contenedor del Slider -->
+        <div id="slider-container" class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar">
+
+            <!-- Slide 0: Pantalla de Inicio -->
+            <div id="slide-0" class="slide w-full h-full flex items-center justify-center p-8">
+                <div class="bg-gray-800 border border-gray-700 p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
+                    <h1 class="text-4xl font-extrabold text-white mb-2">Autoevaluación Formativa</h1>
+                    <p class="text-xl text-teal-400 font-semibold mb-6">Medicina y Datos: Pruebas Diagnósticas</p>
+                    <p class="mb-8 text-lg text-gray-300">Evalúa tu conocimiento sobre sensibilidad, especificidad y valores predictivos.</p>
+                    <button onclick="scrollToSlide(1)" class="w-full bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition-all transform hover:scale-105 text-lg">
+                        Comenzar Evaluación
+                    </button>
+                    <a href="index.html" class="mt-4 block text-gray-400 hover:text-teal-400 transition">← Volver al menú del módulo</a>
+                </div>
+            </div>
+
+            <!-- Slides de Preguntas se generarán con JS -->
+
+            <!-- Slide Final: Resultados -->
+            <div id="slide-results" class="slide w-full h-full flex items-center justify-center p-8">
+                 <div class="bg-gray-800 border border-gray-700 p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
+                    <h1 class="text-4xl font-extrabold text-white mb-4">Evaluación Completada</h1>
+                    <div id="score-circle" class="w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-gray-600">
+                    </div>
+                    <p id="score-text" class="text-xl text-gray-200 mb-2"></p>
+                    <p id="result-message" class="text-lg text-gray-300 mb-8"></p>
+                    <button onclick="restartQuiz()" class="w-full bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 transition-all text-lg">
+                        Intentar de Nuevo
+                    </button>
+                    <a href="index.html" class="mt-4 block text-gray-400 hover:text-teal-400 transition">← Volver al menú del módulo</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            { question: 'Una prueba con alta sensibilidad es especialmente útil para:', options: ['Confirmar una enfermedad', 'Descartar una enfermedad', 'Determinar la prevalencia', 'Calcular el NNT'], correctAnswerIndex: 1, explanations: ['Incorrecto. Para confirmar se necesita alta especificidad (SpPin).', 'Correcto. Un resultado negativo en una prueba muy sensible tiene un alto VPN y ayuda a descartar (SnNout).', 'Incorrecto. La prevalencia es una característica de la población, no de la prueba.', 'Incorrecto. El NNT (Número Necesario a Tratar) es una medida de impacto de una intervención terapéutica.'] },
+            { question: 'Si el VPP de una prueba es del 80%, significa que:', options: ['El 80% de los sanos dan negativo.', 'El 80% de los enfermos dan positivo.', 'De cada 100 pacientes con resultado positivo, 80 realmente tienen la enfermedad.', 'La prueba detecta el 80% de los casos.'], correctAnswerIndex: 2, explanations: ['Incorrecto. Eso describe la Especificidad.', 'Incorrecto. Eso describe la Sensibilidad.', 'Correcto. El VPP es la probabilidad de tener la enfermedad dado un resultado positivo.', 'Incorrecto. Esta es una interpretación común pero errónea de la Sensibilidad.'] },
+            { question: '¿Qué sucede con el Valor Predictivo Positivo (VPP) de una prueba si la prevalencia de la enfermedad aumenta en la población estudiada?', options: ['Disminuye', 'Aumenta', 'No cambia', 'Se vuelve igual a la sensibilidad'], correctAnswerIndex: 1, explanations: ['Incorrecto. A mayor prevalencia, es más probable que un resultado positivo sea un verdadero positivo.', 'Correcto. El VPP está directamente relacionado con la prevalencia; a más común la enfermedad, más confiable es un resultado positivo.', 'Incorrecto. Los valores predictivos son altamente dependientes de la prevalencia.', 'Incorrecto. Solo coincidirían en escenarios muy específicos e improbables.'] }
+        ];
+        
+        const sliderContainer = document.getElementById('slider-container');
+        const totalQuestions = quizData.length;
+        let score = 0;
+
+        function buildQuiz() {
+            const resultsSlide = document.getElementById('slide-results');
+            quizData.forEach((q, index) => {
+                const slide = document.createElement('div');
+                slide.id = `slide-${index + 1}`;
+                slide.className = 'slide w-full h-full flex items-center justify-center p-4 md:p-8';
+                slide.innerHTML = `
+                    <div class="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-xl w-full max-w-2xl">
+                        <div class="mb-6">
+                            <p class="text-base font-semibold text-teal-400">Pregunta ${index + 1} de ${totalQuestions}</p>
+                            <h2 class="text-2xl font-bold text-white mt-2">${q.question}</h2>
+                        </div>
+                        <div id="options-container-${index}" class="space-y-3">
+                            ${q.options.map((option, i) => `
+                                <button onclick="selectAnswer(${index}, ${i})" class="option-button w-full text-left p-4 bg-gray-700 rounded-lg hover:bg-teal-900/50 transition-colors border-2 border-transparent text-lg text-gray-300">
+                                    <span class="text-teal-500 font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="feedback-container-${index}" class="mt-6 space-y-2 hidden">
+                           ${q.explanations.map((exp, i) => `
+                                <div id="feedback-${index}-${i}" class="feedback-box p-3 rounded-lg text-base">
+                                     <span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> <span class="feedback-content">${exp}</span>
+                                </div>
+                           `).join('')}
+                        </div>
+                    </div>
+                `;
+                sliderContainer.insertBefore(slide, resultsSlide);
+            });
+        }
+        
+        function selectAnswer(questionIndex, selectedIndex) {
+            const question = quizData[questionIndex];
+            const optionsContainer = document.getElementById(`options-container-${questionIndex}`);
+            const feedbackContainer = document.getElementById(`feedback-container-${questionIndex}`);
+            const isCorrect = selectedIndex === question.correctAnswerIndex;
+
+            if (optionsContainer.dataset.answered) return;
+            optionsContainer.dataset.answered = 'true';
+
+            if (isCorrect) {
+                score++;
+            }
+
+            Array.from(optionsContainer.children).forEach((button, index) => {
+                const feedbackBox = document.getElementById(`feedback-${questionIndex}-${index}`);
+                if (index === question.correctAnswerIndex) {
+                    button.className = 'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-green-900/30 border-green-500 text-green-300';
+                    feedbackBox.className = 'feedback-box p-3 rounded-lg text-base bg-green-900/50 text-green-300';
+                } else if (index === selectedIndex) {
+                    button.className = 'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-red-900/30 border-red-500 text-red-300';
+                    feedbackBox.className = 'feedback-box p-3 rounded-lg text-base bg-red-900/50 text-red-300';
+                } else {
+                     button.className = 'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-gray-800 text-gray-500 border-gray-700';
+                     feedbackBox.className = 'feedback-box p-3 rounded-lg text-base text-gray-500';
+                }
+            });
+
+            feedbackContainer.classList.remove('hidden');
+
+            if (areAllQuestionsAnswered()) {
+                 setTimeout(() => scrollToSlide(totalQuestions + 1), 3000);
+            }
+        }
+        
+        function areAllQuestionsAnswered() {
+            for(let i=0; i < totalQuestions; i++) {
+                if(!document.getElementById(`options-container-${i}`).dataset.answered) {
+                    return false;
+                }
+            }
+            showResults();
+            return true;
+        }
+
+        function showResults() {
+            const scoreCircle = document.getElementById('score-circle');
+            const scoreText = document.getElementById('score-text');
+            const resultMessage = document.getElementById('result-message');
+            const scorePercentage = Math.round((score / totalQuestions) * 100);
+            
+            scoreCircle.textContent = `${scorePercentage}%`;
+            scoreText.textContent = `Tu calificación: ${score} de ${totalQuestions} correctas.`;
+            
+            if(scorePercentage === 100) {
+                scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-green-500";
+                resultMessage.textContent = "¡Excelente! Dominas los conceptos de pruebas diagnósticas.";
+            } else if (scorePercentage >= 60) {
+                 scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-yellow-500";
+                 resultMessage.textContent = "¡Muy bien! Tienes una base sólida. Revisa las explicaciones para perfeccionar los detalles.";
+            } else {
+                 scoreCircle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-red-500";
+                 resultMessage.textContent = "Sigue estudiando. Es crucial dominar estos conceptos. Revisa con atención las explicaciones.";
+            }
+        }
+
+        function restartQuiz() {
+            score = 0;
+            for(let i=0; i < totalQuestions; i++) {
+                const optionsCont = document.getElementById(`options-container-${i}`);
+                const feedbackCont = document.getElementById(`feedback-container-${i}`);
+                delete optionsCont.dataset.answered;
+                feedbackCont.classList.add('hidden');
+                 Array.from(optionsCont.children).forEach((button) => {
+                     button.className = 'option-button w-full text-left p-4 bg-gray-700 rounded-lg hover:bg-teal-900/50 transition-colors border-2 border-transparent text-lg text-gray-300';
+                 });
+            }
+            scrollToSlide(0);
+        }
+
+        function scrollToSlide(slideIndex) {
+            const slideWidth = sliderContainer.clientWidth;
+            sliderContainer.scrollTo({
+                left: slideIndex * slideWidth,
+                behavior: 'smooth'
+            });
+        }
+
+        buildQuiz();
+    </script>
+</body>
+</html>
