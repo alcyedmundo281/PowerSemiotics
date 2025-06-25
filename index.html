@@ -30,16 +30,14 @@
 </head>
 <body class="bg-white text-gray-800">
 
-    <!-- Encabezado con Rutas Corregidas para Dominio Personalizado -->
+    <!-- Encabezado con Rutas Corregidas -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="/index.html" class="flex items-center space-x-2">
-                <!-- Ruta relativa a la raíz del dominio -->
                 <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8"> 
                 <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
             </a>
             <div>
-                <!-- Ruta relativa a la raíz del dominio -->
                 <a href="/topics.html" class="text-indigo-600 font-semibold hover:underline">Tópicos</a>
             </div>
         </nav>
@@ -54,7 +52,6 @@
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
                 Un portal dedicado a explorar la intersección de la semiótica, la ciencia de datos y el conocimiento médico. Transformamos datos complejos en símbolos poderosos.
             </p>
-            <!-- El enlace externo al dashboard se mantiene como URL completa -->
             <a href="https://powersemiotics-alcy.vercel.app/" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-lg">
                 Ir al Dashboard de IA
             </a>
@@ -65,7 +62,7 @@
     <main class="container mx-auto px-6 py-16">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Explora Nuestras Áreas de Conocimiento</h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 max-w-5xl mx-auto">
 
             <!-- Card 1: Medicina y Datos -->
             <a href="/medicina_y_datos.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center">
@@ -75,8 +72,17 @@
                     La nueva arquitectura del juicio clínico, desde el razonamiento computacional hasta la genómica y la IA explicable.
                 </p>
             </a>
+            
+            <!-- Card 2: Farmacoterapia Racional (NUEVO) -->
+            <a href="/farmacoterapia_racional.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center">
+                <i class="fas fa-pills text-5xl gradient-text mb-5"></i>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Farmacoterapia Racional</h3>
+                <p class="text-gray-600">
+                    Optimización del uso de medicamentos a través de la evidencia, la farmacogenómica y la toma de decisiones basada en datos.
+                </p>
+            </a>
 
-            <!-- Card 2: Gastroenterología -->
+            <!-- Card 3: Gastroenterología -->
             <a href="/gastroenterologia.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center">
                 <i class="fas fa-bacterium text-5xl gradient-text mb-5"></i>
                 <h3 class="text-2xl font-bold text-gray-800 mb-2">Gastroenterología</h3>
@@ -85,7 +91,7 @@
                 </p>
             </a>
             
-            <!-- Card 3: Neurología -->
+            <!-- Card 4: Neurología -->
             <a href="/neurologia.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center">
                 <i class="fas fa-head-side-virus text-5xl gradient-text mb-5"></i>
                 <h3 class="text-2xl font-bold text-gray-800 mb-2">Neurología</h3>
