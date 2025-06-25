@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inferencia Probabilística - Powersemiotics</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#4F46E5, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .prose h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5em;
+        }
+        .prose p, .prose li {
+            line-height: 1.75;
+            margin-bottom: 1.25em;
+        }
+        .prose ul {
+            list-style-type: disc;
+            margin-left: 1.5em;
+        }
+        .formula-box {
+            background-color: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #4f46e5;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="https://powersemiotics.com/index.html" class="flex items-center space-x-2">
+                <img src="https://powersemiotics.com/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="https://powersemiotics.com/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">Medicina y Datos</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-6 py-16">
+        
+        <!-- Título de la Página -->
+        <div class="max-w-4xl mx-auto">
+            <a href="../index.html" class="text-indigo-600 hover:underline mb-6 inline-block"><i class="fas fa-arrow-left mr-2"></i>Volver a Razonamiento Clínico</a>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                Inferencia Probabilística en Medicina
+            </h1>
+            <p class="text-lg text-gray-600">
+                Manejando la incertidumbre: cómo el pensamiento bayesiano y los modelos gráficos permiten cuantificar la duda y tomar decisiones basadas en evidencia.
+            </p>
+        </div>
+        
+        <!-- Artículo de Contenido -->
+        <article class="prose max-w-4xl mx-auto mt-12 bg-white p-8 rounded-lg shadow">
+            
+            <h2>La Medicina como Ciencia de la Incertidumbre</h2>
+            <p>
+                El razonamiento clínico rara vez se enfrenta a certezas absolutas. Los síntomas pueden ser ambiguos, los resultados de las pruebas no son 100% precisos y las respuestas de los pacientes a los tratamientos varían. La inferencia probabilística ofrece un marco matemático riguroso para manejar esta incertidumbre, permitiendo a los clínicos actualizar sus creencias a medida que reciben nueva información.
+            </p>
+
+            <h2>El Teorema de Bayes: El Motor del Aprendizaje</h2>
+            <p>
+                En el corazón de la inferencia probabilística se encuentra el Teorema de Bayes. En un contexto clínico, nos permite calcular la probabilidad de que un paciente tenga una enfermedad (Hipótesis) dado un resultado de una prueba (Evidencia). Su poder radica en la capacidad de combinar el conocimiento previo (la prevalencia de la enfermedad) con la nueva evidencia (el resultado del test).
+            </p>
+            <div class="formula-box">
+                P(Enfermedad | Síntoma) = [ P(Síntoma | Enfermedad) * P(Enfermedad) ] / P(Síntoma)
+            </div>
+            <p>
+                Esta fórmula, aunque simple, encapsula la esencia del diagnóstico diferencial: refinar continuamente las hipótesis a la luz de nueva información.
+            </p>
+
+            <h2>Redes Bayesianas: Mapeando la Complejidad Clínica</h2>
+            <p>
+                Mientras que el Teorema de Bayes es útil para relaciones simples, los escenarios clínicos a menudo involucran múltiples variables interconectadas (factores de riesgo, síntomas, resultados de laboratorio, comorbilidades). Las Redes Bayesianas son modelos gráficos que representan estas variables y sus dependencias condicionales. Permiten:
+            </p>
+            <ul>
+                <li><strong>Visualizar el conocimiento médico:</strong> El grafo de la red es una representación intuitiva de las relaciones causales y correlacionales.</li>
+                <li><strong>Realizar diagnósticos complejos:</strong> Calcular la probabilidad de múltiples enfermedades simultáneamente, considerando toda la evidencia disponible.</li>
+                <li><strong>Predecir resultados:</strong> Estimar la probabilidad de la respuesta a un tratamiento o el riesgo de complicaciones futuras.</li>
+                <li><strong>Identificar la información más valiosa:</strong> Determinar qué prueba o pregunta adicional proporcionará la mayor reducción de la incertidumbre diagnóstica.</li>
+            </ul>
+
+            <h2>Un Cambio de Paradigma</h2>
+            <p>
+                Adoptar un enfoque probabilístico no es solo una herramienta matemática; es un cambio fundamental en el pensamiento clínico. Significa pasar de un razonamiento basado en reglas a uno basado en probabilidades, cuantificando la duda y comunicando el riesgo de manera más efectiva tanto a colegas como a pacientes. Las redes bayesianas y otros modelos probabilísticos son el andamiaje sobre el cual se construye una medicina más precisa, personalizada y, en última instancia, más humana.
+            </p>
+        </article>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
