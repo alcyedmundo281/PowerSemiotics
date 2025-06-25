@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacoterapia Racional - Powersemiotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#4F46E5, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/index.html" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="/farmacoterapia_racional.html" class="text-indigo-600 font-semibold">Farmacoterapia Racional</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-6 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                Módulo: Farmacoterapia Racional
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Maximizando la eficacia y minimizando el riesgo. Un enfoque basado en datos para la selección y el uso de medicamentos.
+            </p>
+        </div>
+
+        <!-- Grid de Tópicos Futuros -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Card 1: Farmacogenómica -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-dna text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Farmacogenómica</h2>
+                <p class="text-gray-600">
+                    Personalizando la terapia farmacológica basada en el perfil genético del paciente para mejorar la respuesta y reducir los efectos adversos.
+                </p>
+            </a>
+
+            <!-- Card 2: Interacciones Medicamentosas -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-exchange-alt text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Interacciones Medicamentosas</h2>
+                <p class="text-gray-600">
+                    Análisis computacional de las interacciones fármaco-fármaco y fármaco-alimento para prevenir eventos adversos en la polifarmacia.
+                </p>
+            </a>
+
+            <!-- Card 3: Modelos PK/PD -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-chart-line text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Modelos PK/PD</h2>
+                <p class="text-gray-600">
+                    Modelado farmacocinético y farmacodinámico para optimizar regímenes de dosificación y predecir la respuesta terapéutica.
+                </p>
+            </a>
+            
+            <!-- Card 4: Medicina Basada en Evidencia -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-book-medical text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Medicina Basada en Evidencia</h2>
+                <p class="text-gray-600">
+                   Integrando la mejor evidencia de investigación con la pericia clínica y los valores del paciente para la toma de decisiones terapéuticas.
+                </p>
+            </a>
+            
+            <!-- Card 5: Adherencia Terapéutica -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-user-check text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Adherencia Terapéutica</h2>
+                <p class="text-gray-600">
+                    Análisis de datos y estrategias conductuales para comprender y mejorar el cumplimiento del tratamiento por parte de los pacientes.
+                </p>
+            </a>
+
+            <!-- Card 6: Desprescripción -->
+            <a href="#" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-minus-circle text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Desprescripción</h2>
+                <p class="text-gray-600">
+                    El proceso planificado y supervisado de reducir o detener medicamentos que pueden estar causando más daño que beneficio.
+                </p>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
