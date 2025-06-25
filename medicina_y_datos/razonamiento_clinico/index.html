@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ética y Mitigación de Sesgos - Powersemiotics</title>
+    <title>Razonamiento Clínico - Powersemiotics</title>
+    
+    <!-- La etiqueta <base> ha sido eliminada para asegurar que las rutas relativas funcionen correctamente. -->
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,33 +18,12 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .prose h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 2em;
-            margin-bottom: 1em;
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 0.5em;
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .prose p, .prose li {
-            line-height: 1.75;
-            margin-bottom: 1.25em;
-        }
-        .prose ul {
-            list-style-type: disc;
-            margin-left: 1.5em;
-        }
-        .prose strong {
-            font-weight: 600;
-        }
-        .alert-box {
-            background-color: #fefce8; /* yellow-50 */
-            color: #ca8a04; /* yellow-600 */
-            border-left: 4px solid #facc15; /* yellow-400 */
-            padding: 1rem;
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 0.25rem;
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
     </style>
@@ -53,10 +34,12 @@
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="https://powersemiotics.com/index.html" class="flex items-center space-x-2">
+                <!-- RUTA COMPLETA (ABSOLUTA) PARA MÁXIMA COMPATIBILIDAD -->
                 <img src="https://powersemiotics.com/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
                 <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
             </a>
             <div>
+                <!-- RUTA COMPLETA (ABSOLUTA) -->
                 <a href="https://powersemiotics.com/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">Medicina y Datos</a>
             </div>
         </nav>
@@ -65,53 +48,94 @@
     <!-- Contenido Principal -->
     <main class="container mx-auto px-6 py-16">
         
-        <!-- Título de la Página -->
-        <div class="max-w-4xl mx-auto">
-            <a href="../index.html" class="text-indigo-600 hover:underline mb-6 inline-block"><i class="fas fa-arrow-left mr-2"></i>Volver a Razonamiento Clínico</a>
+        <!-- Sección de Introducción -->
+        <section class="text-center mb-16">
             <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
-                Ética y Mitigación de Sesgos en la IA Médica
+                La Arquitectura del Juicio Clínico
             </h1>
-            <p class="text-lg text-gray-600">
-                La promesa de una medicina más precisa y equitativa solo puede cumplirse si abordamos activamente los sesgos inherentes en los datos y los algoritmos.
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                Un análisis profundo sobre cómo el razonamiento clínico está siendo transformado por la ciencia de datos, la inferencia probabilística y los modelos computacionales.
             </p>
-        </div>
-        
-        <!-- Artículo de Contenido -->
-        <article class="prose max-w-4xl mx-auto mt-12 bg-white p-8 rounded-lg shadow">
-            
-            <h2>El Juramento Hipocrático de los Algoritmos</h2>
-            <p>
-                La primera máxima de la medicina es "primum non nocere": lo primero es no hacer daño. En la era de la IA, este principio se extiende a los algoritmos que diseñamos. Un modelo de IA no es intrínsecamente objetivo; es un reflejo de los datos con los que fue entrenado. Si esos datos contienen sesgos históricos, sociales o de medición, el algoritmo no solo los aprenderá, sino que podría amplificarlos, llevando a diagnósticos erróneos y a la perpetuación de desigualdades en salud.
-            </p>
+        </section>
 
-            <div class="alert-box">
-                <p class="font-semibold">Un algoritmo es tan bueno como los datos que lo alimentan. Basura entra, basura sale (Garbage In, Garbage Out).</p>
+        <!-- Sección de Descarga del PDF -->
+        <section class="bg-white p-8 rounded-xl shadow-lg mb-16 border border-gray-200">
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-1 text-center">
+                     <i class="fas fa-file-pdf text-8xl text-indigo-500"></i>
+                </div>
+                <div class="md:col-span-2">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">El Documento Fundacional</h2>
+                    <p class="text-gray-600 mb-6">
+                        Nuestro documento "Razonamiento Clínico: Modelos y Aplicaciones" es la base de esta sección. Profundiza en el cambio desde el aprendizaje tradicional hacia un modelo basado en el pensamiento estructurado.
+                    </p>
+                    <!-- RUTA COMPLETA (ABSOLUTA) PARA LA DESCARGA DEL PDF -->
+                    <a href="https://powersemiotics.com/assets/pdf/Razonamiento_Clinico_Modelos_y_Aplicaciones.pdf" download="Razonamiento_Clinico_Modelos_y_Aplicaciones.pdf" 
+                       class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-md">
+                        <i class="fas fa-download mr-2"></i> Descargar Anexo PDF
+                    </a>
+                </div>
             </div>
+        </section>
 
-            <h2>Fuentes Comunes de Sesgo en Datos de Salud</h2>
-            <p>
-                Identificar el origen del sesgo es el primer paso para mitigarlo. En medicina, los sesgos pueden surgir de múltiples fuentes:
-            </p>
-            <ul>
-                <li><strong>Sesgo Histórico:</strong> Refleja desigualdades estructurales pasadas. Por ejemplo, si históricamente se ha subdiagnosticado una enfermedad en mujeres, un modelo entrenado con esos datos podría aprender a ignorar síntomas relevantes en pacientes femeninas.</li>
-                <li><strong>Sesgo de Medición:</strong> Ocurre cuando los datos se recolectan de manera diferente para distintos grupos. Un oxímetro de pulso que es menos preciso en pieles oscuras puede introducir un sesgo sistemático en los datos de saturación de oxígeno.</li>
-                <li><strong>Sesgo de Representación:</strong> Sucede cuando la población de entrenamiento no refleja la población del mundo real. Un algoritmo de diagnóstico de cáncer de piel entrenado mayoritariamente con imágenes de piel clara tendrá un rendimiento deficiente en pacientes de piel oscura.</li>
-                <li><strong>Sesgo Algorítmico:</strong> El propio modelo puede introducir sesgo, por ejemplo, al optimizar una métrica de precisión general que ignora el rendimiento en subgrupos minoritarios.</li>
-            </ul>
+        <!-- Grid de Sub-Tópicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <h2>Estrategias de Mitigación: Hacia una IA Justa</h2>
-            <p>
-                Combatir el sesgo requiere un enfoque proactivo durante todo el ciclo de vida del modelo de IA:
-            </p>
-            <ul>
-                <li><strong>Pre-procesamiento (Datos):</strong> Incluye técnicas como el sobremuestreo de grupos subrepresentados (oversampling), la reponderación de datos (re-weighting) o la recolección de datos más diversos e inclusivos.</li>
-                <li><strong>In-procesamiento (Modelo):</strong> Modificar el algoritmo de entrenamiento para que incorpore restricciones de equidad, penalizando las soluciones que beneficien desproporcionadamente a un grupo sobre otro.</li>
-                <li><strong>Post-procesamiento (Resultados):</strong> Ajustar los umbrales de decisión del modelo para diferentes grupos demográficos, buscando equilibrar las tasas de verdaderos positivos y falsos positivos entre ellos.</li>
-            </ul>
-            <p>
-                La creación de una IA médica ética y justa no es solo un desafío técnico, sino un imperativo moral. Requiere una colaboración continua entre científicos de datos, médicos, eticistas y las comunidades de pacientes para asegurar que la tecnología sirva como una fuerza para la equidad en salud, y no como un acelerador de la desigualdad.
-            </p>
-        </article>
+            <!-- Card 1: IA Explicable (XAI) -->
+            <a href="./IA_Explicable/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-search-plus text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">IA Explicable (XAI)</h2>
+                <p class="text-gray-600">
+                    Desmitificando los modelos de "caja negra" para construir confianza y seguridad en las herramientas de diagnóstico basadas en IA.
+                </p>
+            </a>
+
+            <!-- Card 2: Inferencia Probabilística -->
+            <a href="./Inferencia_Probabilistica/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-project-diagram text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Inferencia Probabilística</h2>
+                <p class="text-gray-600">
+                    Modelando la incertidumbre con herramientas como las Redes Bayesianas para reflejar el proceso de pensamiento diferencial del médico experto.
+                </p>
+            </a>
+
+            <!-- Card 3: Modelos Computacionales -->
+            <a href="./Modelos_Computacionales/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-cogs text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Modelos Computacionales</h2>
+                <p class="text-gray-600">
+                    Un vistazo a las diferentes arquitecturas, desde sistemas basados en reglas hasta Deep Learning, y su aplicación en problemas clínicos.
+                </p>
+            </a>
+            
+            <!-- Card 4: Ética y Sesgos -->
+            <a href="./Etica_y_Sesgos/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-balance-scale text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Ética y Mitigación de Sesgos</h2>
+                <p class="text-gray-600">
+                   El desafío crítico de asegurar la equidad y evitar la perpetuación de disparidades en los datos de salud que alimentan a la IA.
+                </p>
+            </a>
+            
+            <!-- Card 5: Aplicaciones Prácticas - ENLACE ACTUALIZADO -->
+            <a href="./Aplicaciones_Practicas/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-notes-medical text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Aplicaciones Prácticas</h2>
+                <p class="text-gray-600">
+                    Casos de estudio donde la aplicación de estos modelos ha llevado a diagnósticos más rápidos y tratamientos más personalizados.
+                </p>
+            </a>
+            
+            <!-- Card 6: Dashboard de IA -->
+            <a href="https://powersemiotics-alcy.vercel.app/" target="_blank" rel="noopener noreferrer" class="block bg-gradient-to-r from-indigo-600 to-pink-600 p-8 rounded-xl text-white group card-hover-effect">
+                 <i class="fas fa-rocket text-4xl mb-4"></i>
+                <h2 class="text-2xl font-bold mb-2">Ponlo en Práctica</h2>
+                <p>
+                    Utiliza nuestro Dashboard de IA para cargar documentos, analizarlos y extraer los símbolos clave para potenciar tu propio juicio clínico.
+                </p>
+            </a>
+
+        </div>
     </main>
 
     <!-- Pie de página -->
