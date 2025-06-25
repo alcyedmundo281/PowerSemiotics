@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelos Computacionales - Powersemiotics</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#4F46E5, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .prose h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5em;
+        }
+        .prose p, .prose li {
+            line-height: 1.75;
+            margin-bottom: 1.25em;
+        }
+        .prose ul {
+            list-style-type: disc;
+            margin-left: 1.5em;
+        }
+        .prose strong {
+            font-weight: 600;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="https://powersemiotics.com/index.html" class="flex items-center space-x-2">
+                <img src="https://powersemiotics.com/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="https://powersemiotics.com/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">Medicina y Datos</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-6 py-16">
+        
+        <!-- Título de la Página -->
+        <div class="max-w-4xl mx-auto">
+            <a href="../index.html" class="text-indigo-600 hover:underline mb-6 inline-block"><i class="fas fa-arrow-left mr-2"></i>Volver a Razonamiento Clínico</a>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                Modelos Computacionales en Medicina
+            </h1>
+            <p class="text-lg text-gray-600">
+                Un espectro de arquitecturas, desde la lógica explícita de los sistemas expertos hasta la complejidad de las redes neuronales profundas.
+            </p>
+        </div>
+        
+        <!-- Artículo de Contenido -->
+        <article class="prose max-w-4xl mx-auto mt-12 bg-white p-8 rounded-lg shadow">
+            
+            <h2>El Arsenal de la IA en Salud</h2>
+            <p>
+                No existe un único "modelo de IA" para la medicina. Diferentes problemas clínicos requieren diferentes enfoques computacionales. Comprender el espectro de modelos disponibles es crucial para seleccionar la herramienta adecuada para cada tarea, equilibrando la precisión con la interpretabilidad y los requerimientos de datos.
+            </p>
+
+            <h2>1. Sistemas Basados en Reglas (Sistemas Expertos)</h2>
+            <p>
+                Los pioneros de la IA médica. Estos sistemas operan sobre una base de conocimiento de reglas lógicas del tipo "SI... ENTONCES...". Estas reglas son programadas explícitamente por expertos humanos (médicos, investigadores).
+            </p>
+            <ul>
+                <li><strong>Fortalezas:</strong> Son altamente interpretables (el razonamiento es transparente), rápidos de ejecutar y no requieren grandes conjuntos de datos para su creación.</li>
+                <li><strong>Debilidades:</strong> Son frágiles (no manejan bien la incertidumbre o casos no previstos), su mantenimiento es complejo a medida que las reglas aumentan y son incapaces de aprender o descubrir nuevos patrones por sí mismos.</li>
+                <li><strong>Aplicación Típica:</strong> Guías de dosificación de fármacos, alertas de interacciones medicamentosas.</li>
+            </ul>
+
+            <h2>2. Machine Learning Clásico</h2>
+            <p>
+                Este enfoque representa un cambio fundamental: en lugar de programar reglas, el modelo "aprende" los patrones directamente de los datos. Incluye algoritmos como Regresión Logística, Máquinas de Soporte Vectorial (SVM) y Bosques Aleatorios (Random Forests).
+            </p>
+            <ul>
+                <li><strong>Fortalezas:</strong> Pueden manejar datos complejos y encontrar relaciones no obvias para los humanos. Son robustos y tienen un buen rendimiento predictivo en una amplia gama de tareas.</li>
+                <li><strong>Debilidades:</strong> Pueden ser menos interpretables que los sistemas de reglas (aunque más que el Deep Learning) y requieren datos etiquetados y de alta calidad para su entrenamiento.</li>
+                <li><strong>Aplicación Típica:</strong> Predicción del riesgo de reingreso hospitalario, clasificación de pacientes en grupos de riesgo.</li>
+            </ul>
+
+            <h2>3. Deep Learning (Redes Neuronales Profundas)</h2>
+            <p>
+                La vanguardia de la IA. Son modelos inspirados en la estructura del cerebro humano, con múltiples capas de "neuronas" que aprenden jerarquías de características de forma automática. Las Redes Neuronales Convolucionales (CNN) para imágenes y las Recurrentes (RNN) para secuencias son ejemplos clave.
+            </p>
+            <ul>
+                <li><strong>Fortalezas:</strong> Rendimiento de vanguardia en tareas de percepción (visión por computadora, procesamiento del lenguaje natural). Capacidad de aprender patrones extremadamente complejos y sutiles.</li>
+                <li><strong>Debilidades:</strong> Requieren enormes cantidades de datos, son computacionalmente costosos de entrenar y son inherentemente "cajas negras", lo que hace crucial el uso de técnicas de XAI.</li>
+                <li><strong>Aplicación Típica:</strong> Diagnóstico de retinopatía diabética a partir de imágenes de fondo de ojo, clasificación de arritmias a partir de señales de ECG.</li>
+            </ul>
+        </article>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
