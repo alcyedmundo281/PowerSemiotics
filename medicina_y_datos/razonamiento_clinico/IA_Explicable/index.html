@@ -24,7 +24,13 @@
             border-bottom: 1px solid #e5e7eb;
             padding-bottom: 0.5em;
         }
-        .prose p {
+        .prose h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+        }
+        .prose p, .prose li {
             line-height: 1.75;
             margin-bottom: 1.25em;
         }
@@ -32,6 +38,20 @@
             list-style-type: disc;
             margin-left: 1.5em;
             margin-bottom: 1.25em;
+        }
+        .interactive-section {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+        }
+        .quiz-option {
+            border: 1px solid #d1d5db;
+            transition: background-color 0.2s;
+        }
+        .quiz-option:hover {
+            background-color: #f3f4f6;
+        }
+        .drag-item, .drop-target {
+            border: 2px dashed #9ca3af;
         }
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
     </style>
@@ -99,6 +119,60 @@
                 El objetivo de la XAI no es reemplazar el juicio clínico, sino aumentarlo. Se trata de crear una simbiosis en la que el poder computacional de la IA para analizar datos masivos se combine con la experiencia, la intuición y la empatía del médico. Un sistema de IA explicable se convierte en un colega consultor, ofreciendo una "segunda opinión" transparente y basada en datos que enriquece, y no suplanta, el proceso de toma de decisiones del clínico.
             </p>
         </article>
+        
+        <!-- SECCIÓN DE AUTOEVALUACIÓN -->
+        <section class="prose max-w-4xl mx-auto mt-16 interactive-section p-8 rounded-lg">
+            <h2><i class="fas fa-check-circle mr-2 gradient-text"></i>Autoevaluación</h2>
+            <p>Pon a prueba tu comprensión de los conceptos clave de la IA Explicable.</p>
+
+            <div class="mt-8">
+                <h3>Pregunta 1: ¿Cuál es el objetivo principal de la XAI en medicina?</h3>
+                <div class="space-y-3">
+                    <div class="quiz-option p-4 rounded-lg cursor-pointer">a) Reemplazar el diagnóstico humano para reducir costos.</div>
+                    <div class="quiz-option p-4 rounded-lg cursor-pointer">b) Aumentar la confianza y la transparencia en los modelos de IA.</div>
+                    <div class="quiz-option p-4 rounded-lg cursor-pointer">c) Crear algoritmos que sean 100% precisos en todo momento.</div>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h3>Pregunta 2: ¿Qué técnica de XAI es más adecuada para resaltar las áreas importantes en una radiografía?</h3>
+                <div class="space-y-3">
+                    <div class="quiz-option p-4 rounded-lg cursor-pointer">a) LIME</div>
+                    <div class="quiz-option p-4 rounded-lg cursor-pointer">b) Mapas de Saliencia</div>
+                    <div class="quiz-option p-4 rounded-lg cursor-pointer">c) SHAP</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECCIÓN DE ACTIVIDAD INTERACTIVA -->
+        <section class="prose max-w-4xl mx-auto mt-16 interactive-section p-8 rounded-lg">
+            <h2><i class="fas fa-puzzle-piece mr-2 gradient-text"></i>Actividad Interactiva: Analiza el Caso</h2>
+            <p>Imagina que eres un clínico evaluando una nueva herramienta de IA. Relaciona cada problema con la técnica de XAI que usarías para investigarlo.</p>
+            
+            <div class="mt-8 md:flex md:space-x-8 space-y-8 md:space-y-0">
+                <!-- Problemas -->
+                <div class="flex-1 space-y-4">
+                    <h3 class="text-center">Problemas Clínicos</h3>
+                    <div class="drag-item bg-white p-4 rounded-lg text-center">
+                        <p><strong>Problema A:</strong> El modelo dice que una mamografía es de alto riesgo, pero no entiendo por qué.</p>
+                    </div>
+                    <div class="drag-item bg-white p-4 rounded-lg text-center">
+                        <p><strong>Problema B:</strong> Quiero entender qué factores (edad, glucosa, etc.) influyeron más en la predicción de riesgo cardíaco de un paciente.</p>
+                    </div>
+                </div>
+                <!-- Soluciones -->
+                <div class="flex-1 space-y-4">
+                    <h3 class="text-center">Soluciones XAI</h3>
+                    <div class="drop-target bg-indigo-100 p-4 rounded-lg text-center">
+                        <p>Usar <strong>Mapas de Saliencia</strong> para visualizar las áreas sospechosas.</p>
+                    </div>
+                    <div class="drop-target bg-indigo-100 p-4 rounded-lg text-center">
+                        <p>Usar <strong>SHAP</strong> para cuantificar la contribución de cada factor.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Pie de página -->
@@ -110,4 +184,3 @@
 
 </body>
 </html>
-
