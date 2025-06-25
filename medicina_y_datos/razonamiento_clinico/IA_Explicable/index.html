@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Explicable (XAI) - Powersemiotics</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#4F46E5, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .prose h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2em;
+            margin-bottom: 1em;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5em;
+        }
+        .prose p {
+            line-height: 1.75;
+            margin-bottom: 1.25em;
+        }
+        .prose ul {
+            list-style-type: disc;
+            margin-left: 1.5em;
+            margin-bottom: 1.25em;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="https://powersemiotics.com/index.html" class="flex items-center space-x-2">
+                <img src="https://powersemiotics.com/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="https://powersemiotics.com/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">Medicina y Datos</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-6 py-16">
+        
+        <!-- Título de la Página -->
+        <div class="max-w-4xl mx-auto">
+            <a href="../index.html" class="text-indigo-600 hover:underline mb-6 inline-block"><i class="fas fa-arrow-left mr-2"></i>Volver a Razonamiento Clínico</a>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                IA Explicable (XAI) en Diagnóstico Médico
+            </h1>
+            <p class="text-lg text-gray-600">
+                Abriendo la "caja negra": por qué la transparencia es fundamental para la confianza y la adopción segura de la inteligencia artificial en la medicina.
+            </p>
+        </div>
+        
+        <!-- Artículo de Contenido -->
+        <article class="prose max-w-4xl mx-auto mt-12 bg-white p-8 rounded-lg shadow">
+            
+            <h2>¿Qué es la IA Explicable (XAI)?</h2>
+            <p>
+                La Inteligencia Artificial Explicable (del inglés, Explainable Artificial Intelligence o XAI) es un conjunto de métodos y técnicas que permiten a los usuarios humanos comprender y confiar en los resultados y las predicciones creadas por los modelos de machine learning. Mientras que un modelo de IA tradicional (a menudo llamado "caja negra") puede predecir con alta precisión si una imagen muestra un tumor maligno, un modelo de XAI va un paso más allá: también explica <strong>qué características</strong> de la imagen (qué píxeles, texturas o formas) lo llevaron a esa conclusión.
+            </p>
+
+            <h2>La Importancia Crítica en Medicina</h2>
+            <p>
+                En campos donde las decisiones tienen consecuencias de vida o muerte, como la medicina, la confianza no es un lujo, es una necesidad. Un médico no puede y no debe actuar basándose en una recomendación que no entiende. La XAI es crucial por varias razones:
+            </p>
+            <ul>
+                <li><strong>Confianza y Adopción:</strong> Permite a los clínicos verificar que el razonamiento del modelo es médicamente sólido y no se basa en artefactos o correlaciones espurias en los datos.</li>
+                <li><strong>Seguridad del Paciente:</strong> Ayuda a identificar posibles fallos del modelo o predicciones sesgadas antes de que causen daño.</li>
+                <li><strong>Descubrimiento Científico:</strong> Las explicaciones de la IA pueden revelar nuevos patrones o biomarcadores que los humanos no habían considerado, acelerando la investigación.</li>
+                <li><strong>Cumplimiento Regulatorio y Ético:</strong> Las regulaciones, como el GDPR, exigen el "derecho a una explicación" para las decisiones tomadas por algoritmos.</li>
+            </ul>
+
+            <h2>Métodos Populares de XAI</h2>
+            <p>
+                Existen diversas técnicas para hacer que los modelos de IA sean más transparentes. Algunas de las más utilizadas en el ámbito sanitario incluyen:
+            </p>
+            <ul>
+                <li><strong>LIME (Local Interpretable Model-agnostic Explanations):</strong> Explica las predicciones de cualquier modelo de clasificación de forma individual, aproximando su comportamiento local con un modelo más simple e interpretable.</li>
+                <li><strong>SHAP (SHapley Additive exPlanations):</strong> Utiliza un enfoque basado en la teoría de juegos para explicar la contribución de cada característica a la predicción final, ofreciendo garantías de consistencia y precisión local.</li>
+                <li><strong>Mapas de Saliencia (Saliency Maps):</strong> En el análisis de imágenes médicas, estas técnicas generan un mapa de calor que resalta las regiones de la imagen que fueron más influyentes para la decisión del modelo.</li>
+            </ul>
+
+            <h2>El Futuro: Hacia una Colaboración Humano-IA</h2>
+            <p>
+                El objetivo de la XAI no es reemplazar el juicio clínico, sino aumentarlo. Se trata de crear una simbiosis en la que el poder computacional de la IA para analizar datos masivos se combine con la experiencia, la intuición y la empatía del médico. Un sistema de IA explicable se convierte en un colega consultor, ofreciendo una "segunda opinión" transparente y basada en datos que enriquece, y no suplanta, el proceso de toma de decisiones del clínico.
+            </p>
+        </article>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
