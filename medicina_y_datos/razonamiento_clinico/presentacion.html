@@ -3,85 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presentación: Pruebas Diagnósticas</title>
+    <title>Diapositivas: Razonamiento Clínico</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .slider-container { scroll-behavior: smooth; }
-        .slide { flex-shrink: 0; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .slide {
+            min-width: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide-container {
+            display: flex;
+            height: calc(100vh - 80px); /* Adjust height for nav bar */
+        }
+        .nav-button {
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .nav-button:hover {
+            transform: scale(1.05);
+        }
+        .prose-custom {
+            max-width: 80ch;
+        }
+        .prose-custom h2 {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+        }
+        .prose-custom h3 {
+            font-size: 1.5rem;
+            line-height: 2rem;
+            font-weight: 600;
+        }
+        .prose-custom ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        .prose-custom li {
+            margin-bottom: 0.75rem;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
-    <div class="relative w-full h-screen flex flex-col">
-        <div id="slider-container" class="slider-container flex w-full h-full overflow-x-auto no-scrollbar">
-            <!-- Slides will be injected by JS -->
-        </div>
-        <div class="fixed bottom-0 left-0 right-0 p-4 bg-black/10 backdrop-blur-sm">
-            <div class="max-w-7xl mx-auto flex justify-between items-center">
-                <button id="prevBtn" class="bg-white/80 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md hover:bg-white transition disabled:opacity-50">Anterior</button>
-                <div id="slide-counter" class="text-white font-medium text-sm"></div>
-                <button id="nextBtn" class="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700">Siguiente</button>
+
+    <div id="presentation-container" class="w-full h-screen flex flex-col">
+        <!-- Slides -->
+        <div class="w-full flex-grow overflow-hidden">
+            <div class="slide-container" id="slide-container">
+                
+                <!-- Slide 1: Título -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-900 text-white p-8">
+                    <div class="text-center">
+                        <h1 class="text-5xl md:text-6xl font-bold mb-4">Razonamiento Clínico:</h1>
+                        <p class="text-2xl md:text-3xl text-gray-300">Modelos y Aplicaciones</p>
+                        <p class="mt-8 text-lg text-gray-400">Basado en el Syllabus de Medicina y Ciencia 2025-2025, Facultad de Ciencias Médicas, UCE</p>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Introducción -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-white p-8">
+                    <div class="prose-custom">
+                        <h2>El Panorama Cambiante</h2>
+                        <ul>
+                            <li>El razonamiento clínico evoluciona de un "arte" a una <strong>ciencia rigurosa</strong>.</li>
+                            <li>La era de la sobrecarga de información exige un pensamiento <strong>estructurado y probabilístico</strong>, no solo memorización.</li>
+                            <li><strong>Objetivo pedagógico:</strong> Enseñar <em>cómo pensar</em>, no solo <em>qué saber</em>.</li>
+                            <li>La integración de la Ciencia de Datos y la IA es clave para <strong>reducir el error diagnóstico</strong> y fomentar la metacognición.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Fundamentos Filosóficos -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-50 p-8">
+                     <div class="prose-custom">
+                        <h2>Fundamentos Filosóficos de la Inferencia</h2>
+                        <p>Cada diagnóstico se basa en procesos lógicos. Comprenderlos es desvelar la estructura del pensamiento clínico.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 text-center">
+                            <div class="bg-blue-100 p-4 rounded-lg shadow">
+                                <h3 class="text-blue-800 font-bold">Deducción</h3>
+                                <p>(Top-Down)</p>
+                                <p>De lo general a lo específico. Aplica reglas conocidas.</p>
+                            </div>
+                            <div class="bg-green-100 p-4 rounded-lg shadow">
+                                <h3 class="text-green-800 font-bold">Inducción</h3>
+                                <p>(Bottom-Up)</p>
+                                <p>De lo específico a lo general. Reconoce patrones.</p>
+                            </div>
+                            <div class="bg-purple-100 p-4 rounded-lg shadow">
+                                <h3 class="text-purple-800 font-bold">Abducción</h3>
+                                <p>(Creativa)</p>
+                                <p>Inferencia a la mejor explicación. Genera hipótesis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4: El Ciclo del Diagnóstico -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-white p-8">
+                    <div class="prose-custom text-center">
+                        <h2>El Ciclo Dinámico del Diagnóstico</h2>
+                        <p class="mb-6">El razonamiento experto no es lineal, sino un ciclo iterativo y fluido entre los tres tipos de inferencia.</p>
+                        <div class="relative">
+                            <svg class="w-full h-auto" viewBox="0 0 400 200">
+                                <!-- Flechas del ciclo -->
+                                <path d="M 90 60 A 60 40 0 0 1 90 140" fill="none" stroke="#60a5fa" stroke-width="2"/>
+                                <path d="M 310 140 A 60 40 0 0 1 310 60" fill="none" stroke="#60a5fa" stroke-width="2"/>
+                                <path d="M 120 150 H 280" fill="none" stroke="#60a5fa" stroke-width="2"/>
+                                <!-- Nodos -->
+                                <text x="50" y="40" font-size="12" font-weight="bold" text-anchor="middle">1. Abducción</text>
+                                <text x="50" y="55" font-size="10" text-anchor="middle">(Generar Hipótesis)</text>
+                                <text x="350" y="40" font-size="12" font-weight="bold" text-anchor="middle">2. Deducción</text>
+                                <text x="350" y="55" font-size="10" text-anchor="middle">(Predecir Evidencia)</text>
+                                <text x="200" y="170" font-size="12" font-weight="bold" text-anchor="middle">3. Inducción</text>
+                                <text x="200" y="185" font-size="10" text-anchor="middle">(Evaluar y Generalizar)</text>
+                                <!-- Flechas direccionales -->
+                                <polygon points="90,145 95,135 85,135" fill="#60a5fa"/>
+                                <polygon points="310,55 305,65 315,65" fill="#60a5fa"/>
+                                <polygon points="115,150 125,145 125,155" fill="#60a5fa"/>
+                            </svg>
+                        </div>
+                         <p class="mt-4">Un hallazgo anómalo reinicia el ciclo con una nueva abducción.</p>
+                    </div>
+                </div>
+                
+                <!-- Slide 5: Modelos Determinísticos -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-50 p-8">
+                    <div class="prose-custom">
+                        <h2>Modelos Determinísticos: La Lógica de la Certeza</h2>
+                        <p>Operan bajo el principio: "dadas ciertas entradas, el resultado es siempre el mismo". Son la encarnación de la <strong>deducción</strong>.</p>
+                        <ul>
+                            <li><strong>Ejemplos:</strong> Sistemas Expertos, CDSS basados en reglas (SI-ENTONCES), Árboles de Decisión.</li>
+                            <li><strong>Fortalezas:</strong> Altamente interpretables, transparentes y consistentes. Ideales para aplicar guías de práctica clínica.</li>
+                            <li><strong>Debilidades:</strong> <u>Rigidez</u>. Luchan con la incertidumbre y la variabilidad biológica, llevando a la <strong>fatiga por alertas</strong> y al sesgo de automatización.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Slide 6: Modelos Probabilísticos -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-white p-8">
+                    <div class="prose-custom">
+                        <h2>Modelos Probabilísticos: Abrazar la Incertidumbre</h2>
+                        <p>En lugar de "verdadero/falso", utilizan un espectro de "grados de creencia". La práctica médica es una ciencia de la incertidumbre.</p>
+                        <ul>
+                            <li><strong>Pregunta clave:</strong> No "¿Tiene el paciente la enfermedad A?", sino "¿Cuál es la <strong>probabilidad</strong> de la enfermedad A, dada la evidencia?".</li>
+                            <li><strong>Marco de pensamiento:</strong> Cuantifica la incertidumbre y la usa como parte integral de la decisión.</li>
+                            <li><strong>Importancia:</strong> En sistemas no lineales (como la biología), los análisis deterministas (basados en promedios) pueden llevar a conclusiones erróneas y costosas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Slide 7: La Revolución Bayesiana -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-900 text-white p-8">
+                    <div class="prose-custom text-center">
+                        <h2 class="text-white">La Revolución Bayesiana</h2>
+                        <p class="text-xl text-gray-300">La formalización matemática del pensamiento clínico: <strong>actualizar creencias a la luz de nueva evidencia.</strong></p>
+                        <div class="bg-gray-800 p-6 rounded-lg mt-8 text-left shadow-lg">
+                           <p class="text-2xl font-mono text-center text-cyan-400">P(H|E) = [ P(E|H) * P(H) ] / P(E)</p>
+                           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-sm">
+                               <div><strong class="text-cyan-400">P(H|E) - Posterior:</strong><br>Probabilidad <u>post-test</u>. Lo que queremos saber.</div>
+                               <div><strong class="text-cyan-400">P(E|H) - Verosimilitud:</strong><br>Sensibilidad/Especificidad de la prueba.</div>
+                               <div><strong class="text-cyan-400">P(H) - Prior:</strong><br>Probabilidad <u>pre-test</u>. Sospecha clínica inicial.</div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 8: Redes Bayesianas -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-white p-8">
+                    <div class="prose-custom">
+                        <h2>Redes Bayesianas (RB): Visualizando la Complejidad</h2>
+                        <p>Modelos gráficos que representan variables (enfermedades, síntomas) y sus dependencias probabilísticas.</p>
+                        <ul>
+                            <li><strong>Explicabilidad ("Caja Blanca"):</strong> La estructura del grafo hace las relaciones explícitas e intuitivas. Se puede entender el "porqué" de un diagnóstico.</li>
+                            <li><strong>Eficiencia de Datos:</strong> Requieren menos datos que los modelos de aprendizaje profundo.</li>
+                            <li><strong>Robustez:</strong> Manejan bien los datos faltantes, un problema común en la práctica clínica.</li>
+                            <li>Representan un "punto dulce" entre el <strong>rendimiento</strong> y la <strong>interpretabilidad</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Slide 9: Redes Neuronales -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-50 p-8">
+                    <div class="prose-custom">
+                        <h2>La Frontera: Redes Neuronales (RNA)</h2>
+                        <p>Modelos inspirados en el cerebro humano, excelentes para aprender patrones complejos y no lineales de grandes volúmenes de datos.</p>
+                        <ul>
+                            <li><strong>Éxito Principal:</strong> Análisis de imágenes (radiología, patología, dermatología). Han alcanzado y superado el rendimiento humano en tareas específicas.</li>
+                            <li><strong>El gran problema: La "Caja Negra"</strong>. Su poder predictivo viene con un costo: <strong>opacidad</strong>. Es imposible entender completamente su razonamiento interno.</li>
+                            <li><strong>Peligros:</strong> Sesgos ocultos, correlaciones espurias (efecto "Clever Hans"), falta de confianza y responsabilidad.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Slide 10: IA Explicable (XAI) -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-white p-8">
+                    <div class="prose-custom">
+                        <h2>El Imperativo: IA Explicable (XAI)</h2>
+                        <p>Un conjunto de métodos para hacer las decisiones de la IA transparentes y comprensibles. En medicina, es una <strong>necesidad ética y de seguridad</strong>.</p>
+                        <h3>Técnicas Comunes (Post-hoc):</h3>
+                        <ul>
+                            <li><strong>Mapas de Calor (Salicency Maps):</strong> Resaltan las regiones de una imagen que más influyeron en la decisión del modelo.</li>
+                            <li><strong>LIME:</strong> Explica una predicción individual creando un modelo local simple e interpretable.</li>
+                            <li><strong>SHAP:</strong> Asigna a cada característica (ej. un valor de laboratorio) un valor de contribución a la predicción final.</li>
+                        </ul>
+                        <p class="mt-4 font-bold">La precisión por sí sola es insuficiente. La confianza requiere comprensión.</p>
+                    </div>
+                </div>
+                
+                <!-- Slide 11: Caso de Estudio: Síncope -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-50 p-8">
+                    <div class="prose-custom">
+                        <h2>Estudio de Caso: Síncope en un Adulto Mayor</h2>
+                        <p>Aplicación práctica del razonamiento bayesiano paso a paso.</p>
+                        <ol class="list-decimal pl-5 mt-4">
+                           <li><strong>Presentación:</strong> Hombre de 78 años, síncope al levantarse. Tto. con tamsulosina.</li>
+                           <li><strong>Abducción (Dx. Diferencial):</strong> Se generan hipótesis y se asignan probabilidades a priori (P(H)).
+                               <ul class="list-disc pl-5">
+                                   <li>Hipotensión Ortostática (HO): 50%</li>
+                                   <li>Cardiogénico: 25%</li>
+                                   <li>Vasovagal: 20%</li>
+                                   <li>Neurológico: 5%</li>
+                               </ul>
+                           </li>
+                           <li><strong>Recolección de Evidencia (E):</strong> ECG normal, prueba de ortostatismo positiva.</li>
+                           <li><strong>Actualización Bayesiana:</strong> Con cada nueva evidencia, se recalculan las probabilidades. Un ECG normal ↓ P(Cardio). Un ortostatismo (+) ↑↑ P(HO).</li>
+                           <li><strong>Diagnóstico Final:</strong> Síncope por HO con alta confianza (P(HO|E) > 90%).</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Slide 12: Conclusión -->
+                <div class="slide flex-shrink-0 w-full h-full flex items-center justify-center bg-blue-800 text-white p-8">
+                    <div class="prose-custom text-center">
+                        <h2 class="text-white">Conclusión: Una Nueva Síntesis</h2>
+                        <ul>
+                            <li>El futuro de la medicina no es <strong>Hombre vs. Máquina</strong>, sino <strong>Hombre + Máquina</strong>.</li>
+                            <li>Se requiere una síntesis del potente reconocimiento de patrones de la IA (inducción) con un pensamiento explicable, causal y probabilístico.</li>
+                            <li>El objetivo es formar clínicos que dominen tanto la biología humana como los principios de la lógica, la probabilidad y el pensamiento computacional.</li>
+                            <li class="mt-6 font-bold text-xl">Una atención al paciente más segura, eficaz y humana.</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-    <script>
-        const slidesData = [
-            { type: 'title', title: 'Pruebas Diagnósticas y su Interpretación', subtitle: 'Sensibilidad, Especificidad, Valores Predictivos y Razones de Verosimilitud', theme: 'bg-gray-900 text-white' },
-            { type: 'objectives', title: 'Objetivos de Aprendizaje', objectives: ['Construir e interpretar una tabla de 2x2.', 'Definir y calcular Sensibilidad (S) y Especificidad (E).', 'Definir y calcular Valor Predictivo Positivo (VPP) y Negativo (VPN).', 'Comprender el impacto de la prevalencia en los valores predictivos.', 'Interpretar las Razones de Verosimilitud (LR+ y LR-).'] },
-            { type: 'concept', title: 'La Tabla de 2x2', content: 'Es la herramienta fundamental para evaluar una prueba diagnóstica. Compara los resultados de la prueba (Positivo/Negativo) con el estándar de oro o "verdad" (Enfermo/Sano).', image: 'https://i.imgur.com/2Y4t9B1.png' },
-            { type: 'formula', title: 'Sensibilidad y Especificidad', formulas: [{ name: 'Sensibilidad', formula: '(VP / (VP + FN))', description: 'Capacidad de la prueba para detectar a los enfermos. Un resultado negativo en una prueba muy sensible prácticamente descarta la enfermedad (SnNout).' }, { name: 'Especificidad', formula: '(VN / (VN + FP))', description: 'Capacidad de la prueba para identificar a los sanos. Un resultado positivo en una prueba muy específica confirma la enfermedad (SpPin).' }] },
-            { type: 'concept', title: 'Valores Predictivos', content: 'Responden a la pregunta clínica: "Dado el resultado de mi paciente, ¿cuál es la probabilidad de que tenga (o no) la enfermedad?". <strong>Dependen críticamente de la prevalencia</strong> de la enfermedad en la población estudiada.', theme: 'bg-gray-50' },
-            { type: 'concept', title: 'Impacto de la Prevalencia (Baja)', content: 'Imagina una prueba con S=99% y E=99%. En una población de 1000 personas con prevalencia del 1% (10 enfermos), la prueba encontrará a los 10 enfermos, pero también tendrá 10 falsos positivos. ¡La mitad de los positivos serían falsos! (VPP=50%).', image: 'https://i.imgur.com/iF7oY4n.png' },
-             { type: 'concept', title: 'Impacto de la Prevalencia (Alta)', content: 'Ahora, la misma prueba en una población con prevalencia del 50% (500 enfermos). La prueba encontrará 495 enfermos y solo tendrá 5 falsos positivos. ¡Un resultado positivo es ahora muy fiable! (VPP=99%).', image: 'https://i.imgur.com/UvO2g5R.png' },
-            { type: 'formula', title: 'VPP y VPN', formulas: [{ name: 'Valor Predictivo Positivo (VPP)', formula: '(VP / (VP + FP))', description: 'Probabilidad de tener la enfermedad si el resultado es positivo.' }, { name: 'Valor Predictivo Negativo (VPN)', formula: '(VN / (VN + FN))', description: 'Probabilidad de NO tener la enfermedad si el resultado es negativo.' }] },
-            { type: 'concept', title: 'Razones de Verosimilitud (LR)', content: 'Son la medida más potente porque <strong>no dependen de la prevalencia</strong>. Modifican la probabilidad pre-test de tener una enfermedad a una probabilidad post-test.', image: 'https://i.imgur.com/8T4fF2y.png' },
-            { type: 'formula', title: 'LR+ y LR-', formulas: [{ name: 'LR Positivo (LR+)', formula: 'Sensibilidad / (1 - Especificidad)', description: '¿Cuánto más probable es un resultado positivo en un enfermo que en un sano? >10 es excelente.' }, { name: 'LR Negativo (LR-)', formula: '(1 - Sensibilidad) / Especificidad', description: '¿Cuánto más probable es un resultado negativo en un enfermo que en un sano? <0.1 es excelente.' }] },
-            { type: 'summary', title: 'Resumen y Puntos Clave', points: ['S y E son propiedades intrínsecas de la prueba.', 'VPP y VPN dependen de la prevalencia.', 'LRs son la mejor herramienta para modificar la probabilidad clínica.', 'Utiliza el nomograma de Fagan para aplicar los LRs en la práctica.'] },
-            { type: 'final', title: 'Preguntas y Cierre', theme: 'bg-gray-900 text-white' }
-        ];
 
-        const sliderContainer = document.getElementById('slider-container');
-        slidesData.forEach((data, index) => {
-            const slide = document.createElement('div');
-            slide.className = `slide w-full h-full flex items-center justify-center p-8 ${data.theme || 'bg-white'}`;
-            let innerHTML = '';
-            // Switch-case para construir el HTML de cada tipo de diapositiva
-            switch(data.type) {
-                case 'title':
-                    innerHTML = `<div class="text-center"><p class="text-xl md:text-2xl text-teal-300">Medicina y Datos</p><h1 class="text-4xl md:text-5xl font-extrabold my-4">${data.title}</h1><p class="text-lg text-gray-400">${data.subtitle}</p></div>`;
-                    break;
-                case 'objectives':
-                    innerHTML = `<div class="max-w-4xl w-full"><h2 class="text-3xl font-bold mb-6">${data.title}</h2><ul class="space-y-4 text-lg">${data.objectives.map(o => `<li class="flex items-start"><span class="text-teal-500 mr-3 mt-1">&#10003;</span><span>${o}</span></li>`).join('')}</ul></div>`;
-                    break;
-                case 'concept':
-                    innerHTML = `<div class="max-w-5xl w-full grid md:grid-cols-2 gap-8 items-center"><div class="text-xl text-gray-700">${data.content}</div>${data.image ? `<div><img src="${data.image}" alt="Diagrama conceptual" class="rounded-lg shadow-md bg-white p-2"></div>` : ''}</div>`;
-                    break;
-                case 'formula':
-                     innerHTML = `<div class="max-w-4xl w-full"><h2 class="text-3xl font-bold mb-6">${data.title}</h2><div class="grid md:grid-cols-2 gap-8">${data.formulas.map(f => `<div class="p-4 bg-gray-50 rounded-lg border"><h3 class="font-bold text-xl text-gray-800">${f.name}</h3><p class="text-lg font-mono bg-gray-200 p-2 rounded my-2 text-center text-gray-900">${f.formula}</p><p class="text-gray-700">${f.description}</p></div>`).join('')}</div></div>`;
-                    break;
-                 case 'summary':
-                    innerHTML = `<div class="max-w-4xl w-full"><h2 class="text-3xl font-bold mb-6">${data.title}</h2><ul class="space-y-4 text-xl">${data.points.map(p => `<li class="p-4 bg-gray-50 rounded-lg shadow">${p}</li>`).join('')}</ul></div>`;
-                    break;
-                case 'final':
-                    innerHTML = `<div class="text-center"><h2 class="text-4xl md:text-6xl font-bold">${data.title}</h2></div>`;
-                    break;
-            }
-            slide.innerHTML = innerHTML;
-            sliderContainer.appendChild(slide);
-        });
-        
-        const prevBtn = document.getElementById('prevBtn'), nextBtn = document.getElementById('nextBtn'), slideCounter = document.getElementById('slide-counter');
+        <!-- Navigation -->
+        <div class="bg-gray-800 text-white w-full h-[80px] flex items-center justify-center p-4 shadow-lg">
+            <button id="prevBtn" class="nav-button bg-gray-700 hover:bg-blue-600 rounded-full p-3 mx-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <div id="slide-counter" class="text-lg font-semibold">Diapositiva 1 / 12</div>
+            <button id="nextBtn" class="nav-button bg-gray-700 hover:bg-blue-600 rounded-full p-3 mx-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const slideContainer = document.getElementById('slide-container');
         const slides = document.querySelectorAll('.slide');
-        let currentSlide = 1;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slide-counter');
+
+        let currentIndex = 0;
         const totalSlides = slides.length;
-        function updateUI(){ if(totalSlides > 0){ slideCounter.textContent = `Diapositiva ${currentSlide} / ${totalSlides}`; prevBtn.disabled = currentSlide === 1; nextBtn.disabled = currentSlide === totalSlides; } }
-        function scrollToSlide(n){ sliderContainer.scrollTo({ left: (n-1) * sliderContainer.clientWidth, behavior: 'smooth' }); }
-        nextBtn.addEventListener('click', () => { if(currentSlide < totalSlides) { currentSlide++; scrollToSlide(currentSlide); updateUI(); } });
-        prevBtn.addEventListener('click', () => { if(currentSlide > 1) { currentSlide--; scrollToSlide(currentSlide); updateUI(); } });
-        updateUI();
+
+        function updateSlidePosition() {
+            slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+            slideCounter.textContent = `Diapositiva ${currentIndex + 1} / ${totalSlides}`;
+        }
+
+        function showNextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlidePosition();
+        }
+
+        function showPrevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlidePosition();
+        }
+
+        nextBtn.addEventListener('click', showNextSlide);
+        prevBtn.addEventListener('click', showPrevSlide);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                showNextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                showPrevSlide();
+            }
+        });
+
+        // Initialize
+        updateSlidePosition();
     </script>
 </body>
 </html>
