@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicina e Implementación - Powersemiotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#065f46, #c2410c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/index.html" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="/medicina_e_implementacion.html" class="text-green-800 font-semibold">Medicina e Implementación</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-6 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                Ciencia de la Implementación
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Cerrando la brecha entre la evidencia y la práctica. Exploramos los métodos y estrategias para asegurar que las innovaciones científicas se traduzcan en beneficios reales para los pacientes y el sistema de salud.
+            </p>
+        </div>
+
+        <!-- Grid de Tópicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+            <!-- Card 1: Implementación de la No Reforma -->
+            <a href="/medicina_e_implementacion/implementacion_no_reforma/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-balance-scale-left text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Implementación de la No Reforma</h2>
+                <p class="text-gray-600">
+                    Análisis de los desafíos y estrategias para implementar cambios significativos en sistemas de salud complejos y resistentes al cambio.
+                </p>
+            </a>
+
+            <!-- Card 2: Implementación de Medicina de Precisión -->
+            <a href="/medicina_e_implementacion/implementacion_medicina_precision/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-bullseye text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Implementación de Medicina de Precisión</h2>
+                <p class="text-gray-600">
+                    Exploración de los retos para integrar la farmacogenómica, los biomarcadores y las terapias dirigidas en la práctica clínica diaria.
+                </p>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
