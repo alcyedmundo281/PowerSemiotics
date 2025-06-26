@@ -9,18 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: High-Contrast Professional -->
-    <!-- Application Structure Plan: He diseñado una SPA con navegación superior fija para un acceso no lineal y rápido a las secciones clave: Inicio, Diagnóstico, Líneas de Tratamiento, Análisis Comparativo y Farmacoeconomía. En lugar de seguir el orden del informe, la estructura está orientada a la tarea del clínico. El núcleo es una "Ruta de Decisión Clínica" interactiva en la sección de tratamiento, donde el usuario selecciona un fenotipo de paciente (con o sin manifestaciones extraarticulares) y la aplicación revela la terapia recomendada. Esta estructura transforma el texto estático en una herramienta de apoyo a la decisión, facilitando la comprensión de los complejos algoritmos de tratamiento. -->
-    <!-- Visualization & Content Choices: 
-        - Resumen Ejecutivo -> Objetivo: Informar -> Presentación: Texto introductorio -> Justificación: Establece el contexto inicial para el usuario.
-        - Fisiopatología (Eje IL-23/IL-17) -> Objetivo: Organizar -> Presentación: Diagrama de flujo simple con HTML/CSS -> Justificación: Visualiza la cascada patogénica de forma clara y sin gráficos complejos.
-        - Criterios de Diagnóstico (ASAS) -> Objetivo: Organizar -> Presentación: Tarjetas interactivas con JS para mostrar las ramas de clasificación -> Justificación: Permite al usuario explorar los criterios de forma interactiva en lugar de leer una tabla estática.
-        - Algoritmo de Tratamiento -> Objetivo: Guiar Decisión -> Presentación: Flujo de trabajo interactivo con botones JS -> Justificación: Es el núcleo de la app. Simula el proceso de decisión clínica, haciendo que el usuario participe activamente en la selección de la terapia según el fenotipo del paciente.
-        - Comparación de Fármacos (Tabla 2) -> Objetivo: Comparar -> Presentación: Gráfico de radar con Chart.js -> Justificación: Permite una comparación multidimensional (eficacia, seguridad, costo) de las clases de fármacos de un solo vistazo, mucho más efectiva que una tabla.
-        - Carga Económica (Costos Indirectos) -> Objetivo: Resaltar Proporción -> Presentación: Gráfico de dona con Chart.js -> Justificación: Destaca visualmente el hallazgo clave de que los costos indirectos dominan la carga económica, un punto crucial del informe.
-        - Library/Method: TailwindCSS para el layout, Chart.js para las visualizaciones, y Vanilla JS para toda la interactividad. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
+    
     <style>
         body {
             font-family: 'Lato', sans-serif;
@@ -84,7 +73,7 @@
                         <a href="#farmacoeconomia" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Farmacoeconomía</a>
                     </div>
                 </div>
-                 <div class="md:hidden">
+                <div class="md:hidden">
                     <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md accent-text hover:bg-gray-200 focus:outline-none">
                         <span class="sr-only">Abrir menú principal</span>
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -133,9 +122,29 @@
                         <div class="bg-orange-100 p-2 rounded-md secondary-accent-text"><strong>Expansión de Células Th17 → Producción de Interleucina-17 (IL-17)</strong></div>
                         <div class="self-center">↓</div>
                          <div class="grid grid-cols-2 gap-2">
-                             <div class="bg-red-100 p-2 rounded-md text-red-800"><strong>Inflamación y Destrucción Ósea</strong></div>
-                             <div class="bg-blue-100 p-2 rounded-md text-blue-800"><strong>Neoformación Ósea (Anquilosis)</strong></div>
+                              <div class="bg-red-100 p-2 rounded-md text-red-800"><strong>Inflamación y Destrucción Ósea</strong></div>
+                              <div class="bg-blue-100 p-2 rounded-md text-blue-800"><strong>Neoformación Ósea (Anquilosis)</strong></div>
                          </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE DESCARGA DEL PDF AÑADIDA -->
+        <section class="mb-16">
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg border-t-4 accent-border">
+                <div class="flex flex-col md:flex-row items-center text-center md:text-left">
+                    <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 accent-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold accent-text mb-2">Informe Completo Disponible</h3>
+                        <p class="text-gray-700 mb-4">Descargue el documento "Análisis Farmacoterapéutico y Farmacoeconómico para el Manejo Racional de la Espondilitis Anquilosante" para una revisión exhaustiva de la evidencia.</p>
+                        <a href="/assets/pdf/espondilitis_anquilosante_analisis_farmacoterapeutico_y_farmacoeconomico.pdf" download="espondilitis_anquilosante_analisis_farmacoterapeutico_y_farmacoeconomico.pdf" class="btn inline-block accent-bg hover:bg-green-800 text-white font-bold py-2 px-5 rounded-lg shadow-md">
+                            Descargar PDF
+                        </a>
                     </div>
                 </div>
             </div>
