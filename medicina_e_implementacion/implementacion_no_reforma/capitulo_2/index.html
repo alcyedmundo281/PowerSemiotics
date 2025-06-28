@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 2: Marco Teórico - Powersemiotics</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#1e3a8a, #991b1b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .module-link {
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .module-link:hover {
+            background-color: #eff6ff;
+            border-left-color: #2563eb;
+            color: #1e3a8a;
+        }
+        .module-link.active {
+            background-color: #dbeafe;
+            border-left-color: #1d4ed8;
+            font-weight: 600;
+            color: #1e40af;
+        }
+        .resource-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .prose {
+            color: #374151;
+        }
+        .prose strong {
+            color: #111827;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/index.html" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="/medicina_e_implementacion.html" class="text-blue-800 font-semibold hover:underline">Medicina e Implementación</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mx-auto px-6 py-12">
+        <div class="lg:flex lg:space-x-12">
+            
+            <aside class="lg:w-1/4 mb-12 lg:mb-0">
+                <div class="bg-white p-6 rounded-lg shadow-md sticky top-24">
+                    <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">Contenido de la Monografía</h3>
+                    <nav class="space-y-1">
+                        <a href="../index.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-book-reader w-6 text-center mr-3"></i>
+                            <span>Capítulo 1: Introducción</span>
+                        </a>
+                        <a href="#" class="flex items-center p-3 text-blue-700 border-l-4 module-link active">
+                            <i class="fas fa-sitemap w-6 text-center mr-3"></i>
+                            <span>Capítulo 2: Marco Teórico</span>
+                        </a>
+                        <a href="#" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-landmark w-6 text-center mr-3"></i>
+                            <span>Capítulo 3: Legado Institucional</span>
+                        </a>
+                        <!-- ... (otros capítulos) ... -->
+                    </nav>
+                </div>
+            </aside>
+
+            <main class="lg:w-3/4">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="mb-8">
+                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 2</p>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">
+                           Marco Teórico: Ciencia de la Implementación y Economía Política
+                        </h1>
+                    </div>
+                    <div class="prose max-w-none text-lg leading-relaxed">
+                        <p>
+                           Este capítulo establece la base teórica sobre la cual se construye toda la investigación. Se propone un marco híbrido que integra la <strong>Ciencia de la Implementación (CI)</strong> y el <strong>Análisis de Economía Política (AEP)</strong> para proporcionar un andamiaje conceptual robusto, capaz de explicar cómo y por qué los flujos financieros siguen caminos que perpetúan la paradoja del gasto.
+                        </p>
+                    </div>
+
+                    <!-- SECCIÓN DE RECURSOS INTERACTIVOS -->
+                    <div class="mt-12 border-t pt-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Recursos del Capítulo</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                           
+                            <!-- Card para Presentación -->
+                            <a href="./presentacio_CH2.html" target="_blank" class="block p-6 bg-blue-50 rounded-lg border border-blue-200 hover:shadow-lg resource-card">
+                                <i class="fas fa-chalkboard-teacher text-4xl text-blue-600 mb-3"></i>
+                                <h3 class="font-bold text-lg text-blue-800">Presentación Interactiva</h3>
+                                <p class="text-sm text-gray-600 mt-1">Explora los conceptos clave en un formato de diapositivas dinámicas.</p>
+                            </a>
+
+                            <!-- Card para Metodología -->
+                            <a href="./CH2_M&M.html" target="_blank" class="block p-6 bg-purple-50 rounded-lg border border-purple-200 hover:shadow-lg resource-card">
+                                <i class="fas fa-project-diagram text-4xl text-purple-600 mb-3"></i>
+                                <h3 class="font-bold text-lg text-purple-800">Estrategia Metodológica</h3>
+                                <p class="text-sm text-gray-600 mt-1">Un diagrama visual que explica la sinergia entre CI y AEP.</p>
+                            </a>
+
+                            <!-- Card para Aplicación Interactiva -->
+                            <a href="./CH2_APP.html" target="_blank" class="block p-6 bg-green-50 rounded-lg border border-green-200 hover:shadow-lg resource-card">
+                                <i class="fas fa-cogs text-4xl text-green-600 mb-3"></i>
+                                <h3 class="font-bold text-lg text-green-800">App: La Caja Negra del Poder</h3>
+                                <p class="text-sm text-gray-600 mt-1">Un viaje interactivo para desenmascarar las dimensiones del poder.</p>
+                            </a>
+
+                            <!-- Card para Descargar PDF -->
+                             <a href="/assets/pdf/Capitulo_Dos.pdf" download="Capitulo_Dos.pdf" class="block p-6 bg-red-50 rounded-lg border border-red-200 hover:shadow-lg resource-card">
+                                <i class="fas fa-file-pdf text-4xl text-red-600 mb-3"></i>
+                                <h3 class="font-bold text-lg text-red-800">Descargar Capítulo en PDF</h3>
+                                <p class="text-sm text-gray-600 mt-1">Obtén el texto completo para una revisión detallada y offline.</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="bg-white mt-16 border-t">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
