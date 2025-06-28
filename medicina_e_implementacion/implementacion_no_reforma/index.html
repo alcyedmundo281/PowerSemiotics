@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo 1: Implementación de la No Reforma - Powersemiotics</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        .gradient-text {
+            background: -webkit-linear-gradient(#1e3a8a, #991b1b); /* blue-900 to red-900 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .module-link {
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .module-link:hover {
+            background-color: #eff6ff; /* blue-50 */
+            border-left-color: #2563eb; /* blue-600 */
+            color: #1e3a8a; /* blue-900 */
+        }
+        .module-link.active {
+            background-color: #dbeafe; /* blue-100 */
+            border-left-color: #1d4ed8; /* blue-700 */
+            font-weight: 600;
+            color: #1e40af; /* blue-800 */
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/index.html" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="/medicina_e_implementacion.html" class="text-blue-800 font-semibold hover:underline">Medicina e Implementación</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal del Módulo -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="lg:flex lg:space-x-12">
+            
+            <!-- Barra Lateral del Módulo -->
+            <aside class="lg:w-1/4 mb-12 lg:mb-0">
+                <div class="bg-white p-6 rounded-lg shadow-md sticky top-24">
+                    <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">Contenido de la Monografía</h3>
+                    <nav class="space-y-1">
+                        <a href="#" class="flex items-center p-3 text-blue-700 border-l-4 module-link active">
+                            <i class="fas fa-book-reader w-6 text-center mr-3"></i>
+                            <span>Capítulo 1: Introducción</span>
+                        </a>
+                        <a href="./capitulo_2/index.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-sitemap w-6 text-center mr-3"></i>
+                            <span>Capítulo 2: Marco Teórico</span>
+                        </a>
+                        <a href="./capitulo_3/index.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-landmark w-6 text-center mr-3"></i>
+                            <span>Capítulo 3: Legado Institucional</span>
+                        </a>
+                        <a href="./capitulo_4/index.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-money-bill-wave w-6 text-center mr-3"></i>
+                            <span>Capítulo 4: Mapeo del Dinero</span>
+                        </a>
+                        <a href="./capitulo_5/index.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-users-cog w-6 text-center mr-3"></i>
+                            <span>Capítulo 5: ¿Quién Gobierna?</span>
+                        </a>
+                        <a href="./capitulo_6/index.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-hospital-user w-6 text-center mr-3"></i>
+                            <span>Capítulo 6: La Práctica</span>
+                        </a>
+                         <a href="./capitulo_7/index.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-balance-scale w-6 text-center mr-3"></i>
+                            <span>Capítulo 7: Análisis Integrado</span>
+                        </a>
+                        <a href="./capitulo_8/index.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
+                            <i class="fas fa-gavel w-6 text-center mr-3"></i>
+                            <span>Capítulo 8: Hacia la Justicia</span>
+                        </a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Contenido Principal de la Página Hub -->
+            <main class="lg:w-3/4">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="mb-8">
+                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 1</p>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">
+                           Introducción: La Paradoja del Gasto y la Pregunta Central
+                        </h1>
+                    </div>
+                    <div class="prose max-w-none text-lg text-gray-700 leading-relaxed">
+                        <p>
+                            El sistema de financiamiento de la salud en Ecuador presenta una contradicción sistémica que constituye el núcleo de esta investigación. A pesar de un notable esfuerzo inversor por parte del Estado, los ciudadanos continúan enfrentando una carga desproporcionada de gastos directos. Esta disonancia, que denominamos la <strong>"paradoja del gasto en salud"</strong>, es un síntoma de profundas disfunciones en la gobernanza, equidad y eficiencia del sistema.
+                        </p>
+                        <p>
+                            Este módulo sirve como el portal a una monografía completa que desentraña esta paradoja. A través de los capítulos, exploraremos el marco teórico, el legado histórico, los flujos financieros y las dinámicas de poder que responden a la pregunta fundamental: <strong>"¿Quién recibe el dinero?"</strong>.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-12 border-t pt-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Contenido del Módulo</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <!-- Card para Capítulo 2 -->
+                            <a href="./capitulo_2/index.html" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <h3 class="font-bold text-lg text-blue-800">Capítulo 2: Marco Teórico</h3>
+                                        <p class="text-sm text-gray-600 mt-1">Ciencia de la Implementación y Economía Política.</p>
+                                    </div>
+                                    <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Contenido Interactivo</span>
+                                </div>
+                            </a>
+
+                            <!-- Card para Capítulo 3 -->
+                             <a href="./capitulo_3/index.html" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                                <h3 class="font-bold text-lg text-blue-800">Capítulo 3: Legado Institucional</h3>
+                                <p class="text-sm text-gray-600 mt-1">Dependencia de la trayectoria y configuración histórica.</p>
+                            </a>
+
+                            <!-- Card para Capítulo 4 -->
+                            <a href="./capitulo_4/index.html" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                                <h3 class="font-bold text-lg text-blue-800">Capítulo 4: Mapeando el Dinero</h3>
+                                <p class="text-sm text-gray-600 mt-1">Los flujos financieros como evidencia de poder.</p>
+                            </a>
+                            
+                            <!-- Card para Capítulo 5 -->
+                            <a href="./capitulo_5/index.html" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                                <h3 class="font-bold text-lg text-blue-800">Capítulo 5: ¿Quién Gobierna?</h3>
+                                <p class="text-sm text-gray-600 mt-1">Actores, poder y toma de decisiones.</p>
+                            </a>
+                            
+                            <!-- Card para Capítulo 6 -->
+                            <a href="./capitulo_6/index.html" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                                <h3 class="font-bold text-lg text-blue-800">Capítulo 6: La Práctica</h3>
+                                <p class="text-sm text-gray-600 mt-1">Análisis de la implementación en el terreno.</p>
+                            </a>
+                            
+                            <!-- Card para Capítulo 7 -->
+                            <a href="./capitulo_7/index.html" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                                <h3 class="font-bold text-lg text-blue-800">Capítulo 7: Análisis Integrado</h3>
+                                <p class="text-sm text-gray-600 mt-1">Dimensiones multicausales de la paradoja del gasto.</p>
+                            </a>
+
+                            <!-- Card para Capítulo 8 -->
+                            <a href="./capitulo_8/index.html" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
+                                <h3 class="font-bold text-lg text-blue-800">Capítulo 8: Hacia la Justicia Sistémica</h3>
+                                <p class="text-sm text-gray-600 mt-1">Conclusiones y lecciones universalizables.</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16 border-t">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
