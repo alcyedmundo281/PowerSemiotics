@@ -94,7 +94,7 @@
     </header>
 
     <!-- Contenido del Módulo Interactivo -->
-    <div class="p-4 md:p-8">
+    <main class="p-4 md:p-8">
         <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
             <!-- Encabezado del Módulo -->
             <div class="p-8 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
@@ -150,7 +150,7 @@
 
                 <!-- Nivel 2: FAMEs Convencionales -->
                 <div id="Nivel2" class="tab-content">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-1">Nivel 2: Fármacos Sistémicos Convencionales (FAMEc)</h2>
+                     <h2 class="text-2xl font-bold text-gray-800 mb-1">Nivel 2: Fármacos Sistémicos Convencionales (FAMEc)</h2>
                     <p class="text-gray-600 mb-6">Para enfermedad extensa o que no responde a terapias de Nivel 1.</p>
                     <div class="grid md:grid-cols-3 gap-6">
                          <div class="info-card border-l-green-500">
@@ -330,7 +330,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
     
     <!-- Pie de Página del Sitio -->
     <footer class="bg-white mt-8">
@@ -368,11 +368,9 @@
         // --- LÓGICA DEL GRÁFICO ---
         let efficacyChartInstance = null;
         function renderEfficacyChart() {
-            const ctx = document.getElementById('efficacyChart');
+            const ctx = document.getElementById('efficacyChart')?.getContext('2d');
             if (!ctx) return;
-            if (efficacyChartInstance) {
-                efficacyChartInstance.destroy();
-            }
+            if (efficacyChartInstance) { efficacyChartInstance.destroy(); }
             efficacyChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -386,10 +384,9 @@
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
                     scales: { y: { beginAtZero: true, max: 100, ticks: { callback: (value) => value + '%' } } },
-                    plugins: { legend: { display: false }, title: { display: false } }
+                    plugins: { legend: { display: false } }
                 }
             });
         }
@@ -399,15 +396,11 @@
             const options = document.querySelectorAll(`input[name="${caseId}"]`);
             let selectedValue = null;
             options.forEach(option => {
-                if (option.checked) {
-                    selectedValue = option.value;
-                }
+                if (option.checked) { selectedValue = option.value; }
                 document.getElementById(`feedback-${caseId}-${option.value}`).style.display = 'none';
             });
-
             if (selectedValue) {
-                const feedbackElement = document.getElementById(`feedback-${caseId}-${selectedValue}`);
-                feedbackElement.style.display = 'block';
+                document.getElementById(`feedback-${caseId}-${selectedValue}`).style.display = 'block';
             } else {
                 alert('Por favor, seleccione una respuesta.');
             }
