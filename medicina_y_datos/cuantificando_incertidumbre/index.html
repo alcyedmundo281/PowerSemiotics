@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 3: Cuantificando la Incertidumbre</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Iconos (Lucide y Font Awesome) -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .gradient-text-header {
+            background: -webkit-linear-gradient(#4F46E5, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+        .tab-button.active {
+            border-bottom-color: #3b82f6;
+            color: #3b82f6;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .info-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+        .code-block {
+            background-color: #1f2937;
+            color: #d1d5db;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .code-block .comment { color: #6b7280; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .string { color: #a5f3fc; }
+        .code-block .number { color: #f9a8d4; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Encabezado del Sitio (Integrado) -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/index.html" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text-header">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">
+                    <i class="fas fa-arrow-left mr-2"></i>Volver a Medicina y Datos
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido del Módulo -->
+    <div class="p-4 md:p-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Encabezado del Módulo -->
+            <div class="text-center mb-10">
+                <p class="text-blue-600 font-semibold">Unidad 3</p>
+                <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight mt-1">Cuantificando la Incertidumbre</h1>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto mt-4">Herramientas conceptuales y cuantitativas para evaluar la evidencia diagnóstica y tomar decisiones informadas en un entorno de información incompleta.</p>
+            </div>
+
+            <!-- Navegación por Tabs -->
+            <div class="border-b border-gray-200 mb-8">
+                <nav class="flex justify-center -mb-px space-x-6 md:space-x-8" aria-label="Tabs">
+                    <button class="tab-button active text-gray-500 hover:text-blue-600 whitespace-nowrap py-4 px-1 font-medium text-lg" onclick="openTab(event, 'Semana5')">Semana 5: Probabilidades y Diagnóstico</button>
+                    <button class="tab-button text-gray-500 hover:text-blue-600 whitespace-nowrap py-4 px-1 font-medium text-lg" onclick="openTab(event, 'Semana6')">Semana 6: Evaluación de Pruebas</button>
+                </nav>
+            </div>
+
+            <!-- Contenido de los Tabs -->
+            <div>
+                <!-- Semana 5 -->
+                <div id="Semana5" class="tab-content">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                        <!-- Columna Izquierda: Conceptos -->
+                        <div class="space-y-6">
+                            <div class="info-card">
+                                <h3 class="font-bold text-xl mb-3">Conceptos Fundamentales</h3>
+                                <div class="space-y-3">
+                                    <p><span class="font-semibold text-blue-700">Sensibilidad:</span> Probabilidad de que la prueba sea positiva si el paciente TIENE la enfermedad. Útil para descartar (SnNOut).</p>
+                                    <p><span class="font-semibold text-blue-700">Especificidad:</span> Probabilidad de que la prueba sea negativa si el paciente NO TIENE la enfermedad. Útil para confirmar (SpPIn).</p>
+                                    <p><span class="font-semibold text-blue-700">Valores Predictivos (VPP/VPN):</span> Probabilidad de tener/no tener la enfermedad dado un resultado. Dependen de la prevalencia.</p>
+                                    <p><span class="font-semibold text-blue-700">Cocientes de Verosimilitud (LR):</span> Miden cuánto aumenta o disminuye la probabilidad de la enfermedad un resultado. No dependen de la prevalencia.</p>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <h3 class="font-bold text-xl mb-3">Caso de Estudio: Diagnóstico de Lupus (LES)</h3>
+                                <p class="text-gray-600 mb-4">El Teorema de Bayes nos permite actualizar nuestra sospecha clínica inicial (Pre-Test) a una nueva probabilidad (Post-Test) usando la evidencia de una prueba.</p>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="mb-4">
+                                        <label class="block font-medium text-gray-700">1. Sospecha Clínica (Prob. Pre-Test %)</label>
+                                        <input type="number" id="pre_test_prob" value="30" class="mt-1 w-full p-2 border rounded-md" oninput="calculateBayes()">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="block font-medium text-gray-700">2. Cociente de Verosimilitud Positivo (LR+)</label>
+                                        <input type="number" id="lr_plus" value="3.92" class="mt-1 w-full p-2 border rounded-md" oninput="calculateBayes()">
+                                    </div>
+                                    <button class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700" onclick="calculateBayes()">Calcular Probabilidad Post-Test</button>
+                                    <div id="bayes-result" class="mt-4 text-center">
+                                        <p class="text-gray-600">Probabilidad Post-Test (VPP):</p>
+                                        <p class="text-3xl font-bold text-blue-700" id="post_test_result">62.7%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Columna Derecha: Ejercicio Práctico -->
+                        <div class="info-card">
+                            <h3 class="font-bold text-xl mb-3">Ejercicio Práctico (Semana 5)</h3>
+                            <p class="text-gray-600 mb-4">Calcular sensibilidad y especificidad de una prueba usando Python. Este ejercicio se realizará en **Posit Cloud** para no requerir instalación de software.</p>
+                            <div class="code-block">
+                                <span class="comment"># Importar librerías necesarias</span><br>
+                                <span class="keyword">import</span> pandas <span class="keyword">as</span> pd<br>
+                                <span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix<br><br>
+                                <span class="comment"># Cargar datos (ejemplo)</span><br>
+                                <span class="comment"># data = pd.read_csv('datos_prueba.csv')</span><br>
+                                <span class="comment"># y_true = data['enfermedad_real']</span><br>
+                                <span class="comment"># y_pred = data['resultado_prueba']</span><br><br>
+                                <span class="comment"># Usar datos de ejemplo para demostración</span><br>
+                                y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]<br>
+                                y_pred = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]<br><br>
+                                <span class="comment"># Calcular la matriz de confusión</span><br>
+                                tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()<br><br>
+                                <span class="comment"># Calcular sensibilidad y especificidad</span><br>
+                                sensibilidad = tp / (tp + fn)<br>
+                                especificidad = tn / (tn + fp)<br><br>
+                                <span class="function">print</span>(<span class="string">f"Sensibilidad: {sensibilidad:.2%}"</span>)<br>
+                                <span class="function">print</span>(<span class="string">f"Especificidad: {especificidad:.2%}"</span>)
+                            </div>
+                            <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                                <h4 class="font-bold text-yellow-800">Instrucciones para Posit Cloud</h4>
+                                <p class="text-sm text-yellow-700">1. Inicia sesión en tu cuenta de Posit Cloud.<br>2. Crea un **"New Jupyter Project"**.<br>3. Pega este código en una celda del notebook.<br>4. Ejecuta la celda para ver el resultado. ¡No necesitas instalar Python ni ninguna librería en tu computador!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semana 6 -->
+                <div id="Semana6" class="tab-content">
+                    <div class="grid lg:grid-cols-2 gap-8">
+                         <!-- Columna Izquierda: Conceptos -->
+                        <div class="space-y-6">
+                            <div class="info-card">
+                                <h3 class="font-bold text-xl mb-3">Evaluando la Utilidad de las Pruebas</h3>
+                                <div class="space-y-3">
+                                    <p><span class="font-semibold text-blue-700">Curva ROC:</span> Gráfico que visualiza el rendimiento de una prueba. Muestra el balance entre sensibilidad y especificidad a diferentes puntos de corte.</p>
+                                    <p><span class="font-semibold text-blue-700">Área Bajo la Curva (AUC):</span> Medida global del rendimiento de la prueba. Un AUC de 1.0 es una prueba perfecta, 0.5 es inútil (azar).</p>
+                                    <p><span class="font-semibold text-blue-700">NNT / NNH:</span> Número Necesario a Tratar / Dañar. Miden el impacto clínico de una intervención.</p>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <h3 class="font-bold text-xl mb-3">Visualización de una Curva ROC</h3>
+                                <img src="/assets/images/AUC-ROC.png" alt="Ejemplo de una Curva ROC" class="rounded-lg border" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/757575?text=Curva+ROC';">
+                                <p class="text-sm text-gray-500 mt-2 text-center">Una curva más "abombada" hacia la esquina superior izquierda indica una mejor prueba.</p>
+                            </div>
+                        </div>
+                        <!-- Columna Derecha: Ejercicio Práctico -->
+                        <div class="info-card">
+                            <h3 class="font-bold text-xl mb-3">Ejercicio Práctico (Semana 6)</h3>
+                            <p class="text-gray-600 mb-4">Generar y analizar una curva ROC para un nuevo biomarcador. Este ejercicio se realizará en **Posit Cloud** usando su entorno de RStudio.</p>
+                            <div class="code-block">
+                                <span class="comment"># 1. Instalar el paquete (solo una vez por proyecto)</span><br>
+                                <span class="function">install.packages</span>(<span class="string">"pROC"</span>)<br><br>
+                                <span class="comment"># 2. Cargar el paquete para usarlo</span><br>
+                                <span class="function">library</span>(pROC)<br><br>
+                                <span class="comment"># 3. Crear datos de ejemplo</span><br>
+                                datos_pacientes &lt;- <span class="function">data.frame</span>(<br>
+                                &nbsp;&nbsp;biomarcador = <span class="function">c</span>(<span class="number">8.5</span>, <span class="number">9.2</span>, <span class="number">7.8</span>, <span class="number">10.1</span>, <span class="number">6.5</span>, <span class="number">11.5</span>, <span class="number">9.8</span>, <span class="number">10.9</span>, <span class="number">8.1</span>, <span class="number">12.0</span>, <span class="number">5.2</span>, <span class="number">6.1</span>, <span class="number">4.8</span>, <span class="number">7.2</span>, <span class="number">5.8</span>, <span class="number">6.9</span>, <span class="number">4.5</span>, <span class="number">7.5</span>, <span class="number">5.5</span>, <span class="number">6.3</span>),<br>
+                                &nbsp;&nbsp;enfermedad = <span class="function">c</span>(<span class="function">rep</span>(<span class="number">1</span>, <span class="number">10</span>), <span class="function">rep</span>(<span class="number">0</span>, <span class="number">10</span>))<br>
+                                )<br><br>
+                                <span class="comment"># 4. Crear el objeto de la curva ROC</span><br>
+                                curva_roc &lt;- <span class="function">roc</span>(datos_pacientes$enfermedad, datos_pacientes$biomarcador)<br><br>
+                                <span class="comment"># 5. Imprimir el AUC en la consola</span><br>
+                                <span class="function">print</span>(curva_roc)<br><br>
+                                <span class="comment"># 6. Graficar la curva ROC</span><br>
+                                <span class="function">plot</span>(curva_roc, main=<span class="string">"Curva ROC del Biomarcador"</span>, print.auc=<span class="keyword">TRUE</span>)
+                            </div>
+                             <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                                <h4 class="font-bold text-yellow-800">Instrucciones para Posit Cloud</h4>
+                                <p class="text-sm text-yellow-700">1. Inicia sesión en tu cuenta de Posit Cloud.<br>2. Crea un **"New RStudio Project"**.<br>3. Pega este código en la Consola (panel izquierdo).<br>4. Presiona Enter. El resultado numérico aparecerá en la consola y el gráfico en la pestaña "Plots" (panel inferior derecho).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pie de Página del Sitio -->
+    <footer class="bg-white mt-8">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.tab-button').click();
+            lucide.createIcons();
+            calculateBayes();
+        });
+
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function calculateBayes() {
+            const preTestProbInput = document.getElementById('pre_test_prob');
+            const lrPlusInput = document.getElementById('lr_plus');
+            const postTestResultEl = document.getElementById('post_test_result');
+
+            if (!preTestProbInput || !lrPlusInput || !postTestResultEl) return;
+
+            const preTestProb = parseFloat(preTestProbInput.value) / 100;
+            const lrPlus = parseFloat(lrPlusInput.value);
+
+            if (isNaN(preTestProb) || isNaN(lrPlus) || preTestProb > 1 || preTestProb < 0) {
+                postTestResultEl.innerText = 'Datos Inválidos';
+                return;
+            }
+            if (preTestProb === 1) {
+                 postTestResultEl.innerText = '100.0%';
+                 return;
+            }
+            
+            const preTestOdds = preTestProb / (1 - preTestProb);
+            const postTestOdds = preTestOdds * lrPlus;
+            const postTestProb = postTestOdds / (1 + postTestOdds);
+
+            postTestResultEl.innerText = `${(postTestProb * 100).toFixed(1)}%`;
+        }
+    </script>
+</body>
+</html>
