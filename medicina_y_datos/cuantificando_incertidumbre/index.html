@@ -58,12 +58,30 @@
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
             word-wrap: break-word;
+            position: relative;
         }
         .code-block .comment { color: #6b7280; }
         .code-block .keyword { color: #c084fc; }
         .code-block .function { color: #60a5fa; }
         .code-block .string { color: #a5f3fc; }
         .code-block .number { color: #f9a8d4; }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #4b5563;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .copy-btn:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -142,23 +160,24 @@
                             <h3 class="font-bold text-xl mb-3">Ejercicio Práctico (Semana 5)</h3>
                             <p class="text-gray-600 mb-4">Calcular sensibilidad y especificidad de una prueba usando Python. Este ejercicio se realizará en **Posit Cloud** para no requerir instalación de software.</p>
                             <div class="code-block">
-                                <span class="comment"># Importar librerías necesarias</span><br>
-                                <span class="keyword">import</span> pandas <span class="keyword">as</span> pd<br>
-                                <span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix<br><br>
-                                <span class="comment"># Cargar datos (ejemplo)</span><br>
-                                <span class="comment"># data = pd.read_csv('datos_prueba.csv')</span><br>
-                                <span class="comment"># y_true = data['enfermedad_real']</span><br>
-                                <span class="comment"># y_pred = data['resultado_prueba']</span><br><br>
-                                <span class="comment"># Usar datos de ejemplo para demostración</span><br>
-                                y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]<br>
-                                y_pred = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]<br><br>
-                                <span class="comment"># Calcular la matriz de confusión</span><br>
-                                tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()<br><br>
-                                <span class="comment"># Calcular sensibilidad y especificidad</span><br>
-                                sensibilidad = tp / (tp + fn)<br>
-                                especificidad = tn / (tn + fp)<br><br>
-                                <span class="function">print</span>(<span class="string">f"Sensibilidad: {sensibilidad:.2%}"</span>)<br>
-                                <span class="function">print</span>(<span class="string">f"Especificidad: {especificidad:.2%}"</span>)
+                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                                <pre><code class="language-python"><span class="comment"># Importar librerías necesarias</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix
+
+<span class="comment"># Usar datos de ejemplo para demostración</span>
+y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]
+y_pred = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]
+
+<span class="comment"># Calcular la matriz de confusión</span>
+tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
+
+<span class="comment"># Calcular sensibilidad y especificidad</span>
+sensibilidad = tp / (tp + fn)
+especificidad = tn / (tn + fp)
+
+<span class="function">print</span>(<span class="string">f"Sensibilidad: {sensibilidad:.2%}"</span>)
+<span class="function">print</span>(<span class="string">f"Especificidad: {especificidad:.2%}"</span>)</code></pre>
                             </div>
                             <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
                                 <h4 class="font-bold text-yellow-800">Instrucciones para Posit Cloud</h4>
@@ -191,26 +210,31 @@
                         <div class="info-card">
                             <h3 class="font-bold text-xl mb-3">Ejercicio Práctico (Semana 6)</h3>
                             <p class="text-gray-600 mb-4">Generar y analizar una curva ROC para un nuevo biomarcador. Este ejercicio se realizará en **Posit Cloud** usando su entorno de RStudio.</p>
-                            <div class="code-block">
-                                <span class="comment"># 1. Instalar el paquete (solo una vez por proyecto)</span><br>
-                                <span class="function">install.packages</span>(<span class="string">"pROC"</span>)<br><br>
-                                <span class="comment"># 2. Cargar el paquete para usarlo</span><br>
-                                <span class="function">library</span>(pROC)<br><br>
-                                <span class="comment"># 3. Crear datos de ejemplo</span><br>
-                                datos_pacientes &lt;- <span class="function">data.frame</span>(<br>
-                                &nbsp;&nbsp;biomarcador = <span class="function">c</span>(<span class="number">8.5</span>, <span class="number">9.2</span>, <span class="number">7.8</span>, <span class="number">10.1</span>, <span class="number">6.5</span>, <span class="number">11.5</span>, <span class="number">9.8</span>, <span class="number">10.9</span>, <span class="number">8.1</span>, <span class="number">12.0</span>, <span class="number">5.2</span>, <span class="number">6.1</span>, <span class="number">4.8</span>, <span class="number">7.2</span>, <span class="number">5.8</span>, <span class="number">6.9</span>, <span class="number">4.5</span>, <span class="number">7.5</span>, <span class="number">5.5</span>, <span class="number">6.3</span>),<br>
-                                &nbsp;&nbsp;enfermedad = <span class="function">c</span>(<span class="function">rep</span>(<span class="number">1</span>, <span class="number">10</span>), <span class="function">rep</span>(<span class="number">0</span>, <span class="number">10</span>))<br>
-                                )<br><br>
-                                <span class="comment"># 4. Crear el objeto de la curva ROC</span><br>
-                                curva_roc &lt;- <span class="function">roc</span>(datos_pacientes$enfermedad, datos_pacientes$biomarcador)<br><br>
-                                <span class="comment"># 5. Imprimir el AUC en la consola</span><br>
-                                <span class="function">print</span>(curva_roc)<br><br>
-                                <span class="comment"># 6. Graficar la curva ROC</span><br>
-                                <span class="function">plot</span>(curva_roc, main=<span class="string">"Curva ROC del Biomarcador"</span>, print.auc=<span class="keyword">TRUE</span>)
+                            
+                            <!-- Bloque de Código 1 para R -->
+                            <div class="code-block mb-4">
+                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                                <pre><code class="language-r"><span class="comment"># 1. Instalar y cargar el paquete (solo una vez por proyecto)</span>
+<span class="function">if</span> (!<span class="function">require</span>(pROC)) <span class="function">install.packages</span>(<span class="string">"pROC"</span>)
+<span class="function">library</span>(pROC)</code></pre>
                             </div>
+
+                            <!-- Bloque de Código 2 para R -->
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                                <pre><code class="language-r"><span class="comment"># 2. Crear datos de ejemplo y analizar</span>
+datos_pacientes &lt;- <span class="function">data.frame</span>(
+  biomarcador = <span class="function">c</span>(<span class="number">8.5</span>, <span class="number">9.2</span>, <span class="number">7.8</span>, <span class="number">10.1</span>, <span class="number">6.5</span>, <span class="number">11.5</span>, <span class="number">9.8</span>, <span class="number">10.9</span>, <span class="number">8.1</span>, <span class="number">12.0</span>, <span class="number">5.2</span>, <span class="number">6.1</span>, <span class="number">4.8</span>, <span class="number">7.2</span>, <span class="number">5.8</span>, <span class="number">6.9</span>, <span class="number">4.5</span>, <span class="number">7.5</span>, <span class="number">5.5</span>, <span class="number">6.3</span>),
+  enfermedad = <span class="function">c</span>(<span class="function">rep</span>(<span class="number">1</span>, <span class="number">10</span>), <span class="function">rep</span>(<span class="number">0</span>, <span class="number">10</span>))
+)
+curva_roc &lt;- <span class="function">roc</span>(datos_pacientes$enfermedad, datos_pacientes$biomarcador)
+<span class="function">print</span>(curva_roc)
+<span class="function">plot</span>(curva_roc, main=<span class="string">"Curva ROC del Biomarcador"</span>, print.auc=<span class="keyword">TRUE</span>)</code></pre>
+                            </div>
+
                              <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
                                 <h4 class="font-bold text-yellow-800">Instrucciones para Posit Cloud</h4>
-                                <p class="text-sm text-yellow-700">1. Inicia sesión en tu cuenta de Posit Cloud.<br>2. Crea un **"New RStudio Project"**.<br>3. Pega este código en la Consola (panel izquierdo).<br>4. Presiona Enter. El resultado numérico aparecerá en la consola y el gráfico en la pestaña "Plots" (panel inferior derecho).</p>
+                                <p class="text-sm text-yellow-700">1. Inicia sesión en tu cuenta de Posit Cloud.<br>2. Crea un **"New RStudio Project"**.<br>3. Pega el primer bloque de código en la Consola y presiona Enter.<br>4. Luego, pega el segundo bloque y presiona Enter. El resultado numérico aparecerá en la consola y el gráfico en la pestaña "Plots".</p>
                             </div>
                         </div>
                     </div>
@@ -271,6 +295,24 @@
             const postTestProb = postTestOdds / (1 + postTestOdds);
 
             postTestResultEl.innerText = `${(postTestProb * 100).toFixed(1)}%`;
+        }
+
+        function copyCode(button) {
+            const pre = button.parentElement;
+            const code = pre.querySelector('code').innerText;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const originalText = button.innerText;
+            button.innerText = '¡Copiado!';
+            setTimeout(() => {
+                button.innerText = originalText;
+            }, 2000);
         }
     </script>
 </body>
