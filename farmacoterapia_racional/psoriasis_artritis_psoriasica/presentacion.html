@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación: Tratamiento Racional de la Psoriasis</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Iconos (Lucide) -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e7eb;
+        }
+        .slideshow-wrapper {
+            max-width: 1000px;
+            margin: auto;
+        }
+        .slideshow-container {
+            position: relative;
+            aspect-ratio: 16 / 9;
+        }
+        .slide {
+            display: none;
+            animation: fade 0.7s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 0.5rem;
+        }
+        @keyframes fade {
+            from { opacity: .4 }
+            to { opacity: 1 }
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -32px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .controls-container {
+            background-color: #1f2937;
+            padding: 1rem;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+        .dot-container {
+            text-align: center;
+        }
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #6b7280;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        .active, .dot:hover {
+            background-color: #3b82f6;
+        }
+        .slide-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .gradient-text-dark {
+            background: linear-gradient(90deg, #1e3a8a, #5b21b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Estilos para Notas del Orador */
+        .speaker-notes {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem;
+            font-size: 0.875rem;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+        .slideshow-container.show-notes .speaker-notes {
+            display: block;
+        }
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="slideshow-wrapper">
+        <div class="slideshow-container bg-white rounded-lg shadow-2xl">
+
+            <!-- Slide 1: Título -->
+            <div class="slide p-8 md:p-16 bg-gray-900 text-white">
+                <div class="slide-content text-center">
+                    <p class="text-blue-400 font-semibold mb-2">Una Guía para Clínicos y Pacientes</p>
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight mb-4">Farmacoterapia Racional de la Psoriasis</h1>
+                    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Navegando el arsenal terapéutico moderno con eficacia, seguridad y costo-efectividad.</p>
+                </div>
+                <div class="speaker-notes">
+                    <h4 class="font-bold text-yellow-300 mb-1">Notas del Orador:</h4>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Dar la bienvenida y presentar el objetivo de la sesión.</li>
+                        <li>Enfatizar que el enfoque será práctico y basado en la "terapia racional".</li>
+                        <li>Pregunta al público: ¿Cuál es el mayor desafío que enfrentan al tratar la psoriasis hoy en día?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 2: Los 4 Pilares -->
+            <div class="slide p-8 md:p-16">
+                <div class="slide-content">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text-dark">Los 4 Pilares de la Terapia Racional (OMS)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+                        <!-- Contenido de los pilares... -->
+                    </div>
+                </div>
+                 <div class="speaker-notes">
+                    <h4 class="font-bold text-yellow-300 mb-1">Notas del Orador:</h4>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Explicar que estos 4 pilares son la base para cualquier decisión de prescripción.</li>
+                        <li>Subrayar que el "costo" no se refiere solo al precio del fármaco, sino al valor para el sistema y el paciente.</li>
+                        <li>Mencionar que este marco ayuda a evitar la prescripción basada solo en la novedad o el marketing.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 3: La Jerarquía de Tratamiento -->
+            <div class="slide p-8 md:p-16">
+                 <div class="slide-content">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text-dark">La Jerarquía de Valor Terapéutico</h2>
+                    <div class="space-y-4">
+                        <!-- Contenido de la jerarquía... -->
+                    </div>
+                </div>
+                <div class="speaker-notes">
+                    <h4 class="font-bold text-yellow-300 mb-1">Notas del Orador:</h4>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Presentar este modelo como un "mapa de ruta" para el tratamiento.</li>
+                        <li>Explicar el concepto de "valor" como una combinación de eficacia, seguridad y costo.</li>
+                        <li>Aclarar que no es una escalera rígida, sino una guía flexible que depende del paciente.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 4: FAMEs Convencionales -->
+            <div class="slide p-8 md:p-16">
+                <div class="slide-content">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text-dark">Nivel 2: FAMEs Convencionales</h2>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                       <!-- Contenido de FAMEs... -->
+                    </div>
+                </div>
+                <div class="speaker-notes">
+                    <h4 class="font-bold text-yellow-300 mb-1">Notas del Orador:</h4>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Destacar el rol del Metotrexato como el "caballo de batalla" del tratamiento sistémico.</li>
+                        <li>Pregunta al público: ¿Qué barreras encuentran para el uso o la monitorización del Metotrexato?</li>
+                        <li>Enfatizar los nichos específicos de Ciclosporina (rescate) y Acitretina (formas pustulares).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 5: La Revolución Biológica -->
+            <div class="slide p-8 md:p-16">
+                <div class="slide-content">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center gradient-text-dark">Nivel 3: La Revolución Biológica</h2>
+                    <div class="grid md:grid-cols-2 gap-6 items-center">
+                        <div class="text-center">
+                            <!-- VIDEO INTEGRADO -->
+                            <div class="video-container bg-black rounded-lg overflow-hidden">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Kr2E8s8gS8A?si=m_1Y_N0N8x-cIAsM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                             <p class="text-xs text-gray-500 mt-1">Ejemplo: Mecanismo de Acción de un Anti-IL.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Nuevos Techos de Eficacia</h3>
+                             <ul class="list-disc list-inside text-gray-700 space-y-2 text-sm">
+                               <li><span class="font-semibold text-blue-700">Anti-TNF:</span> "Todoterreno" para piel y articulaciones. La llegada de biosimilares ha mejorado su valor.</li>
+                               <li><span class="font-semibold text-purple-700">Anti-IL-17/IL-23:</span> La máxima eficacia para el aclaramiento cutáneo. Perfil de seguridad muy favorable.</li>
+                               <li class="font-bold text-red-700">El principal desafío sigue siendo su elevado costo.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="speaker-notes">
+                    <h4 class="font-bold text-yellow-300 mb-1">Notas del Orador:</h4>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Reproducir el video para explicar visualmente el mecanismo de acción.</li>
+                        <li>Explicar cómo estos fármacos han cambiado el objetivo de "mejorar" a "aclarar por completo".</li>
+                        <li>Iniciar una discusión sobre el impacto de los biosimilares en la práctica diaria.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 6: Manejo de APs -->
+            <div class="slide p-8 md:p-16">
+                <div class="slide-content">
+                     <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center gradient-text-dark">Manejo de la Artritis Psoriásica (APs)</h2>
+                     <div class="bg-gray-100 p-6 rounded-xl border-l-4 border-blue-600">
+                        <!-- Contenido de APs... -->
+                    </div>
+                </div>
+                <div class="speaker-notes">
+                    <h4 class="font-bold text-yellow-300 mb-1">Notas del Orador:</h4>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Enfatizar el concepto de "terapia estratificada". No hay una talla única para todos.</li>
+                        <li>Usar el diagrama para explicar cómo las comorbilidades (ej. Enf. de Crohn) dictan la elección del tratamiento.</li>
+                        <li>Pregunta al público: ¿Cómo jerarquizan los problemas del paciente (piel vs. articulaciones) en su práctica?</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 7: Conclusión -->
+            <div class="slide p-8 md:p-16 bg-gray-900 text-white">
+                <div class="slide-content text-center">
+                     <h2 class="text-3xl md:text-4xl font-bold mb-6">Conclusiones para una Terapia Racional</h2>
+                     <div class="text-gray-300 text-lg max-w-3xl mx-auto space-y-4">
+                        <!-- Contenido de la conclusión... -->
+                     </div>
+                </div>
+                <div class="speaker-notes">
+                    <h4 class="font-bold text-yellow-300 mb-1">Notas del Orador:</h4>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Resumir los puntos clave de la presentación.</li>
+                        <li>Terminar con un mensaje sobre la importancia de la medicina personalizada y la toma de decisiones compartida.</li>
+                        <li>Abrir el espacio para preguntas y respuestas finales.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Navegación -->
+            <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+            <a class="next" onclick="moveSlide(1)">&#10095;</a>
+        </div>
+        
+        <!-- Controles y Puntos de navegación -->
+        <div class="controls-container">
+            <div class="presenter-controls text-center mb-4">
+                <button id="notes-toggle" class="text-white text-sm py-1 px-3 rounded bg-gray-600 hover:bg-gray-500 transition-colors">
+                    Mostrar/Ocultar Notas (tecla N)
+                </button>
+            </div>
+            <div class="dot-container">
+                <!-- Los puntos se generarán con JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        // El resto del código JS se mantiene igual, con la adición de la lógica para el toggle de notas.
+        
+        window.onload = function() {
+            // Inicializar diapositivas y puntos
+            createDots();
+            showSlides(slideIndex);
+            lucide.createIcons();
+
+            // Lógica para el botón de notas
+            const notesToggle = document.getElementById('notes-toggle');
+            const slideshowContainer = document.querySelector('.slideshow-container');
+            notesToggle.addEventListener('click', () => {
+                slideshowContainer.classList.toggle('show-notes');
+            });
+
+            // Lógica para la tecla 'N'
+            document.addEventListener('keydown', (event) => {
+                if (event.key.toLowerCase() === 'n') {
+                    slideshowContainer.classList.toggle('show-notes');
+                }
+            });
+        };
+
+        function createDots() {
+            const slides = document.getElementsByClassName("slide");
+            const dotContainer = document.querySelector(".dot-container");
+            dotContainer.innerHTML = ''; // Limpiar puntos existentes
+            for (let i = 0; i < slides.length; i++) {
+                const dot = document.createElement("span");
+                dot.classList.add("dot");
+                dot.setAttribute("onclick", `currentSlide(${i + 1})`);
+                dotContainer.appendChild(dot);
+            }
+        }
+
+        function moveSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            if(slides.length > 0) {
+              slides[slideIndex-1].style.display = "block";
+              dots[slideIndex-1].className += " active";
+            }
+        }
+    </script>
+</body>
+</html>
