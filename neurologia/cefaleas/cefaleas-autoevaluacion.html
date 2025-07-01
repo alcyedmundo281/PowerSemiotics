@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoevaluación: Cefaleas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+       .slider-container { scroll-behavior: smooth; }
+       .slide { flex-shrink: 0; }
+       .no-scrollbar::-webkit-scrollbar { display: none; }
+       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="relative w-full h-screen flex flex-col">
+        <div id="slider-container" class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar">
+            <div id="slide-0" class="slide w-full h-full flex items-center justify-center p-8">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
+                    <h1 class="text-4xl font-extrabold text-gray-800 mb-2">Autoevaluación Formativa</h1>
+                    <p class="text-xl text-blue-600 font-semibold mb-6">Neurología - Semana 7: Cefaleas</p>
+                    <button onclick="scrollToSlide(1)" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105 text-lg">Comenzar</button>
+                </div>
+            </div>
+            <div id="slide-results" class="slide w-full h-full flex items-center justify-center p-8">
+                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
+                    <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Evaluación Completada</h1>
+                    <div id="score-circle" class="w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-gray-400"></div>
+                    <p id="score-text" class="text-xl text-gray-700 mb-2"></p>
+                    <p id="result-message" class="text-lg text-gray-600 mb-8"></p>
+                    <button onclick="restartQuiz()" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-all text-lg">Intentar de Nuevo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const quizData =, correctAnswerIndex: 2, explanations: ["Incorrecto. La cefalea tensional suele ser bilateral, opresiva y no incapacitante.", "Incorrecto. La cefalea en racimos es de corta duración, extremadamente severa y se asocia a síntomas autonómicos.", "Correcto. La descripción de una cefalea unilateral, pulsátil, de duración moderada, con fotofobia/fonofobia y náuseas es clásica de la migraña.", "Incorrecto. Una hemorragia subaracnoidea se presentaría como la 'peor cefalea de la vida', de inicio súbito, y es una emergencia médica."] },
+            { question: "Un hombre de 60 años, sin antecedentes de cefalea, presenta un dolor de cabeza de inicio súbito y de máxima intensidad ('en trueno'). ¿Cuál es la acción más apropiada?", options:, correctAnswerIndex: 2, explanations: ["Incorrecto. Un dolor de cabeza de estas características es una bandera roja y requiere investigación inmediata, no se debe posponer.", "Incorrecto. Esto sería apropiado para una cefalea tensional, no para una cefalea con banderas rojas.", "Correcto. La cefalea 'en trueno' es una bandera roja mayor que obliga a descartar una hemorragia subaracnoidea u otra causa vascular grave mediante una neuroimagen urgente.", "Incorrecto. No hay evidencia de migraña y el inicio súbito en un paciente mayor contraindica este enfoque."] },
+            { question: "Un paciente describe un dolor de cabeza diario, bilateral, opresivo, como 'una banda apretada alrededor de la cabeza', que no empeora con la actividad física. ¿Cuál es el tratamiento de primera línea para los episodios agudos?", options:, correctAnswerIndex: 2, explanations: },
+            { question: "Un hombre de 40 años presenta episodios de dolor periorbitario derecho, extremadamente severo, que duran 45 minutos y se acompañan de lagrimeo y congestión nasal del mismo lado. ¿Cuál es el tratamiento abortivo de elección?", options:, correctAnswerIndex: 1, explanations: }
+        ];
+        
+        const sliderContainer = document.getElementById('slider-container');
+        const totalQuestions = quizData.length;
+        let score = 0;
+
+        function buildQuiz() {
+            const resultsSlide = document.getElementById('slide-results');
+            quizData.forEach((q, index) => {
+                const slide = document.createElement('div');
+                slide.id = `slide-${index + 1}`;
+                slide.className = 'slide w-full h-full flex items-center justify-center p-4 md:p-8';
+                slide.innerHTML = `<div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl"><p class="text-base font-semibold text-blue-600">Pregunta ${index + 1} de ${totalQuestions}</p><h2 class="text-2xl font-bold text-gray-800 mt-2">${q.question}</h2><div id="options-container-${index}" class="mt-6 space-y-3">${q.options.map((option, i) => `<button onclick="selectAnswer(${index}, ${i})" class="w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-blue-100 transition-colors border-2 border-transparent text-lg"><span class="text-blue-500 font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${option}</button>`).join('')}</div><div id="feedback-container-${index}" class="mt-6 space-y-2 hidden">${q.explanations.map((exp, i) => `<div id="feedback-${index}-${i}" class="p-3 rounded-lg text-base"><span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> <span class="feedback-content">${exp}</span></div>`).join('')}</div></div>`;
+                sliderContainer.insertBefore(slide, resultsSlide);
+            });
+        }
+        
+        function selectAnswer(qIndex, sIndex) {
+            const optsCont = document.getElementById(`options-container-${qIndex}`);
+            if (optsCont.dataset.answered) return;
+            optsCont.dataset.answered = 'true';
+            const q = quizData[qIndex];
+            if (sIndex === q.correctAnswerIndex) score++;
+            const feedbackCont = document.getElementById(`feedback-container-${qIndex}`);
+            Array.from(optsCont.children).forEach((btn, i) => {
+                const fbBox = document.getElementById(`feedback-${qIndex}-${i}`);
+                if (i === q.correctAnswerIndex) { btn.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-green-100 border-green-500 text-green-800'; fbBox.className = 'p-3 rounded-lg text-base bg-green-50 text-green-800'; } 
+                else if (i === sIndex) { btn.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-red-100 border-red-500 text-red-800'; fbBox.className = 'p-3 rounded-lg text-base bg-red-50 text-red-800'; }
+                else { btn.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-gray-50 text-gray-500'; fbBox.className = 'p-3 rounded-lg text-base bg-gray-50 text-gray-600'; }
+            });
+            feedbackCont.classList.remove('hidden');
+            if (areAllAnswered()) setTimeout(() => scrollToSlide(totalQuestions + 1), 2500);
+        }
+        
+        function areAllAnswered() {
+            for(let i=0; i<totalQuestions; i++) if(!document.getElementById(`options-container-${i}`).dataset.answered) return false;
+            showResults();
+            return true;
+        }
+
+        function showResults() {
+            const circle = document.getElementById('score-circle'), text = document.getElementById('score-text'), msg = document.getElementById('result-message');
+            const perc = Math.round((score / totalQuestions) * 100);
+            circle.textContent = `${perc}%`;
+            text.textContent = `Tu calificación: ${score} de ${totalQuestions} correctas.`;
+            if(perc === 100) { circle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-green-500"; msg.textContent = "¡Excelente! Dominas el diagnóstico diferencial de las cefaleas."; }
+            else if (perc >= 75) { circle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-yellow-500"; msg.textContent = "¡Muy bien! Tienes una base sólida."; }
+            else { circle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-red-500"; msg.textContent = "Sigue estudiando. Revisa el banco de conocimientos."; }
+        }
+
+        function restartQuiz() {
+            score = 0;
+            for(let i=0; i<totalQuestions; i++) {
+                const opts = document.getElementById(`options-container-${i}`), feedback = document.getElementById(`feedback-container-${i}`);
+                delete opts.dataset.answered;
+                feedback.classList.add('hidden');
+                Array.from(opts.children).forEach(btn => btn.className = 'w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-blue-100 transition-colors border-2 border-transparent text-lg');
+            }
+            scrollToSlide(0);
+        }
+
+        function scrollToSlide(idx) { sliderContainer.scrollTo({ left: idx * sliderContainer.clientWidth, behavior: 'smooth' }); }
+        buildQuiz();
+    </script>
+</body>
+</html>
