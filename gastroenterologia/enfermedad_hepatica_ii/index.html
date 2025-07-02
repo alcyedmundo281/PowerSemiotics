@@ -163,7 +163,7 @@
                 content: `
                     <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
                         <h2 class="text-3xl font-bold text-gray-800 mb-6">Presentación: Enfermedad Hepática II y III</h2>
-                        <div id="presentation-content" class="embedded-content-container"></div>
+                        <div id="presentation-content"></div>
                     </div>
                 `,
                 script: 'presentationScript'
@@ -277,33 +277,177 @@
             const container = document.getElementById('presentation-content');
             container.innerHTML = `
                 <style>
-                    .slider-container { width: 100%; position: relative; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: white; overflow: hidden; border-radius: 0.5rem; min-height: 600px;}
-                    .slide { display: none; padding: 20px 40px; min-height: 520px; }
+                    .slider-container { width: 100%; max-width: 1000px; margin: 0 auto; position: relative; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: white; overflow: hidden; }
+                    .slide { display: none; padding: 40px 60px; min-height: 500px; animation: fadeIn 0.5s; }
                     .slide.active { display: block; }
-                    .slide h1, .slide h2, .slide h3 { color: #00568c; }
-                    .slide h1 { font-size: 2em; text-align: center; border-bottom: 2px solid #00568c; padding-bottom: 10px; margin-bottom: 20px; }
-                    .slide h2 { font-size: 1.6em; margin-top: 20px; }
-                    .slide h3 { font-size: 1.3em; color: #007b9e; }
-                    .slide p, .slide li { line-height: 1.6; font-size: 1.1em; }
-                    .slide ul { list-style-type: disc; padding-left: 20px; }
-                    .slide .navigation { display: flex; justify-content: space-between; padding: 15px; background-color: #00568c; position: absolute; bottom: 0; left: 0; right: 0; }
-                    .slide .nav-button { background-color: #007b9e; color: white; border: none; padding: 8px 16px; font-size: 1em; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }
-                    .slide .nav-button:hover { background-color: #009acd; }
-                    .slide .slide-counter { color: white; font-size: 1.1em; align-self: center; }
-                    .slide .highlight { background-color: #e7f5ff; border-left: 5px solid #007b9e; padding: 10px; margin: 15px 0; border-radius: 5px; }
-                    .slide .ecuador-focus { border: 2px solid #fec107; padding: 10px; background-color: #fffbeb; border-radius: 8px; margin-top: 15px; }
+                    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                    .slider-container h1, .slider-container h2, .slider-container h3 { color: #00568c; }
+                    .slider-container h1 { font-size: 2.2em; text-align: center; border-bottom: 2px solid #00568c; padding-bottom: 10px; margin-bottom: 20px; }
+                    .slider-container h2 { font-size: 1.8em; margin-top: 30px; }
+                    .slider-container h3 { font-size: 1.4em; color: #007b9e; }
+                    .slider-container p, .slider-container li { line-height: 1.6; font-size: 1.1em; }
+                    .slider-container ul { list-style-type: disc; padding-left: 20px; }
+                    .slider-container .navigation { display: flex; justify-content: space-between; padding: 20px; background-color: #00568c; }
+                    .slider-container .nav-button { background-color: #007b9e; color: white; border: none; padding: 12px 24px; font-size: 1.1em; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }
+                    .slider-container .nav-button:hover { background-color: #009acd; }
+                    .slider-container .slide-counter { color: white; font-size: 1.2em; align-self: center; }
+                    .slider-container .highlight { background-color: #e7f5ff; border-left: 5px solid #007b9e; padding: 15px; margin: 20px 0; border-radius: 5px; }
+                    .slider-container .ecuador-focus { border: 2px solid #fec107; padding: 15px; background-color: #fffbeb; border-radius: 8px; margin-top: 20px; }
+                    .slider-container .ecuador-focus h3 { color: #d9534f; }
+                    .slider-container table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                    .slider-container th, .slider-container td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+                    .slider-container th { background-color: #00568c; color: white; }
+                    .slider-container tr:nth-child(even) { background-color: #f2f2f2; }
                 </style>
                 <div class="slider-container">
-                    <!-- Slides -->
-                    <div class="slide active"><h1>Enfermedad Hepática II y III</h1><h2>Semanas 10 y 11</h2><div class="highlight"><p><strong>Objetivo:</strong> Capacitar al futuro médico general en el diagnóstico, estratificación y manejo de la enfermedad hepática crónica y sus complicaciones.</p></div></div>
-                    <div class="slide"><h2>Hepatitis Virales Crónicas en Ecuador</h2><div class="ecuador-focus"><h3>Enfoque Ecuador</h3><ul><li><strong>Hepatitis B:</strong> Focos de endemicidad intermedia (2-7%) en la cuenca amazónica.</li><li><strong>Genotipo VHB:</strong> Predominante es el Genotipo F (96%).</li></ul></div></div>
-                    <div class="slide"><h2>Fases de la Infección Crónica por VHB</h2><ul><li><strong>Inmunotolerancia:</strong> Alta carga viral, ALT normal.</li><li><strong>Inmunoactiva:</strong> Alta carga viral, ALT elevada. <strong>Requiere tratamiento.</strong></li><li><strong>Portador Inactivo:</strong> Baja carga viral, ALT normal.</li><li><strong>Hepatitis Crónica HBeAg-negativo:</strong> Carga viral >2,000 UI/mL, ALT elevada. <strong>Requiere tratamiento.</strong></li></ul></div>
-                    <div class="slide"><h2>Cirrosis: Diagnóstico y Pronóstico</h2><h3>Hallazgos Clave</h3><ul><li><strong>Laboratorio:</strong> Trombocitopenia (primer signo), hipoalbuminemia, INR prolongado.</li><li><strong>Imagen (Eco):</strong> Hígado nodular, esplenomegalia, ascitis.</li></ul><h3>Escalas Pronósticas</h3><p><strong>Child-Pugh:</strong> Evalúa severidad global. <strong>MELD:</strong> Predice mortalidad a 90 días.</p></div>
-                    <div class="slide"><h2>Hemorragia Variceal Aguda (HVA)</h2><h3>Protocolo "Código HVA"</h3><ol><li>Estabilización Hemodinámica</li><li>Transfusión Restrictiva (Hb 7-8 g/dL)</li><li>Fármacos: Terlipresina + Ceftriaxona</li><li>Endoscopia Urgente (<12h)</li></ol></div>
-                    <div class="slide"><h2>Otras Complicaciones</h2><h3>Ascitis y PBE</h3><ul><li><strong>GASA ≥ 1.1 g/dL</strong> indica hipertensión portal.</li><li><strong>PBE:</strong> PMN ≥ 250/mm³ en líquido ascítico. Tto: Cefalosporinas de 3ra gen.</li></ul><h3>Encefalopatía Hepática (EH)</h3><p><strong>Manejo:</strong> 1. Buscar y tratar el factor precipitante. 2. Lactulosa.</p></div>
-                    <div class="slide"><h2>Carcinoma Hepatocelular (CHC)</h2><h3>Vigilancia y Diagnóstico</h3><ul><li><strong>Población de Riesgo:</strong> TODOS los pacientes con cirrosis.</li><li><strong>Protocolo:</strong> Ecografía abdominal cada 6 meses.</li></ul></div>
-                    <!-- Navigation -->
-                    <div class="navigation"><button id="prevBtn" class="nav-button">Anterior</button><div id="slideCounter" class="slide-counter"></div><button id="nextBtn" class="nav-button">Siguiente</button></div>
+                    <div class="slide active">
+                        <h1>Enfermedad Hepática II y III</h1>
+                        <h2>Semanas 10 y 11: De la Hepatitis Crónica a las Complicaciones Mayores</h2>
+                        <p>Un paquete educativo para estudiantes de Medicina en Ecuador.</p>
+                        <div class="highlight">
+                            <p><strong>Objetivo General:</strong> Capacitar al futuro médico general en el diagnóstico, estratificación y manejo de la enfermedad hepática crónica y sus complicaciones, con un enfoque en la realidad epidemiológica y los recursos del sistema de salud ecuatoriano.</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <h1>Semana 10: De la Hepatitis Crónica a la Cirrosis</h1>
+                        <h2>Sección 1: Hepatitis Virales Crónicas en Ecuador (VHB y VHC)</h2>
+                        <p>Las hepatitis virales son un problema de salud pública global y nacional, siendo una causa principal de enfermedad hepática crónica.</p>
+                        <div class="ecuador-focus">
+                            <h3>Enfoque Ecuador</h3>
+                            <ul>
+                                <li><strong>Hepatitis B (2024):</strong> 155 casos reportados hasta la SE 24. Provincia más afectada: Pichincha (44 casos). Grupo etario principal: 20-49 años.</li>
+                                <li><strong>Endemicidad:</strong> Prevalencia general baja (<2%), pero con focos de endemicidad intermedia (2-7%) en la cuenca amazónica.</li>
+                                <li><strong>Genotipos:</strong> VHB predominante es el Genotipo F (96%).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <h2>Diagnóstico y Estratificación de la Hepatitis B Crónica (VHB)</h2>
+                        <p>El diagnóstico preciso requiere una interpretación correcta de los marcadores serológicos.</p>
+                        <h3>Fases de la Infección Crónica por VHB</h3>
+                        <ul>
+                            <li><strong>Infección Crónica HBeAg-positivo (Inmunotolerancia):</strong> Alta carga viral (ADN-VHB), ALT normal. Vigilancia.</li>
+                            <li><strong>Hepatitis Crónica HBeAg-positivo (Inmunoactiva):</strong> Alta carga viral, ALT elevada. Requiere tratamiento.</li>
+                            <li><strong>Infección Crónica HBeAg-negativo (Portador Inactivo):</strong> Baja carga viral (<2,000 UI/mL), ALT normal. Vigilancia.</li>
+                            <li><strong>Hepatitis Crónica HBeAg-negativo (Mutante):</strong> Carga viral fluctuante (>2,000 UI/mL), ALT elevada. Requiere tratamiento.</li>
+                        </ul>
+                        <div class="highlight"><strong>Clave:</strong> La decisión de tratar se basa en la combinación de ADN-VHB, ALT y el grado de fibrosis.</div>
+                    </div>
+                    <div class="slide">
+                        <h2>Manejo según Guías del MSP y Estándares Internacionales</h2>
+                        <h3>Principios Terapéuticos</h3>
+                        <ul>
+                            <li><strong>Objetivo VHB:</strong> Supresión viral a largo plazo, prevenir progresión a cirrosis y CHC.</li>
+                            <li><strong>Fármacos de 1ra Línea (VHB) en Ecuador:</strong> Entecavir (ETV) y Tenofovir (TDF).</li>
+                            <li><strong>Diagnóstico VHC:</strong> Inicia con Anti-VHC. Si es reactivo, confirmar con carga viral (ARN-VHC).</li>
+                            <li><strong>Tratamiento VHC:</strong> Antivirales de Acción Directa (AAD) con tasas de curación >95%.</li>
+                            <li><strong>Prevención TMI del VHB:</strong> Tamizaje a gestantes. Terapia antiviral en 3er trimestre si carga viral >200,000 UI/mL. Vacuna + Inmunoglobulina (HBIg) al recién nacido.</li>
+                        </ul>
+                        <p>El rol del médico general es clave en el tamizaje, diagnóstico inicial y la referencia oportuna al especialista.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>Sección 2: Cirrosis Hepática: Diagnóstico y Pronóstico</h2>
+                        <p>La cirrosis es la vía final común de múltiples hepatopatías crónicas. Su diagnóstico es clínico, de laboratorio e imagenológico.</p>
+                        <h3>Hallazgos Clave</h3>
+                        <ul>
+                            <li><strong>Clínicos:</strong> Estigmas de hepatopatía (ictericia, arañas vasculares, eritema palmar).</li>
+                            <li><strong>Laboratorio:</strong> Trombocitopenia (a menudo el primer signo), hipoalbuminemia, INR prolongado.</li>
+                            <li><strong>Imagen (Eco):</strong> Hígado nodular, esplenomegalia, ascitis.</li>
+                        </ul>
+                        <div class="highlight">
+                            <p>El <strong>Índice APRI</strong> (AST/Plaquetas) es una herramienta no invasiva y accesible para estimar la fibrosis.</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <h2>Escalas Pronósticas: Child-Pugh y MELD</h2>
+                        <p>Herramientas esenciales para estratificar la severidad y predecir la mortalidad.</p>
+                        <h3>Escala de Child-Pugh</h3>
+                        <p>Evalúa 5 parámetros (Bilirrubina, Albúmina, Ascitis, Encefalopatía, INR). Clasifica la cirrosis en:</p>
+                        <ul>
+                            <li><strong>Clase A (5-6 pts):</strong> Compensada. Buen pronóstico.</li>
+                            <li><strong>Clase B (7-9 pts):</strong> Compromiso funcional.</li>
+                            <li><strong>Clase C (10-15 pts):</strong> Descompensada. Mal pronóstico.</li>
+                        </ul>
+                        <h3>Escala MELD</h3>
+                        <p>Fórmula logarítmica (Bilirrubina, INR, Creatinina). Predice mortalidad a 90 días y prioriza para trasplante hepático.</p>
+                        <div class="ecuador-focus">
+                            <h3>Aplicación Práctica</h3>
+                            <p>El médico general usará <strong>Child-Pugh</strong> para evaluar la severidad global en la consulta. <strong>MELD</strong> es la herramienta del especialista y del centro de trasplantes.</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <h1>Semana 11: Manejo de las Complicaciones Mayores</h1>
+                        <h2>Sección 3: Hemorragia Variceal Aguda (HVA)</h2>
+                        <p>Una emergencia médica con una mortalidad de hasta el 20%. El manejo inicial es crucial.</p>
+                        <h3>Protocolo "Código HVA": Pasos Críticos</h3>
+                        <ol>
+                            <li><strong>Estabilización Hemodinámica:</strong> 2 vías IV, resucitación con cristaloides.</li>
+                            <li><strong>Transfusión Restrictiva:</strong> Objetivo de Hb 7-8 g/dL. ¡Evitar sobretransfusión!</li>
+                            <li><strong>Fármacos Inmediatos:</strong>
+                                <ul>
+                                    <li><strong>Vasoactivos:</strong> Terlipresina o Octreótide ANTES de la endoscopia.</li>
+                                    <li><strong>Antibióticos:</strong> Ceftriaxona 1g IV profiláctico para todos.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Endoscopia Urgente (<12h):</strong> Ligadura con bandas es la terapia de elección para várices esofágicas.</li>
+                        </ol>
+                    </div>
+                    <div class="slide">
+                        <h2>Manejo del Fracaso y Prevención Secundaria de HVA</h2>
+                        <h3>Fracaso del Tratamiento (10-20% de los casos)</h3>
+                        <ul>
+                            <li><strong>Terapia de Rescate:</strong> Sonda-balón (Sengstaken-Blakemore) como puente temporal.</li>
+                            <li><strong>Tratamiento Definitivo de Rescate:</strong> TIPS (Shunt Portosistémico Intrahepático Transyugular). Considerar TIPS "temprano" (<72h) en pacientes de alto riesgo.</li>
+                        </ul>
+                        <h3>Prevención Secundaria (para evitar resangrado)</h3>
+                        <div class="highlight">
+                            <p><strong>La mejor estrategia:</strong> Terapia combinada de <strong>Beta-bloqueadores no selectivos</strong> (Propranolol) + <strong>Ligadura endoscópica seriada</strong> hasta erradicar las várices.</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <h2>Sección 4: Otras Complicaciones de la Cirrosis</h2>
+                        <h3>Ascitis y Peritonitis Bacteriana Espontánea (PBE)</h3>
+                        <ul>
+                            <li><strong>Diagnóstico Ascitis:</strong> GASA (Gradiente Albúmina Suero-Ascitis) ≥ 1.1 g/dL indica hipertensión portal.</li>
+                            <li><strong>Manejo Ascitis:</strong> Restricción de sodio, diuréticos (Espironolactona ± Furosemida).</li>
+                            <li><strong>Diagnóstico PBE:</strong> Paracentesis en paciente con ascitis y fiebre/dolor/encefalopatía. PMN ≥ 250/mm³ en líquido ascítico.</li>
+                            <li><strong>Tratamiento PBE:</strong> Cefalosporinas de 3ra generación (ej. Cefotaxima).</li>
+                        </ul>
+                    </div>
+                    <div class="slide">
+                        <h2>Encefalopatía Hepática (EH)</h2>
+                        <p>Disfunción cerebral por insuficiencia hepática. Es un diagnóstico de exclusión.</p>
+                        <h3>Clasificación de West Haven</h3>
+                        <ul>
+                            <li><strong>Grado 1:</strong> Alteración leve, euforia/ansiedad.</li>
+                            <li><strong>Grado 2:</strong> Letargia, desorientación, asterixis.</li>
+                            <li><strong>Grado 3:</strong> Somnolencia, confusión marcada.</li>
+                            <li><strong>Grado 4:</strong> Coma.</li>
+                        </ul>
+                        <div class="ecuador-focus">
+                            <h3>Manejo Práctico</h3>
+                            <p><strong>Pregunta Clave:</strong> ¿Por qué tiene EH *hoy*? Buscar y tratar el <strong>factor precipitante</strong> es fundamental (infecciones, HDA, deshidratación, fármacos).</p>
+                            <p><strong>Tratamiento 1ra Línea:</strong> Lactulosa (oral/enema) para lograr 2-3 deposiciones/día.</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <h2>Sección 5: Carcinoma Hepatocelular (CHC)</h2>
+                        <p>La consecuencia más temida a largo plazo de la cirrosis.</p>
+                        <h3>Vigilancia y Diagnóstico</h3>
+                        <ul>
+                            <li><strong>Población de Alto Riesgo:</strong> TODOS los pacientes con cirrosis.</li>
+                            <li><strong>Protocolo de Vigilancia:</strong> Ecografía abdominal cada 6 meses. Es una responsabilidad del médico general asegurar su cumplimiento.</li>
+                            <li><strong>Diagnóstico:</strong> En pacientes de alto riesgo, una lesión con patrón vascular típico en TC/RM contrastada es suficiente (no requiere biopsia).</li>
+                        </ul>
+                        <div class="highlight">
+                            <p><strong>Mensaje Final:</strong> El manejo de la enfermedad hepática crónica es un maratón, no un sprint. El médico general es el director de orquesta que coordina la vigilancia, el manejo de las complicaciones y la referencia oportuna para salvar y mejorar la calidad de vida de sus pacientes.</p>
+                        </div>
+                    </div>
+                    <div class="navigation">
+                        <button id="prevBtn" class="nav-button">Anterior</button>
+                        <div id="slideCounter" class="slide-counter"></div>
+                        <button id="nextBtn" class="nav-button">Siguiente</button>
+                    </div>
                 </div>
             `;
             const slides = container.querySelectorAll('.slide');
