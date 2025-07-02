@@ -3,127 +3,550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enfermedad Hepática II - Power Semiotics</title>
+    <title>Guía de Estudio: Enfermedad Hepática</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #111827; /* bg-gray-900 */
-            color: #d1d5db; /* text-gray-300 */
         }
-        .resource-card {
-            background-color: #1f2937; /* bg-gray-800 */
-            border: 1px solid #374151; /* border-gray-700 */
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        .sidebar-link {
+            transition: all 0.2s ease-in-out;
         }
-        .resource-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); /* shadow-rose-500/20 */
+        .sidebar-link.active {
+            background-color: #1D4ED8; /* bg-blue-700 */
+            color: white;
+            font-weight: 600;
         }
-        .header {
-            background-color: #1f2937; /* bg-gray-800 */
-            border-bottom: 1px solid #374151; /* border-gray-700 */
+        .quiz-option {
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
         }
-        .footer {
-            border-top: 1px solid #374151; /* border-gray-700 */
+        .quiz-option:hover:not([disabled]) {
+            border-color: #3B82F6; /* border-blue-500 */
         }
-        .back-link {
-            color: #60a5fa; /* text-blue-400 */
+        .quiz-option.selected {
+            border-color: #1D4ED8; /* border-blue-700 */
+            background-color: #DBEAFE; /* bg-blue-100 */
         }
-        .back-link:hover {
-            text-decoration: underline;
+        .quiz-option.correct {
+            background-color: #D1FAE5 !important; /* bg-green-100 */
+            border-color: #10B981 !important; /* border-green-500 */
+            color: #065F46; /* text-green-800 */
+        }
+        .quiz-option.incorrect {
+            background-color: #FEE2E2 !important; /* bg-red-100 */
+            border-color: #EF4444 !important; /* border-red-500 */
+            color: #991B1B; /* text-red-800 */
+        }
+        .quiz-option[disabled] {
+            cursor: not-allowed;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Estilos para la presentación y el simulador */
+        .embedded-content-container {
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .text-guide h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e3a8a; /* text-blue-900 */
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        .text-guide h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827; /* text-gray-900 */
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .text-guide p, .text-guide li {
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 0.75rem;
+        }
+        .text-guide ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        .text-guide .highlight-box {
+            background-color: #eff6ff; /* bg-blue-50 */
+            border-left: 4px solid #3b82f6; /* border-blue-500 */
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-100">
 
-    <!-- Header -->
-    <header class="header shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold text-white">Enfermedad Hepática II</h1>
-                <p class="text-md text-gray-400">De la Hepatitis Crónica a las Complicaciones</p>
-            </div>
-            <a href="../../gastroenterologia.html" class="back-link">
-                <i class="fas fa-arrow-left mr-2"></i>Volver al Hub
-            </a>
-        </div>
-    </header>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-full md:w-64 bg-gray-800 text-white p-6 md:p-4 space-y-2 flex-shrink-0">
+            <h1 class="text-2xl font-bold mb-4 text-center">PowerSemiotics</h1>
+            <h2 class="text-lg font-semibold mb-4 text-center text-gray-300">Enfermedad Hepática</h2>
+            <nav id="navigation-menu">
+                <!-- Los enlaces se generan dinámicamente -->
+            </nav>
+        </aside>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 py-10">
-        
-        <div class="resource-card p-8 rounded-xl shadow-md mb-10">
-            <h2 class="text-3xl font-bold text-white mb-3">Ruta de Aprendizaje Sugerida</h2>
-            <p class="text-lg text-gray-400">Para un aprendizaje óptimo, te recomendamos seguir los recursos en el orden presentado. Comienza con la presentación para una vista general, profundiza con la guía de conocimiento y luego aplica lo aprendido con el simulador y la autoevaluación.</p>
-        </div>
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 p-6 md:p-10 overflow-y-auto">
+            <!-- El contenido se genera dinámicamente -->
+        </main>
+    </div>
 
-        <!-- Resources Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <script>
+        // Función global para ser llamada desde el HTML
+        window.checkAnswer = (sectionIndex, questionIndex, selectedOptionIndex) => {
+            const quizData = studyGuideData[sectionIndex].quizzes[questionIndex];
+            const feedbackId = `feedback-${sectionIndex}-${questionIndex}`;
             
-            <!-- 1. Presentación Interactiva -->
-            <a href="./presentacion.html" target="_blank" class="resource-card p-6 rounded-lg flex items-start space-x-5">
-                <div class="flex-shrink-0">
-                    <div class="w-16 h-16 bg-purple-900/50 text-purple-400 rounded-full flex items-center justify-center">
-                        <i class="fas fa-chalkboard-teacher text-3xl"></i>
+            const feedbackEl = document.getElementById(feedbackId);
+            const quizContainer = feedbackEl.closest('.quiz-container');
+            const options = quizContainer.querySelectorAll('.quiz-option');
+
+            // Deshabilitar todos los botones para esta pregunta
+            options.forEach(button => button.disabled = true);
+            
+            const selectedButton = options[selectedOptionIndex];
+            
+            if (selectedOptionIndex === quizData.correct) {
+                selectedButton.classList.add('correct');
+                feedbackEl.innerHTML = `<strong>¡Correcto!</strong> ${quizData.feedback}`;
+                feedbackEl.className = 'mt-4 text-sm p-4 rounded-lg bg-green-100 text-green-800 animate-fade-in';
+            } else {
+                selectedButton.classList.add('incorrect');
+                options[quizData.correct].classList.add('correct');
+                feedbackEl.innerHTML = `<strong>Incorrecto.</strong> La respuesta correcta se ha resaltado en verde. ${quizData.feedback}`;
+                feedbackEl.className = 'mt-4 text-sm p-4 rounded-lg bg-red-100 text-red-800 animate-fade-in';
+            }
+        };
+
+        const studyGuideData = [
+            {
+                id: 'intro',
+                title: 'Bienvenida',
+                content: `
+                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4">Guía de Estudio Interactiva: Enfermedad Hepática</h2>
+                        <p class="text-lg text-gray-600 mb-6">Este recurso unificado está diseñado para ser tu compañero de estudio principal para las semanas 10 y 11. Aquí encontrarás todo lo que necesitas, desde la presentación de clase hasta un simulador y una autoevaluación.</p>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <h4 class="font-bold text-blue-800">¿Cómo usar este recurso?</h4>
+                            <ul class="list-disc list-inside mt-2 text-blue-700">
+                                <li><strong>Presentación de Clase:</strong> Úsala para seguir la clase o como una revisión visual rápida de los temas.</li>
+                                <li><strong>Simulador Clínico:</strong> ¡Ponte a prueba! Aplica tus conocimientos para manejar una emergencia médica en un entorno seguro.</li>
+                                <li><strong>Autoevaluación Final:</strong> Evalúa tu comprensión con casos clínicos y obtén retroalimentación detallada.</li>
+                                <li><strong>Texto Guía (Repaso):</strong> Consulta el material de lectura detallado para profundizar y repasar los conceptos después de clase.</li>
+                            </ul>
+                        </div>
+                        <p class="mt-6 text-gray-600">Usa el menú de la izquierda para navegar entre las diferentes herramientas. ¡Éxitos en tu estudio!</p>
                     </div>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white">1. Presentación Interactiva</h3>
-                    <p class="text-gray-400 mt-1">Guía visual para introducir los conceptos clave. Ideal para la revisión antes de la clase.</p>
-                </div>
-            </a>
-
-            <!-- 2. Guía de Conocimiento -->
-            <a href="./conocimiento.md" download class="resource-card p-6 rounded-lg flex items-start space-x-5">
-                <div class="flex-shrink-0">
-                    <div class="w-16 h-16 bg-blue-900/50 text-blue-400 rounded-full flex items-center justify-center">
-                        <i class="fas fa-book-open text-3xl"></i>
+                `
+            },
+            {
+                id: 'presentacion',
+                title: '1. Presentación de Clase',
+                content: `
+                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Presentación: Enfermedad Hepática II y III</h2>
+                        <div id="presentation-content" class="embedded-content-container"></div>
                     </div>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white">2. Guía de Conocimiento</h3>
-                    <p class="text-gray-400 mt-1">Material de lectura principal. Profundiza en la evidencia y guías clínicas. (Descargable)</p>
-                </div>
-            </a>
-
-            <!-- 3. Simulador Clínico -->
-            <a href="./simulador.html" target="_blank" class="resource-card p-6 rounded-lg flex items-start space-x-5">
-                <div class="flex-shrink-0">
-                    <div class="w-16 h-16 bg-red-900/50 text-red-400 rounded-full flex items-center justify-center">
-                        <i class="fas fa-laptop-medical text-3xl"></i>
+                `,
+                script: 'presentationScript'
+            },
+            {
+                id: 'simulador',
+                title: '2. Simulador Clínico (HVA)',
+                content: `
+                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Simulador: Manejo de Hemorragia Variceal Aguda</h2>
+                        <div id="simulator-content" class="embedded-content-container"></div>
                     </div>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white">3. Simulador Clínico</h3>
-                    <p class="text-gray-400 mt-1">Aplica tus conocimientos en un escenario dinámico para manejar una Hemorragia Variceal Aguda.</p>
-                </div>
-            </a>
-
-            <!-- 4. Autoevaluación -->
-            <a href="./autoevaluacion.html" target="_blank" class="resource-card p-6 rounded-lg flex items-start space-x-5">
-                <div class="flex-shrink-0">
-                    <div class="w-16 h-16 bg-green-900/50 text-green-400 rounded-full flex items-center justify-center">
-                        <i class="fas fa-check-circle text-3xl"></i>
+                `,
+                script: 'simulatorScript'
+            },
+            {
+                id: 'autoevaluacion',
+                title: '3. Autoevaluación Final',
+                content: `
+                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
+                        <h3 class="text-3xl font-bold text-gray-800 mb-2">🚀 Autoevaluación Final</h3>
+                        <p class="text-gray-600 mb-6">Es hora de conectar todos los puntos. Responde a los siguientes casos clínicos para evaluar tu dominio del tema.</p>
+                        <div class="quiz-container space-y-6">
+                            <!-- El quiz se genera dinámicamente -->
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white">4. Autoevaluación</h3>
-                    <p class="text-gray-400 mt-1">Pon a prueba tu comprensión con casos clínicos y recibe retroalimentación instantánea.</p>
-                </div>
-            </a>
+                `,
+                quizzes: [
+                    {
+                        question: "1. Un agricultor de 45 años, de Morona Santiago, acude por astenia. Laboratorio: ALT 85 U/L. Perfil viral: HBsAg (+), Anti-HBc total (+), Anti-HBc IgM (-), HBeAg (-), Anti-HBe (+). ¿Cuál es el siguiente paso MÁS apropiado?",
+                        options: [
+                            "Iniciar Tenofovir inmediatamente.",
+                            "Solicitar carga viral (ADN-VHB) y repetir transaminasas.",
+                            "Asegurar que es un portador inactivo y dar seguimiento anual.",
+                            "Solicitar ecografía para descartar esteatosis."
+                        ],
+                        correct: 1,
+                        feedback: "Correcto. El paciente tiene una hepatitis B crónica HBeAg-negativa. Para diferenciar si está en la fase inmunoactiva (que requiere tratamiento) o es un portador inactivo, es indispensable conocer el nivel de ADN-VHB y confirmar la persistencia de la elevación de ALT."
+                    },
+                    {
+                        question: "2. Una mujer de 32 años en su semana 28 de gestación es HBsAg (+). Exámenes: HBeAg (+), ALT 30 U/L y carga viral de 500,000 UI/mL. ¿Cuál es la conducta MÁS adecuada?",
+                        options: [
+                            "Iniciar Tenofovir a la madre y planificar vacuna + HBIg al recién nacido.",
+                            "Recomendar cesárea electiva.",
+                            "Administrar únicamente la vacuna al recién nacido.",
+                            "Suspender la lactancia materna."
+                        ],
+                        correct: 0,
+                        feedback: "Correcto. Con una carga viral >200,000 UI/mL, está indicada la terapia antiviral en el tercer trimestre para reducir la transmisión, además de la inmunoprofilaxis completa (activa y pasiva) al neonato."
+                    },
+                    {
+                        question: "3. Paciente de 62 años con cirrosis (Child-Pugh B8) llega a emergencias por hematemesis. PA 85/50, FC 115 lpm. Además de la resucitación, ¿qué fármacos debe administrar INMEDIATAMENTE?",
+                        options: [
+                            "Omeprazol IV y Metoclopramida IV.",
+                            "Furosemida IV y Lactulosa.",
+                            "Terlipresina IV y Ceftriaxona IV.",
+                            "Albúmina humana IV y Vitamina K IV."
+                        ],
+                        correct: 2,
+                        feedback: "Correcto. El manejo inicial de la HVA se basa en resucitación, fármacos vasoactivos (Terlipresina) para reducir la presión portal y profilaxis antibiótica (Ceftriaxona) para prevenir infecciones, que son un gatillo de resangrado."
+                    },
+                    {
+                        question: "4. Paciente de 68 años con cirrosis alcohólica (Child C11) es hospitalizado por encefalopatía. Tiene fiebre, disuria y ascitis. ¿Cuál es el factor precipitante MÁS probable y cómo lo confirma?",
+                        options: [
+                            "Estreñimiento / Tacto rectal.",
+                            "Hemorragia digestiva oculta / Sangre oculta en heces.",
+                            "Infección (PBE o ITU) / Paracentesis diagnóstica y examen de orina.",
+                            "Exceso de proteínas / Niveles de amonio."
+                        ],
+                        correct: 2,
+                        feedback: "Correcto. La infección es uno de los precipitantes más comunes y graves de EH. Ante un paciente con ascitis, fiebre y encefalopatía, es mandatorio descartar PBE mediante una paracentesis."
+                    },
+                    {
+                        question: "5. Paciente de 55 años con cirrosis por VHB (Child-Pugh A5) acude a su control semestral. ¿Cuál es la indicación de VIGILANCIA más importante para la detección temprana de CHC?",
+                        options: [
+                            "Alfa-fetoproteína (AFP) sérica cada 6 meses.",
+                            "TC de abdomen con contraste anualmente.",
+                            "Ecografía abdominal cada 6 meses.",
+                            "Endoscopia digestiva alta cada 2 años."
+                        ],
+                        correct: 2,
+                        feedback: "Correcto. La piedra angular de la vigilancia del carcinoma hepatocelular en todos los pacientes con cirrosis es la ecografía abdominal cada 6 meses. La AFP es un complemento, pero no la reemplaza."
+                    }
+                ]
+            },
+            {
+                id: 'texto-guia',
+                title: '4. Texto Guía (Repaso)',
+                content: `
+                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in text-guide">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Material de Lectura Detallado</h2>
+                        
+                        <h3>Hepatitis Virales Crónicas en Ecuador: VHB y VHC</h3>
+                        <h4>Panorama Epidemiológico Nacional</h4>
+                        <p>Las hepatitis virales son un problema de salud pública global y nacional. En Ecuador, la vigilancia epidemiológica es clave para la sospecha clínica:</p>
+                        <ul>
+                            <li><strong>Hepatitis B (VHB):</strong> La prevalencia general es baja (<2%), pero existen focos de endemicidad intermedia (2-7%) en la <strong>cuenca Amazónica</strong>. El genotipo predominante es el F. El grupo más afectado es el de 20 a 49 años.</li>
+                            <li><strong>Hepatitis C (VHC):</strong> La mayoría de los infectados no conocen su diagnóstico. El MSP promueve activamente el tamizaje y tratamiento.</li>
+                        </ul>
+                        
+                        <h4>Diagnóstico y Estratificación de la Hepatitis B Crónica (VHB)</h4>
+                        <p>La cronicidad se define por la persistencia del <strong>HBsAg por más de 6 meses</strong>. Una vez confirmada, se debe estratificar la fase de la enfermedad para decidir el manejo, usando HBeAg, Anti-HBe, ALT y carga viral (ADN-VHB).</p>
+                        <div class="highlight-box">
+                            <strong>Fases de la Infección Crónica por VHB:</strong>
+                            <ul>
+                                <li><strong>Inmunotolerancia:</strong> Alta carga viral, ALT normal. Se vigila.</li>
+                                <li><strong>Inmunoactiva (HBeAg+ o HBeAg-):</strong> Carga viral elevada y ALT elevada. <strong>Requiere tratamiento.</strong></li>
+                                <li><strong>Portador Inactivo:</strong> Carga viral baja (<2,000 UI/mL), ALT normal. Se vigila.</li>
+                            </ul>
+                        </div>
 
-        </div>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="footer mt-10 py-6">
-        <div class="container mx-auto px-6 text-center text-gray-500">
-            <p>&copy; 2024 Power Semiotics. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+                        <h3>Cirrosis Hepática: Diagnóstico y Pronóstico</h3>
+                        <h4>Diagnóstico</h4>
+                        <p>La cirrosis es el estadio final de múltiples hepatopatías. Se diagnostica por una combinación de hallazgos:</p>
+                        <ul>
+                            <li><strong>Clínicos:</strong> Estigmas de hepatopatía (ictericia, arañas vasculares, eritema palmar).</li>
+                            <li><strong>Laboratorio:</strong> Trombocitopenia (a menudo el primer signo), hipoalbuminemia, INR prolongado.</li>
+                            <li><strong>Imagen (Ecografía):</strong> Hígado de contornos nodulares, esplenomegalia, ascitis.</li>
+                        </ul>
+                        <h4>Escalas Pronósticas: Child-Pugh y MELD</h4>
+                        <p>Son herramientas esenciales para estratificar la severidad.</p>
+                        <ul>
+                            <li><strong>Child-Pugh:</strong> Evalúa 5 parámetros (Bilirrubina, Albúmina, Ascitis, Encefalopatía, INR). Clasifica la cirrosis en Clase A (compensada), B (compromiso funcional) y C (descompensada). Es útil para la evaluación clínica global.</li>
+                            <li><strong>MELD:</strong> Usa Bilirrubina, INR y Creatinina. Predice la mortalidad a 90 días y se usa para priorizar en listas de trasplante hepático.</li>
+                        </ul>
 
+                        <h3>Manejo de las Complicaciones Mayores</h3>
+                        <h4>Hemorragia Variceal Aguda (HVA)</h4>
+                        <p>Es una emergencia médica con alta mortalidad. El manejo inicial es crucial.</p>
+                        <div class="highlight-box">
+                            <strong>Protocolo "Código HVA":</strong>
+                            <ol class="list-decimal list-inside">
+                                <li><strong>Estabilización Hemodinámica:</strong> 2 vías IV gruesas, resucitación con cristaloides.</li>
+                                <li><strong>Transfusión Restrictiva:</strong> Objetivo de Hb 7-8 g/dL. ¡Evitar sobretransfusión!</li>
+                                <li><strong>Fármacos Inmediatos:</strong> Terlipresina (vasoactivo) + Ceftriaxona (antibiótico profiláctico).</li>
+                                <li><strong>Endoscopia Urgente (<12h):</strong> Para realizar ligadura con bandas.</li>
+                            </ol>
+                        </div>
+
+                        <h4>Ascitis y Peritonitis Bacteriana Espontánea (PBE)</h4>
+                        <ul>
+                            <li><strong>Ascitis:</strong> Se maneja con restricción de sodio y diuréticos (Espironolactona ± Furosemida). Un GASA ≥ 1.1 g/dL confirma hipertensión portal.</li>
+                            <li><strong>PBE:</strong> Es la infección del líquido ascítico. Se sospecha ante fiebre, dolor o encefalopatía. El diagnóstico se hace con una paracentesis que muestre un recuento de Polimorfonucleares (PMN) ≥ 250/mm³. El tratamiento es con cefalosporinas de 3ª generación.</li>
+                        </ul>
+
+                        <h4>Encefalopatía Hepática (EH)</h4>
+                        <p>Es una disfunción cerebral por insuficiencia hepática. Es un diagnóstico de exclusión.</p>
+                        <div class="highlight-box">
+                            <strong>Manejo de la EH:</strong>
+                            <ol class="list-decimal list-inside">
+                                <li><strong>¡Buscar y tratar el factor precipitante!</strong> Es el paso más importante (infecciones, HDA, deshidratación, fármacos).</li>
+                                <li><strong>Terapia para reducir el amonio:</strong> Lactulosa es la primera línea, con el objetivo de lograr 2-3 deposiciones blandas al día.</li>
+                            </ol>
+                        </div>
+                        
+                        <h4>Carcinoma Hepatocelular (CHC)</h4>
+                        <p>Es la consecuencia más temida a largo plazo. La detección temprana es la única opción curativa.</p>
+                        <ul>
+                            <li><strong>Población de Riesgo:</strong> TODOS los pacientes con cirrosis.</li>
+                            <li><strong>Protocolo de Vigilancia:</strong> Ecografía abdominal cada 6 meses. Es una responsabilidad del médico general asegurar su cumplimiento.</li>
+                        </ul>
+                    </div>
+                `
+            }
+        ];
+
+        // Contenido de los componentes externos
+        const presentationScript = () => {
+            const container = document.getElementById('presentation-content');
+            container.innerHTML = `
+                <style>
+                    .slider-container { width: 100%; position: relative; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: white; overflow: hidden; border-radius: 0.5rem;}
+                    .slide { display: none; padding: 20px 30px; min-height: 450px; }
+                    .slide.active { display: block; }
+                    .slide h1, .slide h2, .slide h3 { color: #00568c; }
+                    .slide h1 { font-size: 1.8em; text-align: center; border-bottom: 2px solid #00568c; padding-bottom: 10px; margin-bottom: 20px; }
+                    .slide h2 { font-size: 1.5em; margin-top: 20px; }
+                    .slide h3 { font-size: 1.2em; color: #007b9e; }
+                    .slide p, .slide li { line-height: 1.6; font-size: 1em; }
+                    .slide ul { list-style-type: disc; padding-left: 20px; }
+                    .slide .navigation { display: flex; justify-content: space-between; padding: 15px; background-color: #00568c; position: absolute; bottom: 0; left: 0; right: 0; }
+                    .slide .nav-button { background-color: #007b9e; color: white; border: none; padding: 8px 16px; font-size: 1em; cursor: pointer; border-radius: 5px; transition: background-color 0.3s; }
+                    .slide .nav-button:hover { background-color: #009acd; }
+                    .slide .slide-counter { color: white; font-size: 1.1em; align-self: center; }
+                    .slide .highlight { background-color: #e7f5ff; border-left: 5px solid #007b9e; padding: 10px; margin: 15px 0; border-radius: 5px; }
+                    .slide .ecuador-focus { border: 2px solid #fec107; padding: 10px; background-color: #fffbeb; border-radius: 8px; margin-top: 15px; }
+                </style>
+                <div class="slider-container">
+                    <!-- Slides -->
+                    <div class="slide active"><h1>Enfermedad Hepática II y III</h1><h2>Semanas 10 y 11</h2><div class="highlight"><p><strong>Objetivo:</strong> Capacitar al futuro médico general en el diagnóstico, estratificación y manejo de la enfermedad hepática crónica y sus complicaciones.</p></div></div>
+                    <div class="slide"><h2>Hepatitis Virales Crónicas en Ecuador</h2><div class="ecuador-focus"><h3>Enfoque Ecuador</h3><ul><li><strong>Hepatitis B:</strong> Focos de endemicidad intermedia (2-7%) en la cuenca amazónica.</li><li><strong>Genotipo VHB:</strong> Predominante es el Genotipo F (96%).</li></ul></div></div>
+                    <div class="slide"><h2>Fases de la Infección Crónica por VHB</h2><ul><li><strong>Inmunotolerancia:</strong> Alta carga viral, ALT normal.</li><li><strong>Inmunoactiva:</strong> Alta carga viral, ALT elevada. <strong>Requiere tratamiento.</strong></li><li><strong>Portador Inactivo:</strong> Baja carga viral, ALT normal.</li><li><strong>Hepatitis Crónica HBeAg-negativo:</strong> Carga viral >2,000 UI/mL, ALT elevada. <strong>Requiere tratamiento.</strong></li></ul></div>
+                    <div class="slide"><h2>Cirrosis: Diagnóstico y Pronóstico</h2><h3>Hallazgos Clave</h3><ul><li><strong>Laboratorio:</strong> Trombocitopenia (primer signo), hipoalbuminemia, INR prolongado.</li><li><strong>Imagen (Eco):</strong> Hígado nodular, esplenomegalia, ascitis.</li></ul><h3>Escalas Pronósticas</h3><p><strong>Child-Pugh:</strong> Evalúa severidad global. <strong>MELD:</strong> Predice mortalidad a 90 días.</p></div>
+                    <div class="slide"><h2>Hemorragia Variceal Aguda (HVA)</h2><h3>Protocolo "Código HVA"</h3><ol><li>Estabilización Hemodinámica</li><li>Transfusión Restrictiva (Hb 7-8 g/dL)</li><li>Fármacos: Terlipresina + Ceftriaxona</li><li>Endoscopia Urgente (<12h)</li></ol></div>
+                    <div class="slide"><h2>Otras Complicaciones</h2><h3>Ascitis y PBE</h3><ul><li><strong>GASA ≥ 1.1 g/dL</strong> indica hipertensión portal.</li><li><strong>PBE:</strong> PMN ≥ 250/mm³ en líquido ascítico. Tto: Cefalosporinas de 3ra gen.</li></ul><h3>Encefalopatía Hepática (EH)</h3><p><strong>Manejo:</strong> 1. Buscar y tratar el factor precipitante. 2. Lactulosa.</p></div>
+                    <div class="slide"><h2>Carcinoma Hepatocelular (CHC)</h2><h3>Vigilancia y Diagnóstico</h3><ul><li><strong>Población de Riesgo:</strong> TODOS los pacientes con cirrosis.</li><li><strong>Protocolo:</strong> Ecografía abdominal cada 6 meses.</li></ul></div>
+                    <!-- Navigation -->
+                    <div class="navigation"><button id="prevBtn" class="nav-button">Anterior</button><div id="slideCounter" class="slide-counter"></div><button id="nextBtn" class="nav-button">Siguiente</button></div>
+                </div>
+            `;
+            const slides = container.querySelectorAll('.slide');
+            const prevBtn = container.querySelector('#prevBtn');
+            const nextBtn = container.querySelector('#nextBtn');
+            const slideCounter = container.querySelector('#slideCounter');
+            let currentSlide = 0;
+
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[n].classList.add('active');
+                currentSlide = n;
+                slideCounter.textContent = `Diapositiva ${currentSlide + 1} de ${slides.length}`;
+            }
+            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(currentSlide + 1); });
+            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(currentSlide - 1); });
+            showSlide(0);
+        };
+
+        const simulatorScript = () => {
+            const container = document.getElementById('simulator-content');
+            container.innerHTML = `
+                <style>
+                    #game-container { width: 100%; background-color: white; border-radius: 10px; padding: 20px; border-top: 8px solid #c0392b;}
+                    #scenario-text-sim { font-size: 1.1em; line-height: 1.6; margin-bottom: 20px; border-left: 4px solid #3498db; padding-left: 15px; }
+                    #vitals-display-sim { background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 10px; margin-bottom: 20px; border-radius: 5px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px; }
+                    .vital-sim { font-size: 1em; text-align: center; }
+                    .vital-label-sim { font-weight: bold; color: #555; display: block; }
+                    .vital-value-sim { color: #c0392b; font-weight: bold; }
+                    .vital-value-sim.stable { color: #27ae60; }
+                    #options-container-sim button { display: block; width: 100%; padding: 12px; margin-bottom: 8px; font-size: 1em; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; text-align: left; }
+                    #options-container-sim button:hover:not(:disabled) { background-color: #2980b9; }
+                    #options-container-sim button:disabled { background-color: #bdc3c7; cursor: not-allowed; opacity: 0.7; }
+                    #feedback-text-sim { margin-top: 15px; padding: 12px; border-radius: 5px; font-size: 1em; line-height: 1.5; display: none; animation: fadeInFeedback 0.5s; }
+                    .feedback-correct-sim { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+                    .feedback-incorrect-sim { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+                </style>
+                <div id="game-container">
+                    <h1 class="text-xl font-bold text-center text-red-700 mb-4">Simulador Clínico: Código HVA</h1>
+                    <div id="vitals-display-sim"></div>
+                    <div id="scenario-text-sim">Cargando simulación...</div>
+                    <div id="options-container-sim"></div>
+                    <div id="feedback-text-sim"></div>
+                </div>
+            `;
+            
+            const scenarioText = container.querySelector('#scenario-text-sim');
+            const optionsContainer = container.querySelector('#options-container-sim');
+            const feedbackText = container.querySelector('#feedback-text-sim');
+            const vitalsDisplay = container.querySelector('#vitals-display-sim');
+            let state = {};
+
+            const scenarios = [
+                { id: 0, text: "Paciente de 58 años con cirrosis llega por hematemesis. Está letárgico y desorientado.", options: [ { text: "Asegurar vía aérea (ABCDE) y canalizar 2 vías IV.", correct: true, nextScenario: 1, feedback: "Correcto. La prioridad es la estabilización hemodinámica." }, { text: "Llamar a endoscopia urgentemente.", correct: false, nextScenario: 'fail_endoscopy_first' }, { text: "Administrar un sedante (diazepam).", correct: false, nextScenario: 'fail_sedation' } ] },
+                { id: 'fail_endoscopy_first', text: "El paciente sufre una parada cardiorrespiratoria por hipovolemia. **Error Crítico:** La resucitación es ANTES que la endoscopia.", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
+                { id: 'fail_sedation', text: "Las benzodiacepinas empeoran la encefalopatía. El paciente entra en coma. **Error Crítico:** Evitar sedantes.", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
+                { id: 1, text: "Vía aérea asegurada y accesos IV listos. ¿Siguiente paso URGENTE?", updateState: (s) => { s.ivAccess = true; return s; }, options: [ { text: "Administrar Terlipresina y Ceftriaxona IV.", correct: true, nextScenario: 2, feedback: "Excelente. La terapia farmacológica temprana reduce la mortalidad." }, { text: "Transfundir 2 paquetes de glóbulos rojos.", correct: false, nextScenario: 'fail_liberal_transfusion' } ] },
+                { id: 'fail_liberal_transfusion', text: "La transfusión agresiva eleva la presión portal y provoca resangrado masivo. **Error Crítico:** La transfusión debe ser RESTRICTIVA (objetivo Hb 7-8 g/dL).", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
+                { id: 2, text: "Fármacos administrados. Lab: Hb 6.5 g/dL. PA 90/50. ¿Política de transfusión?", updateState: (s) => { s.vasoactiveGiven = true; s.antibioticGiven = true; s.vitals.pas = 90; s.vitals.fc = 110; return s; }, options: [ { text: "Transfundir 1 paquete GR para objetivo Hb > 7 g/dL.", correct: true, nextScenario: 3, feedback: "Perfecto. Estrategia restrictiva para mantener perfusión sin exacerbar hipertensión portal." }, { text: "Transfundir hasta Hb > 10 g/dL.", correct: false, nextScenario: 'fail_liberal_transfusion' } ] },
+                { id: 3, text: "Hb en 7.5 g/dL. Paciente más estable (PA 95/60, FC 100). ¿Ahora qué?", updateState: (s) => { s.vitals.hb = 7.5; s.vitals.pas = 95; s.vitals.fc = 100; return s; }, options: [ { text: "Coordinar endoscopia urgente (<12h).", correct: true, nextScenario: 4, feedback: "Correcto. Una vez estabilizado, el siguiente paso es el tratamiento endoscópico." }, { text: "Esperar 24h a ver si se detiene el sangrado.", correct: false, nextScenario: 'fail_wait' } ] },
+                { id: 'fail_wait', text: "Retrasar la endoscopia aumenta el riesgo de resangrado. El paciente vuelve a sangrar. **Error:** La endoscopia debe ser temprana.", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
+                { id: 4, text: "¡Excelente! Ha estabilizado al paciente. El gastroenterólogo está en camino. Ha completado con éxito el manejo inicial.", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
+            ];
+
+            function getInitialState() { return { vitals: { pas: 80, fc: 125, hb: 6.5, encefalopatia: 2 }, ivAccess: false, vasoactiveGiven: false, antibioticGiven: false }; }
+            
+            function renderVitals() { vitalsDisplay.innerHTML = `<div class="vital-sim"><span class="vital-label-sim">PAS</span> <span class="vital-value-sim ${state.vitals.pas >= 90 ? 'stable' : ''}">${state.vitals.pas}</span></div> <div class="vital-sim"><span class="vital-label-sim">FC</span> <span class="vital-value-sim ${state.vitals.fc <= 100 ? 'stable' : ''}">${state.vitals.fc}</span></div> <div class="vital-sim"><span class="vital-label-sim">Hb</span> <span class="vital-value-sim ${state.vitals.hb >= 7 ? 'stable' : ''}">${state.vitals.hb}</span></div>`; }
+            
+            function renderScenario(id) {
+                const scenario = scenarios.find(s => s.id === id);
+                if (!scenario) return;
+                if (scenario.updateState) state = scenario.updateState(state);
+                renderVitals();
+                scenarioText.innerHTML = scenario.text;
+                optionsContainer.innerHTML = '';
+                feedbackText.style.display = 'none';
+                scenario.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.innerHTML = option.text;
+                    button.onclick = () => handleOptionClick(option);
+                    optionsContainer.appendChild(button);
+                });
+            }
+
+            function handleOptionClick(selectedOption) {
+                feedbackText.style.display = 'block';
+                Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+                if (selectedOption.correct) {
+                    feedbackText.innerHTML = `<strong>${selectedOption.feedback}</strong>`;
+                    feedbackText.className = 'feedback-correct-sim';
+                    setTimeout(() => renderScenario(selectedOption.nextScenario), 2500);
+                } else {
+                    const failScenario = scenarios.find(s => s.id === selectedOption.nextScenario);
+                    feedbackText.innerHTML = failScenario.text;
+                    feedbackText.className = 'feedback-incorrect-sim';
+                    optionsContainer.innerHTML = '';
+                    failScenario.options.forEach(opt => {
+                        const button = document.createElement('button');
+                        button.innerHTML = opt.text;
+                        button.onclick = () => { if (opt.nextScenario === 0) state = getInitialState(); renderScenario(opt.nextScenario); };
+                        optionsContainer.appendChild(button);
+                    });
+                }
+            }
+            state = getInitialState();
+            renderScenario(0);
+        };
+
+        const mainContent = document.getElementById('main-content');
+        const navigationMenu = document.getElementById('navigation-menu');
+
+        function renderSection(sectionId) {
+            const section = studyGuideData.find(s => s.id === sectionId);
+            if (section) {
+                mainContent.innerHTML = section.content;
+                mainContent.scrollTop = 0;
+
+                // Ejecutar script si existe
+                if (section.script === 'presentationScript') {
+                    presentationScript();
+                } else if (section.script === 'simulatorScript') {
+                    simulatorScript();
+                }
+
+                // Renderizar quizzes si existen
+                if (section.quizzes) {
+                    const quizContainer = mainContent.querySelector('.quiz-container');
+                    section.quizzes.forEach((quiz, quizIndex) => {
+                        const quizEl = document.createElement('div');
+                        quizEl.className = 'bg-white p-6 rounded-lg border-2 border-gray-200';
+                        
+                        const questionP = document.createElement('p');
+                        questionP.className = 'font-medium text-gray-700 mb-4';
+                        questionP.textContent = quiz.question;
+                        quizEl.appendChild(questionP);
+
+                        const optionsDiv = document.createElement('div');
+                        optionsDiv.className = 'space-y-3';
+                        quiz.options.forEach((option, optionIndex) => {
+                            const button = document.createElement('button');
+                            button.className = 'quiz-option w-full text-left p-4 rounded-lg bg-gray-100 hover:bg-blue-100';
+                            button.textContent = `${String.fromCharCode(65 + optionIndex)}) ${option}`;
+                            button.onclick = () => checkAnswer(studyGuideData.indexOf(section), quizIndex, optionIndex);
+                            optionsDiv.appendChild(button);
+                        });
+                        quizEl.appendChild(optionsDiv);
+
+                        const feedbackDiv = document.createElement('div');
+                        feedbackDiv.id = `feedback-${studyGuideData.indexOf(section)}-${quizIndex}`;
+                        feedbackDiv.className = 'mt-4 text-sm p-4 rounded-lg hidden';
+                        quizEl.appendChild(feedbackDiv);
+
+                        quizContainer.appendChild(quizEl);
+                    });
+                }
+
+                // Actualizar enlace activo en la barra lateral
+                document.querySelectorAll('.sidebar-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-id') === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Inicializar la aplicación
+        window.onload = () => {
+            // Poblar el menú de navegación
+            studyGuideData.forEach(section => {
+                const link = document.createElement('a');
+                link.href = '#';
+                link.textContent = section.title;
+                link.className = 'sidebar-link block w-full text-left p-3 rounded-md hover:bg-gray-700';
+                link.setAttribute('data-id', section.id);
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    renderSection(section.id);
+                };
+                navigationMenu.appendChild(link);
+            });
+
+            // Renderizar la primera sección por defecto
+            renderSection('intro');
+        };
+    </script>
 </body>
 </html>
