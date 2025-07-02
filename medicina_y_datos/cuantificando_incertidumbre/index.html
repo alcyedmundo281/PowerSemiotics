@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía Interactiva: Cuantificando la Incertidumbre en el Diagnóstico</title>
+    <title>Guía Interactiva: Cuantificando la Incertidumbre</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
+            background-color: #f8fafc;
+        }
+        .gradient-text-header {
+            background: -webkit-linear-gradient(#4F46E5, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .accordion-content {
             max-height: 0;
@@ -20,7 +27,7 @@
             padding: 0 1.5rem;
         }
         .accordion-button.active + .accordion-content {
-            max-height: 5000px; /* Adjust as needed */
+            max-height: 10000px; /* Increased max-height */
             padding: 1.5rem;
         }
         .accordion-button .icon {
@@ -35,6 +42,38 @@
             border-radius: 4px;
             font-weight: 600;
             color: #92400e;
+        }
+        .code-block {
+            background-color: #1f2937;
+            color: #d1d5db;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            position: relative;
+        }
+        .code-block .comment { color: #6b7280; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .string { color: #a5f3fc; }
+        .code-block .number { color: #f9a8d4; }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #4b5563;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: opacity 0.2s, background-color 0.2s;
+        }
+        .copy-btn:hover {
+            opacity: 1;
         }
         .quiz-option:hover {
             background-color: #e5e7eb;
@@ -52,23 +91,32 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="text-gray-800">
 
-    <!-- Header -->
-    <header class="bg-white shadow-md sticky top-0 z-10">
-        <div class="container mx-auto px-6 py-4">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Guía de Estudio Interactiva</h1>
-            <p class="text-md text-gray-600">Cuantificando la Incertidumbre en el Diagnóstico Médico</p>
-        </div>
+    <!-- Encabezado del Sitio (Integrado) -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/index.html" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text-header">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">
+                    <i class="fas fa-arrow-left mr-2"></i>Volver a Medicina y Datos
+                </a>
+            </div>
+        </nav>
     </header>
 
     <!-- Main Content -->
     <main class="container mx-auto p-4 md:p-8">
         
         <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-            <h2 class="text-xl font-bold mb-3 text-blue-700">¡Bienvenido, futuro líder en medicina!</h2>
-            <p class="mb-4">Esta no es una guía de estudio tradicional. Es una misión de exploración. Tu objetivo es navegar por los conceptos que definen el arte y la ciencia del diagnóstico moderno. Cada sección es una puerta a un nuevo nivel de entendimiento. ¡Haz clic para descubrir, interactuar para aprender y ponte a prueba para conquistar!</p>
-            <p class="font-semibold">¿Estás listo para comenzar tu viaje?</p>
+            <div class="text-center">
+                <p class="text-blue-600 font-semibold">Unidad 3</p>
+                <h1 class="text-3xl md:text-4xl font-black tracking-tight leading-tight mt-1">Guía de Estudio: Cuantificando la Incertidumbre</h1>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Una misión de exploración para navegar los conceptos que definen el arte y la ciencia del diagnóstico moderno. ¡Haz clic en cada sección para descubrir, interactuar para aprender y ponte a prueba para conquistar!</p>
+            </div>
         </div>
 
         <!-- Accordion Sections -->
@@ -208,7 +256,7 @@
                             <li><strong>0.90 - 1.00:</strong> Excelente</li>
                             <li><strong>0.80 - 0.90:</strong> Bueno</li>
                             <li><strong>0.70 - 0.80:</strong> Aceptable</li>
-                            <li><strong>< 0.70:</strong> Pobre / No útil</li>
+                            <li><strong>&lt; 0.70:</strong> Pobre / No útil</li>
                         </ul>
                     </div>
                     <div class="mt-6 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
@@ -226,51 +274,41 @@
                 </div>
             </div>
 
-            <!-- Section 4: Case Studies -->
+            <!-- Section 4: Practical Exercises -->
             <div class="bg-white rounded-xl shadow-lg">
                 <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
-                    <span>🔬 Sección 4: Aplicación Práctica - Estudios de Caso</span>
+                    <span>💻 Sección 4: Ejercicios Prácticos en Posit Cloud</span>
                     <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="accordion-content">
-                    <p class="mb-4">Veamos cómo estos conceptos se aplican en el mundo real.</p>
-                    <div class="space-y-4">
-                        <div class="p-4 border rounded-lg">
-                            <h4 class="font-bold">Caso 1: Diagnóstico de Diabetes con HbA1c</h4>
-                            <p>La ADA recomienda un punto de corte de ≥6.5%. Esto se eligió por su <strong class="interactive-highlight">alta especificidad</strong> (minimiza falsos positivos), aunque su sensibilidad no sea la más alta. Es una decisión clínica para evitar diagnosticar erróneamente a personas sanas.</p>
-                        </div>
-                        <div class="p-4 border rounded-lg">
-                            <h4 class="font-bold">Caso 2: Diagnóstico del VIH</h4>
-                            <p>Este es el ejemplo perfecto de algoritmos secuenciales. Se usa una prueba de cribado de <strong class="interactive-highlight">alta sensibilidad</strong> (ELISA) para no dejar pasar a nadie. Luego, los positivos se confirman con una prueba de <strong class="interactive-highlight">alta especificidad</strong> (Western Blot) para asegurar el diagnóstico y evitar el devastador impacto de un falso positivo.</p>
+                    <p class="mb-4">Es hora de aplicar la teoría. Los siguientes ejercicios están diseñados para ser ejecutados en la nube usando Posit Cloud, por lo que no necesitarás instalar ningún software en tu computadora.</p>
+                    
+                    <div class="p-4 bg-gray-50 rounded-lg border mt-4">
+                        <h3 class="font-bold text-xl mb-3">Ejercicio 1 (Python): Calcular Sensibilidad y Especificidad</h3>
+                        <p class="text-gray-600 mb-4">Usa el siguiente código en un notebook de Jupyter en Posit Cloud para calcular los indicadores básicos de una prueba diagnóstica.</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                            <pre><code class="language-python"><span class="comment"># Código de ejemplo para Python</span>
+y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]
+y_pred = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]
+<span class="comment"># ... (resto del código)</span></code></pre>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Section 5: Limitations & Human Factor -->
-            <div class="bg-white rounded-xl shadow-lg">
-                <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
-                    <span>🧠 Sección 5: La Dimensión Humana - Limitaciones y Sesgos</span>
-                    <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <p class="mb-4">Las estadísticas son poderosas, pero el razonamiento clínico no es un algoritmo. Está influenciado por atajos mentales y sesgos cognitivos que pueden llevar a errores.</p>
-                    <h4 class="font-bold mb-2">Sesgos Cognitivos Comunes:</h4>
-                    <ul class="list-disc list-inside space-y-2">
-                        <li><strong>Anclaje y Cierre Prematuro:</strong> Aferrarse a un diagnóstico inicial e ignorar nueva información.</li>
-                        <li><strong>Sesgo de Confirmación:</strong> Buscar evidencia que apoye tu idea inicial y descartar la que la contradice.</li>
-                        <li><strong>Sesgo de Disponibilidad:</strong> Pensar en un diagnóstico porque lo viste recientemente o es muy dramático, no porque sea el más probable.</li>
-                    </ul>
-                    <div class="mt-6 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
-                        <h4 class="font-bold mb-2">¡Pon a prueba tu conocimiento!</h4>
-                        <div class="quiz-container" data-quiz-id="2">
-                            <p class="mb-2">Un paciente llega con dolor de cabeza. Acabas de leer un artículo sobre tumores cerebrales raros y te enfocas en esa posibilidad, ordenando una RMN de inmediato a pesar de que los signos apuntan a una migraña común. ¿Qué sesgo estás demostrando?</p>
-                            <div class="space-y-2">
-                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="false">Sesgo de Confirmación</button>
-                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="false">Anclaje</button>
-                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="true">Sesgo de Disponibilidad</button>
-                            </div>
-                            <p class="quiz-feedback mt-2 text-sm font-semibold hidden"></p>
+                    <div class="p-4 bg-gray-50 rounded-lg border mt-6">
+                        <h3 class="font-bold text-xl mb-3">Ejercicio 2 (R): Generar y Analizar una Curva ROC</h3>
+                        <p class="text-gray-600 mb-4">Usa los siguientes bloques de código en un proyecto de RStudio en Posit Cloud para generar una curva ROC y calcular su AUC.</p>
+                        <div class="code-block mb-4">
+                            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                            <pre><code class="language-r"><span class="comment"># 1. Instalar y cargar el paquete</span>
+<span class="function">if</span> (!<span class="function">require</span>(pROC)) <span class="function">install.packages</span>(<span class="string">"pROC"</span>)
+<span class="function">library</span>(pROC)</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+                            <pre><code class="language-r"><span class="comment"># 2. Crear datos y analizar</span>
+datos_pacientes &lt;- <span class="function">data.frame</span>(...)
+<span class="comment"># ... (resto del código)</span></code></pre>
                         </div>
                     </div>
                 </div>
@@ -279,11 +317,9 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
-        <div class="container mx-auto px-6 py-4 text-center">
-            <p>&copy; 2025 - Guía de Estudio para Medicina y Ciencia.</p>
-            <p class="text-sm text-gray-400">Creado para inspirar a la próxima generación de médicos.</p>
+    <footer class="bg-white mt-12 border-t">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -300,45 +336,47 @@
             });
         });
 
-        // Interactive prevalence calculator
-        const slider = document.getElementById('prevalence-slider');
-        const prevalenceValue = document.getElementById('prevalence-value');
-        const vppResult = document.getElementById('vpp-result');
-        const vpnResult = document.getElementById('vpn-result');
-        const vppExplanation = document.getElementById('vpp-explanation');
-
-        slider.addEventListener('input', () => {
-            const prevalence = parseFloat(slider.value);
-            prevalenceValue.textContent = prevalence.toFixed(1);
-            
-            // Fixed values for Sens (0.99) and Spec (0.95)
-            const sens = 0.99;
-            const spec = 0.95;
-            const population = 10000;
-            
-            const enfermos = population * (prevalence / 100);
-            const sanos = population - enfermos;
-            
-            const vp = enfermos * sens;
-            const fn = enfermos * (1 - sens);
-            const vn = sanos * spec;
-            const fp = sanos * (1 - spec);
-            
-            const vpp = (vp / (vp + fp)) * 100;
-            const vpn = (vn / (vn + fn)) * 100;
-            
-            vppResult.textContent = (isNaN(vpp) ? 0 : vpp.toFixed(1)) + '%';
-            vpnResult.textContent = (isNaN(vpn) ? 100 : vpn.toFixed(1)) + '%';
-
-            if (prevalence < 1) {
-                vppExplanation.textContent = `Con una prevalencia tan baja, ¡un resultado positivo tiene una probabilidad muy alta de ser un FALSO positivo!`;
-            } else if (prevalence > 20) {
-                 vppExplanation.textContent = `En un entorno de alta prevalencia, un resultado positivo es mucho más fiable.`;
-            } else {
-                 vppExplanation.textContent = `Incluso con una prevalencia moderada, el VPP puede ser sorprendentemente bajo.`;
+        // Bayes calculator
+        function calculateBayes() {
+            const preTestProbInput = document.getElementById('pre_test_prob');
+            const lrPlusInput = document.getElementById('lr_plus');
+            const postTestResultEl = document.getElementById('post_test_result');
+            if (!preTestProbInput || !lrPlusInput || !postTestResultEl) return;
+            const preTestProb = parseFloat(preTestProbInput.value) / 100;
+            const lrPlus = parseFloat(lrPlusInput.value);
+            if (isNaN(preTestProb) || isNaN(lrPlus) || preTestProb > 1 || preTestProb < 0) {
+                postTestResultEl.innerText = 'Datos Inválidos';
+                return;
             }
-        });
+            if (preTestProb === 1) {
+                 postTestResultEl.innerText = '100.0%';
+                 return;
+            }
+            const preTestOdds = preTestProb / (1 - preTestProb);
+            const postTestOdds = preTestOdds * lrPlus;
+            const postTestProb = postTestOdds / (1 + postTestOdds);
+            postTestResultEl.innerText = `${(postTestProb * 100).toFixed(1)}%`;
+        }
 
+        // Copy code button
+        function copyCode(button) {
+            const pre = button.parentElement.querySelector('pre');
+            const code = pre.innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            const originalText = button.innerText;
+            button.innerText = '¡Copiado!';
+            button.classList.add('bg-green-500');
+            setTimeout(() => {
+                button.innerText = originalText;
+                button.classList.remove('bg-green-500');
+            }, 2000);
+        }
+        
         // Quiz functionality
         const quizContainers = document.querySelectorAll('.quiz-container');
         quizContainers.forEach(container => {
@@ -366,11 +404,14 @@
                         feedback.textContent = 'No del todo. ¡Intenta pensar en la definición de nuevo!';
                         feedback.classList.remove('hidden', 'text-green-600');
                         feedback.classList.add('text-red-600');
-                        // Highlight the correct answer
                         container.querySelector('[data-correct="true"]').classList.add('correct');
                     }
                 });
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateBayes();
         });
     </script>
 
