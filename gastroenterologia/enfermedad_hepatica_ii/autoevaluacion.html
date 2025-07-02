@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoevaluación: Casos Clínicos de Enfermedad Hepática</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+    }
+    #quiz-container {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .question-block {
+        margin-bottom: 30px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+    }
+    .question-block p {
+        font-weight: bold;
+        color: #00568c;
+        font-size: 1.2em;
+    }
+    .options-list {
+        list-style: none;
+        padding: 0;
+    }
+    .options-list li {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+    .options-list li:hover {
+        background-color: #e9ecef;
+    }
+    .options-list li.selected {
+        background-color: #cce5ff;
+        border-color: #007bff;
+    }
+    .options-list li label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+    }
+    .options-list li input[type="radio"] {
+        margin-right: 15px;
+    }
+    #submit-quiz-btn, #restart-quiz-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        cursor: pointer;
+        border-radius: 5px;
+        display: block;
+        width: 100%;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+    #submit-quiz-btn:hover {
+        background-color: #0056b3;
+    }
+    #restart-quiz-btn {
+        background-color: #6c757d;
+        display: none; /* Se mostrará con JS */
+    }
+    #restart-quiz-btn:hover {
+        background-color: #5a6268;
+    }
+    #results-container {
+        margin-top: 30px;
+        display: none;
+        text-align: center;
+    }
+    #score-text {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #00568c;
+        padding: 20px;
+        background: #e7f5ff;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .feedback-item {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        text-align: left;
+    }
+    .feedback-item.correct {
+        background-color: #d4edda;
+        border-left: 5px solid #28a745;
+    }
+    .feedback-item.incorrect {
+        background-color: #f8d7da;
+        border-left: 5px solid #dc3545;
+    }
+    .feedback-item h4 {
+        margin-top: 0;
+    }
+    .justification {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #ccc;
+    }
+    .justification-correct { color: #155724; font-weight: bold; }
+    .justification-distractor { color: #721c24; }
+</style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <h1>Autoevaluación Interactiva</h1>
+    <form id="quiz-form">
+        <div id="quiz-content"></div>
+        <button type="submit" id="submit-quiz-btn">Calificar Autoevaluación</button>
+    </form>
+    <div id="results-container">
+        <div id="score-text"></div>
+        <div id="feedback-section"></div>
+        <button id="restart-quiz-btn">Reiniciar Autoevaluación</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const quizData = [
+        {
+            question: "Un agricultor de 45 años, proveniente de una comunidad rural de la provincia de Morona Santiago, acude a consulta por astenia y malestar general de varios meses de evolución. No tiene antecedentes médicos de importancia. En los exámenes de laboratorio de rutina, se encuentra: ALT 85 U/L, AST 70 U/L, plaquetas 180,000/mm³. Se solicita un perfil de hepatitis viral con los siguientes resultados: HBsAg positivo, Anti-HBc total positivo, Anti-HBc IgM negativo, HBeAg negativo, Anti-HBe positivo. ¿Cuál es el paso MÁS apropiado a seguir?",
+            options: [
+                "Iniciar tratamiento con Tenofovir inmediatamente, ya que tiene hepatitis B crónica.",
+                "Solicitar una carga viral (ADN-VHB) y repetir las transaminasas en 3-6 meses.",
+                "Tranquilizar al paciente, ya que es un portador inactivo y solo requiere seguimiento anual.",
+                "Solicitar una ecografía abdominal para descartar esteatosis hepática."
+            ],
+            answer: 1,
+            justification: {
+                correct: "El paciente tiene una hepatitis B crónica HBeAg-negativa. Para diferenciar si está en la fase inmunoactiva (que requiere tratamiento) o en la fase de portador inactivo (que solo requiere vigilancia), es indispensable conocer el nivel de ADN-VHB y la persistencia de la elevación de ALT. Este paso es crucial para la estratificación correcta.",
+                distractors: [
+                    "A es incorrecto porque iniciar tratamiento sin conocer la carga viral ni confirmar la inflamación persistente no es apropiado. Podría ser un portador inactivo con una elevación transitoria de ALT.",
+                    "C es incorrecto porque con una ALT elevada no se puede asumir que es un portador inactivo. La definición de portador inactivo requiere ALT persistentemente normales.",
+                    "D es incorrecto porque, aunque la ecografía es útil, no es el paso prioritario para la decisión terapéutica en este momento. La decisión de tratar depende de la actividad viral e inflamatoria."
+                ]
+            }
+        },
+        {
+            question: "Una mujer de 32 años, en su semana 28 de gestación, acude a su control prenatal. Es asintomática. Como parte del tamizaje de rutina, se le realiza un HBsAg, que resulta positivo. Exámenes adicionales muestran: HBeAg positivo, ALT 30 U/L y una carga viral (ADN-VHB) de 500,000 UI/mL. ¿Cuál es el manejo más adecuado para prevenir la transmisión materno-infantil?",
+            options: [
+                "Iniciar tratamiento con Tenofovir a la madre y planificar la administración de vacuna y HBIg al recién nacido.",
+                "Recomendar cesárea electiva para disminuir el riesgo de transmisión durante el parto.",
+                "Administrar únicamente la vacuna contra hepatitis B al recién nacido en las primeras 12 horas.",
+                "Suspender la lactancia materna para evitar el contagio del neonato."
+            ],
+            answer: 0,
+            justification: {
+                correct: "La carga viral de la madre es >200,000 UI/mL, lo que la coloca en alto riesgo de transmisión vertical. Las guías internacionales y del MSP recomiendan iniciar terapia antiviral (Tenofovir es seguro en el embarazo) en el tercer trimestre para disminuir la carga viral, combinado con la inmunoprofilaxis activa y pasiva (vacuna + HBIg) al neonato.",
+                distractors: [
+                    "B es incorrecto porque la cesárea electiva no ha demostrado reducir significativamente la transmisión del VHB y no es la recomendación estándar.",
+                    "C es incorrecto porque con una madre de alto riesgo (HBeAg+ y alta carga viral), la vacuna sola es insuficiente; la adición de HBIg es crucial para una protección efectiva.",
+                    "D es incorrecto porque la lactancia materna no está contraindicada en madres HBsAg+, siempre y cuando el recién nacido reciba la inmunoprofilaxis adecuada."
+                ]
+            }
+        },
+        {
+            question: "Un paciente de 62 años con diagnóstico de cirrosis hepática por VHC (Child-Pugh B8) es traído a emergencias por presentar hematemesis. A su llegada, se encuentra pálido, sudoroso, con una presión arterial de 85/50 mmHg y una frecuencia cardíaca de 115 lpm. ¿Qué combinación de fármacos debe administrar de forma INMEDIATA, incluso antes de la endoscopia?",
+            options: [
+                "Omeprazol IV y Metoclopramida IV.",
+                "Furosemida IV y Lactulosa por sonda nasogástrica.",
+                "Terlipresina IV y Ceftriaxona IV.",
+                "Albúmina humana IV y Vitamina K IV."
+            ],
+            answer: 2,
+            justification: {
+                correct: "El manejo inicial de la HVA se basa en tres pilares que se inician simultáneamente: resucitación, fármacos vasoactivos y profilaxis antibiótica. La Terlipresina (o un análogo de somatostatina) reduce la presión portal y el sangrado. La Ceftriaxona previene las infecciones bacterianas, que son un gatillo frecuente de resangrado y una causa importante de mortalidad.",
+                distractors: [
+                    "A es incorrecto. El Omeprazol es para hemorragia no variceal (úlcera péptica). La Metoclopramida no tiene rol en HVA.",
+                    "B es incorrecto. Los diuréticos como la Furosemida están contraindicados en un paciente hipovolémico. La Lactulosa es para encefalopatía, no para el manejo agudo del sangrado.",
+                    "D es incorrecto. La albúmina se usa en PBE o síndrome hepatorrenal, no de rutina en HVA. La Vitamina K tiene un rol limitado ya que la coagulopatía del cirrótico se debe a falta de síntesis, no a déficit de vitamina K."
+                ]
+            }
+        },
+        {
+            question: "Un paciente de 68 años con cirrosis alcohólica (Child-Pugh C11) es hospitalizado por un cuadro de desorientación, letargia y asterixis (flapping tremor) de 48 horas de evolución. Su familiar refiere que ha tenido fiebre y disuria en los últimos días. No ha habido sangrado digestivo. Al examen físico, se evidencia ascitis a tensión. ¿Cuál es el factor precipitante MÁS PROBABLE de la encefalopatía hepática que debe investigarse con mayor urgencia?",
+            options: [
+                "Estreñimiento; realizar un tacto rectal en busca de fecaloma.",
+                "Hemorragia digestiva oculta; solicitar una prueba de sangre oculta en heces.",
+                "Infección (PBE o ITU); realizar una paracentesis diagnóstica y solicitar un examen de orina.",
+                "Transgresión dietética (exceso de proteínas); solicitar niveles de amonio en sangre."
+            ],
+            answer: 2,
+            justification: {
+                correct: "La encefalopatía hepática casi siempre es desencadenada por un factor precipitante. En un paciente con fiebre, disuria y ascitis, la sospecha más alta es una infección, ya sea una infección del tracto urinario (ITU) o una peritonitis bacteriana espontánea (PBE). La paracentesis diagnóstica es mandatoria para descartar PBE (buscando PMN ≥ 250/mm³).",
+                distractors: [
+                    "A y B son precipitantes posibles, pero la presencia de fiebre y disuria hace que la infección sea la causa más probable y la que debe ser descartada con mayor urgencia.",
+                    "D es incorrecto porque, aunque el amonio puede estar elevado, medirlo no identifica la causa subyacente. El tratamiento eficaz de la EH depende de tratar el precipitante, en este caso, la probable infección."
+                ]
+            }
+        },
+        {
+            question: "Un paciente de 55 años, diagnosticado con cirrosis por VHB hace 5 años (Child-Pugh A5), acude a su control semestral. Se encuentra asintomático y sus exámenes de laboratorio están estables. Usted es el médico general que realiza su seguimiento en el centro de salud. ¿Cuál es la estrategia de VIGILANCIA para carcinoma hepatocelular (CHC) recomendada por las guías internacionales?",
+            options: [
+                "Medición de Alfa-fetoproteína (AFP) sérica cada 6 meses.",
+                "Tomografía computarizada (TC) de abdomen con contraste anualmente.",
+                "Ecografía abdominal cada 6 meses.",
+                "Endoscopia digestiva alta para vigilar várices cada 2 años."
+            ],
+            answer: 2,
+            justification: {
+                correct: "La piedra angular de la vigilancia del carcinoma hepatocelular (CHC) en todos los pacientes con cirrosis es la realización de una ecografía abdominal (o hepática) cada 6 meses. Esta estrategia ha demostrado detectar tumores en estadios más tempranos, permitiendo el acceso a tratamientos curativos y mejorando la supervivencia.",
+                distractors: [
+                    "A es incorrecto. La AFP tiene una sensibilidad y especificidad bajas para ser usada como única herramienta de cribado. Puede ser normal en CHC pequeños o elevada en otras condiciones. Se usa como complemento, pero no reemplaza a la ecografía.",
+                    "B es incorrecto. La TC con contraste es una herramienta diagnóstica, no de vigilancia, debido a su costo, radiación y uso de contraste. Se solicita si la ecografía de vigilancia muestra una lesión sospechosa.",
+                    "D es incorrecto. La endoscopia es para la vigilancia de várices esofágicas, no para el CHC. Son dos programas de vigilancia paralelos y ambos importantes en el paciente cirrótico, pero con objetivos distintos."
+                ]
+            }
+        }
+    ];
+
+    const quizForm = document.getElementById('quiz-form');
+    const quizContent = document.getElementById('quiz-content');
+    const resultsContainer = document.getElementById('results-container');
+    const scoreText = document.getElementById('score-text');
+    const feedbackSection = document.getElementById('feedback-section');
+    const restartBtn = document.getElementById('restart-quiz-btn');
+    const submitBtn = document.getElementById('submit-quiz-btn');
+
+    function buildQuiz() {
+        quizData.forEach((item, index) => {
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+
+            const questionText = document.createElement('p');
+            questionText.innerHTML = `<strong>Caso Clínico ${index + 1}:</strong> ${item.question}`;
+            questionBlock.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+            item.options.forEach((option, optionIndex) => {
+                const li = document.createElement('li');
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `question${index}`;
+                radio.value = optionIndex;
+                radio.required = true;
+                
+                label.appendChild(radio);
+                label.append(option); // Appends text node
+                li.appendChild(label);
+                
+                li.addEventListener('click', () => {
+                   // Remove selection from siblings
+                   li.parentElement.querySelectorAll('li').forEach(sibling => sibling.classList.remove('selected'));
+                   // Add selection to current
+                   li.classList.add('selected');
+                   radio.checked = true;
+                });
+
+                optionsList.appendChild(li);
+            });
+            questionBlock.appendChild(optionsList);
+            quizContent.appendChild(questionBlock);
+        });
+    }
+
+    function showResults(e) {
+        e.preventDefault();
+        let score = 0;
+        feedbackSection.innerHTML = ''; 
+
+        quizData.forEach((item, index) => {
+            const selectedOption = quizForm.querySelector(`input[name="question${index}"]:checked`);
+            if (!selectedOption) return;
+
+            const userAnswer = parseInt(selectedOption.value);
+            const feedbackItem = document.createElement('div');
+            feedbackItem.className = 'feedback-item';
+
+            let feedbackHTML = `<h4>Revisión del Caso ${index + 1}</h4>`;
+            
+            if (userAnswer === item.answer) {
+                score++;
+                feedbackItem.classList.add('correct');
+                feedbackHTML += `<p><strong>Tu respuesta fue correcta.</strong></p>`;
+            } else {
+                feedbackItem.classList.add('incorrect');
+                feedbackHTML += `<p><strong>Tu respuesta:</strong> ${item.options[userAnswer]}</p>`;
+                feedbackHTML += `<p><strong>Respuesta correcta:</strong> ${item.options[item.answer]}</p>`;
+            }
+
+            const justificationDiv = document.createElement('div');
+            justificationDiv.className = 'justification';
+            justificationDiv.innerHTML = `<p class="justification-correct"><strong>Justificación:</strong> ${item.justification.correct}</p>`;
+            let distractorIndex = 0;
+            item.options.forEach((opt, idx) => {
+                if (idx !== item.answer) {
+                    justificationDiv.innerHTML += `<p class="justification-distractor">${item.justification.distractors[distractorIndex]}</p>`;
+                    distractorIndex++;
+                }
+            });
+            
+            feedbackHTML += justificationDiv.outerHTML;
+            feedbackItem.innerHTML = feedbackHTML;
+            feedbackSection.appendChild(feedbackItem);
+        });
+
+        quizForm.style.display = 'none';
+        resultsContainer.style.display = 'block';
+        scoreText.textContent = `Calificación Final: ${score} de ${quizData.length} respuestas correctas.`;
+        restartBtn.style.display = 'block';
+    }
+
+    function restartQuiz() {
+        quizForm.reset();
+        quizContent.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+        resultsContainer.style.display = 'none';
+        quizForm.style.display = 'block';
+    }
+
+    quizForm.addEventListener('submit', showResults);
+    restartBtn.addEventListener('click', restartQuiz);
+
+    buildQuiz();
+});
+</script>
+
+</body>
+</html>
