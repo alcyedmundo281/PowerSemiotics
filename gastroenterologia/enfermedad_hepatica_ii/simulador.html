@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador Clínico: Manejo de Hemorragia Variceal Aguda</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #eef2f5;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+    }
+    #game-container {
+        width: 100%;
+        max-width: 800px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        padding: 30px;
+        border-top: 8px solid #c0392b;
+    }
+    #scenario-text {
+        font-size: 1.2em;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        border-left: 4px solid #3498db;
+        padding-left: 15px;
+    }
+    #vitals-display {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+   .vital {
+        font-size: 1.1em;
+        margin: 5px 10px;
+        text-align: center;
+    }
+   .vital-label {
+        font-weight: bold;
+        color: #555;
+        display: block;
+    }
+   .vital-value {
+        color: #c0392b;
+        font-weight: bold;
+    }
+   .vital-value.stable {
+        color: #27ae60;
+    }
+    #options-container button {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-align: left;
+    }
+    #options-container button:hover:not(:disabled) {
+        background-color: #2980b9;
+    }
+    #options-container button:disabled {
+        background-color: #bdc3c7;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+    #feedback-text {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 1.1em;
+        line-height: 1.5;
+        display: none;
+        animation: fadeInFeedback 0.5s;
+    }
+   .feedback-correct {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+   .feedback-incorrect {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    h1 {
+        text-align: center;
+        color: #c0392b;
+        margin-bottom: 20px;
+    }
+    @keyframes fadeInFeedback {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1>Simulador Clínico: Código HVA</h1>
+    <div id="vitals-display"></div>
+    <div id="scenario-text">Cargando simulación...</div>
+    <div id="options-container"></div>
+    <div id="feedback-text"></div>
+</div>
+
+<script>
+    const gameContainer = document.getElementById('game-container');
+    const scenarioText = document.getElementById('scenario-text');
+    const optionsContainer = document.getElementById('options-container');
+    const feedbackText = document.getElementById('feedback-text');
+    const vitalsDisplay = document.getElementById('vitals-display');
+
+    let state = {};
+
+    function getInitialState() {
+        return {
+            vitals: {
+                pas: 80, // Presión Arterial Sistólica
+                fc: 125, // Frecuencia Cardíaca
+                hb: 6.5, // Hemoglobina
+                sao2: 94, // Saturación de Oxígeno
+                encefalopatia: 2 // Grado de West Haven
+            },
+            ivAccess: false,
+            vasoactiveGiven: false,
+            antibioticGiven: false,
+            transfusionPolicy: 'none', // 'none', 'restrictive', 'liberal'
+            endoscopyCalled: false
+        };
+    }
+
+    const scenarios = [
+        {
+            id: 0,
+            text: "Usted está de guardia en emergencias cuando llega un paciente masculino de 58 años, conocido por cirrosis alcohólica, traído por su familia por presentar un episodio de hematemesis (vómito con sangre roja brillante) hace 30 minutos. El paciente está letárgico y desorientado.",
+            options: [
+                { text: "Asegurar vía aérea (ABCDE) y canalizar 2 vías IV periféricas gruesas.", correct: true, nextScenario: 1, feedback: "Correcto. La prioridad absoluta es la estabilización hemodinámica y asegurar la vía aérea." },
+                { text: "Llamar urgentemente al endoscopista para una EDA inmediata.", correct: false, nextScenario: 'fail_endoscopy_first' },
+                { text: "Administrar un sedante (diazepam) para calmar la agitación del paciente.", correct: false, nextScenario: 'fail_sedation' }
+            ]
+        },
+        {
+            id: 'fail_endoscopy_first',
+            text: "El paciente se descompensa hemodinámicamente en la sala de endoscopia y sufre una parada cardiorrespiratoria por hipovolemia severa. **Error Crítico:** La prioridad absoluta en HVA es la resucitación hemodinámica ANTES de cualquier procedimiento invasivo.",
+            options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ]
+        },
+        {
+            id: 'fail_sedation',
+            text: "Las benzodiacepinas están contraindicadas en pacientes con encefalopatía hepática, ya que pueden empeorar el cuadro y precipitar un coma. El paciente deja de responder. **Error Crítico:** Evitar sedantes que se metabolicen en el hígado o que depriman el centro respiratorio.",
+            options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ]
+        },
+        {
+            id: 1,
+            text: "Ha asegurado la vía aérea y canalizado dos vías periféricas de grueso calibre (16G). ¿Cuál es su siguiente paso MÁS URGENTE?",
+            updateState: (s) => { s.ivAccess = true; return s; },
+            options: [
+                { text: "Administrar Terlipresina IV y Ceftriaxona IV.", correct: true, nextScenario: 2, feedback: "Excelente. La terapia farmacológica temprana (vasoactivos y antibióticos) es clave para reducir la mortalidad." },
+                { text: "Transfundir 2 paquetes de glóbulos rojos inmediatamente.", correct: false, nextScenario: 'fail_liberal_transfusion' },
+                { text: "Esperar a tener los resultados del laboratorio antes de actuar.", correct: false, nextScenario: 'fail_wait_initial' }
+            ]
+        },
+         {
+            id: 'fail_wait_initial',
+            text: "En un paciente con sangrado activo e inestabilidad hemodinámica, esperar es peligroso. La terapia farmacológica debe iniciarse tan pronto como se sospeche HVA, sin esperar resultados. **Error Crítico:** Retraso en el tratamiento que disminuye la supervivencia.",
+            options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ]
+        },
+        {
+            id: 'fail_liberal_transfusion',
+            text: "La transfusión agresiva eleva bruscamente la presión portal, lo que provoca un resangrado masivo. El paciente se deteriora rápidamente. **Error Crítico:** La política de transfusión en HVA es RESTRICTIVA (objetivo Hb 7-8 g/dL) para evitar el aumento de la presión portal.",
+            options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ]
+        },
+        {
+            id: 2,
+            text: "Ha administrado un bolo de Terlipresina 2mg IV y Ceftriaxona 1g IV. El laboratorio reporta una Hb de 6.5 g/dL. La presión arterial ha mejorado ligeramente (PAS 90 mmHg), pero el paciente sigue taquicárdico. ¿Cuál es su política de transfusión de sangre?",
+            updateState: (s) => { s.vasoactiveGiven = true; s.antibioticGiven = true; s.vitals.pas = 90; s.vitals.fc = 110; return s; },
+            options: [
+                { text: "Transfundir 1 paquete de glóbulos rojos para un objetivo de Hb > 7 g/dL.", correct: true, nextScenario: 3, feedback: "Perfecto. Se aplica una estrategia restrictiva, transfundiendo lo justo para mantener la perfusión." },
+                { text: "Transfundir hasta alcanzar una Hb > 10 g/dL.", correct: false, nextScenario: 'fail_liberal_transfusion' },
+                { text: "No transfundir; continuar solo con cristaloides.", correct: false, nextScenario: 'fail_no_transfusion' }
+            ]
+        },
+        {
+            id: 'fail_no_transfusion',
+            text: "Con una Hb de 6.5 g/dL, la capacidad de transporte de oxígeno está críticamente comprometida. A pesar de los fluidos, el paciente desarrolla isquemia miocárdica por la anemia severa. **Error Crítico:** La transfusión es necesaria, pero debe ser restrictiva.",
+            options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ]
+        },
+        {
+            id: 3,
+            text: "Se ha transfundido 1 paquete de glóbulos rojos y la Hb actual es 7.5 g/dL. El paciente está hemodinámicamente más estable (PAS 95, FC 100). ¿Qué hace ahora?",
+            updateState: (s) => { s.transfusionPolicy = 'restrictive'; s.vitals.hb = 7.5; s.vitals.pas = 95; s.vitals.fc = 100; return s; },
+            options: [
+                { text: "Llamar al gastroenterólogo para coordinar una endoscopia urgente (<12h).", correct: true, nextScenario: 4, feedback: "Correcto. Una vez estabilizado, el siguiente paso es el tratamiento endoscópico definitivo." },
+                { text: "Esperar 24 horas para ver si el sangrado se detiene solo.", correct: false, nextScenario: 'fail_wait' },
+                { text: "Solicitar una Tomografía Computarizada de abdomen para ver las várices.", correct: false, nextScenario: 'fail_ct_scan' }
+            ]
+        },
+        {
+            id: 'fail_wait',
+            text: "Retrasar la endoscopia aumenta el riesgo de resangrado y mortalidad. El tratamiento endoscópico es un pilar del manejo agudo. El paciente presenta un nuevo episodio de hematemesis masiva. **Error:** La endoscopia debe ser temprana (<12h) una vez estabilizado el paciente.",
+            options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ]
+        },
+        {
+            id: 'fail_ct_scan',
+            text: "La tomografía no es el estudio de elección para el diagnóstico y tratamiento de la HVA. Retrasa la terapia definitiva (endoscopia) y expone al paciente a radiación y contraste innecesarios en este contexto agudo. **Error:** El diagnóstico y tratamiento es endoscópico.",
+            options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ]
+        },
+        {
+            id: 4,
+            text: "¡Excelente! Ha estabilizado al paciente siguiendo el protocolo 'Código HVA'. El gastroenterólogo está en camino. Ha completado con éxito el manejo inicial de la Hemorragia Variceal Aguda.",
+            updateState: (s) => { s.endoscopyCalled = true; return s; },
+            options: [
+                { text: "Ver Resumen del Caso", nextScenario: 'summary' }
+            ]
+        },
+        {
+            id: 'summary',
+            text: "<strong>Resumen del Manejo Exitoso:</strong><br>1. <strong>Priorizó la resucitación:</strong> Evaluó ABCDE y aseguró accesos venosos antes que nada.<br>2. <strong>Inició terapia farmacológica temprana:</strong> Administró vasoactivos y antibióticos de inmediato.<br>3. <strong>Aplicó una política de transfusión restrictiva:</strong> Mantuvo un objetivo de Hb de 7-8 g/dL, evitando la sobretransfusión.<br>4. <strong>Coordinó la terapia definitiva a tiempo:</strong> Solicitó la endoscopia urgente una vez que el paciente estuvo estable.<br><br>Este manejo secuencial y basado en la evidencia es el que mejora la supervivencia en la HVA.",
+            options: [
+                { text: "Reiniciar Simulación", nextScenario: 0 }
+            ]
+        }
+    ];
+
+    let currentScenarioId = 0;
+
+    function renderVitals() {
+        vitalsDisplay.innerHTML = `
+            <div class="vital"><span class="vital-label">PAS</span> <span class="vital-value ${state.vitals.pas >= 90 ? 'stable' : ''}">${state.vitals.pas} mmHg</span></div>
+            <div class="vital"><span class="vital-label">FC</span> <span class="vital-value ${state.vitals.fc <= 100 ? 'stable' : ''}">${state.vitals.fc} lpm</span></div>
+            <div class="vital"><span class="vital-label">Hb</span> <span class="vital-value ${state.vitals.hb >= 7 ? 'stable' : ''}">${state.vitals.hb} g/dL</span></div>
+            <div class="vital"><span class="vital-label">EH</span> <span class="vital-value">${state.vitals.encefalopatia}</span></div>
+        `;
+    }
+
+    function renderScenario(id) {
+        const scenario = scenarios.find(s => s.id === id);
+        if (!scenario) {
+            console.error("Scenario not found for id:", id);
+            gameContainer.innerHTML = "<h1>Error en la simulación.</h1>";
+            return;
+        }
+
+        if (scenario.updateState) {
+            state = scenario.updateState(state);
+        }
+        
+        renderVitals();
+        scenarioText.innerHTML = scenario.text;
+        optionsContainer.innerHTML = '';
+        feedbackText.style.display = 'none';
+
+        scenario.options.forEach(option => {
+            const button = document.createElement('button');
+            button.innerHTML = option.text;
+            button.onclick = () => handleOptionClick(option);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function handleOptionClick(selectedOption) {
+        feedbackText.style.display = 'block';
+        Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+
+        if (selectedOption.correct) {
+            feedbackText.innerHTML = `<strong>${selectedOption.feedback || 'Decisión Correcta. Procediendo...'}</strong>`;
+            feedbackText.className = 'feedback-text feedback-correct';
+            
+            setTimeout(() => {
+                renderScenario(selectedOption.nextScenario);
+            }, 2500);
+        } else {
+            const failScenario = scenarios.find(s => s.id === selectedOption.nextScenario);
+            feedbackText.innerHTML = failScenario.text;
+            feedbackText.className = 'feedback-text feedback-incorrect';
+            optionsContainer.innerHTML = '';
+            
+            failScenario.options.forEach(opt => {
+                const button = document.createElement('button');
+                button.innerHTML = opt.text;
+                button.onclick = () => {
+                    if (opt.nextScenario === 0) {
+                        state = getInitialState();
+                    }
+                    renderScenario(opt.nextScenario);
+                };
+                optionsContainer.appendChild(button);
+            });
+        }
+    }
+
+    // Initial game start
+    document.addEventListener('DOMContentLoaded', (event) => {
+        state = getInitialState();
+        renderScenario(0);
+    });
+
+</script>
+
+</body>
+</html>
