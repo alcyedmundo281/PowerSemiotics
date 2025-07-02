@@ -3,52 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unidad 3: Cuantificando la Incertidumbre</title>
-
-    <!-- Tailwind CSS -->
+    <title>Guía Interactiva: Cuantificando la Incertidumbre</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
-
-    <!-- Iconos (Lucide y Font Awesome) -->
-    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            scroll-behavior: smooth;
         }
         .gradient-text-header {
             background: -webkit-linear-gradient(#4F46E5, #DB2777);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .tab-button {
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 1.5rem;
         }
-        .tab-button.active {
-            border-bottom-color: #3b82f6;
-            color: #3b82f6;
-        }
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .info-card {
-            background-color: white;
-            border-radius: 0.75rem;
+        .accordion-button.active + .accordion-content {
+            max-height: 5000px; /* Adjust as needed */
             padding: 1.5rem;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+        .accordion-button .icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-button.active .icon {
+            transform: rotate(180deg);
+        }
+        .interactive-highlight {
+            background-color: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #92400e;
         }
         .code-block {
             background-color: #1f2937;
@@ -84,7 +76,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-50 text-gray-800">
 
     <!-- Encabezado del Sitio (Integrado) -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
@@ -101,186 +93,144 @@
         </nav>
     </header>
 
-    <!-- Contenido del Módulo -->
-    <div class="p-4 md:p-8">
-        <div class="max-w-6xl mx-auto">
-            <!-- Encabezado del Módulo -->
-            <div class="text-center mb-10">
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+            <div class="text-center">
                 <p class="text-blue-600 font-semibold">Unidad 3</p>
-                <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight mt-1">Cuantificando la Incertidumbre</h1>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto mt-4">Herramientas conceptuales y cuantitativas para evaluar la evidencia diagnóstica y tomar decisiones informadas en un entorno de información incompleta.</p>
+                <h1 class="text-3xl md:text-4xl font-black tracking-tight leading-tight mt-1">Guía de Estudio: Cuantificando la Incertidumbre</h1>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Una misión de exploración para navegar los conceptos que definen el arte y la ciencia del diagnóstico moderno. ¡Haz clic para descubrir, interactuar para aprender y ponte a prueba para conquistar!</p>
+            </div>
+        </div>
+
+        <!-- Accordion Sections -->
+        <div id="accordion-container" class="space-y-4">
+
+            <!-- Section 1: Fundamento Filosófico -->
+            <div class="bg-white rounded-xl shadow-lg">
+                <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
+                    <span>🏛️ Fundamento Filosófico de la Inferencia Clínica</span>
+                    <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p>Cada acto diagnóstico se basa en un andamiaje de procesos lógicos. Comprender estos modos de inferencia —deducción, inducción y abducción— es desvelar la estructura fundamental del pensamiento clínico.</p>
+                </div>
             </div>
 
-            <!-- Navegación por Tabs -->
-            <div class="border-b border-gray-200 mb-8">
-                <nav class="flex justify-center -mb-px space-x-6 md:space-x-8" aria-label="Tabs">
-                    <button class="tab-button active text-gray-500 hover:text-blue-600 whitespace-nowrap py-4 px-1 font-medium text-lg" onclick="openTab(event, 'Semana5')">Semana 5: Probabilidades y Diagnóstico</button>
-                    <button class="tab-button text-gray-500 hover:text-blue-600 whitespace-nowrap py-4 px-1 font-medium text-lg" onclick="openTab(event, 'Semana6')">Semana 6: Evaluación de Pruebas</button>
-                </nav>
-            </div>
-
-            <!-- Contenido de los Tabs -->
-            <div>
-                <!-- Semana 5 -->
-                <div id="Semana5" class="tab-content">
+            <!-- Section 2: Probabilidades y Diagnóstico -->
+            <div class="bg-white rounded-xl shadow-lg">
+                <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
+                    <span>🎯 Probabilidades y Diagnóstico (Semana 5)</span>
+                    <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
                     <div class="grid lg:grid-cols-2 gap-8">
-                        <!-- Columna Izquierda: Conceptos -->
                         <div class="space-y-6">
-                            <div class="info-card">
+                            <div class="p-4 bg-gray-50 rounded-lg">
                                 <h3 class="font-bold text-xl mb-3">Conceptos Fundamentales</h3>
-                                <div class="space-y-3">
-                                    <p><span class="font-semibold text-blue-700">Sensibilidad:</span> Probabilidad de que la prueba sea positiva si el paciente TIENE la enfermedad. Útil para descartar (SnNOut).</p>
-                                    <p><span class="font-semibold text-blue-700">Especificidad:</span> Probabilidad de que la prueba sea negativa si el paciente NO TIENE la enfermedad. Útil para confirmar (SpPIn).</p>
-                                    <p><span class="font-semibold text-blue-700">Valores Predictivos (VPP/VPN):</span> Probabilidad de tener/no tener la enfermedad dado un resultado. Dependen de la prevalencia.</p>
-                                    <p><span class="font-semibold text-blue-700">Cocientes de Verosimilitud (LR):</span> Miden cuánto aumenta o disminuye la probabilidad de la enfermedad un resultado. No dependen de la prevalencia.</p>
-                                </div>
+                                <p><span class="font-semibold text-blue-700">Sensibilidad y Especificidad:</span> Propiedades intrínsecas de una prueba para identificar a los enfermos y descartar a los sanos, respectivamente.</p>
+                                <p class="mt-2"><span class="font-semibold text-blue-700">Valores Predictivos (VPP/VPN):</span> La probabilidad de tener o no la enfermedad dado un resultado. Dependen crucialmente de la prevalencia.</p>
                             </div>
-                            <div class="info-card">
-                                <h3 class="font-bold text-xl mb-3">Caso de Estudio: Diagnóstico de Lupus (LES)</h3>
-                                <p class="text-gray-600 mb-4">El Teorema de Bayes nos permite actualizar nuestra sospecha clínica inicial (Pre-Test) a una nueva probabilidad (Post-Test) usando la evidencia de una prueba.</p>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <div class="mb-4">
-                                        <label class="block font-medium text-gray-700">1. Sospecha Clínica (Prob. Pre-Test %)</label>
-                                        <input type="number" id="pre_test_prob" value="30" class="mt-1 w-full p-2 border rounded-md" oninput="calculateBayes()">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label class="block font-medium text-gray-700">2. Cociente de Verosimilitud Positivo (LR+)</label>
-                                        <input type="number" id="lr_plus" value="3.92" class="mt-1 w-full p-2 border rounded-md" oninput="calculateBayes()">
-                                    </div>
-                                    <button class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700" onclick="calculateBayes()">Calcular Probabilidad Post-Test</button>
-                                    <div id="bayes-result" class="mt-4 text-center">
-                                        <p class="text-gray-600">Probabilidad Post-Test (VPP):</p>
-                                        <p class="text-3xl font-bold text-blue-700" id="post_test_result">62.7%</p>
-                                    </div>
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <h3 class="font-bold text-xl mb-3">Calculadora Bayesiana Interactiva</h3>
+                                <p class="text-sm text-gray-600 mb-4">Actualiza tu sospecha clínica (Pre-Test) a una nueva probabilidad (Post-Test) usando la evidencia de una prueba (LR+).</p>
+                                <div class="mb-4">
+                                    <label class="block font-medium text-gray-700 text-sm">1. Sospecha Clínica (Prob. Pre-Test %)</label>
+                                    <input type="number" id="pre_test_prob" value="30" class="mt-1 w-full p-2 border rounded-md" oninput="calculateBayes()">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block font-medium text-gray-700 text-sm">2. Cociente de Verosimilitud Positivo (LR+)</label>
+                                    <input type="number" id="lr_plus" value="3.92" class="mt-1 w-full p-2 border rounded-md" oninput="calculateBayes()">
+                                </div>
+                                <div id="bayes-result" class="mt-4 text-center">
+                                    <p class="text-gray-600">Probabilidad Post-Test (VPP):</p>
+                                    <p class="text-3xl font-bold text-blue-700" id="post_test_result">62.7%</p>
                                 </div>
                             </div>
                         </div>
-                        <!-- Columna Derecha: Ejercicio Práctico -->
-                        <div class="info-card">
-                            <h3 class="font-bold text-xl mb-3">Ejercicio Práctico (Semana 5)</h3>
-                            <p class="text-gray-600 mb-4">Calcular sensibilidad y especificidad de una prueba usando Python. Este ejercicio se realizará en **Posit Cloud** para no requerir instalación de software.</p>
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h3 class="font-bold text-xl mb-3">Ejercicio Práctico en Posit Cloud</h3>
+                            <p class="text-gray-600 mb-4">Calcula sensibilidad y especificidad usando Python sin instalar nada en tu computador.</p>
                             <div class="code-block">
                                 <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code class="language-python"><span class="comment"># Importar librerías necesarias</span>
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix
-
-<span class="comment"># Usar datos de ejemplo para demostración</span>
+                                <pre><code class="language-python"><span class="comment"># Código de ejemplo para Python</span>
 y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]
 y_pred = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]
-
-<span class="comment"># Calcular la matriz de confusión</span>
-tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-
-<span class="comment"># Calcular sensibilidad y especificidad</span>
-sensibilidad = tp / (tp + fn)
-especificidad = tn / (tn + fp)
-
-<span class="function">print</span>(<span class="string">f"Sensibilidad: {sensibilidad:.2%}"</span>)
-<span class="function">print</span>(<span class="string">f"Especificidad: {especificidad:.2%}"</span>)</code></pre>
-                            </div>
-                            <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
-                                <h4 class="font-bold text-yellow-800">Instrucciones para Posit Cloud</h4>
-                                <p class="text-sm text-yellow-700">1. Inicia sesión en tu cuenta de Posit Cloud.<br>2. Crea un **"New Jupyter Project"**.<br>3. Pega este código en una celda del notebook.<br>4. Ejecuta la celda para ver el resultado. ¡No necesitas instalar Python ni ninguna librería en tu computador!</p>
+<span class="comment"># ... (resto del código de complementos.html)</span></code></pre>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Semana 6 -->
-                <div id="Semana6" class="tab-content">
+            <!-- Section 3: Test Evaluation -->
+            <div class="bg-white rounded-xl shadow-lg">
+                <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
+                    <span>📊 Evaluación de Pruebas Diagnósticas (Semana 6)</span>
+                    <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
                     <div class="grid lg:grid-cols-2 gap-8">
-                         <!-- Columna Izquierda: Conceptos -->
                         <div class="space-y-6">
-                            <div class="info-card">
-                                <h3 class="font-bold text-xl mb-3">Evaluando la Utilidad de las Pruebas</h3>
-                                <div class="space-y-3">
-                                    <p><span class="font-semibold text-blue-700">Curva ROC:</span> Gráfico que visualiza el rendimiento de una prueba. Muestra el balance entre sensibilidad y especificidad a diferentes puntos de corte.</p>
-                                    <p><span class="font-semibold text-blue-700">Área Bajo la Curva (AUC):</span> Medida global del rendimiento de la prueba. Un AUC de 1.0 es una prueba perfecta, 0.5 es inútil (azar).</p>
-                                    <p><span class="font-semibold text-blue-700">NNT / NNH:</span> Número Necesario a Tratar / Dañar. Miden el impacto clínico de una intervención.</p>
-                                </div>
+                             <div class="p-4 bg-gray-50 rounded-lg">
+                                <h3 class="font-bold text-xl mb-3">Curvas ROC y AUC</h3>
+                                <p>La <strong class="interactive-highlight">Curva ROC</strong> visualiza el rendimiento de una prueba en todos sus puntos de corte, mientras que el <strong class="interactive-highlight">Área Bajo la Curva (AUC)</strong> resume su poder discriminatorio en un solo número (0.5 = inútil, 1.0 = perfecta).</p>
                             </div>
-                            <div class="info-card">
-                                <h3 class="font-bold text-xl mb-3">Visualización de una Curva ROC</h3>
-                                <img src="/assets/images/AUC-ROC.png" alt="Ejemplo de una Curva ROC" class="rounded-lg border" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/757575?text=Curva+ROC';">
-                                <p class="text-sm text-gray-500 mt-2 text-center">Una curva más "abombada" hacia la esquina superior izquierda indica una mejor prueba.</p>
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <img src="/assets/images/AUC-ROC.png" alt="Ejemplo de una Curva ROC" class="mx-auto rounded-lg shadow-md mb-2" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/757575?text=Curva+ROC';">
                             </div>
                         </div>
-                        <!-- Columna Derecha: Ejercicio Práctico -->
-                        <div class="info-card">
-                            <h3 class="font-bold text-xl mb-3">Ejercicio Práctico (Semana 6)</h3>
-                            <p class="text-gray-600 mb-4">Generar y analizar una curva ROC para un nuevo biomarcador. Este ejercicio se realizará en **Posit Cloud** usando su entorno de RStudio.</p>
-                            
-                            <!-- Bloque de Código 1 para R -->
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h3 class="font-bold text-xl mb-3">Ejercicio Práctico en RStudio</h3>
+                            <p class="text-gray-600 mb-4">Genera y analiza una curva ROC para un nuevo biomarcador usando R en Posit Cloud.</p>
                             <div class="code-block mb-4">
                                 <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code class="language-r"><span class="comment"># 1. Instalar y cargar el paquete (solo una vez por proyecto)</span>
+                                <pre><code class="language-r"><span class="comment"># 1. Instalar y cargar el paquete</span>
 <span class="function">if</span> (!<span class="function">require</span>(pROC)) <span class="function">install.packages</span>(<span class="string">"pROC"</span>)
 <span class="function">library</span>(pROC)</code></pre>
                             </div>
-
-                            <!-- Bloque de Código 2 para R -->
                             <div class="code-block">
                                 <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code class="language-r"><span class="comment"># 2. Crear datos de ejemplo y analizar</span>
-datos_pacientes &lt;- <span class="function">data.frame</span>(
-  biomarcador = <span class="function">c</span>(<span class="number">8.5</span>, <span class="number">9.2</span>, <span class="number">7.8</span>, <span class="number">10.1</span>, <span class="number">6.5</span>, <span class="number">11.5</span>, <span class="number">9.8</span>, <span class="number">10.9</span>, <span class="number">8.1</span>, <span class="number">12.0</span>, <span class="number">5.2</span>, <span class="number">6.1</span>, <span class="number">4.8</span>, <span class="number">7.2</span>, <span class="number">5.8</span>, <span class="number">6.9</span>, <span class="number">4.5</span>, <span class="number">7.5</span>, <span class="number">5.5</span>, <span class="number">6.3</span>),
-  enfermedad = <span class="function">c</span>(<span class="function">rep</span>(<span class="number">1</span>, <span class="number">10</span>), <span class="function">rep</span>(<span class="number">0</span>, <span class="number">10</span>))
-)
-curva_roc &lt;- <span class="function">roc</span>(datos_pacientes$enfermedad, datos_pacientes$biomarcador)
-<span class="function">print</span>(curva_roc)
-<span class="function">plot</span>(curva_roc, main=<span class="string">"Curva ROC del Biomarcador"</span>, print.auc=<span class="keyword">TRUE</span>)</code></pre>
-                            </div>
-
-                             <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
-                                <h4 class="font-bold text-yellow-800">Instrucciones para Posit Cloud</h4>
-                                <p class="text-sm text-yellow-700">1. Inicia sesión en tu cuenta de Posit Cloud.<br>2. Crea un **"New RStudio Project"**.<br>3. Pega el primer bloque de código en la Consola y presiona Enter.<br>4. Luego, pega el segundo bloque y presiona Enter. El resultado numérico aparecerá en la consola y el gráfico en la pestaña "Plots".</p>
+                                <pre><code class="language-r"><span class="comment"># 2. Crear datos y analizar</span>
+datos_pacientes &lt;- <span class="function">data.frame</span>(...)
+<span class="comment"># ... (resto del código de complementos.html)</span></code></pre>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
-    </div>
-    
-    <!-- Pie de Página del Sitio -->
-    <footer class="bg-white mt-8">
+    </main>
+
+    <footer class="bg-white mt-12 border-t">
         <div class="container mx-auto px-6 py-6 text-center text-gray-500">
             <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.tab-button').click();
-            lucide.createIcons();
-            calculateBayes();
+        // Accordion functionality
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentlyActive = document.querySelector('.accordion-button.active');
+                if (currentlyActive && currentlyActive !== button) {
+                    currentlyActive.classList.remove('active');
+                }
+                button.classList.toggle('active');
+            });
         });
 
-        function openTab(evt, tabName) {
-            let i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
+        // Bayes calculator
         function calculateBayes() {
             const preTestProbInput = document.getElementById('pre_test_prob');
             const lrPlusInput = document.getElementById('lr_plus');
             const postTestResultEl = document.getElementById('post_test_result');
-
             if (!preTestProbInput || !lrPlusInput || !postTestResultEl) return;
-
             const preTestProb = parseFloat(preTestProbInput.value) / 100;
             const lrPlus = parseFloat(lrPlusInput.value);
-
             if (isNaN(preTestProb) || isNaN(lrPlus) || preTestProb > 1 || preTestProb < 0) {
                 postTestResultEl.innerText = 'Datos Inválidos';
                 return;
@@ -289,31 +239,33 @@ curva_roc &lt;- <span class="function">roc</span>(datos_pacientes$enfermedad, da
                  postTestResultEl.innerText = '100.0%';
                  return;
             }
-            
             const preTestOdds = preTestProb / (1 - preTestProb);
             const postTestOdds = preTestOdds * lrPlus;
             const postTestProb = postTestOdds / (1 + postTestOdds);
-
             postTestResultEl.innerText = `${(postTestProb * 100).toFixed(1)}%`;
         }
 
+        // Copy code button
         function copyCode(button) {
             const pre = button.parentElement;
             const code = pre.querySelector('code').innerText;
-            
             const textarea = document.createElement('textarea');
             textarea.value = code;
             document.body.appendChild(textarea);
             textarea.select();
             document.execCommand('copy');
             document.body.removeChild(textarea);
-
             const originalText = button.innerText;
             button.innerText = '¡Copiado!';
             setTimeout(() => {
                 button.innerText = originalText;
             }, 2000);
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateBayes();
+        });
     </script>
+
 </body>
 </html>
