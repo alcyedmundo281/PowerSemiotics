@@ -3,21 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía Interactiva: Cuantificando la Incertidumbre</title>
+    <title>Guía Interactiva: Cuantificando la Incertidumbre en el Diagnóstico</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-        }
-        .gradient-text-header {
-            background: -webkit-linear-gradient(#4F46E5, #DB2777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
         .accordion-content {
             max-height: 0;
@@ -42,171 +36,254 @@
             font-weight: 600;
             color: #92400e;
         }
-        .code-block {
-            background-color: #1f2937;
-            color: #d1d5db;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Courier New', Courier, monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            position: relative;
+        .quiz-option:hover {
+            background-color: #e5e7eb;
         }
-        .code-block .comment { color: #6b7280; }
-        .code-block .keyword { color: #c084fc; }
-        .code-block .function { color: #60a5fa; }
-        .code-block .string { color: #a5f3fc; }
-        .code-block .number { color: #f9a8d4; }
-        .copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background-color: #4b5563;
-            color: white;
-            border: none;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-size: 0.8rem;
-            opacity: 0.7;
-            transition: opacity 0.2s;
+        .quiz-option.selected {
+            background-color: #d1d5db;
         }
-        .copy-btn:hover {
-            opacity: 1;
+        .quiz-option.correct {
+            background-color: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: #ef4444;
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- Encabezado del Sitio (Integrado) -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/index.html" class="flex items-center space-x-2">
-                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
-                <span class="text-2xl font-bold gradient-text-header">Powersemiotics</span>
-            </a>
-            <div>
-                <a href="/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">
-                    <i class="fas fa-arrow-left mr-2"></i>Volver a Medicina y Datos
-                </a>
-            </div>
-        </nav>
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Guía de Estudio Interactiva</h1>
+            <p class="text-md text-gray-600">Cuantificando la Incertidumbre en el Diagnóstico Médico</p>
+        </div>
     </header>
 
     <!-- Main Content -->
     <main class="container mx-auto p-4 md:p-8">
         
         <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-            <div class="text-center">
-                <p class="text-blue-600 font-semibold">Unidad 3</p>
-                <h1 class="text-3xl md:text-4xl font-black tracking-tight leading-tight mt-1">Guía de Estudio: Cuantificando la Incertidumbre</h1>
-                <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Una misión de exploración para navegar los conceptos que definen el arte y la ciencia del diagnóstico moderno. ¡Haz clic para descubrir, interactuar para aprender y ponte a prueba para conquistar!</p>
-            </div>
+            <h2 class="text-xl font-bold mb-3 text-blue-700">¡Bienvenido, futuro líder en medicina!</h2>
+            <p class="mb-4">Esta no es una guía de estudio tradicional. Es una misión de exploración. Tu objetivo es navegar por los conceptos que definen el arte y la ciencia del diagnóstico moderno. Cada sección es una puerta a un nuevo nivel de entendimiento. ¡Haz clic para descubrir, interactuar para aprender y ponte a prueba para conquistar!</p>
+            <p class="font-semibold">¿Estás listo para comenzar tu viaje?</p>
         </div>
 
         <!-- Accordion Sections -->
         <div id="accordion-container" class="space-y-4">
 
-            <!-- Section 1: Fundamento Filosófico -->
+            <!-- Section 0: Introduction -->
             <div class="bg-white rounded-xl shadow-lg">
                 <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
-                    <span>🏛️ Fundamento Filosófico de la Inferencia Clínica</span>
+                    <span>🚀 Introducción: La Medicina como Ciencia de la Probabilidad</span>
                     <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="accordion-content">
-                    <p>Cada acto diagnóstico se basa en un andamiaje de procesos lógicos. Comprender estos modos de inferencia —deducción, inducción y abducción— es desvelar la estructura fundamental del pensamiento clínico.</p>
+                    <p class="mb-4">La práctica de la medicina es, en su esencia, un ejercicio de manejo de la incertidumbre. A diferencia de las ciencias exactas, la medicina trata con probabilidades, no con certezas absolutas. Esta guía te dará las herramientas para cuantificar, interpretar y comunicar esta incertidumbre, una competencia clínica esencial.</p>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <h4 class="font-bold mb-2">Dos Niveles de Incertidumbre:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Incertidumbre Metrológica:</strong> ¿Es precisa la medición del laboratorio? Se enfoca en la variabilidad inherente al proceso de medición.</li>
+                            <li><strong>Incertidumbre Diagnóstica:</strong> ¿Qué significa este resultado para mi paciente? Aborda la probabilidad de que un paciente tenga o no una enfermedad.</li>
+                        </ul>
+                    </div>
+                     <p class="mt-4">Para navegar esta incertidumbre, usamos herramientas como <span class="interactive-highlight">sensibilidad</span>, <span class="interactive-highlight">especificidad</span>, <span class="interactive-highlight">valores predictivos</span> y <span class="interactive-highlight">curvas ROC</span>. Son el lenguaje para traducir datos en probabilidades clínicamente significativas.</p>
                 </div>
             </div>
 
-            <!-- Section 2: Probabilidades y Diagnóstico -->
+            <!-- Section 1: Sensitivity and Specificity -->
             <div class="bg-white rounded-xl shadow-lg">
                 <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
-                    <span>🎯 Probabilidades y Diagnóstico (Semana 5)</span>
+                    <span>🎯 Sección 1: Pilares de la Validez - Sensibilidad y Especificidad</span>
                     <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="accordion-content">
-                    <div class="grid lg:grid-cols-2 gap-8">
-                        <div class="space-y-6">
-                            <div class="p-4 bg-gray-50 rounded-lg">
-                                <h3 class="font-bold text-xl mb-3">Conceptos Fundamentales</h3>
-                                <p><span class="font-semibold text-blue-700">Sensibilidad y Especificidad:</span> Propiedades intrínsecas de una prueba para identificar a los enfermos y descartar a los sanos, respectivamente.</p>
-                                <p class="mt-2"><span class="font-semibold text-blue-700">Valores Predictivos (VPP/VPN):</span> La probabilidad de tener o no la enfermedad dado un resultado. Dependen crucialmente de la prevalencia.</p>
-                            </div>
-                            <div class="p-4 bg-gray-50 rounded-lg">
-                                <h3 class="font-bold text-xl mb-3">Calculadora Bayesiana Interactiva</h3>
-                                <p class="text-sm text-gray-600 mb-4">Actualiza tu sospecha clínica (Pre-Test) a una nueva probabilidad (Post-Test) usando la evidencia de una prueba (LR+).</p>
-                                <div class="mb-4">
-                                    <label class="block font-medium text-gray-700 text-sm">1. Sospecha Clínica (Prob. Pre-Test %)</label>
-                                    <input type="number" id="pre_test_prob" value="30" class="mt-1 w-full p-2 border rounded-md" oninput="calculateBayes()">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="block font-medium text-gray-700 text-sm">2. Cociente de Verosimilitud Positivo (LR+)</label>
-                                    <input type="number" id="lr_plus" value="3.92" class="mt-1 w-full p-2 border rounded-md" oninput="calculateBayes()">
-                                </div>
-                                <div id="bayes-result" class="mt-4 text-center">
-                                    <p class="text-gray-600">Probabilidad Post-Test (VPP):</p>
-                                    <p class="text-3xl font-bold text-blue-700" id="post_test_result">62.7%</p>
-                                </div>
-                            </div>
+                    <p class="mb-4">Para evaluar una prueba, la comparamos con un "gold standard". Los resultados se organizan en la famosa tabla de 2x2, la base de todo.</p>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="py-2 px-4 border-b"></th>
+                                    <th class="py-2 px-4 border-b">Enfermedad Presente</th>
+                                    <th class="py-2 px-4 border-b">Enfermedad Ausente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-2 px-4 border-b font-bold">Prueba Positiva</td>
+                                    <td class="py-2 px-4 border-b text-center bg-green-50">Verdaderos Positivos (VP)</td>
+                                    <td class="py-2 px-4 border-b text-center bg-red-50">Falsos Positivos (FP)</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border-b font-bold">Prueba Negativa</td>
+                                    <td class="py-2 px-4 border-b text-center bg-red-50">Falsos Negativos (FN)</td>
+                                    <td class="py-2 px-4 border-b text-center bg-green-50">Verdaderos Negativos (VN)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-bold mb-2">Sensibilidad (S)</h4>
+                            <p>La capacidad de la prueba para <strong class="text-green-700">identificar correctamente a los enfermos</strong>. Ideal para pruebas de cribado (screening) donde no quieres dejar pasar ningún caso.</p>
+                            <p class="mt-2 font-mono bg-green-100 p-2 rounded">S = VP / (VP + FN)</p>
                         </div>
-                        <div class="p-4 bg-gray-50 rounded-lg">
-                            <h3 class="font-bold text-xl mb-3">Ejercicio Práctico en Posit Cloud</h3>
-                            <p class="text-gray-600 mb-4">Calcula sensibilidad y especificidad usando Python sin instalar nada en tu computador.</p>
-                            <div class="code-block">
-                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code class="language-python"><span class="comment"># Código de ejemplo para Python</span>
-y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]
-y_pred = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>]
-<span class="comment"># ... (resto del código de complementos.html)</span></code></pre>
-                            </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold mb-2">Especificidad (E)</h4>
+                            <p>La capacidad de la prueba para <strong class="text-blue-700">descartar correctamente a los sanos</strong>. Crucial para pruebas de confirmación, para evitar tratamientos innecesarios.</p>
+                            <p class="mt-2 font-mono bg-blue-100 p-2 rounded">E = VN / (VN + FP)</p>
                         </div>
                     </div>
+                    <p class="mt-4 font-semibold">Recuerda: Sensibilidad y especificidad son propiedades intrínsecas de la prueba y no dependen de qué tan común (prevalencia) es la enfermedad.</p>
                 </div>
             </div>
 
-            <!-- Section 3: Test Evaluation -->
+            <!-- Section 2: Predictive Values -->
             <div class="bg-white rounded-xl shadow-lg">
                 <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
-                    <span>📊 Evaluación de Pruebas Diagnósticas (Semana 6)</span>
+                    <span>🔍 Sección 2: De la Validez a la Utilidad - Valores Predictivos y Prevalencia</span>
                     <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="accordion-content">
-                    <div class="grid lg:grid-cols-2 gap-8">
-                        <div class="space-y-6">
-                             <div class="p-4 bg-gray-50 rounded-lg">
-                                <h3 class="font-bold text-xl mb-3">Curvas ROC y AUC</h3>
-                                <p>La <strong class="interactive-highlight">Curva ROC</strong> visualiza el rendimiento de una prueba en todos sus puntos de corte, mientras que el <strong class="interactive-highlight">Área Bajo la Curva (AUC)</strong> resume su poder discriminatorio en un solo número (0.5 = inútil, 1.0 = perfecta).</p>
-                            </div>
-                            <div class="p-4 bg-gray-50 rounded-lg">
-                                <img src="/assets/images/AUC-ROC.png" alt="Ejemplo de una Curva ROC" class="mx-auto rounded-lg shadow-md mb-2" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e0e0/757575?text=Curva+ROC';">
-                            </div>
+                    <p class="mb-4">Aquí es donde la estadística se encuentra con la realidad clínica. Un paciente pregunta: "Doctor, mi prueba es positiva, ¿estoy enfermo?". La respuesta depende de los valores predictivos.</p>
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                            <h4 class="font-bold mb-2">Valor Predictivo Positivo (VPP)</h4>
+                            <p>Probabilidad de que un paciente con un resultado <strong class="text-yellow-700">positivo</strong> realmente tenga la enfermedad.</p>
+                            <p class="mt-2 font-mono bg-yellow-100 p-2 rounded">VPP = VP / (VP + FP)</p>
                         </div>
-                        <div class="p-4 bg-gray-50 rounded-lg">
-                            <h3 class="font-bold text-xl mb-3">Ejercicio Práctico en RStudio</h3>
-                            <p class="text-gray-600 mb-4">Genera y analiza una curva ROC para un nuevo biomarcador usando R en Posit Cloud.</p>
-                            <div class="code-block mb-4">
-                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code class="language-r"><span class="comment"># 1. Instalar y cargar el paquete</span>
-<span class="function">if</span> (!<span class="function">require</span>(pROC)) <span class="function">install.packages</span>(<span class="string">"pROC"</span>)
-<span class="function">library</span>(pROC)</code></pre>
+                        <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="font-bold mb-2">Valor Predictivo Negativo (VPN)</h4>
+                            <p>Probabilidad de que un paciente con un resultado <strong class="text-purple-700">negativo</strong> realmente esté sano.</p>
+                            <p class="mt-2 font-mono bg-purple-100 p-2 rounded">VPN = VN / (VN + FN)</p>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                        <h4 class="font-bold text-red-800 mb-2">¡El Factor Decisivo: La Prevalencia!</h4>
+                        <p class="mb-4">A diferencia de S y E, los valores predictivos dependen <strong class="text-red-700">enormemente</strong> de qué tan común es la enfermedad (prevalencia) en la población que estás estudiando. ¡Vamos a demostrarlo!</p>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-inner">
+                            <h5 class="font-bold mb-4 text-center">Calculadora Interactiva de Prevalencia</h5>
+                            <p class="text-sm text-center mb-4">Usemos una prueba con <strong>Sensibilidad del 99%</strong> y <strong>Especificidad del 95%</strong> en una población de 10,000 personas. Mueve el control deslizante para cambiar la prevalencia y observa cómo cambia el VPP.</p>
+                            
+                            <div class="mb-4">
+                                <label for="prevalence-slider" class="block font-semibold mb-2">Prevalencia: <span id="prevalence-value">5</span>%</label>
+                                <input type="range" id="prevalence-slider" min="0.1" max="50" step="0.1" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                             </div>
-                            <div class="code-block">
-                                <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
-                                <pre><code class="language-r"><span class="comment"># 2. Crear datos y analizar</span>
-datos_pacientes &lt;- <span class="function">data.frame</span>(...)
-<span class="comment"># ... (resto del código de complementos.html)</span></code></pre>
+
+                            <div class="grid grid-cols-2 gap-4 text-center">
+                                <div>
+                                    <p class="text-sm font-bold text-gray-600">VPP</p>
+                                    <p id="vpp-result" class="text-3xl font-bold text-yellow-600">51.0%</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-gray-600">VPN</p>
+                                    <p id="vpn-result" class="text-3xl font-bold text-purple-600">99.9%</p>
+                                </div>
                             </div>
+                            <p id="vpp-explanation" class="text-sm mt-4 text-center text-gray-700">Con una prevalencia del 5%, un resultado positivo solo es correcto la mitad de las veces.</p>
                         </div>
                     </div>
                 </div>
             </div>
             
+            <!-- Section 3: ROC Curves -->
+            <div class="bg-white rounded-xl shadow-lg">
+                <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
+                    <span>📈 Sección 3: El Panorama Completo - Curvas ROC</span>
+                    <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="mb-4">Muchas pruebas no son "positivas" o "negativas", sino que dan un valor continuo (ej. glucemia). ¿Dónde ponemos el punto de corte? La curva ROC (Receiver Operating Characteristic) nos muestra el rendimiento de la prueba en <strong class="interactive-highlight">todos</strong> los puntos de corte posibles.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg text-center">
+                        <img src="/assets/images/AUC-ROC.png" alt="Ejemplo de una curva ROC" class="mx-auto rounded-lg shadow-md mb-2">
+                        <p class="text-sm text-gray-600">La curva ROC grafica Sensibilidad vs. 1 - Especificidad. Cuanto más se "abomba" hacia la esquina superior izquierda, mejor es la prueba.</p>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="font-bold mb-2">El Área Bajo la Curva (AUC)</h4>
+                        <p>Es un número único que resume el poder discriminatorio total de la prueba. Va de 0.5 (inútil, como lanzar una moneda) a 1.0 (perfecta).</p>
+                        <ul class="list-disc list-inside bg-blue-50 p-4 rounded-lg mt-2 space-y-1">
+                            <li><strong>0.90 - 1.00:</strong> Excelente</li>
+                            <li><strong>0.80 - 0.90:</strong> Bueno</li>
+                            <li><strong>0.70 - 0.80:</strong> Aceptable</li>
+                            <li><strong>< 0.70:</strong> Pobre / No útil</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-bold mb-2">¡Pon a prueba tu conocimiento!</h4>
+                        <div class="quiz-container" data-quiz-id="1">
+                            <p class="mb-2">Una nueva prueba para la enfermedad X tiene un AUC de 0.95. Una prueba estándar existente tiene un AUC de 0.82. ¿Qué significa esto?</p>
+                            <div class="space-y-2">
+                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="false">La nueva prueba es más barata que la estándar.</button>
+                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="true">La nueva prueba tiene una capacidad discriminatoria globalmente superior a la prueba estándar.</button>
+                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="false">La nueva prueba es más sensible pero menos específica que la estándar.</button>
+                            </div>
+                            <p class="quiz-feedback mt-2 text-sm font-semibold hidden"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Case Studies -->
+            <div class="bg-white rounded-xl shadow-lg">
+                <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
+                    <span>🔬 Sección 4: Aplicación Práctica - Estudios de Caso</span>
+                    <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="mb-4">Veamos cómo estos conceptos se aplican en el mundo real.</p>
+                    <div class="space-y-4">
+                        <div class="p-4 border rounded-lg">
+                            <h4 class="font-bold">Caso 1: Diagnóstico de Diabetes con HbA1c</h4>
+                            <p>La ADA recomienda un punto de corte de ≥6.5%. Esto se eligió por su <strong class="interactive-highlight">alta especificidad</strong> (minimiza falsos positivos), aunque su sensibilidad no sea la más alta. Es una decisión clínica para evitar diagnosticar erróneamente a personas sanas.</p>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <h4 class="font-bold">Caso 2: Diagnóstico del VIH</h4>
+                            <p>Este es el ejemplo perfecto de algoritmos secuenciales. Se usa una prueba de cribado de <strong class="interactive-highlight">alta sensibilidad</strong> (ELISA) para no dejar pasar a nadie. Luego, los positivos se confirman con una prueba de <strong class="interactive-highlight">alta especificidad</strong> (Western Blot) para asegurar el diagnóstico y evitar el devastador impacto de un falso positivo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Limitations & Human Factor -->
+            <div class="bg-white rounded-xl shadow-lg">
+                <button class="accordion-button w-full flex justify-between items-center text-left p-6 font-bold text-lg text-gray-800 focus:outline-none">
+                    <span>🧠 Sección 5: La Dimensión Humana - Limitaciones y Sesgos</span>
+                    <svg class="icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="mb-4">Las estadísticas son poderosas, pero el razonamiento clínico no es un algoritmo. Está influenciado por atajos mentales y sesgos cognitivos que pueden llevar a errores.</p>
+                    <h4 class="font-bold mb-2">Sesgos Cognitivos Comunes:</h4>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Anclaje y Cierre Prematuro:</strong> Aferrarse a un diagnóstico inicial e ignorar nueva información.</li>
+                        <li><strong>Sesgo de Confirmación:</strong> Buscar evidencia que apoye tu idea inicial y descartar la que la contradice.</li>
+                        <li><strong>Sesgo de Disponibilidad:</strong> Pensar en un diagnóstico porque lo viste recientemente o es muy dramático, no porque sea el más probable.</li>
+                    </ul>
+                    <div class="mt-6 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-bold mb-2">¡Pon a prueba tu conocimiento!</h4>
+                        <div class="quiz-container" data-quiz-id="2">
+                            <p class="mb-2">Un paciente llega con dolor de cabeza. Acabas de leer un artículo sobre tumores cerebrales raros y te enfocas en esa posibilidad, ordenando una RMN de inmediato a pesar de que los signos apuntan a una migraña común. ¿Qué sesgo estás demostrando?</p>
+                            <div class="space-y-2">
+                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="false">Sesgo de Confirmación</button>
+                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="false">Anclaje</button>
+                                <button class="quiz-option w-full text-left p-3 border rounded-lg" data-correct="true">Sesgo de Disponibilidad</button>
+                            </div>
+                            <p class="quiz-feedback mt-2 text-sm font-semibold hidden"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <footer class="bg-white mt-12 border-t">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <p>&copy; 2025 - Guía de Estudio para Medicina y Ciencia.</p>
+            <p class="text-sm text-gray-400">Creado para inspirar a la próxima generación de médicos.</p>
         </div>
     </footer>
 
@@ -223,47 +300,77 @@ datos_pacientes &lt;- <span class="function">data.frame</span>(...)
             });
         });
 
-        // Bayes calculator
-        function calculateBayes() {
-            const preTestProbInput = document.getElementById('pre_test_prob');
-            const lrPlusInput = document.getElementById('lr_plus');
-            const postTestResultEl = document.getElementById('post_test_result');
-            if (!preTestProbInput || !lrPlusInput || !postTestResultEl) return;
-            const preTestProb = parseFloat(preTestProbInput.value) / 100;
-            const lrPlus = parseFloat(lrPlusInput.value);
-            if (isNaN(preTestProb) || isNaN(lrPlus) || preTestProb > 1 || preTestProb < 0) {
-                postTestResultEl.innerText = 'Datos Inválidos';
-                return;
-            }
-            if (preTestProb === 1) {
-                 postTestResultEl.innerText = '100.0%';
-                 return;
-            }
-            const preTestOdds = preTestProb / (1 - preTestProb);
-            const postTestOdds = preTestOdds * lrPlus;
-            const postTestProb = postTestOdds / (1 + postTestOdds);
-            postTestResultEl.innerText = `${(postTestProb * 100).toFixed(1)}%`;
-        }
+        // Interactive prevalence calculator
+        const slider = document.getElementById('prevalence-slider');
+        const prevalenceValue = document.getElementById('prevalence-value');
+        const vppResult = document.getElementById('vpp-result');
+        const vpnResult = document.getElementById('vpn-result');
+        const vppExplanation = document.getElementById('vpp-explanation');
 
-        // Copy code button
-        function copyCode(button) {
-            const pre = button.parentElement;
-            const code = pre.querySelector('code').innerText;
-            const textarea = document.createElement('textarea');
-            textarea.value = code;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            const originalText = button.innerText;
-            button.innerText = '¡Copiado!';
-            setTimeout(() => {
-                button.innerText = originalText;
-            }, 2000);
-        }
+        slider.addEventListener('input', () => {
+            const prevalence = parseFloat(slider.value);
+            prevalenceValue.textContent = prevalence.toFixed(1);
+            
+            // Fixed values for Sens (0.99) and Spec (0.95)
+            const sens = 0.99;
+            const spec = 0.95;
+            const population = 10000;
+            
+            const enfermos = population * (prevalence / 100);
+            const sanos = population - enfermos;
+            
+            const vp = enfermos * sens;
+            const fn = enfermos * (1 - sens);
+            const vn = sanos * spec;
+            const fp = sanos * (1 - spec);
+            
+            const vpp = (vp / (vp + fp)) * 100;
+            const vpn = (vn / (vn + fn)) * 100;
+            
+            vppResult.textContent = (isNaN(vpp) ? 0 : vpp.toFixed(1)) + '%';
+            vpnResult.textContent = (isNaN(vpn) ? 100 : vpn.toFixed(1)) + '%';
 
-        document.addEventListener('DOMContentLoaded', () => {
-            calculateBayes();
+            if (prevalence < 1) {
+                vppExplanation.textContent = `Con una prevalencia tan baja, ¡un resultado positivo tiene una probabilidad muy alta de ser un FALSO positivo!`;
+            } else if (prevalence > 20) {
+                 vppExplanation.textContent = `En un entorno de alta prevalencia, un resultado positivo es mucho más fiable.`;
+            } else {
+                 vppExplanation.textContent = `Incluso con una prevalencia moderada, el VPP puede ser sorprendentemente bajo.`;
+            }
+        });
+
+        // Quiz functionality
+        const quizContainers = document.querySelectorAll('.quiz-container');
+        quizContainers.forEach(container => {
+            const options = container.querySelectorAll('.quiz-option');
+            const feedback = container.querySelector('.quiz-feedback');
+            let answered = false;
+
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    if (answered) return;
+                    answered = true;
+
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+
+                    const isCorrect = option.getAttribute('data-correct') === 'true';
+
+                    if (isCorrect) {
+                        option.classList.add('correct');
+                        feedback.textContent = '¡Correcto! Excelente razonamiento.';
+                        feedback.classList.remove('hidden', 'text-red-600');
+                        feedback.classList.add('text-green-600');
+                    } else {
+                        option.classList.add('incorrect');
+                        feedback.textContent = 'No del todo. ¡Intenta pensar en la definición de nuevo!';
+                        feedback.classList.remove('hidden', 'text-green-600');
+                        feedback.classList.add('text-red-600');
+                        // Highlight the correct answer
+                        container.querySelector('[data-correct="true"]').classList.add('correct');
+                    }
+                });
+            });
         });
     </script>
 
