@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enfermedad Hepática II - Power Semiotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .resource-card {
+            background-color: #1f2937; /* bg-gray-800 */
+            border: 1px solid #374151; /* border-gray-700 */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); /* shadow-rose-500/20 */
+        }
+        .header {
+            background-color: #1f2937; /* bg-gray-800 */
+            border-bottom: 1px solid #374151; /* border-gray-700 */
+        }
+        .footer {
+            border-top: 1px solid #374151; /* border-gray-700 */
+        }
+        .back-link {
+            color: #60a5fa; /* text-blue-400 */
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-white">Enfermedad Hepática II</h1>
+                <p class="text-md text-gray-400">De la Hepatitis Crónica a las Complicaciones</p>
+            </div>
+            <a href="../../gastroenterologia.html" class="back-link">
+                <i class="fas fa-arrow-left mr-2"></i>Volver al Hub
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-10">
+        
+        <div class="resource-card p-8 rounded-xl shadow-md mb-10">
+            <h2 class="text-3xl font-bold text-white mb-3">Ruta de Aprendizaje Sugerida</h2>
+            <p class="text-lg text-gray-400">Para un aprendizaje óptimo, te recomendamos seguir los recursos en el orden presentado. Comienza con la presentación para una vista general, profundiza con la guía de conocimiento y luego aplica lo aprendido con el simulador y la autoevaluación.</p>
+        </div>
+
+        <!-- Resources Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- 1. Presentación Interactiva -->
+            <a href="./presentacion.html" target="_blank" class="resource-card p-6 rounded-lg flex items-start space-x-5">
+                <div class="flex-shrink-0">
+                    <div class="w-16 h-16 bg-purple-900/50 text-purple-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-chalkboard-teacher text-3xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">1. Presentación Interactiva</h3>
+                    <p class="text-gray-400 mt-1">Guía visual para introducir los conceptos clave. Ideal para la revisión antes de la clase.</p>
+                </div>
+            </a>
+
+            <!-- 2. Guía de Conocimiento -->
+            <a href="./conocimiento.md" download class="resource-card p-6 rounded-lg flex items-start space-x-5">
+                <div class="flex-shrink-0">
+                    <div class="w-16 h-16 bg-blue-900/50 text-blue-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-book-open text-3xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">2. Guía de Conocimiento</h3>
+                    <p class="text-gray-400 mt-1">Material de lectura principal. Profundiza en la evidencia y guías clínicas. (Descargable)</p>
+                </div>
+            </a>
+
+            <!-- 3. Simulador Clínico -->
+            <a href="./simulador.html" target="_blank" class="resource-card p-6 rounded-lg flex items-start space-x-5">
+                <div class="flex-shrink-0">
+                    <div class="w-16 h-16 bg-red-900/50 text-red-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-laptop-medical text-3xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">3. Simulador Clínico</h3>
+                    <p class="text-gray-400 mt-1">Aplica tus conocimientos en un escenario dinámico para manejar una Hemorragia Variceal Aguda.</p>
+                </div>
+            </a>
+
+            <!-- 4. Autoevaluación -->
+            <a href="./autoevaluacion.html" target="_blank" class="resource-card p-6 rounded-lg flex items-start space-x-5">
+                <div class="flex-shrink-0">
+                    <div class="w-16 h-16 bg-green-900/50 text-green-400 rounded-full flex items-center justify-center">
+                        <i class="fas fa-check-circle text-3xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">4. Autoevaluación</h3>
+                    <p class="text-gray-400 mt-1">Pon a prueba tu comprensión con casos clínicos y recibe retroalimentación instantánea.</p>
+                </div>
+            </a>
+
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer mt-10 py-6">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2024 Power Semiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
