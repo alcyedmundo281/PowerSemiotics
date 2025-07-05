@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo Educativo: Pancreatitis Aguda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* --- Estilos Generales --- */
         body {
@@ -29,8 +30,33 @@
         .intro-text {
             text-align: center;
             font-size: 1.1em;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             color: #495057;
+        }
+
+        /* --- Estilo del Botón de Descarga --- */
+        .download-button-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .download-button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .download-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        .download-button .fas {
+            margin-right: 8px;
         }
 
         /* --- Estilos del Acordeón --- */
@@ -131,9 +157,11 @@
         .abp-feedback { margin-top: 15px; padding: 10px; border-radius: 5px; }
         .abp-feedback.correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .abp-feedback.incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        #abp-hypothesis-board { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;}
-        .abp-decision-section button { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; margin-top: 10px; }
-        .abp-decision-section button:hover { background-color: #218838; }
+        #abp-hypothesis-board, #abp-learning-objectives { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;}
+        .abp-decision-section button, .abp-reveal-button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; margin-top: 10px; }
+        .abp-decision-section button:hover, .abp-reveal-button:hover { background-color: #0056b3; }
+        .abp-decision-section button.verify { background-color: #28a745; }
+        .abp-decision-section button.verify:hover { background-color: #218838; }
 
         /* --- Estilos para el Quiz --- */
         #quiz-container { max-width: 800px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -162,6 +190,12 @@
 <div class="main-container">
     <h1 class="main-title">Módulo Educativo: Pancreatitis Aguda y Patología Biliar</h1>
     <p class="intro-text">Bienvenido al módulo de aprendizaje sobre patologías del páncreas y las vías biliares. Haga clic en cada sección para expandir y explorar el contenido, desde la guía teórica hasta las actividades interactivas.</p>
+    
+    <div class="download-button-container">
+        <a href="/assets/pdf/Pancreatitis-Aguda.pdf" class="download-button" download>
+            <i class="fas fa-download"></i> Descargar Guía en PDF
+        </a>
+    </div>
 
     <div id="accordion">
         <!-- Acordeón 1: Documento de Conocimiento -->
@@ -169,25 +203,22 @@
             <div class="accordion-header">1. Documento de Conocimiento (Guía de Lectura)</div>
             <div class="accordion-content">
                 <div class="content-section">
-                    <h2>Guía Maestra sobre Patología Pancreática y Biliar para el Médico General en Ecuador</h2>
-                    <p>Este documento constituye el material de lectura principal. Ha sido elaborado mediante una investigación exhaustiva, integrando guías de práctica clínica internacionales con datos epidemiológicos y de contexto específicos de Ecuador para maximizar su relevancia y aplicabilidad.</p>
-                    <h3>1.1. Fundamentos Clínicos: Anatomía y Fisiología</h3>
-                    <p>El <strong>páncreas</strong> es un órgano retroperitoneal. Se divide en cabeza, proceso uncinado, cuello, cuerpo y cola. Su íntima relación con el duodeno, los vasos mesentéricos y el bazo es crucial en la patología y la cirugía.</p>
-                    <h3>1.2. Pancreatitis Aguda (PA)</h3>
+                    <h2>Guía Maestra sobre Patología Pancreática y Biliar</h2>
+                    <p>Este documento constituye el material de lectura principal, integrando guías de práctica clínica internacionales con datos epidemiológicos relevantes.</p>
+                    <h3>1.1. Pancreatitis Aguda (PA)</h3>
                     <p>El diagnóstico requiere <strong>al menos 2 de 3 criterios</strong>: 1) Dolor abdominal característico, 2) Lipasa o amilasa ≥3 veces el LSN, 3) Hallazgos en imagen. La severidad se clasifica (Leve, Moderada, Grave) según la clasificación de Atlanta 2012.</p>
-                    <h3>1.3. Enfermedad por Cálculos Biliares</h3>
+                    <h3>1.2. Enfermedad por Cálculos Biliares</h3>
                     <p>La <strong>colangitis aguda</strong> es una emergencia médica. Se diagnostica y maneja según las Guías de Tokio 2018. La <strong>Tríada de Charcot</strong> (fiebre, ictericia, dolor CSD) es clásica. El manejo requiere antibióticos IV y <strong>drenaje biliar urgente</strong> (CPRE).</p>
                 </div>
             </div>
         </div>
 
-        <!-- Acordeón 2: Presentación Interactiva -->
+        <!-- Acordeón 2: Presentación Interactiva (CORREGIDA) -->
         <div class="accordion-item">
             <div class="accordion-header">2. Presentación Interactiva para la Clase</div>
             <div class="accordion-content">
                 <div class="presentation-container">
                     <div id="slides-container">
-                        <!-- DIAPOSITIVAS NUEVAS INTEGRADAS AQUÍ -->
                         <div class="slide active">
                             <h1>Pancreatitis Aguda: Un Enfoque Clínico Integral</h1>
                             <h2>Basado en Evidencia para el Estudiante de Medicina</h2>
@@ -339,15 +370,15 @@
                                 <div class="flex-item">
                                     <h4>Origen en PEI:</h4>
                                     <ul>
-                                        <li><strong><4 sem:</strong> Colección Líquida Aguda (APFC)</li>
-                                        <li><strong>>4 sem:</strong> Pseudoquiste</li>
+                                        <li><strong>&lt;4 sem:</strong> Colección Líquida Aguda (APFC)</li>
+                                        <li><strong>&gt;4 sem:</strong> Pseudoquiste</li>
                                     </ul>
                                 </div>
                                 <div class="flex-item">
                                     <h4>Origen en PN:</h4>
                                     <ul>
-                                        <li><strong><4 sem:</strong> Colección Necrótica Aguda (ANC)</li>
-                                        <li><strong>>4 sem:</strong> Necrosis Encapsulada (WON)</li>
+                                        <li><strong>&lt;4 sem:</strong> Colección Necrótica Aguda (ANC)</li>
+                                        <li><strong>&gt;4 sem:</strong> Necrosis Encapsulada (WON)</li>
                                     </ul>
                                 </div>
                             </div>
@@ -401,100 +432,77 @@
                                 <li>El manejo de la PA grave es <strong>multidisciplinario</strong>.</li>
                             </ul>
                         </div>
-                        <!-- FIN DE DIAPOSITIVAS NUEVAS -->
                     </div>
-                
                     <div class="navigation">
                         <button id="prevBtn" class="nav-button" onclick="prevSlide()">Anterior</button>
-                        <div id="slideCounter" class="slide-counter">1 / 13</div>
+                        <div id="slideCounter" class="slide-counter">1 / 14</div>
                         <button id="nextBtn" class="nav-button" onclick="nextSlide()">Siguiente</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Acordeón 3: Actividad ABP -->
+        <!-- Acordeón 3: Actividad ABP Mejorada -->
         <div class="accordion-item">
             <div class="accordion-header">3. Actividad de Aprendizaje Basado en Problemas (ABP)</div>
             <div class="accordion-content">
                 <div class="interactive-container">
                     <!-- Fase 1: Presentación del Problema -->
                     <div id="abp-phase-1" class="abp-phase">
-                        <h3>Fase 1: Presentación del Problema</h3>
-                        <p>Ingresa al servicio de urgencias una paciente de 48 años, con antecedente de diabetes tipo 2 e hipertensión, traída por su familia por un cuadro de 24 horas de evolución de dolor abdominal intenso, náuseas y vómitos.</p>
-                        <p><strong>Signos vitales iniciales:</strong> PA 100/60 mmHg, FC 125 lpm, FR 24 rpm, T 38.5°C, SatO2 91% al aire ambiente.</p>
+                        <h3>Fase 1: Presentación del Problema (Caso Clínico)</h3>
+                        <p>Un hombre de 48 años acude a emergencias por un dolor abdominal intenso de 12 horas de evolución. Tiene antecedentes de consumo "social" de alcohol y episodios previos de dolor en hipocondrio derecho postprandial no estudiados.</p>
+                        <p><strong>Examen Físico:</strong> Ansioso, diaforético. FC: 110 lpm, PA: 125/80 mmHg, FR: 22 rpm, T: 37.8 °C. Dolor a la palpación en epigastrio, defensa voluntaria. Ruidos hidroaéreos disminuidos.</p>
+                        <p><strong>Laboratorio Inicial:</strong> Leucocitos: 14,500/mm³ (>10% bandas), BUN: 28 mg/dL, Hematocrito: 47%, Lipasa: 2500 U/L (VN <60 U/L).</p>
                     </div>
 
-                    <!-- Fase 2: Formulación de Hipótesis y Recopilación de Datos -->
+                    <!-- Fase 2: Formulación de Hipótesis -->
                     <div id="abp-phase-2" class="abp-phase">
-                        <h3>Fase 2: Hipótesis y Recopilación de Datos</h3>
-                        <p>Basado en la presentación inicial, anote sus hipótesis diagnósticas y qué información adicional necesita.</p>
-                        <textarea id="abp-hypothesis-board" placeholder="Ej: Sospecho de... Necesito saber más sobre el dolor, antecedentes, examen físico completo y laboratorios..."></textarea>
-                        <br>
-                        <h4>Recopilar más información:</h4>
-                        <div class="abp-tabs">
-                            <div class="abp-tab active" onclick="openAbpTab(event, 'Anamnesis')">Anamnesis</div>
-                            <div class="abp-tab" onclick="openAbpTab(event, 'ExamenFisico')">Examen Físico</div>
-                            <div class="abp-tab" onclick="openAbpTab(event, 'Laboratorios')">Laboratorios</div>
-                            <div class="abp-tab" onclick="openAbpTab(event, 'Imagenes')">Imágenes</div>
-                        </div>
-                        <div id="Anamnesis" class="abp-tab-content">
-                            <p>Al interrogar a la familia, refieren que el dolor inició en el epigastrio y se irradió "en cinturón" hacia la espalda. La paciente no ha consumido alcohol recientemente. Su diabetes está mal controlada (HbA1c reciente de 9.5%).</p>
-                        </div>
-                        <div id="ExamenFisico" class="abp-tab-content" style="display:none;">
-                            <p>Paciente somnolienta pero responde a estímulos. Piel caliente y seca. Abdomen distendido, doloroso a la palpación difusa, con defensa voluntaria pero sin claro rebote. Ruidos hidroaéreos disminuidos. No hay ictericia.</p>
-                        </div>
-                        <div id="Laboratorios" class="abp-tab-content" style="display:none;">
-                            <ul>
-                                <li>Leucocitos: 18,500/mm³</li>
-                                <li>Glucosa: 280 mg/dL</li>
-                                <li>Creatinina: 1.9 mg/dL</li>
-                                <li>BUN: 45 mg/dL</li>
-                                <li>Lipasa: 2500 U/L</li>
-                                <li>Calcio: 7.8 mg/dL</li>
-                                <li>Gases Arteriales: pH 7.28, pCO2 30, HCO3 15</li>
-                            </ul>
-                        </div>
-                         <div id="Imagenes" class="abp-tab-content" style="display:none;">
-                            <p><strong>Ecografía abdominal:</strong> Páncreas de aspecto edematoso, difícil de evaluar por interposición de gas. Vesícula biliar sin cálculos ni signos de colecistitis.</p>
-                        </div>
+                        <h3>Fase 2: Formulación de Hipótesis y Objetivos de Aprendizaje</h3>
+                        <p>Basado en el caso, ¿cuáles son tus hipótesis diagnósticas? ¿Qué necesitas aprender para manejar a este paciente?</p>
+                        <textarea id="abp-hypothesis-board" placeholder="Escribe aquí tus hipótesis. Ej: Pancreatitis aguda de origen biliar vs. alcohólica..."></textarea>
+                        <p class="mt-4">Define tus objetivos de aprendizaje:</p>
+                        <textarea id="abp-learning-objectives" placeholder="Escribe aquí lo que necesitas investigar. Ej: Criterios de severidad, manejo de fluidos..."></textarea>
+                        <button class="abp-reveal-button" onclick="revealNextPhase('abp-phase-3')">Continuar al Estudio</button>
                     </div>
 
-                    <!-- Fase 3: Consulta de Recursos -->
-                    <div id="abp-phase-3" class="abp-phase">
-                        <h3>Fase 3: Consulta de Recursos</h3>
-                        <p>Antes de tomar decisiones, revise los siguientes temas clave en su material de estudio (haga clic para ver un resumen):</p>
-                        <a class="abp-resource-link" onclick="showAbpResource('res-criterios')">1. Criterios diagnósticos de Pancreatitis Aguda</a>
-                        <a class="abp-resource-link" onclick="showAbpResource('res-severidad')">2. Clasificación y criterios de severidad (Atlanta, SIRS, BISAP)</a>
-                        <a class="abp-resource-link" onclick="showAbpResource('res-manejo')">3. Pilares del manejo inicial (Fluidos, Dolor, Nutrición)</a>
-                        <div id="abp-resource-content" class="abp-feedback" style="display:none;"></div>
+                    <!-- Fase 3: Estudio y Evolución del Caso -->
+                    <div id="abp-phase-3" class="abp-phase abp-hidden">
+                        <h3>Fase 3: Estudio y Evolución del Caso</h3>
+                        <p><strong>(Periodo de estudio simulado)</strong> Ahora que has investigado tus objetivos, se presenta la evolución del paciente.</p>
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+                            <p class="font-bold">Evolución a las 48 horas:</p>
+                            <p>A pesar del manejo inicial, el paciente persiste con taquicardia (115 lpm) y taquipnea (24 rpm). Ahora requiere oxígeno suplementario. Su BUN ha aumentado a 35 mg/dL y la creatinina a 1.9 mg/dL.</p>
+                            <p class="font-bold mt-2">Hallazgo de TC (a las 72h):</p>
+                            <p>Páncreas aumentado de tamaño con áreas que no realzan con contraste, afectando ~40% de la glándula. Colección líquida heterogénea, no encapsulada, en la región peripancreática.</p>
+                        </div>
+                        <button class="abp-reveal-button" onclick="revealNextPhase('abp-phase-4')">Continuar a la Toma de Decisiones</button>
                     </div>
 
                     <!-- Fase 4: Toma de Decisiones -->
-                    <div id="abp-phase-4" class="abp-phase">
-                        <h3>Fase 4: Toma de Decisiones</h3>
+                    <div id="abp-phase-4" class="abp-phase abp-hidden">
+                        <h3>Fase 4: Toma de Decisiones sobre el Caso Complicado</h3>
                         <div class="abp-decision-section">
-                            <p><strong>1. ¿Cuál es su diagnóstico principal?</strong></p>
-                            <input type="radio" name="diag" value="pa"> Pancreatitis Aguda<br>
-                            <input type="radio" name="diag" value="cad"> Cetoacidosis Diabética<br>
-                            <input type="radio" name="diag" value="sepsis"> Sepsis de origen abdominal<br>
-                            <button onclick="checkAbpDecision('diag')">Verificar Diagnóstico</button>
-                            <div id="feedback-diag" class="abp-feedback abp-hidden"></div>
-                        </div>
-                        <div class="abp-decision-section">
-                            <p><strong>2. Según la clasificación de Atlanta, ¿cómo clasificaría la severidad de este caso?</strong></p>
+                            <p><strong>1. Con la nueva información, ¿cómo clasifica la severidad de la pancreatitis según Atlanta 2012?</strong></p>
                             <input type="radio" name="sev" value="leve"> Leve<br>
                             <input type="radio" name="sev" value="mod"> Moderadamente Grave<br>
                             <input type="radio" name="sev" value="grave"> Grave<br>
-                            <button onclick="checkAbpDecision('sev')">Verificar Severidad</button>
+                            <button class="verify" onclick="checkAbpDecision('sev')">Verificar</button>
                             <div id="feedback-sev" class="abp-feedback abp-hidden"></div>
                         </div>
+                        <div class="abp-decision-section">
+                            <p><strong>2. ¿Cómo se denomina la complicación local vista en la TC?</strong></p>
+                            <input type="radio" name="comp" value="apfc"> Colección Líquida Aguda (APFC)<br>
+                            <input type="radio" name="comp" value="anc"> Colección Necrótica Aguda (ANC)<br>
+                            <input type="radio" name="comp" value="won"> Necrosis Encapsulada (WON)<br>
+                            <button class="verify" onclick="checkAbpDecision('comp')">Verificar</button>
+                            <div id="feedback-comp" class="abp-feedback abp-hidden"></div>
+                        </div>
                          <div class="abp-decision-section">
-                            <p><strong>3. ¿Cuál es la prioridad MÁS importante en el manejo inicial de esta paciente?</strong></p>
-                            <input type="radio" name="manejo" value="insulina"> Iniciar infusión de insulina para la hiperglucemia. <br>
-                            <input type="radio" name="manejo" value="fluidos"> Iniciar resucitación agresiva con fluidos intravenosos.<br>
-                            <input type="radio" name="manejo" value="atb"> Administrar antibióticos de amplio espectro.<br>
-                            <button onclick="checkAbpDecision('manejo')">Verificar Prioridad</button>
+                            <p><strong>3. En el día 10, el paciente desarrolla fiebre (39°C) y leucocitosis (18,000). ¿Cuál es la sospecha principal y la conducta a seguir?</strong></p>
+                            <input type="radio" name="manejo" value="atb"> Iniciar antibióticos empíricos y observar.<br>
+                            <input type="radio" name="manejo" value="stepup"> Iniciar antibióticos y considerar drenaje mínimamente invasivo (Step-Up).<br>
+                            <input type="radio" name="manejo" value="cx"> Proceder a cirugía abierta (necrosectomía) de inmediato.<br>
+                            <button class="verify" onclick="checkAbpDecision('manejo')">Verificar</button>
                             <div id="feedback-manejo" class="abp-feedback abp-hidden"></div>
                         </div>
                     </div>
@@ -537,7 +545,6 @@
         }
     }
 
-    // --- Lógica del Acordeón ---
     document.addEventListener('DOMContentLoaded', () => {
         const accordionItems = document.querySelectorAll('.accordion-item');
         accordionItems.forEach(item => {
@@ -548,7 +555,6 @@
                     i.classList.remove('active');
                     i.querySelector('.accordion-content').style.maxHeight = null;
                 });
-
                 if (!isActive) {
                     item.classList.add('active');
                     const content = item.querySelector('.accordion-content');
@@ -559,7 +565,6 @@
         showSlide(0);
     });
 
-    // --- Lógica de la Presentación (Diapositivas) ---
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const totalSlides = slides.length;
@@ -580,45 +585,14 @@
         if(prevBtn) prevBtn.disabled = currentSlide === 0;
         if(nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
     }
-    const slideTooltip = document.getElementById('slide-tooltip');
-    function showSlideTooltip(evt, text) {
-        if(slideTooltip){
-            slideTooltip.innerHTML = text;
-            slideTooltip.style.opacity = '1';
-            slideTooltip.style.left = evt.pageX + 10 + 'px';
-            slideTooltip.style.top = evt.pageY + 10 + 'px';
-        }
-    }
-    function hideSlideTooltip() { if(slideTooltip) slideTooltip.style.opacity = '0'; }
 
-    // --- Lógica de la Actividad ABP ---
-    function openAbpTab(evt, tabName) {
-        let i, tabcontent, tablinks;
-        const parent = evt.target.closest('.abp-phase');
-        tabcontent = parent.querySelectorAll(".abp-tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+    // --- Lógica de la Actividad ABP Mejorada ---
+    function revealNextPhase(phaseId) {
+        const nextPhase = document.getElementById(phaseId);
+        if (nextPhase) {
+            nextPhase.classList.remove('abp-hidden');
+            adjustAccordionHeight(nextPhase);
         }
-        tablinks = parent.querySelectorAll(".abp-tab");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-        adjustAccordionHeight(evt.target);
-    }
-
-    const abpResources = {
-        'res-criterios': '<strong>Criterios Diagnósticos (Atlanta):</strong> Se requieren 2 de 3: 1) Dolor abdominal característico, 2) Lipasa o amilasa sérica ≥3 veces el LSN, 3) Hallazgos característicos en imagen.',
-        'res-severidad': '<strong>Clasificación de Severidad (Atlanta):</strong> Se basa en la presencia y duración del fallo orgánico (respiratorio, cardiovascular, renal). <strong>Grave:</strong> Fallo orgánico persistente (>48h). <strong>Moderada:</strong> Fallo orgánico transitorio (<48h) o complicaciones locales/sistémicas. <strong>Leve:</strong> Ausencia de lo anterior.',
-        'res-manejo': '<strong>Manejo Inicial:</strong> La prioridad absoluta es la <strong>resucitación agresiva con fluidos</strong> (5-10 ml/kg/h) para prevenir la hipoperfusión y la necrosis pancreática. El manejo del dolor y el soporte nutricional son los siguientes pasos.'
-    };
-
-    function showAbpResource(resourceId) {
-        const contentDiv = document.getElementById('abp-resource-content');
-        contentDiv.innerHTML = abpResources[resourceId];
-        contentDiv.style.display = 'block';
-        adjustAccordionHeight(contentDiv);
     }
 
     function checkAbpDecision(decisionType) {
@@ -633,48 +607,45 @@
         }
 
         switch(decisionType) {
-            case 'diag':
-                feedbackElement = document.getElementById('feedback-diag');
-                if (selectedValue === 'pa') {
-                    feedbackText = '<strong>Correcto.</strong> La paciente cumple con los criterios de pancreatitis aguda: dolor característico y lipasa >3x LSN. La cetoacidosis y la sepsis son diagnósticos asociados o complicaciones, pero el primario es PA.';
-                    isCorrect = true;
-                } else {
-                    feedbackText = '<strong>Incorrecto.</strong> Aunque hay hiperglucemia y signos de sepsis, la causa subyacente desencadenante es la pancreatitis aguda, confirmada por la lipasa marcadamente elevada.';
-                }
-                break;
             case 'sev':
                 feedbackElement = document.getElementById('feedback-sev');
                 if (selectedValue === 'grave') {
-                    feedbackText = '<strong>Correcto.</strong> La paciente presenta fallo orgánico persistente (hipotensión que requiere soporte, insuficiencia renal aguda, hipoxemia), lo que la clasifica como Pancreatitis Aguda Grave.';
+                    feedbackText = '<strong>Correcto.</strong> La persistencia de falla orgánica (renal y respiratoria) por más de 48 horas clasifica el cuadro como Pancreatitis Aguda Grave.';
                     isCorrect = true;
                 } else {
-                    feedbackText = '<strong>Incorrecto.</strong> La presencia de fallo en múltiples órganos (cardiovascular, renal, respiratorio) define el cuadro como Grave, no Leve o Moderado.';
+                    feedbackText = '<strong>Incorrecto.</strong> La presencia de fallo orgánico persistente define la pancreatitis como Grave, no Leve o Moderada.';
+                }
+                break;
+            case 'comp':
+                feedbackElement = document.getElementById('feedback-comp');
+                if (selectedValue === 'anc') {
+                    feedbackText = '<strong>Correcto.</strong> Es una colección heterogénea (líquido y necrosis) que ocurre en las primeras 4 semanas en el contexto de una pancreatitis necrotizante, por lo que se define como Colección Necrótica Aguda (ANC).';
+                    isCorrect = true;
+                } else {
+                    feedbackText = '<strong>Incorrecto.</strong> No es una APFC porque hay necrosis. No es una WON porque tiene menos de 4 semanas de evolución y no está completamente encapsulada.';
                 }
                 break;
             case 'manejo':
                 feedbackElement = document.getElementById('feedback-manejo');
-                if (selectedValue === 'fluidos') {
-                    feedbackText = '<strong>Correcto.</strong> La resucitación agresiva con fluidos es la intervención más crucial en las primeras horas para mejorar la perfusión pancreática y prevenir la necrosis y el fallo multiorgánico.';
+                if (selectedValue === 'stepup') {
+                    feedbackText = '<strong>Correcto.</strong> La sospecha es necrosis infectada. El manejo adecuado es iniciar antibióticos terapéuticos y seguir el enfoque "Step-Up", considerando el drenaje mínimamente invasivo como siguiente paso si no hay mejoría.';
                     isCorrect = true;
                 } else {
-                    feedbackText = '<strong>Incorrecto.</strong> Aunque la insulina y los antibióticos pueden ser necesarios, no son la prioridad número uno. Sin una adecuada resucitación hídrica, el resto de medidas serán ineficaces.';
+                    feedbackText = '<strong>Incorrecto.</strong> La cirugía abierta inmediata tiene una alta mortalidad y es el último recurso. Iniciar solo antibióticos puede ser insuficiente si hay una colección infectada que requiere drenaje.';
                 }
                 break;
         }
 
         feedbackElement.innerHTML = feedbackText;
-        feedbackElement.className = `abp-feedback abp-hidden ${isCorrect ? 'correct' : 'incorrect'}`;
+        feedbackElement.className = `abp-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
         feedbackElement.classList.remove('abp-hidden');
         adjustAccordionHeight(feedbackElement);
     }
 
-
     // --- Lógica del Quiz Interactivo ---
     const quizData = [
-        { vignette: "Un paciente de 45 años ingresa con dolor epigástrico intenso y lipasa de 450 U/L (LSN 120).", question: "¿Cuál es el siguiente paso para confirmar el diagnóstico de pancreatitis aguda?", options: ["Solicitar TC abdominal", "Realizar ecografía abdominal", "Iniciar manejo, el diagnóstico está establecido", "Medir amilasa sérica"], correctAnswer: 2, justification: "El diagnóstico de PA requiere 2 de 3 criterios (clínica, enzimas ≥3x LSN, imagen). Este paciente ya cumple 2, por lo que el diagnóstico está hecho y se debe iniciar el manejo.", distractors: ["La TC no es necesaria para el diagnóstico inicial.", "La ecografía busca la etiología, no confirma el diagnóstico ya hecho.", "La amilasa es menos específica que la lipasa."] },
-        { vignette: "Paciente con pancreatitis aguda grave en UCI, al día 10 presenta fiebre y leucocitosis. TC muestra necrosis del 40%.", question: "¿Cuál es la conducta más apropiada?", options: ["Iniciar antibióticos empíricamente", "Realizar necrosectomía urgente", "Punción de la necrosis guiada por imagen con cultivo", "Colocar drenaje percutáneo"], correctAnswer: 2, justification: "Ante sospecha de necrosis infectada, el estándar de oro es la punción guiada por imagen para confirmar la infección con cultivo antes de escalar el tratamiento.", distractors: ["Iniciar antibióticos sin confirmación genera resistencias.", "La necrosectomía es un paso posterior.", "El drenaje se coloca una vez confirmada la infección."] },
-        { vignette: "Mujer de 38 años con primer episodio de pancreatitis aguda biliar leve, ya recuperada.", question: "¿Cuál es el manejo definitivo recomendado?", options: ["Alta y colecistectomía en 6 semanas", "Realizar colecistectomía en la misma hospitalización", "Tratamiento con ácido ursodesoxicólico", "Dieta baja en grasas y seguimiento"], correctAnswer: 1, justification: "En PA biliar leve, las guías recomiendan la colecistectomía durante la misma hospitalización para prevenir la alta tasa de recurrencia.", distractors: ["Diferir la cirugía aumenta el riesgo de reingreso.", "El ácido ursodesoxicólico no es el tratamiento definitivo.", "La dieta sola es insuficiente."] },
-        { vignette: "Paciente de 68 años con ictericia, fiebre, dolor en CSD, confusión e hipotensión.", question: "Según Tokio 2018, ¿cuál es el diagnóstico y la acción más urgente?", options: ["Colecistitis Grado II; iniciar antibióticos", "Colangitis Grado III; drenaje biliar urgente (CPRE)", "Hepatitis fulminante; referir para trasplante", "Pancreatitis aguda grave; fluidoterapia masiva"], correctAnswer: 1, justification: "Presenta la péntada de Reynolds, diagnóstico de Colangitis Aguda Grado III (Grave). Requiere manejo en UCI y drenaje biliar urgente para controlar el foco séptico.", distractors: ["Es más que una colecistitis por el shock.", "La presentación es de sepsis biliar.", "Aunque necesita fluidos, la prioridad es el control del foco."] }
+        { vignette: "Un paciente de 45 años ingresa con dolor epigástrico intenso y lipasa de 450 U/L (LSN 120).", question: "¿Cuál es el siguiente paso para confirmar el diagnóstico de pancreatitis aguda?", options: ["Solicitar TC abdominal", "Realizar ecografía abdominal", "Iniciar manejo, el diagnóstico está establecido", "Medir amilasa sérica"], correctAnswer: 2, justification: "El diagnóstico de PA requiere 2 de 3 criterios (clínica, enzimas ≥3x LSN, imagen). Este paciente ya cumple 2, por lo que el diagnóstico está hecho y se debe iniciar el manejo." },
+        { vignette: "Mujer de 38 años con primer episodio de pancreatitis aguda biliar leve, ya recuperada.", question: "¿Cuál es el manejo definitivo recomendado?", options: ["Alta y colecistectomía en 6 semanas", "Realizar colecistectomía en la misma hospitalización", "Tratamiento con ácido ursodesoxicólico", "Dieta baja en grasas y seguimiento"], correctAnswer: 1, justification: "En PA biliar leve, las guías recomiendan la colecistectomía durante la misma hospitalización para prevenir la alta tasa de recurrencia." }
     ];
     let currentQuizQuestionIndex = 0;
     let userAnswers = [];
