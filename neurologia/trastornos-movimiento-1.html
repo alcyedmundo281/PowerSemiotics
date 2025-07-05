@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo: Trastornos del Movimiento I - Power Semiotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-button.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        .embedded-content h1, .embedded-content h2, .embedded-content h3, .embedded-content h4 {
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+        .embedded-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        .embedded-content ul {
+            list-style-position: inside;
+            list-style-type: disc;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+        .embedded-content table {
+            width: 100%;
+            margin-bottom: 1rem;
+            border-collapse: collapse;
+        }
+        .embedded-content th, .embedded-content td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .embedded-content th {
+            background-color: #f7fafc;
+        }
+        .embedded-content strong {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="https://powersemiotics.com/neurologia.html" class="text-xl font-bold text-blue-700">&larr; Volver al Hub de Neurología</a>
+            <div class="text-xl font-bold text-gray-700">Power Semiotics</div>
+        </nav>
+    </header>
+
+    <!-- Main Module Container -->
+    <div class="container mx-auto p-4 md:p-8">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Módulo: Trastornos del Movimiento I</h1>
+            <p class="text-md text-gray-600">Siga los pasos en orden para una experiencia de aprendizaje completa.</p>
+        </div>
+
+        <!-- Accordion Container -->
+        <div id="accordion-container" class="space-y-4 max-w-5xl mx-auto">
+
+            <!-- Accordion Item 1: Guía de Conocimiento -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
+                    <span>1. Guía de Conocimiento: Guía Esencial de la Enfermedad de Parkinson</span>
+                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <div class="p-5 border-t border-gray-200 text-gray-700 embedded-content">
+                        <h3>1.1.1 Introducción y Epidemiología: La Realidad del Parkinson en Ecuador</h3>
+                        <p>La Enfermedad de Parkinson (EP) es un trastorno neurodegenerativo crónico y progresivo, caracterizado fundamentalmente por la pérdida de neuronas productoras de dopamina en el cerebro. Aunque su causa exacta sigue siendo desconocida, se considera que es multifactorial, con una interacción de factores genéticos y ambientales.</p>
+                        <p>A nivel global, la EP es el segundo trastorno neurodegenerativo más frecuente después de la enfermedad de Alzheimer, afectando a más del 1% de la población mayor de 65 años. En Ecuador, la prevalencia es de <strong>243 casos por cada 100,000 habitantes</strong>, según un estudio clave en Manabí. Este dato subraya que la EP es una condición prevalente en la población ecuatoriana.</p>
+                        <h3>1.1.2 Fisiopatología: La Vía Nigroestriada y la Agregación de α-Sinucleína</h3>
+                        <p>La base fisiopatológica de la EP reside en la degeneración progresiva de las neuronas dopaminérgicas en la <strong>pars compacta de la sustancia negra (SNc)</strong>. Estas neuronas forman la <strong>vía nigroestriada</strong>, fundamental para el control del movimiento. La pérdida de dopamina altera el equilibrio de los circuitos de los ganglios basales (vía directa e indirecta), resultando en una inhibición del movimiento y la aparición de síntomas como la bradicinesia. El sello patológico es la presencia de <strong>cuerpos de Lewy</strong>, agregados de la proteína <strong>α-sinucleína</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 2: Presentación Interactiva -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
+                    <span>2. Presentación Interactiva: El Espectro Clínico del Parkinson</span>
+                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <div class="p-5 border-t border-gray-200">
+                        <div id="presentation-container" style="height: 80vh; position: relative;">
+                            <iframe id="presentation-iframe" style="width: 100%; height: 100%; border: none;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 3: Actividad Interactiva (ABP) -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
+                    <span>3. Actividad Interactiva: ABP - "El Caso del Temblor Unilateral"</span>
+                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <div id="abp-container-parent" class="p-5 border-t border-gray-200">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion Item 4: Banco de Preguntas -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
+                    <span>4. Banco de Preguntas: Autoevaluación de Fundamentos</span>
+                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <div id="quiz-container-parent" class="p-5 border-t border-gray-200">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="container mx-auto px-6 py-4 text-center text-gray-600">
+            &copy; 2025 Power Semiotics. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Accordion Functionality ---
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const isActive = button.classList.contains('active');
+
+                    accordionButtons.forEach(otherButton => {
+                        if (otherButton !== button) {
+                            otherButton.classList.remove('active');
+                            otherButton.nextElementSibling.style.maxHeight = null;
+                        }
+                    });
+
+                    if (isActive) {
+                        button.classList.remove('active');
+                        content.style.maxHeight = null;
+                    } else {
+                        button.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // --- Presentation Loader ---
+            const presentationIframe = document.getElementById('presentation-iframe');
+            if (presentationIframe) {
+                const presentationHTML = `
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Semana 8: Fundamentos de la Enfermedad de Parkinson</title>
+                    <style>
+                        body, html { font-family: sans-serif; margin: 0; padding: 0; background-color: #f0f0f0; height: 100%; }
+                        .slide { width: 100%; height: 100%; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2em; box-sizing: border-box; background-color: white; border-bottom: 5px solid #005a9c; }
+                        .slide.active { display: flex; }
+                        h1 { font-size: 2.2em; color: #003366; }
+                        h2 { font-size: 1.6em; color: #005a9c; }
+                        p { font-size: 1.1em; max-width: 800px; line-height: 1.6; }
+                        .caption { font-size: 0.8em; color: #666; margin-top: 5px; }
+                        .navigation { position: absolute; bottom: 20px; width: 100%; text-align: center; z-index: 10; }
+                        .nav-btn { padding: 10px 20px; font-size: 1em; cursor: pointer; background-color: #005a9c; color: white; border: none; border-radius: 5px; margin: 0 10px; }
+                        .nav-btn:disabled { background-color: #cccccc; }
+                        .iceberg-container { position: relative; width: 90%; max-width: 600px; height: auto; }
+                        .iceberg-img { width: 100%; }
+                        .flowchart { width: 90%; max-width: 800px; }
+                        .video-container { width: 80%; max-width: 480px; aspect-ratio: 16 / 9; background-color: #000; margin-bottom: 1rem; }
+                        .video-container iframe { width: 100%; height: 100%; border: none; }
+                        #basal-ganglia-svg { width: 90%; max-width: 600px; height: auto; border: 1px solid #ccc; }
+                        .pathway { transition: all 0.5s ease-in-out; }
+                        .dopamine-flow { opacity: 1; transition: opacity 0.5s; }
+                    </style>
+                </head>
+                <body>
+                    <div class="slide active">
+                        <h1>Trastornos del Movimiento I</h1>
+                        <h2>Contexto en Ecuador</h2>
+                        <img src="assets/mapa-ecuador.png" alt="Mapa de Ecuador con sus provincias" style="height: 350px; margin: 20px 0;">
+                        <p class="caption">Fuente: Wikimedia Commons</p>
+                        <p>Prevalencia en Manabí: <strong>243 casos por cada 100,000 habitantes</strong>.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>Fisiopatología: La Vía Nigroestriada</h2>
+                        <svg id="basal-ganglia-svg" viewBox="0 0 400 300">
+                            <text x="200" y="20" text-anchor="middle" font-size="12">Corteza Motora</text>
+                            <text x="50" y="150" text-anchor="middle" font-size="12">Estriado</text>
+                            <text x="350" y="150" text-anchor="middle" font-size="12">Tálamo</text>
+                            <text x="200" y="280" text-anchor="middle" font-size="12">Sustancia Negra (SNc)</text>
+                            <rect x="150" y="25" width="100" height="30" fill="#FFDDC1"/><rect x="25" y="100" width="50" height="100" fill="#DAF7A6"/><rect x="325" y="100" width="50" height="100" fill="#C1FFD7"/><rect x="150" y="250" width="100" height="30" fill="#A6B1F7"/>
+                            <path id="direct-path" class="pathway" d="M 75 125 Q 200 75 325 125" stroke="green" stroke-width="2" fill="none" stroke-dasharray="5,5"/><text x="180" y="100" fill="green" font-size="10">Vía Directa (+)</text>
+                            <path id="indirect-path" class="pathway" d="M 75 175 Q 200 225 325 175" stroke="red" stroke-width="2" fill="none" stroke-dasharray="5,5"/><text x="180" y="205" fill="red" font-size="10">Vía Indirecta (-)</text>
+                            <path id="dopamine-flow-path" class="dopamine-flow" d="M 200 250 C 150 200, 100 180, 50 150" stroke="blue" stroke-width="4" fill="none"/><text x="100" y="220" fill="blue" font-size="10">Dopamina</text>
+                        </svg>
+                        <button id="toggle-parkinson" class="nav-btn">Simular Parkinson</button>
+                        <p id="status-text">Estado Saludable: La dopamina facilita el movimiento.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>Signos Motores: Temblor en Reposo</h2>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/sHJYEAkWi9o" title="Pill-rolling tremor video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p>4-6 Hz, asimétrico, "contar monedas" (pill-rolling). Disminuye con la acción.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>Signos Motores: Rigidez</h2>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/4tWPNan12-U" title="Lead pipe rigidity video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p>"Tubo de plomo" o "rueda dentada".</p>
+                    </div>
+                    <div class="slide">
+                        <h2>Signos Motores: Bradicinesia</h2>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/x9qS7z3mCE0" title="Bradykinesia finger tapping test video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p>Lentitud y decremento en la amplitud de movimientos repetitivos. El signo más característico.</p>
+                    </div>
+                    <div class="slide">
+                        <h2>El Iceberg de la Enfermedad de Parkinson</h2>
+                        <div class="iceberg-container">
+                            <img src="https://www.parkinsonsnsw.org.au/wp-content/uploads/2020/05/Iceberg.jpg" alt="El Iceberg de la Enfermedad de Parkinson" class="iceberg-img">
+                        </div>
+                        <p class="caption">Fuente: Parkinson's NSW</p>
+                    </div>
+                    <div class="slide">
+                        <h2>Diagnóstico: Criterios MDS</h2>
+                        <img src="assets/mds-criteria.png" alt="Flowchart de diagnóstico MDS" class="flowchart" style="max-height: 80vh; background: white;">
+                        <p class="caption">Fuente: Adaptado de Postuma et al., 2015</p>
+                    </div>
+                    <div class="navigation">
+                        <button id="prevBtn" class="nav-btn">Anterior</button>
+                        <span id="slideCounter"></span>
+                        <button id="nextBtn" class="nav-btn">Siguiente</button>
+                    </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const slides = document.querySelectorAll(".slide");
+                            let currentSlide = 0;
+                            const prevBtn = document.getElementById("prevBtn");
+                            const nextBtn = document.getElementById("nextBtn");
+                            const slideCounter = document.getElementById("slideCounter");
+                            function showSlide(n) {
+                                if (slides && slides.length > n && n >= 0) {
+                                    slides.forEach(slide => slide.classList.remove("active"));
+                                    slides[n].classList.add("active");
+                                    currentSlide = n;
+                                    updateNav();
+                                }
+                            }
+                            function updateNav() {
+                                if (prevBtn && nextBtn && slideCounter) {
+                                    prevBtn.disabled = currentSlide === 0;
+                                    nextBtn.disabled = currentSlide === slides.length - 1;
+                                    slideCounter.textContent = \`\${currentSlide + 1} / \${slides.length}\`;
+                                }
+                            }
+                            if (prevBtn) prevBtn.addEventListener("click", () => showSlide(currentSlide - 1));
+                            if (nextBtn) nextBtn.addEventListener("click", () => showSlide(currentSlide + 1));
+                            
+                            const toggleBtn = document.getElementById("toggle-parkinson");
+                            if (toggleBtn) {
+                                const dopamineFlow = document.getElementById("dopamine-flow-path");
+                                const directPath = document.getElementById("direct-path");
+                                const indirectPath = document.getElementById("indirect-path");
+                                const statusText = document.getElementById("status-text");
+                                let isParkinson = false;
+                                toggleBtn.addEventListener("click", () => {
+                                    isParkinson = !isParkinson;
+                                    if (isParkinson) {
+                                        dopamineFlow.style.opacity = "0.1";
+                                        directPath.setAttribute("stroke", "rgba(0, 128, 0, 0.3)");
+                                        indirectPath.setAttribute("stroke", "rgba(255, 0, 0, 1)");
+                                        toggleBtn.textContent = "Restaurar";
+                                        statusText.textContent = "Parkinson: Falta de dopamina inhibe el movimiento.";
+                                    } else {
+                                        dopamineFlow.style.opacity = "1";
+                                        directPath.setAttribute("stroke", "green");
+                                        indirectPath.setAttribute("stroke", "red");
+                                        toggleBtn.textContent = "Simular Parkinson";
+                                        statusText.textContent = "Estado Saludable: La dopamina facilita el movimiento.";
+                                    }
+                                });
+                            }
+                            showSlide(0);
+                        });
+                    <\/script>
+                </body>
+                </html>
+                `;
+                presentationIframe.srcdoc = presentationHTML;
+            }
+
+            // --- ABP Loader ---
+            const abpContainer = document.getElementById('abp-container-parent');
+            if(abpContainer){
+                abpContainer.innerHTML = `
+                <div id="abp-content-wrapper">
+                    <style>
+                        #abp-content-wrapper .container { max-width: 900px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+                        #abp-content-wrapper h1, #abp-content-wrapper h2 { color: #004a7c; border-bottom: 2px solid #007acc; padding-bottom: 10px; }
+                        #abp-content-wrapper .step { margin-bottom: 25px; padding: 15px; border-left: 4px solid #007acc; background-color: #f8f9fa; }
+                        #abp-content-wrapper .interactive-section button { background-color: #007acc; color: white; border: none; padding: 10px 15px; margin: 5px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 1em; }
+                        #abp-content-wrapper .interactive-section button:hover { background-color: #005a9c; }
+                        #abp-content-wrapper .finding { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; padding: 10px; margin-top: 10px; border-radius: 5px; display: none; }
+                        #abp-content-wrapper .checklist-item { margin-bottom: 10px; }
+                        #abp-content-wrapper #feedback { padding: 15px; margin-top: 20px; border-radius: 5px; display: none; }
+                        #abp-content-wrapper #feedback.correct { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+                        #abp-content-wrapper #feedback.incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+                    </style>
+                    <div class="container">
+                        <h1>ABP: El Caso del Temblor Unilateral</h1>
+                        <div class="step"><h2>Paso 1: Presentación del Caso</h2><p>Un hombre de 68 años, de Portoviejo, acude a consulta por "un temblor leve en la mano derecha" y "lentitud general" desde hace un año.</p></div>
+                        <div class="step"><h2>Paso 2: Anamnesis Interactiva</h2><p>Haga clic para obtener más información.</p><div class="interactive-section"><button onclick="abp_revealFinding('hea')">Enfermedad Actual</button><button onclick="abp_revealFinding('antecedentes')">Antecedentes</button><button onclick="abp_revealFinding('snm')">Síntomas No Motores</button></div><div id="hea" class="finding"><strong>Detalles:</strong> El temblor es en reposo y desaparece con la acción. La lentitud es más notoria al vestirse. Progresión lenta.</div><div id="antecedentes" class="finding"><strong>Antecedentes:</strong> HTA en tto. No historia de trauma, toxinas o neurolépticos.</div><div id="snm" class="finding"><strong>Interrogatorio:</strong> La esposa confirma pérdida de olfato. El paciente admite estreñimiento crónico y "actuar" sus sueños.</div></div>
+                        <div class="step"><h2>Paso 3: Examen Físico Virtual</h2><p>Seleccione las maniobras relevantes.</p><div class="interactive-section"><button onclick="abp_revealFinding('examen-reposo')">Observar en reposo</button><button onclick="abp_revealFinding('examen-dedos')">Golpeteo de dedos</button><button onclick="abp_revealFinding('examen-muneca')">Movimiento pasivo</button></div><div id="examen-reposo" class="finding"><strong>Hallazgo:</strong> Temblor de 5 Hz en mano derecha en reposo, que cesa con la acción.</div><div id="examen-dedos" class="finding"><strong>Hallazgo:</strong> En mano derecha, movimiento lento con decremento de amplitud. Izquierda normal.</div><div id="examen-muneca" class="finding"><strong>Hallazgo:</strong> Rigidez en "rueda dentada" en muñeca derecha. Izquierda normal.</div></div>
+                        <div class="step"><h2>Paso 4: Aplicación de Criterios (MDS)</h2><p>Marque los criterios que cumple el paciente.</p><div id="checklist"><div class="checklist-item"><input type="checkbox" id="c1" value="bradicinesia"> <label for="c1">Bradicinesia</label></div><div class="checklist-item"><input type="checkbox" id="c2" value="rigidez"> <label for="c2">Rigidez</label></div><div class="checklist-item"><input type="checkbox" id="c3" value="temblor"> <label for="c3">Temblor en reposo</label></div><hr><p><strong>Criterios de Apoyo:</strong></p><div class="checklist-item"><input type="checkbox" id="c5" value="apoyo-temblor"> <label for="c5">Temblor en reposo</label></div><div class="checklist-item"><input type="checkbox" id="c6" value="apoyo-olfato"> <label for="c6">Hiposmia</label></div></div></div>
+                        <div class="step"><h2>Paso 5: Conclusión Diagnóstica</h2><p>¿Cuál es su diagnóstico más probable?</p><div class="interactive-section"><button onclick="abp_checkDiagnosis('probable')">EP Probable</button><button onclick="abp_checkDiagnosis('esencial')">Temblor Esencial</button></div><div id="feedback"></div></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- Quiz Loader ---
+        const quizContainer = document.getElementById('quiz-container-parent');
+        if(quizContainer){
+            quizContainer.innerHTML = `
+                <div id="quiz-content-wrapper">
+                    <style>
+                        #quiz-content-wrapper { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; }
+                        #quiz-content-wrapper #quiz-container { background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); width: 100%; max-width: 800px; margin: auto; }
+                        #quiz-content-wrapper #question-container { margin-bottom: 1.5rem; }
+                        #quiz-content-wrapper .question-text { font-size: 1.2rem; font-weight: bold; margin-bottom: 1rem; }
+                        #quiz-content-wrapper .options-container button { display: block; width: 100%; padding: 1rem; margin-bottom: 0.5rem; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; text-align: left; font-size: 1rem; cursor: pointer; transition: all 0.2s; }
+                        #quiz-content-wrapper .options-container button:hover:not(:disabled) { background-color: #e9e9e9; border-color: #999; }
+                        #quiz-content-wrapper .options-container button.correct { background-color: #c8e6c9; border-color: #2e7d32; }
+                        #quiz-content-wrapper .options-container button.incorrect { background-color: #ffcdd2; border-color: #c62828; }
+                        #quiz-content-wrapper #feedback-container { margin-top: 1.5rem; padding: 1rem; border-radius: 5px; display: none; }
+                        #quiz-content-wrapper #feedback-container.correct { background-color: #e8f5e9; }
+                        #quiz-content-wrapper #feedback-container.incorrect { background-color: #ffebee; }
+                        #quiz-content-wrapper #next-btn { float: right; padding: 0.8rem 1.5rem; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; display: none; }
+                        #quiz-content-wrapper #next-btn:hover { background-color: #0056b3; }
+                        #quiz-content-wrapper #score-container { text-align: center; font-size: 1.5rem; }
+                    </style>
+                    <div id="quiz-container">
+                        <h1>Autoevaluación: Fundamentos de EP</h1>
+                        <div id="question-container"></div>
+                        <div id="feedback-container"></div>
+                        <button id="next-btn">Siguiente</button>
+                        <div id="score-container" style="display: none;"></div>
+                    </div>
+                </div>
+            `;
+            
+            const quizData = [ { question: "Un paciente muestra lentitud al iniciar movimientos y una disminución progresiva en la amplitud al golpear sus dedos repetidamente. ¿Qué signo cardinal de la EP describe esto?", options: ["Rigidez en rueda dentada", "Temblor de acción", "Bradicinesia con decremento", "Apraxia ideomotora"], correct: 2, justification: { correct: "La bradicinesia es el signo cardinal de la EP, caracterizado por lentitud y decremento en movimientos repetitivos.", incorrect: ["La rigidez se evalúa pasivamente.", "El temblor de acción ocurre durante el movimiento.", "La apraxia es un signo cortical."] } }, { question: "¿Cuál de los siguientes síntomas no motores tiene una de las mayores especificidades para una sinucleinopatía como la EP?", options: ["Estreñimiento", "Depresión", "Pérdida del olfato (hiposmia)", "Fatiga"], correct: 2, justification: { correct: "La hiposmia es uno de los síntomas prodrómicos más específicos de la EP.", incorrect: ["Estreñimiento, depresión y fatiga son muy comunes y poco específicos."] } }, { question: "Para confirmar un temblor en reposo, ¿qué maniobra es más útil?", options: ["Pedirle que escriba", "Pedirle que sostenga los brazos extendidos", "Pedirle que cuente hacia atrás desde 20", "Evaluar reflejos"], correct: 2, justification: { correct: "El temblor en reposo se acentúa con la distracción mental (contar hacia atrás) y disminuye con la acción.", incorrect: ["Escribir o sostener los brazos son acciones que disminuirían el temblor de reposo."] } }, { question: "¿Cuál es el requisito MÍNIMO para diagnosticar un síndrome parkinsoniano según los criterios de la MDS?", options: ["Temblor en reposo + Rigidez", "Bradicinesia + Temblor en reposo", "Inestabilidad postural + Temblor", "Bradicinesia + Inestabilidad postural"], correct: 1, justification: { correct: "El criterio fundamental es la bradicinesia, combinada con al menos temblor en reposo o rigidez.", incorrect: ["La bradicinesia es obligatoria para el diagnóstico de parkinsonismo."] } }, { question: "Una respuesta dramática a la levodopa es un ejemplo de ¿cuál de los siguientes criterios diagnósticos de la MDS?", options: ["Criterio de exclusión absoluta", "Bandera roja", "Criterio de apoyo", "Signo cardinal"], correct: 2, justification: { correct: "Una respuesta beneficiosa y clara a la terapia dopaminérgica es un Criterio de Apoyo clave para el diagnóstico de EP.", incorrect: ["No es un criterio de exclusión, una bandera roja ni un signo cardinal per se."] } } ];
+            let currentQuestionIndex = 0;
+            let score = 0;
+            const qc = quizContainer.querySelector("#question-container");
+            const fc = quizContainer.querySelector("#feedback-container");
+            const nb = quizContainer.querySelector("#next-btn");
+            const sc = quizContainer.querySelector("#score-container");
+
+            function loadQuestion() { const q = quizData[currentQuestionIndex]; qc.innerHTML = `<div class="question-text">${currentQuestionIndex + 1}. ${q.question}</div><div class="options-container">${q.options.map((o, i) => `<button class="option-btn" onclick="quiz_selectAnswer(${i})">${String.fromCharCode(65 + i)}. ${o}</button>`).join('')}</div>`; fc.style.display = 'none'; nb.style.display = 'none'; }
+            window.quiz_selectAnswer = function(selectedIndex) { const q = quizData[currentQuestionIndex]; const btns = qc.querySelectorAll(".option-btn"); btns.forEach(btn => btn.disabled = true); const isCorrect = selectedIndex === q.correct; if (isCorrect) { score++; btns[selectedIndex].classList.add('correct'); fc.className = 'correct'; } else { btns[selectedIndex].classList.add('incorrect'); btns[q.correct].classList.add('correct'); fc.className = 'incorrect'; } let feedbackHTML = `<strong>Respuesta Correcta: ${String.fromCharCode(65 + q.correct)}.</strong> ${q.justification.correct}<br><br><strong>Análisis:</strong><ul>${q.justification.incorrect.map(j => `<li>${j}</li>`).join('')}</ul>`; fc.innerHTML = feedbackHTML; fc.style.display = 'block'; nb.style.display = 'block'; }
+            nb.addEventListener('click', () => { currentQuestionIndex++; if (currentQuestionIndex < quizData.length) { loadQuestion(); } else { showScore(); } });
+            function showScore() { qc.style.display = 'none'; fc.style.display = 'none'; nb.style.display = 'none'; sc.innerHTML = `<h2>Fin</h2><p>Puntaje: ${score} de ${quizData.length}</p><button onclick="location.reload()">Reintentar</button>`; sc.style.display = 'block'; }
+            
+            loadQuestion();
+        }
+        
+        window.abp_revealFinding = function(id) {
+            const el = document.getElementById(id);
+            if(el) el.style.display = 'block';
+        }
+
+        window.abp_checkDiagnosis = function(diagnosis) {
+            const feedbackEl = document.getElementById('feedback');
+            const c1 = document.getElementById('c1').checked;
+            const c2 = document.getElementById('c2').checked;
+            const c3 = document.getElementById('c3').checked;
+            const c5 = document.getElementById('c5').checked;
+            const c6 = document.getElementById('c6').checked;
+            let isCorrect = (c1 && c2 && c3 && c5 && c6);
+
+            if (diagnosis === 'probable') {
+                if (isCorrect) {
+                    feedbackEl.className = 'correct';
+                    feedbackEl.innerHTML = `<h3>¡Correcto!</h3><p><strong>Justificación:</strong> El diagnóstico de <strong>Enfermedad de Parkinson Probable</strong> es el más adecuado. El paciente cumple el criterio de Parkinsonismo (Bradicinesia + Rigidez + Temblor) y presenta múltiples Criterios de Apoyo (temblor en reposo, hiposmia, inicio asimétrico).</p>`;
+                } else {
+                    feedbackEl.className = 'incorrect';
+                    feedbackEl.innerHTML = `<h3>Revisión Necesaria</h3><p>No ha marcado todos los criterios diagnósticos que el paciente cumple. Revise los hallazgos.</p>`;
+                }
+            } else {
+                feedbackEl.className = 'incorrect';
+                feedbackEl.innerHTML = `<h3>Diagnóstico Incorrecto</h3><p>El temblor del paciente es en reposo y se acompaña de bradicinesia y rigidez, lo que descarta un Temblor Esencial.</p>`;
+            }
+            feedbackEl.style.display = 'block';
+        }
+
+    });
+    </script>
+</body>
+</html>
