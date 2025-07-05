@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
         }
@@ -22,7 +23,6 @@
             transform: translateY(-8px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -52,9 +52,9 @@
         </div>
 
         <!-- Grid de Módulos -->
-        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- Card 1: Módulo de Cefaleas (NUEVO) -->
+            <!-- Card 1: Módulo de Cefaleas -->
             <a href="/neurologia/cefaleas/index.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
                 <div class="flex items-center mb-4">
                     <i class="fas fa-head-side-virus text-4xl gradient-text"></i>
@@ -75,6 +75,18 @@
                     Análisis avanzado sobre el tratamiento, la farmacoresistencia y las nuevas terapias en epilepsia.
                 </p>
             </a>
+
+            <!-- Card 3: Trastornos del Movimiento I (NUEVO) -->
+            <a href="/neurologia/trastornos-movimiento-1.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-walking text-4xl gradient-text"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">Módulo: Trastornos del Movimiento I</h2>
+                <p class="text-gray-600 text-md mt-2">
+                    Fundamentos de la Enfermedad de Parkinson, desde la fisiopatología hasta el diagnóstico clínico.
+                </p>
+            </a>
+
         </div>
 
     </main>
