@@ -177,7 +177,7 @@
                         .slide { width: 100%; height: 100%; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2em; box-sizing: border-box; background-color: white; border-bottom: 5px solid #005a9c; }
                         .slide.active { display: flex; }
                         h1 { font-size: 2.2em; color: #003366; }
-                        h2 { font-size: 1.6em; color: #005a9c; }
+                        h2 { font-size: 1.6em; color: #005a9c; margin-bottom: 1rem;}
                         p { font-size: 1.1em; max-width: 800px; line-height: 1.6; }
                         .caption { font-size: 0.8em; color: #666; margin-top: 5px; }
                         .navigation { position: absolute; bottom: 20px; width: 100%; text-align: center; z-index: 10; }
@@ -188,7 +188,7 @@
                         .flowchart { width: 90%; max-width: 800px; }
                         .video-container { width: 80%; max-width: 480px; aspect-ratio: 16 / 9; background-color: #000; margin-bottom: 1rem; }
                         .video-container iframe { width: 100%; height: 100%; border: none; }
-                        #basal-ganglia-svg { width: 90%; max-width: 600px; height: auto; border: 1px solid #ccc; }
+                        #basal-ganglia-svg { width: 95%; max-width: 800px; height: auto; border: 1px solid #ccc; border-radius: 8px; background: #fdfdfd; }
                         .pathway { transition: all 0.5s ease-in-out; }
                         .dopamine-flow { opacity: 1; transition: opacity 0.5s; }
                     </style>
@@ -203,17 +203,44 @@
                     </div>
                     <div class="slide">
                         <h2>Fisiopatología: La Vía Nigroestriada</h2>
-                        <svg id="basal-ganglia-svg" viewBox="0 0 400 300">
-                            <text x="200" y="20" text-anchor="middle" font-size="12">Corteza Motora</text>
-                            <text x="50" y="150" text-anchor="middle" font-size="12">Estriado</text>
-                            <text x="350" y="150" text-anchor="middle" font-size="12">Tálamo</text>
-                            <text x="200" y="280" text-anchor="middle" font-size="12">Sustancia Negra (SNc)</text>
-                            <rect x="150" y="25" width="100" height="30" fill="#FFDDC1"/><rect x="25" y="100" width="50" height="100" fill="#DAF7A6"/><rect x="325" y="100" width="50" height="100" fill="#C1FFD7"/><rect x="150" y="250" width="100" height="30" fill="#A6B1F7"/>
-                            <path id="direct-path" class="pathway" d="M 75 125 Q 200 75 325 125" stroke="green" stroke-width="2" fill="none" stroke-dasharray="5,5"/><text x="180" y="100" fill="green" font-size="10">Vía Directa (+)</text>
-                            <path id="indirect-path" class="pathway" d="M 75 175 Q 200 225 325 175" stroke="red" stroke-width="2" fill="none" stroke-dasharray="5,5"/><text x="180" y="205" fill="red" font-size="10">Vía Indirecta (-)</text>
-                            <path id="dopamine-flow-path" class="dopamine-flow" d="M 200 250 C 150 200, 100 180, 50 150" stroke="blue" stroke-width="4" fill="none"/><text x="100" y="220" fill="blue" font-size="10">Dopamina</text>
+                        <svg id="basal-ganglia-svg" viewBox="0 0 600 450">
+                            <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#333" /></marker></defs>
+                            
+                            <!-- Estructuras -->
+                            <g id="cortex"><rect x="150" y="10" width="300" height="40" rx="5" fill="#FFDDC1" stroke="#333" /><text x="300" y="35" text-anchor="middle">Corteza Cerebral (+)</text></g>
+                            <g id="striatum"><rect x="150" y="90" width="300" height="50" rx="5" fill="#DAF7A6" stroke="#333" /><text x="300" y="120" text-anchor="middle">Estriado (Caudado y Putamen)</text></g>
+                            <g id="gpe"><rect x="50" y="190" width="180" height="40" rx="5" fill="#A6B1F7" stroke="#333" /><text x="140" y="215" text-anchor="middle">Globo Pálido Externo (GPe)</text></g>
+                            <g id="gpi"><rect x="370" y="190" width="180" height="40" rx="5" fill="#A6B1F7" stroke="#333" /><text x="460" y="215" text-anchor="middle">Globo Pálido Interno (GPi)</text></g>
+                            <g id="stn"><rect x="150" y="270" width="180" height="40" rx="5" fill="#FFC3A0" stroke="#333" /><text x="240" y="295" text-anchor="middle">Núcleo Subtalámico (STN)</text></g>
+                            <g id="thalamus"><rect x="370" y="270" width="180" height="40" rx="5" fill="#C1FFD7" stroke="#333" /><text x="460" y="295" text-anchor="middle">Tálamo</text></g>
+                            <g id="snc"><rect x="150" y="380" width="300" height="40" rx="5" fill="#D1D5DB" stroke="#333" /><text x="300" y="405" text-anchor="middle">Sustancia Negra (SNc)</text></g>
+                            
+                            <!-- Conexiones -->
+                            <path id="cortex-striatum" d="M 300 50 V 90" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                            
+                            <!-- Vía Directa -->
+                            <path id="direct-path" class="pathway" d="M 320 140 V 190 H 400" stroke="green" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+                            <text x="340" y="175" fill="green" font-size="12">Vía Directa (-)</text>
+                            
+                            <!-- Vía Indirecta -->
+                            <path id="indirect-path-1" class="pathway" d="M 280 140 V 190 H 200" stroke="red" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+                            <text x="220" y="175" fill="red" font-size="12">Vía Indirecta</text>
+                            <path id="indirect-path-2" class="pathway" d="M 140 230 V 270 H 200" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                            <text x="175" y="255" fill="red" font-size="12">(-)</text>
+                            <path id="indirect-path-3" class="pathway" d="M 240 310 V 230 H 400" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                            <text x="350" y="255" fill="green" font-size="12">(+)</text>
+                            
+                            <!-- Salida Ganglios Basales -->
+                            <path id="gpi-thalamus" class="pathway" d="M 460 230 V 270" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                            <text x="470" y="255" fill="red" font-size="12">(-)</text>
+                            <path id="thalamus-cortex" d="M 460 270 C 500 200, 400 100, 300 50" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrow)" stroke-dasharray="5,5"/>
+                            <text x="430" y="150" fill="green" font-size="12">(+)</text>
+                            
+                            <!-- Dopamina -->
+                            <path id="dopamine-flow-path" class="dopamine-flow" d="M 300 380 V 140" stroke="blue" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+                            <text x="310" y="260" fill="blue" font-size="12">Dopamina (+ a D1, - a D2)</text>
                         </svg>
-                        <button id="toggle-parkinson" class="nav-btn">Simular Parkinson</button>
+                        <button id="toggle-parkinson" class="nav-btn" style="margin-top: 1rem;">Simular Parkinson</button>
                         <p id="status-text">Estado Saludable: La dopamina facilita el movimiento.</p>
                     </div>
                     <div class="slide">
@@ -240,13 +267,13 @@
                     <div class="slide">
                         <h2>El Iceberg de la Enfermedad de Parkinson</h2>
                         <div class="iceberg-container">
-                            <img src="assets/images/iceberg.jpg" alt="El Iceberg de la Enfermedad de Parkinson" class="iceberg-img">
+                            <img src="https://www.parkinsonsnsw.org.au/wp-content/uploads/2020/05/Iceberg.jpg" alt="El Iceberg de la Enfermedad de Parkinson" class="iceberg-img">
                         </div>
                         <p class="caption">Fuente: Parkinson's NSW</p>
                     </div>
                     <div class="slide">
                         <h2>Diagnóstico: Criterios MDS</h2>
-                        <img src="assets/images/mds-criteria.png" alt="Flowchart de diagnóstico MDS" class="flowchart" style="max-height: 80vh; background: white;">
+                        <img src="https://i.imgur.com/vHqLgL2.png" alt="Flowchart de diagnóstico MDS" class="flowchart" style="max-height: 80vh; background: white;">
                         <p class="caption">Fuente: Adaptado de Postuma et al., 2015</p>
                     </div>
                     <div class="navigation">
@@ -283,21 +310,21 @@
                             if (toggleBtn) {
                                 const dopamineFlow = document.getElementById("dopamine-flow-path");
                                 const directPath = document.getElementById("direct-path");
-                                const indirectPath = document.getElementById("indirect-path");
+                                const indirectPath1 = document.getElementById("indirect-path-1");
                                 const statusText = document.getElementById("status-text");
                                 let isParkinson = false;
                                 toggleBtn.addEventListener("click", () => {
                                     isParkinson = !isParkinson;
                                     if (isParkinson) {
                                         dopamineFlow.style.opacity = "0.1";
-                                        directPath.setAttribute("stroke", "rgba(0, 128, 0, 0.3)");
-                                        indirectPath.setAttribute("stroke", "rgba(255, 0, 0, 1)");
+                                        directPath.style.stroke = "rgba(0, 128, 0, 0.3)"; 
+                                        indirectPath1.style.stroke = "rgba(255, 0, 0, 1)";
                                         toggleBtn.textContent = "Restaurar";
                                         statusText.textContent = "Parkinson: Falta de dopamina inhibe el movimiento.";
                                     } else {
                                         dopamineFlow.style.opacity = "1";
-                                        directPath.setAttribute("stroke", "green");
-                                        indirectPath.setAttribute("stroke", "red");
+                                        directPath.style.stroke = "green";
+                                        indirectPath1.style.stroke = "red";
                                         toggleBtn.textContent = "Simular Parkinson";
                                         statusText.textContent = "Estado Saludable: La dopamina facilita el movimiento.";
                                     }
