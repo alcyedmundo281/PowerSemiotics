@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo: Trastornos del Movimiento II - Power Semiotics</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -40,7 +40,7 @@
 <body class="bg-gray-100">
 
     <!-- Header -->
-    <header class="bg-white shadow-sm">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-blue-700">&larr; Volver al Hub de Neurología</a>
             <div class="text-xl font-bold text-gray-700">Power Semiotics</div>
@@ -53,6 +53,15 @@
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Módulo: Trastornos del Movimiento II</h1>
             <p class="text-md text-gray-600">Siga los pasos en orden para una experiencia de aprendizaje completa.</p>
         </div>
+
+        <!-- Botón de Descarga PDF -->
+        <div class="text-center mb-12">
+            <a href="/assets/pdf/Trastornos-del-Movimiento-2.pdf" download class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm">
+                <i class="fas fa-download mr-2"></i>
+                Descargar Banco de Conocimientos (PDF)
+            </a>
+        </div>
+
 
         <!-- Accordion Container -->
         <div id="accordion-container" class="space-y-4 max-w-5xl mx-auto">
@@ -150,6 +159,7 @@
 
     <!-- TEMPLATES FOR DYNAMIC CONTENT (Hidden) -->
     <template id="presentation-template">
+        <!-- El contenido completo de la presentación HTML va aquí -->
         <div id="presentation-root">
             <style>
                 #presentation-root .slide { display: none; animation: fadeIn 0.5s; min-height: 520px; padding: 2.5rem; box-sizing: border-box; }
@@ -162,15 +172,12 @@
             </style>
             <div class="w-full max-w-5xl bg-white rounded-xl overflow-hidden flex flex-col h-full">
                 <div id="slide-container" class="flex-grow">
-                    <!-- Slide 1: Title -->
                     <div class="slide active text-center">
                         <span class="text-xl text-gray-500">Neurología - 6to Semestre</span>
                         <h1 class="text-5xl font-bold text-gray-800 mt-4">Trastornos del Movimiento II</h1>
                         <p class="text-3xl text-blue-700 mt-2 font-semibold">Diagnóstico Diferencial en Atención Primaria</p>
                         <div class="border-b-4 border-blue-500 w-24 my-8 mx-auto"></div>
-                        <p class="text-lg text-gray-600">Una Guía Práctica para el Médico General en Ecuador</p>
                     </div>
-                    <!-- Slide 2: Rol del Médico de AP -->
                     <div class="slide">
                         <h2>1. El Rol del Médico de Atención Primaria (AP)</h2>
                         <div class="space-y-6 text-lg">
@@ -179,7 +186,6 @@
                             <p class="mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500"><strong>Objetivo Clave de Hoy:</strong> "Sospechar con alta precisión para referir de manera efectiva".</p>
                         </div>
                     </div>
-                    <!-- Slide 3: Punto de Partida -->
                     <div class="slide">
                         <h2>2. Punto de Partida: El Paciente con Parkinsonismo</h2>
                         <div class="grid md:grid-cols-2 gap-6 text-lg mt-4">
@@ -193,7 +199,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Slide 4: Banderas Rojas -->
                     <div class="slide">
                         <h2 class="text-4xl text-red-600 text-center"><i class="fas fa-flag mr-3"></i>3. ¡BANDERAS ROJAS!</h2>
                         <p class="text-lg text-gray-600 mb-6 text-center">Signos que alertan que **NO** es EPI.</p>
@@ -201,7 +206,6 @@
                             <li>**Caídas precoces** (< 3 años)</li><li>**Mala respuesta** a Levodopa</li><li>**Simetría** de síntomas al inicio</li><li>**Disautonomía precoz** y severa</li><li>Anormalidades de la **mirada vertical**</li><li>Signos **cerebelosos** o **mioclonías**</li><li>**Demencia precoz** (< 1 año)</li>
                         </ul>
                     </div>
-                    <!-- Slide 5: Parkinsonismos-Plus -->
                     <div class="slide">
                         <h2>4. Parkinsonismos-Plus (Atípicos)</h2>
                         <div class="space-y-4">
@@ -210,53 +214,43 @@
                             <div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-orange-700">Degeneración Corticobasal (DCB)</h3><p class="mt-1">Parkinsonismo **marcadamente asimétrico** + Apraxia + **"mano ajena"**.</p></div>
                         </div>
                     </div>
-                    <!-- Slide 6: Parkinsonismos Secundarios -->
                     <div class="slide">
                         <h2>5. Parkinsonismos Secundarios</h2>
                         <div class="space-y-6"><div class="p-6 bg-yellow-50 rounded-lg"><h3 class="font-bold text-xl text-yellow-800"><i class="fas fa-pills mr-2"></i>Inducido por Fármacos</h3><p class="mt-2">Culpables comunes: Metoclopramida, Haloperidol, Flunarizina.</p></div><div class="p-6 bg-indigo-50 rounded-lg"><h3 class="font-bold text-xl text-indigo-800"><i class="fas fa-brain mr-2"></i>Vascular</h3><p class="mt-2">"Parkinsonismo de la mitad inferior" (afecta más la marcha).</p></div></div>
                     </div>
-                    <!-- Slide 7: Algoritmo Parkinsonismo -->
                     <div class="slide">
                         <h2>6. Algoritmo Diagnóstico: Parkinsonismo</h2>
                         <div class="text-center"><div class="p-4 bg-blue-100 border-2 border-blue-400 rounded-lg inline-block"><p class="font-semibold text-lg">Paciente con Síndrome Parkinsoniano</p></div><i class="fas fa-arrow-down text-2xl text-gray-400 my-2"></i><div class="p-4 bg-yellow-100 border-2 border-yellow-400 rounded-lg inline-block"><p class="font-semibold text-lg">¿Existen "Banderas Rojas"?</p></div><div class="flex justify-around mt-2"><div class="w-1/2 px-2 text-center"><i class="fas fa-arrow-down text-2xl text-red-500"></i><div class="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg h-full"><p class="font-bold text-red-700">SÍ</p><p class="text-sm mt-2">Sospecha de Parkinsonismo Atípico/Secundario</p><p class="font-semibold mt-4">→ Referencia Prioritaria</p></div></div><div class="w-1/2 px-2 text-center"><i class="fas fa-arrow-down text-2xl text-green-500"></i><div class="mt-2 p-3 bg-green-50 border border-green-300 rounded-lg h-full"><p class="font-bold text-green-700">NO</p><p class="text-sm mt-2">¿Asimetría y buena respuesta a L-Dopa?</p><p class="font-semibold mt-4">→ Alta Sospecha de EPI</p></div></div></div></div>
                     </div>
-                    <!-- Slide 8: Hipercinesias - Temblor -->
                     <div class="slide">
                         <h2>7. Hipercinesias: El Paciente con Temblor</h2>
                         <div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead><tr><th class="border-b-2 p-3 bg-gray-100">Característica</th><th class="border-b-2 p-3 bg-blue-50">T. Parkinsoniano</th><th class="border-b-2 p-3 bg-green-50">T. Esencial</th><th class="border-b-2 p-3 bg-red-50">T. Cerebeloso</th></tr></thead><tbody><tr><td class="border-b p-3 font-semibold">Situación</td><td class="border-b p-3">Máximo en **reposo**</td><td class="border-b p-3">Máximo en **postura y acción**</td><td class="border-b p-3">Máximo en **movimiento dirigido**</td></tr><tr><td class="border-b p-3 font-semibold">Mejora con Alcohol</td><td class="border-b p-3">No</td><td class="border-b p-3">**Sí, característicamente**</td><td class="border-b p-3">No</td></tr><tr><td class="border-b p-3 font-semibold">Signos Asociados</td><td class="border-b p-3">Bradicinesia, rigidez</td><td class="border-b p-3">Ninguno (historia familiar)</td><td class="border-b p-3">Ataxia, dismetría</td></tr></tbody></table></div><p class="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500"><strong>No olvide el Temblor Fisiológico Exacerbado.</strong></p>
                     </div>
-                    <!-- Slide 9: Otras Hipercinesias -->
                     <div class="slide">
                         <h2>8. Otras Hipercinesias</h2>
                         <ul class="list-disc space-y-4 mb-6"><li><strong>Corea:</strong> Movimientos breves, irregulares, "danzantes".</li><li><strong>Distonía:</strong> Contracciones sostenidas que causan posturas anómalas. Buscar el **"truco sensorial"**.</li><li><strong>Mioclonías:</strong> Sacudidas súbitas, breves, tipo "shock eléctrico".</li></ul><div class="p-4 bg-red-50 rounded-lg border-l-4 border-red-500"><h3 class="font-bold text-red-700 text-xl"><i class="fas fa-search mr-2"></i>Prioridad en AP: ¡Buscar causas secundarias!</h3></div>
                     </div>
-                    <!-- Slide 10: Pruebas Terapéuticas -->
                     <div class="slide">
                         <h2>9. Pruebas Terapéuticas en AP</h2>
                         <p class="text-lg text-gray-600 mb-6">La respuesta a un fármaco puede ser una valiosa herramienta diagnóstica.</p>
                         <div class="space-y-4"><div class="flex items-start"><i class="fas fa-pills text-2xl text-green-600 mt-1 mr-4"></i><div><h3 class="font-semibold text-xl">Reto con Levodopa</h3><p>Una mejoría clara apoya fuertemente el diagnóstico de **EPI**.</p></div></div><div class="flex items-start"><i class="fas fa-wine-glass text-2xl text-red-600 mt-1 mr-4"></i><div><h3 class="font-semibold text-xl">Reto con Etanol</h3><p>Una mejoría notable es altamente específica para **Temblor Esencial**.</p></div></div></div>
                     </div>
-                    <!-- Slide 11: La Vía del Paciente -->
                     <div class="slide">
                         <h2>10. La Vía del Paciente en el SNS de Ecuador</h2>
                         <div class="space-y-4"><div class="flex items-center bg-gray-50 p-4 rounded-lg"><i class="fas fa-file-alt text-4xl text-blue-500 mr-5"></i><div><strong class="text-gray-800 text-xl">Formulario 053: La Herramienta Clave</strong><p class="text-base">Una referencia debe ser **pertinente** y bien justificada.</p></div></div><div class="flex items-center bg-gray-50 p-4 rounded-lg"><i class="fas fa-sitemap text-4xl text-blue-500 mr-5"></i><div><strong class="text-gray-800 text-xl">Niveles de Atención</strong><p class="text-base">Conocer la capacidad resolutiva de su Centro de Salud.</p></div></div></div>
                     </div>
-                    <!-- Slide 12: Criterios de Referencia -->
                     <div class="slide">
                         <h2>11. Criterios Prácticos de Referencia</h2>
                         <div class="space-y-4"><div class="p-4 bg-red-100 border-l-4 border-red-500 rounded-lg"><h3 class="font-bold text-red-800">URGENTE (Emergencia)</h3><p>Inicio agudo de corea, distonía o balismo.</p></div><div class="p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg"><h3 class="font-bold text-yellow-800">PRIORITARIA (Consulta Externa)</h3><ul class="list-disc mt-2"><li>Sospecha de parkinsonismo con **"Banderas Rojas"**.</li><li>Sospecha de EPI en paciente joven (< 50 años).</li></ul></div><div class="p-4 bg-green-100 border-l-4 border-green-500 rounded-lg"><h3 class="font-bold text-green-800">NO PRIORITARIA (Consulta Externa)</h3><p>Temblor Esencial clásico que impacta la calidad de vida.</p></div></div>
                     </div>
-                    <!-- Slide 13: Herramientas Pedagógicas -->
                     <div class="slide">
                         <h2>12. Herramientas Pedagógicas</h2>
                         <div class="grid md:grid-cols-2 gap-6"><div class="p-4 bg-gray-50 rounded-lg text-center"><i class="fas fa-user-friends text-4xl text-blue-500 mb-3"></i><h3 class="font-bold text-xl">Casos Clínicos Simulados</h3><p>Discusión en grupo de los casos clínicos.</p></div><div class="p-4 bg-gray-50 rounded-lg text-center"><i class="fas fa-tasks text-4xl text-blue-500 mb-3"></i><h3 class="font-bold text-xl">Estación ECOE/OSCE</h3><p>Evaluación práctica estandarizada.</p></div></div>
                     </div>
-                    <!-- Slide 14: Conclusiones -->
                     <div class="slide">
                         <h2>13. Conclusiones para el Futuro Médico</h2>
                         <div class="space-y-4 text-xl"><p><i class="fas fa-user-md text-green-500 mr-3 w-6 text-center"></i>Su **habilidad clínica** es la herramienta más poderosa.</p><p><i class="fas fa-flag text-red-500 mr-3 w-6 text-center"></i>Aprender a reconocer **"Banderas Rojas"** es fundamental.</p><p><i class="fas fa-route text-blue-500 mr-3 w-6 text-center"></i>**Saber navegar el sistema de salud** es parte del manejo.</p></div>
                     </div>
-                    <!-- Slide 15: Gracias -->
                     <div class="slide text-center">
                         <h2 class="text-5xl font-bold text-gray-800">¡Gracias!</h2>
                         <p class="text-3xl text-gray-600 mt-4">¿Preguntas?</p>
