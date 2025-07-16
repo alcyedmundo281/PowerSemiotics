@@ -31,8 +31,33 @@
         .intro-text {
             text-align: center;
             font-size: 1.1em;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             color: #495057;
+        }
+
+        /* --- Estilo del Botón de Descarga --- */
+        .download-button-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .download-button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .download-button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        .download-button .fas {
+            margin-right: 8px;
         }
 
         /* --- Estilos del Acordeón --- */
@@ -118,12 +143,19 @@
         .slide-counter { color: #fff; font-size: 1.2em; font-weight: bold; align-self: center; }
 
         /* --- Estilos para la Actividad ABP --- */
-        .abp-phase { margin-bottom: 25px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #0056b3; }
+        .interactive-container { border: 2px dashed #0056b3; border-radius: 8px; padding: 20px; background-color: #f0f2f5; }
+        .abp-phase { margin-bottom: 25px; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .abp-phase h3 { color: #003366; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
         .abp-hidden { display: none; }
+        .abp-decision-section { margin-top: 20px; }
+        .abp-feedback { margin-top: 15px; padding: 10px; border-radius: 5px; }
+        .abp-feedback.correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .abp-feedback.incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        #abp-hypothesis-board, #abp-learning-objectives { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; margin-top: 10px;}
         .abp-reveal-button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; margin-top: 10px; }
         .abp-reveal-button:hover { background-color: #0056b3; }
-        .abp-reveal-button:disabled { background-color: #6c757d; cursor: not-allowed; }
+        .abp-decision-section button.verify { background-color: #28a745; margin-left: 10px;}
+        .abp-decision-section button.verify:hover { background-color: #218838; }
 
         /* --- Estilos para el Quiz --- */
         #quiz-container { max-width: 800px; margin: 20px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -150,6 +182,12 @@
     <h1 class="main-title">Módulo Educativo: Colitis Ulcerosa</h1>
     <p class="intro-text">Bienvenido al módulo de aprendizaje sobre Colitis Ulcerosa, adaptado al contexto ecuatoriano. Haga clic en cada sección para expandir y explorar el contenido, desde la guía teórica hasta las actividades interactivas.</p>
     
+    <div class="download-button-container">
+        <a href="PowerSemiotics/assets/pdf/Colitis-Ulcerosa.pdf" class="download-button" download>
+            <i class="fas fa-download"></i> Descargar Guía en PDF
+        </a>
+    </div>
+
     <div id="accordion">
         <!-- Acordeón 1: Guía de Conocimiento -->
         <div class="accordion-item">
@@ -228,46 +266,55 @@
 
         <!-- Acordeón 3: Actividad ABP -->
         <div class="accordion-item">
-            <div class="accordion-header">3. Actividad ABP: El Viaje del Paciente</div>
+            <div class="accordion-header">3. Actividad de Aprendizaje Basado en Problemas (ABP)</div>
             <div class="accordion-content">
-                <div class="content-section">
-                    <p class="mb-8 text-lg">Esta sección simula el proceso de Aprendizaje Basado en Problemas (ABP). Sigue el caso de Javier Mendoza, un estudiante de Guayaquil, para construir tu razonamiento clínico paso a paso.</p>
-                    
-                    <div id="abp-container" class="space-y-6">
-                        <!-- Paso 1 -->
-                        <div class="abp-phase">
-                            <h3>Paso 1: Presentación Inicial</h3>
-                            <p><strong>Javier Mendoza, 25 años,</strong> acude por diarrea con moco y sangre de 3 meses de evolución, más pérdida de peso. Tratamiento previo para amebiasis no funcionó.</p>
-                            <h4 class="font-semibold mt-4">Tu Tarea:</h4>
-                            <p>Define los problemas principales y genera un diagnóstico diferencial.</p>
-                            <button class="abp-reveal-button" data-step="1">Revelar Laboratorio Inicial</button>
-                            <div id="abp-content-1" class="abp-hidden mt-4 p-4 bg-blue-50 rounded-md">
-                                <p><strong>Resultados:</strong> Anemia microcítica (Hb 11.0), trombocitosis, PCR 25 mg/L. Coprocultivos negativos. <strong>Calprotectina Fecal: 850 µg/g.</strong></p>
-                            </div>
+                <div class="interactive-container">
+                    <!-- Fase 1: Presentación del Problema -->
+                    <div id="abp-phase-1" class="abp-phase">
+                        <h3>Fase 1: Presentación del Problema (Caso Clínico)</h3>
+                        <p>Javier Mendoza, 25 años, estudiante de Guayaquil, acude a un Centro de Salud del MSP. Refiere 3 meses de dolor cólico bajo, diarrea (5-6/día) con moco y, en las últimas 2 semanas, sangre roja. Ha perdido 5 kg. Tratamiento previo para amebiasis no funcionó.</p>
+                    </div>
+
+                    <!-- Fase 2: Formulación de Hipótesis -->
+                    <div id="abp-phase-2" class="abp-phase">
+                        <h3>Fase 2: Formulación de Hipótesis y Objetivos de Aprendizaje</h3>
+                        <p>Basado en el caso, ¿cuáles son tus hipótesis diagnósticas? ¿Qué necesitas aprender para manejar a este paciente?</p>
+                        <textarea id="abp-hypothesis-board" placeholder="Escribe aquí tus hipótesis. Ej: Colitis infecciosa persistente, Enfermedad Inflamatoria Intestinal (CU vs EC)..."></textarea>
+                        <p class="mt-4">Define tus objetivos de aprendizaje:</p>
+                        <textarea id="abp-learning-objectives" placeholder="Escribe aquí lo que necesitas investigar. Ej: Rol de la calprotectina fecal, criterios de Montreal..."></textarea>
+                        <button class="abp-reveal-button" onclick="revealNextPhase('abp-phase-3')">Continuar al Estudio</button>
+                    </div>
+
+                    <!-- Fase 3: Estudio y Evolución del Caso -->
+                    <div id="abp-phase-3" class="abp-phase abp-hidden">
+                        <h3>Fase 3: Estudio y Evolución del Caso</h3>
+                        <p><strong>(Periodo de estudio simulado)</strong> Ahora que has investigado, se presenta la evolución del paciente.</p>
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+                            <p class="font-bold">Resultados de Laboratorio y Endoscopia:</p>
+                            <p><strong>Labs:</strong> Hb 11.0 g/dL, PCR 25 mg/L, Calprotectina Fecal 850 µg/g.</p>
+                            <p><strong>Endoscopia:</strong> Inflamación continua desde el recto hasta el ángulo esplénico, con friabilidad. Biopsia confirma CU crónica activa.</p>
                         </div>
-                        <!-- Paso 2 -->
-                        <div class="abp-phase">
-                            <h3>Paso 2: Derivación y Endoscopia</h3>
-                            <p>El valor de Calprotectina justifica la referencia a Gastroenterología.</p>
-                            <h4 class="font-semibold mt-4">Tu Tarea:</h4>
-                            <p>Describe los hallazgos endoscópicos e histológicos esperados para CU.</p>
-                            <button class="abp-reveal-button" data-step="2">Revelar Hallazgos Endoscópicos</button>
-                             <div id="abp-content-2" class="abp-hidden mt-4 p-4 bg-blue-50 rounded-md">
-                                <p><strong>Endoscopia:</strong> Inflamación continua desde el recto hasta el ángulo esplénico, con friabilidad y pérdida de patrón vascular.</p>
-                                <p><strong>Biopsia:</strong> Distorsión de criptas, plasmocitosis basal. Consistente con Colitis Ulcerosa crónica activa.</p>
-                            </div>
+                        <button class="abp-reveal-button" onclick="revealNextPhase('abp-phase-4')">Continuar a la Toma de Decisiones</button>
+                    </div>
+
+                    <!-- Fase 4: Toma de Decisiones -->
+                    <div id="abp-phase-4" class="abp-phase abp-hidden">
+                        <h3>Fase 4: Toma de Decisiones sobre el Caso</h3>
+                        <div class="abp-decision-section">
+                            <p><strong>1. Con la nueva información, ¿cómo clasifica la enfermedad de Javier según Montreal?</strong></p>
+                            <input type="radio" name="clas" value="e1s1"> Proctitis (E1), Leve (S1)<br>
+                            <input type="radio" name="clas" value="e2s2"> Colitis Izquierda (E2), Moderada (S2)<br>
+                            <input type="radio" name="clas" value="e3s3"> Colitis Extensa (E3), Grave (S3)<br>
+                            <button class="verify" onclick="checkAbpDecision('clas')">Verificar</button>
+                            <div id="feedback-clas" class="abp-feedback abp-hidden"></div>
                         </div>
-                        <!-- Paso 3 -->
-                        <div class="abp-phase">
-                            <h3>Paso 3: Diagnóstico Final y Plan de Manejo</h3>
-                            <p>Con toda la evidencia, el diagnóstico está confirmado.</p>
-                             <h4 class="font-semibold mt-4">Tu Tarea:</h4>
-                            <p>Clasifica la enfermedad de Javier (Montreal) y desarrolla un plan de manejo inicial basado en el CNMB.</p>
-                            <button class="abp-reveal-button" data-step="3">Revelar Diagnóstico y Plan</button>
-                            <div id="abp-content-3" class="abp-hidden mt-4 p-4 bg-green-100 border-l-4 border-green-500 rounded-r-lg">
-                                <p><strong>Diagnóstico:</strong> Colitis Ulcerosa, Colitis Izquierda (E2), brote Moderado (S2).</p>
-                                <p><strong>Plan Sugerido:</strong> Inducción con Prednisona oral y mantenimiento con Mesalazina (oral + enemas).</p>
-                            </div>
+                        <div class="abp-decision-section">
+                            <p><strong>2. ¿Cuál es el tratamiento de INDUCCIÓN inicial más apropiado para Javier, según el CNMB?</strong></p>
+                            <input type="radio" name="ind" value="mesalazina"> Mesalazina oral a dosis altas.<br>
+                            <input type="radio" name="ind" value="prednisona"> Prednisona oral con pauta de descenso.<br>
+                            <input type="radio" name="ind" value="azatioprina"> Azatioprina como monoterapia.<br>
+                            <button class="verify" onclick="checkAbpDecision('ind')">Verificar</button>
+                            <div id="feedback-ind" class="abp-feedback abp-hidden"></div>
                         </div>
                     </div>
                 </div>
@@ -285,12 +332,12 @@
                         <p id="quiz-question-text" class="quiz-question-text"></p>
                         <div id="quiz-options-container" class="quiz-options"></div>
                     </div>
-                    <div id="quiz-navigation" class="mt-4">
+                    <div id="quiz-navigation">
                         <button id="quiz-nav-button">Siguiente Pregunta</button>
                     </div>
-                    <div id="quiz-results-area" class="hidden">
-                        <h2 class="text-2xl font-bold text-center my-4">Resultados y Revisión</h2>
-                        <p id="quiz-score" class="text-center text-xl font-semibold mb-6"></p>
+                    <div id="quiz-results-area" style="display:none;">
+                        <h2 style="text-align:center;">Resultados y Revisión Pedagógica</h2>
+                        <p style="text-align:center; font-size: 1.2em;" id="quiz-score"></p>
                         <div id="quiz-review-container"></div>
                     </div>
                 </div>
@@ -314,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isActive) {
                 item.classList.add('active');
                 const content = item.querySelector('.accordion-content');
-                content.style.maxHeight = content.scrollHeight + 60 + "px";
+                content.style.maxHeight = content.scrollHeight + "px";
             }
         });
     });
@@ -344,18 +391,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ABP Logic
-    const abpButtons = document.querySelectorAll('.abp-reveal-button');
-    abpButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const step = this.dataset.step;
-            const content = document.getElementById(`abp-content-${step}`);
-            content.classList.remove('abp-hidden');
-            this.disabled = true;
-            this.textContent = 'Información Revelada';
-            adjustAccordionHeight(content);
-        });
-    });
-    
+    window.revealNextPhase = function(phaseId) {
+        const nextPhase = document.getElementById(phaseId);
+        if (nextPhase) {
+            nextPhase.classList.remove('abp-hidden');
+            adjustAccordionHeight(nextPhase);
+        }
+    }
+
+    window.checkAbpDecision = function(decisionType) {
+        let feedbackText = '';
+        let isCorrect = false;
+        let feedbackElement;
+        const selectedValue = document.querySelector(`input[name="${decisionType}"]:checked`)?.value;
+
+        if (!selectedValue) {
+            alert('Por favor, seleccione una opción.');
+            return;
+        }
+
+        switch(decisionType) {
+            case 'clas':
+                feedbackElement = document.getElementById('feedback-clas');
+                if (selectedValue === 'e2s2') {
+                    feedbackText = '<strong>Correcto.</strong> La inflamación hasta el ángulo esplénico es Colitis Izquierda (E2) y los síntomas corresponden a un brote Moderado (S2).';
+                    isCorrect = true;
+                } else {
+                    feedbackText = '<strong>Incorrecto.</strong> Revise la clasificación de Montreal. La inflamación llega hasta el ángulo esplénico (E2) y los síntomas sistémicos lo clasifican como moderado (S2).';
+                }
+                break;
+            case 'ind':
+                feedbackElement = document.getElementById('feedback-ind');
+                if (selectedValue === 'prednisona') {
+                    feedbackText = '<strong>Correcto.</strong> Para un brote moderado, se requiere un corticoide sistémico como la Prednisona para inducir la remisión. La Mesalazina sola es insuficiente y la Azatioprina es para mantenimiento, no inducción.';
+                    isCorrect = true;
+                } else {
+                    feedbackText = '<strong>Incorrecto.</strong> La Mesalazina es para casos leves o mantenimiento. La Azatioprina tiene un inicio de acción muy lento y no se usa para inducción. La Prednisona es la elección para apagar un brote moderado.';
+                }
+                break;
+        }
+
+        feedbackElement.innerHTML = feedbackText;
+        feedbackElement.className = `abp-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+        feedbackElement.classList.remove('abp-hidden');
+        adjustAccordionHeight(feedbackElement);
+    }
+
     // Presentation Logic
     const slidesData = [
         { title: "Colitis Ulcerosa: Abordaje Integral para Atención Primaria en Ecuador", content: "<h2>Colitis Ulcerosa: Abordaje Integral para Atención Primaria en Ecuador</h2><p>Gastroenterología - Semana 6</p><p>Facultad de Medicina, Universidad Central del Ecuador</p>" },
@@ -382,6 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const slideCounter = document.getElementById('slideCounter');
 
     function renderSlides() {
+        if (!slidesContainer) return;
         slidesContainer.innerHTML = slidesData.map((slide, index) => `
             <div class="slide ${index === 0 ? 'active' : ''}">
                 ${slide.content}
@@ -391,6 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showSlide(index) {
         const slides = slidesContainer.querySelectorAll('.slide');
+        if (slides.length === 0) return;
         slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
         currentSlide = index;
         updateNav();
@@ -424,6 +507,27 @@ document.addEventListener('DOMContentLoaded', () => {
             options: ["Realizar coprocultivos anuales", "Monitorizar niveles de Calprotectina Fecal cada 6 meses", "Realizar colonoscopia de vigilancia para displasia cada 1-3 años", "Mantener tratamiento con corticoides a dosis bajas"], 
             correctAnswer: 2, 
             justification: "Debido al riesgo aumentado de cáncer colorrectal después de 8-10 años de enfermedad extensa, la vigilancia con colonoscopia es crucial." 
+        },
+        { 
+            vignette: "Un paciente con CU en tratamiento con Mesalazina oral presenta un brote moderado. Se inicia Prednisona 40mg/día.", 
+            question: "¿Cuál es el siguiente paso más importante en su manejo a mediano plazo?", 
+            options: ["Mantener la Prednisona indefinidamente.", "Suspender la Mesalazina ya que no fue efectiva.", "Planificar una pauta de descenso gradual de la Prednisona una vez que se logre la remisión.", "Referir para cirugía de inmediato."], 
+            correctAnswer: 2, 
+            justification: "Los corticoides son solo para inducir la remisión. Es crucial planificar su retirada gradual para evitar efectos adversos a largo plazo y la corticodependencia. La Mesalazina se debe mantener como terapia de base." 
+        },
+        { 
+            vignette: "Un paciente con CU pregunta sobre la dieta. Ha leído en internet que debe evitar el gluten y los lácteos para curarse.", 
+            question: "¿Cuál es el consejo más adecuado sobre la dieta durante un brote de CU?", 
+            options: ["Confirmar que debe eliminar el gluten y los lácteos de forma estricta.", "Recomendar una dieta baja en fibra y residuos para reducir los síntomas.", "Indicar que la dieta no tiene ningún rol en el manejo de la CU.", "Sugerir un ayuno completo para dejar descansar el intestino."], 
+            correctAnswer: 1, 
+            justification: "Aunque ninguna dieta cura la CU, una dieta baja en fibra/residuos puede ayudar a manejar los síntomas durante un brote. No hay evidencia sólida para recomendar la eliminación universal de gluten o lácteos, a menos que haya una intolerancia o celiaquía concomitante." 
+        },
+        { 
+            vignette: "Un paciente joven con diagnóstico reciente de Colitis Izquierda (E2) está preocupado por las complicaciones a largo plazo.", 
+            question: "¿Cuál de las siguientes es la manifestación extraintestinal (MEI) más comúnmente asociada a la Colitis Ulcerosa?", 
+            options: ["Nefrolitiasis (cálculos renales).", "Pancreatitis aguda.", "Artritis periférica.", "Colelitiasis (cálculos en la vesícula)."], 
+            correctAnswer: 2, 
+            justification: "Las manifestaciones articulares, como la artritis periférica, son el tipo más frecuente de manifestación extraintestinal en pacientes con Enfermedad Inflamatoria Intestinal, incluyendo la Colitis Ulcerosa." 
         }
     ];
     let currentQuizQuestionIndex = 0;
@@ -439,6 +543,10 @@ document.addEventListener('DOMContentLoaded', () => {
             showQuizResults();
             return;
         }
+        document.getElementById('quiz-question-area').style.display = 'block';
+        document.getElementById('quiz-navigation').style.display = 'block';
+        document.getElementById('quiz-results-area').style.display = 'none';
+
         const q = quizData[currentQuizQuestionIndex];
         document.getElementById('quiz-vignette-text').textContent = q.vignette;
         document.getElementById('quiz-question-text').textContent = q.question;
@@ -446,7 +554,7 @@ document.addEventListener('DOMContentLoaded', () => {
         optionsContainer.innerHTML = '';
         q.options.forEach((option, index) => {
             const button = document.createElement('button');
-            button.textContent = option;
+            button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
             button.onclick = () => selectQuizOption(index, button);
             optionsContainer.appendChild(button);
         });
@@ -473,7 +581,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('quiz-question-area').style.display = 'none';
         document.getElementById('quiz-navigation').style.display = 'none';
         const resultsArea = document.getElementById('quiz-results-area');
-        resultsArea.classList.remove('hidden');
         resultsArea.style.display = 'block';
         
         let score = 0;
@@ -504,11 +611,10 @@ document.addEventListener('DOMContentLoaded', () => {
         adjustAccordionHeight(reviewContainer);
     }
     
-    const quizAccordionHeader = document.querySelector('.accordion-item:nth-child(4) .accordion-header');
+    const quizAccordionHeader = document.querySelector('.accordion-item:nth-child(4)');
     if (quizAccordionHeader) {
-        quizAccordionHeader.addEventListener('click', () => {
-            const accordionItem = quizAccordionHeader.closest('.accordion-item');
-            if(accordionItem && accordionItem.classList.contains('active')) {
+        quizAccordionHeader.querySelector('.accordion-header').addEventListener('click', () => {
+            if(quizAccordionHeader.classList.contains('active')) {
                  if(currentQuizQuestionIndex === 0 && userAnswers.length === 0) {
                     displayQuizQuestion();
                  }
