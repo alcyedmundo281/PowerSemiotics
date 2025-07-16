@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Educativo: Colitis Ulcerosa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* --- Estilos Generales --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.7;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        h1.main-title {
+            text-align: center;
+            color: #003366;
+            border-bottom: 3px solid #0056b3;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .intro-text {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            color: #495057;
+        }
+
+        /* --- Estilos del Acordeón --- */
+        .accordion-item {
+            margin-bottom: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        .accordion-item:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .accordion-header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+        .accordion-header::after {
+            content: '+';
+            font-size: 2em;
+            line-height: 1;
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .accordion-header::after {
+            transform: rotate(45deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            background-color: #ffffff;
+            padding: 0 30px;
+        }
+        .accordion-item.active .accordion-content {
+            padding: 30px;
+        }
+
+        /* --- Estilos del Contenido Interno --- */
+        .content-section h2, .content-section h3, .content-section h4 {
+            color: #003366;
+        }
+        .content-section h2 { font-size: 1.8em; border-bottom: 2px solid #e9ecef; padding-bottom: 10px; margin-top: 20px; margin-bottom: 20px;}
+        .content-section h3 { font-size: 1.5em; margin-top: 25px; margin-bottom: 15px;}
+        .content-section p, .content-section li { font-size: 1.1em; }
+        .content-section ul { list-style-type: disc; padding-left: 25px; }
+        
+        /* Stats Cards */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: center; margin: 30px 0; }
+        .stat-card { background-color: #e9f5ff; border-left: 5px solid #0056b3; padding: 20px; border-radius: 8px; }
+        .stat-card-value { font-size: 2.5em; font-weight: bold; color: #003366; }
+        .stat-card-label { font-size: 1em; color: #495057; }
+        .stat-card.danger { background-color: #fff0f1; border-left-color: #dc3545; }
+        .stat-card.danger .stat-card-value { color: #dc3545; }
+
+        /* Chart Container */
+        .chart-container { width: 100%; max-width: 400px; margin: 30px auto; height: 300px; }
+        
+        /* --- Estilos para la Presentación (Diapositivas) --- */
+        .presentation-container { max-width: 1000px; margin: 0 auto; background-color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+        .slide { display: none; padding: 40px; min-height: 500px; animation: fadeIn 0.5s; }
+        .slide.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .slide h2, .slide h3 { color: #0056b3; }
+        .slide h2 { font-size: 1.8em; margin-top: 30px; }
+        .slide h3 { font-size: 1.4em; }
+        .slide p, .slide li { line-height: 1.6; font-size: 1.1em; }
+        .slide ul { list-style-type: disc; padding-left: 20px; }
+        .slide table { width: 100%; border-collapse: collapse; margin: 25px 0; }
+        .slide th, .slide td { border: 1px solid #dee2e6; padding: 12px; text-align: left; }
+        .slide th { background-color: #e9ecef; }
+        .navigation { display: flex; justify-content: space-between; padding: 20px; background-color: #0056b3; }
+        .nav-button { background-color: #fff; color: #0056b3; border: none; padding: 10px 20px; font-size: 1em; font-weight: bold; border-radius: 5px; cursor: pointer; transition: background-color 0.3s, color 0.3s; }
+        .nav-button:hover { background-color: #e9ecef; }
+        .nav-button:disabled { background-color: #ccc; cursor: not-allowed; }
+        .slide-counter { color: #fff; font-size: 1.2em; font-weight: bold; align-self: center; }
+
+        /* --- Estilos para la Actividad ABP --- */
+        .abp-phase { margin-bottom: 25px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #0056b3; }
+        .abp-phase h3 { color: #003366; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
+        .abp-hidden { display: none; }
+        .abp-reveal-button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; margin-top: 10px; }
+        .abp-reveal-button:hover { background-color: #0056b3; }
+        .abp-reveal-button:disabled { background-color: #6c757d; cursor: not-allowed; }
+
+        /* --- Estilos para el Quiz --- */
+        #quiz-container { max-width: 800px; margin: 20px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        #quiz-container h1 { text-align: center; color: #003366; }
+        .quiz-vignette { background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 15px; border-left: 5px solid #0056b3; }
+        .quiz-question-text { font-weight: bold; font-size: 1.1em; margin-bottom: 20px; }
+        .quiz-options button { display: block; width: 100%; padding: 12px; margin: 8px 0; text-align: left; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; cursor: pointer; font-size: 1em; transition: background-color 0.3s; }
+        .quiz-options button:hover:not(:disabled) { background-color: #e9ecef; }
+        .quiz-options button:disabled { cursor: not-allowed; }
+        .quiz-options button.selected { background-color: #0056b3; color: white; border-color: #003366; }
+        #quiz-navigation { text-align: center; margin-top: 20px; }
+        #quiz-nav-button { background-color: #0056b3; color: white; border: none; padding: 12px 25px; border-radius: 5px; font-size: 1.1em; cursor: pointer; }
+        #quiz-nav-button:hover { background-color: #003366; }
+        #quiz-results-area { display: none; }
+        .quiz-result-item { margin-bottom: 25px; padding: 15px; border-radius: 5px; }
+        .quiz-result-item.correct { background-color: #d4edda; border-left: 5px solid #28a745; }
+        .quiz-result-item.incorrect { background-color: #f8d7da; border-left: 5px solid #dc3545; }
+        .quiz-justification { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc; }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <h1 class="main-title">Módulo Educativo: Colitis Ulcerosa</h1>
+    <p class="intro-text">Bienvenido al módulo de aprendizaje sobre Colitis Ulcerosa, adaptado al contexto ecuatoriano. Haga clic en cada sección para expandir y explorar el contenido, desde la guía teórica hasta las actividades interactivas.</p>
+    
+    <div id="accordion">
+        <!-- Acordeón 1: Guía de Conocimiento -->
+        <div class="accordion-item">
+            <div class="accordion-header">1. Guía de Conocimiento</div>
+            <div class="accordion-content">
+                <div class="content-section">
+                    <h2>La Realidad de la CU en Ecuador</h2>
+                    <p>La Colitis Ulcerosa ya no es una enfermedad rara en nuestro país. Su creciente incidencia, sobre todo en zonas urbanas, y su presentación a menudo severa, exige un alto índice de sospecha por parte del médico de atención primaria.</p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-value">3.7</div>
+                            <div class="stat-card-label">casos por 100,000 hab.</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-value">41%</div>
+                            <div class="stat-card-label">debuta como Pancolitis</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-value">~42</div>
+                            <div class="stat-card-label">años (Edad de diagnóstico)</div>
+                        </div>
+                        <div class="stat-card danger">
+                            <div class="stat-card-value">>1 Año</div>
+                            <div class="stat-card-label">de retraso diagnóstico (42.5%)</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="cuEcChart"></canvas>
+                    </div>
+
+                    <h2>Diagnóstico y Clasificación</h2>
+                    <h3>El Camino al Diagnóstico</h3>
+                    <p>El diagnóstico de CU es un proceso deductivo que integra la clínica, los biomarcadores y la endoscopia. En Ecuador, es crucial descartar primero causas infecciosas.</p>
+                    <ul>
+                        <li><strong>Paso 1: Sospecha Clínica.</strong> Diarrea crónica (>4 sem) con sangre.</li>
+                        <li><strong>Paso 2: Descarte Infeccioso.</strong> Coprocultivo y coproparasitario.</li>
+                        <li><strong>Paso 3: Biomarcadores.</strong> Calprotectina Fecal es clave (>150 µg/g sugiere EII).</li>
+                        <li><strong>Paso 4: Endoscopia + Biopsia.</strong> Estándar de oro para confirmar y ver extensión.</li>
+                    </ul>
+
+                    <h3>Clasificación de la Enfermedad (Montreal)</h3>
+                    <p>Clasificar la enfermedad por su extensión es crucial para el tratamiento.</p>
+                    <ul>
+                        <li><strong>E1 - Proctitis:</strong> Inflamación limitada al recto.</li>
+                        <li><strong>E2 - Colitis Izquierda:</strong> Inflamación hasta el ángulo esplénico.</li>
+                        <li><strong>E3 - Colitis Extensa (Pancolitis):</strong> Inflamación más allá del ángulo esplénico.</li>
+                    </ul>
+
+                    <h2>Manejo Terapéutico en Ecuador</h2>
+                    <p>El tratamiento se basa en la extensión y severidad, utilizando los fármacos disponibles en el Cuadro Nacional de Medicamentos Básicos (CNMB).</p>
+                    <ul>
+                        <li><strong>CU Leve-Moderada:</strong> La Mesalazina (oral y/o tópica) es la primera línea.</li>
+                        <li><strong>Brote Moderado-Severo:</strong> Se usan Corticosteroides (ej. Prednisona) para inducir la remisión. ¡No para mantenimiento!</li>
+                        <li><strong>Mantenimiento:</strong> Se usan inmunomoduladores como la Azatioprina para mantener la remisión libre de esteroides.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acordeón 2: Presentación Interactiva -->
+        <div class="accordion-item">
+            <div class="accordion-header">2. Presentación Interactiva para la Clase</div>
+            <div class="accordion-content">
+                <div class="presentation-container">
+                    <div id="slides-container">
+                        <!-- Slides will be injected here by JS -->
+                    </div>
+                    <div class="navigation">
+                        <button id="prevBtn" class="nav-button">Anterior</button>
+                        <div id="slideCounter" class="slide-counter"></div>
+                        <button id="nextBtn" class="nav-button">Siguiente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acordeón 3: Actividad ABP -->
+        <div class="accordion-item">
+            <div class="accordion-header">3. Actividad ABP: El Viaje del Paciente</div>
+            <div class="accordion-content">
+                <div class="content-section">
+                    <p class="mb-8 text-lg">Esta sección simula el proceso de Aprendizaje Basado en Problemas (ABP). Sigue el caso de Javier Mendoza, un estudiante de Guayaquil, para construir tu razonamiento clínico paso a paso.</p>
+                    
+                    <div id="abp-container" class="space-y-6">
+                        <!-- Paso 1 -->
+                        <div class="abp-phase">
+                            <h3>Paso 1: Presentación Inicial</h3>
+                            <p><strong>Javier Mendoza, 25 años,</strong> acude por diarrea con moco y sangre de 3 meses de evolución, más pérdida de peso. Tratamiento previo para amebiasis no funcionó.</p>
+                            <h4 class="font-semibold mt-4">Tu Tarea:</h4>
+                            <p>Define los problemas principales y genera un diagnóstico diferencial.</p>
+                            <button class="abp-reveal-button" data-step="1">Revelar Laboratorio Inicial</button>
+                            <div id="abp-content-1" class="abp-hidden mt-4 p-4 bg-blue-50 rounded-md">
+                                <p><strong>Resultados:</strong> Anemia microcítica (Hb 11.0), trombocitosis, PCR 25 mg/L. Coprocultivos negativos. <strong>Calprotectina Fecal: 850 µg/g.</strong></p>
+                            </div>
+                        </div>
+                        <!-- Paso 2 -->
+                        <div class="abp-phase">
+                            <h3>Paso 2: Derivación y Endoscopia</h3>
+                            <p>El valor de Calprotectina justifica la referencia a Gastroenterología.</p>
+                            <h4 class="font-semibold mt-4">Tu Tarea:</h4>
+                            <p>Describe los hallazgos endoscópicos e histológicos esperados para CU.</p>
+                            <button class="abp-reveal-button" data-step="2">Revelar Hallazgos Endoscópicos</button>
+                             <div id="abp-content-2" class="abp-hidden mt-4 p-4 bg-blue-50 rounded-md">
+                                <p><strong>Endoscopia:</strong> Inflamación continua desde el recto hasta el ángulo esplénico, con friabilidad y pérdida de patrón vascular.</p>
+                                <p><strong>Biopsia:</strong> Distorsión de criptas, plasmocitosis basal. Consistente con Colitis Ulcerosa crónica activa.</p>
+                            </div>
+                        </div>
+                        <!-- Paso 3 -->
+                        <div class="abp-phase">
+                            <h3>Paso 3: Diagnóstico Final y Plan de Manejo</h3>
+                            <p>Con toda la evidencia, el diagnóstico está confirmado.</p>
+                             <h4 class="font-semibold mt-4">Tu Tarea:</h4>
+                            <p>Clasifica la enfermedad de Javier (Montreal) y desarrolla un plan de manejo inicial basado en el CNMB.</p>
+                            <button class="abp-reveal-button" data-step="3">Revelar Diagnóstico y Plan</button>
+                            <div id="abp-content-3" class="abp-hidden mt-4 p-4 bg-green-100 border-l-4 border-green-500 rounded-r-lg">
+                                <p><strong>Diagnóstico:</strong> Colitis Ulcerosa, Colitis Izquierda (E2), brote Moderado (S2).</p>
+                                <p><strong>Plan Sugerido:</strong> Inducción con Prednisona oral y mantenimiento con Mesalazina (oral + enemas).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acordeón 4: Autoevaluación -->
+        <div class="accordion-item">
+            <div class="accordion-header">4. Autoevaluación Interactiva (Quiz)</div>
+            <div class="accordion-content">
+                <div id="quiz-container">
+                    <h1>Autoevaluación: Colitis Ulcerosa</h1>
+                    <div id="quiz-question-area">
+                        <div id="quiz-vignette-text" class="quiz-vignette"></div>
+                        <p id="quiz-question-text" class="quiz-question-text"></p>
+                        <div id="quiz-options-container" class="quiz-options"></div>
+                    </div>
+                    <div id="quiz-navigation" class="mt-4">
+                        <button id="quiz-nav-button">Siguiente Pregunta</button>
+                    </div>
+                    <div id="quiz-results-area" class="hidden">
+                        <h2 class="text-2xl font-bold text-center my-4">Resultados y Revisión</h2>
+                        <p id="quiz-score" class="text-center text-xl font-semibold mb-6"></p>
+                        <div id="quiz-review-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Accordion Logic
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            accordionItems.forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.accordion-content').style.maxHeight = null;
+            });
+            if (!isActive) {
+                item.classList.add('active');
+                const content = item.querySelector('.accordion-content');
+                content.style.maxHeight = content.scrollHeight + 60 + "px";
+            }
+        });
+    });
+
+    // Chart.js Logic
+    const ecuadorData = { cu: 2.5, ec: 1 };
+    const ctx = document.getElementById('cuEcChart')?.getContext('2d');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Colitis Ulcerosa', 'Enf. de Crohn'],
+                datasets: [{
+                    label: 'Relación en Ecuador',
+                    data: [ecuadorData.cu, ecuadorData.ec],
+                    backgroundColor: ['#0056b3', '#6c757d'],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    }
+
+    // ABP Logic
+    const abpButtons = document.querySelectorAll('.abp-reveal-button');
+    abpButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const step = this.dataset.step;
+            const content = document.getElementById(`abp-content-${step}`);
+            content.classList.remove('abp-hidden');
+            this.disabled = true;
+            this.textContent = 'Información Revelada';
+            adjustAccordionHeight(content);
+        });
+    });
+    
+    // Presentation Logic
+    const slidesData = [
+        { title: "Colitis Ulcerosa: Abordaje Integral para Atención Primaria en Ecuador", content: "<h2>Colitis Ulcerosa: Abordaje Integral para Atención Primaria en Ecuador</h2><p>Gastroenterología - Semana 6</p><p>Facultad de Medicina, Universidad Central del Ecuador</p>" },
+        { title: "¿Qué es la Colitis Ulcerosa (CU)?", content: "<h2>¿Qué es la Colitis Ulcerosa (CU)?</h2><p><strong>Definición:</strong> Enfermedad Inflamatoria Intestinal (EII) crónica y recurrente, caracterizada por una inflamación difusa limitada a la mucosa y submucosa del colon.</p><h3>Características Clave:</h3><ul><li>Afectación Rectal Constante</li><li>Extensión Continua</li><li>Limitación al Colon</li></ul>" },
+        { title: "Fisiopatología: La Tríada de la Enfermedad", content: "<h2>Fisiopatología: La Tríada de la Enfermedad</h2><p>Respuesta inmune desregulada contra la microbiota intestinal en un individuo genéticamente susceptible, desencadenada por factores ambientales.</p><ul><li><strong>Genética:</strong> Agregación familiar, pero no hereditaria.</li><li><strong>Ambiente:</strong> 'Estilo de vida occidental' (dieta, antibióticos).</li><li><strong>Microbiota (Disbiosis):</strong> Pérdida de tolerancia a bacterias comensales.</li></ul>" },
+        { title: "Epidemiología: La Realidad en Ecuador", content: "<h2>Epidemiología: La Realidad en Ecuador</h2><ul><li><strong>Prevalencia de CU:</strong> 3,7 por cada 100.000 habitantes.</li><li>Es la EII más común en el país (Relación CU:EC de 2,5:1).</li><li><strong>Edad promedio al diagnóstico:</strong> 42 años.</li><li>Mayor incidencia en zonas urbanas.</li></ul>" },
+        { title: "El Paciente Ecuatoriano: Un Fenotipo Preocupante", content: "<h2>El Paciente Ecuatoriano: Un Fenotipo Preocupante</h2><ul><li><strong>Retraso Diagnóstico:</strong> 42,5% diagnosticados >12 meses después del inicio de síntomas.</li><li><strong>Síntoma Principal:</strong> Rectorragia (62,2%).</li><li><strong>Extensión al Diagnóstico:</strong> La forma más frecuente es la Colitis Extensa (Pancolitis) en el 41%.</li></ul><p>La sospecha temprana en Atención Primaria es CRÍTICA.</p>" },
+        { title: "Clínica: Síntomas Intestinales", content: "<h2>Clínica: Síntomas Intestinales</h2><ul><li><strong>Diarrea Sanguinolenta:</strong> El síntoma cardinal (>90%).</li><li><strong>Tenesmo Rectal:</strong> Sensación persistente y dolorosa de necesitar evacuar.</li><li><strong>Urgencia Defecatoria.</strong></li><li><strong>Dolor Abdominal:</strong> Típicamente cólico, alivia con la defecación.</li></ul>" },
+        { title: "Clínica: Manifestaciones Extraintestinales (MEI)", content: "<h2>Clínica: Manifestaciones Extraintestinales (MEI)</h2><p>Hasta el 50% de los pacientes las desarrollan.</p><ul><li><strong>Articulares:</strong> Artritis Periférica, Espondiloartropatía Axial.</li><li><strong>Cutáneas:</strong> Eritema Nodoso, Pioderma Gangrenoso.</li><li><strong>Oculares:</strong> Epiescleritis, Uveítis (¡Urgencia!).</li><li><strong>Hepatobiliar:</strong> Colangitis Esclerosante Primaria (CEP).</li></ul>" },
+        { title: "Diagnóstico: Sospecha y Laboratorio en AP", content: "<h2>Diagnóstico: Sospecha y Laboratorio en AP</h2><p>1. <strong>Sospecha Clínica:</strong> Diarrea crónica (>4 sem) con sangre.</p><p>2. <strong>Diagnóstico Diferencial:</strong> ¡Descartar Infecciones primero! (Shigella, Salmonella, E. histolytica).</p><p>3. <strong>Laboratorio:</strong> Anemia, ↑ PCR, ↑ VSG. <strong>Calprotectina Fecal</strong> es clave (>150 µg/g).</p>" },
+        { title: "Diagnóstico Definitivo: Endoscopia y Biopsia", content: "<h2>Diagnóstico Definitivo: Endoscopia y Biopsia</h2><p><strong>Estándar de Oro:</strong> Ileocolonoscopia con toma de biopsias.</p><h3>Hallazgos Endoscópicos:</h3><ul><li>Inflamación continua y confluente.</li><li>Pérdida del patrón vascular, eritema, friabilidad.</li></ul><h3>Hallazgos Histopatológicos:</h3><ul><li>Distorsión de la arquitectura de las criptas.</li><li>Abscesos crípticos.</li><li>Ausencia de granulomas.</li></ul>" },
+        { title: "Clasificación de la Enfermedad (Montreal)", content: "<h2>Clasificación de la Enfermedad (Montreal)</h2><h3>Extensión Máxima:</h3><ul><li><strong>E1:</strong> Proctitis</li><li><strong>E2:</strong> Colitis Izquierda</li><li><strong>E3:</strong> Colitis Extensa (Pancolitis)</li></ul><h3>Severidad del Brote:</h3><ul><li><strong>S0:</strong> Remisión</li><li><strong>S1:</strong> Leve</li><li><strong>S2:</strong> Moderada</li><li><strong>S3:</strong> Grave</li></ul>" },
+        { title: "Taller: Interpretación Endoscópica (Score de Mayo)", content: "<h2>Taller: Interpretación Endoscópica (Score de Mayo)</h2><table><thead><tr><th>Score</th><th>Hallazgos Clave</th></tr></thead><tbody><tr><td><strong>Mayo 1 (Leve)</strong></td><td>Eritema, patrón vascular disminuido, sin friabilidad.</td></tr><tr><td><strong>Mayo 2 (Moderada)</strong></td><td>Eritema marcado, ausencia de patrón vascular, friabilidad, erosiones.</td></tr><tr><td><strong>Mayo 3 (Severa)</strong></td><td>Sangrado espontáneo, ulceraciones extensas.</td></tr></tbody></table>" },
+        { title: "Objetivos del Tratamiento", content: "<h2>Objetivos del Tratamiento</h2><ul><li><strong>A corto plazo:</strong> Inducir la remisión clínica.</li><li><strong>A largo plazo:</strong> Mantener la remisión, lograr una remisión libre de esteroides, y alcanzar la curación de la mucosa (remisión endoscópica).</li></ul>" },
+        { title: "Manejo de CU Leve-Moderada (1ª Línea)", content: "<h2>Manejo de CU Leve-Moderada (1ª Línea)</h2><h3>Aminosalicilatos (5-ASA):</h3><p><strong>Mesalazina</strong> es de elección. La vía (oral/tópica) depende de la extensión.</p><h3>Corticosteroides:</h3><p><strong>¡SOLO para inducir remisión, NO para mantenimiento!</strong> Se usa Prednisona oral para brotes que no responden a 5-ASA.</p>" },
+        { title: "Manejo Avanzado y Criterios de Referencia", content: "<h2>Manejo Avanzado y Criterios de Referencia</h2><h3>¿Cuándo Referir Urgente?</h3><ul><li>Fallo al tratamiento de primera línea.</li><li>Cortico-dependencia o Cortico-refractariedad.</li><li>Debut con enfermedad severa.</li></ul><h3>Inmunomoduladores (2ª Línea):</h3><p><strong>Azatioprina (AZA):</strong> Agente 'ahorrador de esteroides'.</p>" },
+        { title: "Conclusiones y Mensajes Clave", content: "<h2>Conclusiones y Mensajes Clave</h2><ol><li>La CU es una enfermedad emergente en Ecuador.</li><li>El médico de AP tiene un rol CRÍTICO en la sospecha temprana.</li><li>La calprotectina fecal es una herramienta útil y disponible.</li><li>El tratamiento se individualiza según extensión y severidad.</li><li>Los fármacos de 1ª y 2ª línea están disponibles en el CNMB.</li></ol>" }
+    ];
+
+    let currentSlide = 0;
+    const slidesContainer = document.getElementById('slides-container');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
+
+    function renderSlides() {
+        slidesContainer.innerHTML = slidesData.map((slide, index) => `
+            <div class="slide ${index === 0 ? 'active' : ''}">
+                ${slide.content}
+            </div>
+        `).join('');
+    }
+
+    function showSlide(index) {
+        const slides = slidesContainer.querySelectorAll('.slide');
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        currentSlide = index;
+        updateNav();
+    }
+
+    function updateNav() {
+        if (slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${slidesData.length}`;
+        if (prevBtn) prevBtn.disabled = currentSlide === 0;
+        if (nextBtn) nextBtn.disabled = currentSlide === slidesData.length - 1;
+    }
+    
+    if (slidesContainer) {
+        renderSlides();
+        showSlide(0);
+        prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(currentSlide - 1); });
+        nextBtn.addEventListener('click', () => { if (currentSlide < slidesData.length - 1) showSlide(currentSlide + 1); });
+    }
+
+    // Quiz Logic
+    const quizData = [
+        { 
+            vignette: "Paciente de 25 años con diagnóstico de Proctitis Ulcerosa (E1) leve.", 
+            question: "¿Cuál es el tratamiento de primera línea más efectivo?", 
+            options: ["Prednisona oral", "Mesalazina oral", "Mesalazina en supositorios", "Azatioprina"], 
+            correctAnswer: 2, 
+            justification: "Para la enfermedad limitada al recto (Proctitis), la terapia tópica con supositorios de Mesalazina es la más efectiva y tiene menos efectos sistémicos." 
+        },
+        { 
+            vignette: "Paciente con Colitis Ulcerosa extensa de 15 años de evolución.", 
+            question: "¿Cuál es la recomendación más importante para su seguimiento a largo plazo?", 
+            options: ["Realizar coprocultivos anuales", "Monitorizar niveles de Calprotectina Fecal cada 6 meses", "Realizar colonoscopia de vigilancia para displasia cada 1-3 años", "Mantener tratamiento con corticoides a dosis bajas"], 
+            correctAnswer: 2, 
+            justification: "Debido al riesgo aumentado de cáncer colorrectal después de 8-10 años de enfermedad extensa, la vigilancia con colonoscopia es crucial." 
+        }
+    ];
+    let currentQuizQuestionIndex = 0;
+    let userAnswers = [];
+    
+    const quizNavButton = document.getElementById('quiz-nav-button');
+    if (quizNavButton) {
+        quizNavButton.addEventListener('click', nextQuizQuestion);
+    }
+
+    function displayQuizQuestion() {
+        if (currentQuizQuestionIndex >= quizData.length) {
+            showQuizResults();
+            return;
+        }
+        const q = quizData[currentQuizQuestionIndex];
+        document.getElementById('quiz-vignette-text').textContent = q.vignette;
+        document.getElementById('quiz-question-text').textContent = q.question;
+        const optionsContainer = document.getElementById('quiz-options-container');
+        optionsContainer.innerHTML = '';
+        q.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.onclick = () => selectQuizOption(index, button);
+            optionsContainer.appendChild(button);
+        });
+        quizNavButton.textContent = currentQuizQuestionIndex === quizData.length - 1 ? "Finalizar y Ver Resultados" : "Siguiente Pregunta";
+    }
+
+    function selectQuizOption(index, button) {
+        const options = document.querySelectorAll('#quiz-options-container button');
+        options.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+        userAnswers[currentQuizQuestionIndex] = index;
+    }
+
+    function nextQuizQuestion() {
+        if (userAnswers[currentQuizQuestionIndex] === undefined) {
+            alert("Por favor, seleccione una opción.");
+            return;
+        }
+        currentQuizQuestionIndex++;
+        displayQuizQuestion();
+    }
+
+    function showQuizResults() {
+        document.getElementById('quiz-question-area').style.display = 'none';
+        document.getElementById('quiz-navigation').style.display = 'none';
+        const resultsArea = document.getElementById('quiz-results-area');
+        resultsArea.classList.remove('hidden');
+        resultsArea.style.display = 'block';
+        
+        let score = 0;
+        userAnswers.forEach((answer, index) => {
+            if (answer === quizData[index].correctAnswer) {
+                score++;
+            }
+        });
+        
+        document.getElementById('quiz-score').textContent = `Su puntaje: ${score} de ${quizData.length} (${(score / quizData.length * 100).toFixed(0)}%)`;
+        
+        const reviewContainer = document.getElementById('quiz-review-container');
+        reviewContainer.innerHTML = '';
+        quizData.forEach((q, i) => {
+            const isCorrect = userAnswers[i] === q.correctAnswer;
+            const resultItem = document.createElement('div');
+            resultItem.className = `quiz-result-item ${isCorrect ? 'correct' : 'incorrect'}`;
+            let reviewHTML = `
+                <p class="font-bold">${i + 1}. ${q.question}</p>
+                <p><strong>Su respuesta:</strong> ${q.options[userAnswers[i]]}</p>
+                ${!isCorrect ? `<p><strong>Respuesta correcta:</strong> ${q.options[q.correctAnswer]}</p>` : ''}
+                <div class="quiz-justification">
+                    <p><strong>Justificación:</strong> ${q.justification}</p>
+                </div>`;
+            resultItem.innerHTML = reviewHTML;
+            reviewContainer.appendChild(resultItem);
+        });
+        adjustAccordionHeight(reviewContainer);
+    }
+    
+    const quizAccordionHeader = document.querySelector('.accordion-item:nth-child(4) .accordion-header');
+    if (quizAccordionHeader) {
+        quizAccordionHeader.addEventListener('click', () => {
+            const accordionItem = quizAccordionHeader.closest('.accordion-item');
+            if(accordionItem && accordionItem.classList.contains('active')) {
+                 if(currentQuizQuestionIndex === 0 && userAnswers.length === 0) {
+                    displayQuizQuestion();
+                 }
+            }
+        });
+    }
+
+    function adjustAccordionHeight(element) {
+        const accordionContent = element.closest('.accordion-content');
+        if (accordionContent && accordionContent.style.maxHeight !== '0px') {
+            accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+        }
+    }
+});
+</script>
+
+</body>
+</html>
