@@ -44,11 +44,6 @@
             font-size: 2rem;
             color: #F9A72B;
         }
-        .flow-line {
-            width: 2px;
-            background-color: #F9A72B;
-            margin: 0 auto;
-        }
         .swot-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -61,7 +56,6 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-
     <div class="container mx-auto p-4 md:p-8">
         <header class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-extrabold text-[#00AEEF] mb-4">La Paradoja del Gasto en Salud en Ecuador</h1>
@@ -186,7 +180,7 @@
                                     <li>Fortalecer la rectoría del MSP y la coordinación interinstitucional.</li>
                                     <li>Empoderar a la sociedad civil para la veeduría social.</li>
                                     <li>Usar la tecnología para mejorar la transparencia.</li>
-                                 </ul>
+                                   </ul>
                             </div>
                             <div class="swot-item bg-[#58595B]">
                                 <h4 class="font-bold text-lg">Amenazas</h4>
@@ -257,7 +251,7 @@
                             const item = tooltipItems[0];
                             let label = item.chart.data.labels[item.dataIndex];
                             if (Array.isArray(label)) {
-                              return label.join(' ');
+                               return label.join(' ');
                             }
                             return label;
                         }
