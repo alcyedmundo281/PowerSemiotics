@@ -56,6 +56,11 @@
             font-weight: 600;
             color: #1e40af;
         }
+        /* Makes the sticky sidebar scrollable on tall-enough screens */
+        .sidebar-scrollable {
+            max-height: calc(100vh - 8rem); /* 6rem top offset + 2rem extra margin */
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -75,7 +80,7 @@
         <div class="lg:flex lg:space-x-12">
             
             <aside class="lg:w-1/4 mb-12 lg:mb-0">
-                <div class="bg-white p-6 rounded-lg shadow-md sticky top-24">
+                <div class="bg-white p-6 rounded-lg shadow-md sticky top-24 sidebar-scrollable">
                     <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">Contenido</h3>
                     <nav id="navigation" class="space-y-1">
                         <!-- Navigation links will be generated here by JS -->
