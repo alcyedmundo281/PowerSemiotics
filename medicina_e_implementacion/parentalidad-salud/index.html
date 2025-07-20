@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre el Juramento y el Hogar: Parentalidad en la Profesión Sanitaria de Ecuador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .prose h1, .prose h2, .prose h3 {
+            font-family: 'Lora', serif;
+            scroll-margin-top: 80px; /* Offset for sticky header */
+        }
+        .prose {
+             color: #374151;
+             line-height: 1.75;
+        }
+        .prose strong {
+            color: #111827;
+        }
+        .prose blockquote {
+            border-left-color: #2563eb;
+            font-style: italic;
+            color: #4b5563;
+        }
+        .prose table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .prose th, .prose td {
+            border: 1px solid #d1d5db;
+            padding: 0.75rem;
+        }
+        .prose th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+        .nav-link {
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .nav-link:hover {
+            background-color: #eff6ff;
+            border-left-color: #2563eb;
+            color: #1e3a8a;
+        }
+        .nav-link.active {
+            background-color: #dbeafe;
+            border-left-color: #1d4ed8;
+            font-weight: 600;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-xl font-bold text-blue-900">Análisis de la Profesión Sanitaria</span>
+            </div>
+            <div>
+                <span class="text-gray-600">Monografía 2024</span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mx-auto px-6 py-12">
+        <div class="lg:flex lg:space-x-12">
+            
+            <aside class="lg:w-1/4 mb-12 lg:mb-0">
+                <div class="bg-white p-6 rounded-lg shadow-md sticky top-24">
+                    <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">Contenido</h3>
+                    <nav id="navigation" class="space-y-1">
+                        <!-- Navigation links will be generated here by JS -->
+                    </nav>
+                </div>
+            </aside>
+
+            <main id="main-content" class="lg:w-3/4">
+                <div class="bg-white p-8 sm:p-12 rounded-lg shadow-md prose max-w-none">
+                    <!-- The chapter content will be loaded here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer class="bg-white mt-16 border-t">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Monografía sobre Parentalidad, Poder y Equidad en la Profesión Sanitaria de Ecuador.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const mainContent = document.getElementById('main-content');
+        const navigation = document.getElementById('navigation');
+        
+        const contentData = [
+            {
+                id: "resumen",
+                title: "Resumen Ejecutivo",
+                icon: "fa-file-alt",
+                content: `
+                    <h1 id="resumen-title">Resumen Ejecutivo para Responsables de Políticas Públicas</h1>
+                    <p>Esta monografía aborda una crisis sistémica y una falla ética fundamental en el sector de la salud de Ecuador: la paradoja de una profesión dedicada al cuidado que, sistemáticamente, socava el bienestar de sus propios profesionales. Este problema no es una suma de dificultades individuales, sino una consecuencia directa de estructuras culturales y laborales profundamente arraigadas que colisionan con el marco legal progresista del país.</p>
+                    <h3>El Problema</h3>
+                    <p>Los profesionales de la salud en Ecuador enfrentan niveles insostenibles de agotamiento (burnout), con tasas de despersonalización severa que alcanzan el 95% (10, 11, 14). Esta situación se ve exacerbada por una profunda desigualdad de género. La "cultura del sacrificio" normaliza jornadas laborales extenuantes, mientras que el "discurso androcéntrico" perpetúa roles tradicionales, confinando a los hombres al papel de "proveedor ausente" y sobrecargando a las mujeres con una "triple jornada" de trabajo profesional, doméstico y de cuidados (162).</p>
+                    <h3>Hallazgos Clave</h3>
+                    <p>El análisis, basado en el marco de las tres dimensiones del poder de Steven Lukes, revela que las leyes de corresponsabilidad parental, aunque avanzadas, son neutralizadas por un poder ideológico (la normalización del sacrificio) y un poder institucional (el control de la agenda) que impiden un cambio real. Las instituciones de salud y las universidades, en lugar de mitigar el problema, a menudo lo perpetúan desde la etapa formativa.</p>
+                    <h3>Recomendaciones Principales</h3>
+                    <p>La solución no reside en exigir mayor resiliencia individual, sino en asumir una responsabilidad institucional. Proponemos un cambio de paradigma basado en una "ética de mínimos", que obliga al Estado y a las instituciones a garantizar condiciones de justicia básicas. Las acciones políticas clave deben incluir:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Reformas Laborales Urgentes:</strong> Establecer y fiscalizar límites estrictos a las jornadas laborales, especialmente para residentes, para combatir el burnout de raíz.</li>
+                        <li><strong>Infraestructura de Cuidado:</strong> Implementar una red de guarderías con horarios flexibles y salas de lactancia funcionales en los centros de trabajo.</li>
+                        <li><strong>Equidad de Género Activa:</strong> Mandatar auditorías salariales y promover activamente el liderazgo femenino para desmantelar las estructuras androcéntricas.</li>
+                        <li><strong>Reforma Educativa:</strong> Transformar los currículos de las ciencias de la salud para integrar la formación en bienestar, autocuidado y corresponsabilidad desde el inicio.</li>
+                    </ul>
+                    <p>Esta monografía argumenta que invertir en el bienestar de los profesionales de la salud no es un gasto, sino una condición indispensable para la sostenibilidad, la equidad y la calidad del sistema sanitario ecuatoriano.</p>
+                `
+            },
+            {
+                id: "introduccion",
+                title: "1. Introducción",
+                icon: "fa-book-reader",
+                content: `
+                    <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Parte I: El Escenario del Poder: Dimensiones Estructurales</p>
+                    <h1 id="introduccion-title">1. Introducción</h1>
+                    <h2 id="naturaleza-problema">1.1. Naturaleza del Problema</h2>
+                    <h3>La Paradoja del Cuidado en Ecuador</h3>
+                    <p>La profesión médica, en su esencia más profunda, está consagrada al cuidado y al bienestar humano, un compromiso que tradicionalmente se ha idealizado como una vocación de servicio incondicional. Sin embargo, en Ecuador, esta nobleza intrínseca se ve empañada por una paradoja alarmante: el sistema de salud y la cultura profesional, de manera sistemática, socavan el bienestar personal y la capacidad de autocuidado de sus propios practicantes (1, 2, 3). El conflicto entre la vida profesional y familiar para los médicos y médicas ecuatorianos no es simplemente una cuestión de gestión individual del tiempo, sino una crisis sistémica arraigada en la cultura fundacional de la profesión y en las normas de género de la sociedad (4, 5, 6, 7). De hecho, esta tensión se ha consolidado como el "verdadero epicentro del debate ético contemporáneo entre individuo y familia" para los profesionales del país (12), planteando interrogantes fundamentales sobre la sostenibilidad de un modelo que exige tanto sin reciprocidad.</p>
+                    <h3>Contradicción entre Norma y Realidad</h3>
+                    <p>La tensión se agudiza por una contradicción fundamental. Por un lado, Ecuador ha desarrollado un marco legal progresista que consagra la corresponsabilidad parental y el derecho al cuidado como pilares de una sociedad justa (8, 9). La Constitución de 2008 y la posterior Ley Orgánica del Derecho al Cuidado Humano de 2023 establecen un ideal de responsabilidades compartidas entre hombres y mujeres en el ámbito familiar. Por otro lado, la realidad laboral en el sector salud está dominada por una cultura de sacrificio profesional y un discurso androcéntrico que perpetúan roles de género tradicionales y condiciones de trabajo insostenibles (10, 11, 12).</p>
+                    <p>Esta marcada disonancia entre lo que la legislación prescribe y lo que se vive diariamente genera un entorno de presión extrema. Esto es particularmente cierto para las mujeres, quienes a menudo se ven obligadas a enfrentar una "triple o cuádruple" jornada laboral —al combinar el trabajo remunerado con las tareas domésticas, el cuidado de los hijos y, frecuentemente, la formación continua—, sufriendo un desgaste físico y psicológico considerable. Para los hombres, simultáneamente, esta estructura los confina al rol de "proveedor ausente", distanciándose de la crianza activa y presente de sus hijos, lo que genera una desconexión familiar y una perpetuación de modelos de paternidad limitados (12).</p>
+                    <h2 id="pregunta-investigacion">1.2. Pregunta de Investigación y Enfoque Multidisciplinario</h2>
+                    <p>Esta monografía busca responder a la siguiente pregunta central:</p>
+                    <blockquote>¿De qué manera la intersección entre la "cultura del sacrificio" profesional y el "discurso androcéntrico" en Ecuador neutraliza o subvierte el marco legal de corresponsabilidad parental, y qué estrategias de agencia y resiliencia desarrollan los profesionales de la salud para navegar la brecha resultante entre la política pública y la realidad vivida?</blockquote>
+                    <p>Para abordar esta cuestión, se analizarán las estructuras culturales, históricas y socioeconómicas que configuran esta problemática. No se trata solo de señalar la existencia de estas influencias, sino de entender cómo interactúan y se refuerzan mutuamente. Para deconstruir las dinámicas de poder subyacentes —tanto las explícitas como las más sutiles e invisibles que sostienen el statu quo— se utilizará el marco teórico de las tres dimensiones del poder de Steven Lukes (13). Se evaluará la implementación de las políticas públicas a través de los lentes de la ciencia de la implementación, identificando barreras y facilitadores para su aplicación efectiva (14). Finalmente, y como eje transversal que permea todo el análisis, se propondrá y se aplicará un marco normativo basado en la ética de mínimos de Adela Cortina (15). Este marco filosófico será fundamental para delinear un camino hacia una paternidad y maternidad más justas y sostenibles dentro de la profesión médica. Se argumentará que la crisis actual que enfrentan estos profesionales no es —como a menudo se interpreta— un simple problema de gestión administrativa o de "falta de tiempo", sino una falla ética fundamental por parte de las instituciones y el sistema, que no garantizan las condiciones básicas de justicia para sus trabajadores.</p>
+                `
+            },
+            {
+                id: "matriz-cultural",
+                title: "2. Matriz Cultural y Ética",
+                icon: "fa-balance-scale",
+                content: `
+                    <h1 id="matriz-cultural-title">2. La Matriz Cultural y la Exigencia de una Ética de Mínimos</h1>
+                    <h2 id="cultura-patriarcal">2.1. La Cultura Patriarcal y la Demanda de Justicia: Fundamentos para una Vida Plena</h2>
+                    <p>La cultura ecuatoriana, como muchas en América Latina, está profundamente influenciada por una matriz patriarcal que asigna roles de género diferenciados y jerárquicos (16, 17, 18). Esta estructura se manifiesta a través de dos arquetipos complementarios y persistentes: el machismo y el marianismo. El machismo prescribe para el hombre el rol de proveedor, figura de autoridad y actor principal en la esfera pública, mientras que el marianismo confina a la mujer al ámbito doméstico, idealizándola como una figura de sacrificio, pureza y devoción maternal abnegada (19, 20). Aunque estos roles están en un lento proceso de transición, su influencia ideológica persiste y se materializa en la desigual distribución del trabajo no remunerado.</p>
+                    <p>La evidencia empírica es contundente: a nivel nacional, las mujeres dedican en promedio 22 horas y 40 minutos más por semana que los hombres a las tareas de cuidado y del hogar, lo que equivale a una jornada laboral adicional completa y no remunerada (21, 22). Esta desigualdad estructural no solo limita las oportunidades profesionales y el desarrollo personal de las mujeres, sino que solidifica la expectativa cultural de que el cuidado es, fundamentalmente, una responsabilidad femenina. Este fenómeno se entrelaza con el mito universal de la "supermujer", una figura que se espera que alcance la excelencia profesional sin menoscabo de sus responsabilidades domésticas, una expectativa que no se impone con la misma ferocidad a sus colegas masculinos (23, 24, 25). Una líder del sector salud ecuatoriano reflexiona sobre esta presión insostenible: "No somos súper mujeres. No podemos tener la vida ideal: buenas profesionales, madres, esposas, etc. Tenemos que buscar un equilibrio" (12). Esta colisión de expectativas genera una inmensa presión psicológica y una culpa omnipresente en las madres trabajadoras, que sienten que fracasan en todos los frentes (26, 27).</p>
+                    <p>Este panorama cultural no es simplemente un hecho sociológico a describir; representa una profunda injusticia que exige una respuesta ética. La normalización de estos roles y cargas desiguales constituye una violación de los derechos fundamentales. Desde esta perspectiva, se hace imperativo introducir dos principios de justicia como correctivos éticos indispensables:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>El Derecho a la No Discriminación por Razón de Género:</strong> La persistencia del machismo, el marianismo y el mito de la "supermujer" en el sector salud es una clara manifestación de un "discurso androcéntrico" que impone una carga desproporcionada sobre las mujeres. Una óptica de justicia demanda la erradicación activa de este discurso. Esto no se logra solo con declaraciones de buenas intenciones, sino que requiere políticas de acción afirmativa para promover el liderazgo femenino en salud, auditorías salariales transparentes para cerrar la brecha de género y campañas institucionales activas para fomentar una cultura de corresponsabilidad real y medible (28, 29, 30). Esto último exige un cambio cultural profundo, no solo normativo.</li>
+                        <li><strong>El Derecho a una Vida Familiar:</strong> La posibilidad de formar y cuidar de una familia no puede ser un privilegio que se paga con el sacrificio de la carrera profesional, ni viceversa. La justicia exige que las instituciones de salud, tanto públicas como privadas, creen las condiciones materiales para que este derecho sea una realidad tangible para todos sus trabajadores, independientemente de su género. Esto se traduce en la obligación de implementar políticas de conciliación efectivas y adaptadas a la realidad del sector: guarderías con horarios flexibles y accesibles, salas de lactancia funcionales y bien equipadas, y una cultura organizacional que no penalice, ni explícita ni implícitamente, el uso de licencias parentales por parte de hombres y mujeres (9, 12, 31).</li>
+                    </ul>
+                    <h2 id="etica-minimos">2.2. La Propuesta Normativa: Una Ética de Mínimos como Condición de Posibilidad</h2>
+                    <p>Para fundamentar estas exigencias de justicia, esta monografía adopta como marco normativo la propuesta de la filósofa Adela Cortina sobre la "ética de mínimos" (15). Cortina distingue entre una "ética de máximos", que se refiere a los proyectos de vida feliz, ideales de plenitud y modelos de virtud que cada individuo o grupo cultural elige para sí, y una "ética de mínimos", que consiste en los principios de justicia básicos, universales y exigibles que una sociedad pluralista debe garantizar a todos sus miembros para que, precisamente, puedan desarrollar sus propios proyectos de "vida feliz". Los mínimos de justicia no imponen un modelo de felicidad, pero aseguran las condiciones de posibilidad para que cada persona pueda buscar el suyo en condiciones de igualdad y dignidad.</p>
+                    <p>Aplicado al contexto de los profesionales de la salud en Ecuador, este marco permite trascender el debate sobre la "vocación" o el "sacrificio" (que pertenecen al ámbito de los máximos personales) para centrarse en las obligaciones de justicia que las instituciones tienen para con sus trabajadores. Además de los derechos ya mencionados, una ética de mínimos para este colectivo exigiría:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>El Derecho a la Salud Integral:</strong> El Estado y las instituciones empleadoras tienen el deber de garantizar no solo la salud física, sino también la salud mental de sus trabajadores. Las condiciones laborales que generan Síndrome de Burnout de forma sistémica —con prevalencias de despersonalización severa del 95% y de agotamiento emocional del 47% en Ecuador (32, 33, 34, 35)— no son un "costo del negocio", sino una práctica éticamente inaceptable. La justicia de mínimos demanda establecer límites reales y fiscalizados a las jornadas laborales, especialmente para los residentes, y proveer acceso a servicios de salud mental confidenciales, gratuitos y desestigmatizados (12, 36).</li>
+                        <li><strong>Inclusión de los Estudiantes y el Rol de la Universidad:</strong> Estos mínimos de justicia deben extenderse a los estudiantes de medicina y otras ciencias de la salud desde el inicio de su formación. Las universidades tienen la responsabilidad de no ser meras reproductoras de la "cultura del sacrificio". El concepto de "Universidades Promotoras de la Salud" (37, 38, 39, 40) ofrece un modelo institucional para esta transformación. En lugar de ser el primer eslabón en la cadena del agotamiento, las facultades de medicina deben asumir su responsabilidad social (responsabilidad social) (41) integrando en su currículo la formación en bienestar, ética del cuidado (incluido el autocuidado) y corresponsabilidad. Además, deben ofrecer apoyo psicológico y estructuras flexibles para estudiantes que son padres y madres, garantizando que el derecho a una vida plena comience desde la etapa formativa y no sea una aspiración perpetuamente postergada (12, 40).</li>
+                    </ul>
+                `
+            },
+            {
+                id: "historia-poder",
+                title: "3. Historia y Poder (Lukes)",
+                icon: "fa-landmark",
+                content: `
+                    <h1 id="historia-poder-title">3. La Historia Ecuatoriana desde la Óptica Lukesiana: La Construcción del Poder en la Medicina y la Familia</h1>
+                    <p>La situación actual de los profesionales de la salud no es un fenómeno reciente, sino el producto de una larga y sedimentada construcción histórica de relaciones de poder. Utilizando el marco tridimensional de Steven Lukes (13), podemos analizar cómo estas dinámicas se han solidificado a lo largo del tiempo, operando en niveles visibles e invisibles para crear y mantener el orden existente.</p>
+                    <h2 id="tercera-dimension">3.1. Tercera Dimensión: El Poder Ideológico y la Formación de Normas</h2>
+                    <p>La forma más profunda y eficaz de poder es la ideológica, aquella que moldea las creencias, deseos y percepciones de la realidad, logrando que los individuos acepten su rol en el orden existente como algo natural o inevitable (13). La historia ecuatoriana ha estado marcada por la influencia hegemónica de la Iglesia Católica y una estructura social jerárquica que naturalizó los roles de género (42). La figura jurídica de la patria potestad, heredada del derecho romano, se concibió inicialmente como un poder absoluto del padre sobre los hijos, fusionando jerarquías de género y edad en un único nexo de dominación masculina (42).</p>
+                    <p>Paralelamente, la profesión médica, desde la época colonial, se construyó sobre un pedestal de prestigio y autoridad, a menudo reservado para las élites criollas y masculinas (43, 44). La medicina se transformó en una vocación "sagrada", y el sacrificio personal, lejos de ser visto como una condición laboral negativa, fue elevado a la categoría de virtud inherente a la práctica médica (45). Estas dos corrientes ideológicas —el patriarcado en la estructura familiar y el ethos del sacrificio en la profesión— convergieron para crear un "sentido común" socialmente aceptado. En este marco, la ausencia del padre médico en el hogar no era una carencia, sino un costo aceptable y hasta noble a cambio de un bien mayor (la salud de la comunidad), mientras que la dedicación exclusiva de la madre al hogar era su rol "natural" e incuestionable.</p>
+                    <h2 id="segunda-dimension">3.2. Segunda Dimensión: El Poder de la Agenda</h2>
+                    <p>Este poder ideológico permitió controlar la agenda pública y profesional, definiendo qué temas eran legítimos para el debate y cuáles eran silenciados o ignorados. Lukes denomina a esto el poder de la "no-decisión" (13). Durante gran parte de la historia ecuatoriana, las mujeres estuvieron sistemáticamente excluidas de la educación superior y, por ende, de la profesión médica. La graduación de la primera médica, Matilde Hidalgo de Procel en 1921, no fue el inicio de una era de igualdad, sino una excepción notable que confirmó la regla de un sistema diseñado por y para hombres (46, 47).</p>
+                    <p>Los gremios médicos, como el Colegio de Médicos de Pichincha fundado en 1941, se consolidaron como espacios de poder masculino (48, 49). Su agenda se centraba en la defensa corporativa de la profesión, la ética médica abstracta y el avance científico. Temas como la conciliación familiar, las licencias de maternidad, el bienestar del médico o el acoso laboral no eran simplemente desatendidos; eran estructuralmente invisibles. Las necesidades de las madres médicas no eran un "tema potencial de debate" porque las mujeres no estaban en las mesas donde se definía la agenda. Este control de la agenda, una manifestación clara de la segunda dimensión del poder, aseguró que la estructura androcéntrica de la profesión nunca fuera desafiada desde adentro, en contraste con las responsabilidades que teóricamente debían asumir para con el bienestar de todos sus miembros (50, 51).</p>
+                    <h2 id="primera-dimension">3.3. Primera Dimensión: El Poder en la Toma de Decisiones</h2>
+                    <p>Finalmente, el poder visible y explícito se manifestó en las leyes y regulaciones que codificaron la ideología dominante (13). El Código Civil y otras normativas tempranas reflejaban sin ambages la estructura patriarcal, otorgando al hombre la jefatura del hogar y la patria potestad exclusiva sobre los hijos (42, 52). Este poder de decisión, la primera dimensión de Lukes, formalizó las desigualdades que las otras dos dimensiones ya habían normalizado.</p>
+                    <p>Aunque la Constitución de 1998 y, de manera mucho más robusta, la de 2008 introdujeron el principio de corresponsabilidad y la igualdad de derechos en el seno de la familia (8, 53), este cambio fundamental en la "primera dimensión" del poder (la ley explícita) choca frontalmente con la inercia de las otras dos. La cultura institucional de los hospitales y gremios (segunda dimensión) y la ideología social del sacrificio y los roles de género (tercera dimensión) siguen operando bajo la lógica del antiguo régimen. Esto explica la persistente brecha entre la promesa de la ley y la realidad vivida por los profesionales de la salud.</p>
+                `
+            },
+            {
+                id: "riqueza-poder",
+                title: "4. Riqueza y Fuerza Laboral",
+                icon: "fa-chart-pie",
+                content: `
+                    <h1 id="riqueza-poder-title">4. Distribución de la Riqueza y Poder en Ecuador y su Impacto en la Fuerza Laboral Sanitaria</h1>
+                    <h2 id="desigualdad-precarizacion">4.1. Desigualdad, Corporativización y Precarización</h2>
+                    <p>Ecuador es un país con una profunda y persistente desigualdad en la distribución de la riqueza (5, 54, 55). En junio de 2024, la pobreza a nivel nacional se ubicó en un alarmante 25.5%, con una brecha abismal entre las zonas urbanas (17.2%) y rurales (43.2%) (56). Esta estructura socioeconómica genera una intensa presión por la movilidad social y la seguridad económica, posicionando a la medicina como una de las carreras de más alto prestigio y una de las vías más seguras hacia la estabilidad financiera (5).</p>
+                    <p>Sin embargo, el modelo tradicional del "profesional liberal" que ejercía de forma autónoma ha sido progresivamente erosionado por dos fenómenos paralelos que reconfiguran el mercado laboral sanitario: la corporativización y la precarización. La corporativización se refiere a la creciente concentración de los servicios de salud en grandes grupos hospitalarios y redes de clínicas privadas que operan con lógicas de mercado, eficiencia y rentabilidad (57, 58). Este modelo transforma al médico en un trabajador asalariado, subordinando su autonomía profesional a los objetivos financieros y administrativos de la institución.</p>
+                    <p>Simultáneamente, la precarización laboral es una realidad palpable, especialmente en las etapas iniciales de la carrera. Los médicos residentes, la columna vertebral de los hospitales, enfrentan salarios bajos que no se corresponden con la magnitud de su responsabilidad y carga laboral. Por ejemplo, un médico residente en el Instituto Ecuatoriano de Seguridad Social (IESS) ganaba aproximadamente $1,676 en 2016, mientras cumplía jornadas que podían superar las 240 horas mensuales, incluyendo guardias de 24 horas o más (10, 59). Esta situación obliga a muchos especialistas a recurrir al pluriempleo para alcanzar un nivel de ingresos acorde a las expectativas sociales y a sus años de formación, trabajando en dos o más instituciones a la vez y multiplicando su carga de trabajo (10).</p>
+                    <h2 id="impacto-paternidad">4.2. Impacto en la Paternidad y la Familia</h2>
+                    <p>Esta dinámica socioeconómica tiene un impacto directo y devastador en la vida familiar, y constituye el principal mecanismo de refuerzo material de la "cultura del sacrificio". La presión por alcanzar la estabilidad económica en un entorno precario obliga a los profesionales a aceptar condiciones laborales extenuantes no solo como un ideal vocacional, sino como una necesidad pragmática para sobrevivir y progresar. Las jornadas interminables se convierten en un "peaje" ineludible para el éxito profesional y la seguridad familiar.</p>
+                    <p>Esto fuerza, en primer lugar, la postergación de la paternidad y la maternidad. Este es un fenómeno bien documentado tanto a nivel internacional como en los testimonios locales, donde se describe que los médicos "empiezan a vivir tardíamente" (12, 60, 61). La decisión de tener hijos se aplaza hasta después de la residencia o la especialización, cuando se percibe una mayor estabilidad.</p>
+                    <p>Para los hombres, esta presión económica refuerza el rol tradicional de proveedor, ofreciendo una justificación tangible para su ausencia física y emocional del hogar. La necesidad de trabajar en múltiples lugares para mantener a la familia se convierte en una razón poderosa que legitima su desconexión de las tareas de cuidado diario. Para las mujeres, la situación es aún más crítica. La brecha salarial de género y la mayor tasa de desempleo femenino en Ecuador (62) hacen que la decisión de reducir la jornada laboral o tomar una licencia extendida para cuidar a los hijos tenga un costo económico y profesional desproporcionadamente alto. Esto las atrapa en un ciclo de sobrecarga y desventaja, donde deben cumplir con las expectativas de la "supermujer" para no quedar rezagadas profesional y económicamente.</p>
+                `
+            },
+            {
+                id: "metodologia",
+                title: "5. Marco Metodológico",
+                icon: "fa-microscope",
+                content: `
+                    <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Parte II: Análisis, Evidencia y Propuestas</p>
+                    <h1 id="metodologia-title">5. Marco Metodológico</h1>
+                    <p>Esta monografía emplea un enfoque cualitativo, basado en un análisis documental y de contenido de una amplia gama de fuentes secundarias, incluyendo publicaciones académicas, informes gubernamentales, artículos de prensa, marcos legales y testimonios de profesionales. Para evaluar la brecha entre la política pública de corresponsabilidad y su aplicación en el sector salud, se recurre a marcos conceptuales de la Ciencia de la Implementación. Específicamente, se utiliza el Marco Consolidado para la Investigación de la Implementación (CFIR) como herramienta analítica para identificar barreras y facilitadores a lo largo de sus cinco dominios clave: características de la intervención (las políticas de conciliación), el entorno externo (normas sociales), el entorno interno (cultura hospitalaria), las características de los individuos (profesionales de la salud) y el proceso de implementación (63). Los resultados de la implementación se evalúan conceptualmente a través del modelo de Proctor et al., que ayuda a distinguir entre los resultados de la implementación (ej. aceptabilidad, viabilidad), los resultados del servicio (ej. calidad, equidad) y los resultados del cliente/paciente (ej. satisfacción, salud) (64).</p>
+                    <p>El análisis político de la situación se estructura a través del modelo de las tres dimensiones del poder de Steven Lukes. Este marco permite una deconstrucción profunda de la problemática, yendo más allá de los conflictos visibles y la toma de decisiones explícita (1ª dimensión), para examinar el control de la agenda y las "no-decisiones" que silencian ciertos temas (2ª dimensión), y la influencia ideológica que moldea las percepciones, deseos y la aceptación del statu quo (3ª dimensión) (13). Como se estableció en la Parte I, el análisis se enmarca dentro de la ética de mínimos de Adela Cortina, utilizando sus principios de justicia como el estándar normativo contra el cual se mide la realidad observada (15).</p>
+                `
+            },
+            {
+                id: "evidencia",
+                title: "6. Evidencia Empírica",
+                icon: "fa-vial",
+                content: `
+                    <h1 id="evidencia-title">6. Evidencia Empírica: Casos, Datos y Generación de Hipótesis</h1>
+                    <p>La evidencia empírica que sustenta este análisis se extrae de una combinación de testimonios cualitativos anonimizados de profesionales de la salud ecuatorianos y de datos cuantitativos disponibles sobre la salud mental del personal y la distribución del trabajo de cuidado. Los siguientes casos, analizados a través del lente de la ética de mínimos, ilustran la dimensión humana de la crisis sistémica.</p>
+                    <h3 id="caso-a">Caso A (Médica Especialista)</h3>
+                    <p>Hija de médicos, creció con la creencia de que la conciliación entre la profesión y la familia era posible. Sin embargo, al convertirse en madre, se enfrentó a un "discurso androcéntrico" que la culpabilizaba por cualquier desviación de la dedicación total al trabajo y a una carga laboral de "tres o cuatro jornadas" que la "quemaba" física y psicológicamente. Su estrategia de resiliencia fue una "resignificación" de su misión profesional, abandonando un puesto en un hospital público para priorizar el tiempo con su hija. Este acto, aunque empoderador a nivel personal, representa una renuncia forzada, un intento de construir un "máximo de felicidad" personal ante la falla del sistema en proveer los "mínimos de justicia". Destaca el rol "50 y 50" de su esposo como una "norma necesaria" y critica la "invisibilización" de las madres médicas y la falta de políticas de apoyo como guarderías y lactarios, evidenciando la violación de su derecho a una vida familiar sin discriminación (12).</p>
+                    <h3 id="caso-b">Caso B (Médico Especialista)</h3>
+                    <p>Hijo de médico, replicó inicialmente el patrón de "padre ausente" de su propia infancia, priorizando la "producción económica" sobre la presencia familiar. Su punto de inflexión fue la pregunta de su hijo de seis años: "¿Papá, qué soy para ti?... Más importantes son tus pacientes". Esta experiencia catalizó una profunda crisis ética personal, llevándolo a reconocer que el modelo de proveedor ausente, aunque culturalmente sancionado, le estaba costando su derecho a una vida familiar significativa. Su decisión de cerrar su consultorio privado y redefinir sus prioridades para encontrar la felicidad en la "calidad del tiempo" con sus hijos ilustra una lucha individual por alinear su vida con sus valores, concluyendo que "no todo el dinero es feliz" (12).</p>
+                    <h3 id="caso-c">Caso C (Estudiante de Enfermería y Medicina)</h3>
+                    <p>Madre desde joven, tuvo que postergar su sueño de ser médica. Su experiencia representa la triple carga de ser madre, profesional en formación y estudiante. Durante la pandemia, enfrentó guardias de 24 horas en áreas COVID seguidas inmediatamente por clases virtuales, una situación que la llevó a sufrir un "trastorno psiquiátrico". Su caso es una ilustración dramática de cómo las instituciones educativas, al no tener estructuras de apoyo, fallan en garantizar el derecho a la salud de sus estudiantes y perpetúan la cultura del sacrificio desde la etapa formativa. Su resiliencia, basada en el ejemplo que quiere dar a sus hijos y en el apoyo de una red informal de colegas y jefes, subraya la ausencia total de un soporte estructural y refuerza la urgencia de implementar el modelo de "Universidades Promotoras de la Salud" (12).</p>
+                    <p>Estos testimonios, si bien demuestran una notable capacidad de agencia y resiliencia individual, también exponen una verdad incómoda: estas estrategias son, en esencia, mecanismos de supervivencia que no resuelven la raíz del problema. La necesidad de "resignificar" una carrera, cerrar un consultorio o depender de redes informales subraya la insuficiencia de las soluciones personales frente a un fracaso sistémico, reforzando la urgencia de una intervención política e institucional.</p>
+                    <p>Estos casos se complementan con datos cuantitativos alarmantes sobre el Síndrome de Burnout en Ecuador, con una prevalencia de despersonalización severa del 95% y de agotamiento emocional del 47% en profesionales de la salud durante la pandemia (32, 33, 34, 35). Asimismo, la brecha de género en el trabajo no remunerado, que supera las 22 horas semanales en detrimento de las mujeres (21, 22), cuantifica la base estructural de la sobrecarga femenina.</p>
+                    <p>Estos casos y datos permiten generar la hipótesis central de esta monografía: la ineficacia de las políticas de corresponsabilidad en el sector salud no se debe a fallas en su diseño legal, sino a la colisión con una cultura profesional e institucional (entorno interno del CFIR) que es impermeable a sus principios y que está sostenida por un poder ideológico (3ª dimensión de Lukes) que normaliza el sacrificio y la desigualdad de género, violando sistemáticamente los mínimos de justicia que la sociedad debe a sus profesionales.</p>
+                `
+            },
+            {
+                id: "analisis-parental",
+                title: "7. Análisis de la Vida Parental",
+                icon: "fa-users",
+                content: `
+                    <h1 id="analisis-parental-title">7. Etapa de Análisis: La Vida Parental de los Profesionales Sanitarios</h1>
+                    <h2 id="situacion-actual">7.1. Situación Actual y Desigualdades</h2>
+                    <p>La situación actual de los padres y madres en el sector salud ecuatoriano es de una profunda tensión estructural, marcada por una brecha insalvable entre las aspiraciones personales y las imposiciones del sistema. Las madres enfrentan una sobrecarga sistémica. La postergación de la maternidad es una estrategia de adaptación forzada a una carrera que penaliza el cuidado (12, 60, 61). Una vez que son madres, la falta de apoyo institucional tangible —como guarderías en los lugares de trabajo, salas de lactancia funcionales y una flexibilidad horaria real (65, 66, 67)—, combinada con la desigual distribución del trabajo doméstico, las empuja a una situación de agotamiento crónico y culpa constante (12).</p>
+                    <p>Los padres, por su parte, se encuentran atrapados en un agudo conflicto de roles. La cultura profesional y la presión económica los empujan inexorablemente hacia el modelo de "proveedor ausente", mientras que las expectativas sociales emergentes y sus propios deseos demandan una "paternidad activa" y presente que la estructura laboral hace casi imposible de ejercer (12, 28, 68). La siguiente tabla resume la disonancia entre el marco legal y la realidad institucional, evidenciando la brecha de implementación.</p>
+                    <div class="overflow-x-auto">
+                        <table id="tabla-brecha">
+                            <caption>Tabla 1. La Brecha entre Política y Práctica en la Corresponsabilidad del Sector Salud Ecuatoriano</caption>
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Principio/Derecho Legal (Ley/Constitución)</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Realidad Institucional Documentada (Evidencia)</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fuentes</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-2">Derecho a la Corresponsabilidad Parental (Const. 2008, Art. 66)</td>
+                                    <td class="px-4 py-2">"Discurso androcéntrico" que asigna el cuidado a las mujeres; padres confinados al rol de "proveedor ausente".</td>
+                                    <td class="px-4 py-2">(8, 12)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Derecho a la Lactancia Materna (Código del Trabajo, LOSEP)</td>
+                                    <td class="px-4 py-2">Falta de lactarios funcionales y adaptados; cultura que penaliza el uso de la licencia.</td>
+                                    <td class="px-4 py-2">(12, 65, 66)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Obligación de proveer Cuidado Infantil (LOSEP, Acuerdos Min.)</td>
+                                    <td class="px-4 py-2">Ausencia de guarderías institucionales; bono de $93 como solución paliativa e insuficiente.</td>
+                                    <td class="px-4 py-2">(12, 67)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Derecho al Cuidado Humano (Ley Orgánica, 2023)</td>
+                                    <td class="px-4 py-2">Jornadas extenuantes, cultura del sacrificio y altas tasas de burnout que impiden el cuidado propio y de otros.</td>
+                                    <td class="px-4 py-2">(9, 10, 12, 32, 33)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h2 id="analisis-lukesiano">7.2. Análisis Lukesiano de la Vida Parental</h2>
+                    <p>Aplicando el modelo de Lukes a la situación parental contemporánea, se revelan las capas de poder que la sostienen:</p>
+                    <ul class="list-decimal list-inside space-y-2">
+                        <li><strong>1ª Dimensión (Poder Visible):</strong> El conflicto observable se da en la negociación diaria de horarios, en la lucha por ejercer derechos como la licencia de lactancia, y en las disputas por permisos para atender emergencias familiares. Estas luchas, aunque individuales, son el resultado de políticas institucionales que a menudo conllevan costos profesionales implícitos (represalias sutiles, pérdida de oportunidades) para quienes los ejercen (13).</li>
+                        <li><strong>2ª Dimensión (Control de la Agenda):</strong> El poder de la "no-decisión" se manifiesta de forma paradigmática en la agenda de las instituciones de salud. La falta de guarderías en los hospitales no es un simple olvido o una limitación presupuestaria insalvable; es una decisión implícita de no asumir el cuidado infantil como una responsabilidad institucional. La creación de un bono compensatorio de $93 para servidores públicos es un ejemplo magistral de control de agenda: ofrece una solución paliativa y económicamente irrisoria que da la apariencia de abordar el problema, pero su verdadera función es mantener fuera del debate la necesidad de una solución estructural, como la construcción de centros de cuidado infantil con horarios flexibles y adaptados a las guardias médicas. Al "resolver" el problema con un bono, se previene que la demanda de una solución real se convierta en un "tema potencial de debate" (13, 67).</li>
+                        <li><strong>3ª Dimensión (Poder Ideológico):</strong> Esta es la forma de poder más potente y perniciosa. La internalización de la "culpa materna" por parte de las médicas y la "romantización del sacrificio" por parte de todo el colectivo llevan a los profesionales a percibir su agotamiento, su estrés y sus conflictos familiares no como la consecuencia de un sistema injusto y explotador, sino como un fracaso personal o una falta de vocación. Esta internalización del problema previene la formación de una queja colectiva y la articulación de demandas políticas, garantizando el consentimiento y la reproducción del statu quo. Los profesionales no se rebelan contra el sistema porque han sido condicionados a creer que el problema reside en ellos mismos (12, 13, 47).</li>
+                    </ul>
+                `
+            },
+            {
+                id: "conclusion",
+                title: "8. Conclusión",
+                icon: "fa-flag-checkered",
+                content: `
+                    <h1 id="conclusion-title">8. Conclusión: De una Ética del Sacrificio a una Cultura de la Responsabilidad Institucional</h1>
+                    <p>La crisis de la paternidad y la maternidad entre los profesionales de la salud en Ecuador no es un problema de individuos débiles o de mala gestión del tiempo. Es una falla ética sistémica, profundamente arraigada en las estructuras de poder que gobiernan la profesión y la sociedad. La evidencia presentada en esta monografía demuestra que la colisión entre una cultura profesional de sacrificio, un discurso social androcéntrico y una realidad económica precarizante ha neutralizado eficazmente el progresista marco legal de corresponsabilidad del país.</p>
+                    <p>El análisis a través de las tres dimensiones del poder de Steven Lukes revela cómo opera este sistema. La ley explícita (1ª dimensión), que promueve la igualdad y el cuidado compartido, es vaciada de contenido por una agenda institucional (2ª dimensión) que se niega a considerar la conciliación como una prioridad, y por un poder ideológico abrumador (3ª dimensión) que convence a los propios profesionales de que su sufrimiento es una virtud vocacional o un fracaso personal.</p>
+                    <p>Frente a este panorama, la solución no puede residir en apelar a una mayor resiliencia individual. El camino hacia una vida profesional y familiar sostenible y justa exige un cambio de paradigma fundamental: la transición de una ética del sacrificio individual a una ética de la responsabilidad institucional. Este cambio debe estar fundamentado en los principios de una ética de mínimos, tal como se ha articulado a lo largo de este trabajo.</p>
+                    <p>Esto implica que el Estado, las universidades, los gremios médicos y las instituciones de salud deben asumir su deber ineludible de garantizar las condiciones de justicia básicas para sus trabajadores y estudiantes. Deben asegurar el derecho a la salud integral, combatiendo activamente el burnout; el derecho a una vida familiar, proveyendo los apoyos estructurales necesarios como guarderías y horarios flexibles; y el derecho a la no discriminación, desmantelando el discurso androcéntrico y promoviendo una corresponsabilidad real.</p>
+                    <p>En última instancia, la paternidad y maternidad de los profesionales sanitarios en Ecuador solo será justa y sostenible cuando se reconozca que el bienestar de quienes cuidan no es un lujo, sino una condición indispensable para un sistema de salud humano y eficaz. La sociedad no puede seguir exigiendo un juramento de servicio a sus médicos mientras les niega las condiciones más básicas para una vida plena en sus propios hogares. La responsabilidad de resolver esta paradoja no es de ellos, sino de las instituciones que se benefician de su sacrificio.</p>
+                `
+            },
+            {
+                id: "recomendaciones",
+                title: "9. Recomendaciones",
+                icon: "fa-gavel",
+                content: `
+                    <h1 id="recomendaciones-title">9. Recomendaciones de Política Pública</h1>
+                    <p>La transición de un paradigma de resiliencia individual a uno de responsabilidad institucional, guiado por una ética de mínimos, requiere un plan de acción concreto y multifacético. A continuación, se presenta una hoja de ruta con recomendaciones específicas dirigidas a los actores clave cuyo compromiso es indispensable para lograr una transformación real y sostenible en el sector salud de Ecuador.</p>
+                    <h3 id="gobierno-nacional">Para el Gobierno Nacional (Ministerio de Salud, Ministerio del Trabajo):</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Reformar y Fiscalizar la Normativa Laboral:</strong> Es imperativo establecer y hacer cumplir límites estrictos y basados en evidencia sobre las jornadas laborales de los profesionales de la salud, con especial atención a los médicos residentes. Se debe regular y limitar las guardias de 24 horas o más para prevenir el agotamiento sistémico (10).</li>
+                        <li><strong>Implementar una Estrategia Nacional de Cuidado Infantil:</strong> Se debe abandonar el modelo de bonos paliativos y desarrollar una política de Estado que garantice el acceso a una red de centros de cuidado infantil de alta calidad, asequibles y con horarios flexibles, diseñados para satisfacer las necesidades de los trabajadores de sectores 24/7 como el de la salud (9, 31, 67).</li>
+                        <li><strong>Mandar y Financiar la Equidad de Género:</strong> El Estado debe exigir y financiar auditorías de género periódicas en todas las instituciones de salud públicas y privadas. Estas auditorías deben evaluar la brecha salarial y la representación de mujeres en cargos de liderazgo, con mecanismos vinculantes para corregir las desigualdades detectadas (29, 30).</li>
+                    </ul>
+                    <h3 id="instituciones-salud">Para las Instituciones de Salud (Hospitales, Clínicas) y Gremios Profesionales:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Priorizar el Bienestar del Personal:</strong> Las administraciones hospitalarias deben integrar el bienestar del personal como un indicador clave de gestión. Esto incluye implementar estrategias probadas para reducir el burnout, como la distribución equitativa de la carga de trabajo, la garantía de pausas reales y la creación de sistemas formales de apoyo psicológico (36).</li>
+                        <li><strong>Invertir en Infraestructura de Cuidado In Situ:</strong> Las instituciones de salud deben invertir en la construcción y operación de guarderías y salas de lactancia de alta calidad dentro de sus instalaciones. Esto es una herramienta esencial para la retención de talento y la promoción de la equidad (65, 66).</li>
+                        <li><strong>Asumir un Rol Proactivo desde los Gremios:</strong> Los colegios médicos y otras asociaciones profesionales deben ampliar su mandato para convertirse en defensores activos del bienestar y la salud mental de sus miembros, exigiendo responsabilidad a las instituciones empleadoras (50, 51).</li>
+                    </ul>
+                    <h3 id="instituciones-educativas">Para las Instituciones Educativas (Universidades y Facultades de Ciencias de la Salud):</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Ejecutar una Reforma Curricular Fundamental:</strong> Las facultades de ciencias de la salud deben integrar de manera transversal y obligatoria módulos sobre bienestar, ética del autocuidado, equidad de género y corresponsabilidad. Se debe enseñar explícitamente a los estudiantes a cuidar de sí mismos para poder cuidar de otros (37, 38, 41).</li>
+                        <li><strong>Desmantelar el "Currículo Oculto":</strong> Las universidades deben identificar y desmantelar activamente la cultura no escrita que glorifica el autodescuido y el sacrificio. Esto requiere formar al cuerpo docente para que modele comportamientos saludables y respetuosos con el equilibrio vida-trabajo.</li>
+                        <li><strong>Crear Soporte Estructural para Estudiantes con Hijos:</strong> Se deben diseñar políticas académicas flexibles y servicios de apoyo dedicados (asesoramiento, guarderías universitarias) para los estudiantes que son padres y madres, reconociendo y validando sus dobles responsabilidades (12, 40).</li>
+                    </ul>
+                `
+            },
+            {
+                id: "bibliografia",
+                title: "Bibliografía",
+                icon: "fa-book",
+                content: `
+                    <h1 id="bibliografia-title">Bibliografía</h1>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Lukes S. El Poder: Un Enfoque Radical. 2ª ed. Madrid: Siglo XXI de España Editores; 2007.</li>
+                        <li>Federación Médica Ecuatoriana. Día del Médico Ecuatoriano. 2022.</li>
+                        <li>Ministerio de Salud Pública del Ecuador. El médico ecuatoriano festeja su día con trabajo y sacrificio. 2014.</li>
+                        <li>Ministerio de Salud Pública del Ecuador. Plan Decenal de Salud 2022-2031. 2022.</li>
+                        <li>Ministerio de Salud Pública del Ecuador. Batas y Biberones: Un Análisis Sociológico sobre el Bienestar, Género y Familia en la Profesión Médica Ecuatoriana. 2023.</li>
+                        <li>Ministerio de Salud Pública del Ecuador. De Sacrificio a Síntesis: Navegando la Paternidad y Maternidad en la Medicina Ecuatoriana entre la Cultura Androcéntrica y la Promesa de Corresponsabilidad. 2024.</li>
+                        <li>Pino Andrade EE. Mala práctica médica en Ecuador. Dilemas Contemporáneos: Educación, Política y Valores. 2019;VI(Edición Especial):90.</li>
+                        <li>Asamblea Nacional del Ecuador. Constitución de la República del Ecuador. 2008.</li>
+                        <li>Asamblea Nacional del Ecuador. Ley Orgánica del Derecho al Cuidado Humano. Registro Oficial Suplemento 309. 2023.</li>
+                        <li>Montesdeoca JP, et al. El personal médico y sus condiciones laborales en las unidades de terapia intensiva del Distrito Metropolitano de Quito – Ecuador. Rev Med Vozandes. 2013;24(1-2):30-6.</li>
+                        <li>Ron Erráez X. El inconsciente androcéntrico en la política pública: análisis del Plan Nacional para la Erradicación de la Violencia de Género en Ecuador.. Quito: Pontificia Universidad Católica del Ecuador; 2020.</li>
+                        <li>Mesa Redonda. Ser Médico y Padre: Un Equilibrio Vital. 2024.</li>
+                        <li>Lukes S. Power: A Radical View. 2nd ed. London: Palgrave Macmillan; 2005.</li>
+                        <li>Damschroder LJ, Aron DC, Keith RE, Kirsh SR, Alexander JA, Lowery JC. Fostering implementation of health services research findings into practice: a consolidated framework for advancing implementation science. Implement Sci. 2009;4:50.</li>
+                        <li>Cortina A. Ética mínima: Introducción a la filosofía práctica. 6ª ed. Madrid: Tecnos; 2000.</li>
+                        <li>Universidad de Cuenca. Machismo – Hembrismo – Marianismo – Feminismo. 2020.</li>
+                        <li>Científica. Sexualidad en Mesoamérica: machismo y marianismo. 2015.</li>
+                        <li>Tubay ZF. Representaciones simbólicas del género en Manabí-Ecuador. Perseitas. 2020;8:110-30.</li>
+                        <li>Universidad de Cuenca. Cogniciones sobre machismo y marianismo en adolescentes de Cuenca-Ecuador. 2014.</li>
+                        <li>Flacso Andes. Antología identidades. 2001.</li>
+                        <li>Instituto Nacional de Estadística y Censos (INEC). Encuesta Nacional de Uso del Tiempo (EUT). 2012.</li>
+                        <li>Indómita. Paternidad, masculinidad e infancia. 2024.</li>
+                        <li>La Cadera de Eva. El mito de la súper mujer en tiempos de cuarentena. 2020.</li>
+                        <li>VIA Empresa. El mito de la supermujer. 2025.</li>
+                        <li>ResearchGate. La representación de la mujer en dos escritores ecuatorianos. 2008.</li>
+                        <li>Volcánicas. El sentimiento de culpa en la maternidad: ¿algún día se acaba? 2023.</li>
+                        <li>ASET. Trabajo y maternidad: mujeres profesionales de los sectores medios de la Ciudad de Buenos Aires. 2013.</li>
+                        <li>Plan Internacional Ecuador. El involucramiento de los padres. 2021.</li>
+                        <li>Red de Mujeres Líderes de la Salud. Impulsa la equidad en el sistema sanitario. Expreso. 2024.</li>
+                        <li>Teleamazonas. El 70% de pacientes que acceden a salud mental en Ecuador son mujeres. 2024.</li>
+                        <li>UNICEF. ¿Qué son las políticas de conciliación vida familiar-laboral? 2021.</li>
+                        <li>Zambrano Toala JR, Torres F, Piñeros V, Moreno A, Ruilova E, Casares J, et al. Síndrome de Burnout en profesionales de la salud del Ecuador y factores asociados en tiempos de pandemia. Rev virtual Soc Parag Med Int. 2021;8(1):126-36.</li>
+                        <li>Vinueza-Veloz AF, Aldaz-Pachacama NR, Mera-Segovia CM, Pino-Vaca DP, Tapia-Veloz EC, Vinueza-Veloz MF. Síndrome de Burnout en médicos/as y enfermeros/as ecuatorianos durante la pandemia de COVID-19. SciELO Preprints. 2020.</li>
+                        <li>Martinez Jines SM. Estudio del Burnout y la satisfacción laboral en profesionales de la salud en un hospital en Ecuador. Rev Vive. 2024;7(21):909-20.</li>
+                        <li>Romero Zhinin JG, Ochoa Bernal GJ. Síndrome de burnout en médicos y personal de enfermería Hospital Básico de Limones – Ecuador. Anat Digit. 2024;7(1):140-57.</li>
+                        <li>Villafuerte A, Delgado-Reyes AR. Indicadores de Burnout y riesgo suicida en médicos residentes de Ecuador. Veritas & Research. 2020;2(2):109-19.</li>
+                        <li>Muñoz M, Cabieses B. Universidades y promoción de la salud: ¿cómo alcanzar el punto de encuentro? Rev Panam Salud Publica. 2008;24(2):139-46.</li>
+                        <li>Garrido AO, Vargas YJ, Garrido AG, Amable AZA. Rol de la universidad en la promoción y autocuidado de salud. Medisur. 2015;13(6):926-37.</li>
+                        <li>World Economic Forum. Cómo pueden las universidades apoyar la salud mental y el bienestar de los estudiantes [Internet]. 2022 [consultado 2024 Jul 10]. Disponible en: https://es.weforum.org/stories/2022/03/como-pueden-las-universidades-apoyar-la-salud-mental-y-el-bienestar-de-los-estudiantes/</li>
+                        <li>Organización Panamericana de la Salud. Una Nueva Mirada al Movimiento de Universidades Promotoras de la Salud en las Américas. Documento de Trabajo Desarrollado para el IV Congreso Internacional de Universidades Promotoras de la Salud. Pamplona: OPS; 2009.</li>
+                        <li>Gual A, Oriol-Bosch A. La responsabilidad social de las facultades de Medicina. Educ Med. 2021;22(2):104-10.</li>
+                        <li>Ministerio de Cultura y Patrimonio del Ecuador. La patria potestad en la historia del derecho ecuatoriano. 2018.</li>
+                        <li>Estrella E. Medicina y estructura socio-económica en el Ecuador colonial. Quito: Editorial Abya-Yala; 1997.</li>
+                        <li>Ministerio de Salud Pública del Ecuador. Historia de la Medicina en Ecuador. 2016.</li>
+                        <li>Medicina Cardiometabólica. Reflexión: ¿Cuánto sacrificio estás dispuesto a hacer? 2025.</li>
+                        <li>Goetschel AM. Matilde Hidalgo de Procel, una mujer total. Quito: Abya-Yala; 2005.</li>
+                        <li>Valls-Llobet C. Mujeres, salud y poder. Madrid: Cátedra; 2009.</li>
+                        <li>Colegio de Médicos de Pichincha. Historia del Colegio de Médicos de Pichincha. 2021.</li>
+                        <li>Federación Médica Ecuatoriana. Estatutos. 2023.</li>
+                        <li>Consejo Superior de Salud de El Salvador. Código de Salud. 1988.</li>
+                        <li>Facultad de Medicina, UNAM. El profesionalismo médico en los albores del siglo XXI. 2006.</li>
+                        <li>Asamblea Nacional del Ecuador. Código Civil. Registro Oficial Suplemento 46. 2005.</li>
+                        <li>Ministerio de Inclusión Económica y Social. La corresponsabilidad en los servicios del MIES. 2015.</li>
+                        <li>CELAG. Distribución de la riqueza en Ecuador: No habrá justicia social sin equidad. 2015.</li>
+                        <li>Forbes Ecuador. La concentración de la riqueza. 2023.</li>
+                        <li>Instituto Nacional de Estadística y Censos (INEC). Pobreza y Desigualdad - Junio 2024. 2024.</li>
+                        <li>Grupo Faro. El sistema de salud en Ecuador. 2021.</li>
+                        <li>Celedón C, Noé M. Corporativización de la salud en América Latina: un análisis comparado. Santiago: CEPAL; 2019.</li>
+                        <li>Investigación sobre Explotación Laboral en el Sector Público Ecuatoriano de la Salud. ResearchGate. 2021.</li>
+                        <li>Scielo. El aborto postergado en el Ecuador. 2018.</li>
+                        <li>Redalyc. Maternidad en estudiantes universitarias. 2018.</li>
+                        <li>Instituto Nacional de Estadística y Censos (INEC). Encuesta Nacional de Empleo, Desempleo y Subempleo (ENEMDU). 2024.</li>
+                        <li>Proctor E, Silmere H, Raghavan R, Hovmand P, Aarons G, Bunger A, et al. Outcomes for implementation research: conceptual distinctions, measurement challenges, and research agenda. Adm Policy Ment Health. 2011;38(2):65-76.</li>
+                        <li>Ministerio de Salud Pública del Ecuador. Manual del Modelo de Atención Integral del Sistema Nacional de Salud Familiar Comunitario e Intercultural (MAIS-FCI). 2012.</li>
+                        <li>Ministerio de Salud Pública del Ecuador. Norma para la implementación y funcionamiento de lactarios institucionales. 2019.</li>
+                        <li>UNICEF Ecuador. El rol de las empresas en la promoción de la lactancia materna. 2022.</li>
+                        <li>El Universo. Empleados públicos deberán recibir una compensación mensual si las entidades donde laboran no pueden proveer guarderías a hijos menores a 5 años. 2023.</li>
+                        <li>Cosas. La paternidad de hoy: desde las expectativas tradicionales hasta el modelo actual. 2024.</li>
+                    </ol>
+                `
+            }
+        ];
+
+        // Build the page content and navigation
+        let fullContent = '';
+        contentData.forEach(item => {
+            // Add content section to the main area
+            fullContent += `<div id="${item.id}" class="mb-12">${item.content}</div>`;
+            
+            // Create navigation link
+            const link = document.createElement('a');
+            link.href = `#${item.id}`;
+            link.className = 'flex items-center p-3 text-gray-700 border-l-4 border-transparent nav-link';
+            link.innerHTML = `<i class="fas ${item.icon} w-6 text-center mr-3 text-blue-600"></i><span>${item.title}</span>`;
+            navigation.appendChild(link);
+        });
+
+        // Set the generated content to the main container
+        mainContent.querySelector('.prose').innerHTML = fullContent;
+
+        // Add smooth scrolling and active state logic
+        const navLinks = navigation.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Observer to update active nav link on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const navLink = navigation.querySelector(`a[href="#${id}"]`);
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    if (navLink) {
+                        navLink.classList.add('active');
+                    }
+                }
+            });
+        }, { rootMargin: "-30% 0px -70% 0px", threshold: 0 });
+
+        // Observe all content sections
+        document.querySelectorAll('#main-content .prose > div').forEach(section => {
+            observer.observe(section);
+        });
+    });
+    </script>
+</body>
+</html>
