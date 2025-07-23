@@ -159,7 +159,6 @@
 
     <!-- TEMPLATES FOR DYNAMIC CONTENT (Hidden) -->
     <template id="presentation-template">
-        <!-- El contenido completo de la presentación HTML va aquí -->
         <div id="presentation-root">
             <style>
                 #presentation-root .slide { display: none; animation: fadeIn 0.5s; min-height: 520px; padding: 2.5rem; box-sizing: border-box; }
@@ -172,89 +171,21 @@
             </style>
             <div class="w-full max-w-5xl bg-white rounded-xl overflow-hidden flex flex-col h-full">
                 <div id="slide-container" class="flex-grow">
-                    <div class="slide active text-center">
-                        <span class="text-xl text-gray-500">Neurología - 6to Semestre</span>
-                        <h1 class="text-5xl font-bold text-gray-800 mt-4">Trastornos del Movimiento II</h1>
-                        <p class="text-3xl text-blue-700 mt-2 font-semibold">Diagnóstico Diferencial en Atención Primaria</p>
-                        <div class="border-b-4 border-blue-500 w-24 my-8 mx-auto"></div>
-                    </div>
-                    <div class="slide">
-                        <h2>1. El Rol del Médico de Atención Primaria (AP)</h2>
-                        <div class="space-y-6 text-lg">
-                            <p><i class="fas fa-hospital-user text-blue-500 mr-3 w-6 text-center"></i>Usted es la **puerta de entrada** al Sistema Nacional de Salud (MSP e IESS).</p>
-                            <p><i class="fas fa-magnifying-glass-chart text-blue-500 mr-3 w-6 text-center"></i>Su capacidad de **sospecha clínica y referencia oportuna** es el factor determinante.</p>
-                            <p class="mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500"><strong>Objetivo Clave de Hoy:</strong> "Sospechar con alta precisión para referir de manera efectiva".</p>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h2>2. Punto de Partida: El Paciente con Parkinsonismo</h2>
-                        <div class="grid md:grid-cols-2 gap-6 text-lg mt-4">
-                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-                                <h3 class="font-bold mb-3 text-xl">Perfil Típico de EPI</h3>
-                                <ul class="list-disc space-y-2"><li>**Bradicinesia** + Rigidez y/o Temblor de Reposo.</li><li>Inicio **Asimétrico**.</li><li>**Buena respuesta** a Levodopa.</li><li>Progresión lenta.</li></ul>
-                            </div>
-                            <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 flex flex-col justify-center">
-                                <h3 class="font-bold mb-3 text-xl">La Pregunta Clave de Hoy</h3>
-                                <p class="text-2xl font-semibold text-red-700">¿Y si el paciente **NO** sigue este patrón?</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h2 class="text-4xl text-red-600 text-center"><i class="fas fa-flag mr-3"></i>3. ¡BANDERAS ROJAS!</h2>
-                        <p class="text-lg text-gray-600 mb-6 text-center">Signos que alertan que **NO** es EPI.</p>
-                        <ul class="space-y-3 text-lg list-disc bg-red-50 p-6 rounded-lg columns-2">
-                            <li>**Caídas precoces** (< 3 años)</li><li>**Mala respuesta** a Levodopa</li><li>**Simetría** de síntomas al inicio</li><li>**Disautonomía precoz** y severa</li><li>Anormalidades de la **mirada vertical**</li><li>Signos **cerebelosos** o **mioclonías**</li><li>**Demencia precoz** (< 1 año)</li>
-                        </ul>
-                    </div>
-                    <div class="slide">
-                        <h2>4. Parkinsonismos-Plus (Atípicos)</h2>
-                        <div class="space-y-4">
-                            <div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-purple-700">Parálisis Supranuclear Progresiva (PSP)</h3><p class="mt-1">Parkinsonismo simétrico + **Caídas precoces hacia atrás** + **Parálisis de la mirada vertical hacia abajo**.</p></div>
-                            <div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-teal-700">Atrofia Multisistémica (AMS)</h3><p class="mt-1">La clave es la **disautonomía precoz y severa**.</p></div>
-                            <div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-orange-700">Degeneración Corticobasal (DCB)</h3><p class="mt-1">Parkinsonismo **marcadamente asimétrico** + Apraxia + **"mano ajena"**.</p></div>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h2>5. Parkinsonismos Secundarios</h2>
-                        <div class="space-y-6"><div class="p-6 bg-yellow-50 rounded-lg"><h3 class="font-bold text-xl text-yellow-800"><i class="fas fa-pills mr-2"></i>Inducido por Fármacos</h3><p class="mt-2">Culpables comunes: Metoclopramida, Haloperidol, Flunarizina.</p></div><div class="p-6 bg-indigo-50 rounded-lg"><h3 class="font-bold text-xl text-indigo-800"><i class="fas fa-brain mr-2"></i>Vascular</h3><p class="mt-2">"Parkinsonismo de la mitad inferior" (afecta más la marcha).</p></div></div>
-                    </div>
-                    <div class="slide">
-                        <h2>6. Algoritmo Diagnóstico: Parkinsonismo</h2>
-                        <div class="text-center"><div class="p-4 bg-blue-100 border-2 border-blue-400 rounded-lg inline-block"><p class="font-semibold text-lg">Paciente con Síndrome Parkinsoniano</p></div><i class="fas fa-arrow-down text-2xl text-gray-400 my-2"></i><div class="p-4 bg-yellow-100 border-2 border-yellow-400 rounded-lg inline-block"><p class="font-semibold text-lg">¿Existen "Banderas Rojas"?</p></div><div class="flex justify-around mt-2"><div class="w-1/2 px-2 text-center"><i class="fas fa-arrow-down text-2xl text-red-500"></i><div class="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg h-full"><p class="font-bold text-red-700">SÍ</p><p class="text-sm mt-2">Sospecha de Parkinsonismo Atípico/Secundario</p><p class="font-semibold mt-4">→ Referencia Prioritaria</p></div></div><div class="w-1/2 px-2 text-center"><i class="fas fa-arrow-down text-2xl text-green-500"></i><div class="mt-2 p-3 bg-green-50 border border-green-300 rounded-lg h-full"><p class="font-bold text-green-700">NO</p><p class="text-sm mt-2">¿Asimetría y buena respuesta a L-Dopa?</p><p class="font-semibold mt-4">→ Alta Sospecha de EPI</p></div></div></div></div>
-                    </div>
-                    <div class="slide">
-                        <h2>7. Hipercinesias: El Paciente con Temblor</h2>
-                        <div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead><tr><th class="border-b-2 p-3 bg-gray-100">Característica</th><th class="border-b-2 p-3 bg-blue-50">T. Parkinsoniano</th><th class="border-b-2 p-3 bg-green-50">T. Esencial</th><th class="border-b-2 p-3 bg-red-50">T. Cerebeloso</th></tr></thead><tbody><tr><td class="border-b p-3 font-semibold">Situación</td><td class="border-b p-3">Máximo en **reposo**</td><td class="border-b p-3">Máximo en **postura y acción**</td><td class="border-b p-3">Máximo en **movimiento dirigido**</td></tr><tr><td class="border-b p-3 font-semibold">Mejora con Alcohol</td><td class="border-b p-3">No</td><td class="border-b p-3">**Sí, característicamente**</td><td class="border-b p-3">No</td></tr><tr><td class="border-b p-3 font-semibold">Signos Asociados</td><td class="border-b p-3">Bradicinesia, rigidez</td><td class="border-b p-3">Ninguno (historia familiar)</td><td class="border-b p-3">Ataxia, dismetría</td></tr></tbody></table></div><p class="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500"><strong>No olvide el Temblor Fisiológico Exacerbado.</strong></p>
-                    </div>
-                    <div class="slide">
-                        <h2>8. Otras Hipercinesias</h2>
-                        <ul class="list-disc space-y-4 mb-6"><li><strong>Corea:</strong> Movimientos breves, irregulares, "danzantes".</li><li><strong>Distonía:</strong> Contracciones sostenidas que causan posturas anómalas. Buscar el **"truco sensorial"**.</li><li><strong>Mioclonías:</strong> Sacudidas súbitas, breves, tipo "shock eléctrico".</li></ul><div class="p-4 bg-red-50 rounded-lg border-l-4 border-red-500"><h3 class="font-bold text-red-700 text-xl"><i class="fas fa-search mr-2"></i>Prioridad en AP: ¡Buscar causas secundarias!</h3></div>
-                    </div>
-                    <div class="slide">
-                        <h2>9. Pruebas Terapéuticas en AP</h2>
-                        <p class="text-lg text-gray-600 mb-6">La respuesta a un fármaco puede ser una valiosa herramienta diagnóstica.</p>
-                        <div class="space-y-4"><div class="flex items-start"><i class="fas fa-pills text-2xl text-green-600 mt-1 mr-4"></i><div><h3 class="font-semibold text-xl">Reto con Levodopa</h3><p>Una mejoría clara apoya fuertemente el diagnóstico de **EPI**.</p></div></div><div class="flex items-start"><i class="fas fa-wine-glass text-2xl text-red-600 mt-1 mr-4"></i><div><h3 class="font-semibold text-xl">Reto con Etanol</h3><p>Una mejoría notable es altamente específica para **Temblor Esencial**.</p></div></div></div>
-                    </div>
-                    <div class="slide">
-                        <h2>10. La Vía del Paciente en el SNS de Ecuador</h2>
-                        <div class="space-y-4"><div class="flex items-center bg-gray-50 p-4 rounded-lg"><i class="fas fa-file-alt text-4xl text-blue-500 mr-5"></i><div><strong class="text-gray-800 text-xl">Formulario 053: La Herramienta Clave</strong><p class="text-base">Una referencia debe ser **pertinente** y bien justificada.</p></div></div><div class="flex items-center bg-gray-50 p-4 rounded-lg"><i class="fas fa-sitemap text-4xl text-blue-500 mr-5"></i><div><strong class="text-gray-800 text-xl">Niveles de Atención</strong><p class="text-base">Conocer la capacidad resolutiva de su Centro de Salud.</p></div></div></div>
-                    </div>
-                    <div class="slide">
-                        <h2>11. Criterios Prácticos de Referencia</h2>
-                        <div class="space-y-4"><div class="p-4 bg-red-100 border-l-4 border-red-500 rounded-lg"><h3 class="font-bold text-red-800">URGENTE (Emergencia)</h3><p>Inicio agudo de corea, distonía o balismo.</p></div><div class="p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg"><h3 class="font-bold text-yellow-800">PRIORITARIA (Consulta Externa)</h3><ul class="list-disc mt-2"><li>Sospecha de parkinsonismo con **"Banderas Rojas"**.</li><li>Sospecha de EPI en paciente joven (< 50 años).</li></ul></div><div class="p-4 bg-green-100 border-l-4 border-green-500 rounded-lg"><h3 class="font-bold text-green-800">NO PRIORITARIA (Consulta Externa)</h3><p>Temblor Esencial clásico que impacta la calidad de vida.</p></div></div>
-                    </div>
-                    <div class="slide">
-                        <h2>12. Herramientas Pedagógicas</h2>
-                        <div class="grid md:grid-cols-2 gap-6"><div class="p-4 bg-gray-50 rounded-lg text-center"><i class="fas fa-user-friends text-4xl text-blue-500 mb-3"></i><h3 class="font-bold text-xl">Casos Clínicos Simulados</h3><p>Discusión en grupo de los casos clínicos.</p></div><div class="p-4 bg-gray-50 rounded-lg text-center"><i class="fas fa-tasks text-4xl text-blue-500 mb-3"></i><h3 class="font-bold text-xl">Estación ECOE/OSCE</h3><p>Evaluación práctica estandarizada.</p></div></div>
-                    </div>
-                    <div class="slide">
-                        <h2>13. Conclusiones para el Futuro Médico</h2>
-                        <div class="space-y-4 text-xl"><p><i class="fas fa-user-md text-green-500 mr-3 w-6 text-center"></i>Su **habilidad clínica** es la herramienta más poderosa.</p><p><i class="fas fa-flag text-red-500 mr-3 w-6 text-center"></i>Aprender a reconocer **"Banderas Rojas"** es fundamental.</p><p><i class="fas fa-route text-blue-500 mr-3 w-6 text-center"></i>**Saber navegar el sistema de salud** es parte del manejo.</p></div>
-                    </div>
-                    <div class="slide text-center">
-                        <h2 class="text-5xl font-bold text-gray-800">¡Gracias!</h2>
-                        <p class="text-3xl text-gray-600 mt-4">¿Preguntas?</p>
-                    </div>
+                    <div class="slide active text-center"><span class="text-xl text-gray-500">Neurología - 6to Semestre</span><h1 class="text-5xl font-bold text-gray-800 mt-4">Trastornos del Movimiento II</h1><p class="text-3xl text-blue-700 mt-2 font-semibold">Diagnóstico Diferencial en Atención Primaria</p><div class="border-b-4 border-blue-500 w-24 my-8 mx-auto"></div></div>
+                    <div class="slide"><h2>1. El Rol del Médico de Atención Primaria (AP)</h2><div class="space-y-6 text-lg"><p><i class="fas fa-hospital-user text-blue-500 mr-3 w-6 text-center"></i>Usted es la **puerta de entrada** al Sistema Nacional de Salud (MSP e IESS).</p><p><i class="fas fa-magnifying-glass-chart text-blue-500 mr-3 w-6 text-center"></i>Su capacidad de **sospecha clínica y referencia oportuna** es el factor determinante.</p><p class="mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500"><strong>Objetivo Clave de Hoy:</strong> "Sospechar con alta precisión para referir de manera efectiva".</p></div></div>
+                    <div class="slide"><h2>2. Punto de Partida: El Paciente con Parkinsonismo</h2><div class="grid md:grid-cols-2 gap-6 text-lg mt-4"><div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500"><h3 class="font-bold mb-3 text-xl">Perfil Típico de EPI</h3><ul class="list-disc space-y-2"><li>**Bradicinesia** + Rigidez y/o Temblor de Reposo.</li><li>Inicio **Asimétrico**.</li><li>**Buena respuesta** a Levodopa.</li><li>Progresión lenta.</li></ul></div><div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 flex flex-col justify-center"><h3 class="font-bold mb-3 text-xl">La Pregunta Clave de Hoy</h3><p class="text-2xl font-semibold text-red-700">¿Y si el paciente **NO** sigue este patrón?</p></div></div></div>
+                    <div class="slide"><h2 class="text-4xl text-red-600 text-center"><i class="fas fa-flag mr-3"></i>3. ¡BANDERAS ROJAS!</h2><p class="text-lg text-gray-600 mb-6 text-center">Signos que alertan que **NO** es EPI.</p><ul class="space-y-3 text-lg list-disc bg-red-50 p-6 rounded-lg columns-2"><li>**Caídas precoces** (< 3 años)</li><li>**Mala respuesta** a Levodopa</li><li>**Simetría** de síntomas al inicio</li><li>**Disautonomía precoz** y severa</li><li>Anormalidades de la **mirada vertical**</li><li>Signos **cerebelosos** o **mioclonías**</li><li>**Demencia precoz** (< 1 año)</li></ul></div>
+                    <div class="slide"><h2>4. Parkinsonismos-Plus (Atípicos)</h2><div class="space-y-4"><div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-purple-700">Parálisis Supranuclear Progresiva (PSP)</h3><p class="mt-1">Parkinsonismo simétrico + **Caídas precoces hacia atrás** + **Parálisis de la mirada vertical hacia abajo**.</p></div><div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-teal-700">Atrofia Multisistémica (AMS)</h3><p class="mt-1">La clave es la **disautonomía precoz y severa**.</p></div><div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-orange-700">Degeneración Corticobasal (DCB)</h3><p class="mt-1">Parkinsonismo **marcadamente asimétrico** + Apraxia + **"mano ajena"**.</p></div></div></div>
+                    <div class="slide"><h2>5. Parkinsonismos Secundarios</h2><div class="space-y-6"><div class="p-6 bg-yellow-50 rounded-lg"><h3 class="font-bold text-xl text-yellow-800"><i class="fas fa-pills mr-2"></i>Inducido por Fármacos</h3><p class="mt-2">Culpables comunes: Metoclopramida, Haloperidol, Flunarizina.</p></div><div class="p-6 bg-indigo-50 rounded-lg"><h3 class="font-bold text-xl text-indigo-800"><i class="fas fa-brain mr-2"></i>Vascular</h3><p class="mt-2">"Parkinsonismo de la mitad inferior" (afecta más la marcha).</p></div></div></div>
+                    <div class="slide"><h2>6. Algoritmo Diagnóstico: Parkinsonismo</h2><div class="text-center"><div class="p-4 bg-blue-100 border-2 border-blue-400 rounded-lg inline-block"><p class="font-semibold text-lg">Paciente con Síndrome Parkinsoniano</p></div><i class="fas fa-arrow-down text-2xl text-gray-400 my-2"></i><div class="p-4 bg-yellow-100 border-2 border-yellow-400 rounded-lg inline-block"><p class="font-semibold text-lg">¿Existen "Banderas Rojas"?</p></div><div class="flex justify-around mt-2"><div class="w-1/2 px-2 text-center"><i class="fas fa-arrow-down text-2xl text-red-500"></i><div class="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg h-full"><p class="font-bold text-red-700">SÍ</p><p class="text-sm mt-2">Sospecha de Parkinsonismo Atípico/Secundario</p><p class="font-semibold mt-4">→ Referencia Prioritaria</p></div></div><div class="w-1/2 px-2 text-center"><i class="fas fa-arrow-down text-2xl text-green-500"></i><div class="mt-2 p-3 bg-green-50 border border-green-300 rounded-lg h-full"><p class="font-bold text-green-700">NO</p><p class="text-sm mt-2">¿Asimetría y buena respuesta a L-Dopa?</p><p class="font-semibold mt-4">→ Alta Sospecha de EPI</p></div></div></div></div></div>
+                    <div class="slide"><h2>7. Hipercinesias: El Paciente con Temblor</h2><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead><tr><th class="border-b-2 p-3 bg-gray-100">Característica</th><th class="border-b-2 p-3 bg-blue-50">T. Parkinsoniano</th><th class="border-b-2 p-3 bg-green-50">T. Esencial</th><th class="border-b-2 p-3 bg-red-50">T. Cerebeloso</th></tr></thead><tbody><tr><td class="border-b p-3 font-semibold">Situación</td><td class="border-b p-3">Máximo en **reposo**</td><td class="border-b p-3">Máximo en **postura y acción**</td><td class="border-b p-3">Máximo en **movimiento dirigido**</td></tr><tr><td class="border-b p-3 font-semibold">Mejora con Alcohol</td><td class="border-b p-3">No</td><td class="border-b p-3">**Sí, característicamente**</td><td class="border-b p-3">No</td></tr><tr><td class="border-b p-3 font-semibold">Signos Asociados</td><td class="border-b p-3">Bradicinesia, rigidez</td><td class="border-b p-3">Ninguno (historia familiar)</td><td class="border-b p-3">Ataxia, dismetría</td></tr></tbody></table></div><p class="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500"><strong>No olvide el Temblor Fisiológico Exacerbado.</strong></p></div>
+                    <div class="slide"><h2>8. Otras Hipercinesias</h2><ul class="list-disc space-y-4 mb-6"><li><strong>Corea:</strong> Movimientos breves, irregulares, "danzantes".</li><li><strong>Distonía:</strong> Contracciones sostenidas que causan posturas anómalas. Buscar el **"truco sensorial"**.</li><li><strong>Mioclonías:</strong> Sacudidas súbitas, breves, tipo "shock eléctrico".</li></ul><div class="p-4 bg-red-50 rounded-lg border-l-4 border-red-500"><h3 class="font-bold text-red-700 text-xl"><i class="fas fa-search mr-2"></i>Prioridad en AP: ¡Buscar causas secundarias!</h3></div></div>
+                    <div class="slide"><h2>9. Pruebas Terapéuticas en AP</h2><p class="text-lg text-gray-600 mb-6">La respuesta a un fármaco puede ser una valiosa herramienta diagnóstica.</p><div class="space-y-4"><div class="flex items-start"><i class="fas fa-pills text-2xl text-green-600 mt-1 mr-4"></i><div><h3 class="font-semibold text-xl">Reto con Levodopa</h3><p>Una mejoría clara apoya fuertemente el diagnóstico de **EPI**.</p></div></div><div class="flex items-start"><i class="fas fa-wine-glass text-2xl text-red-600 mt-1 mr-4"></i><div><h3 class="font-semibold text-xl">Reto con Etanol</h3><p>Una mejoría notable es altamente específica para **Temblor Esencial**.</p></div></div></div></div>
+                    <div class="slide"><h2>10. La Vía del Paciente en el SNS de Ecuador</h2><div class="space-y-4"><div class="flex items-center bg-gray-50 p-4 rounded-lg"><i class="fas fa-file-alt text-4xl text-blue-500 mr-5"></i><div><strong class="text-gray-800 text-xl">Formulario 053: La Herramienta Clave</strong><p class="text-base">Una referencia debe ser **pertinente** y bien justificada.</p></div></div><div class="flex items-center bg-gray-50 p-4 rounded-lg"><i class="fas fa-sitemap text-4xl text-blue-500 mr-5"></i><div><strong class="text-gray-800 text-xl">Niveles de Atención</strong><p class="text-base">Conocer la capacidad resolutiva de su Centro de Salud.</p></div></div></div></div>
+                    <div class="slide"><h2>11. Criterios Prácticos de Referencia</h2><div class="space-y-4"><div class="p-4 bg-red-100 border-l-4 border-red-500 rounded-lg"><h3 class="font-bold text-red-800">URGENTE (Emergencia)</h3><p>Inicio agudo de corea, distonía o balismo.</p></div><div class="p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg"><h3 class="font-bold text-yellow-800">PRIORITARIA (Consulta Externa)</h3><ul class="list-disc mt-2"><li>Sospecha de parkinsonismo con **"Banderas Rojas"**.</li><li>Sospecha de EPI en paciente joven (< 50 años).</li></ul></div><div class="p-4 bg-green-100 border-l-4 border-green-500 rounded-lg"><h3 class="font-bold text-green-800">NO PRIORITARIA (Consulta Externa)</h3><p>Temblor Esencial clásico que impacta la calidad de vida.</p></div></div></div>
+                    <div class="slide"><h2>12. Herramientas Pedagógicas</h2><div class="grid md:grid-cols-2 gap-6"><div class="p-4 bg-gray-50 rounded-lg text-center"><i class="fas fa-user-friends text-4xl text-blue-500 mb-3"></i><h3 class="font-bold text-xl">Casos Clínicos Simulados</h3><p>Discusión en grupo de los casos clínicos.</p></div><div class="p-4 bg-gray-50 rounded-lg text-center"><i class="fas fa-tasks text-4xl text-blue-500 mb-3"></i><h3 class="font-bold text-xl">Estación ECOE/OSCE</h3><p>Evaluación práctica estandarizada.</p></div></div></div>
+                    <div class="slide"><h2>13. Conclusiones para el Futuro Médico</h2><div class="space-y-4 text-xl"><p><i class="fas fa-user-md text-green-500 mr-3 w-6 text-center"></i>Su **habilidad clínica** es la herramienta más poderosa.</p><p><i class="fas fa-flag text-red-500 mr-3 w-6 text-center"></i>Aprender a reconocer **"Banderas Rojas"** es fundamental.</p><p><i class="fas fa-route text-blue-500 mr-3 w-6 text-center"></i>**Saber navegar el sistema de salud** es parte del manejo.</p></div></div>
+                    <div class="slide text-center"><h2 class="text-5xl font-bold text-gray-800">¡Gracias!</h2><p class="text-3xl text-gray-600 mt-4">¿Preguntas?</p></div>
                 </div>
                 <div class="brand-gradient text-white flex items-center justify-between p-4 mt-auto">
                     <button id="prevBtn" class="bg-white/20 hover:bg-white/40 px-4 py-2 rounded-lg transition-colors disabled:opacity-50">Anterior</button>
@@ -279,15 +210,34 @@
                 <div id="main-accordion-abp" class="space-y-4">
                     <div class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg">
                         <div class="accordion-header bg-blue-700 text-white p-5 flex justify-between items-center"><h2 class="text-2xl font-bold">Caso 1: La Secretaria con Caídas</h2><i class="fas fa-chevron-right icon text-2xl"></i></div>
-                        <div class="accordion-content"><div class="p-6"><!-- Content for case 1 --></div></div>
+                        <div class="accordion-content"><div class="p-6">
+                            <div class="bg-blue-50 p-6 rounded-lg mb-6"><h3 class="text-xl font-bold text-blue-800 mb-3">Presentación del Caso</h3><p class="text-gray-700">Paciente femenina de 65 años, secretaria jubilada, es traída por su hija a un Centro de Salud Tipo C en Quito. La historia comenzó hace aproximadamente 18 meses con inestabilidad al caminar. Ha sufrido 4 caídas en los últimos 6 meses, "sin tropezarse con nada, como si se fuera para atrás". La hija nota que su madre tiene una "mirada fija, de asombro" y que a menudo se atraganta con los líquidos. Se le inició tratamiento con Levodopa/Carbidopa hace 3 meses, sin ninguna mejoría. En la exploración, se evidencia rigidez simétrica, más marcada en el cuello, con tendencia al retrocolis. No se observa temblor. La marcha es de base ancha e inestable. Al pedirle que siga el dedo del examinador, se evidencia una marcada limitación para la mirada vertical, especialmente hacia abajo. El pull test es marcadamente positivo.</p></div>
+                            <div class="space-y-2">
+                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-blue-600">Salto 1:</span> Clarificar Términos</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="Definir: Retrocolis, Pull test, Rigidez simétrica, Oftalmoparesia vertical..."></textarea></div></div>
+                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-blue-600">Salto 2:</span> Definir el Problema</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="¿Cuál es el diagnóstico en una paciente con parkinsonismo simétrico, caídas precoces y mala respuesta a Levodopa?"></textarea></div></div>
+                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-blue-600">Salto 7:</span> Síntesis y Reporte</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="Diagnóstico: Alta sospecha de Parálisis Supranuclear Progresiva (PSP). Justificación: Basado en la constelación de hallazgos... Plan: Referencia a Fisioterapia, Terapia de Deglución y Neurología."></textarea></div></div>
+                            </div>
+                        </div></div>
                     </div>
                     <div class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg">
                         <div class="accordion-header bg-green-700 text-white p-5 flex justify-between items-center"><h2 class="text-2xl font-bold">Caso 2: El Agricultor Rígido</h2><i class="fas fa-chevron-right icon text-2xl"></i></div>
-                        <div class="accordion-content"><div class="p-6"><!-- Content for case 2 --></div></div>
+                        <div class="accordion-content"><div class="p-6">
+                             <div class="bg-green-50 p-6 rounded-lg mb-6"><h3 class="text-xl font-bold text-green-800 mb-3">Presentación del Caso</h3><p class="text-gray-700">Paciente masculino de 68 años, agricultor rural, acude a un Centro de Salud Tipo A por "lentitud" de 2 años de evolución. Su esposa refiere que "arrastra los pies" y casi no mueve el brazo derecho. Él se queja de temblor en su mano derecha en reposo. No ha tenido caídas. Refiere pérdida de olfato y estreñimiento severo desde hace años. En la exploración: hipomimia, temblor de reposo en mano derecha, rigidez en rueda dentada derecha, bradicinesia derecha. Pull test normal.</p></div>
+                             <div class="space-y-2">
+                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-green-600">Salto 2:</span> Definir el Problema</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="¿Qué elementos clínicos nos permiten diferenciar con alta probabilidad una EPI de sus imitadores en este paciente?"></textarea></div></div>
+                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-green-600">Salto 7:</span> Síntesis y Reporte</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="Diagnóstico: Alta probabilidad de EPI. Justificación: Cumple criterios de síndrome parkinsoniano y presenta características de soporte, con ausencia destacada de banderas rojas, lo que aleja la sospecha de parkinsonismos atípicos."></textarea></div></div>
+                             </div>
+                        </div></div>
                     </div>
                     <div class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg">
                         <div class="accordion-header bg-pink-700 text-white p-5 flex justify-between items-center"><h2 class="text-2xl font-bold">Caso 3: La Universitaria con Temblor</h2><i class="fas fa-chevron-right icon text-2xl"></i></div>
-                        <div class="accordion-content"><div class="p-6"><!-- Content for case 3 --></div></div>
+                        <div class="accordion-content"><div class="p-6">
+                            <div class="bg-pink-50 p-6 rounded-lg mb-6"><h3 class="text-xl font-bold text-pink-800 mb-3">Presentación del Caso</h3><p class="text-gray-700">Paciente femenina de 20 años, estudiante, consulta en un Centro de Salud Tipo B por temblor en ambas manos desde hace 6 meses. Empeora con el estrés de los exámenes y el café. Le dificulta escribir. Su padre y abuela paterna tienen un temblor similar. En la exploración: temblor postural fino bilateral, aumenta ligeramente en la maniobra dedo-nariz, sin dismetría. No hay temblor en reposo. Resto del examen normal.</p></div>
+                            <div class="space-y-2">
+                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-pink-600">Salto 2:</span> Definir el Problema</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="¿Cómo diferenciar un Temblor Esencial (TE) de un Temblor Fisiológico Exacerbado (TFE) en una paciente joven con historia familiar?"></textarea></div></div>
+                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-pink-600">Salto 7:</span> Síntesis y Reporte</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="Diagnóstico más probable: Temblor Esencial. Plan en AP: Solicitar TSH/T4L, glicemia. Recomendar medidas no farmacológicas (reducir cafeína, manejo de estrés). Discutir propranolol a dosis bajas si es incapacitante."></textarea></div></div>
+                            </div>
+                        </div></div>
                     </div>
                 </div>
             </div>
@@ -392,10 +342,11 @@
                         content.style.maxHeight = null;
                     } else {
                         content.style.maxHeight = content.scrollHeight + "px";
-                        // Adjust parent accordion if nested
                         const parentContent = header.closest('.accordion-content');
                         if (parentContent) {
-                            parentContent.style.maxHeight = parentContent.scrollHeight + content.scrollHeight + "px";
+                            setTimeout(() => {
+                                parentContent.style.maxHeight = parentContent.scrollHeight + content.scrollHeight + "px";
+                            }, 300);
                         }
                     }
                 });
