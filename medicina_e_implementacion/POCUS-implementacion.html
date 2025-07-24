@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Iconos de Font Awesome añadidos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Estilos personalizados para complementar Tailwind */
         body {
@@ -183,7 +185,11 @@
 
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-slate-700">La Expedición POCUS</h2>
-            <p class="mt-2 text-lg text-slate-600">Un viaje interactivo por la monografía. Haz clic en cada hito para explorar.</p>
+            <p class="mt-2 text-lg text-slate-600 max-w-2xl mx-auto">Un viaje interactivo por la monografía. Haz clic en cada hito para explorar.</p>
+            <!-- BOTÓN DE DESCARGA CON LINK CORREGIDO -->
+            <a href="https://alcyedmundo281.github.io/PowerSemiotics/assets/pdf/POCUS-implementacion.pdf" download="POCUS-Implementacion-Monografia.pdf" class="mt-6 inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-transform duration-200 ease-in-out transform hover:scale-105 shadow-lg">
+                <i class="fas fa-file-pdf mr-2"></i>Descargar Monografía (PDF)
+            </a>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
