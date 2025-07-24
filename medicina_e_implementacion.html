@@ -3,505 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Implementación de POCUS en Ecuador - Powersemiotics</title>
+    <title>Medicina e Implementación - Powersemiotics</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Iconos de Font Awesome añadidos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Estilos personalizados para complementar Tailwind */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
-            color: #1e293b;
         }
-
-        /* Estilo para el contenedor del mapa de ruta */
-        .roadmap-container {
-            position: relative;
-            padding: 2rem 0;
+        .gradient-text {
+            background: -webkit-linear-gradient(#065f46, #c2410c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        /* Línea central del mapa de ruta */
-        .roadmap-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background-color: #cbd5e1;
-            border-radius: 2px;
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        /* Estilo para cada hito en el mapa */
-        .roadmap-item {
-            position: relative;
-            margin-bottom: 3rem;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .roadmap-item:hover {
-            transform: scale(1.02);
-        }
-
-        .roadmap-content {
-            position: relative;
-            width: 45%;
-            padding: 1.5rem;
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            border-left: 4px solid #38bdf8;
-        }
-
-        /* Posicionamiento alternado de los hitos */
-        .roadmap-item:nth-child(odd) .roadmap-content {
-            left: 0;
-            margin-left: -2rem;
-        }
-
-        .roadmap-item:nth-child(even) .roadmap-content {
-            left: 55%;
-            margin-right: -2rem;
-            border-left: none;
-            border-right: 4px solid #38bdf8;
-        }
-
-        /* Círculo en la línea de tiempo */
-        .roadmap-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: white;
-            border: 4px solid #38bdf8;
-            top: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 50%;
-            z-index: 1;
-            transition: background-color 0.2s ease;
-        }
-        
-        .roadmap-item.active::after {
-            background-color: #38bdf8;
-        }
-
-        /* Contenedor para el contenido de la monografía */
-        #content-display {
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            transition: all 0.5s ease-in-out;
-            min-height: 400px;
-        }
-        
-        /* Estilos para el modal */
-        .modal {
-            display: none; /* Oculto por defecto */
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
-            animation: fadeIn 0.3s;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 900px;
-            border-radius: 8px;
-            animation: slideIn 0.3s;
-        }
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
-        @keyframes slideIn {
-            from {transform: translateY(-50px);}
-            to {transform: translateY(0);}
-        }
-
-        /* Adaptación para móviles */
-        @media (max-width: 768px) {
-            .roadmap-container::before {
-                left: 20px;
-            }
-            .roadmap-item .roadmap-content {
-                width: calc(100% - 60px);
-                left: 60px;
-            }
-            .roadmap-item:nth-child(even) .roadmap-content {
-                left: 60px;
-                border-right: none;
-                border-left: 4px solid #38bdf8;
-            }
-            .roadmap-item::after {
-                left: 20px;
-            }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
     </style>
 </head>
-<body class="bg-slate-100">
+<body class="bg-gray-50 text-gray-800">
 
     <!-- Encabezado -->
-    <header class="bg-white shadow-md p-4">
-        <div class="container mx-auto flex justify-between items-center">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/index.html" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
             <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-slate-800">Powersemiotics</h1>
-                <p class="text-sm text-slate-500">Hacia una Política Nacional de POCUS en Ecuador</p>
+                <a href="/medicina_e_implementacion.html" class="text-green-800 font-semibold">Medicina e Implementación</a>
             </div>
-            <a href="https://alcyedmundo281.github.io/Powersemiotics/medicina_e_implementacion.html" class="text-sky-500 hover:text-sky-700 transition">&larr; Volver</a>
-        </div>
+        </nav>
     </header>
 
     <!-- Contenido Principal -->
-    <main class="container mx-auto p-4 md:p-8">
-
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-700">La Expedición POCUS</h2>
-            <p class="mt-2 text-lg text-slate-600 max-w-2xl mx-auto">Un viaje interactivo por la monografía. Haz clic en cada hito para explorar.</p>
-            <!-- BOTÓN DE DESCARGA CON LINK CORREGIDO -->
-            <a href="https://alcyedmundo281.github.io/PowerSemiotics/assets/pdf/POCUS-implementacion.pdf" download="POCUS-Implementacion-Monografia.pdf" class="mt-6 inline-block bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-transform duration-200 ease-in-out transform hover:scale-105 shadow-lg">
-                <i class="fas fa-file-pdf mr-2"></i>Descargar Monografía (PDF)
-            </a>
+    <main class="container mx-auto px-6 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                Ciencia de la Implementación
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Cerrando la brecha entre la evidencia y la práctica. Exploramos los métodos y estrategias para asegurar que las innovaciones científicas se traduzcan en beneficios reales para los pacientes y el sistema de salud.
+            </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Columna del Mapa de Ruta (Izquierda) -->
-            <div class="lg:col-span-1">
-                <div class="roadmap-container">
-                    <!-- Hitos del mapa de ruta -->
-                    <div class="roadmap-item active" data-target="content-intro">
-                        <div class="roadmap-content">
-                            <h3 class="font-bold text-lg text-sky-600">Inicio: El Viaje Comienza</h3>
-                            <p class="text-sm text-slate-500">Introducción y fundamentos del POCUS.</p>
-                        </div>
-                    </div>
+        <!-- Grid de Tópicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
-                    <div class="roadmap-item" data-target="content-evolution">
-                        <div class="roadmap-content">
-                            <h3 class="font-bold text-lg text-sky-600">Hito 1: Ecos del Pasado</h3>
-                            <p class="text-sm text-slate-500">Evolución histórica y adopción cultural del POCUS.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="roadmap-item" data-target="content-impact">
-                        <div class="roadmap-content">
-                            <h3 class="font-bold text-lg text-sky-600">Hito 2: Impacto Global</h3>
-                            <p class="text-sm text-slate-500">Necesidades universales y el impacto en calidad y eficiencia.</p>
-                        </div>
-                    </div>
+            <!-- Card 1: Implementación de la No Reforma -->
+            <a href="/medicina_e_implementacion/implementacion_no_reforma/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-balance-scale-left text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Implementación de la No Reforma</h2>
+                <p class="text-gray-600">
+                    Análisis de los desafíos y estrategias para implementar cambios significativos en sistemas de salud complejos y resistentes al cambio.
+                </p>
+            </a>
 
-                    <div class="roadmap-item" data-target="content-ecuador">
-                        <div class="roadmap-content">
-                            <h3 class="font-bold text-lg text-sky-600">Hito 3: Realidad Ecuatoriana</h3>
-                            <p class="text-sm text-slate-500">POCUS y la lucha por la equidad en salud en Ecuador.</p>
-                        </div>
-                    </div>
+            <!-- Card 2: Implementación de Medicina de Precisión -->
+            <a href="/medicina_e_implementacion/implementacion_medicina_precision/index.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-bullseye text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Implementación de Medicina de Precisión</h2>
+                <p class="text-gray-600">
+                    Exploración de los retos para integrar la farmacogenómica, los biomarcadores y las terapias dirigidas en la práctica clínica diaria.
+                </p>
+            </a>
 
-                    <div class="roadmap-item" data-target="content-research">
-                        <div class="roadmap-content">
-                            <h3 class="font-bold text-lg text-sky-600">Hito 4: El Plan de Vuelo</h3>
-                            <p class="text-sm text-slate-500">Diseño de la investigación: un proyecto híbrido.</p>
-                        </div>
-                    </div>
+            <!-- Card 3: Parentalidad, Poder y Equidad -->
+            <a href="/medicina_e_implementacion/parentalidad-salud.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-users text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Parentalidad, Poder y Equidad</h2>
+                <p class="text-gray-600">
+                    Análisis de la crisis sistémica que enfrentan los profesionales de la salud en Ecuador, explorando la colisión entre la vida profesional y familiar.
+                </p>
+            </a>
 
-                    <div class="roadmap-item" data-target="content-roadmap">
-                        <div class="roadmap-content">
-                            <h3 class="font-bold text-lg text-sky-600">Destino Final: Hoja de Ruta</h3>
-                            <p class="text-sm text-slate-500">Implementación nacional sostenible y conclusiones.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Card 4: POCUS Implementación (NUEVA TARJETA) -->
+            <a href="medicina_e_implementacion/POCUS-implementacion.html" class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect">
+                <i class="fas fa-book-medical text-4xl gradient-text mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Implementación de POCUS</h2>
+                <p class="text-gray-600">
+                    Exploración interactiva de la monografía sobre la implementación del Ultrasonido en el Punto de Atención (POCUS) en el sistema de salud ecuatoriano.
+                </p>
+            </a>
 
-            <!-- Columna de Contenido (Derecha) -->
-            <div id="content-display" class="lg:col-span-2 p-6 md:p-8">
-                <!-- El contenido se cargará aquí dinámicamente -->
-            </div>
         </div>
     </main>
 
-    <!-- Pie de Página -->
-    <footer class="text-center p-4 mt-8 text-slate-500 text-sm">
-        <p>&copy; 2025 Powersemiotics.com. Todos los derechos reservados.</p>
+    <!-- Pie de página -->
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
     </footer>
 
-    <!-- Contenido Oculto de la Monografía -->
-    <div id="monograph-data" class="hidden">
-        
-        <div id="content-intro">
-            <h2 class="text-2xl font-bold mb-4 text-slate-800">Sección 1: Introducción: El POCUS como Herramienta Transformadora</h2>
-            <p class="mb-4">La práctica de la medicina se encuentra en una constante evolución. En este panorama, el Ultrasonido en el Punto de Atención (POCUS) ha emergido no solo como una nueva modalidad de imagen, sino como un cambio de paradigma en la evaluación clínica del paciente. Esta monografía presenta un análisis exhaustivo y una propuesta estratégica para la implementación del POCUS a nivel nacional en el sistema de salud de Ecuador.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">1.1 Definición y Características Fundamentales</h3>
-            <p class="mb-4">El POCUS se define como la realización e interpretación de exámenes ecográficos por parte del médico tratante directamente en el punto de atención al paciente. A diferencia de la ecografía tradicional, integra todo el proceso en un ciclo corto y dinámico. Su propósito no es realizar un estudio exhaustivo, sino responder a preguntas clínicas específicas y focalizadas.</p>
-            <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                <li><span class="font-semibold">No invasivo y seguro:</span> No utiliza radiación ionizante.</li>
-                <li><span class="font-semibold">Costo-efectivo:</span> Reduce la necesidad de pruebas más complejas.</li>
-                <li><span class="font-semibold">Portátil:</span> Utilizable en cualquier entorno, desde una UCI hasta una ambulancia.</li>
-            </ul>
-             <h3 class="text-xl font-semibold mt-6 mb-3">1.2 El POCUS como el "Quinto Pilar" del Examen Físico</h3>
-            <p>Se le considera el "quinto pilar" del examen físico, sumándose a la inspección, palpación, percusión y auscultación. Mientras que el estetoscopio permite inferir procesos fisiopatológicos a través del sonido, el POCUS le permite al clínico visualizarlos directamente. Esta capacidad de correlacionar instantáneamente un hallazgo físico con una imagen anatómica y fisiológica en tiempo real aumenta la precisión diagnóstica.</p>
-        </div>
-
-        <div id="content-evolution">
-            <h2 class="text-2xl font-bold mb-4 text-slate-800">Sección 2: Evolución Histórica y Adopción Cultural</h2>
-            <p class="mb-4">La trayectoria del POCUS desde un concepto experimental hasta una herramienta clínica indispensable no ha sido un proceso monolítico. Comprender sus diversas rutas de implementación es fundamental para diseñar una estrategia exitosa para Ecuador.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">2.1 Orígenes en Occidente</h3>
-            <p class="mb-4">Impulsada por la Cirugía de Trauma y la Medicina de Emergencia, la adopción en Europa y Norteamérica fue una iniciativa "de abajo hacia arriba", nacida de la necesidad clínica. El examen FAST (Focused Assessment with Sonography in Trauma) fue un hito que legitimó el uso del ultrasonido por no radiólogos.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">2.2 Expansión en Asia</h3>
-            <p class="mb-4">La experiencia asiática es contrastante. En <strong>Japón</strong>, la adopción ha sido lenta por barreras formativas y jerárquicas. En <strong>Corea del Sur</strong>, una política gubernamental de cobertura total del seguro de salud para POCUS en 2019 actuó como un catalizador "de arriba hacia abajo", acelerando masivamente su uso.</p>
-             <h3 class="text-xl font-semibold mt-6 mb-3">2.3 Trayectoria en América Latina</h3>
-            <p class="mb-4">La región tiene una rica historia de innovación en diagnóstico por imagen. Hoy, el POCUS crece exponencialmente, impulsado por campeones locales y sociedades médicas. Proyectos como "Ondas de Latinoamérica" en Perú utilizan tele-ultrasonido para superar barreras geográficas en la formación.</p>
-            <button class="open-modal-btn bg-sky-500 text-white font-bold py-2 px-4 rounded hover:bg-sky-600 transition" data-modal-id="modal-table-1">Ver Tabla Comparativa de Hitos</button>
-        </div>
-
-        <div id="content-impact">
-            <h2 class="text-2xl font-bold mb-4 text-slate-800">Sección 3: Impacto en la Calidad y Eficiencia</h2>
-            <p class="mb-4">El valor principal del POCUS reside en su capacidad para mejorar drásticamente la calidad del diagnóstico clínico, aumentar la seguridad del paciente y optimizar la eficiencia del sistema.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">3.1 Mejora de la Calidad Diagnóstica</h3>
-            <p class="mb-4">Permite un diagnóstico precoz en condiciones críticas como disnea o shock. Protocolos como BLUE y RUSH han demostrado ser altamente efectivos. Además, aumenta la precisión diagnóstica superando a herramientas estándar como la radiografía de tórax en la detección de neumotórax.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">3.2 Seguridad del Paciente</h3>
-            <p class="mb-4">Al no usar radiación, es más seguro para poblaciones vulnerables. Ha revolucionado la seguridad de procedimientos invasivos como la inserción de catéteres venosos centrales, reduciendo significativamente las complicaciones.</p>
-            <button class="open-modal-btn bg-sky-500 text-white font-bold py-2 px-4 rounded hover:bg-sky-600 transition" data-modal-id="modal-table-2">Ver Tabla de Aplicaciones Clínicas de Alto Impacto</button>
-        </div>
-
-        <div id="content-ecuador">
-            <h2 class="text-2xl font-bold mb-4 text-slate-800">Sección 4: POCUS y la Equidad en Salud en Ecuador</h2>
-            <p class="mb-4">En un país como Ecuador, con su diversidad geográfica y brechas socioeconómicas, el POCUS emerge como una herramienta con un potencial transformador único para promover la equidad en salud.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">4.1 Contexto del Sistema de Salud Ecuatoriano</h3>
-            <p class="mb-4">El sistema es mixto, fragmentado y segmentado, con disparidades significativas. Sin embargo, existe un compromiso estatal con la transformación digital (Plan Decenal de Salud 2022-2031), lo que crea un entorno favorable para la adopción de tecnologías como POCUS.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">4.2 POCUS como Herramienta para la Equidad</h3>
-            <ul class="list-disc list-inside space-y-2 mb-4 pl-4">
-                <li><span class="font-semibold">Cerrando la brecha urbano-rural:</span> Lleva el diagnóstico a zonas remotas sin necesidad de costosos departamentos de radiología.</li>
-                <li><span class="font-semibold">Acceso para poblaciones vulnerables:</span> Funciona offline, superando la brecha digital.</li>
-                <li><span class="font-semibold">Reducción del gasto de bolsillo:</span> Disminuye costos directos e indirectos para los pacientes.</li>
-            </ul>
-            <button class="open-modal-btn bg-sky-500 text-white font-bold py-2 px-4 rounded hover:bg-sky-600 transition" data-modal-id="modal-table-3">Ver Análisis de Barreras y Facilitadores (CFIR)</button>
-        </div>
-
-        <div id="content-research">
-            <h2 class="text-2xl font-bold mb-4 text-slate-800">Sección 5: Diseño de la Investigación</h2>
-            <p class="mb-4">Para asegurar que la política nacional de POCUS sea efectiva, es fundamental generar datos robustos dentro del propio sistema de salud ecuatoriano. Se propone un proyecto piloto de investigación con un diseño híbrido de implementación-efectividad Tipo 2.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">5.1 Justificación y Diseño del Estudio</h3>
-            <p class="mb-4">Este enfoque permite estudiar simultáneamente la efectividad clínica y los resultados de la implementación, acelerando la traslación del conocimiento a la práctica. El estudio se llevaría a cabo en sitios piloto que representen la diversidad del SNS ecuatoriano.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">5.2 Fases del Proyecto</h3>
-            <ol class="list-decimal list-inside space-y-2 mb-4 pl-4">
-                <li><strong>Fase 1 (Pre-implementación):</strong> Evaluación de determinantes (barreras y facilitadores) usando el marco CFIR y métodos mixtos.</li>
-                <li><strong>Fase 2 (Implementación):</strong> Recolección de datos de efectividad (precisión diagnóstica, costos, etc.) y de implementación (aceptabilidad, fidelidad, etc.).</li>
-            </ol>
-            <p>El impacto global se evaluará con el marco RE-AIM, que considera el alcance, efectividad, adopción, implementación y mantenimiento del programa.</p>
-            <button class="open-modal-btn bg-sky-500 text-white font-bold py-2 px-4 rounded hover:bg-sky-600 transition" data-modal-id="modal-table-4">Ver Esquema del Estudio Piloto (RE-AIM)</button>
-        </div>
-
-        <div id="content-roadmap">
-            <h2 class="text-2xl font-bold mb-4 text-slate-800">Sección 6: Hoja de Ruta para la Implementación Nacional</h2>
-            <p class="mb-4">Basándose en la evidencia, se traza una hoja de ruta estratégica, multifacética y escalonada para la implementación y sostenibilidad de una política nacional de POCUS en Ecuador.</p>
-            <h3 class="text-xl font-semibold mt-6 mb-3">Pasos Estratégicos</h3>
-            <ul class="list-none space-y-4">
-                <li class="flex items-start"><span class="bg-sky-500 text-white rounded-full w-8 h-8 text-center font-bold leading-8 mr-4">1</span><div><strong>Gobernanza:</strong> Crear un Comité Directivo Nacional de POCUS (CDN-POCUS) bajo el auspicio del MSP.</div></li>
-                <li class="flex items-start"><span class="bg-sky-500 text-white rounded-full w-8 h-8 text-center font-bold leading-8 mr-4">2</span><div><strong>Formación:</strong> Desarrollar un currículo nacional de formación y certificación basado en competencias para pregrado, posgrado y educación continua.</div></li>
-                <li class="flex items-start"><span class="bg-sky-500 text-white rounded-full w-8 h-8 text-center font-bold leading-8 mr-4">3</span><div><strong>Tecnología:</strong> Implementar un plan de adquisición y mantenimiento de equipos escalonado y diversificado.</div></li>
-                <li class="flex items-start"><span class="bg-sky-500 text-white rounded-full w-8 h-8 text-center font-bold leading-8 mr-4">4</span><div><strong>Integración:</strong> Integrar el POCUS en los flujos de trabajo y en la Historia Clínica Electrónica (HCE) nacional.</div></li>
-                <li class="flex items-start"><span class="bg-sky-500 text-white rounded-full w-8 h-8 text-center font-bold leading-8 mr-4">5</span><div><strong>Financiamiento:</strong> Establecer un modelo de financiamiento sostenible con códigos de reembolso específicos.</div></li>
-                <li class="flex items-start"><span class="bg-sky-500 text-white rounded-full w-8 h-8 text-center font-bold leading-8 mr-4">6</span><div><strong>Monitoreo:</strong> Crear un sistema de monitoreo y evaluación continua para la mejora del programa.</div></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Modales para las Tablas -->
-    <div id="modal-table-1" class="modal">
-        <div class="modal-content">
-            <span class="close-button" data-modal-id="modal-table-1">&times;</span>
-            <h3 class="text-xl font-bold mb-4">Hitos Clave en la Evolución del POCUS</h3>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border">
-                    <thead class="bg-slate-200">
-                        <tr>
-                            <th class="py-2 px-4 border">Año/Década</th>
-                            <th class="py-2 px-4 border">Hito</th>
-                            <th class="py-2 px-4 border">Región</th>
-                            <th class="py-2 px-4 border">Significancia</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="border p-2">1880</td><td class="border p-2">Descubrimiento del efecto piezoeléctrico</td><td class="border p-2">Europa</td><td class="border p-2">Fundamento físico del ultrasonido</td></tr>
-                        <tr><td class="border p-2">1950s</td><td class="border p-2">Primeras aplicaciones médicas (Ian Donald)</td><td class="border p-2">Europa</td><td class="border p-2">Nacimiento de la ecografía diagnóstica</td></tr>
-                        <tr><td class="border p-2">1990s</td><td class="border p-2">Estandarización del examen FAST</td><td class="border p-2">Norteamérica</td><td class="border p-2">Legitimación del POCUS por no radiólogos</td></tr>
-                        <tr><td class="border p-2">2010s</td><td class="border p-2">Miniaturización de dispositivos</td><td class="border p-2">Global</td><td class="border p-2">Aumento masivo de la accesibilidad</td></tr>
-                        <tr><td class="border p-2">2019</td><td class="border p-2">Cobertura de seguro para POCUS</td><td class="border p-2">Corea del Sur</td><td class="border p-2">Ejemplo de implementación "de arriba hacia abajo"</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-table-2" class="modal">
-        <div class="modal-content">
-            <span class="close-button" data-modal-id="modal-table-2">&times;</span>
-            <h3 class="text-xl font-bold mb-4">Aplicaciones Clínicas del POCUS con Evidencia de Alto Impacto</h3>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border">
-                    <thead class="bg-slate-200">
-                        <tr>
-                            <th class="py-2 px-4 border">Aplicación/Protocolo</th>
-                            <th class="py-2 px-4 border">Indicación Clínica</th>
-                            <th class="py-2 px-4 border">Impacto en la Gestión</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="border p-2">eFAST</td><td class="border p-2">Trauma toracoabdominal</td><td class="border p-2">Acelera la decisión de laparotomía, guía la reanimación.</td></tr>
-                        <tr><td class="border p-2">RUSH</td><td class="border p-2">Shock indiferenciado, hipotensión</td><td class="border p-2">Guía la fluidoterapia y el uso de vasopresores.</td></tr>
-                        <tr><td class="border p-2">BLUE</td><td class="border p-2">Disnea aguda</td><td class="border p-2">Diferencia rápidamente causas cardíacas y pulmonares.</td></tr>
-                        <tr><td class="border p-2">Cardíaca Focalizada</td><td class="border p-2">Dolor torácico, paro cardíaco</td><td class="border p-2">Identifica causas reversibles de paro cardíaco.</td></tr>
-                        <tr><td class="border p-2">TVP (2 puntos)</td><td class="border p-2">Sospecha de Trombosis Venosa Profunda</td><td class="border p-2">Permite iniciar anticoagulación inmediata.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-table-3" class="modal">
-        <div class="modal-content">
-            <span class="close-button" data-modal-id="modal-table-3">&times;</span>
-            <h3 class="text-xl font-bold mb-4">Análisis de Barreras y Facilitadores para la Implementación de POCUS en Ecuador (Basado en CFIR)</h3>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border">
-                    <thead class="bg-slate-200">
-                        <tr>
-                            <th class="py-2 px-4 border">Dominio CFIR</th>
-                            <th class="py-2 px-4 border">Barreras Identificadas</th>
-                            <th class="py-2 px-4 border">Facilitadores Potenciales</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="border p-2 font-semibold">Innovación</td><td class="border p-2">Percepción de costo inicial, curva de aprendizaje.</td><td class="border p-2">Ventaja relativa clara (diagnóstico rápido y seguro).</td></tr>
-                        <tr><td class="border p-2 font-semibold">Entorno Externo</td><td class="border p-2">Fragmentación del sistema de salud, falta de marco regulatorio.</td><td class="border p-2">Voluntad política para la transformación digital de la salud.</td></tr>
-                        <tr><td class="border p-2 font-semibold">Entorno Interno</td><td class="border p-2">Infraestructura obsoleta, resistencia al cambio.</td><td class="border p-2">Existencia de "campeones" locales que ya promueven POCUS.</td></tr>
-                        <tr><td class="border p-2 font-semibold">Individuos</td><td class="border p-2">Falta de conocimientos y habilidades, baja autoeficacia.</td><td class="border p-2">Alta motivación intrínseca de los profesionales.</td></tr>
-                        <tr><td class="border p-2 font-semibold">Proceso</td><td class="border p-2">Falta de un plan de implementación nacional claro.</td><td class="border p-2">Oportunidad de diseñar un plan basado en evidencia desde el inicio.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-table-4" class="modal">
-        <div class="modal-content">
-            <span class="close-button" data-modal-id="modal-table-4">&times;</span>
-            <h3 class="text-xl font-bold mb-4">Esquema del Estudio Piloto Propuesto Utilizando el Marco RE-AIM</h3>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white border">
-                    <thead class="bg-slate-200">
-                        <tr>
-                            <th class="py-2 px-4 border">Dimensión RE-AIM</th>
-                            <th class="py-2 px-4 border">Pregunta de Investigación Clave</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="border p-2 font-semibold">Reach (Alcance)</td><td class="border p-2">¿A qué proporción de la población de pacientes elegibles se les realiza un examen POCUS?</td></tr>
-                        <tr><td class="border p-2 font-semibold">Effectiveness (Efectividad)</td><td class="border p-2">¿Cuál es el impacto del POCUS en los resultados clínicos, de proceso y de costos?</td></tr>
-                        <tr><td class="border p-2 font-semibold">Adoption (Adopción)</td><td class="border p-2">¿Qué proporción de los centros y profesionales elegibles adoptan el POCUS?</td></tr>
-                        <tr><td class="border p-2 font-semibold">Implementation (Implementación)</td><td class="border p-2">¿Con qué fidelidad se aplican los protocolos POCUS y cuál es el costo de la estrategia?</td></tr>
-                        <tr><td class="border p-2 font-semibold">Maintenance (Mantenimiento)</td><td class="border p-2">A largo plazo, ¿qué proporción de centros y proveedores continúan utilizando POCUS?</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const roadmapItems = document.querySelectorAll('.roadmap-item');
-            const contentDisplay = document.getElementById('content-display');
-            const monographData = document.getElementById('monograph-data');
-
-            // Función para cargar contenido
-            function loadContent(targetId) {
-                // Actualizar clase activa en el mapa
-                roadmapItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.dataset.target === targetId) {
-                        item.classList.add('active');
-                    }
-                });
-
-                // Cargar el contenido
-                const contentNode = monographData.querySelector(`#${targetId}`);
-                if (contentNode) {
-                    contentDisplay.innerHTML = contentNode.innerHTML;
-                    // Re-adjuntar listeners de modales para el nuevo contenido
-                    attachModalListeners();
-                }
-            }
-
-            // Event listeners para los hitos del mapa
-            roadmapItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const targetId = item.dataset.target;
-                    loadContent(targetId);
-                });
-            });
-
-            // Cargar contenido inicial
-            loadContent('content-intro');
-
-            // --- Lógica para los Modales ---
-            function attachModalListeners() {
-                const openModalButtons = document.querySelectorAll('.open-modal-btn');
-                const closeModalButtons = document.querySelectorAll('.close-button');
-                const modals = document.querySelectorAll('.modal');
-
-                openModalButtons.forEach(button => {
-                    button.onclick = function() {
-                        const modalId = this.getAttribute('data-modal-id');
-                        document.getElementById(modalId).style.display = "block";
-                    }
-                });
-
-                closeModalButtons.forEach(button => {
-                    button.onclick = function() {
-                        const modalId = this.getAttribute('data-modal-id');
-                        document.getElementById(modalId).style.display = "none";
-                    }
-                });
-
-                window.onclick = function(event) {
-                    modals.forEach(modal => {
-                        if (event.target == modal) {
-                            modal.style.display = "none";
-                        }
-                    });
-                }
-            }
-        });
-    </script>
 </body>
 </html>
