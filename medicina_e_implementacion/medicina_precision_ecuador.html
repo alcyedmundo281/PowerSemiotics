@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monografía: Medicina de Precisión en Ecuador - Powersemiotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: -webkit-linear-gradient(#065f46, #c2410c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        details > summary { cursor: pointer; }
+        details[open] > summary ~ * { animation: sweep .5s ease-in-out; }
+        @keyframes sweep {
+            0%    {opacity: 0; transform: translateY(-10px)}
+            100%  {opacity: 1; transform: translateY(0)}
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="https://powersemiotics.com/" class="flex items-center space-x-2">
+                <img src="https://powersemiotics.com/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div>
+                <a href="https://powersemiotics.com/medicina_e_implementacion.html" class="text-green-800 font-semibold hover:text-green-600 transition-colors">Volver al Hub</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mx-auto px-6 py-12 lg:grid lg:grid-cols-4 lg:gap-12">
+        <aside class="hidden lg:block lg:col-span-1 self-start sticky top-24">
+            <nav class="bg-white p-6 rounded-xl border border-gray-200">
+                <h3 class="font-bold text-lg mb-4 text-gray-800">Contenido</h3>
+                <ul class="space-y-3">
+                    <li><a href="#resumen" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Resumen Ejecutivo</a></li>
+                    <li><a href="#intro" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Introducción</a></li>
+                    <li><a href="#parte1" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Parte I: Evolución Global</a></li>
+                    <li><a href="#parte2" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Parte II: Contexto Ecuatoriano</a></li>
+                    <li><a href="#parte3" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Parte III: Proyecto Piloto</a></li>
+                    <li><a href="#parte4" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Parte IV: Hoja de Ruta</a></li>
+                    <li><a href="#conclusion" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Conclusión</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="lg:col-span-3">
+            <div class="bg-white p-8 sm:p-12 rounded-xl border border-gray-200">
+                
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 sm:mb-0">
+                        Medicina de Precisión para un Ecuador Equitativo
+                    </h1>
+                    <a href="https://alcyedmundo281.github.io/PowerSemiotics/assets/pdf/medicina-precision.pdf" target="_blank" rel="noopener noreferrer" class="inline-block bg-green-800 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-transform transform hover:-translate-y-1 whitespace-nowrap">
+                        <i class="fas fa-download mr-2"></i>Descargar PDF
+                    </a>
+                </div>
+                <p class="text-lg text-gray-600 mb-6">Una Monografía sobre Política e Implementación.</p>
+                <hr class="my-8">
+
+                <details id="resumen" class="mb-6" open>
+                    <summary class="text-2xl font-bold text-gray-800 mb-4 list-none flex items-center">
+                        <i class="fas fa-chevron-right transition-transform duration-300 mr-3 rotate-90"></i> Resumen Ejecutivo
+                    </summary>
+                    <div class="prose max-w-none text-gray-700 mt-4 pl-8 space-y-4">
+                       <p>La medicina está experimentando una transformación paradigmática, abandonando el modelo de tratamiento "talla única" para adoptar la medicina de precisión (MP). Si bien esta revolución promete mejorar drásticamente los resultados clínicos, también presenta el riesgo de exacerbar las desigualdades en salud existentes. Esta monografía aborda cómo implementar la MP en Ecuador de manera científica, sostenible y equitativa.</p>
+                        <p>El análisis extrae lecciones de iniciativas globales, concluyendo que no existe un modelo único que Ecuador pueda replicar, sino estrategias para adaptar. El enfoque se centra en el contexto ecuatoriano, destacando su perfil epidemiológico dominado por enfermedades crónicas y cáncer, y su composición genética trihíbrida única (amerindia, europea, africana). Esto hace que la investigación genómica local sea un imperativo científico y ético.</p>
+                        <p>Se propone un proyecto piloto anclado en la ciencia de la implementación, con un diseño híbrido para evaluar simultáneamente estrategias y resultados clínicos. Se sugiere usar el marco CFIR para evaluar barreras en un centro como el HCAM y el marco RE-AIM para medir el impacto en la salud pública.</p>
+                        <p>Finalmente, se presenta una hoja de ruta por fases: una fase de aprendizaje (Año 1-2) centrada en el piloto; una de expansión (Año 3-5) para construir infraestructura como un Biobanco Nacional; y una de integración (Año 6+) para convertir la MP en práctica estándar. La conclusión central es que la MP en Ecuador es factible y deseable, siempre que la equidad sea un principio rector desde el inicio, viéndola como una herramienta estratégica para avanzar hacia una salud más justa y efectiva para todos.</p>
+                    </div>
+                </details>
+
+                 <details id="intro" class="mb-6">
+                    <summary class="text-2xl font-bold text-gray-800 mb-4 list-none flex items-center">
+                       <i class="fas fa-chevron-right transition-transform duration-300 mr-3"></i> Introducción: El Imperativo de la Precisión y la Equidad
+                    </summary>
+                     <div class="prose max-w-none text-gray-700 mt-4 pl-8 space-y-4">
+                        <p>La medicina tradicional de "talla única" está siendo desafiada por la medicina de precisión, que adapta la prevención y el tratamiento a las características únicas de cada individuo, incluyendo genes, entorno y estilo de vida. Este cambio conceptualiza la enfermedad basándose en sus mecanismos moleculares subyacentes. La promesa de la MP es doble: por un lado, mejorar drásticamente los resultados clínicos, como en la oncología con terapias dirigidas y en la farmacogenómica para evitar reacciones adversas a medicamentos.</p>
+                        <p>Por otro lado, esta promesa conlleva un formidable desafío para la equidad en salud, ya que las tecnologías de MP son costosas y complejas. Para países de ingresos medios como Ecuador, que enfrentan una doble carga de enfermedades infecciosas y crónicas no transmisibles (ENT) como el cáncer, la inversión en estas tecnologías puede parecer un lujo. Sin embargo, ignorar su potencial sería renunciar a herramientas poderosas para abordar las enfermedades que más afectan a la población. La pregunta clave no es si la MP es deseable, sino cómo implementarla de manera apropiada, viable y, sobre todo, equitativa.</p>
+                    </div>
+                </details>
+                
+                </div>
+        </main>
+    </div>
+
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('details').forEach((detail) => {
+            detail.addEventListener('toggle', (event) => {
+                const icon = detail.querySelector('summary i');
+                if (detail.open) {
+                    icon.classList.add('rotate-90');
+                } else {
+                    icon.classList.remove('rotate-90');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
