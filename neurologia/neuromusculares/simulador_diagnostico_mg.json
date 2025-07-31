@@ -1,0 +1,36 @@
+```json
+{
+  "escenario_clinico": "Mujer de 35 años que presenta ptosis palpebral bilateral fluctuante y diplopía, que empeoran a lo largo del día y mejoran con el reposo.  Los síntomas comenzaron gradualmente hace 6 meses.",
+  "pasos_diagnosticos": [
+    {
+      "id": 1,
+      "nombre_prueba": "Prueba de bolsa de hielo",
+      "descripcion_corta": "Aplicación de una bolsa de hielo en el párpado ptosico para observar mejoría transitoria de la ptosis.",
+      "costo_estimado_privado_EC": 0,
+      "disponibilidad_publica_EC": true
+    },
+    {
+      "id": 2,
+      "nombre_prueba": "Estimulación Nerviosa Repetitiva (ENR)",
+      "descripcion_corta": "Estudio electrodiagnóstico para evaluar la transmisión neuromuscular. Busca un decremento en la amplitud de la respuesta muscular con estimulación repetida.",
+      "costo_estimado_privado_EC": 170, 
+      "disponibilidad_publica_EC": false 
+    },
+    {
+      "id": 3,
+      "nombre_prueba": "EMG de Fibra Única (EMG-SF)",
+      "descripcion_corta": "Estudio electrodiagnóstico más sensible para detectar anormalidades en la transmisión neuromuscular, especialmente útil en casos leves.",
+      "costo_estimado_privado_EC": 170,
+      "disponibilidad_publica_EC": false
+    },
+    {
+      "id": 4,
+      "nombre_prueba": "Anticuerpos anti-AChR y anti-MuSK",
+      "descripcion_corta": "Pruebas serológicas para detectar autoanticuerpos contra el receptor de acetilcolina y la quinasa muscular específica.",
+      "costo_estimado_privado_EC": 455, 
+      "disponibilidad_publica_EC": false
+    }
+  ],
+  "feedback": "El diagnóstico de Miastenia Gravis en Ecuador se enfrenta a un importante cuello de botella.  Si bien la Piridostigmina y algunos inmunosupresores están disponibles en el sistema público, el acceso a pruebas diagnósticas como la ENR, EMG-SF y los anticuerpos anti-AChR y anti-MuSK se limita principalmente al sector privado debido a la falta de infraestructura y recursos en el sistema público de salud.  Esto genera una barrera económica significativa para la mayoría de los pacientes, retrasando el diagnóstico y el acceso al tratamiento adecuado.  Incluso cuando se logra un diagnóstico presuntivo, la falta de confirmación a través de pruebas especializadas puede dificultar el inicio oportuno de tratamientos inmunosupresores en el sistema público. La disponibilidad de medicamentos de alto costo como la IVIg o el Rituximab, aunque teóricamente incluídos en el CNMB, está sujeta a fallas sistémicas en su adquisición y distribución, y frecuentemente requieren acciones legales para su acceso. Es crucial la implementación de un plan nacional de fortalecimiento diagnóstico para enfermedades neuromusculares, así como la mejora de la gestión para la provisión de medicamentos del CNMB."
+}
+```
