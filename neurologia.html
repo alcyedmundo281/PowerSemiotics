@@ -3,122 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neurología - Powersemiotics</title>
+    <title>Módulo Educativo: Enfermedades Neuromusculares en Ecuador</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
+        /* Estilos para mejorar la apariencia y la responsividad de los iframes */
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
         }
-        .gradient-text {
-            background: -webkit-linear-gradient(#4338ca, #be185d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .card-hover-effect {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-hover-effect:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-100 text-gray-800 font-sans">
 
     <!-- Encabezado -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/index.html" class="flex items-center space-x-2">
-                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
-                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-            </a>
-            <div>
-                <a href="/neurologia.html" class="text-indigo-800 font-semibold">Neurología</a>
-            </div>
-        </nav>
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-blue-700">Módulo Educativo Interactivo</h1>
+            <p class="text-lg text-gray-600">Enfermedades Neuromusculares: Un Análisis en el Contexto Ecuatoriano</p>
+        </div>
     </header>
 
     <!-- Contenido Principal -->
-    <main class="container mx-auto px-6 py-16">
-        <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Módulos de Neurología
-            </h1>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                Explora nuestros cursos interactivos sobre el diagnóstico y manejo de las principales patologías neurológicas.
-            </p>
+    <main class="container mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Columna Principal (más ancha) -->
+            <div class="lg:col-span-2 space-y-8">
+
+                <!-- 1. Presentación Ejecutiva -->
+                <section id="presentacion" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">1. Presentación del Resumen Ejecutivo</h2>
+                    <div class="iframe-container rounded-md overflow-hidden">
+                        <iframe src="presentacion_resumen_ejecutivo.html" title="Presentación del Resumen Ejecutivo"></iframe>
+                    </div>
+                </section>
+
+                <!-- 2. Actividad de Aprendizaje Basado en Problemas (ABP) -->
+                <section id="abp" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">2. Actividad: Aprendizaje Basado en Problemas</h2>
+                    <p class="mb-4">Interactúe con el siguiente caso clínico basado en los desafíos del sistema de salud ecuatoriano.</p>
+                    <div class="iframe-container rounded-md overflow-hidden">
+                        <iframe src="actividad_abp_ecuador.html" title="Actividad de Aprendizaje Basado en Problemas"></iframe>
+                    </div>
+                </section>
+
+                <!-- 3. Simulación de Decisión de Política Pública -->
+                <section id="decision" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">3. Simulación: Decisión de Política Pública</h2>
+                     <p class="mb-4">Póngase en el rol de un gestor de salud y tome una decisión estratégica basada en la evidencia del informe.</p>
+                    <div class="iframe-container rounded-md overflow-hidden">
+                        <iframe src="decision_politica_interactiva.html" title="Simulación de Decisión de Política Pública"></iframe>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Columna Lateral (más estrecha) -->
+            <aside class="space-y-8">
+
+                <!-- 4. Resumen para Decisores -->
+                <section id="resumen" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">4. Memorando para Decisores</h2>
+                    <div id="resumen-content" class="bg-gray-50 p-4 rounded-md text-sm whitespace-pre-wrap h-96 overflow-y-auto">
+                        Cargando resumen...
+                    </div>
+                </section>
+
+                <!-- 5. Datos para Simulador de Diagnóstico -->
+                <section id="simulador-json" class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">5. Datos para Simulador (JSON)</h2>
+                    <div id="json-content" class="bg-gray-900 text-green-400 font-mono p-4 rounded-md text-xs h-96 overflow-y-auto">
+                        Cargando datos JSON...
+                    </div>
+                </section>
+
+            </aside>
         </div>
-
-        <!-- Grid de Módulos -->
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Card 1: Módulo de Cefaleas -->
-            <a href="/neurologia/cefaleas/index.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-head-side-virus text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Cefaleas</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Un curso interactivo para el abordaje diagnóstico y manejo de las cefaleas primarias más importantes.
-                </p>
-            </a>
-            
-            <!-- Card 2: Módulo de Epilepsia II -->
-            <a href="/neurologia/epilepsia_II/index.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-bolt text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Epilepsia II</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Análisis avanzado sobre el tratamiento, la farmacoresistencia y las nuevas terapias en epilepsia.
-                </p>
-            </a>
-
-            <!-- Card 3: Trastornos del Movimiento I -->
-            <a href="/neurologia/trastornos-movimiento-1.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-walking text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Trastornos del Movimiento I</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Fundamentos de la Enfermedad de Parkinson, desde la fisiopatología hasta el diagnóstico clínico.
-                </p>
-            </a>
-
-            <!-- Card 4: Trastornos del Movimiento II -->
-            <a href="/neurologia/trastornos-movimiento-2.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-sitemap text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Trastornos del Movimiento II</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Diagnóstico diferencial de los parkinsonismos atípicos y otras hipercinesias en atención primaria.
-                </p>
-            </a>
-
-            <!-- Card 5: Enfermedades Desmielinizantes (NUEVO) -->
-            <a href="/neurologia/enfermedades_desmielinizantes.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-brain text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Enfermedades Desmielinizantes</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Diagnóstico diferencial de la Esclerosis Múltiple, Neuromielitis Óptica (TENMO) y MOGAD.
-                </p>
-            </a>
-
-        </div>
-
     </main>
 
-    <!-- Pie de página -->
-    <footer class="bg-white mt-20">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
+    <footer class="bg-white mt-8 py-4">
+        <div class="container mx-auto text-center text-gray-500">
+            <p>&copy; 2025 Powersemiotics.com - Contenido generado con IA.</p>
         </div>
     </footer>
+
+    <script>
+        // Se ejecuta cuando el contenido del DOM ha sido completamente cargado y parseado.
+        document.addEventListener('DOMContentLoaded', function() {
+            // Contenido del archivo de texto directamente embebido para evitar errores de fetch.
+            const resumenContent = `MEMORANDUM
+
+PARA: Asambleísta [Nombre del Asambleísta], Comisión de Salud
+DE: Analista de Políticas Públicas
+FECHA: 31 de octubre de 2025
+ASUNTO: Acceso a la atención para enfermedades neuromusculares en Ecuador
+
+El presente memorando resume las barreras críticas para el acceso a la atención de pacientes con Miastenia Gravis (MG), Distrofias Musculares de Duchenne y Becker (DMD/DMB), y Miopatías Inflamatorias Idiopáticas (MII) en Ecuador, basado en el "Estudio Integral de las Enfermedades de la Unión Neuromuscular y el Músculo". El informe revela una discrepancia alarmante entre la disponibilidad teórica de tratamientos y la realidad del acceso para los pacientes.  La falta de acceso oportuno y equitativo a atención médica genera una carga significativa en los pacientes, sus familias, y el sistema de salud, aumentando la morbilidad y mortalidad.
+
+Las tres barreras más críticas son:
+
+1. **Cuello de botella diagnóstico:** La falta de acceso a pruebas especializadas (EMG de fibra única, estudios serológicos específicos, pruebas genéticas) en la red pública, y el alto costo de las mismas en el sector privado, demoran el diagnóstico y la instauración oportuna de tratamientos.
+2. **Fallas en la adquisición de medicamentos:** A pesar de la inclusión de fármacos esenciales en el Cuadro Nacional de Medicamentos Básicos (CNMB), la adquisición y distribución son inconsistentes, llevando a la judicialización de la atención y la inequidad en el acceso.  La ausencia del Deflazacort para DMD en el CNMB es especialmente preocupante.
+3. **Fragmentación de la atención multidisciplinaria:** El sistema de referencia y contrarreferencia dificulta la atención coordinada y oportuna necesaria para estas enfermedades crónicas complejas.
+
+Se recomiendan las siguientes tres acciones estratégicas con el fin de mejorar el acceso a la atención:
+
+1. **Incluir inmediatamente Deflazacort en el CNMB y optimizar la adquisición de medicamentos de alto costo:** Se debe establecer un mecanismo de adquisición centralizado, transparente y eficiente para asegurar la disponibilidad continua de medicamentos como IVIg y Rituximab.
+2. **Fortalecer la capacidad diagnóstica pública:** Se requiere invertir en infraestructura y equipamiento para realizar pruebas especializadas en centros de referencia públicos a nivel nacional.
+3. **Implementar un modelo de atención multidisciplinaria integrado:** Se deben crear y establecer clínicas multidisciplinarias para ENM en hospitales de tercer nivel, donde se coordine la atención y se reduzca la carga a los pacientes y sus familias.
+
+La implementación de estas recomendaciones requiere una acción inmediata y coordinada entre el Ministerio de Salud Pública (MSP), el Instituto Ecuatoriano de Seguridad Social (IESS), las sociedades médicas y las organizaciones de pacientes.  El retraso en la implementación de estas medidas conlleva un impacto negativo significativo en la salud y bienestar de los ecuatorianos afectados por estas enfermedades.`;
+
+            // Contenido del archivo JSON directamente embebido como un objeto JavaScript.
+            const simuladorData = {
+              "escenario_clinico": "Mujer de 35 años que presenta ptosis palpebral bilateral fluctuante y diplopía, que empeoran a lo largo del día y mejoran con el reposo.  Los síntomas comenzaron gradualmente hace 6 meses.",
+              "pasos_diagnosticos": [
+                {
+                  "id": 1,
+                  "nombre_prueba": "Prueba de bolsa de hielo",
+                  "descripcion_corta": "Aplicación de una bolsa de hielo en el párpado ptosico para observar mejoría transitoria de la ptosis.",
+                  "costo_estimado_privado_EC": 0,
+                  "disponibilidad_publica_EC": true
+                },
+                {
+                  "id": 2,
+                  "nombre_prueba": "Estimulación Nerviosa Repetitiva (ENR)",
+                  "descripcion_corta": "Estudio electrodiagnóstico para evaluar la transmisión neuromuscular. Busca un decremento en la amplitud de la respuesta muscular con estimulación repetida.",
+                  "costo_estimado_privado_EC": 170,
+                  "disponibilidad_publica_EC": false
+                },
+                {
+                  "id": 3,
+                  "nombre_prueba": "EMG de Fibra Única (EMG-SF)",
+                  "descripcion_corta": "Estudio electrodiagnóstico más sensible para detectar anormalidades en la transmisión neuromuscular, especialmente útil en casos leves.",
+                  "costo_estimado_privado_EC": 170,
+                  "disponibilidad_publica_EC": false
+                },
+                {
+                  "id": 4,
+                  "nombre_prueba": "Anticuerpos anti-AChR y anti-MuSK",
+                  "descripcion_corta": "Pruebas serológicas para detectar autoanticuerpos contra el receptor de acetilcolina y la quinasa muscular específica.",
+                  "costo_estimado_privado_EC": 455,
+                  "disponibilidad_publica_EC": false
+                }
+              ],
+              "feedback": "El diagnóstico de Miastenia Gravis en Ecuador se enfrenta a un importante cuello de botella.  Si bien la Piridostigmina y algunos inmunosupresores están disponibles en el sistema público, el acceso a pruebas diagnósticas como la ENR, EMG-SF y los anticuerpos anti-AChR y anti-MuSK se limita principalmente al sector privado debido a la falta de infraestructura y recursos en el sistema público de salud.  Esto genera una barrera económica significativa para la mayoría de los pacientes, retrasando el diagnóstico y el acceso al tratamiento adecuado.  Incluso cuando se logra un diagnóstico presuntivo, la falta de confirmación a través de pruebas especializadas puede dificultar el inicio oportuno de tratamientos inmunosupresores en el sistema público. La disponibilidad de medicamentos de alto costo como la IVIg o el Rituximab, aunque teóricamente incluídos en el CNMB, está sujeta a fallas sistémicas en su adquisición y distribución, y frecuentemente requieren acciones legales para su acceso. Es crucial la implementación de un plan nacional de fortalecimiento diagnóstico para enfermedades neuromusculares, así como la mejora de la gestión para la provisión de medicamentos del CNMB."
+            };
+
+            // Asignar contenido a los elementos del DOM
+            const resumenElement = document.getElementById('resumen-content');
+            if (resumenElement) {
+                resumenElement.textContent = resumenContent;
+            }
+
+            const jsonElement = document.getElementById('json-content');
+            if (jsonElement) {
+                jsonElement.textContent = JSON.stringify(simuladorData, null, 2);
+            }
+        });
+    </script>
 
 </body>
 </html>
