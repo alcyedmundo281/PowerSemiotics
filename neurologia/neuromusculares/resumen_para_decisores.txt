@@ -1,0 +1,22 @@
+MEMORANDUM
+
+PARA: Asambleísta [Nombre del Asambleísta], Comisión de Salud
+DE: Analista de Políticas Públicas
+FECHA: 31 de octubre de 2025
+ASUNTO: Acceso a la atención para enfermedades neuromusculares en Ecuador
+
+El presente memorando resume las barreras críticas para el acceso a la atención de pacientes con Miastenia Gravis (MG), Distrofias Musculares de Duchenne y Becker (DMD/DMB), y Miopatías Inflamatorias Idiopáticas (MII) en Ecuador, basado en el "Estudio Integral de las Enfermedades de la Unión Neuromuscular y el Músculo". El informe revela una discrepancia alarmante entre la disponibilidad teórica de tratamientos y la realidad del acceso para los pacientes.  La falta de acceso oportuno y equitativo a atención médica genera una carga significativa en los pacientes, sus familias, y el sistema de salud, aumentando la morbilidad y mortalidad.
+
+Las tres barreras más críticas son:
+
+1. **Cuello de botella diagnóstico:** La falta de acceso a pruebas especializadas (EMG de fibra única, estudios serológicos específicos, pruebas genéticas) en la red pública, y el alto costo de las mismas en el sector privado, demoran el diagnóstico y la instauración oportuna de tratamientos.
+2. **Fallas en la adquisición de medicamentos:** A pesar de la inclusión de fármacos esenciales en el Cuadro Nacional de Medicamentos Básicos (CNMB), la adquisición y distribución son inconsistentes, llevando a la judicialización de la atención y la inequidad en el acceso.  La ausencia del Deflazacort para DMD en el CNMB es especialmente preocupante.
+3. **Fragmentación de la atención multidisciplinaria:** El sistema de referencia y contrarreferencia dificulta la atención coordinada y oportuna necesaria para estas enfermedades crónicas complejas.
+
+Se recomiendan las siguientes tres acciones estratégicas con el fin de mejorar el acceso a la atención:
+
+1. **Incluir inmediatamente Deflazacort en el CNMB y optimizar la adquisición de medicamentos de alto costo:** Se debe establecer un mecanismo de adquisición centralizado, transparente y eficiente para asegurar la disponibilidad continua de medicamentos como IVIg y Rituximab.
+2. **Fortalecer la capacidad diagnóstica pública:**  Se requiere invertir en infraestructura y equipamiento para realizar pruebas especializadas en centros de referencia públicos a nivel nacional.
+3. **Implementar un modelo de atención multidisciplinaria integrado:** Se deben crear y establecer clínicas multidisciplinarias para ENM en hospitales de tercer nivel, donde se coordine la atención y se reduzca la carga a los pacientes y sus familias.
+
+La implementación de estas recomendaciones requiere una acción inmediata y coordinada entre el Ministerio de Salud Pública (MSP), el Instituto Ecuatoriano de Seguridad Social (IESS), las sociedades médicas y las organizaciones de pacientes.  El retraso en la implementación de estas medidas conlleva un impacto negativo significativo en la salud y bienestar de los ecuatorianos afectados por estas enfermedades.
