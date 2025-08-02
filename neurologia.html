@@ -3,134 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neurología - Powersemiotics</title>
+    <title>Hub de Neurología</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
         body {
             font-family: 'Inter', sans-serif;
         }
-        .gradient-text {
-            background: -webkit-linear-gradient(#4338ca, #be185d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .card-hover-effect {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-hover-effect:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50">
 
-    <!-- Encabezado -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/index.html" class="flex items-center space-x-2">
-                <!-- Asegúrate de que la ruta al logo sea correcta -->
-                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
-                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-            </a>
-            <div>
-                <a href="/neurologia.html" class="text-indigo-800 font-semibold">Neurología</a>
-            </div>
-        </nav>
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-2xl font-bold text-blue-700">Power Semiotics | Hub de Neurología</h1>
+        </div>
     </header>
 
-    <!-- Contenido Principal -->
-    <main class="container mx-auto px-6 py-16">
-        <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Módulos de Neurología
-            </h1>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                Explora nuestros cursos interactivos sobre el diagnóstico y manejo de las principales patologías neurológicas.
-            </p>
+    <main class="container mx-auto p-6 md:p-12">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-extrabold text-gray-900">Módulos de Aprendizaje Interactivo</h2>
+            <p class="text-lg text-gray-600 mt-2">Selecciona un tema para comenzar.</p>
         </div>
 
-        <!-- Grid de Módulos -->
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- Card 1: Módulo de Cefaleas -->
-            <a href="/neurologia/cefaleas/index.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-head-side-virus text-4xl gradient-text"></i>
+            <a href="https://powersemiotics.com/neurologia/neuropatias.html" class="group block bg-white p-6 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300">
+                <div class="flex items-center justify-center bg-blue-100 rounded-lg w-16 h-16 mb-4">
+                    <i class="fas fa-network-wired text-3xl text-blue-600"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Cefaleas</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Un curso interactivo para el abordaje diagnóstico y manejo de las cefaleas primarias más importantes.
+                <h2 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">
+                    Neuropatías Periféricas
+                </h2>
+                <p class="text-gray-600">
+                    Un enfoque integral desde la fisiopatología hasta la práctica clínica en el contexto ecuatoriano.
                 </p>
             </a>
+            <div class="group block bg-gray-200 p-6 rounded-xl shadow-md cursor-not-allowed">
+                <div class="flex items-center justify-center bg-gray-300 rounded-lg w-16 h-16 mb-4">
+                    <i class="fas fa-brain text-3xl text-gray-500"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-500 mb-2">
+                    Enfermedades Desmielinizantes
+                </h2>
+                <p class="text-gray-500">
+                    (Módulo Próximamente)
+                </p>
+            </div>
             
-            <!-- Card 2: Módulo de Epilepsia II -->
-            <a href="/neurologia/epilepsia_II/index.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-bolt text-4xl gradient-text"></i>
+            <div class="group block bg-gray-200 p-6 rounded-xl shadow-md cursor-not-allowed">
+                <div class="flex items-center justify-center bg-gray-300 rounded-lg w-16 h-16 mb-4">
+                    <i class="fas fa-bolt text-3xl text-gray-500"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Epilepsia II</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Análisis avanzado sobre el tratamiento, la farmacoresistencia y las nuevas terapias en epilepsia.
+                <h2 class="text-xl font-bold text-gray-500 mb-2">
+                    Epilepsia y Crisis Convulsivas
+                </h2>
+                <p class="text-gray-500">
+                    (Módulo Próximamente)
                 </p>
-            </a>
-
-            <!-- Card 3: Trastornos del Movimiento I -->
-            <a href="/neurologia/trastornos-movimiento-1.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-walking text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Trastornos del Movimiento I</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Fundamentos de la Enfermedad de Parkinson, desde la fisiopatología hasta el diagnóstico clínico.
-                </p>
-            </a>
-
-            <!-- Card 4: Trastornos del Movimiento II -->
-            <a href="/neurologia/trastornos-movimiento-2.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-sitemap text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Trastornos del Movimiento II</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Diagnóstico diferencial de los parkinsonismos atípicos y otras hipercinesias en atención primaria.
-                </p>
-            </a>
-
-            <!-- Card 5: Enfermedades Desmielinizantes -->
-            <a href="/neurologia/enfermedades_desmielinizantes.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-brain text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Enfermedades Desmielinizantes</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Diagnóstico diferencial de la Esclerosis Múltiple, Neuromielitis Óptica (TENMO) y MOGAD.
-                </p>
-            </a>
-
-            <!-- Card 6: Enfermedades Neuromusculares (CORREGIDO) -->
-            <a href="/neurologia/neuromusculares.html" class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-                <div class="flex items-center mb-4">
-                    <i class="fas fa-notes-medical text-4xl gradient-text"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-gray-800">Módulo: Enfermedades Neuromusculares</h2>
-                <p class="text-gray-600 text-md mt-2">
-                    Análisis de MG, DMD/DMB y MII, con simuladores y actividades para estudiantes de medicina.
-                </p>
-            </a>
+            </div>
 
         </div>
-
     </main>
-
-    <!-- Pie de página -->
-    <footer class="bg-white mt-20">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
-        </div>
-    </footer>
 
 </body>
 </html>
