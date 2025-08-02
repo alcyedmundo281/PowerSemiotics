@@ -3,521 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo Interactivo: Neuropatías Periféricas</title>
-    
+    <title>Enfermedades Neuromusculares</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        /* Estilos adicionales para mejorar la apariencia y funcionalidad */
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
         }
-
-        /* --- Estilos Generales de Navegación --- */
-        .module-section {
+        .accordion-button:hover {
+            background-color: #f0f0f0;
+        }
+        /* Estilos para la presentación interactiva */
+        .slide {
             display: none;
-        }
-        .module-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            border-left: 4px solid transparent;
-            transition: all 0.3s ease;
-            color: #4b5563; /* text-gray-600 */
-        }
-        .nav-link:hover {
-            background-color: #f3f4f6; /* bg-gray-100 */
-            border-left-color: #9ca3af; /* border-gray-400 */
-            color: #111827; /* text-gray-900 */
-        }
-        .nav-link.active {
-            border-left-color: #3b82f6; /* border-blue-500 */
-            background-color: #eff6ff; /* bg-blue-50 */
-            color: #1d4ed8; /* text-blue-700 */
-            font-weight: 600;
-        }
-        .nav-link .nav-icon {
-            margin-right: 0.75rem;
-            width: 20px;
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            background-color: #f8fafc;
             text-align: center;
+            min-height: 300px; /* Aumentar altura mínima para tablas */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-in-out;
         }
-
-        /* --- Estilos de la Presentación (Componente 1) --- */
-        #presentation-container .slide-content {
-            display: none;
-            animation: fadeIn 0.6s ease-in-out;
+        .slide.active {
+            display: flex;
         }
-        #presentation-container .slide-content.active { display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        #presentation-container .nerve-diagram .nerve-bg { fill: #dbeafe; }
-        #presentation-container .nerve-diagram .axon { stroke: #60a5fa; stroke-width: 4; }
-        #presentation-container .nerve-diagram .myelin { fill: #bfdbfe; }
-        #presentation-container .nerve-diagram .schwann { fill: #93c5fd; }
-        #presentation-container .nerve-diagram .label { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; fill: #1e3a8a; }
-        #presentation-container .nerve-diagram .axon-dying { stroke: #f87171; stroke-dasharray: 8 4; animation: dying-pulse 2s infinite; }
-        @keyframes dying-pulse { 0% { stroke-width: 4; } 50% { stroke-width: 2; } 100% { stroke-width: 4; } }
-        #presentation-container .nerve-diagram .myelin-damaged { fill: #fca5a5; opacity: 0.7; }
-        #presentation-container .custom-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-        #presentation-container .custom-table th, #presentation-container .custom-table td { border: 1px solid #e5e7eb; padding: 6px 10px; text-align: left; }
-        #presentation-container .custom-table th { background-color: #f3f4f6; font-weight: 700; color: #1f2937; }
-        #presentation-container .custom-table tr:nth-child(even) { background-color: #f9fafb; }
-        
-        /* --- Estilos del Diagnóstico Interactivo (Componente 2) --- */
-        #diagnostic-tool-container .checkbox-label input[type="checkbox"] { display: none; }
-        #diagnostic-tool-container .checkbox-label .checkbox-custom { width: 1.25em; height: 1.25em; border: 2px solid #9ca3af; border-radius: 0.25rem; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease-in-out; margin-right: 0.75rem; flex-shrink: 0; }
-        #diagnostic-tool-container .checkbox-label .checkbox-custom .fa-check { font-size: 0.8em; color: white; opacity: 0; transform: scale(0.5); transition: all 0.2s ease-in-out; }
-        #diagnostic-tool-container .checkbox-label input[type="checkbox"]:checked + .checkbox-custom { background-color: #0ea5e9; border-color: #0ea5e9; }
-        #diagnostic-tool-container .checkbox-label input[type="checkbox"]:checked + .checkbox-custom .fa-check { opacity: 1; transform: scale(1); }
-        #diagnostic-tool-container .checkbox-label:has(input:checked) { border-color: #0ea5e9; background-color: #f0f9ff; box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2); }
-        #diagnostic-tool-container #resultCard { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; }
-        @keyframes pulse-bg { 0% { transform: scale(1); } 50% { transform: scale(1.01); } 100% { transform: scale(1); } }
-        #diagnostic-tool-container .card-pulse { animation: pulse-bg 0.5s ease-in-out; }
-
-        /* --- Estilos de la Autoevaluación (Componente 3) --- */
-        #quiz-container .quiz-card { transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
-        #quiz-container .quiz-card.fade-out { opacity: 0; transform: scale(0.95); }
-        #quiz-container .progress-bar-inner { transition: width 0.5s ease-out; }
-        #quiz-container .option-btn.selected { border-width: 2px; transform: scale(1.02); }
-        #quiz-container .option-btn.correct { background-color: #dcfce7; border-color: #4ade80; color: #166534; font-weight: 700; }
-        #quiz-container .option-btn.incorrect { background-color: #fee2e2; border-color: #f87171; color: #991b1b; font-weight: 700; }
-        #quiz-container .feedback-container, #quiz-container .next-btn-container { display: none; animation: slideUpFadeIn 0.5s ease-out forwards; }
-        #quiz-container .progress-ring__circle { transition: stroke-dashoffset 1s ease-out; transform: rotate(-90deg); transform-origin: 50% 50%; animation: progress-animation 1.5s ease-out forwards; }
-        @keyframes progress-animation { from { stroke-dashoffset: 377; } } /* Circumference of circle with r=60 */
-
+        /* Estilos para la herramienta de diagnóstico */
+        .checkbox-label {
+            display: block;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .checkbox-label:hover {
+            background-color: #f3f4f6;
+            border-color: #6b7280;
+        }
+        input[type="checkbox"]:checked + .checkbox-label {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+        }
+         /* Estilos para el quiz */
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .quiz-option:hover {
+            background-color: #f3f4f6;
+        }
+        .quiz-option.selected {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+        }
+        .quiz-option.correct {
+            background-color: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+        .progress-bar-container {
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            height: 10px;
+        }
+        .progress-bar {
+            background-color: #3b82f6;
+            height: 10px;
+            border-radius: 9999px;
+            transition: width 0.3s ease-in-out;
+        }
     </style>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
 
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">Módulo Interactivo: Neuropatías Periféricas</h1>
-            <p class="text-lg text-gray-600">Un enfoque integral desde la fisiopatología hasta la práctica clínica en Ecuador.</p>
-        </div>
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-gray-800">Plataforma Educativa de Enfermedades Neuromusculares</h1>
+            <p class="text-lg text-gray-600 mt-2">Un recurso integral para el aprendizaje y diagnóstico</p>
+        </header>
 
-        <div class="flex flex-col lg:flex-row gap-8">
-            <aside class="w-full lg:w-1/4 lg:sticky top-8 self-start">
-                <div class="bg-white p-4 rounded-xl shadow-lg">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4 px-4">Índice del Módulo</h3>
-                    <nav id="module-nav" class="space-y-1">
-                        <a href="#guia" class="nav-link active"><i class="fas fa-book-open nav-icon"></i>Guía de Conocimiento</a>
-                        <a href="#presentacion" class="nav-link"><i class="fas fa-desktop nav-icon"></i>Presentación Interactiva</a>
-                        <a href="#herramienta" class="nav-link"><i class="fas fa-stethoscope nav-icon"></i>Herramienta Diagnóstica</a>
-                        <a href="#autoevaluacion" class="nav-link"><i class="fas fa-vial-circle-check nav-icon"></i>Autoevaluación Gamificada</a>
-                    </nav>
-                </div>
-            </aside>
+        <div class="flex flex-col lg:flex-row">
+            <!-- Menú de Navegación Lateral -->
+            <nav class="w-full lg:w-64 bg-white shadow-lg rounded-lg p-4 mb-8 lg:mb-0 lg:mr-8 self-start sticky top-8">
+                <h3 class="text-xl font-bold mb-4 text-gray-700">Secciones</h3>
+                <ul>
+                    <li class="mb-2"><a href="#guia" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"><i class="fas fa-book-open w-6 text-center mr-3"></i>Guía de Conocimiento</a></li>
+                    <li class="mb-2"><a href="#presentacion" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"><i class="fas fa-desktop w-6 text-center mr-3"></i>Presentación</a></li>
+                    <li class="mb-2"><a href="#herramienta" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"><i class="fas fa-stethoscope w-6 text-center mr-3"></i>Asistente Diagnóstico</a></li>
+                    <li class="mb-2"><a href="#abp" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"><i class="fas fa-user-md w-6 text-center mr-3"></i>Caso Clínico</a></li>
+                    <li class="mb-2"><a href="#autoevaluacion" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"><i class="fas fa-clipboard-check w-6 text-center mr-3"></i>Autoevaluación</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Contenido Principal -->
+            <main class="flex-grow">
 
-            <main class="w-full lg:w-3/4">
-                <div id="content-container" class="bg-white p-6 md:p-8 rounded-xl shadow-lg min-h-[600px]">
-                    
-                    <section id="section-guia" class="module-section active">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-200 pb-3">Bienvenido al Módulo de Neuropatías Periféricas</h2>
-                        <div class="space-y-6 text-gray-700 leading-loose">
-                            <p>Este módulo interactivo está diseñado para guiarle a través de los conceptos fundamentales de las neuropatías periféricas, con un enfoque especial en el contexto clínico y de salud pública de Ecuador. Utilice el <b class="text-blue-600">panel de navegación</b> a la izquierda para explorar los diferentes componentes de aprendizaje.</p>
-                            
-                            <div class="bg-sky-50 p-6 rounded-lg border-l-4 border-sky-500">
-                                <h3 class="text-xl font-semibold text-sky-800 mb-2">Puntos Clave a Recordar</h3>
-                                <ul class="list-disc list-inside space-y-2">
-                                    <li>La <b class="text-sky-700">Polineuropatía Diabética (PND)</b> es la causa más común de neuropatía en Ecuador y un problema de salud pública de primer orden.</li>
-                                    <li>El <b class="text-sky-700">Síndrome de Guillain-Barré (SGB)</b> es el prototipo de la neuropatía aguda y una emergencia neurológica.</li>
-                                    <li>El razonamiento clínico para diferenciar los patrones (ej. <b class="text-sky-700">axonopatía vs. desmielinización</b>, <b class="text-sky-700">polineuropatía vs. mononeuropatía múltiple</b>) es más importante que memorizar listas de causas.</li>
-                                </ul>
-                            </div>
-                            <p>Comience con la <b class="text-blue-600">Presentación Interactiva</b> para establecer una base sólida, luego ponga a prueba su razonamiento con la <b class="text-blue-600">Herramienta Diagnóstica</b> y finalmente, evalúe su conocimiento con la <b class="text-blue-600">Autoevaluación Gamificada</b>.</p>
+                <!-- Guía de Conocimiento -->
+                <section id="guia" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">Guía Rápida de Conocimiento</h2>
+                    <p class="mb-6 text-gray-600">Resumen conciso de Miastenia Gravis (MG), Distrofia Muscular de Duchenne (DMD) y Miopatías Inflamatorias (MII).</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-auto border-collapse border border-gray-300">
+                            <thead class="bg-gray-200">
+                                <tr>
+                                    <th class="border border-gray-300 p-3 text-left">Característica</th>
+                                    <th class="border border-gray-300 p-3 text-left">Miastenia Gravis (MG)</th>
+                                    <th class="border border-gray-300 p-3 text-left">Distrofia Muscular de Duchenne (DMD)</th>
+                                    <th class="border border-gray-300 p-3 text-left">Miopatías Inflamatorias (MII)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-semibold">Etiología</td>
+                                    <td class="border border-gray-300 p-3">Autoinmune (Ac anti-AChR, anti-MuSK)</td>
+                                    <td class="border border-gray-300 p-3">Genética (mutación gen distrofina)</td>
+                                    <td class="border border-gray-300 p-3">Autoinmune (infiltrado inflamatorio)</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-semibold">Clínica Clave</td>
+                                    <td class="border border-gray-300 p-3">Ptosis fluctuante, diplopía, debilidad muscular fatigable</td>
+                                    <td class="border border-gray-300 p-3">Signo de Gowers, debilidad muscular proximal, pseudohipertrofia</td>
+                                    <td class="border border-gray-300 p-3">Debilidad proximal simétrica, rash (Dermatomiositis)</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-semibold">Marcadores Diagnósticos</td>
+                                    <td class="border border-gray-300 p-3">Ac anti-AChR, ENR, Test de Hielo</td>
+                                    <td class="border border-gray-300 p-3">CK muy elevada, test genético</td>
+                                    <td class="border border-gray-300 p-3">Ac anti-Jo-1, CK elevada, biopsia muscular</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Presentación Interactiva -->
+                <section id="presentacion" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">Presentación Interactiva</h2>
+                    <div id="carousel" class="relative mb-4">
+                        <!-- Las diapositivas se generan aquí con JS -->
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button id="prevBtn" class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-300"><i class="fas fa-arrow-left"></i> Anterior</button>
+                        <span id="slideCounter" class="text-gray-600 font-semibold"></span>
+                        <button id="nextBtn" class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-300">Siguiente <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </section>
+
+                <!-- Herramienta Interactiva -->
+                <section id="herramienta" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">Asistente de Diagnóstico Diferencial</h2>
+                    <p class="mb-6 text-gray-600">Seleccione los síntomas y signos clave para obtener una orientación diagnóstica.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div><input type="checkbox" id="debilidad_fluctuante" class="hidden"><label for="debilidad_fluctuante" class="checkbox-label">Debilidad fluctuante que mejora con el reposo</label></div>
+                        <div><input type="checkbox" id="ptosis_diplopia" class="hidden"><label for="ptosis_diplopia" class="checkbox-label">Ptosis/Diplopía (párpados caídos/visión doble)</label></div>
+                        <div><input type="checkbox" id="gowers" class="hidden"><label for="gowers" class="checkbox-label">Signo de Gowers positivo (niño < 5 años)</label></div>
+                        <div><input type="checkbox" id="debilidad_proximal" class="hidden"><label for="debilidad_proximal" class="checkbox-label">Debilidad proximal simétrica</label></div>
+                        <div><input type="checkbox" id="rash" class="hidden"><label for="rash" class="checkbox-label">Rash en heliotropo o pápulas de Gottron</label></div>
+                    </div>
+                    <button id="analizarBtn" class="w-full px-4 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors">Analizar Síntomas</button>
+                    <div id="resultadoDiagnostico" class="mt-6 p-4 rounded-lg bg-gray-100 hidden"></div>
+                </section>
+
+                <!-- Actividad ABP -->
+                <section id="abp" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">Actividad ABP: Caso Clínico</h2>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                        <p class="font-bold">Presentación del Paciente:</p>
+                        <p>Paciente masculino de 19 años, estudiante universitario, refiere que desde hace 4 meses nota visión doble y párpados caídos que empeoran al final del día mientras estudia. Ocasionalmente, siente que se cansa mucho al subir las escaleras a su departamento.</p>
+                    </div>
+                     <div class="mt-6">
+                        <h3 class="font-bold text-lg mb-2">Preguntas Guía:</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>¿Cuál es el diagnóstico más probable y por qué?</li>
+                            <li>¿Qué hallazgos en la historia clínica apoyan su sospecha?</li>
+                            <li>¿Qué pruebas diagnósticas solicitaría para confirmar el diagnóstico?</li>
+                            <li>¿Cuál sería el manejo inicial para este paciente?</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Autoevaluación -->
+                <section id="autoevaluacion" class="p-8 bg-white shadow-lg rounded-lg">
+                    <h2 class="text-3xl font-bold mb-2 text-gray-800 border-b-2 border-blue-500 pb-2">Autoevaluación</h2>
+                    <p class="mb-4 text-gray-600">Pon a prueba tus conocimientos.</p>
+                    <div id="quizProgress" class="mb-4">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-base font-medium text-blue-700">Progreso</span>
+                            <span id="progressText" class="text-sm font-medium text-blue-700"></span>
                         </div>
-                    </section>
+                        <div class="progress-bar-container">
+                            <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div id="quizContainer" class="mb-4">
+                        <!-- Las preguntas del quiz se generan aquí con JS -->
+                    </div>
+                    <div id="quizResultContainer" class="text-center p-6 bg-gray-100 rounded-lg hidden">
+                        <!-- El resultado del quiz se muestra aquí -->
+                    </div>
+                </section>
 
-                    <section id="section-presentacion" class="module-section">
-                        </section>
-
-                    <section id="section-herramienta" class="module-section">
-                        </section>
-                    
-                    <section id="section-autoevaluacion" class="module-section">
-                        </section>
-                </div>
             </main>
         </div>
     </div>
 
-    <template id="presentation-template">
-        <div id="presentation-container">
-            <div class="w-full h-full flex flex-col bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black ring-opacity-5">
-                <div class="flex-grow p-4 md:p-8 overflow-y-auto">
-                    <div class="bg-slate-100 rounded-lg w-full h-full flex items-center justify-center p-8 md:p-12 min-h-[500px] relative">
-                        </div>
-                </div>
-                <div class="flex-shrink-0 p-4 bg-slate-200/50 border-t border-slate-300/70">
-                    <div class="flex items-center justify-between max-w-md mx-auto">
-                        <button id="prevBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"><i class="fas fa-arrow-left mr-2"></i> Anterior</button>
-                        <div id="slide-counter" class="text-lg font-semibold text-slate-700"></div>
-                        <button id="nextBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Siguiente <i class="fas fa-arrow-right ml-2"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
-    
-    <template id="diagnostic-tool-template">
-        <div id="diagnostic-tool-container" class="w-full max-w-2xl mx-auto">
-            <div id="diagnosisCard" class="bg-gradient-to-br from-sky-50 to-cyan-100 rounded-2xl shadow-xl p-8 md:p-12">
-                <div class="text-center mb-8">
-                    <h1 class="text-3xl font-extrabold text-slate-800">Asistente de Diagnóstico Diferencial</h1>
-                    <p class="text-slate-500 mt-2">Seleccione los hallazgos clínicos clave para obtener una orientación diagnóstica.</p>
-                </div>
-                <div id="symptomsContainer" class="space-y-4 mb-8">
-                    <label for="symptom1" class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"><input type="checkbox" id="symptom1" data-symptom="ascendingWeakness"><span class="checkbox-custom"><i class="fas fa-check"></i></span><span class="font-semibold text-slate-700">Debilidad ascendente y simétrica</span></label>
-                    <label for="symptom2" class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"><input type="checkbox" id="symptom2" data-symptom="arreflexia"><span class="checkbox-custom"><i class="fas fa-check"></i></span><span class="font-semibold text-slate-700">Arreflexia generalizada</span></label>
-                    <label for="symptom3" class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"><input type="checkbox" id="symptom3" data-symptom="burningPain"><span class="checkbox-custom"><i class="fas fa-check"></i></span><span class="font-semibold text-slate-700">Dolor quemante en "guante y calcetín"</span></label>
-                    <label for="symptom4" class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"><input type="checkbox" id="symptom4" data-symptom="vibratoryLoss"><span class="checkbox-custom"><i class="fas fa-check"></i></span><span class="font-semibold text-slate-700">Pérdida de sensibilidad vibratoria</span></label>
-                    <label for="symptom5" class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"><input type="checkbox" id="symptom5" data-symptom="mononeuropathyMultiplex"><span class="checkbox-custom"><i class="fas fa-check"></i></span><span class="font-semibold text-slate-700">Mononeuropatía múltiple (asimétrica)</span></label>
-                </div>
-                <button id="analyzeBtn" class="w-full flex items-center justify-center p-4 bg-gradient-to-r from-sky-500 to-cyan-500 text-white font-bold text-lg rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:brightness-110"><i class="fa-solid fa-stethoscope mr-3"></i> Analizar Hallazgos</button>
-            </div>
-            <div id="resultCard" class="mt-8 bg-white rounded-2xl shadow-xl p-8 text-center opacity-0 transform translate-y-5" style="display: none;">
-                <div id="resultIcon" class="text-6xl mb-4 mx-auto"></div>
-                <h2 id="resultTitle" class="text-4xl font-extrabold"></h2>
-                <p id="resultJustification" class="text-slate-600 mt-4 text-lg leading-relaxed"></p>
-            </div>
-        </div>
-    </template>
-    
-    <template id="quiz-template">
-        <div id="quiz-container" class="w-full max-w-3xl mx-auto">
-            <div id="quiz-card" class="quiz-card bg-white rounded-2xl shadow-xl overflow-hidden">
-                <div class="p-8 pb-0">
-                    <div class="bg-gray-200 rounded-full h-2.5"><div id="progress-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-2.5 rounded-full progress-bar-inner" style="width: 0%"></div></div>
-                </div>
-                <div id="question-area" class="p-8">
-                    <h2 class="text-lg font-bold text-blue-600 mb-2" id="question-counter"></h2>
-                    <p class="text-xl text-slate-800 font-semibold leading-relaxed" id="question-text"></p>
-                    <div id="options-container" class="mt-8 space-y-4"></div>
-                    <div id="feedback-container" class="feedback-container mt-6">
-                        <div id="feedback-box" class="p-4 rounded-lg">
-                            <h3 class="font-bold mb-2">Justificación Pedagógica:</h3>
-                            <div id="feedback-text" class="space-y-2 text-sm"></div>
-                        </div>
-                    </div>
-                    <div id="next-btn-container" class="next-btn-container mt-6">
-                        <button id="next-btn" class="w-full p-3 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300">Siguiente Pregunta <i class="fas fa-arrow-right ml-2"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div id="results-container" class="text-center p-8 bg-white rounded-2xl shadow-xl" style="display: none;">
-                <h2 class="text-3xl font-extrabold text-slate-800 mb-4">Quiz Completado</h2>
-                <div class="relative inline-flex items-center justify-center my-6">
-                    <svg class="w-40 h-40"><circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="60" cx="80" cy="80"/><circle id="progress-ring" class="progress-ring__circle text-blue-500" stroke-width="10" stroke-linecap="round" stroke="currentColor" fill="transparent" r="60" cx="80" cy="80"/></svg>
-                    <span id="score-text" class="absolute text-4xl font-extrabold text-blue-600"></span>
-                </div>
-                <p id="results-feedback" class="text-xl text-slate-600 font-semibold mb-8"></p>
-                <button id="restart-btn" class="w-full max-w-xs mx-auto p-4 bg-gray-800 text-white font-bold rounded-lg shadow-md hover:bg-gray-900 transition-all duration-300"><i class="fas fa-redo mr-2"></i> Repetir el Quiz</button>
-            </div>
-        </div>
-    </template>
-
-
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function () {
         
-        // --- LÓGICA DE NAVEGACIÓN PRINCIPAL ---
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('.module-section');
-        const contentContainer = document.getElementById('content-container');
+        // --- LÓGICA DE LA PRESENTACIÓN INTERACTIVA ---
+        const slides = [
+            { type: 'title', title: 'Enfermedades de la Unión Neuromuscular y Músculo', subtitle: 'Un Análisis Clínico por CanvasMed-AI' },
+            { type: 'content', title: 'Introducción: Enfermedades Neuromusculares (ENM)', points: ['Grupo heterogéneo de patologías que afectan la unidad motora.', 'Abarcan desde la motoneurona hasta el músculo.', 'Son condiciones crónicas, progresivas y a menudo incapacitantes.', 'Clasificación principal: Trastornos de la unión, Distrofias y Miopatías.'] },
+            { type: 'content', title: 'Fisiopatología de la Miastenia Gravis (MG)', points: ['Enfermedad autoinmune mediada por anticuerpos.', 'Ataque a proteínas de la membrana postsináptica, principalmente receptores de acetilcolina (AChR).', 'Resultado: Interrupción de la transmisión neuromuscular.', 'El timo juega un papel central, con hiperplasia o timomas frecuentes.'] },
+            { type: 'content', title: 'Clínica de la Miastenia Gravis', points: ['Característica principal: Debilidad muscular fluctuante y fatigable.', 'Forma Ocular: Ptosis (párpado caído) y diplopía (visión doble).', 'Forma Generalizada: Afecta músculos bulbares (habla, deglución), axiales y de extremidades.', 'Crisis Miasténica: Emergencia médica con compromiso respiratorio.'] },
+            { type: 'content', title: 'Diagnóstico de la Miastenia Gravis', points: ['Clínico: Historia de debilidad fatigable.', 'Electrodiagnóstico: Estimulación Nerviosa Repetitiva (ENR) y EMG de Fibra Única (EMG-SF).', 'Serología: Detección de anticuerpos anti-AChR (85%) y anti-MuSK.', 'Pruebas de cabecera: Test de la bolsa de hielo.'] },
+            { type: 'content', title: 'Tratamiento de la Miastenia Gravis', points: ['Sintomático: Piridostigmina (inhibidor de acetilcolinesterasa).', 'Inmunoterapia a largo plazo: Corticosteroides y ahorradores como Azatioprina.', 'Terapias de rescate (crisis): Inmunoglobulina Intravenosa (IVIg) y Plasmaféresis.', 'Quirúrgico: Timectomía.'] },
+            { type: 'title', title: 'Transición: Distrofias Musculares', subtitle: 'Enfermedades genéticas que causan degeneración muscular progresiva' },
+            { type: 'content', title: 'Fisiopatología de la Distrofia de Duchenne (DMD)', points: ['Trastorno genético recesivo ligado al cromosoma X.', 'Causado por mutaciones en el gen que codifica la proteína Distrofina.', 'DMD: Ausencia casi total de distrofina funcional.', 'La falta de distrofina hace que las fibras musculares sean frágiles.'] },
+            { type: 'content', title: 'Clínica de la Distrofia de Duchenne (DMD)', points: ['Inicio en la infancia temprana (2-5 años).', 'Signo de Gowers: El niño "trepa" por sus propias piernas para levantarse.', 'Pseudo-hipertrofia de pantorrillas.', 'Progresión rápida: Pérdida de la marcha y afectación cardiorrespiratoria.'] },
+            { type: 'content', title: 'Diagnóstico de la Distrofia de Duchenne (DMD)', points: ['Sospecha clínica y niveles de Creatina Quinasa (CK) masivamente elevados (>100x).', 'Confirmación: Prueba genética molecular para identificar la mutación.', 'Biopsia muscular: Muestra ausencia de distrofina (uso limitado actualmente).'] },
+            { type: 'title', title: 'Transición: Miopatías Inflamatorias', subtitle: 'Enfermedades autoinmunes que atacan el músculo estriado' },
+            { type: 'content', title: 'Clasificación de las Miopatías Inflamatorias (MII)', points: ['Dermatomiositis (DM): Debilidad con manifestaciones cutáneas (Gottron, heliotropo).', 'Polimiositis (PM): Debilidad muscular sin afectación cutánea.', 'Miopatía Necrotizante Inmunomediada (MNIM): Forma severa.', 'Miositis por Cuerpos de Inclusión (MCI): Afecta a mayores de 50 años.'] },
+            { type: 'content', title: 'Clínica de Dermatomiositis (DM) y Polimiositis (PM)', points: ['Debilidad muscular proximal y simétrica.', 'Afectación de flexores del cuello.', 'Manifestaciones sistémicas: Enfermedad pulmonar, artritis.', 'En DM de adultos, riesgo aumentado de malignidad subyacente.'] },
+            { type: 'table', title: 'Tabla Comparativa de Patologías Clave', headers: ['Característica', 'Miastenia Gravis', 'Duchenne (DMD)', 'Miopatías (DM/PM)'], rows: [
+                ['Etiología', 'Autoinmune (Anti-AChR)', 'Genética (Ausencia de distrofina)', 'Autoinmune (Inflamación muscular)'],
+                ['Inicio Típico', 'Mujeres <40, Hombres >60', 'Infancia (2-5 años)', 'Adultos (40-50 años)'],
+                ['Clínica Clave', 'Debilidad fatigable, ptosis', 'Signo de Gowers, debilidad progresiva', 'Debilidad proximal, rash (en DM)'],
+                ['Marcador DX', 'Anticuerpos, EMG (decremento)', 'CK muy elevada, Test genético', 'CK elevada, Biopsia, Auto-ACs']
+            ]},
+            { type: 'title', title: 'Conclusiones y Cierre', subtitle: 'El diagnóstico preciso y el manejo multidisciplinario son clave para mejorar la calidad de vida.' }
+        ];
 
-        const contentLoaders = {
-            'section-presentacion': (container) => {
-                const template = document.getElementById('presentation-template');
-                if (template) {
-                    container.innerHTML = '';
-                    container.appendChild(template.content.cloneNode(true));
-                    setupPresentation(container.querySelector('#presentation-container'));
-                }
-            },
-            'section-herramienta': (container) => {
-                const template = document.getElementById('diagnostic-tool-template');
-                if (template) {
-                    container.innerHTML = '';
-                    container.appendChild(template.content.cloneNode(true));
-                    setupDiagnosticTool(container.querySelector('#diagnostic-tool-container'));
-                }
-            },
-            'section-autoevaluacion': (container) => {
-                const template = document.getElementById('quiz-template');
-                if (template) {
-                    container.innerHTML = '';
-                    container.appendChild(template.content.cloneNode(true));
-                    setupQuiz(container.querySelector('#quiz-container'));
-                }
-            }
-        };
+        const carousel = document.getElementById('carousel');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        let currentSlide = 0;
 
-        function switchSection(hash) {
-            hash = hash.substring(1); // remove #
-            let targetSectionId = 'section-' + hash;
-            let targetSection = document.getElementById(targetSectionId);
+        function showSlide(index) {
+            const slide = slides[index];
+            let content = '';
             
-            if (!targetSection) {
-                hash = 'guia';
-                targetSectionId = 'section-guia';
-                targetSection = document.getElementById(targetSectionId);
+            let slideBaseHtml = `<div class="slide active"><div>`;
+            let slideEndHtml = `</div></div>`;
+
+            if (slide.type === 'title') {
+                content = `${slideBaseHtml}<h3 class="text-2xl font-bold mb-2 text-blue-600">${slide.title}</h3><p class="text-gray-600">${slide.subtitle}</p>${slideEndHtml}`;
+            } else if (slide.type === 'content') {
+                const pointsHtml = slide.points.map(point => `<li class="mb-2">${point}</li>`).join('');
+                content = `${slideBaseHtml}<h3 class="text-xl font-bold mb-4 text-blue-600">${slide.title}</h3><ul class="list-disc list-inside text-left text-gray-700">${pointsHtml}</ul>${slideEndHtml}`;
+            } else if (slide.type === 'table') {
+                let tableHtml = `<h3 class="text-xl font-bold mb-4 text-blue-600">${slide.title}</h3><div class="overflow-x-auto w-full"><table class="w-full text-sm text-left">`;
+                tableHtml += `<thead class="bg-gray-200 text-xs uppercase"><tr>`;
+                slide.headers.forEach(header => {
+                    tableHtml += `<th scope="col" class="py-2 px-3">${header}</th>`;
+                });
+                tableHtml += `</tr></thead><tbody>`;
+                slide.rows.forEach(row => {
+                    tableHtml += `<tr class="bg-white border-b">`;
+                    row.forEach((cell, i) => {
+                        if (i === 0) {
+                            tableHtml += `<th scope="row" class="py-2 px-3 font-medium text-gray-900 whitespace-nowrap">${cell}</th>`;
+                        } else {
+                            tableHtml += `<td class="py-2 px-3">${cell}</td>`;
+                        }
+                    });
+                    tableHtml += `</tr>`;
+                });
+                tableHtml += `</tbody></table></div>`;
+                content = `${slideBaseHtml}${tableHtml}${slideEndHtml}`;
             }
 
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.hash === '#' + hash);
-            });
-
-            sections.forEach(section => {
-                section.classList.toggle('active', section.id === targetSectionId);
-            });
-
-            if (contentLoaders[targetSectionId] && !targetSection.dataset.loaded) {
-                contentLoaders[targetSectionId](targetSection);
-                targetSection.dataset.loaded = "true";
-            }
+            carousel.innerHTML = content;
+            slideCounter.textContent = `Diapositiva ${index + 1} de ${slides.length}`;
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === slides.length - 1;
         }
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                switchSection(targetId);
-                history.pushState(null, null, targetId);
-                window.scrollTo({ top: contentContainer.offsetTop - 80, behavior: 'smooth' });
-            });
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
         });
 
-        // Load initial section based on URL hash or default to first one
-        if (window.location.hash) {
-            switchSection(window.location.hash);
-        } else {
-            switchSection('#guia');
-        }
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+
+        showSlide(currentSlide);
+
+
+        // --- LÓGICA DEL ASISTENTE DE DIAGNÓSTICO ---
+        const analizarBtn = document.getElementById('analizarBtn');
+        const resultadoDiv = document.getElementById('resultadoDiagnostico');
         
-        // --- LÓGICA DE LA PRESENTACIÓN (Componente 1) ---
-        function setupPresentation(container) {
-            const slideData = [
-                `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Universidad Central del Ecuador | Rotación de Neurología</h3><h2 class="text-5xl font-extrabold text-slate-800 mb-6">Neuropatías Periféricas: Un Enfoque Integral</h2><p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">Desde la Fisiopatología hasta la Práctica Clínica en el Sistema de Salud Ecuatoriano.</p></div>`,
-                `<div class="text-center"><h2 class="text-3xl font-bold text-slate-800 mb-6">¿Qué son las Neuropatías Periféricas?</h2><p class="text-xl text-slate-600 max-w-3xl leading-relaxed">Son un grupo heterogéneo de <b class="text-blue-600">trastornos del Sistema Nervioso Periférico (SNP)</b>, la red que conecta el cerebro y la médula espinal con el resto del cuerpo.</p><p class="mt-4 text-xl text-slate-600 max-w-3xl leading-relaxed">El daño a estos nervios causa una amplia gama de síntomas <b class="text-blue-600">motores, sensitivos y autonómicos</b>, representando un desafío diagnóstico y un gran impacto en la calidad de vida del paciente.</p></div>`,
-                `<div class="text-center"><h2 class="text-3xl font-bold text-slate-800 mb-6">Relevancia en el Contexto Ecuatoriano</h2><div class="flex flex-col md:flex-row gap-8 w-full max-w-4xl"><div class="flex-1 bg-white p-6 rounded-lg shadow-md"><h3 class="text-2xl font-semibold text-blue-700 mb-3">Diabetes Mellitus (DM)</h3><p class="text-lg text-slate-600 leading-relaxed">Es la <b class="text-red-600">causa más común</b> de neuropatía. La DM es la segunda causa de mortalidad general en Ecuador, y se estima que hasta un <b class="text-red-600">60-70%</b> de los pacientes diabéticos desarrollarán algún grado de daño nervioso.</p></div><div class="flex-1 bg-white p-6 rounded-lg shadow-md"><h3 class="text-2xl font-semibold text-blue-700 mb-3">Síndrome de Guillain-Barré (SGB)</h3><p class="text-lg text-slate-600 leading-relaxed">Es el prototipo de la <b class="text-red-600">neuropatía aguda</b>. Las alertas epidemiológicas en países vecinos y su asociación con arbovirus como el Zika subrayan la necesidad de una <b class="text-red-600">vigilancia activa</b> en el país.</p></div></div></div>`,
-                `<div class="w-full"><h2 class="text-3xl font-bold text-slate-800 mb-4 text-center">Arquitectura del Nervio Periférico</h2><svg viewBox="0 0 800 500" class="nerve-diagram w-full h-auto"><style>.diagram-title { font-size: 24px; font-weight: bold; fill: #334155; } .diagram-subtitle { font-size: 16px; font-weight: normal; fill: #475569; }</style><text x="400" y="30" text-anchor="middle" class="diagram-title">Tipos de Daño Nervioso</text><g transform="translate(50, 80)"><rect x="0" y="0" width="700" height="100" class="nerve-bg" rx="10"/><path d="M 10 50 H 690" class="axon"/><rect x="50" y="25" width="80" height="50" class="myelin" rx="5"/><text x="90" y="90" class="label" text-anchor="middle">Mielina</text><rect x="150" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="250" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="350" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="450" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="550" y="25" width="80" height="50" class="myelin" rx="5"/><circle cx="30" cy="50" r="10" class="schwann"/><text x="30" y="90" class="label" text-anchor="middle">Axón</text><text x="350" y="-10" text-anchor="middle" class="diagram-subtitle">Nervio Sano</text></g><g transform="translate(50, 220)"><rect x="0" y="0" width="700" height="100" class="nerve-bg" rx="10"/><path d="M 10 50 H 400" class="axon"/><path d="M 400 50 H 690" class="axon axon-dying"/><rect x="50" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="150" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="250" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="350" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="450" y="25" width="80" height="50" class="myelin myelin-damaged" rx="5"/><rect x="550" y="25" width="80" height="50" class="myelin myelin-damaged" rx="5"/><circle cx="30" cy="50" r="10" class="schwann"/><text x="350" y="-10" text-anchor="middle" class="diagram-subtitle">Axonopatía Distal ("Dying-Back")</text><text x="550" y="90" class="label" text-anchor="middle">Axón degenerando</text></g><g transform="translate(50, 360)"><rect x="0" y="0" width="700" height="100" class="nerve-bg" rx="10"/><path d="M 10 50 H 690" class="axon"/><rect x="50" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="250" y="25" width="80" height="50" class="myelin myelin-damaged" rx="5"/><rect x="450" y="25" width="80" height="50" class="myelin myelin-damaged" rx="5"/><circle cx="30" cy="50" r="10" class="schwann"/><text x="350" y="-10" text-anchor="middle" class="diagram-subtitle">Desmielinización Segmentaria</text><text x="360" y="90" class="label" text-anchor="middle">Pérdida de mielina, axón intacto</text></g></svg></div>`
-            ];
+        analizarBtn.addEventListener('click', () => {
+            const debilidadFluctuante = document.getElementById('debilidad_fluctuante').checked;
+            const ptosisDiplopia = document.getElementById('ptosis_diplopia').checked;
+            const gowers = document.getElementById('gowers').checked;
+            const debilidadProximal = document.getElementById('debilidad_proximal').checked;
+            const rash = document.getElementById('rash').checked;
+
+            let diagnostic = "";
+            let justificacion = "";
+
+            if (debilidadFluctuante && ptosisDiplopia) {
+                diagnostic = "Alta sospecha de Miastenia Gravis (MG)";
+                justificacion = "La combinación de debilidad fatigable con síntomas oculares (ptosis/diplopía) es altamente característica de la MG.";
+            } else if (gowers && debilidadProximal) {
+                diagnostic = "Alta sospecha de Distrofia Muscular de Duchenne (DMD)";
+                justificacion = "El signo de Gowers en un niño, junto con debilidad proximal, es el sello distintivo de la DMD.";
+            } else if (debilidadProximal && rash) {
+                diagnostic = "Alta sospecha de Dermatomiositis (DM)";
+                justificacion = "La debilidad proximal simétrica acompañada de manifestaciones cutáneas típicas apunta fuertemente a una Dermatomiositis.";
+            } else if (debilidadProximal) {
+                diagnostic = "Sospecha de Miopatía";
+                justificacion = "La debilidad proximal aislada requiere un estudio más profundo, pudiendo corresponder a Polimiositis u otras miopatías.";
+            } else {
+                diagnostic = "Diagnóstico incierto";
+                justificacion = "Los síntomas seleccionados no conforman un patrón claro. Se requiere una evaluación clínica completa para determinar la causa.";
+            }
             
-            const slideContainer = container.querySelector('.bg-slate-100');
-            const prevBtn = container.querySelector('#prevBtn');
-            const nextBtn = container.querySelector('#nextBtn');
-            const slideCounter = container.querySelector('#slide-counter');
-            let currentSlide = 0;
+            resultadoDiv.innerHTML = `<p class="font-bold text-lg">${diagnostic}</p><p>${justificacion}</p>`;
+            resultadoDiv.classList.remove('hidden');
+        });
 
-            function renderSlides() {
-                slideContainer.innerHTML = slideData.map((content, index) => 
-                    `<div class="slide-content absolute w-full h-full p-8 md:p-12 ${index === 0 ? 'active' : ''}">${content}</div>`
-                ).join('');
-            }
 
-            function showSlide(n) {
-                const slides = slideContainer.querySelectorAll('.slide-content');
-                slides.forEach((slide, index) => slide.classList.toggle('active', index === n));
-                currentSlide = n;
-                slideCounter.textContent = `${n + 1} / ${slides.length}`;
-                prevBtn.disabled = n === 0;
-                nextBtn.disabled = n === slides.length - 1;
-            }
+        // --- LÓGICA DEL QUIZ DE AUTOEVALUACIÓN ---
+        const quizQuestions = [
+            { question: "¿Qué hallazgo es más característico de la Miastenia Gravis?", options: ["Debilidad proximal simétrica", "Signo de Gowers", "Ptosis fluctuante", "Elevada CK"], answer: 2, justification: "La ptosis fluctuante es un síntoma clásico de la MG debido a la fatigabilidad de los músculos extraoculares." },
+            { question: "La ausencia de la proteína distrofina es la causa de:", options: ["Polimiositis", "Distrofia Muscular de Duchenne", "Miastenia Gravis", "Dermatomiositis"], answer: 1, justification: "La DMD es causada por una mutación en el gen que codifica la distrofina, una proteína esencial para la integridad de la fibra muscular." },
+            { question: "¿Cuál de estos es un signo cutáneo de la Dermatomiositis?", options: ["Pseudohipertrofia", "Signo de Gowers", "Pápulas de Gottron", "Test de Hielo positivo"], answer: 2, justification: "Las pápulas de Gottron (lesiones violáceas sobre las articulaciones de los dedos) son patognomónicas de la Dermatomiositis." },
+            { question: "El signo de Gowers se asocia típicamente con:", options: ["Debilidad distal", "Debilidad de músculos oculares", "Debilidad de la cintura pélvica", "Debilidad facial"], answer: 2, justification: "Este signo refleja una marcada debilidad en los músculos de la cintura pélvica y los extensores del tronco, obligando al paciente a usar sus brazos para 'trepar' sobre sus piernas." }
+        ];
 
-            renderSlides();
-            showSlide(0);
+        const quizContainer = document.getElementById('quizContainer');
+        const quizResultContainer = document.getElementById('quizResultContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        let currentQuestionIndex = 0;
+        let score = 0;
 
-            nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
-            prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
-        }
-        
-        // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA (Componente 2) ---
-        function setupDiagnosticTool(container) {
-            const diagnosisCard = container.querySelector('#diagnosisCard');
-            const analyzeBtn = container.querySelector('#analyzeBtn');
-            const resultCard = container.querySelector('#resultCard');
-            const resultIcon = container.querySelector('#resultIcon');
-            const resultTitle = container.querySelector('#resultTitle');
-            const resultJustification = container.querySelector('#resultJustification');
-            const checkboxes = container.querySelectorAll('input[type="checkbox"]');
-
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', () => {
-                    diagnosisCard.classList.remove('card-pulse');
-                    void diagnosisCard.offsetWidth;
-                    diagnosisCard.classList.add('card-pulse');
-                });
+        function showQuestion(index) {
+            const question = quizQuestions[index];
+            let optionsHtml = '';
+            question.options.forEach((option, i) => {
+                optionsHtml += `<button class="quiz-option" data-answer-index="${i}">${option}</button>`;
             });
 
-            analyzeBtn.addEventListener('click', () => {
-                const selectedSymptoms = {};
-                checkboxes.forEach(checkbox => {
-                    if (checkbox.checked) selectedSymptoms[checkbox.dataset.symptom] = true;
-                });
+            quizContainer.innerHTML = `
+                <div class="p-4 border rounded-lg bg-gray-50">
+                    <p class="text-lg font-semibold mb-4">${index + 1}. ${question.question}</p>
+                    <div class="space-y-2">${optionsHtml}</div>
+                </div>
+            `;
+            
+            document.querySelectorAll('.quiz-option').forEach(button => {
+                button.addEventListener('click', handleAnswer);
+            });
+        }
 
-                let diagnosis = {
-                    title: 'Hallazgos no concluyentes',
-                    justification: 'La combinación de síntomas seleccionada no corresponde a un patrón clásico. Considere otras etiologías o refine la anamnesis y el examen físico. Este es un asistente educativo y no reemplaza el juicio clínico.',
-                    icon: '<i class="fa-solid fa-question-circle text-gray-400"></i>',
-                    borderColor: 'border-gray-400'
-                };
+        function handleAnswer(event) {
+            const selectedButton = event.target;
+            const selectedAnswerIndex = parseInt(selectedButton.dataset.answerIndex);
+            const question = quizQuestions[currentQuestionIndex];
+            const correctAnswerIndex = question.answer;
 
-                if (selectedSymptoms.ascendingWeakness && selectedSymptoms.arreflexia) {
-                    diagnosis = {
-                        title: 'Síndrome de Guillain-Barré (SGB)',
-                        justification: 'La constelación de debilidad aguda, ascendente, simétrica y con arreflexia generalizada es el sello clínico de una neuropatía desmielinizante aguda, cuyo arquetipo es el SGB.',
-                        icon: '<i class="fa-solid fa-lungs-virus text-red-500"></i>',
-                        borderColor: 'border-red-500'
-                    };
-                } else if (selectedSymptoms.burningPain && selectedSymptoms.vibratoryLoss) {
-                    diagnosis = {
-                        title: 'Polineuropatía Diabética (PND)',
-                        justification: 'La presencia de síntomas de fibras pequeñas (dolor quemante) y de fibras grandes (pérdida de vibración) en una distribución distal y simétrica ("en guante y calcetín") es característica de una axonopatía distal, el mecanismo típico de la PND.',
-                        icon: '<i class="fa-solid fa-shoe-prints text-blue-500"></i>',
-                        borderColor: 'border-blue-500'
-                    };
-                } else if (selectedSymptoms.mononeuropathyMultiplex) {
-                    diagnosis = {
-                        title: 'Vasculitis (Mononeuropatía Múltiple)',
-                        justification: 'La afectación secuencial, asimétrica y escalonada de nervios no contiguos (mononeuropatía múltiple) es una "bandera roja" que sugiere un proceso sistémico que afecta los vasos sanguíneos de los nervios (vasa nervorum), como ocurre en las vasculitis.',
-                        icon: '<i class="fa-solid fa-diagram-project text-amber-500"></i>',
-                        borderColor: 'border-amber-500'
-                    };
+            document.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.disabled = true;
+                const btnIndex = parseInt(btn.dataset.answerIndex);
+                if (btnIndex === correctAnswerIndex) {
+                    btn.classList.add('correct');
                 }
-
-                resultIcon.innerHTML = diag.icon;
-                resultTitle.textContent = diag.title;
-                resultJustification.innerHTML = diag.justification;
-                resultCard.className = `mt-8 bg-white rounded-2xl shadow-xl p-8 text-center opacity-0 transform translate-y-5 border-t-8 ${diag.borderColor}`;
-                resultCard.style.display = 'block';
-                setTimeout(() => {
-                    resultCard.classList.remove('opacity-0', 'translate-y-5');
-                    resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 10);
             });
+
+            if (selectedAnswerIndex === correctAnswerIndex) {
+                score++;
+                selectedButton.classList.add('correct');
+            } else {
+                selectedButton.classList.add('incorrect');
+            }
+            
+            // Mostrar justificación
+            const justificationEl = document.createElement('div');
+            justificationEl.className = 'mt-4 p-3 rounded-lg bg-yellow-100 border border-yellow-300 text-sm';
+            justificationEl.innerHTML = `<span class="font-bold">Justificación:</span> ${question.justification}`;
+            quizContainer.querySelector('.p-4').appendChild(justificationEl);
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < quizQuestions.length) {
+                    showQuestion(currentQuestionIndex);
+                    updateProgress();
+                } else {
+                    showResults();
+                }
+            }, 3000); // Espera 3 segundos antes de pasar a la siguiente pregunta
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
         }
         
-        // --- LÓGICA DE LA AUTOEVALUACIÓN (Componente 3) ---
-        function setupQuiz(container) {
-            const quizData = [
-                { question: "Paciente de 65 años con diabetes tipo 2 de 15 años de evolución, consulta por dolor quemante y adormecimiento en ambos pies que ha progresado lentamente hasta las rodillas. Al examen, presenta hipoestesia vibratoria y aquíleos ausentes. ¿Cuál es el diagnóstico más probable?", options: ["Síndrome de Guillain-Barré (SGB)", "Polineuropatía Diabética (PND)", "Mononeuropatía Múltiple por vasculitis", "Neuropatía por atrapamiento del nervio mediano"], correctAnswer: 1, justification: { correct: "Correcto. El cuadro de un paciente con diabetes de larga data que presenta síntomas sensitivos crónicos, de progresión lenta, simétricos y distales (patrón 'en guante y calcetín'), con afectación de fibras grandes (vibración) y pequeñas (dolor), es el sello de una axonopatía distal, típica de la PND.", incorrect: ["Incorrecto. El SGB es una neuropatía aguda y motora.", "Incorrecto. La vasculitis es asimétrica y escalonada.", "Incorrecto. El síndrome del túnel carpiano es una mononeuropatía de la mano."] } },
-                { question: "Un paciente de 30 años acude a emergencia por una historia de 4 días de debilidad en las piernas que ahora le dificulta subir escaleras, y desde ayer nota debilidad en los brazos. Al examen, presenta arreflexia generalizada. ¿Cuál es la sospecha diagnóstika principal?", options: ["Polineuropatía diabética de inicio atípico", "Vasculitis sistémica", "Síndrome de Guillain-Barré (SGB)", "Déficit de Vitamina B12"], correctAnswer: 2, justification: { correct: "Correcto. La debilidad motora aguda (días), ascendente, simétrica y con arreflexia es la presentación clásica del SGB, una emergencia neurológica.", incorrect: ["Incorrecto. La PND es crónica.", "Incorrecto. La vasculitis es asimétrica.", "Incorrecto. El déficit de B12 es crónico y primariamente sensitivo."] } },
-                { question: "En un centro de AP en Ecuador, un paciente con PND dolorosa necesita iniciar tratamiento. Según el CNMB y el principio de 'empezar bajo, ir lento', ¿cuál es una opción de primera línea adecuada y disponible?", options: ["Inmunoglobulina Intravenosa (IVIg)", "Corticosteroides a altas dosis", "Amitriptilina 10-25 mg por la noche", "Tramadol 100 mg cada 8 horas"], correctAnswer: 2, justification: { correct: "Correcto. La amitriptilina está en el CNMB, es efectiva y la dosis de inicio baja y nocturna sigue la estrategia 'start low, go slow' para minimizar efectos adversos.", incorrect: ["Incorrecto. IVIg es para neuropatías inmunes como el SGB.", "Incorrecto. Los corticoides no están indicados para el dolor neuropático diabético.", "Incorrecto. Tramadol no es primera línea y la dosis de inicio es muy alta."] } }
-            ];
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            quizResultContainer.classList.remove('hidden');
+            progressBar.style.width = '100%';
+            progressText.textContent = `Completado`;
 
-            let currentQuestionIndex = 0;
-            let score = 0;
-            const quizCard = container.querySelector('#quiz-card');
-            const resultsContainer = container.querySelector('#results-container');
-            const progressBar = container.querySelector('#progress-bar');
-            const questionCounter = container.querySelector('#question-counter');
-            const questionText = container.querySelector('#question-text');
-            const optionsContainer = container.querySelector('#options-container');
-            const feedbackContainer = container.querySelector('#feedback-container');
-            const feedbackBox = container.querySelector('#feedback-box');
-            const feedbackText = container.querySelector('#feedback-text');
-            const nextBtnContainer = container.querySelector('#next-btn-container');
-            const nextBtn = container.querySelector('#next-btn');
-            const restartBtn = container.querySelector('#restart-btn');
-            const scoreText = container.querySelector('#score-text');
-            const progressRing = container.querySelector('#progress-ring');
-            const resultsFeedback = container.querySelector('#results-feedback');
+            let message = "";
+            const percentage = (score / quizQuestions.length) * 100;
+            if (percentage === 100) {
+                message = "¡Excelente! Tienes un conocimiento sólido del tema.";
+            } else if (percentage >= 75) {
+                message = "¡Muy bien! Tienes un buen dominio de los conceptos clave.";
+            } else {
+                message = "Sigue estudiando. Revisa la guía de conocimiento para reforzar los conceptos.";
+            }
 
-            function startQuiz() {
+            quizResultContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Quiz Finalizado</h3>
+                <p class="text-xl mb-4">Tu calificación: <span class="font-bold text-blue-600">${score} de ${quizQuestions.length}</span></p>
+                <p class="text-gray-600 mb-6">${message}</p>
+                <button id="restartQuizBtn" class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">Repetir Quiz</button>
+            `;
+            
+            document.getElementById('restartQuizBtn').addEventListener('click', () => {
                 currentQuestionIndex = 0;
                 score = 0;
-                resultsContainer.style.display = 'none';
-                quizCard.style.display = 'block';
-                quizCard.classList.remove('fade-out');
-                displayQuestion();
-            }
-
-            function displayQuestion() {
-                quizCard.classList.add('fade-out');
-                setTimeout(() => {
-                    const question = quizData[currentQuestionIndex];
-                    feedbackContainer.style.display = 'none';
-                    nextBtnContainer.style.display = 'none';
-                    optionsContainer.innerHTML = '';
-                    progressBar.style.width = `${((currentQuestionIndex) / quizData.length) * 100}%`;
-                    questionCounter.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizData.length}`;
-                    questionText.textContent = question.question;
-                    question.options.forEach((option, index) => {
-                        const button = document.createElement('button');
-                        button.className = 'option-btn w-full text-left p-4 border-2 border-gray-200 rounded-lg hover:bg-gray-100 transition-all duration-300';
-                        button.textContent = option;
-                        button.onclick = () => selectAnswer(index, button);
-                        optionsContainer.appendChild(button);
-                    });
-                    quizCard.classList.remove('fade-out');
-                }, 500);
-            }
-
-            function selectAnswer(selectedIndex, selectedButton) {
-                const question = quizData[currentQuestionIndex];
-                const correctIndex = question.correctAnswer;
-                optionsContainer.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
-                selectedButton.classList.add('selected');
-                const isCorrect = selectedIndex === correctIndex;
-                if (isCorrect) {
-                    score++;
-                    selectedButton.classList.add('correct');
-                    feedbackBox.className = 'p-4 rounded-lg bg-green-50 border border-green-300';
-                } else {
-                    selectedButton.classList.add('incorrect');
-                    optionsContainer.querySelectorAll('.option-btn')[correctIndex].classList.add('correct');
-                    feedbackBox.className = 'p-4 rounded-lg bg-red-50 border border-red-300';
-                }
-                showFeedback(question, correctIndex);
-            }
-
-            function showFeedback(question, correctIndex) {
-                let justificationHTML = `<p class="font-bold text-green-700">${question.justification.correct}</p>`;
-                justificationHTML += `<div class="mt-3 border-t pt-2 space-y-2">${question.justification.incorrect.map((reason, index) => {
-                    if (index !== correctIndex) return `<p><strong class="text-red-700">Opción incorrecta:</strong> ${reason}</p>`;
-                    return '';
-                }).join('')}</div>`;
-                feedbackText.innerHTML = justificationHTML;
-                feedbackContainer.style.display = 'block';
-                nextBtnContainer.style.display = 'block';
-                nextBtn.textContent = (currentQuestionIndex === quizData.length - 1) ? "Ver Resultados Finales" : "Siguiente Pregunta";
-            }
-            
-            nextBtn.addEventListener('click', () => {
-                currentQuestionIndex++;
-                (currentQuestionIndex < quizData.length) ? displayQuestion() : showResults();
+                quizContainer.classList.remove('hidden');
+                quizResultContainer.classList.add('hidden');
+                showQuestion(currentQuestionIndex);
+                updateProgress();
             });
-
-            restartBtn.addEventListener('click', startQuiz);
-
-            function showResults() {
-                quizCard.classList.add('fade-out');
-                setTimeout(() => {
-                    quizCard.style.display = 'none';
-                    resultsContainer.style.display = 'block';
-                    const percentage = Math.round((score / quizData.length) * 100);
-                    scoreText.textContent = `${percentage}%`;
-                    const radius = progressRing.r.baseVal.value;
-                    const circumference = radius * 2 * Math.PI;
-                    progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
-                    progressRing.style.strokeDashoffset = circumference - (percentage / 100) * circumference;
-                    if (percentage === 100) resultsFeedback.textContent = "¡Excelente! Dominio completo.";
-                    else if (percentage >= 70) resultsFeedback.textContent = "¡Muy bien! Sólido conocimiento.";
-                    else resultsFeedback.textContent = "Buen intento. Repasa los puntos clave.";
-                }, 500);
-            }
-            
-            startQuiz();
         }
+        
+        // Iniciar el quiz
+        showQuestion(currentQuestionIndex);
+        updateProgress();
     });
     </script>
+
 </body>
 </html>
