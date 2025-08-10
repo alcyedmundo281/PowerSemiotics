@@ -1,269 +1,496 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Banco de Conocimientos: Razonamiento Clínico</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
-        }
-        .prose-custom {
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-        .prose-custom h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-top: 2.5em;
-            margin-bottom: 1.2em;
-            padding-bottom: 0.3em;
-            border-bottom: 2px solid #e2e8f0; /* slate-200 */
-        }
-        .prose-custom h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-top: 2em;
-            margin-bottom: 1em;
-        }
-        .prose-custom p,
-        .prose-custom ul,
-        .prose-custom ol,
-        .prose-custom table {
-            margin-bottom: 1.25em;
-        }
-        .prose-custom strong {
-            font-weight: 600;
-        }
-        .prose-custom a {
-            color: #2563eb; /* blue-600 */
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .prose-custom a:hover {
-            color: #1d4ed8; /* blue-700 */
-        }
-        .prose-custom blockquote {
-            border-left: 4px solid #94a3b8; /* slate-400 */
-            padding-left: 1em;
-            margin-left: 0;
-            color: #475569; /* slate-600 */
-        }
-        .prose-custom table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .prose-custom th, .prose-custom td {
-            border: 1px solid #cbd5e1; /* slate-300 */
-            padding: 0.75rem;
-            text-align: left;
-        }
-        .prose-custom th {
-            background-color: #f1f5f9; /* slate-100 */
-        }
-        #toc a.active {
-            color: #1d4ed8;
-            font-weight: 700;
-        }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc; /* slate-50 */
+      }
+      .prose-custom {
+        font-size: 1.1rem;
+        line-height: 1.7;
+      }
+      .prose-custom h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: 2.5em;
+        margin-bottom: 1.2em;
+        padding-bottom: 0.3em;
+        border-bottom: 2px solid #e2e8f0; /* slate-200 */
+      }
+      .prose-custom h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 2em;
+        margin-bottom: 1em;
+      }
+      .prose-custom p,
+      .prose-custom ul,
+      .prose-custom ol,
+      .prose-custom table {
+        margin-bottom: 1.25em;
+      }
+      .prose-custom strong {
+        font-weight: 600;
+      }
+      .prose-custom a {
+        color: #2563eb; /* blue-600 */
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .prose-custom a:hover {
+        color: #1d4ed8; /* blue-700 */
+      }
+      .prose-custom blockquote {
+        border-left: 4px solid #94a3b8; /* slate-400 */
+        padding-left: 1em;
+        margin-left: 0;
+        color: #475569; /* slate-600 */
+      }
+      .prose-custom table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .prose-custom th,
+      .prose-custom td {
+        border: 1px solid #cbd5e1; /* slate-300 */
+        padding: 0.75rem;
+        text-align: left;
+      }
+      .prose-custom th {
+        background-color: #f1f5f9; /* slate-100 */
+      }
+      #toc a.active {
+        color: #1d4ed8;
+        font-weight: 700;
+      }
     </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <div
+      class="container mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-8 px-4 py-10"
+    >
+      <!-- Table of Contents (Sticky) -->
+      <aside class="lg:col-span-1 lg:sticky top-10 self-start">
+        <div class="p-6 bg-white rounded-lg shadow-md">
+          <h3 class="text-lg font-bold mb-4">Índice del Documento</h3>
+          <nav id="toc" class="flex flex-col space-y-2">
+            <a href="#introduccion" class="text-gray-600 hover:text-blue-600"
+              >Introducción</a
+            >
+            <a href="#seccion1" class="text-gray-600 hover:text-blue-600"
+              >Sección 1: Fundamento Filosófico</a
+            >
+            <a href="#seccion2" class="text-gray-600 hover:text-blue-600"
+              >Sección 2: Formalización de la Lógica</a
+            >
+            <a href="#seccion3" class="text-gray-600 hover:text-blue-600"
+              >Sección 3: La Revolución Bayesiana</a
+            >
+            <a href="#seccion4" class="text-gray-600 hover:text-blue-600"
+              >Sección 4: La Frontera Computacional</a
+            >
+            <a href="#seccion5" class="text-gray-600 hover:text-blue-600"
+              >Sección 5: Estudio de Caso</a
+            >
+            <a href="#conclusion" class="text-gray-600 hover:text-blue-600"
+              >Conclusión</a
+            >
+          </nav>
+        </div>
+      </aside>
 
-    <div class="container mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-8 px-4 py-10">
+      <!-- Main Content -->
+      <main class="lg:col-span-3">
+        <article class="prose-custom bg-white p-8 md:p-12 rounded-lg shadow-md">
+          <header class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold tracking-tight">
+              Razonamiento Clínico: Modelos y Aplicaciones
+            </h1>
+            <p class="mt-4 text-xl text-gray-500">
+              Un análisis profundo desde la lógica clásica hasta la inteligencia
+              artificial.
+            </p>
+          </header>
 
-        <!-- Table of Contents (Sticky) -->
-        <aside class="lg:col-span-1 lg:sticky top-10 self-start">
-            <div class="p-6 bg-white rounded-lg shadow-md">
-                <h3 class="text-lg font-bold mb-4">Índice del Documento</h3>
-                <nav id="toc" class="flex flex-col space-y-2">
-                    <a href="#introduccion" class="text-gray-600 hover:text-blue-600">Introducción</a>
-                    <a href="#seccion1" class="text-gray-600 hover:text-blue-600">Sección 1: Fundamento Filosófico</a>
-                    <a href="#seccion2" class="text-gray-600 hover:text-blue-600">Sección 2: Formalización de la Lógica</a>
-                    <a href="#seccion3" class="text-gray-600 hover:text-blue-600">Sección 3: La Revolución Bayesiana</a>
-                    <a href="#seccion4" class="text-gray-600 hover:text-blue-600">Sección 4: La Frontera Computacional</a>
-                    <a href="#seccion5" class="text-gray-600 hover:text-blue-600">Sección 5: Estudio de Caso</a>
-                    <a href="#conclusion" class="text-gray-600 hover:text-blue-600">Conclusión</a>
-                </nav>
+          <!-- SECCIÓN DE DESCARGA DEL PDF (NUEVA) -->
+          <section class="mb-12 not-prose">
+            <div
+              class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg"
+            >
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-file-pdf text-4xl text-green-600"></i>
+                </div>
+                <div class="ml-4 flex-grow">
+                  <h3 class="font-bold text-lg text-green-800">
+                    Documento Completo Disponible
+                  </h3>
+                  <p class="text-green-700 text-sm">
+                    Descargue el informe "Razonamiento Clínico: Modelos y
+                    Aplicaciones" para una revisión exhaustiva.
+                  </p>
+                </div>
+                <div class="flex-shrink-0 ml-4">
+                  <a
+                    href="/assets/pdf/Razonamiento-Clinico-Modelos-y-Aplicaciones.pdf"
+                    download="Razonamiento-Clinico-Modelos-y-Aplicaciones.pdf"
+                    class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors shadow-sm"
+                  >
+                    <i class="fas fa-download mr-2"></i>Descargar
+                  </a>
+                </div>
+              </div>
             </div>
-        </aside>
+          </section>
 
-        <!-- Main Content -->
-        <main class="lg:col-span-3">
-            <article class="prose-custom bg-white p-8 md:p-12 rounded-lg shadow-md">
-                <header class="text-center mb-12">
-                     <h1 class="text-4xl font-extrabold tracking-tight">Razonamiento Clínico: Modelos y Aplicaciones</h1>
-                     <p class="mt-4 text-xl text-gray-500">Un análisis profundo desde la lógica clásica hasta la inteligencia artificial.</p>
-                </header>
-                
-                <!-- SECCIÓN DE DESCARGA DEL PDF (NUEVA) -->
-                <section class="mb-12 not-prose">
-                    <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <i class="fas fa-file-pdf text-4xl text-green-600"></i>
-                            </div>
-                            <div class="ml-4 flex-grow">
-                                <h3 class="font-bold text-lg text-green-800">Documento Completo Disponible</h3>
-                                <p class="text-green-700 text-sm">Descargue el informe "Razonamiento Clínico: Modelos y Aplicaciones" para una revisión exhaustiva.</p>
-                            </div>
-                            <div class="flex-shrink-0 ml-4">
-                                <a href="/assets/pdf/Razonamiento-Clinico-Modelos-y-Aplicaciones.pdf" download="Razonamiento-Clinico-Modelos-y-Aplicaciones.pdf" 
-                                   class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors shadow-sm">
-                                    <i class="fas fa-download mr-2"></i>Descargar
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+          <section id="introduccion">
+            <h2>
+              Introducción: El Panorama Cambiante del Razonamiento Clínico
+            </h2>
+            <p>
+              El razonamiento clínico, el proceso cognitivo central que permite
+              a los médicos evaluar y gestionar los problemas de un paciente, se
+              encuentra en una encrucijada histórica. Tradicionalmente
+              considerado un arte refinado a través de la experiencia y el
+              aprendizaje por imitación, hoy se revela como un proceso
+              científico riguroso, susceptible de análisis, modelado y,
+              fundamentalmente, de mejora. El "Syllabus de Medicina y Ciencia
+              (Razonamiento Clínico) 2025-2025" de la Facultad de Ciencias
+              Médicas de la Universidad Central del Ecuador es un testimonio de
+              esta transformación. Al integrar explícitamente la Ciencia de
+              Datos y la Inteligencia Artificial en su currículo de décimo
+              semestre, este programa reconoce una verdad ineludible: el modelo
+              de aprendizaje tradicional ya no es suficiente para equipar al
+              médico del siglo XXI.
+            </p>
+            <p>
+              Vivimos en una era de sobrecarga de información, donde los datos
+              clínicos, genómicos y poblacionales crecen a un ritmo exponencial.
+              En este contexto, la capacidad de un médico para realizar
+              diagnósticos precisos y tomar decisiones terapéuticas informadas
+              depende cada vez menos de la simple memorización de hechos y cada
+              vez más de la habilidad para pensar de manera estructurada y
+              probabilística.
+            </p>
+          </section>
 
-                <section id="introduccion">
-                    <h2>Introducción: El Panorama Cambiante del Razonamiento Clínico</h2>
-                    <p>El razonamiento clínico, el proceso cognitivo central que permite a los médicos evaluar y gestionar los problemas de un paciente, se encuentra en una encrucijada histórica. Tradicionalmente considerado un arte refinado a través de la experiencia y el aprendizaje por imitación, hoy se revela como un proceso científico riguroso, susceptible de análisis, modelado y, fundamentalmente, de mejora. El "Syllabus de Medicina y Ciencia (Razonamiento Clínico) 2025-2025" de la Facultad de Ciencias Médicas de la Universidad Central del Ecuador es un testimonio de esta transformación. Al integrar explícitamente la Ciencia de Datos y la Inteligencia Artificial en su currículo de décimo semestre, este programa reconoce una verdad ineludible: el modelo de aprendizaje tradicional ya no es suficiente para equipar al médico del siglo XXI.</p>
-                    <p>Vivimos en una era de sobrecarga de información, donde los datos clínicos, genómicos y poblacionales crecen a un ritmo exponencial. En este contexto, la capacidad de un médico para realizar diagnósticos precisos y tomar decisiones terapéuticas informadas depende cada vez menos de la simple memorización de hechos y cada vez más de la habilidad para pensar de manera estructurada y probabilística.</p>
-                </section>
+          <section id="seccion1">
+            <h2>
+              Sección 1: El Fundamento Filosófico de la Inferencia Clínica
+            </h2>
+            <p>
+              Cada acto diagnóstico, desde el más simple hasta el más complejo,
+              se basa en un andamiaje de procesos lógicos que a menudo operan de
+              forma implícita. Comprender estos modos de inferencia —deducción,
+              inducción y abducción— no es un mero ejercicio académico; es
+              desvelar la estructura fundamental del pensamiento clínico.
+            </p>
 
-                <section id="seccion1">
-                    <h2>Sección 1: El Fundamento Filosófico de la Inferencia Clínica</h2>
-                    <p>Cada acto diagnóstico, desde el más simple hasta el más complejo, se basa en un andamiaje de procesos lógicos que a menudo operan de forma implícita. Comprender estos modos de inferencia —deducción, inducción y abducción— no es un mero ejercicio académico; es desvelar la estructura fundamental del pensamiento clínico.</p>
-                    
-                    <h3>1.1 La Certeza de la Deducción</h3>
-                    <p>La deducción es el modo de razonamiento que procede de lo general a lo específico (top-down). Se parte de una premisa general para llegar a una conclusión específica. En la práctica clínica, es el motor que permite aplicar el conocimiento médico establecido al paciente individual. <strong>Ejemplo:</strong> "Todos los pacientes con IAMCEST deben recibir terapia de reperfusión; este paciente tiene un IAMCEST; por lo tanto, este paciente debe recibir terapia de reperfusión".</p>
+            <h3>1.1 La Certeza de la Deducción</h3>
+            <p>
+              La deducción es el modo de razonamiento que procede de lo general
+              a lo específico (top-down). Se parte de una premisa general para
+              llegar a una conclusión específica. En la práctica clínica, es el
+              motor que permite aplicar el conocimiento médico establecido al
+              paciente individual. <strong>Ejemplo:</strong> "Todos los
+              pacientes con IAMCEST deben recibir terapia de reperfusión; este
+              paciente tiene un IAMCEST; por lo tanto, este paciente debe
+              recibir terapia de reperfusión".
+            </p>
 
-                    <h3>1.2 La Probabilidad de la Inducción</h3>
-                    <p>La inducción es un proceso "de abajo hacia arriba" (bottom-up), que se mueve desde observaciones específicas para formular una conclusión generalizada. Es el pilar de la medicina basada en la evidencia y el mecanismo por el cual un clínico desarrolla la pericia y el reconocimiento de patrones. Sus conclusiones son inherentemente probabilísticas, no ciertas.</p>
+            <h3>1.2 La Probabilidad de la Inducción</h3>
+            <p>
+              La inducción es un proceso "de abajo hacia arriba" (bottom-up),
+              que se mueve desde observaciones específicas para formular una
+              conclusión generalizada. Es el pilar de la medicina basada en la
+              evidencia y el mecanismo por el cual un clínico desarrolla la
+              pericia y el reconocimiento de patrones. Sus conclusiones son
+              inherentemente probabilísticas, no ciertas.
+            </p>
 
-                    <h3>1.3 La Creatividad de la Abducción</h3>
-                    <p>La abducción es el proceso de generación de hipótesis, una "inferencia a la mejor explicación". Es el salto mental creativo que ocurre cuando un médico se enfrenta a hallazgos desconcertantes y genera una lista de posibles causas (el diagnóstico diferencial).</p>
-                    
-                    <h3>1.4 Un Marco Unificado para el Diagnóstico</h3>
-                    <p>El verdadero experto no abandona un modo de razonamiento por otro, sino que los integra en un ciclo continuo y dinámico: la abducción genera hipótesis, la deducción guía la investigación y la inducción interpreta la evidencia recopilada.</p>
-                    
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Característica</th>
-                                <th>Razonamiento Deductivo</th>
-                                <th>Razonamiento Inductivo</th>
-                                <th>Razonamiento Abductivo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Proceso Lógico</strong></td>
-                                <td>De lo general a lo específico (Top-Down)</td>
-                                <td>De lo específico a lo general (Bottom-Up)</td>
-                                <td>De la observación a la mejor explicación</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Naturaleza de la Conclusión</strong></td>
-                                <td>Cierta (si las premisas son verdaderas)</td>
-                                <td>Probable</td>
-                                <td>Plausible</td>
-                            </tr>
-                             <tr>
-                                <td><strong>Rol Primario</strong></td>
-                                <td>Aplicar reglas, probar hipótesis</td>
-                                <td>Reconocimiento de patrones, construir evidencia</td>
-                                <td>Generar hipótesis, crear diagnóstico diferencial</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Limitación Clave</strong></td>
-                                <td>Rigidez; depende de la veracidad de las premisas</td>
-                                <td>Error de generalización; correlación no implica causalidad</td>
-                                <td>La "mejor" explicación puede ser incorrecta</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-                
-                <section id="seccion2">
-                    <h2>Sección 2: Formalización de la Lógica Clínica: Modelos Determinísticos y Probabilísticos</h2>
-                    <p>Esta sección explora cómo los procesos lógicos se traducen en modelos computacionales para la toma de decisiones clínicas.</p>
-                    <h3>2.1 Modelos Basados en Reglas y Categóricos</h3>
-                    <p>Los modelos determinísticos operan bajo el principio de que un conjunto dado de condiciones producirá invariablemente el mismo resultado. Son la encarnación computacional del razonamiento deductivo, usando reglas "SI-ENTONCES".</p>
-                    <blockquote>
-                         La principal desventaja es su <strong>rigidez</strong>. La medicina está llena de matices e incertidumbre. Esto conduce a problemas como la <strong>fatiga por alertas</strong>, donde hasta el 95% de las alertas generadas por los CDSS pueden ser clínicamente intrascendentes.
-                    </blockquote>
-                    
-                    <h3>2.2 Modelos Probabilísticos</h3>
-                    <p>Frente a las limitaciones del determinismo, los modelos probabilísticos ofrecen un marco más robusto. En lugar de tratar el conocimiento como verdades absolutas, cuantifican la incertidumbre y la utilizan como parte integral del proceso. El enfoque cambia de "¿El paciente tiene la enfermedad A?" a "¿Cuál es la probabilidad de que el paciente tenga la enfermedad A, dados los síntomas y las pruebas?".</p>
-                </section>
+            <h3>1.3 La Creatividad de la Abducción</h3>
+            <p>
+              La abducción es el proceso de generación de hipótesis, una
+              "inferencia a la mejor explicación". Es el salto mental creativo
+              que ocurre cuando un médico se enfrenta a hallazgos
+              desconcertantes y genera una lista de posibles causas (el
+              diagnóstico diferencial).
+            </p>
 
-                <section id="seccion3">
-                    <h2>Sección 3: La Revolución Bayesiana en el Razonamiento Diagnóstico</h2>
-                    <p>El marco bayesiano es la principal herramienta para el razonamiento probabilístico en medicina. Es la formalización matemática del proceso de pensamiento clínico ideal: un ciclo iterativo de actualización de creencias a la luz de nueva evidencia.</p>
-                    <h3>3.1 Fundamentos de la Inferencia Bayesiana</h3>
-                    <p>El teorema de Bayes se construye a partir de tres elementos:</p>
-                    <ul>
-                        <li><strong>Probabilidad a Priori (Prior) P(H):</strong> La estimación de la probabilidad de una hipótesis antes de considerar la nueva evidencia (la probabilidad pre-test).</li>
-                        <li><strong>Verosimilitud (Likelihood) P(E|H):</strong> La probabilidad de observar la evidencia si la hipótesis es verdadera (relacionada con la sensibilidad y especificidad).</li>
-                        <li><strong>Probabilidad a Posteriori (Posterior) P(H|E):</strong> La probabilidad actualizada de la hipótesis después de considerar la evidencia (la probabilidad post-test).</li>
-                    </ul>
+            <h3>1.4 Un Marco Unificado para el Diagnóstico</h3>
+            <p>
+              El verdadero experto no abandona un modo de razonamiento por otro,
+              sino que los integra en un ciclo continuo y dinámico: la abducción
+              genera hipótesis, la deducción guía la investigación y la
+              inducción interpreta la evidencia recopilada.
+            </p>
 
-                    <h3>3.2 Redes Bayesianas (RB)</h3>
-                    <p>Son modelos gráficos probabilísticos que representan un conjunto de variables y sus dependencias condicionales. Su principal ventaja sobre modelos más complejos es que son de "caja blanca" o <strong>inherentemente interpretables</strong>. Permiten entender el "porqué" de una conclusión diagnóstica.</p>
-                </section>
+            <table>
+              <thead>
+                <tr>
+                  <th>Característica</th>
+                  <th>Razonamiento Deductivo</th>
+                  <th>Razonamiento Inductivo</th>
+                  <th>Razonamiento Abductivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Proceso Lógico</strong></td>
+                  <td>De lo general a lo específico (Top-Down)</td>
+                  <td>De lo específico a lo general (Bottom-Up)</td>
+                  <td>De la observación a la mejor explicación</td>
+                </tr>
+                <tr>
+                  <td><strong>Naturaleza de la Conclusión</strong></td>
+                  <td>Cierta (si las premisas son verdaderas)</td>
+                  <td>Probable</td>
+                  <td>Plausible</td>
+                </tr>
+                <tr>
+                  <td><strong>Rol Primario</strong></td>
+                  <td>Aplicar reglas, probar hipótesis</td>
+                  <td>Reconocimiento de patrones, construir evidencia</td>
+                  <td>Generar hipótesis, crear diagnóstico diferencial</td>
+                </tr>
+                <tr>
+                  <td><strong>Limitación Clave</strong></td>
+                  <td>Rigidez; depende de la veracidad de las premisas</td>
+                  <td>
+                    Error de generalización; correlación no implica causalidad
+                  </td>
+                  <td>La "mejor" explicación puede ser incorrecta</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
 
-                <section id="seccion4">
-                    <h2>Sección 4: La Frontera del Razonamiento Computacional: Redes Neuronales y la Búsqueda de la Interpretabilidad</h2>
-                    <p>Esta sección explora el paradigma de modelado más potente y, a la vez, más opaco disponible hoy: las redes neuronales artificiales.</p>
-                    <h3>4.1 Introducción a las Redes Neuronales Artificiales</h3>
-                    <p>Las Redes Neuronales Artificiales (RNA), especialmente las de aprendizaje profundo (Deep Learning), destacan en el aprendizaje de patrones complejos y no lineales a partir de enormes cantidades de datos, sobre todo en el análisis de imágenes médicas.</p>
-                    
-                    <h3>4.2 El Dilema de la "Caja Negra"</h3>
-                    <p>El extraordinario poder predictivo de las redes neuronales profundas tiene un coste significativo: la <strong>opacidad</strong>. Es prácticamente imposible para un ser humano comprender plenamente el proceso de razonamiento interno del modelo. Esta falta de transparencia crea desafíos monumentales en medicina, como la falta de confianza, la perpetuación de sesgos ocultos y el riesgo de aprender correlaciones espurias.</p>
-                    
-                    <h3>4.3 El Imperativo de la IA Explicable (XAI)</h3>
-                    <p>La XAI es un conjunto de métodos diseñados para hacer que las decisiones de los modelos de IA sean transparentes y comprensibles. En medicina, la explicabilidad no es una característica deseable, sino una necesidad ética, regulatoria y de seguridad. Técnicas como <strong>LIME, SHAP y los mapas de calor</strong> buscan "abrir" la caja negra.</p>
-                </section>
+          <section id="seccion2">
+            <h2>
+              Sección 2: Formalización de la Lógica Clínica: Modelos
+              Determinísticos y Probabilísticos
+            </h2>
+            <p>
+              Esta sección explora cómo los procesos lógicos se traducen en
+              modelos computacionales para la toma de decisiones clínicas.
+            </p>
+            <h3>2.1 Modelos Basados en Reglas y Categóricos</h3>
+            <p>
+              Los modelos determinísticos operan bajo el principio de que un
+              conjunto dado de condiciones producirá invariablemente el mismo
+              resultado. Son la encarnación computacional del razonamiento
+              deductivo, usando reglas "SI-ENTONCES".
+            </p>
+            <blockquote>
+              La principal desventaja es su <strong>rigidez</strong>. La
+              medicina está llena de matices e incertidumbre. Esto conduce a
+              problemas como la <strong>fatiga por alertas</strong>, donde hasta
+              el 95% de las alertas generadas por los CDSS pueden ser
+              clínicamente intrascendentes.
+            </blockquote>
 
-                <section id="seccion5">
-                    <h2>Sección 5: Estudio de Caso: Aplicación de un Modelo Bayesiano en el Diagnóstico Diferencial de un Paciente con Síncope</h2>
-                    <p>Esta sección consolida los principios teóricos a través de una aplicación concreta, siguiendo el caso de un hombre de 78 años con síncope. El proceso demuestra cómo un clínico puede actualizar formalmente sus hipótesis diagnósticas a medida que se obtiene nueva información.</p>
-                    <ol>
-                        <li><strong>Presentación del Caso:</strong> Hombre de 78 años, con HTA e HPB, presenta síncope al levantarse.</li>
-                        <li><strong>Diagnóstico Diferencial y Probabilidades a Priori:</strong> Se establece un diagnóstico diferencial (acto de abducción), asignando probabilidades iniciales (p. ej., Hipotensión Ortostática: 50%, Cardiogénico: 25%).</li>
-                        <li><strong>Incorporación de Evidencia:</strong> Se recopila nueva información: el paciente toma tamsulosina, el ECG es normal, la prueba de ortostatismo es positiva.</li>
-                        <li><strong>Actualización Bayesiana:</strong> Con cada pieza de evidencia, las probabilidades se actualizan. La probabilidad de causa cardiogénica disminuye drásticamente, mientras que la de hipotensión ortostática aumenta masivamente.</li>
-                        <li><strong>Diagnóstico Final:</strong> Se establece el diagnóstico de Síncope por Hipotensión Ortostática con una alta confianza (probabilidad > 90%).</li>
-                    </ol>
-                </section>
+            <h3>2.2 Modelos Probabilísticos</h3>
+            <p>
+              Frente a las limitaciones del determinismo, los modelos
+              probabilísticos ofrecen un marco más robusto. En lugar de tratar
+              el conocimiento como verdades absolutas, cuantifican la
+              incertidumbre y la utilizan como parte integral del proceso. El
+              enfoque cambia de "¿El paciente tiene la enfermedad A?" a "¿Cuál
+              es la probabilidad de que el paciente tenga la enfermedad A, dados
+              los síntomas y las pruebas?".
+            </p>
+          </section>
 
-                <section id="conclusion">
-                    <h2>Conclusión: Hacia una Síntesis del Intelecto Humano y Artificial</h2>
-                    <p>El futuro de la medicina no pertenece ni a la máquina por sí sola ni a la cognición humana sin ayuda. Pertenece al clínico que pueda dominar la <strong>sinergia entre ambas</strong>. El recorrido demuestra una evolución desde modelos rígidos y deterministas hacia enfoques probabilísticos, interpretables y robustos.</p>
-                    <p>El objetivo es cultivar una nueva generación de médicos que no solo posean un profundo conocimiento de la biología humana, sino que también dominen los principios de la lógica, la probabilidad y el pensamiento computacional. Serán clínicos capaces de evaluar críticamente, implementar de forma segura y colaborar inteligentemente con las potentes herramientas de razonamiento del siglo XXI, asegurando que el avance tecnológico se traduzca, siempre, en una atención al paciente más segura, eficaz y humana.</p>
-                </section>
-            </article>
-        </main>
+          <section id="seccion3">
+            <h2>
+              Sección 3: La Revolución Bayesiana en el Razonamiento Diagnóstico
+            </h2>
+            <p>
+              El marco bayesiano es la principal herramienta para el
+              razonamiento probabilístico en medicina. Es la formalización
+              matemática del proceso de pensamiento clínico ideal: un ciclo
+              iterativo de actualización de creencias a la luz de nueva
+              evidencia.
+            </p>
+            <h3>3.1 Fundamentos de la Inferencia Bayesiana</h3>
+            <p>El teorema de Bayes se construye a partir de tres elementos:</p>
+            <ul>
+              <li>
+                <strong>Probabilidad a Priori (Prior) P(H):</strong> La
+                estimación de la probabilidad de una hipótesis antes de
+                considerar la nueva evidencia (la probabilidad pre-test).
+              </li>
+              <li>
+                <strong>Verosimilitud (Likelihood) P(E|H):</strong> La
+                probabilidad de observar la evidencia si la hipótesis es
+                verdadera (relacionada con la sensibilidad y especificidad).
+              </li>
+              <li>
+                <strong>Probabilidad a Posteriori (Posterior) P(H|E):</strong>
+                La probabilidad actualizada de la hipótesis después de
+                considerar la evidencia (la probabilidad post-test).
+              </li>
+            </ul>
 
+            <h3>3.2 Redes Bayesianas (RB)</h3>
+            <p>
+              Son modelos gráficos probabilísticos que representan un conjunto
+              de variables y sus dependencias condicionales. Su principal
+              ventaja sobre modelos más complejos es que son de "caja blanca" o
+              <strong>inherentemente interpretables</strong>. Permiten entender
+              el "porqué" de una conclusión diagnóstica.
+            </p>
+          </section>
+
+          <section id="seccion4">
+            <h2>
+              Sección 4: La Frontera del Razonamiento Computacional: Redes
+              Neuronales y la Búsqueda de la Interpretabilidad
+            </h2>
+            <p>
+              Esta sección explora el paradigma de modelado más potente y, a la
+              vez, más opaco disponible hoy: las redes neuronales artificiales.
+            </p>
+            <h3>4.1 Introducción a las Redes Neuronales Artificiales</h3>
+            <p>
+              Las Redes Neuronales Artificiales (RNA), especialmente las de
+              aprendizaje profundo (Deep Learning), destacan en el aprendizaje
+              de patrones complejos y no lineales a partir de enormes cantidades
+              de datos, sobre todo en el análisis de imágenes médicas.
+            </p>
+
+            <h3>4.2 El Dilema de la "Caja Negra"</h3>
+            <p>
+              El extraordinario poder predictivo de las redes neuronales
+              profundas tiene un coste significativo: la
+              <strong>opacidad</strong>. Es prácticamente imposible para un ser
+              humano comprender plenamente el proceso de razonamiento interno
+              del modelo. Esta falta de transparencia crea desafíos monumentales
+              en medicina, como la falta de confianza, la perpetuación de sesgos
+              ocultos y el riesgo de aprender correlaciones espurias.
+            </p>
+
+            <h3>4.3 El Imperativo de la IA Explicable (XAI)</h3>
+            <p>
+              La XAI es un conjunto de métodos diseñados para hacer que las
+              decisiones de los modelos de IA sean transparentes y
+              comprensibles. En medicina, la explicabilidad no es una
+              característica deseable, sino una necesidad ética, regulatoria y
+              de seguridad. Técnicas como
+              <strong>LIME, SHAP y los mapas de calor</strong> buscan "abrir" la
+              caja negra.
+            </p>
+          </section>
+
+          <section id="seccion5">
+            <h2>
+              Sección 5: Estudio de Caso: Aplicación de un Modelo Bayesiano en
+              el Diagnóstico Diferencial de un Paciente con Síncope
+            </h2>
+            <p>
+              Esta sección consolida los principios teóricos a través de una
+              aplicación concreta, siguiendo el caso de un hombre de 78 años con
+              síncope. El proceso demuestra cómo un clínico puede actualizar
+              formalmente sus hipótesis diagnósticas a medida que se obtiene
+              nueva información.
+            </p>
+            <ol>
+              <li>
+                <strong>Presentación del Caso:</strong> Hombre de 78 años, con
+                HTA e HPB, presenta síncope al levantarse.
+              </li>
+              <li>
+                <strong
+                  >Diagnóstico Diferencial y Probabilidades a Priori:</strong
+                >
+                Se establece un diagnóstico diferencial (acto de abducción),
+                asignando probabilidades iniciales (p. ej., Hipotensión
+                Ortostática: 50%, Cardiogénico: 25%).
+              </li>
+              <li>
+                <strong>Incorporación de Evidencia:</strong> Se recopila nueva
+                información: el paciente toma tamsulosina, el ECG es normal, la
+                prueba de ortostatismo es positiva.
+              </li>
+              <li>
+                <strong>Actualización Bayesiana:</strong> Con cada pieza de
+                evidencia, las probabilidades se actualizan. La probabilidad de
+                causa cardiogénica disminuye drásticamente, mientras que la de
+                hipotensión ortostática aumenta masivamente.
+              </li>
+              <li>
+                <strong>Diagnóstico Final:</strong> Se establece el diagnóstico
+                de Síncope por Hipotensión Ortostática con una alta confianza
+                (probabilidad > 90%).
+              </li>
+            </ol>
+          </section>
+
+          <section id="conclusion">
+            <h2>
+              Conclusión: Hacia una Síntesis del Intelecto Humano y Artificial
+            </h2>
+            <p>
+              El futuro de la medicina no pertenece ni a la máquina por sí sola
+              ni a la cognición humana sin ayuda. Pertenece al clínico que pueda
+              dominar la <strong>sinergia entre ambas</strong>. El recorrido
+              demuestra una evolución desde modelos rígidos y deterministas
+              hacia enfoques probabilísticos, interpretables y robustos.
+            </p>
+            <p>
+              El objetivo es cultivar una nueva generación de médicos que no
+              solo posean un profundo conocimiento de la biología humana, sino
+              que también dominen los principios de la lógica, la probabilidad y
+              el pensamiento computacional. Serán clínicos capaces de evaluar
+              críticamente, implementar de forma segura y colaborar
+              inteligentemente con las potentes herramientas de razonamiento del
+              siglo XXI, asegurando que el avance tecnológico se traduzca,
+              siempre, en una atención al paciente más segura, eficaz y humana.
+            </p>
+          </section>
+        </article>
+      </main>
     </div>
-    
+
     <script>
-        // Script for active link highlighting in ToC
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('#toc a');
+      // Script for active link highlighting in ToC
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('#toc a');
 
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href').substring(1) === entry.target.id) {
-                            link.classList.add('active');
-                        }
-                    });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              navLinks.forEach((link) => {
+                link.classList.remove('active');
+                if (
+                  link.getAttribute('href').substring(1) === entry.target.id
+                ) {
+                  link.classList.add('active');
                 }
-            });
-        }, { rootMargin: "-30% 0px -70% 0px" });
+              });
+            }
+          });
+        },
+        { rootMargin: '-30% 0px -70% 0px' },
+      );
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
     </script>
-</body>
+  </body>
 </html>

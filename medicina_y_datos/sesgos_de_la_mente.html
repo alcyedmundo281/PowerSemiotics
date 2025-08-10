@@ -1,174 +1,317 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Módulo: Los Sesgos de la Mente - Powersemiotics</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .gradient-text {
+        background: -webkit-linear-gradient(#4f46e5, #db2777);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.7s ease-in-out,
+          padding 0.7s ease-in-out;
+        padding: 0 2rem;
+      }
+      .accordion-button svg {
+        transition: transform 0.3s ease;
+      }
+      .accordion-button.open svg {
+        transform: rotate(180deg);
+      }
+      /* Estilos para los artefactos embebidos */
+      .embedded-content {
+        font-family: 'Inter', sans-serif;
+      }
+      .embedded-content h1,
+      .embedded-content h2,
+      .embedded-content h3,
+      .embedded-content h4 {
+        font-family: 'Lora', serif;
+      }
+      /* Estilos de la Presentación */
+      .presentation-slide {
+        display: none;
+        animation: fadeIn 0.5s;
+      }
+      .presentation-active-slide {
+        display: block;
+      }
+      .presentation-slide-content {
+        min-height: 500px;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
         }
-        .gradient-text {
-            background: -webkit-linear-gradient(#4F46E5, #DB2777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        to {
+          opacity: 1;
         }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
-            padding: 0 2rem;
-        }
-        .accordion-button svg {
-            transition: transform 0.3s ease;
-        }
-        .accordion-button.open svg {
-            transform: rotate(180deg);
-        }
-        /* Estilos para los artefactos embebidos */
-        .embedded-content {
-            font-family: 'Inter', sans-serif;
-        }
-        .embedded-content h1, .embedded-content h2, .embedded-content h3, .embedded-content h4 {
-            font-family: 'Lora', serif;
-        }
-        /* Estilos de la Presentación */
-        .presentation-slide { display: none; animation: fadeIn 0.5s; }
-        .presentation-active-slide { display: block; }
-        .presentation-slide-content { min-height: 500px; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .embedded-content table { width: 100%; border-collapse: collapse; }
-        .embedded-content th, .embedded-content td { border: 1px solid #e2e8f0; padding: 0.75rem; text-align: left; }
-        .embedded-content th { background-color: #f7fafc; }
-        /* Estilos del ABP */
-        .abp-step { display: none; animation: fadeIn 0.6s ease-in-out; }
-        .abp-active-step { display: block; }
-        .abp-progress-bar-fill { transition: width 0.5s ease-in-out; }
-        .embedded-content details > summary { list-style: none; }
-        .embedded-content details > summary::-webkit-details-marker { display: none; }
-        /* Estilos del Quiz */
-        .quiz-question-card { display: none; }
-        .quiz-active-question { display: block; }
-        .quiz-option-btn { transition: all 0.2s ease-in-out; }
-        .quiz-option-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .quiz-correct { background-color: #C6F6D5 !important; border-color: #68D391 !important; }
-        .quiz-incorrect { background-color: #FED7D7 !important; border-color: #FC8181 !important; }
-        .quiz-explanation { display: none; margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; background-color: #F7FAFC; border: 1px solid #E2E8F0; }
+      }
+      .embedded-content table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .embedded-content th,
+      .embedded-content td {
+        border: 1px solid #e2e8f0;
+        padding: 0.75rem;
+        text-align: left;
+      }
+      .embedded-content th {
+        background-color: #f7fafc;
+      }
+      /* Estilos del ABP */
+      .abp-step {
+        display: none;
+        animation: fadeIn 0.6s ease-in-out;
+      }
+      .abp-active-step {
+        display: block;
+      }
+      .abp-progress-bar-fill {
+        transition: width 0.5s ease-in-out;
+      }
+      .embedded-content details > summary {
+        list-style: none;
+      }
+      .embedded-content details > summary::-webkit-details-marker {
+        display: none;
+      }
+      /* Estilos del Quiz */
+      .quiz-question-card {
+        display: none;
+      }
+      .quiz-active-question {
+        display: block;
+      }
+      .quiz-option-btn {
+        transition: all 0.2s ease-in-out;
+      }
+      .quiz-option-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .quiz-correct {
+        background-color: #c6f6d5 !important;
+        border-color: #68d391 !important;
+      }
+      .quiz-incorrect {
+        background-color: #fed7d7 !important;
+        border-color: #fc8181 !important;
+      }
+      .quiz-explanation {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background-color: #f7fafc;
+        border: 1px solid #e2e8f0;
+      }
     </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
-
+  </head>
+  <body class="bg-gray-100 text-gray-800">
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/index.html" class="flex items-center space-x-2">
-                <img src="/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
-                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-            </a>
-            <div>
-                <a href="/medicina_y_datos.html" class="text-indigo-600 font-semibold">Medicina y Datos</a>
-            </div>
-        </nav>
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="/index.html" class="flex items-center space-x-2">
+          <img
+            src="/assets/images/logo.png"
+            alt="Logo de Powersemiotics"
+            class="h-8 w-8"
+          />
+          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+        </a>
+        <div>
+          <a href="/medicina_y_datos.html" class="text-indigo-600 font-semibold"
+            >Medicina y Datos</a
+          >
+        </div>
+      </nav>
     </header>
 
     <main class="container mx-auto px-6 py-16">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4" style="font-family: 'Lora', serif;">
-                Módulo Educativo: Los Sesgos de la Mente
-            </h1>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                Un viaje interactivo para aprender a identificar y mitigar los atajos mentales que conducen al error diagnóstico.
-            </p>
-            <a href="/assets/pdf/Sesgos-mentales.pdf" download class="mt-8 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105">
-                <i class="fas fa-download mr-2"></i> Descargar Resumen en PDF
-            </a>
+      <div class="text-center mb-12">
+        <h1
+          class="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+          style="font-family: 'Lora', serif"
+        >
+          Módulo Educativo: Los Sesgos de la Mente
+        </h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Un viaje interactivo para aprender a identificar y mitigar los atajos
+          mentales que conducen al error diagnóstico.
+        </p>
+        <a
+          href="/assets/pdf/Sesgos-mentales.pdf"
+          download
+          class="mt-8 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
+        >
+          <i class="fas fa-download mr-2"></i> Descargar Resumen en PDF
+        </a>
+      </div>
+
+      <!-- Contenedor del Acordeón -->
+      <div class="max-w-5xl mx-auto space-y-4">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition"
+          >
+            <span
+              class="text-xl font-bold text-gray-800"
+              style="font-family: 'Lora', serif"
+              >1. Presentación: Fundamentos del Razonamiento Clínico</span
+            >
+            <svg
+              class="w-6 h-6 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div
+              id="presentacion-container-wrapper"
+              class="py-6 embedded-content"
+            ></div>
+          </div>
         </div>
 
-        <!-- Contenedor del Acordeón -->
-        <div class="max-w-5xl mx-auto space-y-4">
-            
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <button class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition">
-                    <span class="text-xl font-bold text-gray-800" style="font-family: 'Lora', serif;">1. Presentación: Fundamentos del Razonamiento Clínico</span>
-                    <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <div id="presentacion-container-wrapper" class="py-6 embedded-content"></div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <button class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition">
-                    <span class="text-xl font-bold text-gray-800" style="font-family: 'Lora', serif;">2. Actividad Práctica: ABP "Más Allá de la Ansiedad"</span>
-                    <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <div id="abp-container-wrapper" class="py-6 embedded-content"></div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <button class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition">
-                    <span class="text-xl font-bold text-gray-800" style="font-family: 'Lora', serif;">3. Autoevaluación: Ponte a Prueba</span>
-                    <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <div id="quiz-container-wrapper" class="py-6 embedded-content"></div>
-                </div>
-            </div>
-
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition"
+          >
+            <span
+              class="text-xl font-bold text-gray-800"
+              style="font-family: 'Lora', serif"
+              >2. Actividad Práctica: ABP "Más Allá de la Ansiedad"</span
+            >
+            <svg
+              class="w-6 h-6 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div id="abp-container-wrapper" class="py-6 embedded-content"></div>
+          </div>
         </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition"
+          >
+            <span
+              class="text-xl font-bold text-gray-800"
+              style="font-family: 'Lora', serif"
+              >3. Autoevaluación: Ponte a Prueba</span
+            >
+            <svg
+              class="w-6 h-6 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div
+              id="quiz-container-wrapper"
+              class="py-6 embedded-content"
+            ></div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer class="bg-white mt-20">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
-        </div>
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+      </div>
     </footer>
 
-<script>
-// --- LÓGICA DEL ACORDEÓN ---
-document.addEventListener('DOMContentLoaded', function () {
-    const accordionButtons = document.querySelectorAll('.accordion-button');
-    accordionButtons.forEach(button => {
-        button.addEventListener('click', () => {
+    <script>
+      // --- LÓGICA DEL ACORDEÓN ---
+      document.addEventListener('DOMContentLoaded', function () {
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        accordionButtons.forEach((button) => {
+          button.addEventListener('click', () => {
             const content = button.nextElementSibling;
             button.classList.toggle('open');
             if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-                content.style.padding = "0 2rem";
+              content.style.maxHeight = null;
+              content.style.padding = '0 2rem';
             } else {
-                // Set a large max-height to accommodate dynamic content
-                content.style.maxHeight = content.scrollHeight + 2000 + "px"; 
-                content.style.padding = "1.5rem 2rem";
+              // Set a large max-height to accommodate dynamic content
+              content.style.maxHeight = content.scrollHeight + 2000 + 'px';
+              content.style.padding = '1.5rem 2rem';
             }
+          });
         });
-    });
 
-    // --- INYECCIÓN DE CONTENIDO ---
-    injectPresentation();
-    injectABP();
-    injectQuiz();
+        // --- INYECCIÓN DE CONTENIDO ---
+        injectPresentation();
+        injectABP();
+        injectQuiz();
 
-    // --- INICIALIZACIÓN DE ARTEFACTOS ---
-    initPresentation();
-    initABP();
-    initQuiz();
-});
+        // --- INICIALIZACIÓN DE ARTEFACTOS ---
+        initPresentation();
+        initABP();
+        initQuiz();
+      });
 
+      // =================================================================================
+      // 1. PRESENTACIÓN
+      // =================================================================================
+      let presentationCurrentSlide = 0;
+      let presentationSlides = [];
 
-// =================================================================================
-// 1. PRESENTACIÓN
-// =================================================================================
-let presentationCurrentSlide = 0;
-let presentationSlides = [];
-
-function injectPresentation() {
-    const presentacionHTML = `
+      function injectPresentation() {
+        const presentacionHTML = `
     <div class="w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden mx-auto">
         <div id="presentation-container">
             <!-- Diapositivas se insertan aquí -->
@@ -179,70 +322,81 @@ function injectPresentation() {
             <button onclick="navigatePresentation(1)" id="presentation-next-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Siguiente</button>
         </div>
     </div>`;
-    document.getElementById('presentacion-container-wrapper').innerHTML = presentacionHTML;
-}
+        document.getElementById('presentacion-container-wrapper').innerHTML =
+          presentacionHTML;
+      }
 
-function initPresentation() {
-    const slidesData = [
-        // Slide 1
-        `<div class="presentation-slide-content flex flex-col items-center justify-center text-center"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Los Sesgos de la Mente</h2><p class="text-2xl md:text-3xl text-blue-600 font-light mb-8">Navegando el Razonamiento Clínico y el Error Diagnóstico</p><div class="text-lg text-gray-600"><p>Unidad 4 - Internado Rotativo</p><p class="font-semibold">10mo Semestre, Escuela de Medicina, Universidad Central del Ecuador</p></div></div>`,
-        // Slide 2
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-8 flex items-center"><svg class="w-8 h-8 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>Objetivos de Aprendizaje</h3><ul class="space-y-4 text-lg text-gray-600"><li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span>Diferenciar entre errores cognitivos, de conocimiento y sistémicos.</li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span>Explicar la Teoría del Doble Proceso (Sistema 1 y 2).</li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span>Identificar los sesgos cognitivos más comunes.</li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span>Aplicar estrategias de mitigación ("debiasing").</li></ul></div>`,
-        // Slide 3
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-8 flex items-center"><svg class="w-8 h-8 mr-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>El Problema Oculto: El Error Diagnóstico</h3><div class="grid md:grid-cols-2 gap-6 text-center"><div class="bg-red-50 p-6 rounded-xl"><p class="text-5xl font-bold text-red-500">10-15%</p><p class="text-lg text-red-700 mt-2">Tasa de error estimada.</p></div><div class="bg-blue-50 p-6 rounded-xl"><p class="text-5xl font-bold text-blue-500">~75%</p><p class="text-lg text-blue-700 mt-2">De los errores implican factores cognitivos.</p></div></div><p class="mt-10 text-center text-2xl font-light text-gray-800">La frontera para mejorar no es saber más, sino <strong class="font-semibold">aprender a pensar mejor.</strong></p></div>`,
-        // Slide 4
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6 text-center">La Arquitectura de la Mente: Teoría del Doble Proceso</h3><div class="flex flex-col md:flex-row gap-8 justify-center items-start"><div class="w-full md:w-1/2 bg-sky-50 p-6 rounded-xl border border-sky-200"><h4 class="text-2xl font-bold text-sky-700 mb-3">Sistema 1: Piloto Automático</h4><ul class="list-disc list-inside text-gray-700 space-y-2 text-lg"><li>Rápido, intuitivo</li><li>Basado en patrones</li><li class="font-semibold">¡Usado el 95% del tiempo!</li></ul></div><div class="w-full md:w-1/2 bg-indigo-50 p-6 rounded-xl border border-indigo-200"><h4 class="text-2xl font-bold text-indigo-700 mb-3">Sistema 2: Piloto Consciente</h4><ul class="list-disc list-inside text-gray-700 space-y-2 text-lg"><li>Lento, analítico</li><li>Basado en reglas lógicas</li><li class="font-semibold">Se activa ante la complejidad</li></ul></div></div></div>`,
-        // Slide 5
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">La Danza de los Dos Sistemas</h3><div class="overflow-x-auto"><table><thead><tr><th class="text-lg">Característica</th><th class="text-lg">Sistema 1</th><th class="text-lg">Sistema 2</th></tr></thead><tbody><tr><td><strong>Velocidad</strong></td><td>Rápido</td><td>Lento</td></tr><tr><td><strong>Control</strong></td><td>Inconsciente</td><td>Consciente</td></tr><tr><td><strong>Riesgo Principal</strong></td><td class="text-red-600 font-semibold">Vulnerable a sesgos</td><td>"Parálisis por análisis"</td></tr></tbody></table></div><p class="mt-8 text-center text-xl font-light text-gray-800">La pericia es saber <strong class="font-semibold">cuándo activar el Sistema 2</strong> para supervisar al Sistema 1.</p></div>`,
-        // Slide 6
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-8">¿Qué son los Sesgos Cognitivos?</h3><div class="space-y-6 text-xl text-gray-700"><p>Son <strong class="text-blue-600">errores sistemáticos y predecibles</strong> en el pensamiento.</p><p><strong>No son un signo de incompetencia.</strong> Son una característica universal de la cognición humana.</p><div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg"><h4 class="font-bold text-yellow-800">El Punto Ciego del Sesgo</h4><p class="text-lg text-yellow-700">La tendencia a ver los sesgos en los demás, pero no en nosotros mismos.</p></div></div></div>`,
-        // Slide 7
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Taxonomía de Sesgos (Parte 1)</h3><div class="space-y-5"><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Sesgo de Anclaje</h4><p class="text-gray-600">Depender excesivamente de la primera información. <em>Ej: Paciente con ansiedad y dolor torácico -> se ancla en "pánico".</em></p></div><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Cierre Prematuro</h4><p class="text-gray-600">"Saltar a conclusiones". <em>Ej: Rectorragia -> hemorroides, sin investigar posible cáncer.</em></p></div><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Sesgo de Disponibilidad</h4><p class="text-gray-600">Juzgar por la facilidad con que un ejemplo viene a la mente. <em>Ej: Tras un caso fatal de meningitis, sospecharla en todos los niños con fiebre.</em></p></div></div></div>`,
-        // Slide 8
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Taxonomía de Sesgos (Parte 2)</h3><div class="space-y-5"><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Sesgo de Confirmación</h4><p class="text-gray-600">Buscar información que confirma nuestra hipótesis. <em>Ej: Enfocarse en leucocitosis (bacteria) e ignorar linfocitos atípicos (viral).</em></p></div><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Exceso de Confianza</h4><p class="text-gray-600">Sobreestimar nuestro propio juicio. <em>Ej: Cirujano experto que no revisa una anatomía anómala.</em></p></div><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Momentum Diagnóstico</h4><p class="text-gray-600">Aceptar un diagnóstico previo sin escepticismo. <em>Ej: Tratar "insuficiencia cardíaca" sin reevaluar si es neumonía.</em></p></div></div></div>`,
-        // Slide 9
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Caso Clínico Interactivo</h3><div class="bg-gray-50 p-6 rounded-xl border"><h4 class="text-xl font-semibold text-gray-800 mb-2">Presentación</h4><p class="text-lg text-gray-700">Paciente de 45 años, con antecedente de alcoholismo, es traído por un amigo que lo encontró <strong class="text-blue-600">confuso y somnoliento</strong>. El aliento es etílico. El interno anota: <strong class="text-red-600">"Intoxicación etílica aguda"</strong>.</p></div><div class="mt-8 text-center"><p class="text-2xl font-semibold text-gray-800">Pregunta a la clase:</p><p class="text-xl text-gray-600 mt-2">¿Cuál es su diagnóstico de trabajo?</p></div></div>`,
-        // Slide 10
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Análisis del Caso y el Sesgo</h3><div class="bg-green-50 p-6 rounded-xl border border-green-200 mb-6"><h4 class="text-xl font-semibold text-green-800 mb-2">Evolución</h4><p class="text-lg text-green-700">Una hora después, el paciente presenta una <strong class="font-bold">hemiparesia derecha</strong>. Una TAC de cráneo revela un <strong class="font-bold">hematoma subdural</strong>.</p></div><h4 class="text-2xl font-semibold text-gray-800 mb-3">El Sesgo en Acción:</h4><ul class="list-disc list-inside space-y-2 text-lg text-gray-700"><li><strong>Anclaje:</strong> En la "intoxicación etílica".</li><li><strong>Cierre Prematuro:</strong> Se encontró una causa "obvia".</li><li><strong>Error de Atribución:</strong> Se culpó al estilo de vida del paciente.</li></ul></div>`,
-        // Slide 11
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">El Impacto del Error Cognitivo</h3><div class="grid md:grid-cols-2 gap-8"><div><h4 class="text-2xl font-semibold text-blue-700 mb-3">Para el Paciente</h4><ul class="list-disc list-inside space-y-2 text-lg text-gray-700"><li>Aumento de morbilidad/mortalidad.</li><li>Tratamientos innecesarios.</li><li>Pérdida de confianza.</li></ul></div><div><h4 class="text-2xl font-semibold text-red-700 mb-3">Para el Médico ("Segunda Víctima")</h4><ul class="list-disc list-inside space-y-2 text-lg text-gray-700"><li>Trauma emocional: culpa, vergüenza.</li><li>Afecta hasta al 43% de profesionales.</li><li>Aumenta riesgo de futuros errores.</li></ul></div></div></div>`,
-        // Slide 12
-        `<div class="presentation-slide-content text-center"><h3 class="text-3xl font-bold text-gray-800 mb-6">Estrategias de Mitigación</h3><p class="text-2xl text-gray-700 mb-8">Hacia una Práctica Metacognitiva</p><div class="bg-indigo-50 p-6 rounded-xl max-w-3xl mx-auto"><p class="text-3xl font-bold text-indigo-600 my-4">La clave: METACOGNICIÓN</p><p class="text-xl text-indigo-800">"Pensar sobre cómo pensamos", forzando al <strong class="font-semibold">Sistema 2</strong> a supervisar.</p></div></div>`,
-        // Slide 13
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6 flex items-center"><svg class="w-8 h-8 mr-3 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>Caja de Herramientas Cognitivas</h3><div class="grid md:grid-cols-2 gap-6"><div class="bg-gray-50 p-5 rounded-lg"><h4 class="text-xl font-bold text-gray-700 mb-2">1. Haz una "Pausa Diagnóstica"</h4></div><div class="bg-gray-50 p-5 rounded-lg"><h4 class="text-xl font-bold text-gray-700 mb-2">2. Pregúntate activamente:</h4><ul class="list-disc list-inside text-gray-600"><li>"¿Qué más podría ser?"</li><li>"¿Cuál es el peor escenario?"</li></ul></div><div class="bg-gray-50 p-5 rounded-lg"><h4 class="text-xl font-bold text-gray-700 mb-2">3. Considera la Alternativa</h4></div><div class="bg-gray-50 p-5 rounded-lg"><h4 class="text-xl font-bold text-gray-700 mb-2">4. Fomenta una Cultura de Seguridad</h4></div></div></div>`,
-        // Slide 14
-        `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Conclusiones: El Médico como Científico Reflexivo</h3><ul class="space-y-5 text-xl text-gray-700"><li class="flex items-start"><span class="text-blue-500 font-bold mr-4 mt-1">→</span><span>La <strong class="text-blue-600">humildad intelectual</strong> es nuestra mejor defensa.</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-4 mt-1">→</span><span>La excelencia es la <strong class="text-blue-600">disciplina para anticipar y mitigar el error.</strong></span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-4 mt-1">→</span><span>La pregunta clave es *“¿Cómo estoy pensando acerca de este paciente?”*.</span></li></ul></div>`,
-        // Slide 15
-        `<div class="presentation-slide-content flex flex-col items-center justify-center text-center"><h3 class="text-5xl font-bold text-gray-800">Preguntas y Discusión</h3><svg class="w-24 h-24 text-gray-400 mt-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>`
-    ];
-    const container = document.getElementById('presentation-container');
-    container.innerHTML = slidesData.map(content => `<div class="presentation-slide p-8 md:p-12">${content}</div>`).join('');
-    presentationSlides = container.querySelectorAll('.presentation-slide');
-    updatePresentation();
-}
+      function initPresentation() {
+        const slidesData = [
+          // Slide 1
+          `<div class="presentation-slide-content flex flex-col items-center justify-center text-center"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Los Sesgos de la Mente</h2><p class="text-2xl md:text-3xl text-blue-600 font-light mb-8">Navegando el Razonamiento Clínico y el Error Diagnóstico</p><div class="text-lg text-gray-600"><p>Unidad 4 - Internado Rotativo</p><p class="font-semibold">10mo Semestre, Escuela de Medicina, Universidad Central del Ecuador</p></div></div>`,
+          // Slide 2
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-8 flex items-center"><svg class="w-8 h-8 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>Objetivos de Aprendizaje</h3><ul class="space-y-4 text-lg text-gray-600"><li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span>Diferenciar entre errores cognitivos, de conocimiento y sistémicos.</li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span>Explicar la Teoría del Doble Proceso (Sistema 1 y 2).</li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span>Identificar los sesgos cognitivos más comunes.</li><li class="flex items-start"><span class="text-blue-500 font-bold mr-3">✓</span>Aplicar estrategias de mitigación ("debiasing").</li></ul></div>`,
+          // Slide 3
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-8 flex items-center"><svg class="w-8 h-8 mr-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>El Problema Oculto: El Error Diagnóstico</h3><div class="grid md:grid-cols-2 gap-6 text-center"><div class="bg-red-50 p-6 rounded-xl"><p class="text-5xl font-bold text-red-500">10-15%</p><p class="text-lg text-red-700 mt-2">Tasa de error estimada.</p></div><div class="bg-blue-50 p-6 rounded-xl"><p class="text-5xl font-bold text-blue-500">~75%</p><p class="text-lg text-blue-700 mt-2">De los errores implican factores cognitivos.</p></div></div><p class="mt-10 text-center text-2xl font-light text-gray-800">La frontera para mejorar no es saber más, sino <strong class="font-semibold">aprender a pensar mejor.</strong></p></div>`,
+          // Slide 4
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6 text-center">La Arquitectura de la Mente: Teoría del Doble Proceso</h3><div class="flex flex-col md:flex-row gap-8 justify-center items-start"><div class="w-full md:w-1/2 bg-sky-50 p-6 rounded-xl border border-sky-200"><h4 class="text-2xl font-bold text-sky-700 mb-3">Sistema 1: Piloto Automático</h4><ul class="list-disc list-inside text-gray-700 space-y-2 text-lg"><li>Rápido, intuitivo</li><li>Basado en patrones</li><li class="font-semibold">¡Usado el 95% del tiempo!</li></ul></div><div class="w-full md:w-1/2 bg-indigo-50 p-6 rounded-xl border border-indigo-200"><h4 class="text-2xl font-bold text-indigo-700 mb-3">Sistema 2: Piloto Consciente</h4><ul class="list-disc list-inside text-gray-700 space-y-2 text-lg"><li>Lento, analítico</li><li>Basado en reglas lógicas</li><li class="font-semibold">Se activa ante la complejidad</li></ul></div></div></div>`,
+          // Slide 5
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">La Danza de los Dos Sistemas</h3><div class="overflow-x-auto"><table><thead><tr><th class="text-lg">Característica</th><th class="text-lg">Sistema 1</th><th class="text-lg">Sistema 2</th></tr></thead><tbody><tr><td><strong>Velocidad</strong></td><td>Rápido</td><td>Lento</td></tr><tr><td><strong>Control</strong></td><td>Inconsciente</td><td>Consciente</td></tr><tr><td><strong>Riesgo Principal</strong></td><td class="text-red-600 font-semibold">Vulnerable a sesgos</td><td>"Parálisis por análisis"</td></tr></tbody></table></div><p class="mt-8 text-center text-xl font-light text-gray-800">La pericia es saber <strong class="font-semibold">cuándo activar el Sistema 2</strong> para supervisar al Sistema 1.</p></div>`,
+          // Slide 6
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-8">¿Qué son los Sesgos Cognitivos?</h3><div class="space-y-6 text-xl text-gray-700"><p>Son <strong class="text-blue-600">errores sistemáticos y predecibles</strong> en el pensamiento.</p><p><strong>No son un signo de incompetencia.</strong> Son una característica universal de la cognición humana.</p><div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg"><h4 class="font-bold text-yellow-800">El Punto Ciego del Sesgo</h4><p class="text-lg text-yellow-700">La tendencia a ver los sesgos en los demás, pero no en nosotros mismos.</p></div></div></div>`,
+          // Slide 7
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Taxonomía de Sesgos (Parte 1)</h3><div class="space-y-5"><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Sesgo de Anclaje</h4><p class="text-gray-600">Depender excesivamente de la primera información. <em>Ej: Paciente con ansiedad y dolor torácico -> se ancla en "pánico".</em></p></div><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Cierre Prematuro</h4><p class="text-gray-600">"Saltar a conclusiones". <em>Ej: Rectorragia -> hemorroides, sin investigar posible cáncer.</em></p></div><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Sesgo de Disponibilidad</h4><p class="text-gray-600">Juzgar por la facilidad con que un ejemplo viene a la mente. <em>Ej: Tras un caso fatal de meningitis, sospecharla en todos los niños con fiebre.</em></p></div></div></div>`,
+          // Slide 8
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Taxonomía de Sesgos (Parte 2)</h3><div class="space-y-5"><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Sesgo de Confirmación</h4><p class="text-gray-600">Buscar información que confirma nuestra hipótesis. <em>Ej: Enfocarse en leucocitosis (bacteria) e ignorar linfocitos atípicos (viral).</em></p></div><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Exceso de Confianza</h4><p class="text-gray-600">Sobreestimar nuestro propio juicio. <em>Ej: Cirujano experto que no revisa una anatomía anómala.</em></p></div><div class="p-4 border rounded-lg"><h4 class="font-bold text-xl text-gray-700">Momentum Diagnóstico</h4><p class="text-gray-600">Aceptar un diagnóstico previo sin escepticismo. <em>Ej: Tratar "insuficiencia cardíaca" sin reevaluar si es neumonía.</em></p></div></div></div>`,
+          // Slide 9
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Caso Clínico Interactivo</h3><div class="bg-gray-50 p-6 rounded-xl border"><h4 class="text-xl font-semibold text-gray-800 mb-2">Presentación</h4><p class="text-lg text-gray-700">Paciente de 45 años, con antecedente de alcoholismo, es traído por un amigo que lo encontró <strong class="text-blue-600">confuso y somnoliento</strong>. El aliento es etílico. El interno anota: <strong class="text-red-600">"Intoxicación etílica aguda"</strong>.</p></div><div class="mt-8 text-center"><p class="text-2xl font-semibold text-gray-800">Pregunta a la clase:</p><p class="text-xl text-gray-600 mt-2">¿Cuál es su diagnóstico de trabajo?</p></div></div>`,
+          // Slide 10
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Análisis del Caso y el Sesgo</h3><div class="bg-green-50 p-6 rounded-xl border border-green-200 mb-6"><h4 class="text-xl font-semibold text-green-800 mb-2">Evolución</h4><p class="text-lg text-green-700">Una hora después, el paciente presenta una <strong class="font-bold">hemiparesia derecha</strong>. Una TAC de cráneo revela un <strong class="font-bold">hematoma subdural</strong>.</p></div><h4 class="text-2xl font-semibold text-gray-800 mb-3">El Sesgo en Acción:</h4><ul class="list-disc list-inside space-y-2 text-lg text-gray-700"><li><strong>Anclaje:</strong> En la "intoxicación etílica".</li><li><strong>Cierre Prematuro:</strong> Se encontró una causa "obvia".</li><li><strong>Error de Atribución:</strong> Se culpó al estilo de vida del paciente.</li></ul></div>`,
+          // Slide 11
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">El Impacto del Error Cognitivo</h3><div class="grid md:grid-cols-2 gap-8"><div><h4 class="text-2xl font-semibold text-blue-700 mb-3">Para el Paciente</h4><ul class="list-disc list-inside space-y-2 text-lg text-gray-700"><li>Aumento de morbilidad/mortalidad.</li><li>Tratamientos innecesarios.</li><li>Pérdida de confianza.</li></ul></div><div><h4 class="text-2xl font-semibold text-red-700 mb-3">Para el Médico ("Segunda Víctima")</h4><ul class="list-disc list-inside space-y-2 text-lg text-gray-700"><li>Trauma emocional: culpa, vergüenza.</li><li>Afecta hasta al 43% de profesionales.</li><li>Aumenta riesgo de futuros errores.</li></ul></div></div></div>`,
+          // Slide 12
+          `<div class="presentation-slide-content text-center"><h3 class="text-3xl font-bold text-gray-800 mb-6">Estrategias de Mitigación</h3><p class="text-2xl text-gray-700 mb-8">Hacia una Práctica Metacognitiva</p><div class="bg-indigo-50 p-6 rounded-xl max-w-3xl mx-auto"><p class="text-3xl font-bold text-indigo-600 my-4">La clave: METACOGNICIÓN</p><p class="text-xl text-indigo-800">"Pensar sobre cómo pensamos", forzando al <strong class="font-semibold">Sistema 2</strong> a supervisar.</p></div></div>`,
+          // Slide 13
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6 flex items-center"><svg class="w-8 h-8 mr-3 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>Caja de Herramientas Cognitivas</h3><div class="grid md:grid-cols-2 gap-6"><div class="bg-gray-50 p-5 rounded-lg"><h4 class="text-xl font-bold text-gray-700 mb-2">1. Haz una "Pausa Diagnóstica"</h4></div><div class="bg-gray-50 p-5 rounded-lg"><h4 class="text-xl font-bold text-gray-700 mb-2">2. Pregúntate activamente:</h4><ul class="list-disc list-inside text-gray-600"><li>"¿Qué más podría ser?"</li><li>"¿Cuál es el peor escenario?"</li></ul></div><div class="bg-gray-50 p-5 rounded-lg"><h4 class="text-xl font-bold text-gray-700 mb-2">3. Considera la Alternativa</h4></div><div class="bg-gray-50 p-5 rounded-lg"><h4 class="text-xl font-bold text-gray-700 mb-2">4. Fomenta una Cultura de Seguridad</h4></div></div></div>`,
+          // Slide 14
+          `<div class="presentation-slide-content"><h3 class="text-3xl font-bold text-gray-800 mb-6">Conclusiones: El Médico como Científico Reflexivo</h3><ul class="space-y-5 text-xl text-gray-700"><li class="flex items-start"><span class="text-blue-500 font-bold mr-4 mt-1">→</span><span>La <strong class="text-blue-600">humildad intelectual</strong> es nuestra mejor defensa.</span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-4 mt-1">→</span><span>La excelencia es la <strong class="text-blue-600">disciplina para anticipar y mitigar el error.</strong></span></li><li class="flex items-start"><span class="text-blue-500 font-bold mr-4 mt-1">→</span><span>La pregunta clave es *“¿Cómo estoy pensando acerca de este paciente?”*.</span></li></ul></div>`,
+          // Slide 15
+          `<div class="presentation-slide-content flex flex-col items-center justify-center text-center"><h3 class="text-5xl font-bold text-gray-800">Preguntas y Discusión</h3><svg class="w-24 h-24 text-gray-400 mt-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>`,
+        ];
+        const container = document.getElementById('presentation-container');
+        container.innerHTML = slidesData
+          .map(
+            (content) =>
+              `<div class="presentation-slide p-8 md:p-12">${content}</div>`,
+          )
+          .join('');
+        presentationSlides = container.querySelectorAll('.presentation-slide');
+        updatePresentation();
+      }
 
-function updatePresentation() {
-    presentationSlides.forEach((slide, index) => {
-        slide.classList.toggle('presentation-active-slide', index === presentationCurrentSlide);
-    });
-    document.getElementById('presentation-counter').textContent = `Diapositiva ${presentationCurrentSlide + 1} de ${presentationSlides.length}`;
-    document.getElementById('presentation-prev-btn').disabled = presentationCurrentSlide === 0;
-    document.getElementById('presentation-next-btn').disabled = presentationCurrentSlide === presentationSlides.length - 1;
-}
+      function updatePresentation() {
+        presentationSlides.forEach((slide, index) => {
+          slide.classList.toggle(
+            'presentation-active-slide',
+            index === presentationCurrentSlide,
+          );
+        });
+        document.getElementById('presentation-counter').textContent =
+          `Diapositiva ${presentationCurrentSlide + 1} de ${presentationSlides.length}`;
+        document.getElementById('presentation-prev-btn').disabled =
+          presentationCurrentSlide === 0;
+        document.getElementById('presentation-next-btn').disabled =
+          presentationCurrentSlide === presentationSlides.length - 1;
+      }
 
-function navigatePresentation(direction) {
-    presentationCurrentSlide += direction;
-    updatePresentation();
-}
+      function navigatePresentation(direction) {
+        presentationCurrentSlide += direction;
+        updatePresentation();
+      }
 
+      // =================================================================================
+      // 2. ACTIVIDAD ABP
+      // =================================================================================
+      let abpCurrentStep = 0;
 
-// =================================================================================
-// 2. ACTIVIDAD ABP
-// =================================================================================
-let abpCurrentStep = 0;
-
-function injectABP() {
-    const abpHTML = `
+      function injectABP() {
+        const abpHTML = `
     <div class="bg-white rounded-2xl shadow-xl overflow-hidden max-w-4xl mx-auto">
         <div class="w-full bg-gray-200 rounded-t-2xl"><div id="abpProgressBar" class="abp-progress-bar-fill bg-blue-600 text-xs font-medium text-blue-100 text-center p-1 leading-none" style="width: 0%"></div></div>
         <div class="p-8 md:p-10">
@@ -280,52 +434,169 @@ function injectABP() {
             </div>
         </div>
     </div>`;
-    document.getElementById('abp-container-wrapper').innerHTML = abpHTML;
-}
+        document.getElementById('abp-container-wrapper').innerHTML = abpHTML;
+      }
 
-function initABP() {
-    abpNavigateToStep(0);
-    document.querySelectorAll('#abp-container-wrapper details').forEach(detail => {
-        detail.addEventListener('toggle', function() {
-            const icon = this.querySelector('svg');
-            icon.style.transform = this.open ? 'rotate(180deg)' : 'rotate(0deg)';
-        });
-    });
-}
+      function initABP() {
+        abpNavigateToStep(0);
+        document
+          .querySelectorAll('#abp-container-wrapper details')
+          .forEach((detail) => {
+            detail.addEventListener('toggle', function () {
+              const icon = this.querySelector('svg');
+              icon.style.transform = this.open
+                ? 'rotate(180deg)'
+                : 'rotate(0deg)';
+            });
+          });
+      }
 
-function abpNavigateToStep(step) {
-    abpCurrentStep = step;
-    document.querySelectorAll('.abp-step').forEach(s => s.style.display = 'none');
-    document.getElementById(`abp-step-${step}`).style.display = 'block';
-    const totalSteps = document.querySelectorAll('.abp-step').length - 1;
-    const progress = (abpCurrentStep / totalSteps) * 100;
-    document.getElementById('abpProgressBar').style.width = `${progress}%`;
-}
+      function abpNavigateToStep(step) {
+        abpCurrentStep = step;
+        document
+          .querySelectorAll('.abp-step')
+          .forEach((s) => (s.style.display = 'none'));
+        document.getElementById(`abp-step-${step}`).style.display = 'block';
+        const totalSteps = document.querySelectorAll('.abp-step').length - 1;
+        const progress = (abpCurrentStep / totalSteps) * 100;
+        document.getElementById('abpProgressBar').style.width = `${progress}%`;
+      }
 
-function abpRestart() {
-    document.getElementById('hipotesis').value = '';
-    document.getElementById('diferencial').value = '';
-    document.getElementById('reevaluacion').value = '';
-    document.querySelectorAll('#abp-container-wrapper details').forEach(detail => detail.removeAttribute('open'));
-    abpNavigateToStep(0);
-}
+      function abpRestart() {
+        document.getElementById('hipotesis').value = '';
+        document.getElementById('diferencial').value = '';
+        document.getElementById('reevaluacion').value = '';
+        document
+          .querySelectorAll('#abp-container-wrapper details')
+          .forEach((detail) => detail.removeAttribute('open'));
+        abpNavigateToStep(0);
+      }
 
+      // =================================================================================
+      // 3. AUTOEVALUACIÓN (QUIZ)
+      // =================================================================================
+      let quizCurrentQuestionIndex = 0;
+      let quizScore = 0;
+      const quizData = [
+        {
+          question:
+            'Un residente atiende un caso fatal de meningitis. En semanas siguientes, sospecha meningitis en casi todos los niños con fiebre. ¿Qué sesgo demuestra?',
+          options: [
+            'Sesgo de Anclaje',
+            'Sesgo de Disponibilidad',
+            'Sesgo de Confirmación',
+            'Cierre Prematuro',
+          ],
+          answer: 'Sesgo de Disponibilidad',
+          explanation: {
+            correct:
+              "Correcto. El residente sobreestima la probabilidad porque el recuerdo de un caso reciente y traumático está más 'disponible' en su mente.",
+            distractors: {
+              'Sesgo de Anclaje':
+                'Incorrecto. Anclaje es fijarse en la primera información de un paciente específico.',
+              'Sesgo de Confirmación':
+                'Incorrecto. El impulso inicial viene de la disponibilidad del recuerdo, no de buscar activamente evidencia que confirme una idea.',
+              'Cierre Prematuro':
+                'Incorrecto. Es detener el proceso diagnóstico, el sesgo inicial aquí es la disponibilidad.',
+            },
+          },
+        },
+        {
+          question:
+            'Un fumador de 70 años con tos crónica. El médico piensa en EPOC y centra la consulta en eso, sin preguntar por pérdida de peso. ¿Qué sesgo es más evidente?',
+          options: [
+            'Error de Atribución',
+            'Sesgo de Representatividad',
+            'Cierre Prematuro',
+            'Efecto de Encuadre',
+          ],
+          answer: 'Cierre Prematuro',
+          explanation: {
+            correct:
+              "Correcto. El médico 'salta a una conclusión' (EPOC) y detiene el proceso diagnóstico sin considerar otras posibilidades graves como cáncer.",
+            distractors: {
+              'Error de Atribución':
+                'Incorrecto. No describe el error de detener la investigación.',
+              'Sesgo de Representatividad':
+                'Incorrecto. El error principal es la finalización del proceso de pensamiento.',
+              'Efecto de Encuadre': 'Incorrecto. No aplica en este escenario.',
+            },
+          },
+        },
+        {
+          question:
+            "Un cirujano experimentado ante una anatomía anómala, confía en su 'sensación' y no realiza una colangiografía. Esto es un ejemplo de:",
+          options: [
+            'Exceso de Confianza',
+            'Momentum Diagnóstico',
+            'Sesgo de Confirmación',
+            'Punto Ciego del Sesgo',
+          ],
+          answer: 'Exceso de Confianza',
+          explanation: {
+            correct:
+              'Correcto. El cirujano sobreestima la exactitud de sus propias habilidades, omitiendo una herramienta de seguridad.',
+            distractors: {
+              'Momentum Diagnóstico':
+                'Incorrecto. No está aceptando un diagnóstico previo.',
+              'Sesgo de Confirmación':
+                'Incorrecto. No está buscando evidencia, cree que no la necesita.',
+              'Punto Ciego del Sesgo':
+                'Incorrecto. Su acción específica es un acto de exceso de confianza.',
+            },
+          },
+        },
+        {
+          question:
+            "Un médico convencido de una infección bacteriana, se enfoca en una leucocitosis leve, pero ignora la nota de 'linfocitos atípicos'. ¿Qué sesgo es?",
+          options: [
+            'Sesgo de Anclaje',
+            'Sesgo de Disponibilidad',
+            'Sesgo de Confirmación',
+            'Psych-out Error',
+          ],
+          answer: 'Sesgo de Confirmación',
+          explanation: {
+            correct:
+              'Correcto. Busca e interpreta selectivamente la información que confirma su creencia, ignorando la contradictoria.',
+            distractors: {
+              'Sesgo de Anclaje':
+                'Incorrecto. Confirmación es el proceso activo que sigue al ancla.',
+              'Sesgo de Disponibilidad':
+                'Incorrecto. No se basa en un recuerdo reciente.',
+              'Psych-out Error':
+                'Incorrecto. No se menciona un diagnóstico psiquiátrico.',
+            },
+          },
+        },
+        {
+          question:
+            'Para mitigar el Cierre Prematuro ante una cefalea en emergencias, ¿cuál es la estrategia metacognitiva más efectiva?',
+          options: [
+            'Preguntar si ha tenido cefaleas antes',
+            'Administrar analgésicos y reevaluar',
+            "Preguntarse: '¿Qué más podría ser?' y descartar el peor escenario",
+            'Confiar en la intuición si no parece grave',
+          ],
+          answer:
+            "Preguntarse: '¿Qué más podría ser?' y descartar el peor escenario",
+          explanation: {
+            correct:
+              'Correcto. Obliga a activar el Sistema 2, ampliar el diferencial y considerar activamente las patologías más peligrosas.',
+            distractors: {
+              'Preguntar si ha tenido cefaleas antes':
+                'Incorrecto. Es parte de la anamnesis, pero no una estrategia metacognitiva.',
+              'Administrar analgésicos y reevaluar':
+                'Incorrecto. Es una acción terapéutica, no una estrategia de mitigación.',
+              'Confiar en la intuición si no parece grave':
+                'Incorrecto. Es lo opuesto a una estrategia de mitigación.',
+            },
+          },
+        },
+      ];
 
-// =================================================================================
-// 3. AUTOEVALUACIÓN (QUIZ)
-// =================================================================================
-let quizCurrentQuestionIndex = 0;
-let quizScore = 0;
-const quizData = [
-    { question: "Un residente atiende un caso fatal de meningitis. En semanas siguientes, sospecha meningitis en casi todos los niños con fiebre. ¿Qué sesgo demuestra?", options: ["Sesgo de Anclaje", "Sesgo de Disponibilidad", "Sesgo de Confirmación", "Cierre Prematuro"], answer: "Sesgo de Disponibilidad", explanation: { correct: "Correcto. El residente sobreestima la probabilidad porque el recuerdo de un caso reciente y traumático está más 'disponible' en su mente.", distractors: { "Sesgo de Anclaje": "Incorrecto. Anclaje es fijarse en la primera información de un paciente específico.", "Sesgo de Confirmación": "Incorrecto. El impulso inicial viene de la disponibilidad del recuerdo, no de buscar activamente evidencia que confirme una idea.", "Cierre Prematuro": "Incorrecto. Es detener el proceso diagnóstico, el sesgo inicial aquí es la disponibilidad." }}},
-    { question: "Un fumador de 70 años con tos crónica. El médico piensa en EPOC y centra la consulta en eso, sin preguntar por pérdida de peso. ¿Qué sesgo es más evidente?", options: ["Error de Atribución", "Sesgo de Representatividad", "Cierre Prematuro", "Efecto de Encuadre"], answer: "Cierre Prematuro", explanation: { correct: "Correcto. El médico 'salta a una conclusión' (EPOC) y detiene el proceso diagnóstico sin considerar otras posibilidades graves como cáncer.", distractors: { "Error de Atribución": "Incorrecto. No describe el error de detener la investigación.", "Sesgo de Representatividad": "Incorrecto. El error principal es la finalización del proceso de pensamiento.", "Efecto de Encuadre": "Incorrecto. No aplica en este escenario." }}},
-    { question: "Un cirujano experimentado ante una anatomía anómala, confía en su 'sensación' y no realiza una colangiografía. Esto es un ejemplo de:", options: ["Exceso de Confianza", "Momentum Diagnóstico", "Sesgo de Confirmación", "Punto Ciego del Sesgo"], answer: "Exceso de Confianza", explanation: { correct: "Correcto. El cirujano sobreestima la exactitud de sus propias habilidades, omitiendo una herramienta de seguridad.", distractors: { "Momentum Diagnóstico": "Incorrecto. No está aceptando un diagnóstico previo.", "Sesgo de Confirmación": "Incorrecto. No está buscando evidencia, cree que no la necesita.", "Punto Ciego del Sesgo": "Incorrecto. Su acción específica es un acto de exceso de confianza." }}},
-    { question: "Un médico convencido de una infección bacteriana, se enfoca en una leucocitosis leve, pero ignora la nota de 'linfocitos atípicos'. ¿Qué sesgo es?", options: ["Sesgo de Anclaje", "Sesgo de Disponibilidad", "Sesgo de Confirmación", "Psych-out Error"], answer: "Sesgo de Confirmación", explanation: { correct: "Correcto. Busca e interpreta selectivamente la información que confirma su creencia, ignorando la contradictoria.", distractors: { "Sesgo de Anclaje": "Incorrecto. Confirmación es el proceso activo que sigue al ancla.", "Sesgo de Disponibilidad": "Incorrecto. No se basa en un recuerdo reciente.", "Psych-out Error": "Incorrecto. No se menciona un diagnóstico psiquiátrico." }}},
-    { question: "Para mitigar el Cierre Prematuro ante una cefalea en emergencias, ¿cuál es la estrategia metacognitiva más efectiva?", options: ["Preguntar si ha tenido cefaleas antes", "Administrar analgésicos y reevaluar", "Preguntarse: '¿Qué más podría ser?' y descartar el peor escenario", "Confiar en la intuición si no parece grave"], answer: "Preguntarse: '¿Qué más podría ser?' y descartar el peor escenario", explanation: { correct: "Correcto. Obliga a activar el Sistema 2, ampliar el diferencial y considerar activamente las patologías más peligrosas.", distractors: { "Preguntar si ha tenido cefaleas antes": "Incorrecto. Es parte de la anamnesis, pero no una estrategia metacognitiva.", "Administrar analgésicos y reevaluar": "Incorrecto. Es una acción terapéutica, no una estrategia de mitigación.", "Confiar en la intuición si no parece grave": "Incorrecto. Es lo opuesto a una estrategia de mitigación." }}}
-];
-
-function injectQuiz() {
-    const quizHTML = `
+      function injectQuiz() {
+        const quizHTML = `
     <div class="w-full max-w-2xl bg-white rounded-2xl shadow-lg overflow-hidden mx-auto">
         <div id="quiz-container-main" class="p-8"></div>
         <div id="quiz-results-container" class="p-8 text-center" style="display: none;">
@@ -335,97 +606,122 @@ function injectQuiz() {
             <button onclick="quizRestart()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition">Intentar de Nuevo</button>
         </div>
     </div>`;
-    document.getElementById('quiz-container-wrapper').innerHTML = quizHTML;
-}
+        document.getElementById('quiz-container-wrapper').innerHTML = quizHTML;
+      }
 
-function initQuiz() {
-    document.getElementById('quiz-container-main').innerHTML = `
+      function initQuiz() {
+        document.getElementById('quiz-container-main').innerHTML = `
         <div class="text-center">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Autoevaluación Interactiva</h3>
             <p class="text-gray-600 mb-6">Pon a prueba tu conocimiento sobre los sesgos cognitivos.</p>
             <button onclick="quizStart()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg">Iniciar Quiz</button>
         </div>`;
-}
+      }
 
-function quizStart() {
-    quizCurrentQuestionIndex = 0;
-    quizScore = 0;
-    document.getElementById('quiz-results-container').style.display = 'none';
-    document.getElementById('quiz-container-main').style.display = 'block';
-    showQuizQuestion();
-}
+      function quizStart() {
+        quizCurrentQuestionIndex = 0;
+        quizScore = 0;
+        document.getElementById('quiz-results-container').style.display =
+          'none';
+        document.getElementById('quiz-container-main').style.display = 'block';
+        showQuizQuestion();
+      }
 
-function showQuizQuestion() {
-    const q = quizData[quizCurrentQuestionIndex];
-    const optionsHtml = q.options.map(option => 
-        `<button class="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-lg quiz-option-btn" onclick="selectQuizAnswer('${option}')">${option}</button>`
-    ).join('');
-    
-    document.getElementById('quiz-container-main').innerHTML = `
+      function showQuizQuestion() {
+        const q = quizData[quizCurrentQuestionIndex];
+        const optionsHtml = q.options
+          .map(
+            (option) =>
+              `<button class="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-lg quiz-option-btn" onclick="selectQuizAnswer('${option}')">${option}</button>`,
+          )
+          .join('');
+
+        document.getElementById('quiz-container-main').innerHTML = `
         <p class="text-sm text-gray-500 mb-2">Pregunta ${quizCurrentQuestionIndex + 1} de ${quizData.length}</p>
         <p class="text-lg font-medium text-gray-800 mb-6">${q.question}</p>
         <div class="space-y-3">${optionsHtml}</div>
         <div id="quiz-explanation-${quizCurrentQuestionIndex}" class="quiz-explanation"></div>
         <button id="quiz-next-btn-${quizCurrentQuestionIndex}" onclick="quizNextQuestion()" class="mt-6 bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg w-full" style="display:none;"></button>
     `;
-}
+      }
 
-function selectQuizAnswer(selectedOption) {
-    const qIndex = quizCurrentQuestionIndex;
-    const question = quizData[qIndex];
-    const options = document.querySelectorAll(`#quiz-container-main .quiz-option-btn`);
-    
-    options.forEach(option => {
-        option.disabled = true;
-        if (option.innerText === question.answer) option.classList.add('quiz-correct');
-        else if (option.innerText === selectedOption) option.classList.add('quiz-incorrect');
-    });
+      function selectQuizAnswer(selectedOption) {
+        const qIndex = quizCurrentQuestionIndex;
+        const question = quizData[qIndex];
+        const options = document.querySelectorAll(
+          `#quiz-container-main .quiz-option-btn`,
+        );
 
-    if (selectedOption === question.answer) quizScore++;
+        options.forEach((option) => {
+          option.disabled = true;
+          if (option.innerText === question.answer)
+            option.classList.add('quiz-correct');
+          else if (option.innerText === selectedOption)
+            option.classList.add('quiz-incorrect');
+        });
 
-    const explanationEl = document.getElementById(`quiz-explanation-${qIndex}`);
-    let explanationHtml = `<p class="mb-2"><strong><span class="text-green-600">Respuesta Correcta:</span> ${question.explanation.correct}</strong></p><strong class="block mt-3 mb-1">Análisis de las otras opciones:</strong><ul class="list-disc list-inside space-y-1">`;
-    for (const distractor in question.explanation.distractors) {
-        explanationHtml += `<li><span class="text-red-600">${distractor}:</span> ${question.explanation.distractors[distractor]}</li>`;
-    }
-    explanationHtml += `</ul>`;
-    explanationEl.innerHTML = explanationHtml;
-    explanationEl.style.display = 'block';
+        if (selectedOption === question.answer) quizScore++;
 
-    const nextBtn = document.getElementById(`quiz-next-btn-${qIndex}`);
-    nextBtn.innerText = (qIndex < quizData.length - 1) ? "Siguiente Pregunta" : "Ver Resultados";
-    if (qIndex === quizData.length - 1) {
-        nextBtn.classList.remove('bg-gray-300', 'text-gray-700');
-        nextBtn.classList.add('bg-green-500', 'text-white', 'hover:bg-green-600');
-    }
-    nextBtn.style.display = 'block';
-}
+        const explanationEl = document.getElementById(
+          `quiz-explanation-${qIndex}`,
+        );
+        let explanationHtml = `<p class="mb-2"><strong><span class="text-green-600">Respuesta Correcta:</span> ${question.explanation.correct}</strong></p><strong class="block mt-3 mb-1">Análisis de las otras opciones:</strong><ul class="list-disc list-inside space-y-1">`;
+        for (const distractor in question.explanation.distractors) {
+          explanationHtml += `<li><span class="text-red-600">${distractor}:</span> ${question.explanation.distractors[distractor]}</li>`;
+        }
+        explanationHtml += `</ul>`;
+        explanationEl.innerHTML = explanationHtml;
+        explanationEl.style.display = 'block';
 
-function quizNextQuestion() {
-    quizCurrentQuestionIndex++;
-    if (quizCurrentQuestionIndex < quizData.length) showQuizQuestion();
-    else showQuizResults();
-}
+        const nextBtn = document.getElementById(`quiz-next-btn-${qIndex}`);
+        nextBtn.innerText =
+          qIndex < quizData.length - 1
+            ? 'Siguiente Pregunta'
+            : 'Ver Resultados';
+        if (qIndex === quizData.length - 1) {
+          nextBtn.classList.remove('bg-gray-300', 'text-gray-700');
+          nextBtn.classList.add(
+            'bg-green-500',
+            'text-white',
+            'hover:bg-green-600',
+          );
+        }
+        nextBtn.style.display = 'block';
+      }
 
-function showQuizResults() {
-    document.getElementById('quiz-container-main').style.display = 'none';
-    const resultsContainer = document.getElementById('quiz-results-container');
-    resultsContainer.style.display = 'block';
-    document.getElementById('quiz-score').textContent = `${quizScore} de ${quizData.length}`;
-    
-    const percentage = (quizScore / quizData.length) * 100;
-    let feedbackMsg = '';
-    if (percentage === 100) feedbackMsg = "¡Excelente! Tienes un dominio sobresaliente de los sesgos cognitivos.";
-    else if (percentage >= 60) feedbackMsg = "¡Buen trabajo! Tienes una buena comprensión. Sigue practicando.";
-    else feedbackMsg = "Sigue estudiando. Reconocer estos sesgos es el primer paso para mejorar. ¡No te rindas!";
-    document.getElementById('quiz-feedback-message').textContent = feedbackMsg;
-}
+      function quizNextQuestion() {
+        quizCurrentQuestionIndex++;
+        if (quizCurrentQuestionIndex < quizData.length) showQuizQuestion();
+        else showQuizResults();
+      }
 
-function quizRestart() {
-    initQuiz();
-}
+      function showQuizResults() {
+        document.getElementById('quiz-container-main').style.display = 'none';
+        const resultsContainer = document.getElementById(
+          'quiz-results-container',
+        );
+        resultsContainer.style.display = 'block';
+        document.getElementById('quiz-score').textContent =
+          `${quizScore} de ${quizData.length}`;
 
-</script>
+        const percentage = (quizScore / quizData.length) * 100;
+        let feedbackMsg = '';
+        if (percentage === 100)
+          feedbackMsg =
+            '¡Excelente! Tienes un dominio sobresaliente de los sesgos cognitivos.';
+        else if (percentage >= 60)
+          feedbackMsg =
+            '¡Buen trabajo! Tienes una buena comprensión. Sigue practicando.';
+        else
+          feedbackMsg =
+            'Sigue estudiando. Reconocer estos sesgos es el primer paso para mejorar. ¡No te rindas!';
+        document.getElementById('quiz-feedback-message').textContent =
+          feedbackMsg;
+      }
 
-</body>
+      function quizRestart() {
+        initQuiz();
+      }
+    </script>
+  </body>
 </html>

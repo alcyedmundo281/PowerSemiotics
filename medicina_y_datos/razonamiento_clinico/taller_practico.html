@@ -1,188 +1,296 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Actividad: Simulación de Caso Clínico</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .step-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out;
-            opacity: 0;
-        }
-        .step-content.visible {
-            max-height: 1000px; /* Large enough for content */
-            opacity: 1;
-        }
-        .option-button {
-            transition: all 0.3s;
-        }
-        .option-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .feedback {
-            border-left-width: 4px;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 0.25rem;
-        }
-        .feedback-correct {
-            border-color: #22c55e; /* green-500 */
-            background-color: #f0fdf4; /* green-50 */
-        }
-         .feedback-incorrect {
-            border-color: #f87171; /* red-400 */
-            background-color: #fef2f2; /* red-50 */
-        }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .step-content {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.7s ease-in-out,
+          opacity 0.5s ease-in-out;
+        opacity: 0;
+      }
+      .step-content.visible {
+        max-height: 1000px; /* Large enough for content */
+        opacity: 1;
+      }
+      .option-button {
+        transition: all 0.3s;
+      }
+      .option-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      .feedback {
+        border-left-width: 4px;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 0.25rem;
+      }
+      .feedback-correct {
+        border-color: #22c55e; /* green-500 */
+        background-color: #f0fdf4; /* green-50 */
+      }
+      .feedback-incorrect {
+        border-color: #f87171; /* red-400 */
+        background-color: #fef2f2; /* red-50 */
+      }
     </style>
-</head>
-<body class="bg-gray-200">
+  </head>
+  <body class="bg-gray-200">
     <div class="container mx-auto max-w-3xl my-10 p-4">
-        <div class="bg-white p-8 rounded-xl shadow-2xl">
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800">Actividad Interactiva: Diagnóstico de Síncope</h1>
-                <p class="text-gray-600 mt-2">Aplica el ciclo de razonamiento clínico para resolver un caso. Lee la información y elige la mejor acción en cada paso.</p>
-            </div>
-
-            <!-- Step 1: Initial Presentation -->
-            <div id="step-1" class="step-container border-t pt-6">
-                <h2 class="text-xl font-bold text-blue-700">Paso 1: Presentación del Caso</h2>
-                <div class="step-content visible">
-                    <p class="mt-4 text-lg text-gray-700">Un hombre de 78 años con antecedentes de hipertensión y HBP (Hiperplasia Prostática Benigna) es llevado a urgencias tras un síncope. El episodio fue abrupto, al levantarse de una silla, sin pródromo (náuseas, sudoración). Recuperó la conciencia rápidamente y no presenta confusión.</p>
-                    <p class="mt-4 font-semibold">¿Cuál es el primer y más crucial paso del razonamiento clínico en este momento?</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <button onclick="handleChoice(1, 'correct')" class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500">
-                            <strong>Generar un diagnóstico diferencial (Abducción).</strong> Formular una lista de posibles causas basadas en la información inicial.
-                        </button>
-                        <button onclick="handleChoice(1, 'incorrect')" class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500">
-                            <strong>Ordenar un TAC cerebral de inmediato.</strong> Sospechar una causa neurológica grave y actuar en consecuencia.
-                        </button>
-                    </div>
-                    <div id="feedback-1" class="mt-4"></div>
-                </div>
-            </div>
-
-            <!-- Step 2: Investigation -->
-            <div id="step-2" class="step-container border-t pt-6 mt-6 hidden">
-                <h2 class="text-xl font-bold text-blue-700">Paso 2: Guiar la Investigación</h2>
-                <div class="step-content">
-                    <p class="mt-4 text-lg text-gray-700">Has formulado tu diagnóstico diferencial, con la Hipotensión Ortostática (HO) como principal sospecha (alta probabilidad a priori), seguida del síncope cardiogénico y vasovagal. Durante el interrogatorio, el paciente confirma que toma <strong>tamsulosina</strong> para su HBP.</p>
-                     <p class="mt-4 font-semibold">Considerando tus hipótesis (deducción), ¿qué pruebas son más pertinentes para diferenciar las causas más probables y peligrosas?</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <button onclick="handleChoice(2, 'incorrect')" class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500">
-                           <strong>Realizar una analítica completa y un ecocardiograma.</strong> Buscar causas metabólicas y estructurales del corazón.
-                        </button>
-                        <button onclick="handleChoice(2, 'correct')" class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500">
-                            <strong>Realizar un ECG y medir los signos vitales ortostáticos.</strong> Descartar arritmias peligrosas y confirmar o descartar la HO.
-                        </button>
-                    </div>
-                    <div id="feedback-2" class="mt-4"></div>
-                </div>
-            </div>
-
-            <!-- Step 3: Interpretation -->
-            <div id="step-3" class="step-container border-t pt-6 mt-6 hidden">
-                 <h2 class="text-xl font-bold text-blue-700">Paso 3: Interpretación de la Evidencia</h2>
-                <div class="step-content">
-                    <p class="mt-4 text-lg text-gray-700">El ECG de 12 derivaciones muestra un ritmo sinusal normal. Al medir los signos vitales ortostáticos, la presión arterial sistólica del paciente cae de 135 mmHg (acostado) a 105 mmHg (de pie), y reporta mareo.</p>
-                    <p class="mt-4 font-semibold">Basado en la evidencia acumulada (inducción), ¿cuál es tu diagnóstico de trabajo final?</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <button onclick="handleChoice(3, 'correct')" class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500">
-                            <strong>Síncope por Hipotensión Ortostática.</strong> La evidencia (contexto, medicamento, prueba positiva) apunta fuertemente a este diagnóstico.
-                        </button>
-                         <button onclick="handleChoice(3, 'incorrect')" class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500">
-                           <strong>Síncope de causa desconocida.</strong> Aunque hay hallazgos, el ECG normal no es suficiente para descartar todo. Se necesita más estudio.
-                        </button>
-                    </div>
-                    <div id="feedback-3" class="mt-4"></div>
-                </div>
-            </div>
-            
-            <!-- Final Message -->
-            <div id="final-message" class="text-center mt-8 p-6 bg-green-100 rounded-lg hidden">
-                <h3 class="text-2xl font-bold text-green-800">¡Felicidades!</h3>
-                <p class="mt-2 text-gray-700">Has completado con éxito la simulación de caso clínico. Navegaste correctamente por el ciclo de razonamiento: <strong>Abducción</strong> para generar ideas, <strong>Deducción</strong> para guiar las pruebas y <strong>Inducción</strong> para llegar a una conclusión basada en la evidencia. ¡Excelente trabajo!</p>
-                <button onclick="restartActivity()" class="mt-4 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">Reiniciar Actividad</button>
-            </div>
-
+      <div class="bg-white p-8 rounded-xl shadow-2xl">
+        <div class="text-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-800">
+            Actividad Interactiva: Diagnóstico de Síncope
+          </h1>
+          <p class="text-gray-600 mt-2">
+            Aplica el ciclo de razonamiento clínico para resolver un caso. Lee
+            la información y elige la mejor acción en cada paso.
+          </p>
         </div>
+
+        <!-- Step 1: Initial Presentation -->
+        <div id="step-1" class="step-container border-t pt-6">
+          <h2 class="text-xl font-bold text-blue-700">
+            Paso 1: Presentación del Caso
+          </h2>
+          <div class="step-content visible">
+            <p class="mt-4 text-lg text-gray-700">
+              Un hombre de 78 años con antecedentes de hipertensión y HBP
+              (Hiperplasia Prostática Benigna) es llevado a urgencias tras un
+              síncope. El episodio fue abrupto, al levantarse de una silla, sin
+              pródromo (náuseas, sudoración). Recuperó la conciencia rápidamente
+              y no presenta confusión.
+            </p>
+            <p class="mt-4 font-semibold">
+              ¿Cuál es el primer y más crucial paso del razonamiento clínico en
+              este momento?
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <button
+                onclick="handleChoice(1, 'correct')"
+                class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500"
+              >
+                <strong>Generar un diagnóstico diferencial (Abducción).</strong>
+                Formular una lista de posibles causas basadas en la información
+                inicial.
+              </button>
+              <button
+                onclick="handleChoice(1, 'incorrect')"
+                class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500"
+              >
+                <strong>Ordenar un TAC cerebral de inmediato.</strong> Sospechar
+                una causa neurológica grave y actuar en consecuencia.
+              </button>
+            </div>
+            <div id="feedback-1" class="mt-4"></div>
+          </div>
+        </div>
+
+        <!-- Step 2: Investigation -->
+        <div id="step-2" class="step-container border-t pt-6 mt-6 hidden">
+          <h2 class="text-xl font-bold text-blue-700">
+            Paso 2: Guiar la Investigación
+          </h2>
+          <div class="step-content">
+            <p class="mt-4 text-lg text-gray-700">
+              Has formulado tu diagnóstico diferencial, con la Hipotensión
+              Ortostática (HO) como principal sospecha (alta probabilidad a
+              priori), seguida del síncope cardiogénico y vasovagal. Durante el
+              interrogatorio, el paciente confirma que toma
+              <strong>tamsulosina</strong> para su HBP.
+            </p>
+            <p class="mt-4 font-semibold">
+              Considerando tus hipótesis (deducción), ¿qué pruebas son más
+              pertinentes para diferenciar las causas más probables y
+              peligrosas?
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <button
+                onclick="handleChoice(2, 'incorrect')"
+                class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500"
+              >
+                <strong
+                  >Realizar una analítica completa y un ecocardiograma.</strong
+                >
+                Buscar causas metabólicas y estructurales del corazón.
+              </button>
+              <button
+                onclick="handleChoice(2, 'correct')"
+                class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500"
+              >
+                <strong
+                  >Realizar un ECG y medir los signos vitales
+                  ortostáticos.</strong
+                >
+                Descartar arritmias peligrosas y confirmar o descartar la HO.
+              </button>
+            </div>
+            <div id="feedback-2" class="mt-4"></div>
+          </div>
+        </div>
+
+        <!-- Step 3: Interpretation -->
+        <div id="step-3" class="step-container border-t pt-6 mt-6 hidden">
+          <h2 class="text-xl font-bold text-blue-700">
+            Paso 3: Interpretación de la Evidencia
+          </h2>
+          <div class="step-content">
+            <p class="mt-4 text-lg text-gray-700">
+              El ECG de 12 derivaciones muestra un ritmo sinusal normal. Al
+              medir los signos vitales ortostáticos, la presión arterial
+              sistólica del paciente cae de 135 mmHg (acostado) a 105 mmHg (de
+              pie), y reporta mareo.
+            </p>
+            <p class="mt-4 font-semibold">
+              Basado en la evidencia acumulada (inducción), ¿cuál es tu
+              diagnóstico de trabajo final?
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <button
+                onclick="handleChoice(3, 'correct')"
+                class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500"
+              >
+                <strong>Síncope por Hipotensión Ortostática.</strong> La
+                evidencia (contexto, medicamento, prueba positiva) apunta
+                fuertemente a este diagnóstico.
+              </button>
+              <button
+                onclick="handleChoice(3, 'incorrect')"
+                class="option-button bg-white border-2 border-gray-300 p-4 rounded-lg text-left hover:border-blue-500"
+              >
+                <strong>Síncope de causa desconocida.</strong> Aunque hay
+                hallazgos, el ECG normal no es suficiente para descartar todo.
+                Se necesita más estudio.
+              </button>
+            </div>
+            <div id="feedback-3" class="mt-4"></div>
+          </div>
+        </div>
+
+        <!-- Final Message -->
+        <div
+          id="final-message"
+          class="text-center mt-8 p-6 bg-green-100 rounded-lg hidden"
+        >
+          <h3 class="text-2xl font-bold text-green-800">¡Felicidades!</h3>
+          <p class="mt-2 text-gray-700">
+            Has completado con éxito la simulación de caso clínico. Navegaste
+            correctamente por el ciclo de razonamiento:
+            <strong>Abducción</strong> para generar ideas,
+            <strong>Deducción</strong> para guiar las pruebas y
+            <strong>Inducción</strong> para llegar a una conclusión basada en la
+            evidencia. ¡Excelente trabajo!
+          </p>
+          <button
+            onclick="restartActivity()"
+            class="mt-4 bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition"
+          >
+            Reiniciar Actividad
+          </button>
+        </div>
+      </div>
     </div>
 
     <script>
-        const feedbacks = {
-            1: {
-                correct: "¡Correcto! El primer paso es siempre generar un abanico de posibilidades (abducción). Ordenar pruebas costosas o invasivas sin una hipótesis clara puede llevar a errores y a un uso ineficiente de los recursos.",
-                incorrect: "No es la mejor opción inicial. Aunque una causa neurológica es posible, las características del síncope no la sugieren como primera opción. Es mejor empezar por un diagnóstico diferencial amplio basado en la presentación clínica."
-            },
-            2: {
-                correct: "¡Excelente elección! El ECG es vital para descartar causas arrítmicas letales, y la prueba de ortostatismo aborda directamente tu principal sospecha (HO). Es un enfoque eficiente y dirigido.",
-                incorrect: "Aunque estas pruebas podrían ser necesarias si las iniciales no son concluyentes, no son el siguiente paso más lógico. El ECG y la prueba de ortostatismo son más rápidos, baratos y directos para abordar las hipótesis más probables."
-            },
-            3: {
-                correct: "¡Diagnóstico acertado! La probabilidad a posteriori de la Hipotensión Ortostática es ahora extremadamente alta. Has combinado toda la evidencia para llegar a la conclusión más lógica y probable.",
-                incorrect: "Si bien siempre hay que mantener un grado de incertidumbre, la evidencia aquí es muy fuerte para la HO. Etiquetarlo como 'desconocido' sería un cierre prematuro inverso, ignorando la clara señal en los datos."
-            }
-        };
+      const feedbacks = {
+        1: {
+          correct:
+            '¡Correcto! El primer paso es siempre generar un abanico de posibilidades (abducción). Ordenar pruebas costosas o invasivas sin una hipótesis clara puede llevar a errores y a un uso ineficiente de los recursos.',
+          incorrect:
+            'No es la mejor opción inicial. Aunque una causa neurológica es posible, las características del síncope no la sugieren como primera opción. Es mejor empezar por un diagnóstico diferencial amplio basado en la presentación clínica.',
+        },
+        2: {
+          correct:
+            '¡Excelente elección! El ECG es vital para descartar causas arrítmicas letales, y la prueba de ortostatismo aborda directamente tu principal sospecha (HO). Es un enfoque eficiente y dirigido.',
+          incorrect:
+            'Aunque estas pruebas podrían ser necesarias si las iniciales no son concluyentes, no son el siguiente paso más lógico. El ECG y la prueba de ortostatismo son más rápidos, baratos y directos para abordar las hipótesis más probables.',
+        },
+        3: {
+          correct:
+            '¡Diagnóstico acertado! La probabilidad a posteriori de la Hipotensión Ortostática es ahora extremadamente alta. Has combinado toda la evidencia para llegar a la conclusión más lógica y probable.',
+          incorrect:
+            "Si bien siempre hay que mantener un grado de incertidumbre, la evidencia aquí es muy fuerte para la HO. Etiquetarlo como 'desconocido' sería un cierre prematuro inverso, ignorando la clara señal en los datos.",
+        },
+      };
 
-        function handleChoice(step, choice) {
-            const feedbackEl = document.getElementById(`feedback-${step}`);
-            const feedbackText = feedbacks[step][choice];
-            
-            feedbackEl.innerHTML = `<div class="feedback ${choice === 'correct' ? 'feedback-correct' : 'feedback-incorrect'}"><p>${feedbackText}</p></div>`;
-            
-            // Disable buttons for this step
-            const buttons = document.querySelector(`#step-${step}`).querySelectorAll('button');
-            buttons.forEach(button => button.disabled = true);
+      function handleChoice(step, choice) {
+        const feedbackEl = document.getElementById(`feedback-${step}`);
+        const feedbackText = feedbacks[step][choice];
 
-            if (choice === 'correct') {
-                const nextStep = document.getElementById(`step-${step + 1}`);
-                if (nextStep) {
-                    setTimeout(() => {
-                        nextStep.classList.remove('hidden');
-                        // Scroll smoothly to the new step
-                        nextStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        setTimeout(() => {
-                             nextStep.querySelector('.step-content').classList.add('visible');
-                        }, 100);
-                    }, 1000);
-                } else {
-                     setTimeout(() => {
-                        document.getElementById('final-message').classList.remove('hidden');
-                        document.getElementById('final-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 1000);
-                }
-            }
+        feedbackEl.innerHTML = `<div class="feedback ${choice === 'correct' ? 'feedback-correct' : 'feedback-incorrect'}"><p>${feedbackText}</p></div>`;
+
+        // Disable buttons for this step
+        const buttons = document
+          .querySelector(`#step-${step}`)
+          .querySelectorAll('button');
+        buttons.forEach((button) => (button.disabled = true));
+
+        if (choice === 'correct') {
+          const nextStep = document.getElementById(`step-${step + 1}`);
+          if (nextStep) {
+            setTimeout(() => {
+              nextStep.classList.remove('hidden');
+              // Scroll smoothly to the new step
+              nextStep.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              setTimeout(() => {
+                nextStep
+                  .querySelector('.step-content')
+                  .classList.add('visible');
+              }, 100);
+            }, 1000);
+          } else {
+            setTimeout(() => {
+              document
+                .getElementById('final-message')
+                .classList.remove('hidden');
+              document
+                .getElementById('final-message')
+                .scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 1000);
+          }
         }
-        
-        function restartActivity() {
-            // Hide steps 2, 3 and final message
-            document.getElementById('step-2').classList.add('hidden');
-            document.getElementById('step-3').classList.add('hidden');
-            document.getElementById('final-message').classList.add('hidden');
+      }
 
-            // Hide content of steps 2, 3
-            document.querySelector('#step-2 .step-content').classList.remove('visible');
-            document.querySelector('#step-3 .step-content').classList.remove('visible');
+      function restartActivity() {
+        // Hide steps 2, 3 and final message
+        document.getElementById('step-2').classList.add('hidden');
+        document.getElementById('step-3').classList.add('hidden');
+        document.getElementById('final-message').classList.add('hidden');
 
+        // Hide content of steps 2, 3
+        document
+          .querySelector('#step-2 .step-content')
+          .classList.remove('visible');
+        document
+          .querySelector('#step-3 .step-content')
+          .classList.remove('visible');
 
-            // Clear all feedbacks
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById(`feedback-${i}`).innerHTML = '';
-                 // Enable all buttons
-                const buttons = document.querySelector(`#step-${i}`).querySelectorAll('button');
-                buttons.forEach(button => button.disabled = false);
-            }
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Clear all feedbacks
+        for (let i = 1; i <= 3; i++) {
+          document.getElementById(`feedback-${i}`).innerHTML = '';
+          // Enable all buttons
+          const buttons = document
+            .querySelector(`#step-${i}`)
+            .querySelectorAll('button');
+          buttons.forEach((button) => (button.disabled = false));
         }
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     </script>
-</body>
+  </body>
 </html>

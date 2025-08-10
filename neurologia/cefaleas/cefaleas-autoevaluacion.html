@@ -1,170 +1,278 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Autoevaluación: Cefaleas</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .slider-container { scroll-behavior: smooth; }
-        .slide { flex-shrink: 0; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .slider-container {
+        scroll-behavior: smooth;
+      }
+      .slide {
+        flex-shrink: 0;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
     </style>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="relative w-full h-screen flex flex-col">
-        <div id="slider-container" class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar">
-
-            <!-- Slide 0: Inicio -->
-            <div id="slide-0" class="slide w-full h-full flex items-center justify-center p-8">
-                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
-                    <h1 class="text-4xl font-extrabold text-gray-800 mb-2">Autoevaluación Formativa</h1>
-                    <p class="text-xl text-red-600 font-semibold mb-6">Neurología - Semana 7: Cefaleas</p>
-                    <p class="mb-8 text-lg text-gray-600">Evalúa tu conocimiento sobre el diagnóstico y manejo de las cefaleas primarias y secundarias.</p>
-                    <button onclick="scrollToSlide(1)" class="w-full bg-red-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition-all transform hover:scale-105 text-lg">
-                        Comenzar Evaluación
-                    </button>
-                </div>
-            </div>
-
-            <!-- Slides de Preguntas (generadas por JS) -->
-
-            <!-- Slide Final: Resultados -->
-            <div id="slide-results" class="slide w-full h-full flex items-center justify-center p-8">
-                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl">
-                    <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Evaluación Completada</h1>
-                    <div id="score-circle" class="w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-gray-400"></div>
-                    <p id="score-text" class="text-xl text-gray-700 mb-2"></p>
-                    <p id="result-message" class="text-lg text-gray-600 mb-8"></p>
-                    <button onclick="restartQuiz()" class="w-full bg-red-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition-all text-lg">
-                        Intentar de Nuevo
-                    </button>
-                </div>
-            </div>
-
+      <div
+        id="slider-container"
+        class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar"
+      >
+        <!-- Slide 0: Inicio -->
+        <div
+          id="slide-0"
+          class="slide w-full h-full flex items-center justify-center p-8"
+        >
+          <div
+            class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl"
+          >
+            <h1 class="text-4xl font-extrabold text-gray-800 mb-2">
+              Autoevaluación Formativa
+            </h1>
+            <p class="text-xl text-red-600 font-semibold mb-6">
+              Neurología - Semana 7: Cefaleas
+            </p>
+            <p class="mb-8 text-lg text-gray-600">
+              Evalúa tu conocimiento sobre el diagnóstico y manejo de las
+              cefaleas primarias y secundarias.
+            </p>
+            <button
+              onclick="scrollToSlide(1)"
+              class="w-full bg-red-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition-all transform hover:scale-105 text-lg"
+            >
+              Comenzar Evaluación
+            </button>
+          </div>
         </div>
+
+        <!-- Slides de Preguntas (generadas por JS) -->
+
+        <!-- Slide Final: Resultados -->
+        <div
+          id="slide-results"
+          class="slide w-full h-full flex items-center justify-center p-8"
+        >
+          <div
+            class="bg-white p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl"
+          >
+            <h1 class="text-4xl font-extrabold text-gray-800 mb-4">
+              Evaluación Completada
+            </h1>
+            <div
+              id="score-circle"
+              class="w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-gray-400"
+            ></div>
+            <p id="score-text" class="text-xl text-gray-700 mb-2"></p>
+            <p id="result-message" class="text-lg text-gray-600 mb-8"></p>
+            <button
+              onclick="restartQuiz()"
+              class="w-full bg-red-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-red-700 transition-all text-lg"
+            >
+              Intentar de Nuevo
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        const quizData = [
-            {
-                question: 'Un paciente de 30 años describe episodios de cefalea unilateral, pulsátil, de intensidad severa, que duran 6 horas y se asocian con náuseas y fotofobia. ¿Cuál es el diagnóstico más probable?',
-                options: ["Cefalea tensional", "Cefalea en racimos", "Migraña sin aura", "Hemicránea paroxística"],
-                correctAnswerIndex: 2,
-                explanations: [
-                    "<b>Incorrecto.</b> La cefalea tensional típicamente es bilateral, opresiva (no pulsátil) y de intensidad leve a moderada, sin náuseas ni fotofobia.",
-                    "<b>Incorrecto.</b> La cefalea en racimos es extremadamente severa, se localiza alrededor del ojo y se asocia con síntomas autonómicos (lagrimeo, congestión nasal). Su duración es más corta (15-180 min).",
-                    "<b>Correcto.</b> Las características de cefalea unilateral, pulsátil, de intensidad severa, con una duración de 4-72 horas y asociada a náuseas y/o fotofobia/fonofobia son los criterios diagnósticos clásicos de la migraña.",
-                    "<b>Incorrecto.</b> La hemicránea paroxística es una cefalea rara, de corta duración pero muy frecuente, que responde de manera absoluta a la indometacina."
-                ]
-            },
-            {
-                question: '¿Cuál de los siguientes hallazgos en un paciente con cefalea es considerado una "bandera roja" que obliga a realizar estudios de neuroimagen urgentes?',
-                options: ["Cefalea que empeora con el esfuerzo físico.", "Historia familiar de migraña.", "Cefalea de inicio súbito y de máxima intensidad en segundos (\"cefalea en trueno\").", "Aura visual típica antes de la cefalea."],
-                correctAnswerIndex: 2,
-                explanations: [
-                    "<b>Incorrecto.</b> Aunque puede ser una característica de la migraña, no es una bandera roja por sí sola que indique una patología subyacente grave de forma urgente.",
-                    "<b>Incorrecto.</b> Una historia familiar positiva apoya el diagnóstico de una cefalea primaria como la migraña, no de una secundaria.",
-                    "<b>Correcto.</b> La cefalea en trueno es una emergencia médica. Obliga a descartar una hemorragia subaracnoidea, la causa más temida. Otros signos de alarma incluyen inicio después de los 50 años, cambio en el patrón de una cefalea crónica, o asociación con fiebre o signos neurológicos focales.",
-                    "<b>Incorrecto.</b> El aura visual es una característica clásica de la migraña con aura y no se considera una bandera roja."
-                ]
-            },
-            {
-                question: '¿Cuál es el tratamiento de primera línea para el manejo agudo de un ataque de migraña de intensidad moderada a severa?',
-                options: ["Analgésicos simples (paracetamol).", "Opioides (morfina, tramadol).", "Triptanes (ej. sumatriptán).", "Profilaxis con topiramato."],
-                correctAnswerIndex: 2,
-                explanations: [
-                    "<b>Incorrecto.</b> Los analgésicos simples pueden ser útiles en ataques leves, pero suelen ser insuficientes para ataques de moderados a severos.",
-                    "<b>Incorrecto.</b> Los opioides deben evitarse en el manejo de la migraña por su alto riesgo de abuso, dependencia y de cronificar la cefalea.",
-                    "<b>Correcto.</b> Los triptanes son agonistas selectivos de los receptores de serotonina 5-HT1B/1D y son el tratamiento de elección específico para abortar un ataque de migraña de moderado a severo.",
-                    "<b>Incorrecto.</b> El topiramato es un fármaco profiláctico, se usa para prevenir futuros ataques, no para tratar un ataque agudo."
-                ]
-            },
-            {
-                question: 'Un paciente describe una cefalea diaria, opresiva, como una "banda apretada alrededor de la cabeza", de intensidad leve, que no le impide realizar sus actividades. ¿Cuál es el diagnóstico más probable?',
-                options: ["Migraña crónica", "Cefalea por abuso de medicación", "Cefalea en racimos crónica", "Cefalea de tipo tensional crónica"],
-                correctAnswerIndex: 3,
-                explanations: [
-                    "<b>Incorrecto.</b> La migraña, incluso crónica, mantiene características migrañosas como ser pulsátil o asociarse con fotofobia/náuseas, lo que no se describe aquí.",
-                    "<b>Incorrecto.</b> Aunque es un diagnóstico diferencial importante en cefaleas diarias, la descripción fenomenológica del dolor (opresivo, en banda) es la clave para el diagnóstico tensional.",
-                    "<b>Incorrecto.</b> La cefalea en racimos es insoportablemente severa y nunca se describe como una banda apretada leve.",
-                    "<b>Correcto.</b> La descripción de una cefalea bilateral, opresiva (no pulsátil), de intensidad leve a moderada y que no empeora con la actividad física, presente por más de 15 días al mes, es la definición clásica de la cefalea de tipo tensional crónica."
-                ]
-            }
-        ];
-        
-        const sliderContainer = document.getElementById('slider-container');
-        const totalQuestions = quizData.length;
-        let score = 0;
+      const quizData = [
+        {
+          question:
+            'Un paciente de 30 años describe episodios de cefalea unilateral, pulsátil, de intensidad severa, que duran 6 horas y se asocian con náuseas y fotofobia. ¿Cuál es el diagnóstico más probable?',
+          options: [
+            'Cefalea tensional',
+            'Cefalea en racimos',
+            'Migraña sin aura',
+            'Hemicránea paroxística',
+          ],
+          correctAnswerIndex: 2,
+          explanations: [
+            '<b>Incorrecto.</b> La cefalea tensional típicamente es bilateral, opresiva (no pulsátil) y de intensidad leve a moderada, sin náuseas ni fotofobia.',
+            '<b>Incorrecto.</b> La cefalea en racimos es extremadamente severa, se localiza alrededor del ojo y se asocia con síntomas autonómicos (lagrimeo, congestión nasal). Su duración es más corta (15-180 min).',
+            '<b>Correcto.</b> Las características de cefalea unilateral, pulsátil, de intensidad severa, con una duración de 4-72 horas y asociada a náuseas y/o fotofobia/fonofobia son los criterios diagnósticos clásicos de la migraña.',
+            '<b>Incorrecto.</b> La hemicránea paroxística es una cefalea rara, de corta duración pero muy frecuente, que responde de manera absoluta a la indometacina.',
+          ],
+        },
+        {
+          question:
+            '¿Cuál de los siguientes hallazgos en un paciente con cefalea es considerado una "bandera roja" que obliga a realizar estudios de neuroimagen urgentes?',
+          options: [
+            'Cefalea que empeora con el esfuerzo físico.',
+            'Historia familiar de migraña.',
+            'Cefalea de inicio súbito y de máxima intensidad en segundos ("cefalea en trueno").',
+            'Aura visual típica antes de la cefalea.',
+          ],
+          correctAnswerIndex: 2,
+          explanations: [
+            '<b>Incorrecto.</b> Aunque puede ser una característica de la migraña, no es una bandera roja por sí sola que indique una patología subyacente grave de forma urgente.',
+            '<b>Incorrecto.</b> Una historia familiar positiva apoya el diagnóstico de una cefalea primaria como la migraña, no de una secundaria.',
+            '<b>Correcto.</b> La cefalea en trueno es una emergencia médica. Obliga a descartar una hemorragia subaracnoidea, la causa más temida. Otros signos de alarma incluyen inicio después de los 50 años, cambio en el patrón de una cefalea crónica, o asociación con fiebre o signos neurológicos focales.',
+            '<b>Incorrecto.</b> El aura visual es una característica clásica de la migraña con aura y no se considera una bandera roja.',
+          ],
+        },
+        {
+          question:
+            '¿Cuál es el tratamiento de primera línea para el manejo agudo de un ataque de migraña de intensidad moderada a severa?',
+          options: [
+            'Analgésicos simples (paracetamol).',
+            'Opioides (morfina, tramadol).',
+            'Triptanes (ej. sumatriptán).',
+            'Profilaxis con topiramato.',
+          ],
+          correctAnswerIndex: 2,
+          explanations: [
+            '<b>Incorrecto.</b> Los analgésicos simples pueden ser útiles en ataques leves, pero suelen ser insuficientes para ataques de moderados a severos.',
+            '<b>Incorrecto.</b> Los opioides deben evitarse en el manejo de la migraña por su alto riesgo de abuso, dependencia y de cronificar la cefalea.',
+            '<b>Correcto.</b> Los triptanes son agonistas selectivos de los receptores de serotonina 5-HT1B/1D y son el tratamiento de elección específico para abortar un ataque de migraña de moderado a severo.',
+            '<b>Incorrecto.</b> El topiramato es un fármaco profiláctico, se usa para prevenir futuros ataques, no para tratar un ataque agudo.',
+          ],
+        },
+        {
+          question:
+            'Un paciente describe una cefalea diaria, opresiva, como una "banda apretada alrededor de la cabeza", de intensidad leve, que no le impide realizar sus actividades. ¿Cuál es el diagnóstico más probable?',
+          options: [
+            'Migraña crónica',
+            'Cefalea por abuso de medicación',
+            'Cefalea en racimos crónica',
+            'Cefalea de tipo tensional crónica',
+          ],
+          correctAnswerIndex: 3,
+          explanations: [
+            '<b>Incorrecto.</b> La migraña, incluso crónica, mantiene características migrañosas como ser pulsátil o asociarse con fotofobia/náuseas, lo que no se describe aquí.',
+            '<b>Incorrecto.</b> Aunque es un diagnóstico diferencial importante en cefaleas diarias, la descripción fenomenológica del dolor (opresivo, en banda) es la clave para el diagnóstico tensional.',
+            '<b>Incorrecto.</b> La cefalea en racimos es insoportablemente severa y nunca se describe como una banda apretada leve.',
+            '<b>Correcto.</b> La descripción de una cefalea bilateral, opresiva (no pulsátil), de intensidad leve a moderada y que no empeora con la actividad física, presente por más de 15 días al mes, es la definición clásica de la cefalea de tipo tensional crónica.',
+          ],
+        },
+      ];
 
-        function buildQuiz() {
-            const resultsSlide = document.getElementById('slide-results');
-            quizData.forEach((q, index) => {
-                const slide = document.createElement('div');
-                slide.id = `slide-${index + 1}`;
-                slide.className = 'slide w-full h-full flex items-center justify-center p-4 md:p-8';
-                slide.innerHTML = `<div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl"><p class="text-base font-semibold text-red-600">Pregunta ${index + 1} de ${totalQuestions}</p><h2 class="text-2xl font-bold text-gray-800 mt-2">${q.question}</h2><div id="options-container-${index}" class="mt-6 space-y-3">${q.options.map((option, i) => `<button onclick="selectAnswer(${index}, ${i})" class="w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-red-100 transition-colors border-2 border-transparent text-lg"><span class="text-red-500 font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${option}</button>`).join('')}</div><div id="feedback-container-${index}" class="mt-6 space-y-2 hidden">${q.explanations.map((exp, i) => `<div id="feedback-${index}-${i}" class="p-3 rounded-lg text-base"><span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> <span class="feedback-content">${exp}</span></div>`).join('')}</div></div>`;
-                sliderContainer.insertBefore(slide, resultsSlide);
-            });
-        }
-        
-        function selectAnswer(qIndex, sIndex) {
-            const optsCont = document.getElementById(`options-container-${qIndex}`);
-            if (optsCont.dataset.answered) return;
-            optsCont.dataset.answered = 'true';
-            const q = quizData[qIndex];
-            if (sIndex === q.correctAnswerIndex) score++;
-            const feedbackCont = document.getElementById(`feedback-container-${qIndex}`);
-            Array.from(optsCont.children).forEach((btn, i) => {
-                const fbBox = document.getElementById(`feedback-${qIndex}-${i}`);
-                if (i === q.correctAnswerIndex) { btn.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-green-100 border-green-500 text-green-800'; fbBox.className = 'p-3 rounded-lg text-base bg-green-50 text-green-800'; } 
-                else if (i === sIndex) { btn.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-red-100 border-red-500 text-red-800'; fbBox.className = 'p-3 rounded-lg text-base bg-red-50 text-red-800'; }
-                else { btn.className = 'w-full text-left p-4 rounded-lg border-2 text-lg bg-gray-50 text-gray-500'; fbBox.className = 'p-3 rounded-lg text-base bg-gray-50 text-gray-600'; }
-            });
-            feedbackCont.classList.remove('hidden');
-            if (areAllAnswered()) setTimeout(() => scrollToSlide(totalQuestions + 1), 2500);
-        }
-        
-        function areAllAnswered() {
-            for(let i=0; i<totalQuestions; i++) if(!document.getElementById(`options-container-${i}`).dataset.answered) return false;
-            showResults();
-            return true;
-        }
+      const sliderContainer = document.getElementById('slider-container');
+      const totalQuestions = quizData.length;
+      let score = 0;
 
-        function showResults() {
-            const circle = document.getElementById('score-circle'), text = document.getElementById('score-text'), msg = document.getElementById('result-message');
-            const perc = Math.round((score / totalQuestions) * 100);
-            circle.textContent = `${perc}%`;
-            text.textContent = `Tu calificación: ${score} de ${totalQuestions} correctas.`;
-            if(perc === 100) { circle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-green-500"; msg.textContent = "¡Excelente! Dominas el diagnóstico diferencial de las cefaleas."; }
-            else if (perc >= 75) { circle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-yellow-500"; msg.textContent = "¡Muy bien! Tienes una base sólida."; }
-            else { circle.className = "w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-red-500"; msg.textContent = "Sigue estudiando. Revisa el banco de conocimientos."; }
-        }
+      function buildQuiz() {
+        const resultsSlide = document.getElementById('slide-results');
+        quizData.forEach((q, index) => {
+          const slide = document.createElement('div');
+          slide.id = `slide-${index + 1}`;
+          slide.className =
+            'slide w-full h-full flex items-center justify-center p-4 md:p-8';
+          slide.innerHTML = `<div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl"><p class="text-base font-semibold text-red-600">Pregunta ${index + 1} de ${totalQuestions}</p><h2 class="text-2xl font-bold text-gray-800 mt-2">${q.question}</h2><div id="options-container-${index}" class="mt-6 space-y-3">${q.options.map((option, i) => `<button onclick="selectAnswer(${index}, ${i})" class="w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-red-100 transition-colors border-2 border-transparent text-lg"><span class="text-red-500 font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${option}</button>`).join('')}</div><div id="feedback-container-${index}" class="mt-6 space-y-2 hidden">${q.explanations.map((exp, i) => `<div id="feedback-${index}-${i}" class="p-3 rounded-lg text-base"><span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> <span class="feedback-content">${exp}</span></div>`).join('')}</div></div>`;
+          sliderContainer.insertBefore(slide, resultsSlide);
+        });
+      }
 
-        function restartQuiz() {
-            score = 0;
-            for(let i=0; i<totalQuestions; i++) {
-                const opts = document.getElementById(`options-container-${i}`), feedback = document.getElementById(`feedback-container-${i}`);
-                delete opts.dataset.answered;
-                feedback.classList.add('hidden');
-                Array.from(opts.children).forEach(btn => btn.className = 'w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-red-100 transition-colors border-2 border-transparent text-lg');
-            }
-            scrollToSlide(0);
-        }
+      function selectAnswer(qIndex, sIndex) {
+        const optsCont = document.getElementById(`options-container-${qIndex}`);
+        if (optsCont.dataset.answered) return;
+        optsCont.dataset.answered = 'true';
+        const q = quizData[qIndex];
+        if (sIndex === q.correctAnswerIndex) score++;
+        const feedbackCont = document.getElementById(
+          `feedback-container-${qIndex}`,
+        );
+        Array.from(optsCont.children).forEach((btn, i) => {
+          const fbBox = document.getElementById(`feedback-${qIndex}-${i}`);
+          if (i === q.correctAnswerIndex) {
+            btn.className =
+              'w-full text-left p-4 rounded-lg border-2 text-lg bg-green-100 border-green-500 text-green-800';
+            fbBox.className =
+              'p-3 rounded-lg text-base bg-green-50 text-green-800';
+          } else if (i === sIndex) {
+            btn.className =
+              'w-full text-left p-4 rounded-lg border-2 text-lg bg-red-100 border-red-500 text-red-800';
+            fbBox.className = 'p-3 rounded-lg text-base bg-red-50 text-red-800';
+          } else {
+            btn.className =
+              'w-full text-left p-4 rounded-lg border-2 text-lg bg-gray-50 text-gray-500';
+            fbBox.className =
+              'p-3 rounded-lg text-base bg-gray-50 text-gray-600';
+          }
+        });
+        feedbackCont.classList.remove('hidden');
+        if (areAllAnswered())
+          setTimeout(() => scrollToSlide(totalQuestions + 1), 2500);
+      }
 
-        function scrollToSlide(idx) {
-            const slide = document.getElementById(`slide-${idx}`);
-            if (slide) {
-                sliderContainer.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' });
-            }
+      function areAllAnswered() {
+        for (let i = 0; i < totalQuestions; i++)
+          if (
+            !document.getElementById(`options-container-${i}`).dataset.answered
+          )
+            return false;
+        showResults();
+        return true;
+      }
+
+      function showResults() {
+        const circle = document.getElementById('score-circle'),
+          text = document.getElementById('score-text'),
+          msg = document.getElementById('result-message');
+        const perc = Math.round((score / totalQuestions) * 100);
+        circle.textContent = `${perc}%`;
+        text.textContent = `Tu calificación: ${score} de ${totalQuestions} correctas.`;
+        if (perc === 100) {
+          circle.className =
+            'w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-green-500';
+          msg.textContent =
+            '¡Excelente! Dominas el diagnóstico diferencial de las cefaleas.';
+        } else if (perc >= 75) {
+          circle.className =
+            'w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-yellow-500';
+          msg.textContent = '¡Muy bien! Tienes una base sólida.';
+        } else {
+          circle.className =
+            'w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-red-500';
+          msg.textContent =
+            'Sigue estudiando. Revisa el banco de conocimientos.';
         }
-        
-        // Build the quiz on page load
-        buildQuiz();
+      }
+
+      function restartQuiz() {
+        score = 0;
+        for (let i = 0; i < totalQuestions; i++) {
+          const opts = document.getElementById(`options-container-${i}`),
+            feedback = document.getElementById(`feedback-container-${i}`);
+          delete opts.dataset.answered;
+          feedback.classList.add('hidden');
+          Array.from(opts.children).forEach(
+            (btn) =>
+              (btn.className =
+                'w-full text-left p-4 bg-gray-100 rounded-lg hover:bg-red-100 transition-colors border-2 border-transparent text-lg'),
+          );
+        }
+        scrollToSlide(0);
+      }
+
+      function scrollToSlide(idx) {
+        const slide = document.getElementById(`slide-${idx}`);
+        if (slide) {
+          sliderContainer.scrollTo({
+            left: slide.offsetLeft,
+            behavior: 'smooth',
+          });
+        }
+      }
+
+      // Build the quiz on page load
+      buildQuiz();
     </script>
-</body>
+  </body>
 </html>

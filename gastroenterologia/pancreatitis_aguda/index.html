@@ -1,722 +1,1443 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Módulo Educativo: Pancreatitis Aguda</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        /* --- Estilos Generales --- */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #212529;
-            line-height: 1.7;
-        }
-        .main-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
-        }
-        h1.main-title {
-            text-align: center;
-            color: #003366;
-            border-bottom: 3px solid #0056b3;
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-        }
-        .intro-text {
-            text-align: center;
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            color: #495057;
-        }
+      /* --- Estilos Generales --- */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        color: #212529;
+        line-height: 1.7;
+      }
+      .main-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+      }
+      h1.main-title {
+        text-align: center;
+        color: #003366;
+        border-bottom: 3px solid #0056b3;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+      }
+      .intro-text {
+        text-align: center;
+        font-size: 1.1em;
+        margin-bottom: 20px;
+        color: #495057;
+      }
 
-        /* --- Estilo del Botón de Descarga --- */
-        .download-button-container {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .download-button {
-            display: inline-block;
-            background-color: #28a745;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .download-button:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-        }
-        .download-button .fas {
-            margin-right: 8px;
-        }
+      /* --- Estilo del Botón de Descarga --- */
+      .download-button-container {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .download-button {
+        display: inline-block;
+        background-color: #28a745;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1em;
+        transition:
+          background-color 0.3s,
+          transform 0.2s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .download-button:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+      }
+      .download-button .fas {
+        margin-right: 8px;
+      }
 
-        /* --- Estilos del Acordeón --- */
-        .accordion-item {
-            margin-bottom: 15px;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            overflow: hidden;
-            transition: box-shadow 0.3s ease;
-        }
-        .accordion-item:hover {
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .accordion-header {
-            background-color: #0056b3;
-            color: white;
-            padding: 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.4em;
-            font-weight: 600;
-        }
-        .accordion-header::after {
-            content: '+';
-            font-size: 2em;
-            line-height: 1;
-            transition: transform 0.3s ease;
-        }
-        .accordion-item.active .accordion-header::after {
-            transform: rotate(45deg);
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-            background-color: #ffffff;
-            padding: 0 30px;
-        }
-        .accordion-item.active .accordion-content {
-            padding: 30px;
-        }
+      /* --- Estilos del Acordeón --- */
+      .accordion-item {
+        margin-bottom: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+      }
+      .accordion-item:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .accordion-header {
+        background-color: #0056b3;
+        color: white;
+        padding: 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.4em;
+        font-weight: 600;
+      }
+      .accordion-header::after {
+        content: '+';
+        font-size: 2em;
+        line-height: 1;
+        transition: transform 0.3s ease;
+      }
+      .accordion-item.active .accordion-header::after {
+        transform: rotate(45deg);
+      }
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.5s ease-out,
+          padding 0.5s ease-out;
+        background-color: #ffffff;
+        padding: 0 30px;
+      }
+      .accordion-item.active .accordion-content {
+        padding: 30px;
+      }
 
-        /* --- Estilos del Contenido Interno --- */
-        .content-section h2, .content-section h3, .content-section h4 {
-            color: #003366;
-        }
-        .content-section table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-        }
-        .content-section th, .content-section td {
-            border: 1px solid #dee2e6;
-            padding: 12px;
-            text-align: left;
-        }
-        .content-section th {
-            background-color: #e9ecef;
-        }
-        .content-section ul {
-            padding-left: 20px;
-        }
-        
-        /* --- Estilos para la Presentación (Diapositivas) --- */
-       .presentation-container { max-width: 1000px; margin: 0 auto; background-color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
-       .slide { display: none; padding: 40px; min-height: 500px; animation: fadeIn 0.5s; }
-       .slide.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .slide h1, .slide h2, .slide h3 { color: #0056b3; }
-        .slide h1 { font-size: 2.5em; text-align: center; border-bottom: 2px solid #0056b3; padding-bottom: 10px; }
-        .slide h2 { font-size: 1.8em; margin-top: 30px; }
-        .slide h3 { font-size: 1.4em; }
-        .slide p, .slide li { line-height: 1.6; font-size: 1.1em; }
-        .slide ul { list-style-type: disc; padding-left: 20px; }
-       .navigation { display: flex; justify-content: space-between; padding: 20px; background-color: #0056b3; }
-       .nav-button { background-color: #fff; color: #0056b3; border: none; padding: 10px 20px; font-size: 1em; font-weight: bold; border-radius: 5px; cursor: pointer; transition: background-color 0.3s, color 0.3s; }
-       .nav-button:hover { background-color: #e9ecef; }
-       .nav-button:disabled { background-color: #ccc; cursor: not-allowed; }
-       .slide-counter { color: #fff; font-size: 1.2em; font-weight: bold; align-self: center; }
-       .flex-container { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;}
-       .flex-item { flex: 1; min-width: 300px;}
-       .svg-container { text-align: center; margin-top: 20px; }
-       .svg-tooltip { position: absolute; background-color: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.9em; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 100;}
+      /* --- Estilos del Contenido Interno --- */
+      .content-section h2,
+      .content-section h3,
+      .content-section h4 {
+        color: #003366;
+      }
+      .content-section table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+      }
+      .content-section th,
+      .content-section td {
+        border: 1px solid #dee2e6;
+        padding: 12px;
+        text-align: left;
+      }
+      .content-section th {
+        background-color: #e9ecef;
+      }
+      .content-section ul {
+        padding-left: 20px;
+      }
 
-        /* --- Estilos para la Actividad ABP --- */
-        .interactive-container { border: 2px dashed #0056b3; border-radius: 8px; padding: 20px; background-color: #f0f2f5; }
-        .abp-phase { margin-bottom: 25px; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .abp-phase h3 { color: #003366; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
-        .abp-hidden { display: none; }
-        .abp-tabs { display: flex; border-bottom: 1px solid #ccc; margin-bottom: 15px; flex-wrap: wrap;}
-        .abp-tab { padding: 10px 15px; cursor: pointer; background-color: #e9ecef; border: 1px solid #ccc; border-bottom: none; margin-right: 5px; border-radius: 5px 5px 0 0; }
-        .abp-tab.active { background-color: #fff; border-bottom: 1px solid #fff; }
-        .abp-tab-content { padding: 15px; border: 1px solid #ccc; border-top: none; width: 100%; box-sizing: border-box;}
-        .abp-resource-link { color: #0056b3; text-decoration: underline; cursor: pointer; display: block; margin-bottom: 8px; }
-        .abp-feedback { margin-top: 15px; padding: 10px; border-radius: 5px; }
-        .abp-feedback.correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .abp-feedback.incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        #abp-hypothesis-board, #abp-learning-objectives { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;}
-        .abp-decision-section button, .abp-reveal-button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; margin-top: 10px; }
-        .abp-decision-section button:hover, .abp-reveal-button:hover { background-color: #0056b3; }
-        .abp-decision-section button.verify { background-color: #28a745; }
-        .abp-decision-section button.verify:hover { background-color: #218838; }
+      /* --- Estilos para la Presentación (Diapositivas) --- */
+      .presentation-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .slide {
+        display: none;
+        padding: 40px;
+        min-height: 500px;
+        animation: fadeIn 0.5s;
+      }
+      .slide.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .slide h1,
+      .slide h2,
+      .slide h3 {
+        color: #0056b3;
+      }
+      .slide h1 {
+        font-size: 2.5em;
+        text-align: center;
+        border-bottom: 2px solid #0056b3;
+        padding-bottom: 10px;
+      }
+      .slide h2 {
+        font-size: 1.8em;
+        margin-top: 30px;
+      }
+      .slide h3 {
+        font-size: 1.4em;
+      }
+      .slide p,
+      .slide li {
+        line-height: 1.6;
+        font-size: 1.1em;
+      }
+      .slide ul {
+        list-style-type: disc;
+        padding-left: 20px;
+      }
+      .navigation {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #0056b3;
+      }
+      .nav-button {
+        background-color: #fff;
+        color: #0056b3;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+      .nav-button:hover {
+        background-color: #e9ecef;
+      }
+      .nav-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      .slide-counter {
+        color: #fff;
+        font-size: 1.2em;
+        font-weight: bold;
+        align-self: center;
+      }
+      .flex-container {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      .flex-item {
+        flex: 1;
+        min-width: 300px;
+      }
+      .svg-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .svg-tooltip {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.9em;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+        z-index: 100;
+      }
 
-        /* --- Estilos para el Quiz --- */
-        #quiz-container { max-width: 800px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        #quiz-container h1 { text-align: center; color: #4a148c; }
-        #quiz-question-area { margin-bottom: 20px; }
-       .quiz-vignette { background-color: #ede7f6; padding: 15px; border-radius: 5px; margin-bottom: 15px; border-left: 5px solid #673ab7; }
-       .quiz-question-text { font-weight: bold; font-size: 1.1em; margin-bottom: 20px; }
-       .quiz-options button { display: block; width: 100%; padding: 12px; margin: 8px 0; text-align: left; background-color: #f3e5f5; border: 1px solid #ce93d8; border-radius: 5px; cursor: pointer; font-size: 1em; transition: background-color 0.3s; }
-       .quiz-options button:hover:not(:disabled) { background-color: #e1bee7; }
-       .quiz-options button:disabled { cursor: not-allowed; }
-       .quiz-options button.selected { background-color: #ab47bc; color: white; border-color: #8e24aa; }
-        #quiz-navigation { text-align: center; margin-top: 20px; }
-        #quiz-nav-button { background-color: #673ab7; color: white; border: none; padding: 12px 25px; border-radius: 5px; font-size: 1.1em; cursor: pointer; }
-        #quiz-nav-button:hover { background-color: #5e35b1; }
-        #quiz-results-area { display: none; }
-       .quiz-result-item { margin-bottom: 25px; padding: 15px; border-radius: 5px; }
-       .quiz-result-item.correct { background-color: #e8f5e9; border-left: 5px solid #4caf50; }
-       .quiz-result-item.incorrect { background-color: #ffebee; border-left: 5px solid #f44336; }
-       .quiz-justification { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc; }
-       .quiz-justification strong { color: #2e7d32; }
-       .quiz-justification span { color: #c62828; }
+      /* --- Estilos para la Actividad ABP --- */
+      .interactive-container {
+        border: 2px dashed #0056b3;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #f0f2f5;
+      }
+      .abp-phase {
+        margin-bottom: 25px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .abp-phase h3 {
+        color: #003366;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 10px;
+      }
+      .abp-hidden {
+        display: none;
+      }
+      .abp-tabs {
+        display: flex;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+      }
+      .abp-tab {
+        padding: 10px 15px;
+        cursor: pointer;
+        background-color: #e9ecef;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        margin-right: 5px;
+        border-radius: 5px 5px 0 0;
+      }
+      .abp-tab.active {
+        background-color: #fff;
+        border-bottom: 1px solid #fff;
+      }
+      .abp-tab-content {
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-top: none;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .abp-resource-link {
+        color: #0056b3;
+        text-decoration: underline;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 8px;
+      }
+      .abp-feedback {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .abp-feedback.correct {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .abp-feedback.incorrect {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      #abp-hypothesis-board,
+      #abp-learning-objectives {
+        width: 100%;
+        min-height: 80px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .abp-decision-section button,
+      .abp-reveal-button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px;
+      }
+      .abp-decision-section button:hover,
+      .abp-reveal-button:hover {
+        background-color: #0056b3;
+      }
+      .abp-decision-section button.verify {
+        background-color: #28a745;
+      }
+      .abp-decision-section button.verify:hover {
+        background-color: #218838;
+      }
+
+      /* --- Estilos para el Quiz --- */
+      #quiz-container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      #quiz-container h1 {
+        text-align: center;
+        color: #4a148c;
+      }
+      #quiz-question-area {
+        margin-bottom: 20px;
+      }
+      .quiz-vignette {
+        background-color: #ede7f6;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        border-left: 5px solid #673ab7;
+      }
+      .quiz-question-text {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 20px;
+      }
+      .quiz-options button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        text-align: left;
+        background-color: #f3e5f5;
+        border: 1px solid #ce93d8;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+      }
+      .quiz-options button:hover:not(:disabled) {
+        background-color: #e1bee7;
+      }
+      .quiz-options button:disabled {
+        cursor: not-allowed;
+      }
+      .quiz-options button.selected {
+        background-color: #ab47bc;
+        color: white;
+        border-color: #8e24aa;
+      }
+      #quiz-navigation {
+        text-align: center;
+        margin-top: 20px;
+      }
+      #quiz-nav-button {
+        background-color: #673ab7;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-size: 1.1em;
+        cursor: pointer;
+      }
+      #quiz-nav-button:hover {
+        background-color: #5e35b1;
+      }
+      #quiz-results-area {
+        display: none;
+      }
+      .quiz-result-item {
+        margin-bottom: 25px;
+        padding: 15px;
+        border-radius: 5px;
+      }
+      .quiz-result-item.correct {
+        background-color: #e8f5e9;
+        border-left: 5px solid #4caf50;
+      }
+      .quiz-result-item.incorrect {
+        background-color: #ffebee;
+        border-left: 5px solid #f44336;
+      }
+      .quiz-justification {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed #ccc;
+      }
+      .quiz-justification strong {
+        color: #2e7d32;
+      }
+      .quiz-justification span {
+        color: #c62828;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="main-container">
+      <h1 class="main-title">
+        Módulo Educativo: Pancreatitis Aguda y Patología Biliar
+      </h1>
+      <p class="intro-text">
+        Bienvenido al módulo de aprendizaje sobre patologías del páncreas y las
+        vías biliares. Haga clic en cada sección para expandir y explorar el
+        contenido, desde la guía teórica hasta las actividades interactivas.
+      </p>
 
-<div class="main-container">
-    <h1 class="main-title">Módulo Educativo: Pancreatitis Aguda y Patología Biliar</h1>
-    <p class="intro-text">Bienvenido al módulo de aprendizaje sobre patologías del páncreas y las vías biliares. Haga clic en cada sección para expandir y explorar el contenido, desde la guía teórica hasta las actividades interactivas.</p>
-    
-    <div class="download-button-container">
-        <a href="/assets/pdf/Pancreatitis-Aguda.pdf" class="download-button" download>
-            <i class="fas fa-download"></i> Descargar Guía en PDF
+      <div class="download-button-container">
+        <a
+          href="/assets/pdf/Pancreatitis-Aguda.pdf"
+          class="download-button"
+          download
+        >
+          <i class="fas fa-download"></i> Descargar Guía en PDF
         </a>
-    </div>
+      </div>
 
-    <div id="accordion">
+      <div id="accordion">
         <!-- Acordeón 1: Documento de Conocimiento -->
         <div class="accordion-item">
-            <div class="accordion-header">1. Documento de Conocimiento (Guía de Lectura)</div>
-            <div class="accordion-content">
-                <div class="content-section">
-                    <h2>Guía Maestra sobre Patología Pancreática y Biliar</h2>
-                    <p>Este documento constituye el material de lectura principal, integrando guías de práctica clínica internacionales con datos epidemiológicos relevantes.</p>
-                    <h3>1.1. Pancreatitis Aguda (PA)</h3>
-                    <p>El diagnóstico requiere <strong>al menos 2 de 3 criterios</strong>: 1) Dolor abdominal característico, 2) Lipasa o amilasa ≥3 veces el LSN, 3) Hallazgos en imagen. La severidad se clasifica (Leve, Moderada, Grave) según la clasificación de Atlanta 2012.</p>
-                    <h3>1.2. Enfermedad por Cálculos Biliares</h3>
-                    <p>La <strong>colangitis aguda</strong> es una emergencia médica. Se diagnostica y maneja según las Guías de Tokio 2018. La <strong>Tríada de Charcot</strong> (fiebre, ictericia, dolor CSD) es clásica. El manejo requiere antibióticos IV y <strong>drenaje biliar urgente</strong> (CPRE).</p>
-                </div>
+          <div class="accordion-header">
+            1. Documento de Conocimiento (Guía de Lectura)
+          </div>
+          <div class="accordion-content">
+            <div class="content-section">
+              <h2>Guía Maestra sobre Patología Pancreática y Biliar</h2>
+              <p>
+                Este documento constituye el material de lectura principal,
+                integrando guías de práctica clínica internacionales con datos
+                epidemiológicos relevantes.
+              </p>
+              <h3>1.1. Pancreatitis Aguda (PA)</h3>
+              <p>
+                El diagnóstico requiere
+                <strong>al menos 2 de 3 criterios</strong>: 1) Dolor abdominal
+                característico, 2) Lipasa o amilasa ≥3 veces el LSN, 3)
+                Hallazgos en imagen. La severidad se clasifica (Leve, Moderada,
+                Grave) según la clasificación de Atlanta 2012.
+              </p>
+              <h3>1.2. Enfermedad por Cálculos Biliares</h3>
+              <p>
+                La <strong>colangitis aguda</strong> es una emergencia médica.
+                Se diagnostica y maneja según las Guías de Tokio 2018. La
+                <strong>Tríada de Charcot</strong> (fiebre, ictericia, dolor
+                CSD) es clásica. El manejo requiere antibióticos IV y
+                <strong>drenaje biliar urgente</strong> (CPRE).
+              </p>
             </div>
+          </div>
         </div>
 
         <!-- Acordeón 2: Presentación Interactiva (CORREGIDA) -->
         <div class="accordion-item">
-            <div class="accordion-header">2. Presentación Interactiva para la Clase</div>
-            <div class="accordion-content">
-                <div class="presentation-container">
-                    <div id="slides-container">
-                        <div class="slide active">
-                            <h1>Pancreatitis Aguda: Un Enfoque Clínico Integral</h1>
-                            <h2>Basado en Evidencia para el Estudiante de Medicina</h2>
-                            <p style="text-align:center; font-size:1.2em; margin-top:50px;">Parte I: Fundamentos, Fisiopatología y Diagnóstico</p>
-                        </div>
-                        <div class="slide">
-                            <h2>1.1. Definición y Relevancia Clínica</h2>
-                            <p>La <strong>pancreatitis aguda (PA)</strong> es un proceso inflamatorio agudo del páncreas, que puede involucrar tejidos peripancreáticos y afectar órganos a distancia.</p>
-                            <ul>
-                                <li>Principal causa de hospitalización por trastornos gastrointestinales.</li>
-                                <li>Incidencia en aumento: 2-5% anual.</li>
-                                <li>Espectro clínico heterogéneo:
-                                    <ul>
-                                        <li><strong>80% Leve y autolimitada.</strong></li>
-                                        <li><strong>20% Grave,</strong> con alta morbimortalidad.</li>
-                                    </ul>
-                                </li>
-                                <li>Mortalidad global del 5%, pero se eleva dramáticamente en casos graves.</li>
-                            </ul>
-                            <p><strong>Mensaje clave:</strong> El reconocimiento temprano y la estratificación precisa son fundamentales.</p>
-                        </div>
-                        <div class="slide">
-                            <h2>1.2. Etiología: ¿Qué Desencadena la Inflamación?</h2>
-                            <h3>Causas Principales (explican ~80% de los casos):</h3>
-                            <ul>
-                                <li><strong>Litiasis Biliar (35-40%):</strong> Causa más frecuente, especialmente en mujeres. Un cálculo obstruye transitoriamente la ampolla de Vater.</li>
-                                <li><strong>Consumo de Alcohol (30-35%):</strong> Asociado a consumo crónico y excesivo (>50g/día). Sensibiliza la célula acinar al daño.</li>
-                            </ul>
-                            <h3>Otras Causas Relevantes:</h3>
-                            <ul>
-                                <li><strong>Hipertrigliceridemia:</strong> Especialmente con niveles > 1000 mg/dL.</li>
-                                <li><strong>Post-CPRE:</strong> Complicación iatrogénica más común de la CPRE (5-8%).</li>
-                                <li><strong>Idiopática (10-26%):</strong> Requiere estudio más profundo (microlitiasis, neoplasias ocultas).</li>
-                                <li><strong>Otras:</strong> Fármacos, traumatismos, autoinmunes, genéticas, neoplasias (sospechar en >40 años sin causa clara).</li>
-                            </ul>
-                        </div>
-                        <div class="slide">
-                            <h2>1.3. Caso Clínico Guía: Presentación Inicial</h2>
-                            <p><strong>Historia:</strong> Paciente masculino, 48 años. Antecedentes de consumo "social" de alcohol y episodios previos de cólico biliar no estudiados.</p>
-                            <p><strong>Anamnesis:</strong> Dolor abdominal de 12h de evolución.</p>
-                            <ul>
-                                <li><strong>Inicio:</strong> Súbito.</li>
-                                <li><strong>Localización:</strong> Epigastrio, irradiado "en cinturón" hacia la espalda.</li>
-                                <li><strong>Intensidad:</strong> 10/10.</li>
-                                <li><strong>Carácter:</strong> Constante, transfictivo.</li>
-                                <li><strong>Síntomas asociados:</strong> Náuseas, vómitos biliosos que no alivian el dolor.</li>
-                            </ul>
-                            <p><strong>Examen Físico:</strong> Ansioso, diaforético. FC 110 lpm, FR 22 rpm, T 37.8°C. Dolor a la palpación en epigastrio, defensa voluntaria. Ruidos hidroaéreos disminuidos.</p>
-                        </div>
-                        <div class="slide">
-                            <h2>2. Fisiopatología: La Cascada de Autodigestión</h2>
-                            <p>Es una enfermedad sistémica que se inicia en el páncreas.</p>
-                            <ol>
-                                <li><strong>Evento Inicial: Lesión de la Célula Acinar.</strong> Activación prematura de <strong>tripsinógeno a tripsina</strong> dentro de la célula.</li>
-                                <li><strong>Reacción en Cadena: Daño Local.</strong> La tripsina activa otras enzimas (elastasa, fosfolipasa A2), causando autodigestión, necrosis grasa y daño vascular.</li>
-                                <li><strong>De lo Local a lo Sistémico: Tormenta de Citoquinas (SIRS).</strong> La destrucción celular libera mediadores (DAMPs) que activan una respuesta inmune masiva (TNF-α, IL-1, IL-6). Esto causa aumento de la permeabilidad capilar y vasodilatación sistémica.</li>
-                                <li><strong>Consecuencia Final: Falla Multiorgánica (MODS).</strong> El SIRS persistente y la hipovolemia por fuga capilar llevan a hipoperfusión y falla de órganos distantes (pulmón, riñón, sistema cardiovascular).</li>
-                            </ol>
-                            <p><strong>Implicación clínica:</strong> El tratamiento se enfoca en interrumpir la respuesta sistémica (fluidoterapia) y no solo en "curar" el páncreas.</p>
-                        </div>
-                        <div class="slide">
-                            <h2>3.1. Criterios Diagnósticos (Atlanta)</h2>
-                            <h3>Se requieren al menos 2 de los siguientes 3 criterios:</h3>
-                            <ol>
-                                <li style="font-size: 1.2em; margin-bottom: 15px;"><strong>Dolor abdominal característico</strong> (inicio agudo, severo, epigástrico, irradiado a la espalda).</li>
-                                <li style="font-size: 1.2em; margin-bottom: 15px;"><strong>Elevación de enzimas ≥ 3 veces el LSN</strong> (Lipasa es de elección por su mayor especificidad y duración).</li>
-                                <li style="font-size: 1.2em;"><strong>Hallazgos característicos en imagen</strong> (TC, RM o ecografía).</li>
-                            </ol>
-                            <p><strong>Importante:</strong> Si los criterios 1 y 2 están presentes, el diagnóstico está confirmado y no se necesita una imagen de inmediato para este fin.</p>
-                        </div>
-                        <div class="slide">
-                            <h2>3.3. Estratificación Temprana del Riesgo</h2>
-                            <p>Identificar rápidamente a los pacientes que se complicarán es clave.</p>
-                            <h3>Herramientas Simples y Robustas:</h3>
-                            <ul>
-                                <li><strong>SIRS (Síndrome de Respuesta Inflamatoria Sistémica):</strong> La presencia de ≥2 criterios al ingreso, y sobre todo su persistencia por >48h, es un fuerte predictor de gravedad y mortalidad.</li>
-                                <li><strong>Score BISAP:</strong> Fácil de calcular en las primeras 24h. Un puntaje ≥3 identifica un grupo de alto riesgo.
-                                    <ul>
-                                        <li><strong>B</strong>UN > 25 mg/dL</li>
-                                        <li><strong>I</strong>mpaired mental status (Alteración mental)</li>
-                                        <li><strong>S</strong>IRS presente</li>
-                                        <li><strong>A</strong>ge > 60 años</li>
-                                        <li><strong>P</strong>leural effusion (Derrame pleural)</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Marcadores de Alarma:</strong> BUN elevado (>20) o Hematocrito elevado (>44%) al ingreso indican hipovolemia severa. La falta de mejoría en 24h es un signo ominoso.</li>
-                            </ul>
-                        </div>
-                        <div class="slide">
-                            <h2>4. Clasificación de Atlanta Revisada (2012)</h2>
-                            <p>Es el lenguaje estandarizado para clasificar la enfermedad.</p>
-                            <h3>Tipos Morfológicos (vistos en TC):</h3>
-                            <ul>
-                                <li><strong>Pancreatitis Edematosa Intersticial (PEI):</strong> La más común (90-95%). Inflamación sin necrosis. El páncreas realza homogéneamente con contraste.</li>
-                                <li><strong>Pancreatitis Necrotizante (PN):</strong> Menos común (5-10%) pero más grave. Presencia de tejido no viable (no realza con contraste).</li>
-                            </ul>
-                            <h3>Grados de Severidad (basado en Falla Orgánica):</h3>
-                            <ul>
-                                <li><strong>Leve:</strong> Sin falla orgánica ni complicaciones locales/sistémicas.</li>
-                                <li><strong>Moderadamente Grave:</strong> Falla orgánica transitoria (<48h) O complicaciones locales/sistémicas.</li>
-                                <li><strong>Grave:</strong> Falla orgánica persistente (>48h). Alta mortalidad.</li>
-                            </ul>
-                        </div>
-                        <div class="slide">
-                            <h2>5.1. Pilar 1: Fluidoterapia Dirigida por Metas</h2>
-                            <p>Es la intervención más crítica en la fase temprana.</p>
-                            <ul>
-                                <li><strong>¿Qué fluido?</strong> Lactato de Ringer es de elección. Atenúa la respuesta inflamatoria y evita la acidosis hiperclorémica.</li>
-                                <li><strong>¿Cómo?</strong> Estrategia moderada y dirigida por metas. Evitar la sobrehidratación.
-                                    <ul>
-                                        <li>Tasa de infusión: 1.5 mL/kg/hora.</li>
-                                        <li>Considerar bolo inicial (10 mL/kg) solo si hay hipovolemia evidente.</li>
-                                    </ul>
-                                </li>
-                                <li><strong>¿Cuáles son las metas?</strong> Reevaluar cada 6-8h.
-                                    <ul>
-                                        <li>FC < 100 lpm</li>
-                                        <li>PAM 65-85 mmHg</li>
-                                        <li>Diuresis > 0.5-1 mL/kg/h</li>
-                                        <li>Disminución del BUN y Hematocrito</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="slide">
-                            <h2>5.2 y 5.3. Pilares 2 y 3: Dolor y Nutrición</h2>
-                            <h3>Manejo del Dolor:</h3>
-                            <ul>
-                                <li>La analgesia debe ser IV y escalonada.</li>
-                                <li>Los <strong>opioides</strong> (morfina, hidromorfona) son seguros y efectivos. El temor al espasmo del esfínter de Oddi es un mito obsoleto.</li>
-                                <li>La Analgesia Controlada por el Paciente (PCA) es una excelente opción.</li>
-                                <li>Evitar AINEs en la fase inicial por riesgo de agravar la lesión renal.</li>
-                            </ul>
-                            <h3>Soporte Nutricional (Nuevo Paradigma):</h3>
-                            <ul>
-                                <li><strong>PA Leve:</strong> Iniciar dieta oral (sólida, baja en grasas) tan pronto mejore el dolor. No esperar a que las enzimas se normalicen.</li>
-                                <li><strong>PA Moderada/Grave:</strong> Si no tolera vía oral en 24-72h, iniciar <strong>Nutrición Enteral</strong> por sonda nasogástrica. Es superior a la parenteral (NPT).</li>
-                            </ul>
-                        </div>
-                        <div class="slide">
-                            <h2>6. Complicaciones y Rol de la Imagenología</h2>
-                            <h3>El Rol y el Timing de la TC con Contraste:</h3>
-                            <ul>
-                                <li><strong>¿Para qué?</strong> Para evaluar severidad, detectar necrosis y guiar intervenciones.</li>
-                                <li><strong>¿Cuándo?</strong> El momento ideal es <strong>después de las 72 horas</strong> del inicio de los síntomas. Una TC temprana puede subestimar la necrosis.</li>
-                            </ul>
-                            <h3>Definiciones de Complicaciones Locales (Atlanta 2012):</h3>
-                            <div class="flex-container">
-                                <div class="flex-item">
-                                    <h4>Origen en PEI:</h4>
-                                    <ul>
-                                        <li><strong>&lt;4 sem:</strong> Colección Líquida Aguda (APFC)</li>
-                                        <li><strong>&gt;4 sem:</strong> Pseudoquiste</li>
-                                    </ul>
-                                </div>
-                                <div class="flex-item">
-                                    <h4>Origen en PN:</h4>
-                                    <ul>
-                                        <li><strong>&lt;4 sem:</strong> Colección Necrótica Aguda (ANC)</li>
-                                        <li><strong>&gt;4 sem:</strong> Necrosis Encapsulada (WON)</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <h2>7. Manejo de la Necrosis Pancreática Infectada</h2>
-                            <p>Es la principal causa de mortalidad en la fase tardía.</p>
-                            <ul>
-                                <li><strong>Diagnóstico:</strong> Sospecha clínica (deterioro >1 semana) + TC (gas es patognomónico).</li>
-                                <li><strong>Antibióticos:</strong> Solo de forma <strong>terapéutica</strong> (NO profiláctica). Usar regímenes de amplio espectro con buena penetración (ej. carbapenémicos).</li>
-                            </ul>
-                            <h3>Enfoque "Step-Up": Menos es Más, y Más Tarde es Mejor</h3>
-                            <ol>
-                                <li><strong>Retrasar la intervención:</strong> Esperar >4 semanas para que la necrosis se encapsule (forme una WON).</li>
-                                <li><strong>Paso 1:</strong> Antibióticos IV y soporte en UCI.</li>
-                                <li><strong>Paso 2: Drenaje Mínimamente Invasivo.</strong> Si no hay mejoría, drenaje percutáneo o endoscópico.</li>
-                                <li><strong>Paso 3: Necrosectomía Mínimamente Invasiva.</strong> Si el drenaje no es suficiente, desbridamiento endoscópico o retroperitoneal (VARD).</li>
-                            </ol>
-                            <p>La cirugía abierta es el último recurso.</p>
-                        </div>
-                        <div class="slide">
-                            <h2>8. Escenarios Clínicos Específicos</h2>
-                            <h3>Manejo de la Pancreatitis Aguda Biliar:</h3>
-                            <ul>
-                                <li><strong>CPRE Urgente:</strong> Solo si hay colangitis aguda concurrente.</li>
-                                <li><strong>Colecistectomía:</strong> Es fundamental para prevenir recurrencias.
-                                    <ul>
-                                        <li><strong>PA Leve:</strong> Realizarla <strong>durante la misma hospitalización</strong>, antes del alta.</li>
-                                        <li><strong>PA Grave:</strong> Diferirla por lo menos 6 semanas.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h3>Prevención de Recurrencias:</h3>
-                            <ul>
-                                <li><strong>Etiología Alcohólica:</strong> Abstinencia completa y permanente.</li>
-                                <li><strong>Hipertrigliceridemia:</strong> Dieta, ejercicio y fibratos para mantener triglicéridos < 500 mg/dL.</li>
-                            </ul>
-                        </div>
-                        <div class="slide">
-                            <h2>9. Puntos Clave para la Práctica Clínica</h2>
-                            <ul>
-                                <li>Diagnosticar con <strong>2 de 3 criterios</strong>.</li>
-                                <li>Estratificar el riesgo al ingreso con <strong>SIRS y BISAP</strong>.</li>
-                                <li>La <strong>Fluidoterapia Inteligente</strong> con Lactato de Ringer es la piedra angular.</li>
-                                <li>Iniciar <strong>Nutrición Enteral Temprana</strong>.</li>
-                                <li>Usar la <strong>Clasificación de Atlanta</strong> para hablar un lenguaje común.</li>
-                                <li>Reservar la <strong>TC con contraste para >72h</strong> si se busca necrosis.</li>
-                                <li>Antibióticos son <strong>terapéuticos, NO profilácticos</strong>.</li>
-                                <li>Manejar la necrosis infectada con el enfoque <strong>"Step-Up"</strong>.</li>
-                                <li>En PA Biliar Leve, la <strong>colecistectomía es en la misma hospitalización</strong>.</li>
-                                <li>El manejo de la PA grave es <strong>multidisciplinario</strong>.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="navigation">
-                        <button id="prevBtn" class="nav-button" onclick="prevSlide()">Anterior</button>
-                        <div id="slideCounter" class="slide-counter">1 / 14</div>
-                        <button id="nextBtn" class="nav-button" onclick="nextSlide()">Siguiente</button>
-                    </div>
+          <div class="accordion-header">
+            2. Presentación Interactiva para la Clase
+          </div>
+          <div class="accordion-content">
+            <div class="presentation-container">
+              <div id="slides-container">
+                <div class="slide active">
+                  <h1>Pancreatitis Aguda: Un Enfoque Clínico Integral</h1>
+                  <h2>Basado en Evidencia para el Estudiante de Medicina</h2>
+                  <p
+                    style="
+                      text-align: center;
+                      font-size: 1.2em;
+                      margin-top: 50px;
+                    "
+                  >
+                    Parte I: Fundamentos, Fisiopatología y Diagnóstico
+                  </p>
                 </div>
+                <div class="slide">
+                  <h2>1.1. Definición y Relevancia Clínica</h2>
+                  <p>
+                    La <strong>pancreatitis aguda (PA)</strong> es un proceso
+                    inflamatorio agudo del páncreas, que puede involucrar
+                    tejidos peripancreáticos y afectar órganos a distancia.
+                  </p>
+                  <ul>
+                    <li>
+                      Principal causa de hospitalización por trastornos
+                      gastrointestinales.
+                    </li>
+                    <li>Incidencia en aumento: 2-5% anual.</li>
+                    <li>
+                      Espectro clínico heterogéneo:
+                      <ul>
+                        <li><strong>80% Leve y autolimitada.</strong></li>
+                        <li>
+                          <strong>20% Grave,</strong> con alta morbimortalidad.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Mortalidad global del 5%, pero se eleva dramáticamente en
+                      casos graves.
+                    </li>
+                  </ul>
+                  <p>
+                    <strong>Mensaje clave:</strong> El reconocimiento temprano y
+                    la estratificación precisa son fundamentales.
+                  </p>
+                </div>
+                <div class="slide">
+                  <h2>1.2. Etiología: ¿Qué Desencadena la Inflamación?</h2>
+                  <h3>Causas Principales (explican ~80% de los casos):</h3>
+                  <ul>
+                    <li>
+                      <strong>Litiasis Biliar (35-40%):</strong> Causa más
+                      frecuente, especialmente en mujeres. Un cálculo obstruye
+                      transitoriamente la ampolla de Vater.
+                    </li>
+                    <li>
+                      <strong>Consumo de Alcohol (30-35%):</strong> Asociado a
+                      consumo crónico y excesivo (>50g/día). Sensibiliza la
+                      célula acinar al daño.
+                    </li>
+                  </ul>
+                  <h3>Otras Causas Relevantes:</h3>
+                  <ul>
+                    <li>
+                      <strong>Hipertrigliceridemia:</strong> Especialmente con
+                      niveles > 1000 mg/dL.
+                    </li>
+                    <li>
+                      <strong>Post-CPRE:</strong> Complicación iatrogénica más
+                      común de la CPRE (5-8%).
+                    </li>
+                    <li>
+                      <strong>Idiopática (10-26%):</strong> Requiere estudio más
+                      profundo (microlitiasis, neoplasias ocultas).
+                    </li>
+                    <li>
+                      <strong>Otras:</strong> Fármacos, traumatismos,
+                      autoinmunes, genéticas, neoplasias (sospechar en >40 años
+                      sin causa clara).
+                    </li>
+                  </ul>
+                </div>
+                <div class="slide">
+                  <h2>1.3. Caso Clínico Guía: Presentación Inicial</h2>
+                  <p>
+                    <strong>Historia:</strong> Paciente masculino, 48 años.
+                    Antecedentes de consumo "social" de alcohol y episodios
+                    previos de cólico biliar no estudiados.
+                  </p>
+                  <p>
+                    <strong>Anamnesis:</strong> Dolor abdominal de 12h de
+                    evolución.
+                  </p>
+                  <ul>
+                    <li><strong>Inicio:</strong> Súbito.</li>
+                    <li>
+                      <strong>Localización:</strong> Epigastrio, irradiado "en
+                      cinturón" hacia la espalda.
+                    </li>
+                    <li><strong>Intensidad:</strong> 10/10.</li>
+                    <li><strong>Carácter:</strong> Constante, transfictivo.</li>
+                    <li>
+                      <strong>Síntomas asociados:</strong> Náuseas, vómitos
+                      biliosos que no alivian el dolor.
+                    </li>
+                  </ul>
+                  <p>
+                    <strong>Examen Físico:</strong> Ansioso, diaforético. FC 110
+                    lpm, FR 22 rpm, T 37.8°C. Dolor a la palpación en
+                    epigastrio, defensa voluntaria. Ruidos hidroaéreos
+                    disminuidos.
+                  </p>
+                </div>
+                <div class="slide">
+                  <h2>2. Fisiopatología: La Cascada de Autodigestión</h2>
+                  <p>
+                    Es una enfermedad sistémica que se inicia en el páncreas.
+                  </p>
+                  <ol>
+                    <li>
+                      <strong
+                        >Evento Inicial: Lesión de la Célula Acinar.</strong
+                      >
+                      Activación prematura de
+                      <strong>tripsinógeno a tripsina</strong> dentro de la
+                      célula.
+                    </li>
+                    <li>
+                      <strong>Reacción en Cadena: Daño Local.</strong> La
+                      tripsina activa otras enzimas (elastasa, fosfolipasa A2),
+                      causando autodigestión, necrosis grasa y daño vascular.
+                    </li>
+                    <li>
+                      <strong
+                        >De lo Local a lo Sistémico: Tormenta de Citoquinas
+                        (SIRS).</strong
+                      >
+                      La destrucción celular libera mediadores (DAMPs) que
+                      activan una respuesta inmune masiva (TNF-α, IL-1, IL-6).
+                      Esto causa aumento de la permeabilidad capilar y
+                      vasodilatación sistémica.
+                    </li>
+                    <li>
+                      <strong
+                        >Consecuencia Final: Falla Multiorgánica (MODS).</strong
+                      >
+                      El SIRS persistente y la hipovolemia por fuga capilar
+                      llevan a hipoperfusión y falla de órganos distantes
+                      (pulmón, riñón, sistema cardiovascular).
+                    </li>
+                  </ol>
+                  <p>
+                    <strong>Implicación clínica:</strong> El tratamiento se
+                    enfoca en interrumpir la respuesta sistémica (fluidoterapia)
+                    y no solo en "curar" el páncreas.
+                  </p>
+                </div>
+                <div class="slide">
+                  <h2>3.1. Criterios Diagnósticos (Atlanta)</h2>
+                  <h3>
+                    Se requieren al menos 2 de los siguientes 3 criterios:
+                  </h3>
+                  <ol>
+                    <li style="font-size: 1.2em; margin-bottom: 15px">
+                      <strong>Dolor abdominal característico</strong> (inicio
+                      agudo, severo, epigástrico, irradiado a la espalda).
+                    </li>
+                    <li style="font-size: 1.2em; margin-bottom: 15px">
+                      <strong>Elevación de enzimas ≥ 3 veces el LSN</strong>
+                      (Lipasa es de elección por su mayor especificidad y
+                      duración).
+                    </li>
+                    <li style="font-size: 1.2em">
+                      <strong>Hallazgos característicos en imagen</strong> (TC,
+                      RM o ecografía).
+                    </li>
+                  </ol>
+                  <p>
+                    <strong>Importante:</strong> Si los criterios 1 y 2 están
+                    presentes, el diagnóstico está confirmado y no se necesita
+                    una imagen de inmediato para este fin.
+                  </p>
+                </div>
+                <div class="slide">
+                  <h2>3.3. Estratificación Temprana del Riesgo</h2>
+                  <p>
+                    Identificar rápidamente a los pacientes que se complicarán
+                    es clave.
+                  </p>
+                  <h3>Herramientas Simples y Robustas:</h3>
+                  <ul>
+                    <li>
+                      <strong
+                        >SIRS (Síndrome de Respuesta Inflamatoria
+                        Sistémica):</strong
+                      >
+                      La presencia de ≥2 criterios al ingreso, y sobre todo su
+                      persistencia por >48h, es un fuerte predictor de gravedad
+                      y mortalidad.
+                    </li>
+                    <li>
+                      <strong>Score BISAP:</strong> Fácil de calcular en las
+                      primeras 24h. Un puntaje ≥3 identifica un grupo de alto
+                      riesgo.
+                      <ul>
+                        <li><strong>B</strong>UN > 25 mg/dL</li>
+                        <li>
+                          <strong>I</strong>mpaired mental status (Alteración
+                          mental)
+                        </li>
+                        <li><strong>S</strong>IRS presente</li>
+                        <li><strong>A</strong>ge > 60 años</li>
+                        <li>
+                          <strong>P</strong>leural effusion (Derrame pleural)
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>Marcadores de Alarma:</strong> BUN elevado (>20) o
+                      Hematocrito elevado (>44%) al ingreso indican hipovolemia
+                      severa. La falta de mejoría en 24h es un signo ominoso.
+                    </li>
+                  </ul>
+                </div>
+                <div class="slide">
+                  <h2>4. Clasificación de Atlanta Revisada (2012)</h2>
+                  <p>
+                    Es el lenguaje estandarizado para clasificar la enfermedad.
+                  </p>
+                  <h3>Tipos Morfológicos (vistos en TC):</h3>
+                  <ul>
+                    <li>
+                      <strong
+                        >Pancreatitis Edematosa Intersticial (PEI):</strong
+                      >
+                      La más común (90-95%). Inflamación sin necrosis. El
+                      páncreas realza homogéneamente con contraste.
+                    </li>
+                    <li>
+                      <strong>Pancreatitis Necrotizante (PN):</strong> Menos
+                      común (5-10%) pero más grave. Presencia de tejido no
+                      viable (no realza con contraste).
+                    </li>
+                  </ul>
+                  <h3>Grados de Severidad (basado en Falla Orgánica):</h3>
+                  <ul>
+                    <li>
+                      <strong>Leve:</strong> Sin falla orgánica ni
+                      complicaciones locales/sistémicas.
+                    </li>
+                    <li>
+                      <strong>Moderadamente Grave:</strong> Falla orgánica
+                      transitoria (<48h) O complicaciones locales/sistémicas.
+                    </li>
+                    <li>
+                      <strong>Grave:</strong> Falla orgánica persistente (>48h).
+                      Alta mortalidad.
+                    </li>
+                  </ul>
+                </div>
+                <div class="slide">
+                  <h2>5.1. Pilar 1: Fluidoterapia Dirigida por Metas</h2>
+                  <p>Es la intervención más crítica en la fase temprana.</p>
+                  <ul>
+                    <li>
+                      <strong>¿Qué fluido?</strong> Lactato de Ringer es de
+                      elección. Atenúa la respuesta inflamatoria y evita la
+                      acidosis hiperclorémica.
+                    </li>
+                    <li>
+                      <strong>¿Cómo?</strong> Estrategia moderada y dirigida por
+                      metas. Evitar la sobrehidratación.
+                      <ul>
+                        <li>Tasa de infusión: 1.5 mL/kg/hora.</li>
+                        <li>
+                          Considerar bolo inicial (10 mL/kg) solo si hay
+                          hipovolemia evidente.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>¿Cuáles son las metas?</strong> Reevaluar cada
+                      6-8h.
+                      <ul>
+                        <li>FC < 100 lpm</li>
+                        <li>PAM 65-85 mmHg</li>
+                        <li>Diuresis > 0.5-1 mL/kg/h</li>
+                        <li>Disminución del BUN y Hematocrito</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="slide">
+                  <h2>5.2 y 5.3. Pilares 2 y 3: Dolor y Nutrición</h2>
+                  <h3>Manejo del Dolor:</h3>
+                  <ul>
+                    <li>La analgesia debe ser IV y escalonada.</li>
+                    <li>
+                      Los <strong>opioides</strong> (morfina, hidromorfona) son
+                      seguros y efectivos. El temor al espasmo del esfínter de
+                      Oddi es un mito obsoleto.
+                    </li>
+                    <li>
+                      La Analgesia Controlada por el Paciente (PCA) es una
+                      excelente opción.
+                    </li>
+                    <li>
+                      Evitar AINEs en la fase inicial por riesgo de agravar la
+                      lesión renal.
+                    </li>
+                  </ul>
+                  <h3>Soporte Nutricional (Nuevo Paradigma):</h3>
+                  <ul>
+                    <li>
+                      <strong>PA Leve:</strong> Iniciar dieta oral (sólida, baja
+                      en grasas) tan pronto mejore el dolor. No esperar a que
+                      las enzimas se normalicen.
+                    </li>
+                    <li>
+                      <strong>PA Moderada/Grave:</strong> Si no tolera vía oral
+                      en 24-72h, iniciar <strong>Nutrición Enteral</strong> por
+                      sonda nasogástrica. Es superior a la parenteral (NPT).
+                    </li>
+                  </ul>
+                </div>
+                <div class="slide">
+                  <h2>6. Complicaciones y Rol de la Imagenología</h2>
+                  <h3>El Rol y el Timing de la TC con Contraste:</h3>
+                  <ul>
+                    <li>
+                      <strong>¿Para qué?</strong> Para evaluar severidad,
+                      detectar necrosis y guiar intervenciones.
+                    </li>
+                    <li>
+                      <strong>¿Cuándo?</strong> El momento ideal es
+                      <strong>después de las 72 horas</strong> del inicio de los
+                      síntomas. Una TC temprana puede subestimar la necrosis.
+                    </li>
+                  </ul>
+                  <h3>
+                    Definiciones de Complicaciones Locales (Atlanta 2012):
+                  </h3>
+                  <div class="flex-container">
+                    <div class="flex-item">
+                      <h4>Origen en PEI:</h4>
+                      <ul>
+                        <li>
+                          <strong>&lt;4 sem:</strong> Colección Líquida Aguda
+                          (APFC)
+                        </li>
+                        <li><strong>&gt;4 sem:</strong> Pseudoquiste</li>
+                      </ul>
+                    </div>
+                    <div class="flex-item">
+                      <h4>Origen en PN:</h4>
+                      <ul>
+                        <li>
+                          <strong>&lt;4 sem:</strong> Colección Necrótica Aguda
+                          (ANC)
+                        </li>
+                        <li>
+                          <strong>&gt;4 sem:</strong> Necrosis Encapsulada (WON)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <h2>7. Manejo de la Necrosis Pancreática Infectada</h2>
+                  <p>Es la principal causa de mortalidad en la fase tardía.</p>
+                  <ul>
+                    <li>
+                      <strong>Diagnóstico:</strong> Sospecha clínica (deterioro
+                      >1 semana) + TC (gas es patognomónico).
+                    </li>
+                    <li>
+                      <strong>Antibióticos:</strong> Solo de forma
+                      <strong>terapéutica</strong> (NO profiláctica). Usar
+                      regímenes de amplio espectro con buena penetración (ej.
+                      carbapenémicos).
+                    </li>
+                  </ul>
+                  <h3>Enfoque "Step-Up": Menos es Más, y Más Tarde es Mejor</h3>
+                  <ol>
+                    <li>
+                      <strong>Retrasar la intervención:</strong> Esperar >4
+                      semanas para que la necrosis se encapsule (forme una WON).
+                    </li>
+                    <li>
+                      <strong>Paso 1:</strong> Antibióticos IV y soporte en UCI.
+                    </li>
+                    <li>
+                      <strong>Paso 2: Drenaje Mínimamente Invasivo.</strong> Si
+                      no hay mejoría, drenaje percutáneo o endoscópico.
+                    </li>
+                    <li>
+                      <strong
+                        >Paso 3: Necrosectomía Mínimamente Invasiva.</strong
+                      >
+                      Si el drenaje no es suficiente, desbridamiento endoscópico
+                      o retroperitoneal (VARD).
+                    </li>
+                  </ol>
+                  <p>La cirugía abierta es el último recurso.</p>
+                </div>
+                <div class="slide">
+                  <h2>8. Escenarios Clínicos Específicos</h2>
+                  <h3>Manejo de la Pancreatitis Aguda Biliar:</h3>
+                  <ul>
+                    <li>
+                      <strong>CPRE Urgente:</strong> Solo si hay colangitis
+                      aguda concurrente.
+                    </li>
+                    <li>
+                      <strong>Colecistectomía:</strong> Es fundamental para
+                      prevenir recurrencias.
+                      <ul>
+                        <li>
+                          <strong>PA Leve:</strong> Realizarla
+                          <strong>durante la misma hospitalización</strong>,
+                          antes del alta.
+                        </li>
+                        <li>
+                          <strong>PA Grave:</strong> Diferirla por lo menos 6
+                          semanas.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <h3>Prevención de Recurrencias:</h3>
+                  <ul>
+                    <li>
+                      <strong>Etiología Alcohólica:</strong> Abstinencia
+                      completa y permanente.
+                    </li>
+                    <li>
+                      <strong>Hipertrigliceridemia:</strong> Dieta, ejercicio y
+                      fibratos para mantener triglicéridos < 500 mg/dL.
+                    </li>
+                  </ul>
+                </div>
+                <div class="slide">
+                  <h2>9. Puntos Clave para la Práctica Clínica</h2>
+                  <ul>
+                    <li>Diagnosticar con <strong>2 de 3 criterios</strong>.</li>
+                    <li>
+                      Estratificar el riesgo al ingreso con
+                      <strong>SIRS y BISAP</strong>.
+                    </li>
+                    <li>
+                      La <strong>Fluidoterapia Inteligente</strong> con Lactato
+                      de Ringer es la piedra angular.
+                    </li>
+                    <li>
+                      Iniciar <strong>Nutrición Enteral Temprana</strong>.
+                    </li>
+                    <li>
+                      Usar la <strong>Clasificación de Atlanta</strong> para
+                      hablar un lenguaje común.
+                    </li>
+                    <li>
+                      Reservar la <strong>TC con contraste para >72h</strong> si
+                      se busca necrosis.
+                    </li>
+                    <li>
+                      Antibióticos son
+                      <strong>terapéuticos, NO profilácticos</strong>.
+                    </li>
+                    <li>
+                      Manejar la necrosis infectada con el enfoque
+                      <strong>"Step-Up"</strong>.
+                    </li>
+                    <li>
+                      En PA Biliar Leve, la
+                      <strong
+                        >colecistectomía es en la misma hospitalización</strong
+                      >.
+                    </li>
+                    <li>
+                      El manejo de la PA grave es
+                      <strong>multidisciplinario</strong>.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="navigation">
+                <button id="prevBtn" class="nav-button" onclick="prevSlide()">
+                  Anterior
+                </button>
+                <div id="slideCounter" class="slide-counter">1 / 14</div>
+                <button id="nextBtn" class="nav-button" onclick="nextSlide()">
+                  Siguiente
+                </button>
+              </div>
             </div>
+          </div>
         </div>
 
         <!-- Acordeón 3: Actividad ABP Mejorada -->
         <div class="accordion-item">
-            <div class="accordion-header">3. Actividad de Aprendizaje Basado en Problemas (ABP)</div>
-            <div class="accordion-content">
-                <div class="interactive-container">
-                    <!-- Fase 1: Presentación del Problema -->
-                    <div id="abp-phase-1" class="abp-phase">
-                        <h3>Fase 1: Presentación del Problema (Caso Clínico)</h3>
-                        <p>Un hombre de 48 años acude a emergencias por un dolor abdominal intenso de 12 horas de evolución. Tiene antecedentes de consumo "social" de alcohol y episodios previos de dolor en hipocondrio derecho postprandial no estudiados.</p>
-                        <p><strong>Examen Físico:</strong> Ansioso, diaforético. FC: 110 lpm, PA: 125/80 mmHg, FR: 22 rpm, T: 37.8 °C. Dolor a la palpación en epigastrio, defensa voluntaria. Ruidos hidroaéreos disminuidos.</p>
-                        <p><strong>Laboratorio Inicial:</strong> Leucocitos: 14,500/mm³ (>10% bandas), BUN: 28 mg/dL, Hematocrito: 47%, Lipasa: 2500 U/L (VN <60 U/L).</p>
-                    </div>
+          <div class="accordion-header">
+            3. Actividad de Aprendizaje Basado en Problemas (ABP)
+          </div>
+          <div class="accordion-content">
+            <div class="interactive-container">
+              <!-- Fase 1: Presentación del Problema -->
+              <div id="abp-phase-1" class="abp-phase">
+                <h3>Fase 1: Presentación del Problema (Caso Clínico)</h3>
+                <p>
+                  Un hombre de 48 años acude a emergencias por un dolor
+                  abdominal intenso de 12 horas de evolución. Tiene antecedentes
+                  de consumo "social" de alcohol y episodios previos de dolor en
+                  hipocondrio derecho postprandial no estudiados.
+                </p>
+                <p>
+                  <strong>Examen Físico:</strong> Ansioso, diaforético. FC: 110
+                  lpm, PA: 125/80 mmHg, FR: 22 rpm, T: 37.8 °C. Dolor a la
+                  palpación en epigastrio, defensa voluntaria. Ruidos
+                  hidroaéreos disminuidos.
+                </p>
+                <p>
+                  <strong>Laboratorio Inicial:</strong> Leucocitos: 14,500/mm³
+                  (>10% bandas), BUN: 28 mg/dL, Hematocrito: 47%, Lipasa: 2500
+                  U/L (VN <60 U/L).
+                </p>
+              </div>
 
-                    <!-- Fase 2: Formulación de Hipótesis -->
-                    <div id="abp-phase-2" class="abp-phase">
-                        <h3>Fase 2: Formulación de Hipótesis y Objetivos de Aprendizaje</h3>
-                        <p>Basado en el caso, ¿cuáles son tus hipótesis diagnósticas? ¿Qué necesitas aprender para manejar a este paciente?</p>
-                        <textarea id="abp-hypothesis-board" placeholder="Escribe aquí tus hipótesis. Ej: Pancreatitis aguda de origen biliar vs. alcohólica..."></textarea>
-                        <p class="mt-4">Define tus objetivos de aprendizaje:</p>
-                        <textarea id="abp-learning-objectives" placeholder="Escribe aquí lo que necesitas investigar. Ej: Criterios de severidad, manejo de fluidos..."></textarea>
-                        <button class="abp-reveal-button" onclick="revealNextPhase('abp-phase-3')">Continuar al Estudio</button>
-                    </div>
+              <!-- Fase 2: Formulación de Hipótesis -->
+              <div id="abp-phase-2" class="abp-phase">
+                <h3>
+                  Fase 2: Formulación de Hipótesis y Objetivos de Aprendizaje
+                </h3>
+                <p>
+                  Basado en el caso, ¿cuáles son tus hipótesis diagnósticas?
+                  ¿Qué necesitas aprender para manejar a este paciente?
+                </p>
+                <textarea
+                  id="abp-hypothesis-board"
+                  placeholder="Escribe aquí tus hipótesis. Ej: Pancreatitis aguda de origen biliar vs. alcohólica..."
+                ></textarea>
+                <p class="mt-4">Define tus objetivos de aprendizaje:</p>
+                <textarea
+                  id="abp-learning-objectives"
+                  placeholder="Escribe aquí lo que necesitas investigar. Ej: Criterios de severidad, manejo de fluidos..."
+                ></textarea>
+                <button
+                  class="abp-reveal-button"
+                  onclick="revealNextPhase('abp-phase-3')"
+                >
+                  Continuar al Estudio
+                </button>
+              </div>
 
-                    <!-- Fase 3: Estudio y Evolución del Caso -->
-                    <div id="abp-phase-3" class="abp-phase abp-hidden">
-                        <h3>Fase 3: Estudio y Evolución del Caso</h3>
-                        <p><strong>(Periodo de estudio simulado)</strong> Ahora que has investigado tus objetivos, se presenta la evolución del paciente.</p>
-                        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
-                            <p class="font-bold">Evolución a las 48 horas:</p>
-                            <p>A pesar del manejo inicial, el paciente persiste con taquicardia (115 lpm) y taquipnea (24 rpm). Ahora requiere oxígeno suplementario. Su BUN ha aumentado a 35 mg/dL y la creatinina a 1.9 mg/dL.</p>
-                            <p class="font-bold mt-2">Hallazgo de TC (a las 72h):</p>
-                            <p>Páncreas aumentado de tamaño con áreas que no realzan con contraste, afectando ~40% de la glándula. Colección líquida heterogénea, no encapsulada, en la región peripancreática.</p>
-                        </div>
-                        <button class="abp-reveal-button" onclick="revealNextPhase('abp-phase-4')">Continuar a la Toma de Decisiones</button>
-                    </div>
-
-                    <!-- Fase 4: Toma de Decisiones -->
-                    <div id="abp-phase-4" class="abp-phase abp-hidden">
-                        <h3>Fase 4: Toma de Decisiones sobre el Caso Complicado</h3>
-                        <div class="abp-decision-section">
-                            <p><strong>1. Con la nueva información, ¿cómo clasifica la severidad de la pancreatitis según Atlanta 2012?</strong></p>
-                            <input type="radio" name="sev" value="leve"> Leve<br>
-                            <input type="radio" name="sev" value="mod"> Moderadamente Grave<br>
-                            <input type="radio" name="sev" value="grave"> Grave<br>
-                            <button class="verify" onclick="checkAbpDecision('sev')">Verificar</button>
-                            <div id="feedback-sev" class="abp-feedback abp-hidden"></div>
-                        </div>
-                        <div class="abp-decision-section">
-                            <p><strong>2. ¿Cómo se denomina la complicación local vista en la TC?</strong></p>
-                            <input type="radio" name="comp" value="apfc"> Colección Líquida Aguda (APFC)<br>
-                            <input type="radio" name="comp" value="anc"> Colección Necrótica Aguda (ANC)<br>
-                            <input type="radio" name="comp" value="won"> Necrosis Encapsulada (WON)<br>
-                            <button class="verify" onclick="checkAbpDecision('comp')">Verificar</button>
-                            <div id="feedback-comp" class="abp-feedback abp-hidden"></div>
-                        </div>
-                         <div class="abp-decision-section">
-                            <p><strong>3. En el día 10, el paciente desarrolla fiebre (39°C) y leucocitosis (18,000). ¿Cuál es la sospecha principal y la conducta a seguir?</strong></p>
-                            <input type="radio" name="manejo" value="atb"> Iniciar antibióticos empíricos y observar.<br>
-                            <input type="radio" name="manejo" value="stepup"> Iniciar antibióticos y considerar drenaje mínimamente invasivo (Step-Up).<br>
-                            <input type="radio" name="manejo" value="cx"> Proceder a cirugía abierta (necrosectomía) de inmediato.<br>
-                            <button class="verify" onclick="checkAbpDecision('manejo')">Verificar</button>
-                            <div id="feedback-manejo" class="abp-feedback abp-hidden"></div>
-                        </div>
-                    </div>
+              <!-- Fase 3: Estudio y Evolución del Caso -->
+              <div id="abp-phase-3" class="abp-phase abp-hidden">
+                <h3>Fase 3: Estudio y Evolución del Caso</h3>
+                <p>
+                  <strong>(Periodo de estudio simulado)</strong> Ahora que has
+                  investigado tus objetivos, se presenta la evolución del
+                  paciente.
+                </p>
+                <div
+                  class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
+                  role="alert"
+                >
+                  <p class="font-bold">Evolución a las 48 horas:</p>
+                  <p>
+                    A pesar del manejo inicial, el paciente persiste con
+                    taquicardia (115 lpm) y taquipnea (24 rpm). Ahora requiere
+                    oxígeno suplementario. Su BUN ha aumentado a 35 mg/dL y la
+                    creatinina a 1.9 mg/dL.
+                  </p>
+                  <p class="font-bold mt-2">Hallazgo de TC (a las 72h):</p>
+                  <p>
+                    Páncreas aumentado de tamaño con áreas que no realzan con
+                    contraste, afectando ~40% de la glándula. Colección líquida
+                    heterogénea, no encapsulada, en la región peripancreática.
+                  </p>
                 </div>
+                <button
+                  class="abp-reveal-button"
+                  onclick="revealNextPhase('abp-phase-4')"
+                >
+                  Continuar a la Toma de Decisiones
+                </button>
+              </div>
+
+              <!-- Fase 4: Toma de Decisiones -->
+              <div id="abp-phase-4" class="abp-phase abp-hidden">
+                <h3>Fase 4: Toma de Decisiones sobre el Caso Complicado</h3>
+                <div class="abp-decision-section">
+                  <p>
+                    <strong
+                      >1. Con la nueva información, ¿cómo clasifica la severidad
+                      de la pancreatitis según Atlanta 2012?</strong
+                    >
+                  </p>
+                  <input type="radio" name="sev" value="leve" /> Leve<br />
+                  <input type="radio" name="sev" value="mod" /> Moderadamente
+                  Grave<br />
+                  <input type="radio" name="sev" value="grave" /> Grave<br />
+                  <button class="verify" onclick="checkAbpDecision('sev')">
+                    Verificar
+                  </button>
+                  <div id="feedback-sev" class="abp-feedback abp-hidden"></div>
+                </div>
+                <div class="abp-decision-section">
+                  <p>
+                    <strong
+                      >2. ¿Cómo se denomina la complicación local vista en la
+                      TC?</strong
+                    >
+                  </p>
+                  <input type="radio" name="comp" value="apfc" /> Colección
+                  Líquida Aguda (APFC)<br />
+                  <input type="radio" name="comp" value="anc" /> Colección
+                  Necrótica Aguda (ANC)<br />
+                  <input type="radio" name="comp" value="won" /> Necrosis
+                  Encapsulada (WON)<br />
+                  <button class="verify" onclick="checkAbpDecision('comp')">
+                    Verificar
+                  </button>
+                  <div id="feedback-comp" class="abp-feedback abp-hidden"></div>
+                </div>
+                <div class="abp-decision-section">
+                  <p>
+                    <strong
+                      >3. En el día 10, el paciente desarrolla fiebre (39°C) y
+                      leucocitosis (18,000). ¿Cuál es la sospecha principal y la
+                      conducta a seguir?</strong
+                    >
+                  </p>
+                  <input type="radio" name="manejo" value="atb" /> Iniciar
+                  antibióticos empíricos y observar.<br />
+                  <input type="radio" name="manejo" value="stepup" /> Iniciar
+                  antibióticos y considerar drenaje mínimamente invasivo
+                  (Step-Up).<br />
+                  <input type="radio" name="manejo" value="cx" /> Proceder a
+                  cirugía abierta (necrosectomía) de inmediato.<br />
+                  <button class="verify" onclick="checkAbpDecision('manejo')">
+                    Verificar
+                  </button>
+                  <div
+                    id="feedback-manejo"
+                    class="abp-feedback abp-hidden"
+                  ></div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
 
         <!-- Acordeón 4: Banco de Preguntas -->
         <div class="accordion-item">
-            <div class="accordion-header">4. Autoevaluación Interactiva (Quiz)</div>
-            <div class="accordion-content">
-                <div class="interactive-container">
-                    <div id="quiz-container">
-                        <h1>Autoevaluación Interactiva</h1>
-                        <div id="quiz-question-area">
-                            <div id="quiz-vignette-text" class="quiz-vignette"></div>
-                            <p id="quiz-question-text" class="quiz-question-text"></p>
-                            <div id="quiz-options-container" class="quiz-options"></div>
-                        </div>
-                        <div id="quiz-navigation">
-                            <button id="quiz-nav-button" onclick="nextQuizQuestion()">Siguiente Pregunta</button>
-                        </div>
-                        <div id="quiz-results-area" style="display:none;">
-                            <h2 style="text-align:center;">Resultados y Revisión Pedagógica</h2>
-                            <p style="text-align:center; font-size: 1.2em;" id="quiz-score"></p>
-                            <div id="quiz-review-container"></div>
-                        </div>
-                    </div>
+          <div class="accordion-header">
+            4. Autoevaluación Interactiva (Quiz)
+          </div>
+          <div class="accordion-content">
+            <div class="interactive-container">
+              <div id="quiz-container">
+                <h1>Autoevaluación Interactiva</h1>
+                <div id="quiz-question-area">
+                  <div id="quiz-vignette-text" class="quiz-vignette"></div>
+                  <p id="quiz-question-text" class="quiz-question-text"></p>
+                  <div id="quiz-options-container" class="quiz-options"></div>
                 </div>
+                <div id="quiz-navigation">
+                  <button id="quiz-nav-button" onclick="nextQuizQuestion()">
+                    Siguiente Pregunta
+                  </button>
+                </div>
+                <div id="quiz-results-area" style="display: none">
+                  <h2 style="text-align: center">
+                    Resultados y Revisión Pedagógica
+                  </h2>
+                  <p
+                    style="text-align: center; font-size: 1.2em"
+                    id="quiz-score"
+                  ></p>
+                  <div id="quiz-review-container"></div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<script>
-    function adjustAccordionHeight(element) {
+    <script>
+      function adjustAccordionHeight(element) {
         const accordionContent = element.closest('.accordion-content');
         if (accordionContent && accordionContent.style.maxHeight !== '0px') {
-            accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+          accordionContent.style.maxHeight =
+            accordionContent.scrollHeight + 'px';
         }
-    }
+      }
 
-    document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('DOMContentLoaded', () => {
         const accordionItems = document.querySelectorAll('.accordion-item');
-        accordionItems.forEach(item => {
-            const header = item.querySelector('.accordion-header');
-            header.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                accordionItems.forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.accordion-content').style.maxHeight = null;
-                });
-                if (!isActive) {
-                    item.classList.add('active');
-                    const content = item.querySelector('.accordion-content');
-                    content.style.maxHeight = content.scrollHeight + 60 + "px";
-                }
+        accordionItems.forEach((item) => {
+          const header = item.querySelector('.accordion-header');
+          header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            accordionItems.forEach((i) => {
+              i.classList.remove('active');
+              i.querySelector('.accordion-content').style.maxHeight = null;
             });
+            if (!isActive) {
+              item.classList.add('active');
+              const content = item.querySelector('.accordion-content');
+              content.style.maxHeight = content.scrollHeight + 60 + 'px';
+            }
+          });
         });
         showSlide(0);
-    });
+      });
 
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const slideCounter = document.getElementById('slideCounter');
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.slide');
+      const totalSlides = slides.length;
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideCounter = document.getElementById('slideCounter');
 
-    function showSlide(index) {
+      function showSlide(index) {
         if (slides.length === 0) return;
-        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        slides.forEach((slide, i) =>
+          slide.classList.toggle('active', i === index),
+        );
         currentSlide = index;
         updateNav();
-    }
-    function nextSlide() { if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1); }
-    function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
-    function updateNav() {
-        if(slideCounter) slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
-        if(prevBtn) prevBtn.disabled = currentSlide === 0;
-        if(nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
-    }
+      }
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+      }
+      function prevSlide() {
+        if (currentSlide > 0) showSlide(currentSlide - 1);
+      }
+      function updateNav() {
+        if (slideCounter)
+          slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        if (prevBtn) prevBtn.disabled = currentSlide === 0;
+        if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
+      }
 
-    // --- Lógica de la Actividad ABP Mejorada ---
-    function revealNextPhase(phaseId) {
+      // --- Lógica de la Actividad ABP Mejorada ---
+      function revealNextPhase(phaseId) {
         const nextPhase = document.getElementById(phaseId);
         if (nextPhase) {
-            nextPhase.classList.remove('abp-hidden');
-            adjustAccordionHeight(nextPhase);
+          nextPhase.classList.remove('abp-hidden');
+          adjustAccordionHeight(nextPhase);
         }
-    }
+      }
 
-    function checkAbpDecision(decisionType) {
+      function checkAbpDecision(decisionType) {
         let feedbackText = '';
         let isCorrect = false;
         let feedbackElement;
-        const selectedValue = document.querySelector(`input[name="${decisionType}"]:checked`)?.value;
+        const selectedValue = document.querySelector(
+          `input[name="${decisionType}"]:checked`,
+        )?.value;
 
         if (!selectedValue) {
-            alert('Por favor, seleccione una opción.');
-            return;
+          alert('Por favor, seleccione una opción.');
+          return;
         }
 
-        switch(decisionType) {
-            case 'sev':
-                feedbackElement = document.getElementById('feedback-sev');
-                if (selectedValue === 'grave') {
-                    feedbackText = '<strong>Correcto.</strong> La persistencia de falla orgánica (renal y respiratoria) por más de 48 horas clasifica el cuadro como Pancreatitis Aguda Grave.';
-                    isCorrect = true;
-                } else {
-                    feedbackText = '<strong>Incorrecto.</strong> La presencia de fallo orgánico persistente define la pancreatitis como Grave, no Leve o Moderada.';
-                }
-                break;
-            case 'comp':
-                feedbackElement = document.getElementById('feedback-comp');
-                if (selectedValue === 'anc') {
-                    feedbackText = '<strong>Correcto.</strong> Es una colección heterogénea (líquido y necrosis) que ocurre en las primeras 4 semanas en el contexto de una pancreatitis necrotizante, por lo que se define como Colección Necrótica Aguda (ANC).';
-                    isCorrect = true;
-                } else {
-                    feedbackText = '<strong>Incorrecto.</strong> No es una APFC porque hay necrosis. No es una WON porque tiene menos de 4 semanas de evolución y no está completamente encapsulada.';
-                }
-                break;
-            case 'manejo':
-                feedbackElement = document.getElementById('feedback-manejo');
-                if (selectedValue === 'stepup') {
-                    feedbackText = '<strong>Correcto.</strong> La sospecha es necrosis infectada. El manejo adecuado es iniciar antibióticos terapéuticos y seguir el enfoque "Step-Up", considerando el drenaje mínimamente invasivo como siguiente paso si no hay mejoría.';
-                    isCorrect = true;
-                } else {
-                    feedbackText = '<strong>Incorrecto.</strong> La cirugía abierta inmediata tiene una alta mortalidad y es el último recurso. Iniciar solo antibióticos puede ser insuficiente si hay una colección infectada que requiere drenaje.';
-                }
-                break;
+        switch (decisionType) {
+          case 'sev':
+            feedbackElement = document.getElementById('feedback-sev');
+            if (selectedValue === 'grave') {
+              feedbackText =
+                '<strong>Correcto.</strong> La persistencia de falla orgánica (renal y respiratoria) por más de 48 horas clasifica el cuadro como Pancreatitis Aguda Grave.';
+              isCorrect = true;
+            } else {
+              feedbackText =
+                '<strong>Incorrecto.</strong> La presencia de fallo orgánico persistente define la pancreatitis como Grave, no Leve o Moderada.';
+            }
+            break;
+          case 'comp':
+            feedbackElement = document.getElementById('feedback-comp');
+            if (selectedValue === 'anc') {
+              feedbackText =
+                '<strong>Correcto.</strong> Es una colección heterogénea (líquido y necrosis) que ocurre en las primeras 4 semanas en el contexto de una pancreatitis necrotizante, por lo que se define como Colección Necrótica Aguda (ANC).';
+              isCorrect = true;
+            } else {
+              feedbackText =
+                '<strong>Incorrecto.</strong> No es una APFC porque hay necrosis. No es una WON porque tiene menos de 4 semanas de evolución y no está completamente encapsulada.';
+            }
+            break;
+          case 'manejo':
+            feedbackElement = document.getElementById('feedback-manejo');
+            if (selectedValue === 'stepup') {
+              feedbackText =
+                '<strong>Correcto.</strong> La sospecha es necrosis infectada. El manejo adecuado es iniciar antibióticos terapéuticos y seguir el enfoque "Step-Up", considerando el drenaje mínimamente invasivo como siguiente paso si no hay mejoría.';
+              isCorrect = true;
+            } else {
+              feedbackText =
+                '<strong>Incorrecto.</strong> La cirugía abierta inmediata tiene una alta mortalidad y es el último recurso. Iniciar solo antibióticos puede ser insuficiente si hay una colección infectada que requiere drenaje.';
+            }
+            break;
         }
 
         feedbackElement.innerHTML = feedbackText;
         feedbackElement.className = `abp-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
         feedbackElement.classList.remove('abp-hidden');
         adjustAccordionHeight(feedbackElement);
-    }
+      }
 
-    // --- Lógica del Quiz Interactivo ---
-    const quizData = [
-        { vignette: "Un paciente de 45 años ingresa con dolor epigástrico intenso y lipasa de 450 U/L (LSN 120).", question: "¿Cuál es el siguiente paso para confirmar el diagnóstico de pancreatitis aguda?", options: ["Solicitar TC abdominal", "Realizar ecografía abdominal", "Iniciar manejo, el diagnóstico está establecido", "Medir amilasa sérica"], correctAnswer: 2, justification: "El diagnóstico de PA requiere 2 de 3 criterios (clínica, enzimas ≥3x LSN, imagen). Este paciente ya cumple 2, por lo que el diagnóstico está hecho y se debe iniciar el manejo." },
-        { vignette: "Mujer de 38 años con primer episodio de pancreatitis aguda biliar leve, ya recuperada.", question: "¿Cuál es el manejo definitivo recomendado?", options: ["Alta y colecistectomía en 6 semanas", "Realizar colecistectomía en la misma hospitalización", "Tratamiento con ácido ursodesoxicólico", "Dieta baja en grasas y seguimiento"], correctAnswer: 1, justification: "En PA biliar leve, las guías recomiendan la colecistectomía durante la misma hospitalización para prevenir la alta tasa de recurrencia." }
-    ];
-    let currentQuizQuestionIndex = 0;
-    let userAnswers = [];
-    let score = 0;
+      // --- Lógica del Quiz Interactivo ---
+      const quizData = [
+        {
+          vignette:
+            'Un paciente de 45 años ingresa con dolor epigástrico intenso y lipasa de 450 U/L (LSN 120).',
+          question:
+            '¿Cuál es el siguiente paso para confirmar el diagnóstico de pancreatitis aguda?',
+          options: [
+            'Solicitar TC abdominal',
+            'Realizar ecografía abdominal',
+            'Iniciar manejo, el diagnóstico está establecido',
+            'Medir amilasa sérica',
+          ],
+          correctAnswer: 2,
+          justification:
+            'El diagnóstico de PA requiere 2 de 3 criterios (clínica, enzimas ≥3x LSN, imagen). Este paciente ya cumple 2, por lo que el diagnóstico está hecho y se debe iniciar el manejo.',
+        },
+        {
+          vignette:
+            'Mujer de 38 años con primer episodio de pancreatitis aguda biliar leve, ya recuperada.',
+          question: '¿Cuál es el manejo definitivo recomendado?',
+          options: [
+            'Alta y colecistectomía en 6 semanas',
+            'Realizar colecistectomía en la misma hospitalización',
+            'Tratamiento con ácido ursodesoxicólico',
+            'Dieta baja en grasas y seguimiento',
+          ],
+          correctAnswer: 1,
+          justification:
+            'En PA biliar leve, las guías recomiendan la colecistectomía durante la misma hospitalización para prevenir la alta tasa de recurrencia.',
+        },
+      ];
+      let currentQuizQuestionIndex = 0;
+      let userAnswers = [];
+      let score = 0;
 
-    function displayQuizQuestion() {
+      function displayQuizQuestion() {
         if (currentQuizQuestionIndex < quizData.length) {
-            const q = quizData[currentQuizQuestionIndex];
-            document.getElementById('quiz-vignette-text').textContent = q.vignette;
-            document.getElementById('quiz-question-text').textContent = q.question;
-            const optionsContainer = document.getElementById('quiz-options-container');
-            optionsContainer.innerHTML = '';
-            q.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
-                button.onclick = () => selectQuizOption(index, button);
-                optionsContainer.appendChild(button);
-            });
-            document.getElementById('quiz-nav-button').textContent = currentQuizQuestionIndex === quizData.length - 1 ? "Finalizar y Ver Resultados" : "Siguiente Pregunta";
+          const q = quizData[currentQuizQuestionIndex];
+          document.getElementById('quiz-vignette-text').textContent =
+            q.vignette;
+          document.getElementById('quiz-question-text').textContent =
+            q.question;
+          const optionsContainer = document.getElementById(
+            'quiz-options-container',
+          );
+          optionsContainer.innerHTML = '';
+          q.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+            button.onclick = () => selectQuizOption(index, button);
+            optionsContainer.appendChild(button);
+          });
+          document.getElementById('quiz-nav-button').textContent =
+            currentQuizQuestionIndex === quizData.length - 1
+              ? 'Finalizar y Ver Resultados'
+              : 'Siguiente Pregunta';
         } else {
-            showQuizResults();
+          showQuizResults();
         }
-    }
+      }
 
-    function selectQuizOption(index, button) {
-        const options = document.querySelectorAll('#quiz-options-container button');
-        options.forEach(btn => { btn.classList.remove('selected'); btn.disabled = true; });
+      function selectQuizOption(index, button) {
+        const options = document.querySelectorAll(
+          '#quiz-options-container button',
+        );
+        options.forEach((btn) => {
+          btn.classList.remove('selected');
+          btn.disabled = true;
+        });
         button.classList.add('selected');
         userAnswers[currentQuizQuestionIndex] = index;
-    }
+      }
 
-    function nextQuizQuestion() {
+      function nextQuizQuestion() {
         if (userAnswers[currentQuizQuestionIndex] === undefined) {
-            alert("Por favor, seleccione una opción.");
-            return;
+          alert('Por favor, seleccione una opción.');
+          return;
         }
         currentQuizQuestionIndex++;
         displayQuizQuestion();
-    }
+      }
 
-    function showQuizResults() {
+      function showQuizResults() {
         document.getElementById('quiz-question-area').style.display = 'none';
         document.getElementById('quiz-navigation').style.display = 'none';
         const resultsArea = document.getElementById('quiz-results-area');
         resultsArea.style.display = 'block';
         score = 0;
-        for (let i = 0; i < quizData.length; i++) { if (userAnswers[i] === quizData[i].correctAnswer) { score++; } }
-        document.getElementById('quiz-score').textContent = `Su puntaje: ${score} de ${quizData.length} (${(score / quizData.length * 100).toFixed(0)}%)`;
-        const reviewContainer = document.getElementById('quiz-review-container');
+        for (let i = 0; i < quizData.length; i++) {
+          if (userAnswers[i] === quizData[i].correctAnswer) {
+            score++;
+          }
+        }
+        document.getElementById('quiz-score').textContent =
+          `Su puntaje: ${score} de ${quizData.length} (${((score / quizData.length) * 100).toFixed(0)}%)`;
+        const reviewContainer = document.getElementById(
+          'quiz-review-container',
+        );
         reviewContainer.innerHTML = '';
         quizData.forEach((q, i) => {
-            const resultItem = document.createElement('div');
-            resultItem.classList.add('quiz-result-item', userAnswers[i] === q.correctAnswer ? 'correct' : 'incorrect');
-            let reviewHTML = `<p class="quiz-vignette">${q.vignette}</p><p><strong>Su respuesta:</strong> ${q.options[userAnswers[i]]}</p><p><strong>Respuesta correcta:</strong> ${q.options[q.correctAnswer]}</p>`;
-            reviewHTML += `<div class="quiz-justification"><p><strong>Justificación:</strong> ${q.justification}</p></div>`;
-            resultItem.innerHTML = reviewHTML;
-            reviewContainer.appendChild(resultItem);
+          const resultItem = document.createElement('div');
+          resultItem.classList.add(
+            'quiz-result-item',
+            userAnswers[i] === q.correctAnswer ? 'correct' : 'incorrect',
+          );
+          let reviewHTML = `<p class="quiz-vignette">${q.vignette}</p><p><strong>Su respuesta:</strong> ${q.options[userAnswers[i]]}</p><p><strong>Respuesta correcta:</strong> ${q.options[q.correctAnswer]}</p>`;
+          reviewHTML += `<div class="quiz-justification"><p><strong>Justificación:</strong> ${q.justification}</p></div>`;
+          resultItem.innerHTML = reviewHTML;
+          reviewContainer.appendChild(resultItem);
         });
         adjustAccordionHeight(reviewContainer);
-    }
+      }
 
-    const quizAccordionHeader = document.querySelector('.accordion-item:nth-child(4) .accordion-header');
-    if (quizAccordionHeader) {
+      const quizAccordionHeader = document.querySelector(
+        '.accordion-item:nth-child(4) .accordion-header',
+      );
+      if (quizAccordionHeader) {
         quizAccordionHeader.addEventListener('click', () => {
-            if(currentQuizQuestionIndex === 0 && userAnswers.length === 0) {
-                displayQuizQuestion();
-            }
+          if (currentQuizQuestionIndex === 0 && userAnswers.length === 0) {
+            displayQuizQuestion();
+          }
         });
-    }
-
-</script>
-
-</body>
+      }
+    </script>
+  </body>
 </html>

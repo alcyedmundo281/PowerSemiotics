@@ -1,75 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Banco de Conocimientos: Enfermedad Hepática I</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .content-section h2 { font-size: 1.875rem; font-weight: 800; color: #1e3a8a; border-bottom: 3px solid #93c5fd; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
-        .content-section h3 { font-size: 1.5rem; font-weight: 700; color: #1e293b; margin-top: 2rem; margin-bottom: 1rem; }
-        .pearl { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1rem; border-radius: 0 0.5rem 0.5rem 0; }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc;
+      }
+      .content-section h2 {
+        font-size: 1.875rem;
+        font-weight: 800;
+        color: #1e3a8a;
+        border-bottom: 3px solid #93c5fd;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .content-section h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+      .pearl {
+        background-color: #fffbeb;
+        border-left: 4px solid #f59e0b;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 0 0.5rem 0.5rem 0;
+      }
     </style>
-</head>
-<body class="p-4 md:p-8">
-
+  </head>
+  <body class="p-4 md:p-8">
     <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg">
-        <header class="bg-slate-800 text-white p-8 rounded-t-2xl">
-            <h1 class="text-4xl font-extrabold">Banco de Conocimientos: Enfermedad Hepática I</h1>
-            <p class="mt-2 text-lg text-slate-300">Guía Profunda sobre Hepatitis Virales y Enfermedad Hepática Grasa.</p>
-        </header>
+      <header class="bg-slate-800 text-white p-8 rounded-t-2xl">
+        <h1 class="text-4xl font-extrabold">
+          Banco de Conocimientos: Enfermedad Hepática I
+        </h1>
+        <p class="mt-2 text-lg text-slate-300">
+          Guía Profunda sobre Hepatitis Virales y Enfermedad Hepática Grasa.
+        </p>
+      </header>
 
-        <div class="p-8 content-section">
-            
-            <section>
-                <h2>Abordaje del Paciente con Enzimas Hepáticas Elevadas</h2>
-                <p class="text-gray-700">La elevación de Alanino Aminotransferasa (ALT) y Aspartato Aminotransferasa (AST) indica lesión de los hepatocitos. El primer paso es construir un diagnóstico diferencial robusto basado en la historia clínica y los factores de riesgo del paciente. Las causas más comunes en nuestro medio incluyen:</p>
-                <ul class="list-decimal list-inside space-y-2 mt-4 text-gray-600">
-                    <li>Enfermedad hepática grasa no alcohólica (NAFLD)</li>
-                    <li>Hepatitis virales crónicas (VHB, VHC)</li>
-                    <li>Enfermedad hepática por alcohol</li>
-                    <li>Hepatitis autoinmune</li>
-                    <li>Causas menos comunes: hemocromatosis, enfermedad de Wilson, déficit de alfa-1-antitripsina.</li>
-                </ul>
-            </section>
-            
-            <section class="mt-12">
-                <h2>Hepatitis Virales: Un Enfoque Práctico</h2>
-                <h3 class="border-t pt-6 mt-8">Interpretación de la Serología de Hepatitis B</h3>
-                <p class="text-gray-700">La serología del VHB puede ser confusa. La clave es entender qué significa cada marcador:</p>
-                <div class="overflow-x-auto mt-6">
-                    <table class="w-full text-sm text-left">
-                        <thead class="bg-slate-100"><tr><th class="p-3 font-bold">Marcador</th><th class="p-3 font-bold">Significado Clínico</th></tr></thead>
-                        <tbody class="divide-y">
-                            <tr class="hover:bg-slate-50"><td class="p-3 font-semibold">HBsAg (Antígeno de Superficie)</td><td class="p-3">Indica **infección activa** (aguda o crónica). Es la primera prueba a solicitar.</td></tr>
-                            <tr class="hover:bg-slate-50"><td class="p-3 font-semibold">Anti-HBs (Anticuerpo de Superficie)</td><td class="p-3">Indica **inmunidad protectora**, ya sea por vacunación o por curación de una infección pasada.</td></tr>
-                            <tr class="hover:bg-slate-50"><td class="p-3 font-semibold">Anti-HBc (Anticuerpo del Core)</td><td class="p-3">Indica **contacto previo** con el virus. No se produce por la vacuna. <strong>IgM:</strong> contacto reciente (agudo). <strong>IgG:</strong> contacto pasado.</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                 <div class="pearl">
-                    <p class="font-semibold text-amber-900">Perla Clínica: El "Período de Ventana"</p>
-                    <p class="text-amber-800 text-sm mt-1">Existe un momento en la infección aguda donde el HBsAg ya ha desaparecido pero el Anti-HBs aún no es detectable. En este "período de ventana", el único marcador positivo es el **Anti-HBc IgM**, siendo crucial para el diagnóstico.</p>
-                </div>
-            </section>
+      <div class="p-8 content-section">
+        <section>
+          <h2>Abordaje del Paciente con Enzimas Hepáticas Elevadas</h2>
+          <p class="text-gray-700">
+            La elevación de Alanino Aminotransferasa (ALT) y Aspartato
+            Aminotransferasa (AST) indica lesión de los hepatocitos. El primer
+            paso es construir un diagnóstico diferencial robusto basado en la
+            historia clínica y los factores de riesgo del paciente. Las causas
+            más comunes en nuestro medio incluyen:
+          </p>
+          <ul class="list-decimal list-inside space-y-2 mt-4 text-gray-600">
+            <li>Enfermedad hepática grasa no alcohólica (NAFLD)</li>
+            <li>Hepatitis virales crónicas (VHB, VHC)</li>
+            <li>Enfermedad hepática por alcohol</li>
+            <li>Hepatitis autoinmune</li>
+            <li>
+              Causas menos comunes: hemocromatosis, enfermedad de Wilson,
+              déficit de alfa-1-antitripsina.
+            </li>
+          </ul>
+        </section>
 
-            <section class="mt-12">
-                <h2>La Epidemia Silenciosa: Enfermedad Hepática Grasa No Alcohólica (NAFLD)</h2>
-                <p class="text-gray-700">Es la manifestación hepática del síndrome metabólico.</p>
-                <h3 class="border-t pt-6 mt-8">Del Hígado Graso a la Cirrosis</h3>
-                <ul class="list-disc list-inside space-y-2 mt-4 text-gray-600">
-                    <li><strong>Esteatosis (NAFLD):</strong> Acumulación simple de grasa. En general, de bajo riesgo.</li>
-                    <li><strong>Esteatohepatitis (NASH):</strong> Grasa + Inflamación + Daño hepatocelular. Esta es la forma peligrosa que puede progresar a fibrosis.</li>
-                    <li><strong>Fibrosis y Cirrosis:</strong> La inflamación crónica de la NASH causa cicatrización (fibrosis). Con el tiempo, esta fibrosis extensa y desestructurada se convierte en cirrosis, con riesgo de insuficiencia hepática y cáncer de hígado.</li>
-                </ul>
-                <div class="pearl">
-                    <p class="font-semibold text-amber-900">Perla Clínica: El Ratio AST/ALT</p>
-                    <p class="text-amber-800 text-sm mt-1">En la mayoría de las enfermedades hepáticas crónicas, incluyendo NAFLD y hepatitis virales, el patrón típico es **ALT > AST**. Un ratio invertido (**AST > ALT**, especialmente > 2:1) es altamente sugestivo de enfermedad hepática por alcohol.</p>
-                </div>
-            </section>
-        </div>
+        <section class="mt-12">
+          <h2>Hepatitis Virales: Un Enfoque Práctico</h2>
+          <h3 class="border-t pt-6 mt-8">
+            Interpretación de la Serología de Hepatitis B
+          </h3>
+          <p class="text-gray-700">
+            La serología del VHB puede ser confusa. La clave es entender qué
+            significa cada marcador:
+          </p>
+          <div class="overflow-x-auto mt-6">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-100">
+                <tr>
+                  <th class="p-3 font-bold">Marcador</th>
+                  <th class="p-3 font-bold">Significado Clínico</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y">
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold">
+                    HBsAg (Antígeno de Superficie)
+                  </td>
+                  <td class="p-3">
+                    Indica **infección activa** (aguda o crónica). Es la primera
+                    prueba a solicitar.
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold">
+                    Anti-HBs (Anticuerpo de Superficie)
+                  </td>
+                  <td class="p-3">
+                    Indica **inmunidad protectora**, ya sea por vacunación o por
+                    curación de una infección pasada.
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3 font-semibold">
+                    Anti-HBc (Anticuerpo del Core)
+                  </td>
+                  <td class="p-3">
+                    Indica **contacto previo** con el virus. No se produce por
+                    la vacuna. <strong>IgM:</strong> contacto reciente (agudo).
+                    <strong>IgG:</strong> contacto pasado.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pearl">
+            <p class="font-semibold text-amber-900">
+              Perla Clínica: El "Período de Ventana"
+            </p>
+            <p class="text-amber-800 text-sm mt-1">
+              Existe un momento en la infección aguda donde el HBsAg ya ha
+              desaparecido pero el Anti-HBs aún no es detectable. En este
+              "período de ventana", el único marcador positivo es el **Anti-HBc
+              IgM**, siendo crucial para el diagnóstico.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-12">
+          <h2>
+            La Epidemia Silenciosa: Enfermedad Hepática Grasa No Alcohólica
+            (NAFLD)
+          </h2>
+          <p class="text-gray-700">
+            Es la manifestación hepática del síndrome metabólico.
+          </p>
+          <h3 class="border-t pt-6 mt-8">Del Hígado Graso a la Cirrosis</h3>
+          <ul class="list-disc list-inside space-y-2 mt-4 text-gray-600">
+            <li>
+              <strong>Esteatosis (NAFLD):</strong> Acumulación simple de grasa.
+              En general, de bajo riesgo.
+            </li>
+            <li>
+              <strong>Esteatohepatitis (NASH):</strong> Grasa + Inflamación +
+              Daño hepatocelular. Esta es la forma peligrosa que puede progresar
+              a fibrosis.
+            </li>
+            <li>
+              <strong>Fibrosis y Cirrosis:</strong> La inflamación crónica de la
+              NASH causa cicatrización (fibrosis). Con el tiempo, esta fibrosis
+              extensa y desestructurada se convierte en cirrosis, con riesgo de
+              insuficiencia hepática y cáncer de hígado.
+            </li>
+          </ul>
+          <div class="pearl">
+            <p class="font-semibold text-amber-900">
+              Perla Clínica: El Ratio AST/ALT
+            </p>
+            <p class="text-amber-800 text-sm mt-1">
+              En la mayoría de las enfermedades hepáticas crónicas, incluyendo
+              NAFLD y hepatitis virales, el patrón típico es **ALT > AST**. Un
+              ratio invertido (**AST > ALT**, especialmente > 2:1) es altamente
+              sugestivo de enfermedad hepática por alcohol.
+            </p>
+          </div>
+        </section>
+      </div>
     </div>
-</body>
+  </body>
 </html>

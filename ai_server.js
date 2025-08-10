@@ -22,7 +22,9 @@ app.use(express.json());
 // Ensure the API key is provided
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 if (!OPENAI_API_KEY) {
-  console.warn('Warning: The OPENAI_API_KEY environment variable is not set. The server will reject requests.');
+  console.warn(
+    'Warning: The OPENAI_API_KEY environment variable is not set. The server will reject requests.',
+  );
 }
 
 /*
@@ -52,7 +54,9 @@ function buildSystemMessage(task) {
  */
 app.post('/api/chat', async (req, res) => {
   if (!OPENAI_API_KEY) {
-    return res.status(500).send('El servidor no está configurado con una clave de API de OpenAI.');
+    return res
+      .status(500)
+      .send('El servidor no está configurado con una clave de API de OpenAI.');
   }
   const { prompt, task } = req.body;
   if (typeof prompt !== 'string' || prompt.trim().length === 0) {
@@ -61,19 +65,19 @@ app.post('/api/chat', async (req, res) => {
   const systemMessage = buildSystemMessage(task);
   const messages = [
     { role: 'system', content: systemMessage },
-    { role: 'user', content: prompt }
+    { role: 'user', content: prompt },
   ];
   try {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: messages
-      })
+        messages: messages,
+      }),
     });
     if (!response.ok) {
       const errorText = await response.text();
@@ -84,7 +88,9 @@ app.post('/api/chat', async (req, res) => {
     return res.json({ result });
   } catch (err) {
     console.error(err);
-    return res.status(500).send('Error al comunicarse con el servicio de OpenAI.');
+    return res
+      .status(500)
+      .send('Error al comunicarse con el servicio de OpenAI.');
   }
 });
 
