@@ -9,9 +9,9 @@
  * task. The server constructs an appropriate system message, forwards
  * the request to OpenAI, and returns the assistant's reply as JSON.
  */
+require('dotenv').config();
 
 const express = require('express');
-// Use the global `fetch` available in modern versions of Node.js
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,7 +22,9 @@ app.use(express.json());
 // Ensure the API key is provided
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 if (!OPENAI_API_KEY) {
-  console.warn('Warning: The OPENAI_API_KEY environment variable is not set. The server will reject requests.');
+  console.warn(
+    'Advertencia: la variable de entorno OPENAI_API_KEY no está configurada. El servidor rechazará las solicitudes.',
+  );
 }
 
 /*
@@ -34,7 +36,7 @@ function buildSystemMessage(task) {
     case 'summarize':
       return 'Eres un asistente que resume textos en español de forma concisa.';
     case 'translate':
-      return 'You are a translator that translates Spanish text to English.';
+      return 'Eres un traductor que convierte textos del español al inglés.';
     case 'question':
       return 'Eres un experto que responde preguntas educativas en español.';
     case 'example':
@@ -52,7 +54,9 @@ function buildSystemMessage(task) {
  */
 app.post('/api/chat', async (req, res) => {
   if (!OPENAI_API_KEY) {
-    return res.status(500).send('El servidor no está configurado con una clave de API de OpenAI.');
+    return res
+      .status(500)
+      .send('El servidor no está configurado con una clave de API de OpenAI.');
   }
   const { prompt, task } = req.body;
   if (typeof prompt !== 'string' || prompt.trim().length === 0) {
@@ -61,30 +65,34 @@ app.post('/api/chat', async (req, res) => {
   const systemMessage = buildSystemMessage(task);
   const messages = [
     { role: 'system', content: systemMessage },
-    { role: 'user', content: prompt }
+    { role: 'user', content: prompt },
   ];
   try {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: messages
-      })
+        messages: messages,
+      }),
     });
     if (!response.ok) {
       const errorText = await response.text();
-      return res.status(response.status).send(errorText);
+      return res
+        .status(response.status)
+        .send(`Error del servicio de OpenAI: ${errorText}`);
     }
     const data = await response.json();
     const result = data.choices?.[0]?.message?.content?.trim() || '';
     return res.json({ result });
   } catch (err) {
     console.error(err);
-    return res.status(500).send('Error al comunicarse con el servicio de OpenAI.');
+    return res
+      .status(500)
+      .send('Error al comunicarse con el servicio de OpenAI.');
   }
 });
 
@@ -93,5 +101,5 @@ app.use(express.static('.'));
 
 // Start the server
 app.listen(port, () => {
-  console.log(`AI proxy server listening on http://localhost:${port}`);
+
 });

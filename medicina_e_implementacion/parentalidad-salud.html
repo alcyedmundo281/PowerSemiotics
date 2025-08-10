@@ -1,128 +1,158 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entre el Juramento y el Hogar: Parentalidad en la Profesión Sanitaria de Ecuador</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Entre el Juramento y el Hogar: Parentalidad en la Profesión Sanitaria de
+      Ecuador
+    </title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-        }
-        .prose h1, .prose h2, .prose h3 {
-            font-family: 'Lora', serif;
-            scroll-margin-top: 80px; /* Offset for sticky header */
-        }
-        .prose {
-             color: #374151;
-             line-height: 1.75;
-        }
-        .prose strong {
-            color: #111827;
-        }
-        .prose blockquote {
-            border-left-color: #2563eb;
-            font-style: italic;
-            color: #4b5563;
-        }
-        .prose table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .prose th, .prose td {
-            border: 1px solid #d1d5db;
-            padding: 0.75rem;
-        }
-        .prose th {
-            background-color: #f9fafb;
-            font-weight: 600;
-        }
-        .nav-link {
-            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-        }
-        .nav-link:hover {
-            background-color: #eff6ff;
-            border-left-color: #2563eb;
-            color: #1e3a8a;
-        }
-        .nav-link.active {
-            background-color: #dbeafe;
-            border-left-color: #1d4ed8;
-            font-weight: 600;
-            color: #1e40af;
-        }
-        /* Makes the sticky sidebar scrollable on tall-enough screens */
-        .sidebar-scrollable {
-            max-height: calc(100vh - 8rem); /* 6rem top offset + 2rem extra margin */
-            overflow-y: auto;
-        }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f3f4f6;
+      }
+      .prose h1,
+      .prose h2,
+      .prose h3 {
+        font-family: 'Lora', serif;
+        scroll-margin-top: 80px; /* Offset for sticky header */
+      }
+      .prose {
+        color: #374151;
+        line-height: 1.75;
+      }
+      .prose strong {
+        color: #111827;
+      }
+      .prose blockquote {
+        border-left-color: #2563eb;
+        font-style: italic;
+        color: #4b5563;
+      }
+      .prose table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .prose th,
+      .prose td {
+        border: 1px solid #d1d5db;
+        padding: 0.75rem;
+      }
+      .prose th {
+        background-color: #f9fafb;
+        font-weight: 600;
+      }
+      .nav-link {
+        transition:
+          background-color 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .nav-link:hover {
+        background-color: #eff6ff;
+        border-left-color: #2563eb;
+        color: #1e3a8a;
+      }
+      .nav-link.active {
+        background-color: #dbeafe;
+        border-left-color: #1d4ed8;
+        font-weight: 600;
+        color: #1e40af;
+      }
+      /* Makes the sticky sidebar scrollable on tall-enough screens */
+      .sidebar-scrollable {
+        max-height: calc(
+          100vh - 8rem
+        ); /* 6rem top offset + 2rem extra margin */
+        overflow-y: auto;
+      }
     </style>
-</head>
-<body class="text-gray-800">
-
+  </head>
+  <body class="text-gray-800">
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <span class="text-xl font-bold text-blue-900">Análisis de la Profesión Sanitaria</span>
-            </div>
-            <div>
-                <span class="text-gray-600">Monografía 2024</span>
-            </div>
-        </nav>
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-2">
+          <span class="text-xl font-bold text-blue-900"
+            >Análisis de la Profesión Sanitaria</span
+          >
+        </div>
+        <div>
+          <span class="text-gray-600">Monografía 2024</span>
+        </div>
+      </nav>
     </header>
 
     <div class="container mx-auto px-6 py-12">
-        <div class="lg:flex lg:space-x-12">
-            
-            <aside class="lg:w-1/4 mb-12 lg:mb-0">
-                <div class="bg-white p-6 rounded-lg shadow-md sticky top-24 sidebar-scrollable">
-                    <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">Contenido</h3>
-                    <nav id="navigation" class="space-y-1">
-                        <!-- Navigation links will be generated here by JS -->
-                    </nav>
-                    <!-- Download Link Section -->
-                    <div class="mt-4 pt-4 border-t border-gray-200">
-                        <a href="https://alcyedmundo281.github.io/PowerSemiotics/assets/pdf/parentalidad-salud.pdf"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="flex items-center p-3 text-green-700 hover:bg-green-50 rounded-md transition-colors">
-                            <i class="fas fa-file-pdf w-6 text-center mr-3"></i>
-                            <span class="font-semibold">Descargar PDF</span>
-                        </a>
-                    </div>
-                </div>
-            </aside>
+      <div class="lg:flex lg:space-x-12">
+        <aside class="lg:w-1/4 mb-12 lg:mb-0">
+          <div
+            class="bg-white p-6 rounded-lg shadow-md sticky top-24 sidebar-scrollable"
+          >
+            <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">
+              Contenido
+            </h3>
+            <nav id="navigation" class="space-y-1">
+              <!-- Navigation links will be generated here by JS -->
+            </nav>
+            <!-- Download Link Section -->
+            <div class="mt-4 pt-4 border-t border-gray-200">
+              <a
+                href="https://alcyedmundo281.github.io/PowerSemiotics/assets/pdf/parentalidad-salud.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center p-3 text-green-700 hover:bg-green-50 rounded-md transition-colors"
+              >
+                <i class="fas fa-file-pdf w-6 text-center mr-3"></i>
+                <span class="font-semibold">Descargar PDF</span>
+              </a>
+            </div>
+          </div>
+        </aside>
 
-            <main id="main-content" class="lg:w-3/4">
-                <div class="bg-white p-8 sm:p-12 rounded-lg shadow-md prose max-w-none">
-                    <!-- The chapter content will be loaded here -->
-                </div>
-            </main>
-        </div>
+        <main id="main-content" class="lg:w-3/4">
+          <div
+            class="bg-white p-8 sm:p-12 rounded-lg shadow-md prose max-w-none"
+          >
+            <!-- The chapter content will be loaded here -->
+          </div>
+        </main>
+      </div>
     </div>
 
     <footer class="bg-white mt-16 border-t">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024 Monografía sobre Parentalidad, Poder y Equidad en la Profesión Sanitaria de Ecuador.</p>
-        </div>
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>
+          &copy; 2024 Monografía sobre Parentalidad, Poder y Equidad en la
+          Profesión Sanitaria de Ecuador.
+        </p>
+      </div>
     </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('DOMContentLoaded', function () {
         const mainContent = document.getElementById('main-content');
         const navigation = document.getElementById('navigation');
-        
+
         const contentData = [
-            {
-                id: "resumen",
-                title: "Resumen Ejecutivo",
-                icon: "fa-file-alt",
-                content: `
+          {
+            id: 'resumen',
+            title: 'Resumen Ejecutivo',
+            icon: 'fa-file-alt',
+            content: `
                     <h1 id="resumen-title">Resumen Ejecutivo para Responsables de Políticas Públicas</h1>
                     <p>Esta monografía aborda una crisis sistémica y una falla ética fundamental en el sector de la salud de Ecuador: la paradoja de una profesión dedicada al cuidado que, sistemáticamente, socava el bienestar de sus propios profesionales. Este problema no es una suma de dificultades individuales, sino una consecuencia directa de estructuras culturales y laborales profundamente arraigadas que colisionan con el marco legal progresista del país.</p>
                     <h3>El Problema</h3>
@@ -138,13 +168,13 @@
                         <li><strong>Reforma Educativa:</strong> Transformar los currículos de las ciencias de la salud para integrar la formación en bienestar, autocuidado y corresponsabilidad desde el inicio.</li>
                     </ul>
                     <p>Esta monografía argumenta que invertir en el bienestar de los profesionales de la salud no es un gasto, sino una condición indispensable para la sostenibilidad, la equidad y la calidad del sistema sanitario ecuatoriano.</p>
-                `
-            },
-            {
-                id: "introduccion",
-                title: "1. Introducción",
-                icon: "fa-book-reader",
-                content: `
+                `,
+          },
+          {
+            id: 'introduccion',
+            title: '1. Introducción',
+            icon: 'fa-book-reader',
+            content: `
                     <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Parte I: El Escenario del Poder: Dimensiones Estructurales</p>
                     <h1 id="introduccion-title">1. Introducción</h1>
                     <h2 id="naturaleza-problema">1.1. Naturaleza del Problema</h2>
@@ -157,13 +187,13 @@
                     <p>Esta monografía busca responder a la siguiente pregunta central:</p>
                     <blockquote>¿De qué manera la intersección entre la "cultura del sacrificio" profesional y el "discurso androcéntrico" en Ecuador neutraliza o subvierte el marco legal de corresponsabilidad parental, y qué estrategias de agencia y resiliencia desarrollan los profesionales de la salud para navegar la brecha resultante entre la política pública y la realidad vivida?</blockquote>
                     <p>Para abordar esta cuestión, se analizarán las estructuras culturales, históricas y socioeconómicas que configuran esta problemática. No se trata solo de señalar la existencia de estas influencias, sino de entender cómo interactúan y se refuerzan mutuamente. Para deconstruir las dinámicas de poder subyacentes —tanto las explícitas como las más sutiles e invisibles que sostienen el statu quo— se utilizará el marco teórico de las tres dimensiones del poder de Steven Lukes (13). Se evaluará la implementación de las políticas públicas a través de los lentes de la ciencia de la implementación, identificando barreras y facilitadores para su aplicación efectiva (14). Finalmente, y como eje transversal que permea todo el análisis, se propondrá y se aplicará un marco normativo basado en la ética de mínimos de Adela Cortina (15). Este marco filosófico será fundamental para delinear un camino hacia una paternidad y maternidad más justas y sostenibles dentro de la profesión médica. Se argumentará que la crisis actual que enfrentan estos profesionales no es —como a menudo se interpreta— un simple problema de gestión administrativa o de "falta de tiempo", sino una falla ética fundamental por parte de las instituciones y el sistema, que no garantizan las condiciones básicas de justicia para sus trabajadores.</p>
-                `
-            },
-            {
-                id: "matriz-cultural",
-                title: "2. Matriz Cultural y Ética",
-                icon: "fa-balance-scale",
-                content: `
+                `,
+          },
+          {
+            id: 'matriz-cultural',
+            title: '2. Matriz Cultural y Ética',
+            icon: 'fa-balance-scale',
+            content: `
                     <h1 id="matriz-cultural-title">2. La Matriz Cultural y la Exigencia de una Ética de Mínimos</h1>
                     <h2 id="cultura-patriarcal">2.1. La Cultura Patriarcal y la Demanda de Justicia: Fundamentos para una Vida Plena</h2>
                     <p>La cultura ecuatoriana, como muchas en América Latina, está profundamente influenciada por una matriz patriarcal que asigna roles de género diferenciados y jerárquicos (16, 17, 18). Esta estructura se manifiesta a través de dos arquetipos complementarios y persistentes: el machismo y el marianismo. El machismo prescribe para el hombre el rol de proveedor, figura de autoridad y actor principal en la esfera pública, mientras que el marianismo confina a la mujer al ámbito doméstico, idealizándola como una figura de sacrificio, pureza y devoción maternal abnegada (19, 20). Aunque estos roles están en un lento proceso de transición, su influencia ideológica persiste y se materializa en la desigual distribución del trabajo no remunerado.</p>
@@ -180,13 +210,13 @@
                         <li><strong>El Derecho a la Salud Integral:</strong> El Estado y las instituciones empleadoras tienen el deber de garantizar no solo la salud física, sino también la salud mental de sus trabajadores. Las condiciones laborales que generan Síndrome de Burnout de forma sistémica —con prevalencias de despersonalización severa del 95% y de agotamiento emocional del 47% en Ecuador (32, 33, 34, 35)— no son un "costo del negocio", sino una práctica éticamente inaceptable. La justicia de mínimos demanda establecer límites reales y fiscalizados a las jornadas laborales, especialmente para los residentes, y proveer acceso a servicios de salud mental confidenciales, gratuitos y desestigmatizados (12, 36).</li>
                         <li><strong>Inclusión de los Estudiantes y el Rol de la Universidad:</strong> Estos mínimos de justicia deben extenderse a los estudiantes de medicina y otras ciencias de la salud desde el inicio de su formación. Las universidades tienen la responsabilidad de no ser meras reproductoras de la "cultura del sacrificio". El concepto de "Universidades Promotoras de la Salud" (37, 38, 39, 40) ofrece un modelo institucional para esta transformación. En lugar de ser el primer eslabón en la cadena del agotamiento, las facultades de medicina deben asumir su responsabilidad social (responsabilidad social) (41) integrando en su currículo la formación en bienestar, ética del cuidado (incluido el autocuidado) y corresponsabilidad. Además, deben ofrecer apoyo psicológico y estructuras flexibles para estudiantes que son padres y madres, garantizando que el derecho a una vida plena comience desde la etapa formativa y no sea una aspiración perpetuamente postergada (12, 40).</li>
                     </ul>
-                `
-            },
-            {
-                id: "historia-poder",
-                title: "3. Historia y Poder (Lukes)",
-                icon: "fa-landmark",
-                content: `
+                `,
+          },
+          {
+            id: 'historia-poder',
+            title: '3. Historia y Poder (Lukes)',
+            icon: 'fa-landmark',
+            content: `
                     <h1 id="historia-poder-title">3. La Historia Ecuatoriana desde la Óptica Lukesiana: La Construcción del Poder en la Medicina y la Familia</h1>
                     <p>La situación actual de los profesionales de la salud no es un fenómeno reciente, sino el producto de una larga y sedimentada construcción histórica de relaciones de poder. Utilizando el marco tridimensional de Steven Lukes (13), podemos analizar cómo estas dinámicas se han solidificado a lo largo del tiempo, operando en niveles visibles e invisibles para crear y mantener el orden existente.</p>
                     <h2 id="tercera-dimension">3.1. Tercera Dimensión: El Poder Ideológico y la Formación de Normas</h2>
@@ -198,13 +228,13 @@
                     <h2 id="primera-dimension">3.3. Primera Dimensión: El Poder en la Toma de Decisiones</h2>
                     <p>Finalmente, el poder visible y explícito se manifestó en las leyes y regulaciones que codificaron la ideología dominante (13). El Código Civil y otras normativas tempranas reflejaban sin ambages la estructura patriarcal, otorgando al hombre la jefatura del hogar y la patria potestad exclusiva sobre los hijos (42, 52). Este poder de decisión, la primera dimensión de Lukes, formalizó las desigualdades que las otras dos dimensiones ya habían normalizado.</p>
                     <p>Aunque la Constitución de 1998 y, de manera mucho más robusta, la de 2008 introdujeron el principio de corresponsabilidad y la igualdad de derechos en el seno de la familia (8, 53), este cambio fundamental en la "primera dimensión" del poder (la ley explícita) choca frontalmente con la inercia de las otras dos. La cultura institucional de los hospitales y gremios (segunda dimensión) y la ideología social del sacrificio y los roles de género (tercera dimensión) siguen operando bajo la lógica del antiguo régimen. Esto explica la persistente brecha entre la promesa de la ley y la realidad vivida por los profesionales de la salud.</p>
-                `
-            },
-            {
-                id: "riqueza-poder",
-                title: "4. Riqueza y Fuerza Laboral",
-                icon: "fa-chart-pie",
-                content: `
+                `,
+          },
+          {
+            id: 'riqueza-poder',
+            title: '4. Riqueza y Fuerza Laboral',
+            icon: 'fa-chart-pie',
+            content: `
                     <h1 id="riqueza-poder-title">4. Distribución de la Riqueza y Poder en Ecuador y su Impacto en la Fuerza Laboral Sanitaria</h1>
                     <h2 id="desigualdad-precarizacion">4.1. Desigualdad, Corporativización y Precarización</h2>
                     <p>Ecuador es un país con una profunda y persistente desigualdad en la distribución de la riqueza (5, 54, 55). En junio de 2024, la pobreza a nivel nacional se ubicó en un alarmante 25.5%, con una brecha abismal entre las zonas urbanas (17.2%) y rurales (43.2%) (56). Esta estructura socioeconómica genera una intensa presión por la movilidad social y la seguridad económica, posicionando a la medicina como una de las carreras de más alto prestigio y una de las vías más seguras hacia la estabilidad financiera (5).</p>
@@ -214,24 +244,24 @@
                     <p>Esta dinámica socioeconómica tiene un impacto directo y devastador en la vida familiar, y constituye el principal mecanismo de refuerzo material de la "cultura del sacrificio". La presión por alcanzar la estabilidad económica en un entorno precario obliga a los profesionales a aceptar condiciones laborales extenuantes no solo como un ideal vocacional, sino como una necesidad pragmática para sobrevivir y progresar. Las jornadas interminables se convierten en un "peaje" ineludible para el éxito profesional y la seguridad familiar.</p>
                     <p>Esto fuerza, en primer lugar, la postergación de la paternidad y la maternidad. Este es un fenómeno bien documentado tanto a nivel internacional como en los testimonios locales, donde se describe que los médicos "empiezan a vivir tardíamente" (12, 60, 61). La decisión de tener hijos se aplaza hasta después de la residencia o la especialización, cuando se percibe una mayor estabilidad.</p>
                     <p>Para los hombres, esta presión económica refuerza el rol tradicional de proveedor, ofreciendo una justificación tangible para su ausencia física y emocional del hogar. La necesidad de trabajar en múltiples lugares para mantener a la familia se convierte en una razón poderosa que legitima su desconexión de las tareas de cuidado diario. Para las mujeres, la situación es aún más crítica. La brecha salarial de género y la mayor tasa de desempleo femenino en Ecuador (62) hacen que la decisión de reducir la jornada laboral o tomar una licencia extendida para cuidar a los hijos tenga un costo económico y profesional desproporcionadamente alto. Esto las atrapa en un ciclo de sobrecarga y desventaja, donde deben cumplir con las expectativas de la "supermujer" para no quedar rezagadas profesional y económicamente.</p>
-                `
-            },
-            {
-                id: "metodologia",
-                title: "5. Marco Metodológico",
-                icon: "fa-microscope",
-                content: `
+                `,
+          },
+          {
+            id: 'metodologia',
+            title: '5. Marco Metodológico',
+            icon: 'fa-microscope',
+            content: `
                     <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Parte II: Análisis, Evidencia y Propuestas</p>
                     <h1 id="metodologia-title">5. Marco Metodológico</h1>
                     <p>Esta monografía emplea un enfoque cualitativo, basado en un análisis documental y de contenido de una amplia gama de fuentes secundarias, incluyendo publicaciones académicas, informes gubernamentales, artículos de prensa, marcos legales y testimonios de profesionales. Para evaluar la brecha entre la política pública de corresponsabilidad y su aplicación en el sector salud, se recurre a marcos conceptuales de la Ciencia de la Implementación. Específicamente, se utiliza el Marco Consolidado para la Investigación de la Implementación (CFIR) como herramienta analítica para identificar barreras y facilitadores a lo largo de sus cinco dominios clave: características de la intervención (las políticas de conciliación), el entorno externo (normas sociales), el entorno interno (cultura hospitalaria), las características de los individuos (profesionales de la salud) y el proceso de implementación (63). Los resultados de la implementación se evalúan conceptualmente a través del modelo de Proctor et al., que ayuda a distinguir entre los resultados de la implementación (ej. aceptabilidad, viabilidad), los resultados del servicio (ej. calidad, equidad) y los resultados del cliente/paciente (ej. satisfacción, salud) (64).</p>
                     <p>El análisis político de la situación se estructura a través del modelo de las tres dimensiones del poder de Steven Lukes. Este marco permite una deconstrucción profunda de la problemática, yendo más allá de los conflictos visibles y la toma de decisiones explícita (1ª dimensión), para examinar el control de la agenda y las "no-decisiones" que silencian ciertos temas (2ª dimensión), y la influencia ideológica que moldea las percepciones, deseos y la aceptación del statu quo (3ª dimensión) (13). Como se estableció en la Parte I, el análisis se enmarca dentro de la ética de mínimos de Adela Cortina, utilizando sus principios de justicia como el estándar normativo contra el cual se mide la realidad observada (15).</p>
-                `
-            },
-            {
-                id: "evidencia",
-                title: "6. Evidencia Empírica",
-                icon: "fa-vial",
-                content: `
+                `,
+          },
+          {
+            id: 'evidencia',
+            title: '6. Evidencia Empírica',
+            icon: 'fa-vial',
+            content: `
                     <h1 id="evidencia-title">6. Evidencia Empírica: Casos, Datos y Generación de Hipótesis</h1>
                     <p>La evidencia empírica que sustenta este análisis se extrae de una combinación de testimonios cualitativos anonimizados de profesionales de la salud ecuatorianos y de datos cuantitativos disponibles sobre la salud mental del personal y la distribución del trabajo de cuidado. Los siguientes casos, analizados a través del lente de la ética de mínimos, ilustran la dimensión humana de la crisis sistémica.</p>
                     <h3 id="caso-a">Caso A (Médica Especialista)</h3>
@@ -243,13 +273,13 @@
                     <p>Estos testimonios, si bien demuestran una notable capacidad de agencia y resiliencia individual, también exponen una verdad incómoda: estas estrategias son, en esencia, mecanismos de supervivencia que no resuelven la raíz del problema. La necesidad de "resignificar" una carrera, cerrar un consultorio o depender de redes informais subraya la insuficiencia de las soluciones personales frente a un fracaso sistémico, reforzando la urgencia de una intervención política e institucional.</p>
                     <p>Estos casos se complementan con datos cuantitativos alarmantes sobre el Síndrome de Burnout en Ecuador, con una prevalencia de despersonalización severa del 95% y de agotamiento emocional del 47% en profesionales de la salud durante la pandemia (32, 33, 34, 35). Asimismo, la brecha de género en el trabajo no remunerado, que supera las 22 horas semanales en detrimento de las mujeres (21, 22), cuantifica la base estructural de la sobrecarga femenina.</p>
                     <p>Estos casos y datos permiten generar la hipótesis central de esta monografía: la ineficacia de las políticas de corresponsabilidad en el sector salud no se debe a fallas en su diseño legal, sino a la colisión con una cultura profesional e institucional (entorno interno del CFIR) que es impermeable a sus principios y que está sostenida por un poder ideológico (3ª dimensión de Lukes) que normaliza el sacrificio y la desigualdad de género, violando sistemáticamente los mínimos de justicia que la sociedad debe a sus profesionales.</p>
-                `
-            },
-            {
-                id: "analisis-parental",
-                title: "7. Análisis de la Vida Parental",
-                icon: "fa-users",
-                content: `
+                `,
+          },
+          {
+            id: 'analisis-parental',
+            title: '7. Análisis de la Vida Parental',
+            icon: 'fa-users',
+            content: `
                     <h1 id="analisis-parental-title">7. Etapa de Análisis: La Vida Parental de los Profesionales Sanitarios</h1>
                     <h2 id="situacion-actual">7.1. Situación Actual y Desigualdades</h2>
                     <p>La situación actual de los padres y madres en el sector salud ecuatoriano es de una profunda tensión estructural, marcada por una brecha insalvable entre las aspiraciones personales y las imposiciones del sistema. Las madres enfrentan una sobrecarga sistémica. La postergación de la maternidad es una estrategia de adaptación forzada a una carrera que penaliza el cuidado (12, 60, 61). Una vez que son madres, la falta de apoyo institucional tangible —como guarderías en los lugares de trabajo, salas de lactancia funcionales y una flexibilidad horaria real (65, 66, 67)—, combinada con la desigual distribución del trabajo doméstico, las empuja a una situación de agotamiento crónico y culpa constante (12).</p>
@@ -295,26 +325,26 @@
                         <li><strong>2ª Dimensión (Control de la Agenda):</strong> El poder de la "no-decisión" se manifiesta de forma paradigmática en la agenda de las instituciones de salud. La falta de guarderías en los hospitales no es un simple olvido o una limitación presupuestaria insalvable; es una decisión implícita de no asumir el cuidado infantil como una responsabilidad institucional. La creación de un bono compensatorio de $93 para servidores públicos es un ejemplo magistral de control de agenda: ofrece una solución paliativa y económicamente irrisoria que da la apariencia de abordar el problema, pero su verdadera función es mantener fuera del debate la necesidad de una solución estructural, como la construcción de centros de cuidado infantil con horarios flexibles y adaptados a las guardias médicas. Al "resolver" el problema con un bono, se previene que la demanda de una solución real se convierta en un "tema potencial de debate" (13, 67).</li>
                         <li><strong>3ª Dimensión (Poder Ideológico):</strong> Esta es la forma de poder más potente y perniciosa. La internalización de la "culpa materna" por parte de las médicas y la "romantización del sacrificio" por parte de todo el colectivo llevan a los profesionales a percibir su agotamiento, su estrés y sus conflictos familiares no como la consecuencia de un sistema injusto y explotador, sino como un fracaso personal o una falta de vocación. Esta internalización del problema previene la formación de una queja colectiva y la articulación de demandas políticas, garantizando el consentimiento y la reproducción del statu quo. Los profesionales no se rebelan contra el sistema porque han sido condicionados a creer que el problema reside en ellos mismos (12, 13, 47).</li>
                     </ul>
-                `
-            },
-            {
-                id: "conclusion",
-                title: "8. Conclusión",
-                icon: "fa-flag-checkered",
-                content: `
+                `,
+          },
+          {
+            id: 'conclusion',
+            title: '8. Conclusión',
+            icon: 'fa-flag-checkered',
+            content: `
                     <h1 id="conclusion-title">8. Conclusión: De una Ética del Sacrificio a una Cultura de la Responsabilidad Institucional</h1>
                     <p>La crisis de la paternidad y la maternidad entre los profesionales de la salud en Ecuador no es un problema de individuos débiles o de mala gestión del tiempo. Es una falla ética sistémica, profundamente arraigada en las estructuras de poder que gobiernan la profesión y la sociedad. La evidencia presentada en esta monografía demuestra que la colisión entre una cultura profesional de sacrificio, un discurso social androcéntrico y una realidad económica precarizante ha neutralizado eficazmente el progresista marco legal de corresponsabilidad del país.</p>
                     <p>El análisis a través de las tres dimensiones del poder de Steven Lukes revela cómo opera este sistema. La ley explícita (1ª dimensión), que promueve la igualdad y el cuidado compartido, es vaciada de contenido por una agenda institucional (2ª dimensión) que se niega a considerar la conciliación como una prioridad, y por un poder ideológico abrumador (3ª dimensión) que convence a los propios profesionales de que su sufrimiento es una virtud vocacional o un fracaso personal.</p>
                     <p>Frente a este panorama, la solución no puede residir en apelar a una mayor resiliencia individual. El camino hacia una vida profesional y familiar sostenible y justa exige un cambio de paradigma fundamental: la transición de una ética del sacrificio individual a una ética de la responsabilidad institucional. Este cambio debe estar fundamentado en los principios de una ética de mínimos, tal como se ha articulado a lo largo de este trabajo.</p>
                     <p>Esto implica que el Estado, las universidades, los gremios médicos y las instituciones de salud deben asumir su deber ineludible de garantizar las condiciones de justicia básicas para sus trabajadores y estudiantes. Deben asegurar el derecho a la salud integral, combatiendo activamente el burnout; el derecho a una vida familiar, proveyendo los apoyos estructurales necesarios como guarderías y horarios flexibles; y el derecho a la no discriminación, desmantelando el discurso androcéntrico y promoviendo una corresponsabilidad real.</p>
                     <p>En última instancia, la paternidad y maternidad de los profesionales sanitarios en Ecuador solo será justa y sostenible cuando se reconozca que el bienestar de quienes cuidan no es un lujo, sino una condición indispensable para un sistema de salud humano y eficaz. La sociedad no puede seguir exigiendo un juramento de servicio a sus médicos mientras les niega las condiciones más básicas para una vida plena en sus propios hogares. La responsabilidad de resolver esta paradoja no es de ellos, sino de las instituciones que se benefician de su sacrificio.</p>
-                `
-            },
-            {
-                id: "recomendaciones",
-                title: "9. Recomendaciones",
-                icon: "fa-gavel",
-                content: `
+                `,
+          },
+          {
+            id: 'recomendaciones',
+            title: '9. Recomendaciones',
+            icon: 'fa-gavel',
+            content: `
                     <h1 id="recomendaciones-title">9. Recomendaciones de Política Pública</h1>
                     <p>La transición de un paradigma de resiliencia individual a uno de responsabilidad institucional, guiado por una ética de mínimos, requiere un plan de acción concreto y multifacético. A continuación, se presenta una hoja de ruta con recomendaciones específicas dirigidas a los actores clave cuyo compromiso es indispensable para lograr una transformación real y sostenible en el sector salud de Ecuador.</p>
                     <h3 id="gobierno-nacional">Para el Gobierno Nacional (Ministerio de Salud, Ministerio del Trabajo):</h3>
@@ -335,13 +365,13 @@
                         <li><strong>Desmantelar el "Currículo Oculto":</strong> Las universidades deben identificar y desmantelar activamente la cultura no escrita que glorifica el autodescuido y el sacrificio. Esto requiere formar al cuerpo docente para que modele comportamientos saludables y respetuosos con el equilibrio vida-trabajo.</li>
                         <li><strong>Crear Soporte Estructural para Estudiantes con Hijos:</strong> Se deben diseñar políticas académicas flexibles y servicios de apoyo dedicados (asesoramiento, guarderías universitarias) para los estudiantes que son padres y madres, reconociendo y validando sus dobles responsabilidades (12, 40).</li>
                     </ul>
-                `
-            },
-            {
-                id: "bibliografia",
-                title: "Bibliografía",
-                icon: "fa-book",
-                content: `
+                `,
+          },
+          {
+            id: 'bibliografia',
+            title: 'Bibliografía',
+            icon: 'fa-book',
+            content: `
                     <h1 id="bibliografia-title">Bibliografía</h1>
                     <ol class="list-decimal list-inside space-y-2 text-sm">
                         <li>Lukes S. El Poder: Un Enfoque Radical. 2ª ed. Madrid: Siglo XXI de España Editores; 2007.</li>
@@ -413,22 +443,23 @@
                         <li>El Universo. Empleados públicos deberán recibir una compensación mensual si las entidades donde laboran no pueden proveer guarderías a hijos menores a 5 años. 2023.</li>
                         <li>Cosas. La paternidad de hoy: desde las expectativas tradicionales hasta el modelo actual. 2024.</li>
                     </ol>
-                `
-            }
+                `,
+          },
         ];
 
         // Build the page content and navigation
         let fullContent = '';
-        contentData.forEach(item => {
-            // Add content section to the main area
-            fullContent += `<div id="${item.id}" class="mb-12">${item.content}</div>`;
-            
-            // Create navigation link
-            const link = document.createElement('a');
-            link.href = `#${item.id}`;
-            link.className = 'flex items-center p-3 text-gray-700 border-l-4 border-transparent nav-link';
-            link.innerHTML = `<i class="fas ${item.icon} w-6 text-center mr-3 text-blue-600"></i><span>${item.title}</span>`;
-            navigation.appendChild(link);
+        contentData.forEach((item) => {
+          // Add content section to the main area
+          fullContent += `<div id="${item.id}" class="mb-12">${item.content}</div>`;
+
+          // Create navigation link
+          const link = document.createElement('a');
+          link.href = `#${item.id}`;
+          link.className =
+            'flex items-center p-3 text-gray-700 border-l-4 border-transparent nav-link';
+          link.innerHTML = `<i class="fas ${item.icon} w-6 text-center mr-3 text-blue-600"></i><span>${item.title}</span>`;
+          navigation.appendChild(link);
         });
 
         // Set the generated content to the main container
@@ -436,36 +467,44 @@
 
         // Add smooth scrolling and active state logic
         const navLinks = navigation.querySelectorAll('a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+        navLinks.forEach((link) => {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            }
+          });
         });
 
         // Observer to update active nav link on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const id = entry.target.getAttribute('id');
-                const navLink = navigation.querySelector(`a[href="#${id}"]`);
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => link.classList.remove('active'));
-                    if (navLink) {
-                        navLink.classList.add('active');
-                    }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const id = entry.target.getAttribute('id');
+              const navLink = navigation.querySelector(`a[href="#${id}"]`);
+              if (entry.isIntersecting) {
+                navLinks.forEach((link) => link.classList.remove('active'));
+                if (navLink) {
+                  navLink.classList.add('active');
                 }
+              }
             });
-        }, { rootMargin: "-30% 0px -70% 0px", threshold: 0 });
+          },
+          { rootMargin: '-30% 0px -70% 0px', threshold: 0 },
+        );
 
         // Observe all content sections
-        document.querySelectorAll('#main-content .prose > div').forEach(section => {
+        document
+          .querySelectorAll('#main-content .prose > div')
+          .forEach((section) => {
             observer.observe(section);
-        });
-    });
+          });
+      });
     </script>
-</body>
+  </body>
 </html>

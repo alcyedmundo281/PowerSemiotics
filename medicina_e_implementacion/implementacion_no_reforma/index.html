@@ -1,98 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Monografía: La Paradoja del Gasto en Salud en Ecuador</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-        }
-        .prose h1, .prose h2, .prose h3 {
-            font-family: 'Lora', serif;
-        }
-        .prose {
-             color: #374151;
-             line-height: 1.75;
-        }
-        .prose strong {
-            color: #111827;
-        }
-        .nav-link {
-            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-        }
-        .nav-link:hover {
-            background-color: #eff6ff;
-            border-left-color: #2563eb;
-            color: #1e3a8a;
-        }
-        .nav-link.active {
-            background-color: #dbeafe;
-            border-left-color: #1d4ed8;
-            font-weight: 600;
-            color: #1e40af;
-        }
-        .resource-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .resource-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f3f4f6;
+      }
+      .prose h1,
+      .prose h2,
+      .prose h3 {
+        font-family: 'Lora', serif;
+      }
+      .prose {
+        color: #374151;
+        line-height: 1.75;
+      }
+      .prose strong {
+        color: #111827;
+      }
+      .nav-link {
+        transition:
+          background-color 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .nav-link:hover {
+        background-color: #eff6ff;
+        border-left-color: #2563eb;
+        color: #1e3a8a;
+      }
+      .nav-link.active {
+        background-color: #dbeafe;
+        border-left-color: #1d4ed8;
+        font-weight: 600;
+        color: #1e40af;
+      }
+      .resource-card {
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .resource-card:hover {
+        transform: translateY(-5px);
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
     </style>
-</head>
-<body class="text-gray-800">
-
+  </head>
+  <body class="text-gray-800">
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="https://powersemiotics.com/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-2">
-                <span class="text-2xl font-bold text-blue-900">PowerSemiotics</span>
-            </a>
-            <div>
-                <a href="https://powersemiotics.com/medicina_e_implementacion.html" target="_blank" rel="noopener noreferrer" class="text-blue-800 font-semibold hover:underline">Medicina e Implementación</a>
-            </div>
-        </nav>
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a
+          href="https://powersemiotics.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center space-x-2"
+        >
+          <span class="text-2xl font-bold text-blue-900">PowerSemiotics</span>
+        </a>
+        <div>
+          <a
+            href="https://powersemiotics.com/medicina_e_implementacion.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-800 font-semibold hover:underline"
+            >Medicina e Implementación</a
+          >
+        </div>
+      </nav>
     </header>
 
     <div class="container mx-auto px-6 py-12">
-        <div class="lg:flex lg:space-x-12">
-            
-            <aside class="lg:w-1/4 mb-12 lg:mb-0">
-                <div class="bg-white p-6 rounded-lg shadow-md sticky top-24">
-                    <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">Contenido de la Monografía</h3>
-                    <nav id="navigation" class="space-y-1">
-                        <!-- Los enlaces de navegación se generarán aquí con JS -->
-                    </nav>
-                </div>
-            </aside>
+      <div class="lg:flex lg:space-x-12">
+        <aside class="lg:w-1/4 mb-12 lg:mb-0">
+          <div class="bg-white p-6 rounded-lg shadow-md sticky top-24">
+            <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">
+              Contenido de la Monografía
+            </h3>
+            <nav id="navigation" class="space-y-1">
+              <!-- Los enlaces de navegación se generarán aquí con JS -->
+            </nav>
+          </div>
+        </aside>
 
-            <main class="lg:w-3/4">
-                <div id="content-display" class="bg-white p-8 rounded-lg shadow-md">
-                    <!-- El contenido del capítulo se cargará aquí -->
-                </div>
-            </main>
-        </div>
+        <main class="lg:w-3/4">
+          <div id="content-display" class="bg-white p-8 rounded-lg shadow-md">
+            <!-- El contenido del capítulo se cargará aquí -->
+          </div>
+        </main>
+      </div>
     </div>
 
     <footer class="bg-white mt-16 border-t">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024 PowerSemiotics. Todos los derechos reservados.</p>
-        </div>
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>&copy; 2024 PowerSemiotics. Todos los derechos reservados.</p>
+      </div>
     </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('DOMContentLoaded', function () {
         const contentData = [
-            {
-                title: "Introducción",
-                icon: "fa-book-reader",
-                content: `
+          {
+            title: 'Introducción',
+            icon: 'fa-book-reader',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 1</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">La Paradoja del Gasto en Salud: Introducción y Planteamiento del Problema</h1>
@@ -120,12 +148,12 @@
                             </a>
                         </div>
                     </div>
-                `
-            },
-            {
-                title: "Marco Teórico",
-                icon: "fa-sitemap",
-                content: `
+                `,
+          },
+          {
+            title: 'Marco Teórico',
+            icon: 'fa-sitemap',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 2</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Un Marco Teórico Híbrido para Desentrañar la Complejidad</h1>
@@ -154,12 +182,12 @@
                             </a>
                         </div>
                     </div>
-                `
-            },
-            {
-                title: "Metodología",
-                icon: "fa-microscope",
-                content: `
+                `,
+          },
+          {
+            title: 'Metodología',
+            icon: 'fa-microscope',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 3</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Metodología de la Investigación</h1>
@@ -196,12 +224,12 @@
                             </a>
                         </div>
                     </div>
-                `
-            },
-            {
-                title: "Mapeo del Flujo Financiero",
-                icon: "fa-chart-line",
-                content: `
+                `,
+          },
+          {
+            title: 'Mapeo del Flujo Financiero',
+            icon: 'fa-chart-line',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 4</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Mapeo del Flujo Financiero: La Ruta del Dinero</h1>
@@ -230,12 +258,12 @@
                             </a>
                         </div>
                     </div>
-                `
-            },
-            {
-                title: "Gobernanza y Poder",
-                icon: "fa-chess-king",
-                content: `
+                `,
+          },
+          {
+            title: 'Gobernanza y Poder',
+            icon: 'fa-chess-king',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 5</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Gobernanza y Poder en la Asignación de Recursos</h1>
@@ -254,12 +282,12 @@
                         <h3 class="text-xl font-semibold mt-6 mb-3">5.3 El Resultado: Un Equilibrio Político Ineficiente</h3>
                         <p>El resultado es un "equilibrio políticamente estable pero socialmente ineficiente". El sistema se mantiene en un estado de bajo rendimiento porque los actores con el poder para cambiarlo son los mismos que se benefician de su funcionamiento actual. Los costos de esta ineficiencia (el alto gasto de bolsillo, la baja calidad de la atención) son asumidos por la población general, un grupo grande y desorganizado con poca capacidad de influencia. Este análisis de poder es fundamental para entender por qué las reformas técnicas por sí solas han fracasado y por qué cualquier intento de cambio real debe abordar estas profundas asimetrías de poder.</p>
                     </div>
-                `
-            },
-            {
-                title: "La Brecha de Implementación",
-                icon: "fa-bridge-water",
-                content: `
+                `,
+          },
+          {
+            title: 'La Brecha de Implementación',
+            icon: 'fa-bridge-water',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 6</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">La Brecha de Implementación: Del Papel a la Realidad</h1>
@@ -274,12 +302,12 @@
                         <p>El sistema de salud está legalmente organizado como una red, pero en la práctica funciona como un archipiélago de unidades aisladas. No existe una coordinación efectiva entre la atención primaria, los hospitales y los centros de especialidad. Los pacientes se pierden en un laberinto burocrático sin un sistema de referencia y contrarreferencia que funcione. Esta <strong>fragmentación</strong> provoca la duplicación de esfuerzos, la interrupción de los tratamientos y el uso ineficiente de los hospitales para problemas que podrían resolverse en el primer nivel de atención, perpetuando el modelo hospitalocéntrico y costoso.</p>
                         <p>En conjunto, estas fallas de implementación demuestran que el dinero asignado a la salud no garantiza su uso efectivo. La brecha entre la política y la práctica es el terreno fértil donde florece la ineficiencia, se desvían los recursos y, en última instancia, se niega el derecho a la salud de los ciudadanos.</p>
                     </div>
-                `
-            },
-            {
-                title: "Análisis Integrado",
-                icon: "fa-puzzle-piece",
-                content: `
+                `,
+          },
+          {
+            title: 'Análisis Integrado',
+            icon: 'fa-puzzle-piece',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 7</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Análisis Integrado: ¿Quién Recibe Realmente el Dinero?</h1>
@@ -298,12 +326,12 @@
                         <p>El marco teórico híbrido nos permite ver cómo estas piezas se conectan. El <strong>Análisis de Economía Política</strong> revela <em>por qué</em> el sistema está diseñado para beneficiar a estos grupos: ellos tienen el poder de influir en las políticas. La <strong>Ciencia de la Implementación</strong> muestra <em>cómo</em> esta captura se materializa en el día a día: a través de cadenas de suministro rotas, sistemas de información inútiles y una red de servicios fragmentada. La brecha de implementación no es un accidente; es el espacio donde los intereses creados operan y extraen rentas del sistema.</p>
                         <p>En conclusión, el dinero no llega a la gente porque es sistemáticamente interceptado en el camino. La paradoja del gasto en salud es, en esencia, una <strong>paradoja de poder</strong>. Los ciudadanos pagan tres veces: con sus impuestos, con su gasto de bolsillo y, finalmente, con su salud. El siguiente y último capítulo discutirá qué se puede hacer para romper este ciclo vicioso.</p>
                     </div>
-                `
-            },
-            {
-                title: "Hacia la Justicia Sistémica",
-                icon: "fa-gavel",
-                content: `
+                `,
+          },
+          {
+            title: 'Hacia la Justicia Sistémica',
+            icon: 'fa-gavel',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 8</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Hacia la Justicia Sistémica: Un Nuevo Contrato Social para la Salud</h1>
@@ -341,12 +369,12 @@
                         <h3 class="text-xl font-semibold mt-6 mb-3">8.3 Conclusión: Una Tarea Política y Social</h3>
                         <p>Transformar el sistema de salud es, en última instancia, una tarea política. Requiere la construcción de una nueva coalición social, liderada por el Estado pero con el apoyo activo de la academia, la sociedad civil y los ciudadanos, para contrarrestar el poder de los intereses creados. La ruta hacia la justicia sistémica es compleja y enfrentará resistencia, pero el costo de la inacción —medido en vidas perdidas y en la perpetuación de la inequidad— es inaceptablemente alto. Esta monografía ha iluminado el problema y sus causas; ahora comienza el trabajo de construir las soluciones.</p>
                     </div>
-                `
-            },
-            {
-                title: "Descargas",
-                icon: "fa-download",
-                content: `
+                `,
+          },
+          {
+            title: 'Descargas',
+            icon: 'fa-download',
+            content: `
                     <div class="mb-8">
                         <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Recursos Adicionales</p>
                         <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Descargar Capítulos en PDF</h1>
@@ -364,8 +392,8 @@
                             <li class="py-3"><a href="https://alcyedmundo281.github.io/PowerSemiotics/assets/pdf/capitulo-8.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 8: Hacia la Justicia Sistémica</a></li>
                         </ul>
                     </div>
-                `
-            }
+                `,
+          },
         ];
 
         const navigation = document.getElementById('navigation');
@@ -373,30 +401,31 @@
         let navLinks = [];
 
         function showContent(index) {
-            const contentObject = contentData[index];
-            contentDisplay.innerHTML = contentObject.content;
-            
-            navLinks.forEach((link, i) => {
-                link.classList.toggle('active', i === index);
-            });
+          const contentObject = contentData[index];
+          contentDisplay.innerHTML = contentObject.content;
+
+          navLinks.forEach((link, i) => {
+            link.classList.toggle('active', i === index);
+          });
         }
 
         contentData.forEach((item, index) => {
-            const link = document.createElement('a');
-            link.href = '#';
-            link.className = 'flex items-center p-3 text-gray-700 border-l-4 border-transparent nav-link';
-            link.innerHTML = `<i class="fas ${item.icon} w-6 text-center mr-3"></i><span>${item.title}</span>`;
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                showContent(index);
-            });
-            navigation.appendChild(link);
-            navLinks.push(link);
+          const link = document.createElement('a');
+          link.href = '#';
+          link.className =
+            'flex items-center p-3 text-gray-700 border-l-4 border-transparent nav-link';
+          link.innerHTML = `<i class="fas ${item.icon} w-6 text-center mr-3"></i><span>${item.title}</span>`;
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            showContent(index);
+          });
+          navigation.appendChild(link);
+          navLinks.push(link);
         });
 
         // Cargar el primer capítulo por defecto
         showContent(0);
-    });
+      });
     </script>
-</body>
+  </body>
 </html>

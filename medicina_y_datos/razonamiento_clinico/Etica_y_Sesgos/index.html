@@ -1,125 +1,196 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ética y Mitigación de Sesgos - Powersemiotics</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .gradient-text {
-            background: -webkit-linear-gradient(#4F46E5, #DB2777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .prose h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 2em;
-            margin-bottom: 1em;
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 0.5em;
-        }
-        .prose p, .prose li {
-            line-height: 1.75;
-            margin-bottom: 1.25em;
-        }
-        .prose ul {
-            list-style-type: disc;
-            margin-left: 1.5em;
-        }
-        .prose strong {
-            font-weight: 600;
-        }
-        .alert-box {
-            background-color: #fefce8; /* yellow-50 */
-            color: #ca8a04; /* yellow-600 */
-            border-left: 4px solid #facc15; /* yellow-400 */
-            padding: 1rem;
-            margin-top: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 0.25rem;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .gradient-text {
+        background: -webkit-linear-gradient(#4f46e5, #db2777);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .prose h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-top: 2em;
+        margin-bottom: 1em;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5em;
+      }
+      .prose p,
+      .prose li {
+        line-height: 1.75;
+        margin-bottom: 1.25em;
+      }
+      .prose ul {
+        list-style-type: disc;
+        margin-left: 1.5em;
+      }
+      .prose strong {
+        font-weight: 600;
+      }
+      .alert-box {
+        background-color: #fefce8; /* yellow-50 */
+        color: #ca8a04; /* yellow-600 */
+        border-left: 4px solid #facc15; /* yellow-400 */
+        padding: 1rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 0.25rem;
+      }
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
     <!-- Encabezado -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="https://powersemiotics.com/index.html" class="flex items-center space-x-2">
-                <img src="https://powersemiotics.com/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
-                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-            </a>
-            <div>
-                <a href="https://powersemiotics.com/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">Medicina y Datos</a>
-            </div>
-        </nav>
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="../../../index.html" class="flex items-center space-x-2">
+          <img
+            src="../../../assets/images/logo.png"
+            alt="Logo de Powersemiotics"
+            class="h-8 w-8"
+          />
+          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+        </a>
+        <div>
+          <a
+            href="../../../medicina_y_datos.html"
+            class="text-indigo-600 font-semibold hover:underline"
+            >Medicina y Datos</a
+          >
+        </div>
+      </nav>
     </header>
 
     <!-- Contenido Principal -->
     <main class="container mx-auto px-6 py-16">
-        
-        <!-- Título de la Página -->
-        <div class="max-w-4xl mx-auto">
-            <a href="../index.html" class="text-indigo-600 hover:underline mb-6 inline-block"><i class="fas fa-arrow-left mr-2"></i>Volver a Razonamiento Clínico</a>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
-                Ética y Mitigación de Sesgos en la IA Médica
-            </h1>
-            <p class="text-lg text-gray-600">
-                La promesa de una medicina más precisa y equitativa solo puede cumplirse si abordamos activamente los sesgos inherentes en los datos y los algoritmos.
-            </p>
+      <!-- Título de la Página -->
+      <div class="max-w-4xl mx-auto">
+        <a
+          href="../index.html"
+          class="text-indigo-600 hover:underline mb-6 inline-block"
+          ><i class="fas fa-arrow-left mr-2"></i>Volver a Razonamiento
+          Clínico</a
+        >
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+          Ética y Mitigación de Sesgos en la IA Médica
+        </h1>
+        <p class="text-lg text-gray-600">
+          La promesa de una medicina más precisa y equitativa solo puede
+          cumplirse si abordamos activamente los sesgos inherentes en los datos
+          y los algoritmos.
+        </p>
+      </div>
+
+      <!-- Artículo de Contenido -->
+      <article
+        class="prose max-w-4xl mx-auto mt-12 bg-white p-8 rounded-lg shadow"
+      >
+        <h2>El Juramento Hipocrático de los Algoritmos</h2>
+        <p>
+          La primera máxima de la medicina es "primum non nocere": lo primero es
+          no hacer daño. En la era de la IA, este principio se extiende a los
+          algoritmos que diseñamos. Un modelo de IA no es intrínsecamente
+          objetivo; es un reflejo de los datos con los que fue entrenado. Si
+          esos datos contienen sesgos históricos, sociales o de medición, el
+          algoritmo no solo los aprenderá, sino que podría amplificarlos,
+          llevando a diagnósticos erróneos y a la perpetuación de desigualdades
+          en salud.
+        </p>
+
+        <div class="alert-box">
+          <p class="font-semibold">
+            Un algoritmo es tan bueno como los datos que lo alimentan. Basura
+            entra, basura sale (Garbage In, Garbage Out).
+          </p>
         </div>
-        
-        <!-- Artículo de Contenido -->
-        <article class="prose max-w-4xl mx-auto mt-12 bg-white p-8 rounded-lg shadow">
-            
-            <h2>El Juramento Hipocrático de los Algoritmos</h2>
-            <p>
-                La primera máxima de la medicina es "primum non nocere": lo primero es no hacer daño. En la era de la IA, este principio se extiende a los algoritmos que diseñamos. Un modelo de IA no es intrínsecamente objetivo; es un reflejo de los datos con los que fue entrenado. Si esos datos contienen sesgos históricos, sociales o de medición, el algoritmo no solo los aprenderá, sino que podría amplificarlos, llevando a diagnósticos erróneos y a la perpetuación de desigualdades en salud.
-            </p>
 
-            <div class="alert-box">
-                <p class="font-semibold">Un algoritmo es tan bueno como los datos que lo alimentan. Basura entra, basura sale (Garbage In, Garbage Out).</p>
-            </div>
+        <h2>Fuentes Comunes de Sesgo en Datos de Salud</h2>
+        <p>
+          Identificar el origen del sesgo es el primer paso para mitigarlo. En
+          medicina, los sesgos pueden surgir de múltiples fuentes:
+        </p>
+        <ul>
+          <li>
+            <strong>Sesgo Histórico:</strong> Refleja desigualdades
+            estructurales pasadas. Por ejemplo, si históricamente se ha
+            subdiagnosticado una enfermedad en mujeres, un modelo entrenado con
+            esos datos podría aprender a ignorar síntomas relevantes en
+            pacientes femeninas.
+          </li>
+          <li>
+            <strong>Sesgo de Medición:</strong> Ocurre cuando los datos se
+            recolectan de manera diferente para distintos grupos. Un oxímetro de
+            pulso que es menos preciso en pieles oscuras puede introducir un
+            sesgo sistemático en los datos de saturación de oxígeno.
+          </li>
+          <li>
+            <strong>Sesgo de Representación:</strong> Sucede cuando la población
+            de entrenamiento no refleja la población del mundo real. Un
+            algoritmo de diagnóstico de cáncer de piel entrenado
+            mayoritariamente con imágenes de piel clara tendrá un rendimiento
+            deficiente en pacientes de piel oscura.
+          </li>
+          <li>
+            <strong>Sesgo Algorítmico:</strong> El propio modelo puede
+            introducir sesgo, por ejemplo, al optimizar una métrica de precisión
+            general que ignora el rendimiento en subgrupos minoritarios.
+          </li>
+        </ul>
 
-            <h2>Fuentes Comunes de Sesgo en Datos de Salud</h2>
-            <p>
-                Identificar el origen del sesgo es el primer paso para mitigarlo. En medicina, los sesgos pueden surgir de múltiples fuentes:
-            </p>
-            <ul>
-                <li><strong>Sesgo Histórico:</strong> Refleja desigualdades estructurales pasadas. Por ejemplo, si históricamente se ha subdiagnosticado una enfermedad en mujeres, un modelo entrenado con esos datos podría aprender a ignorar síntomas relevantes en pacientes femeninas.</li>
-                <li><strong>Sesgo de Medición:</strong> Ocurre cuando los datos se recolectan de manera diferente para distintos grupos. Un oxímetro de pulso que es menos preciso en pieles oscuras puede introducir un sesgo sistemático en los datos de saturación de oxígeno.</li>
-                <li><strong>Sesgo de Representación:</strong> Sucede cuando la población de entrenamiento no refleja la población del mundo real. Un algoritmo de diagnóstico de cáncer de piel entrenado mayoritariamente con imágenes de piel clara tendrá un rendimiento deficiente en pacientes de piel oscura.</li>
-                <li><strong>Sesgo Algorítmico:</strong> El propio modelo puede introducir sesgo, por ejemplo, al optimizar una métrica de precisión general que ignora el rendimiento en subgrupos minoritarios.</li>
-            </ul>
-
-            <h2>Estrategias de Mitigación: Hacia una IA Justa</h2>
-            <p>
-                Combatir el sesgo requiere un enfoque proactivo durante todo el ciclo de vida del modelo de IA:
-            </p>
-            <ul>
-                <li><strong>Pre-procesamiento (Datos):</strong> Incluye técnicas como el sobremuestreo de grupos subrepresentados (oversampling), la reponderación de datos (re-weighting) o la recolección de datos más diversos e inclusivos.</li>
-                <li><strong>In-procesamiento (Modelo):</strong> Modificar el algoritmo de entrenamiento para que incorpore restricciones de equidad, penalizando las soluciones que beneficien desproporcionadamente a un grupo sobre otro.</li>
-                <li><strong>Post-procesamiento (Resultados):</strong> Ajustar los umbrales de decisión del modelo para diferentes grupos demográficos, buscando equilibrar las tasas de verdaderos positivos y falsos positivos entre ellos.</li>
-            </ul>
-            <p>
-                La creación de una IA médica ética y justa no es solo un desafío técnico, sino un imperativo moral. Requiere una colaboración continua entre científicos de datos, médicos, eticistas y las comunidades de pacientes para asegurar que la tecnología sirva como una fuerza para la equidad en salud, y no como un acelerador de la desigualdad.
-            </p>
-        </article>
+        <h2>Estrategias de Mitigación: Hacia una IA Justa</h2>
+        <p>
+          Combatir el sesgo requiere un enfoque proactivo durante todo el ciclo
+          de vida del modelo de IA:
+        </p>
+        <ul>
+          <li>
+            <strong>Pre-procesamiento (Datos):</strong> Incluye técnicas como el
+            sobremuestreo de grupos subrepresentados (oversampling), la
+            reponderación de datos (re-weighting) o la recolección de datos más
+            diversos e inclusivos.
+          </li>
+          <li>
+            <strong>In-procesamiento (Modelo):</strong> Modificar el algoritmo
+            de entrenamiento para que incorpore restricciones de equidad,
+            penalizando las soluciones que beneficien desproporcionadamente a un
+            grupo sobre otro.
+          </li>
+          <li>
+            <strong>Post-procesamiento (Resultados):</strong> Ajustar los
+            umbrales de decisión del modelo para diferentes grupos demográficos,
+            buscando equilibrar las tasas de verdaderos positivos y falsos
+            positivos entre ellos.
+          </li>
+        </ul>
+        <p>
+          La creación de una IA médica ética y justa no es solo un desafío
+          técnico, sino un imperativo moral. Requiere una colaboración continua
+          entre científicos de datos, médicos, eticistas y las comunidades de
+          pacientes para asegurar que la tecnología sirva como una fuerza para
+          la equidad en salud, y no como un acelerador de la desigualdad.
+        </p>
+      </article>
     </main>
 
     <!-- Pie de página -->
     <footer class="bg-white mt-16">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
-        </div>
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>
