@@ -9,9 +9,9 @@
  * task. The server constructs an appropriate system message, forwards
  * the request to OpenAI, and returns the assistant's reply as JSON.
  */
+require('dotenv').config();
 
 const express = require('express');
-const fetch = require('node-fetch');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,7 +23,7 @@ app.use(express.json());
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 if (!OPENAI_API_KEY) {
   console.warn(
-    'Warning: The OPENAI_API_KEY environment variable is not set. The server will reject requests.',
+    'Advertencia: la variable de entorno OPENAI_API_KEY no está configurada. El servidor rechazará las solicitudes.',
   );
 }
 
@@ -36,7 +36,7 @@ function buildSystemMessage(task) {
     case 'summarize':
       return 'Eres un asistente que resume textos en español de forma concisa.';
     case 'translate':
-      return 'You are a translator that translates Spanish text to English.';
+      return 'Eres un traductor que convierte textos del español al inglés.';
     case 'question':
       return 'Eres un experto que responde preguntas educativas en español.';
     case 'example':
@@ -81,7 +81,9 @@ app.post('/api/chat', async (req, res) => {
     });
     if (!response.ok) {
       const errorText = await response.text();
-      return res.status(response.status).send(errorText);
+      return res
+        .status(response.status)
+        .send(`Error del servicio de OpenAI: ${errorText}`);
     }
     const data = await response.json();
     const result = data.choices?.[0]?.message?.content?.trim() || '';
@@ -99,5 +101,5 @@ app.use(express.static('.'));
 
 // Start the server
 app.listen(port, () => {
-  console.log(`AI proxy server listening on http://localhost:${port}`);
+  console.log(`Servidor proxy de IA escuchando en http://localhost:${port}`);
 });
