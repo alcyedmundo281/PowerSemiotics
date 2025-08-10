@@ -1,147 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Guía de Estudio: Enfermedad Hepática</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .sidebar-link {
+        transition: all 0.2s ease-in-out;
+      }
+      .sidebar-link.active {
+        background-color: #1d4ed8; /* bg-blue-700 */
+        color: white;
+        font-weight: 600;
+      }
+      .quiz-option {
+        transition: all 0.2s ease-in-out;
+        border: 2px solid transparent;
+      }
+      .quiz-option:hover:not([disabled]) {
+        border-color: #3b82f6; /* border-blue-500 */
+      }
+      .quiz-option.selected {
+        border-color: #1d4ed8; /* border-blue-700 */
+        background-color: #dbeafe; /* bg-blue-100 */
+      }
+      .quiz-option.correct {
+        background-color: #d1fae5 !important; /* bg-green-100 */
+        border-color: #10b981 !important; /* border-green-500 */
+        color: #065f46; /* text-green-800 */
+      }
+      .quiz-option.incorrect {
+        background-color: #fee2e2 !important; /* bg-red-100 */
+        border-color: #ef4444 !important; /* border-red-500 */
+        color: #991b1b; /* text-red-800 */
+      }
+      .quiz-option[disabled] {
+        cursor: not-allowed;
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
         }
-        .sidebar-link {
-            transition: all 0.2s ease-in-out;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        .sidebar-link.active {
-            background-color: #1D4ED8; /* bg-blue-700 */
-            color: white;
-            font-weight: 600;
-        }
-        .quiz-option {
-            transition: all 0.2s ease-in-out;
-            border: 2px solid transparent;
-        }
-        .quiz-option:hover:not([disabled]) {
-            border-color: #3B82F6; /* border-blue-500 */
-        }
-        .quiz-option.selected {
-            border-color: #1D4ED8; /* border-blue-700 */
-            background-color: #DBEAFE; /* bg-blue-100 */
-        }
-        .quiz-option.correct {
-            background-color: #D1FAE5 !important; /* bg-green-100 */
-            border-color: #10B981 !important; /* border-green-500 */
-            color: #065F46; /* text-green-800 */
-        }
-        .quiz-option.incorrect {
-            background-color: #FEE2E2 !important; /* bg-red-100 */
-            border-color: #EF4444 !important; /* border-red-500 */
-            color: #991B1B; /* text-red-800 */
-        }
-        .quiz-option[disabled] {
-            cursor: not-allowed;
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Estilos para la presentación y el simulador */
-        .embedded-content-container {
-            border: 1px solid #ddd;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        .text-guide h3 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #1e3a8a; /* text-blue-900 */
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 0.5rem;
-        }
-        .text-guide h4 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #111827; /* text-gray-900 */
-            margin-top: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-        .text-guide p, .text-guide li {
-            color: #374151; /* text-gray-700 */
-            margin-bottom: 0.75rem;
-            line-height: 1.7;
-        }
-        .text-guide ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-        }
-        .text-guide .highlight-box {
-            background-color: #eff6ff; /* bg-blue-50 */
-            border-left: 4px solid #3b82f6; /* border-blue-500 */
-            padding: 1rem;
-            margin: 1.5rem 0;
-            border-radius: 0.25rem;
-        }
+      }
+      /* Estilos para la presentación y el simulador */
+      .embedded-content-container {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow:
+          0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+      }
+      .text-guide h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1e3a8a; /* text-blue-900 */
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 2px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+      }
+      .text-guide h4 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #111827; /* text-gray-900 */
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+      .text-guide p,
+      .text-guide li {
+        color: #374151; /* text-gray-700 */
+        margin-bottom: 0.75rem;
+        line-height: 1.7;
+      }
+      .text-guide ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+      }
+      .text-guide .highlight-box {
+        background-color: #eff6ff; /* bg-blue-50 */
+        border-left: 4px solid #3b82f6; /* border-blue-500 */
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 0.25rem;
+      }
     </style>
-</head>
-<body class="bg-gray-100">
-
+  </head>
+  <body class="bg-gray-100">
     <div class="flex flex-col md:flex-row min-h-screen">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="w-full md:w-64 bg-gray-800 text-white p-6 md:p-4 space-y-2 flex-shrink-0">
-            <h1 class="text-2xl font-bold mb-4 text-center">PowerSemiotics</h1>
-            <h2 class="text-lg font-semibold mb-4 text-center text-gray-300">Enfermedad Hepática</h2>
-            <nav id="navigation-menu">
-                <!-- Los enlaces se generan dinámicamente -->
-            </nav>
-        </aside>
+      <!-- Sidebar -->
+      <aside
+        id="sidebar"
+        class="w-full md:w-64 bg-gray-800 text-white p-6 md:p-4 space-y-2 flex-shrink-0"
+      >
+        <h1 class="text-2xl font-bold mb-4 text-center">PowerSemiotics</h1>
+        <h2 class="text-lg font-semibold mb-4 text-center text-gray-300">
+          Enfermedad Hepática
+        </h2>
+        <nav id="navigation-menu">
+          <!-- Los enlaces se generan dinámicamente -->
+        </nav>
+      </aside>
 
-        <!-- Main Content -->
-        <main id="main-content" class="flex-1 p-6 md:p-10 overflow-y-auto">
-            <!-- El contenido se genera dinámicamente -->
-        </main>
+      <!-- Main Content -->
+      <main id="main-content" class="flex-1 p-6 md:p-10 overflow-y-auto">
+        <!-- El contenido se genera dinámicamente -->
+      </main>
     </div>
 
     <script>
-        // Función global para ser llamada desde el HTML
-        window.checkAnswer = (sectionIndex, questionIndex, selectedOptionIndex) => {
-            const quizData = studyGuideData[sectionIndex].quizzes[questionIndex];
-            const feedbackId = `feedback-${sectionIndex}-${questionIndex}`;
-            
-            const feedbackEl = document.getElementById(feedbackId);
-            const quizContainer = feedbackEl.closest('.quiz-container');
-            const options = quizContainer.querySelectorAll('.quiz-option');
+      // Función global para ser llamada desde el HTML
+      window.checkAnswer = (
+        sectionIndex,
+        questionIndex,
+        selectedOptionIndex,
+      ) => {
+        const quizData = studyGuideData[sectionIndex].quizzes[questionIndex];
+        const feedbackId = `feedback-${sectionIndex}-${questionIndex}`;
 
-            // Deshabilitar todos los botones para esta pregunta
-            options.forEach(button => button.disabled = true);
-            
-            const selectedButton = options[selectedOptionIndex];
-            
-            if (selectedOptionIndex === quizData.correct) {
-                selectedButton.classList.add('correct');
-                feedbackEl.innerHTML = `<strong>¡Correcto!</strong> ${quizData.feedback}`;
-                feedbackEl.className = 'mt-4 text-sm p-4 rounded-lg bg-green-100 text-green-800 animate-fade-in';
-            } else {
-                selectedButton.classList.add('incorrect');
-                options[quizData.correct].classList.add('correct');
-                feedbackEl.innerHTML = `<strong>Incorrecto.</strong> La respuesta correcta se ha resaltado en verde. ${quizData.feedback}`;
-                feedbackEl.className = 'mt-4 text-sm p-4 rounded-lg bg-red-100 text-red-800 animate-fade-in';
-            }
-        };
+        const feedbackEl = document.getElementById(feedbackId);
+        const quizContainer = feedbackEl.closest('.quiz-container');
+        const options = quizContainer.querySelectorAll('.quiz-option');
 
-        const studyGuideData = [
-            {
-                id: 'intro',
-                title: 'Bienvenida',
-                content: `
+        // Deshabilitar todos los botones para esta pregunta
+        options.forEach((button) => (button.disabled = true));
+
+        const selectedButton = options[selectedOptionIndex];
+
+        if (selectedOptionIndex === quizData.correct) {
+          selectedButton.classList.add('correct');
+          feedbackEl.innerHTML = `<strong>¡Correcto!</strong> ${quizData.feedback}`;
+          feedbackEl.className =
+            'mt-4 text-sm p-4 rounded-lg bg-green-100 text-green-800 animate-fade-in';
+        } else {
+          selectedButton.classList.add('incorrect');
+          options[quizData.correct].classList.add('correct');
+          feedbackEl.innerHTML = `<strong>Incorrecto.</strong> La respuesta correcta se ha resaltado en verde. ${quizData.feedback}`;
+          feedbackEl.className =
+            'mt-4 text-sm p-4 rounded-lg bg-red-100 text-red-800 animate-fade-in';
+        }
+      };
+
+      const studyGuideData = [
+        {
+          id: 'intro',
+          title: 'Bienvenida',
+          content: `
                     <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
                         <h2 class="text-3xl font-bold text-gray-800 mb-4">Guía de Estudio Interactiva: Enfermedad Hepática</h2>
                         <p class="text-lg text-gray-600 mb-6">Este recurso unificado está diseñado para ser tu compañero de estudio principal para las semanas 10 y 11. Aquí encontrarás todo lo que necesitas, desde la presentación de clase hasta un simulador y una autoevaluación.</p>
@@ -155,34 +177,34 @@
                         </div>
                         <p class="mt-6 text-gray-600">Usa el menú de la izquierda para navegar entre las diferentes herramientas. ¡Éxitos en tu estudio!</p>
                     </div>
-                `
-            },
-            {
-                id: 'presentacion',
-                title: '1. Presentación de Clase',
-                content: `
+                `,
+        },
+        {
+          id: 'presentacion',
+          title: '1. Presentación de Clase',
+          content: `
                     <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
                         <h2 class="text-3xl font-bold text-gray-800 mb-6">Presentación: Enfermedad Hepática II y III</h2>
                         <div id="presentation-content"></div>
                     </div>
                 `,
-                script: 'presentationScript'
-            },
-            {
-                id: 'simulador',
-                title: '2. Simulador Clínico (HVA)',
-                content: `
+          script: 'presentationScript',
+        },
+        {
+          id: 'simulador',
+          title: '2. Simulador Clínico (HVA)',
+          content: `
                     <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
                         <h2 class="text-3xl font-bold text-gray-800 mb-6">Simulador: Manejo de Hemorragia Variceal Aguda</h2>
                         <div id="simulator-content" class="embedded-content-container"></div>
                     </div>
                 `,
-                script: 'simulatorScript'
-            },
-            {
-                id: 'texto-autoevaluacion',
-                title: '3. Texto y Autoevaluación',
-                content: `
+          script: 'simulatorScript',
+        },
+        {
+          id: 'texto-autoevaluacion',
+          title: '3. Texto y Autoevaluación',
+          content: `
                     <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in text-guide">
                         <h2 class="text-3xl font-bold text-gray-800 mb-6">Texto Guía y Casos Clínicos</h2>
                         
@@ -237,45 +259,80 @@
                         </div>
                     </div>
                 `,
-                quizzes: [
-                    {
-                        question: "Un agricultor de 45 años, de Morona Santiago, acude por astenia. Laboratorio: ALT 85 U/L. Perfil viral: HBsAg (+), Anti-HBc total (+), Anti-HBc IgM (-), HBeAg (-), Anti-HBe (+). ¿Cuál es el siguiente paso MÁS apropiado?",
-                        options: [ "Iniciar Tenofovir inmediatamente.", "Solicitar carga viral (ADN-VHB) y repetir transaminasas.", "Asegurar que es un portador inactivo y dar seguimiento anual.", "Solicitar ecografía para descartar esteatosis." ],
-                        correct: 1,
-                        feedback: "Correcto. El paciente tiene una hepatitis B crónica HBeAg-negativa. Para diferenciar si está en la fase inmunoactiva (que requiere tratamiento) o es un portador inactivo, es indispensable conocer el nivel de ADN-VHB y confirmar la persistencia de la elevación de ALT."
-                    },
-                    {
-                        question: "Una mujer de 32 años en su semana 28 de gestación es HBsAg (+). Exámenes: HBeAg (+), ALT 30 U/L y carga viral de 500,000 UI/mL. ¿Cuál es la conducta MÁS adecuada?",
-                        options: [ "Iniciar Tenofovir a la madre y planificar vacuna + HBIg al recién nacido.", "Recomendar cesárea electiva.", "Administrar únicamente la vacuna al recién nacido.", "Suspender la lactancia materna." ],
-                        correct: 0,
-                        feedback: "Correcto. Con una carga viral >200,000 UI/mL, está indicada la terapia antiviral en el tercer trimestre para reducir la transmisión, además de la inmunoprofilaxis completa (activa y pasiva) al neonato."
-                    },
-                    {
-                        question: "Paciente de 62 años con cirrosis (Child-Pugh B8) llega a emergencias por hematemesis. PA 85/50, FC 115 lpm. Además de la resucitación, ¿qué fármacos debe administrar INMEDIATAMENTE?",
-                        options: [ "Omeprazol IV y Metoclopramida IV.", "Furosemida IV y Lactulosa.", "Terlipresina IV y Ceftriaxona IV.", "Albúmina humana IV y Vitamina K IV." ],
-                        correct: 2,
-                        feedback: "Correcto. El manejo inicial de la HVA se basa en resucitación, fármacos vasoactivos (Terlipresina) para reducir la presión portal y profilaxis antibiótica (Ceftriaxona) para prevenir infecciones, que son un gatillo de resangrado."
-                    },
-                    {
-                        question: "Paciente de 68 años con cirrosis alcohólica (Child C11) es hospitalizado por encefalopatía. Tiene fiebre, disuria y ascitis. ¿Cuál es el factor precipitante MÁS probable y cómo lo confirma?",
-                        options: [ "Estreñimiento / Tacto rectal.", "Hemorragia digestiva oculta / Sangre oculta en heces.", "Infección (PBE o ITU) / Paracentesis diagnóstica y examen de orina.", "Exceso de proteínas / Niveles de amonio." ],
-                        correct: 2,
-                        feedback: "Correcto. La infección es uno de los precipitantes más comunes y graves de EH. Ante un paciente con ascitis, fiebre y encefalopatía, es mandatorio descartar PBE mediante una paracentesis."
-                    },
-                    {
-                        question: "Paciente de 55 años con cirrosis por VHB (Child-Pugh A5) acude a su control semestral. ¿Cuál es la indicación de VIGILANCIA más importante para la detección temprana de CHC?",
-                        options: [ "Alfa-fetoproteína (AFP) sérica cada 6 meses.", "TC de abdomen con contraste anualmente.", "Ecografía abdominal cada 6 meses.", "Endoscopia digestiva alta cada 2 años." ],
-                        correct: 2,
-                        feedback: "Correcto. La piedra angular de la vigilancia del carcinoma hepatocelular en todos los pacientes con cirrosis es la ecografía abdominal cada 6 meses. La AFP es un complemento, pero no la reemplaza."
-                    }
-                ]
-            }
-        ];
+          quizzes: [
+            {
+              question:
+                'Un agricultor de 45 años, de Morona Santiago, acude por astenia. Laboratorio: ALT 85 U/L. Perfil viral: HBsAg (+), Anti-HBc total (+), Anti-HBc IgM (-), HBeAg (-), Anti-HBe (+). ¿Cuál es el siguiente paso MÁS apropiado?',
+              options: [
+                'Iniciar Tenofovir inmediatamente.',
+                'Solicitar carga viral (ADN-VHB) y repetir transaminasas.',
+                'Asegurar que es un portador inactivo y dar seguimiento anual.',
+                'Solicitar ecografía para descartar esteatosis.',
+              ],
+              correct: 1,
+              feedback:
+                'Correcto. El paciente tiene una hepatitis B crónica HBeAg-negativa. Para diferenciar si está en la fase inmunoactiva (que requiere tratamiento) o es un portador inactivo, es indispensable conocer el nivel de ADN-VHB y confirmar la persistencia de la elevación de ALT.',
+            },
+            {
+              question:
+                'Una mujer de 32 años en su semana 28 de gestación es HBsAg (+). Exámenes: HBeAg (+), ALT 30 U/L y carga viral de 500,000 UI/mL. ¿Cuál es la conducta MÁS adecuada?',
+              options: [
+                'Iniciar Tenofovir a la madre y planificar vacuna + HBIg al recién nacido.',
+                'Recomendar cesárea electiva.',
+                'Administrar únicamente la vacuna al recién nacido.',
+                'Suspender la lactancia materna.',
+              ],
+              correct: 0,
+              feedback:
+                'Correcto. Con una carga viral >200,000 UI/mL, está indicada la terapia antiviral en el tercer trimestre para reducir la transmisión, además de la inmunoprofilaxis completa (activa y pasiva) al neonato.',
+            },
+            {
+              question:
+                'Paciente de 62 años con cirrosis (Child-Pugh B8) llega a emergencias por hematemesis. PA 85/50, FC 115 lpm. Además de la resucitación, ¿qué fármacos debe administrar INMEDIATAMENTE?',
+              options: [
+                'Omeprazol IV y Metoclopramida IV.',
+                'Furosemida IV y Lactulosa.',
+                'Terlipresina IV y Ceftriaxona IV.',
+                'Albúmina humana IV y Vitamina K IV.',
+              ],
+              correct: 2,
+              feedback:
+                'Correcto. El manejo inicial de la HVA se basa en resucitación, fármacos vasoactivos (Terlipresina) para reducir la presión portal y profilaxis antibiótica (Ceftriaxona) para prevenir infecciones, que son un gatillo de resangrado.',
+            },
+            {
+              question:
+                'Paciente de 68 años con cirrosis alcohólica (Child C11) es hospitalizado por encefalopatía. Tiene fiebre, disuria y ascitis. ¿Cuál es el factor precipitante MÁS probable y cómo lo confirma?',
+              options: [
+                'Estreñimiento / Tacto rectal.',
+                'Hemorragia digestiva oculta / Sangre oculta en heces.',
+                'Infección (PBE o ITU) / Paracentesis diagnóstica y examen de orina.',
+                'Exceso de proteínas / Niveles de amonio.',
+              ],
+              correct: 2,
+              feedback:
+                'Correcto. La infección es uno de los precipitantes más comunes y graves de EH. Ante un paciente con ascitis, fiebre y encefalopatía, es mandatorio descartar PBE mediante una paracentesis.',
+            },
+            {
+              question:
+                'Paciente de 55 años con cirrosis por VHB (Child-Pugh A5) acude a su control semestral. ¿Cuál es la indicación de VIGILANCIA más importante para la detección temprana de CHC?',
+              options: [
+                'Alfa-fetoproteína (AFP) sérica cada 6 meses.',
+                'TC de abdomen con contraste anualmente.',
+                'Ecografía abdominal cada 6 meses.',
+                'Endoscopia digestiva alta cada 2 años.',
+              ],
+              correct: 2,
+              feedback:
+                'Correcto. La piedra angular de la vigilancia del carcinoma hepatocelular en todos los pacientes con cirrosis es la ecografía abdominal cada 6 meses. La AFP es un complemento, pero no la reemplaza.',
+            },
+          ],
+        },
+      ];
 
-        // Contenido de los componentes externos
-        const presentationScript = () => {
-            const container = document.getElementById('presentation-content');
-            container.innerHTML = `
+      // Contenido de los componentes externos
+      const presentationScript = () => {
+        const container = document.getElementById('presentation-content');
+        container.innerHTML = `
                 <style>
                     .slider-container { width: 100%; max-width: 1000px; margin: 0 auto; position: relative; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1); background-color: white; overflow: hidden; }
                     .slide { display: none; padding: 40px 60px; min-height: 500px; animation: fadeIn 0.5s; }
@@ -450,26 +507,30 @@
                     </div>
                 </div>
             `;
-            const slides = container.querySelectorAll('.slide');
-            const prevBtn = container.querySelector('#prevBtn');
-            const nextBtn = container.querySelector('#nextBtn');
-            const slideCounter = container.querySelector('#slideCounter');
-            let currentSlide = 0;
+        const slides = container.querySelectorAll('.slide');
+        const prevBtn = container.querySelector('#prevBtn');
+        const nextBtn = container.querySelector('#nextBtn');
+        const slideCounter = container.querySelector('#slideCounter');
+        let currentSlide = 0;
 
-            function showSlide(n) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                slides[n].classList.add('active');
-                currentSlide = n;
-                slideCounter.textContent = `Diapositiva ${currentSlide + 1} de ${slides.length}`;
-            }
-            nextBtn.addEventListener('click', () => { if (currentSlide < slides.length - 1) showSlide(currentSlide + 1); });
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) showSlide(currentSlide - 1); });
-            showSlide(0);
-        };
+        function showSlide(n) {
+          slides.forEach((slide) => slide.classList.remove('active'));
+          slides[n].classList.add('active');
+          currentSlide = n;
+          slideCounter.textContent = `Diapositiva ${currentSlide + 1} de ${slides.length}`;
+        }
+        nextBtn.addEventListener('click', () => {
+          if (currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+        });
+        prevBtn.addEventListener('click', () => {
+          if (currentSlide > 0) showSlide(currentSlide - 1);
+        });
+        showSlide(0);
+      };
 
-        const simulatorScript = () => {
-            const container = document.getElementById('simulator-content');
-            container.innerHTML = `
+      const simulatorScript = () => {
+        const container = document.getElementById('simulator-content');
+        container.innerHTML = `
                 <style>
                     #game-container { width: 100%; background-color: white; border-radius: 10px; padding: 20px; border-top: 8px solid #c0392b;}
                     #scenario-text-sim { font-size: 1.1em; line-height: 1.6; margin-bottom: 20px; border-left: 4px solid #3498db; padding-left: 15px; }
@@ -493,149 +554,286 @@
                     <div id="feedback-text-sim"></div>
                 </div>
             `;
-            
-            const scenarioText = container.querySelector('#scenario-text-sim');
-            const optionsContainer = container.querySelector('#options-container-sim');
-            const feedbackText = container.querySelector('#feedback-text-sim');
-            const vitalsDisplay = container.querySelector('#vitals-display-sim');
-            let state = {};
 
-            const scenarios = [
-                { id: 0, text: "Paciente de 58 años con cirrosis llega por hematemesis. Está letárgico y desorientado.", options: [ { text: "Asegurar vía aérea (ABCDE) y canalizar 2 vías IV.", correct: true, nextScenario: 1, feedback: "Correcto. La prioridad es la estabilización hemodinámica." }, { text: "Llamar a endoscopia urgentemente.", correct: false, nextScenario: 'fail_endoscopy_first' }, { text: "Administrar un sedante (diazepam).", correct: false, nextScenario: 'fail_sedation' } ] },
-                { id: 'fail_endoscopy_first', text: "El paciente sufre una parada cardiorrespiratoria por hipovolemia. **Error Crítico:** La resucitación es ANTES que la endoscopia.", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
-                { id: 'fail_sedation', text: "Las benzodiacepinas empeoran la encefalopatía. El paciente entra en coma. **Error Crítico:** Evitar sedantes.", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
-                { id: 1, text: "Vía aérea asegurada y accesos IV listos. ¿Siguiente paso URGENTE?", updateState: (s) => { s.ivAccess = true; return s; }, options: [ { text: "Administrar Terlipresina y Ceftriaxona IV.", correct: true, nextScenario: 2, feedback: "Excelente. La terapia farmacológica temprana reduce la mortalidad." }, { text: "Transfundir 2 paquetes de glóbulos rojos.", correct: false, nextScenario: 'fail_liberal_transfusion' } ] },
-                { id: 'fail_liberal_transfusion', text: "La transfusión agresiva eleva la presión portal y provoca resangrado masivo. **Error Crítico:** La transfusión debe ser RESTRICTIVA (objetivo Hb 7-8 g/dL).", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
-                { id: 2, text: "Fármacos administrados. Lab: Hb 6.5 g/dL. PA 90/50. ¿Política de transfusión?", updateState: (s) => { s.vasoactiveGiven = true; s.antibioticGiven = true; s.vitals.pas = 90; s.vitals.fc = 110; return s; }, options: [ { text: "Transfundir 1 paquete GR para objetivo Hb > 7 g/dL.", correct: true, nextScenario: 3, feedback: "Perfecto. Estrategia restrictiva para mantener perfusión sin exacerbar hipertensión portal." }, { text: "Transfundir hasta Hb > 10 g/dL.", correct: false, nextScenario: 'fail_liberal_transfusion' } ] },
-                { id: 3, text: "Hb en 7.5 g/dL. Paciente más estable (PA 95/60, FC 100). ¿Ahora qué?", updateState: (s) => { s.vitals.hb = 7.5; s.vitals.pas = 95; s.vitals.fc = 100; return s; }, options: [ { text: "Coordinar endoscopia urgente (<12h).", correct: true, nextScenario: 4, feedback: "Correcto. Una vez estabilizado, el siguiente paso es el tratamiento endoscópico." }, { text: "Esperar 24h a ver si se detiene el sangrado.", correct: false, nextScenario: 'fail_wait' } ] },
-                { id: 'fail_wait', text: "Retrasar la endoscopia aumenta el riesgo de resangrado. El paciente vuelve a sangrar. **Error:** La endoscopia debe ser temprana.", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
-                { id: 4, text: "¡Excelente! Ha estabilizado al paciente. El gastroenterólogo está en camino. Ha completado con éxito el manejo inicial.", options: [ { text: "Reiniciar Simulación", nextScenario: 0 } ] },
-            ];
+        const scenarioText = container.querySelector('#scenario-text-sim');
+        const optionsContainer = container.querySelector(
+          '#options-container-sim',
+        );
+        const feedbackText = container.querySelector('#feedback-text-sim');
+        const vitalsDisplay = container.querySelector('#vitals-display-sim');
+        let state = {};
 
-            function getInitialState() { return { vitals: { pas: 80, fc: 125, hb: 6.5, encefalopatia: 2 }, ivAccess: false, vasoactiveGiven: false, antibioticGiven: false }; }
-            
-            function renderVitals() { vitalsDisplay.innerHTML = `<div class="vital-sim"><span class="vital-label-sim">PAS</span> <span class="vital-value-sim ${state.vitals.pas >= 90 ? 'stable' : ''}">${state.vitals.pas}</span></div> <div class="vital-sim"><span class="vital-label-sim">FC</span> <span class="vital-value-sim ${state.vitals.fc <= 100 ? 'stable' : ''}">${state.vitals.fc}</span></div> <div class="vital-sim"><span class="vital-label-sim">Hb</span> <span class="vital-value-sim ${state.vitals.hb >= 7 ? 'stable' : ''}">${state.vitals.hb}</span></div>`; }
-            
-            function renderScenario(id) {
-                const scenario = scenarios.find(s => s.id === id);
-                if (!scenario) return;
-                if (scenario.updateState) state = scenario.updateState(state);
-                renderVitals();
-                scenarioText.innerHTML = scenario.text;
-                optionsContainer.innerHTML = '';
-                feedbackText.style.display = 'none';
-                scenario.options.forEach(option => {
-                    const button = document.createElement('button');
-                    button.innerHTML = option.text;
-                    button.onclick = () => handleOptionClick(option);
-                    optionsContainer.appendChild(button);
-                });
-            }
+        const scenarios = [
+          {
+            id: 0,
+            text: 'Paciente de 58 años con cirrosis llega por hematemesis. Está letárgico y desorientado.',
+            options: [
+              {
+                text: 'Asegurar vía aérea (ABCDE) y canalizar 2 vías IV.',
+                correct: true,
+                nextScenario: 1,
+                feedback:
+                  'Correcto. La prioridad es la estabilización hemodinámica.',
+              },
+              {
+                text: 'Llamar a endoscopia urgentemente.',
+                correct: false,
+                nextScenario: 'fail_endoscopy_first',
+              },
+              {
+                text: 'Administrar un sedante (diazepam).',
+                correct: false,
+                nextScenario: 'fail_sedation',
+              },
+            ],
+          },
+          {
+            id: 'fail_endoscopy_first',
+            text: 'El paciente sufre una parada cardiorrespiratoria por hipovolemia. **Error Crítico:** La resucitación es ANTES que la endoscopia.',
+            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
+          },
+          {
+            id: 'fail_sedation',
+            text: 'Las benzodiacepinas empeoran la encefalopatía. El paciente entra en coma. **Error Crítico:** Evitar sedantes.',
+            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
+          },
+          {
+            id: 1,
+            text: 'Vía aérea asegurada y accesos IV listos. ¿Siguiente paso URGENTE?',
+            updateState: (s) => {
+              s.ivAccess = true;
+              return s;
+            },
+            options: [
+              {
+                text: 'Administrar Terlipresina y Ceftriaxona IV.',
+                correct: true,
+                nextScenario: 2,
+                feedback:
+                  'Excelente. La terapia farmacológica temprana reduce la mortalidad.',
+              },
+              {
+                text: 'Transfundir 2 paquetes de glóbulos rojos.',
+                correct: false,
+                nextScenario: 'fail_liberal_transfusion',
+              },
+            ],
+          },
+          {
+            id: 'fail_liberal_transfusion',
+            text: 'La transfusión agresiva eleva la presión portal y provoca resangrado masivo. **Error Crítico:** La transfusión debe ser RESTRICTIVA (objetivo Hb 7-8 g/dL).',
+            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
+          },
+          {
+            id: 2,
+            text: 'Fármacos administrados. Lab: Hb 6.5 g/dL. PA 90/50. ¿Política de transfusión?',
+            updateState: (s) => {
+              s.vasoactiveGiven = true;
+              s.antibioticGiven = true;
+              s.vitals.pas = 90;
+              s.vitals.fc = 110;
+              return s;
+            },
+            options: [
+              {
+                text: 'Transfundir 1 paquete GR para objetivo Hb > 7 g/dL.',
+                correct: true,
+                nextScenario: 3,
+                feedback:
+                  'Perfecto. Estrategia restrictiva para mantener perfusión sin exacerbar hipertensión portal.',
+              },
+              {
+                text: 'Transfundir hasta Hb > 10 g/dL.',
+                correct: false,
+                nextScenario: 'fail_liberal_transfusion',
+              },
+            ],
+          },
+          {
+            id: 3,
+            text: 'Hb en 7.5 g/dL. Paciente más estable (PA 95/60, FC 100). ¿Ahora qué?',
+            updateState: (s) => {
+              s.vitals.hb = 7.5;
+              s.vitals.pas = 95;
+              s.vitals.fc = 100;
+              return s;
+            },
+            options: [
+              {
+                text: 'Coordinar endoscopia urgente (<12h).',
+                correct: true,
+                nextScenario: 4,
+                feedback:
+                  'Correcto. Una vez estabilizado, el siguiente paso es el tratamiento endoscópico.',
+              },
+              {
+                text: 'Esperar 24h a ver si se detiene el sangrado.',
+                correct: false,
+                nextScenario: 'fail_wait',
+              },
+            ],
+          },
+          {
+            id: 'fail_wait',
+            text: 'Retrasar la endoscopia aumenta el riesgo de resangrado. El paciente vuelve a sangrar. **Error:** La endoscopia debe ser temprana.',
+            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
+          },
+          {
+            id: 4,
+            text: '¡Excelente! Ha estabilizado al paciente. El gastroenterólogo está en camino. Ha completado con éxito el manejo inicial.',
+            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
+          },
+        ];
 
-            function handleOptionClick(selectedOption) {
-                feedbackText.style.display = 'block';
-                Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
-                if (selectedOption.correct) {
-                    feedbackText.innerHTML = `<strong>${selectedOption.feedback}</strong>`;
-                    feedbackText.className = 'feedback-correct-sim';
-                    setTimeout(() => renderScenario(selectedOption.nextScenario), 2500);
-                } else {
-                    const failScenario = scenarios.find(s => s.id === selectedOption.nextScenario);
-                    feedbackText.innerHTML = failScenario.text;
-                    feedbackText.className = 'feedback-incorrect-sim';
-                    optionsContainer.innerHTML = '';
-                    failScenario.options.forEach(opt => {
-                        const button = document.createElement('button');
-                        button.innerHTML = opt.text;
-                        button.onclick = () => { if (opt.nextScenario === 0) state = getInitialState(); renderScenario(opt.nextScenario); };
-                        optionsContainer.appendChild(button);
-                    });
-                }
-            }
-            state = getInitialState();
-            renderScenario(0);
-        };
-
-        const mainContent = document.getElementById('main-content');
-        const navigationMenu = document.getElementById('navigation-menu');
-
-        function renderSection(sectionId) {
-            const section = studyGuideData.find(s => s.id === sectionId);
-            if (section) {
-                mainContent.innerHTML = section.content;
-                mainContent.scrollTop = 0;
-
-                // Ejecutar script si existe
-                if (section.script === 'presentationScript') {
-                    presentationScript();
-                } else if (section.script === 'simulatorScript') {
-                    simulatorScript();
-                }
-
-                // Renderizar quizzes si existen
-                if (section.quizzes) {
-                    const quizContainers = mainContent.querySelectorAll('.quiz-container');
-                    section.quizzes.forEach((quiz, quizIndex) => {
-                        // Asignar cada quiz a su contenedor correspondiente
-                        if(quizContainers[quizIndex]) {
-                            const quizEl = document.createElement('div');
-                            quizEl.className = 'bg-white p-6 rounded-lg border-2 border-gray-200';
-                            
-                            const questionP = document.createElement('p');
-                            questionP.className = 'font-medium text-gray-700 mb-4';
-                            questionP.textContent = quiz.question;
-                            quizEl.appendChild(questionP);
-
-                            const optionsDiv = document.createElement('div');
-                            optionsDiv.className = 'space-y-3';
-                            quiz.options.forEach((option, optionIndex) => {
-                                const button = document.createElement('button');
-                                button.className = 'quiz-option w-full text-left p-4 rounded-lg bg-gray-100 hover:bg-blue-100';
-                                button.textContent = `${String.fromCharCode(65 + optionIndex)}) ${option}`;
-                                button.onclick = () => checkAnswer(studyGuideData.indexOf(section), quizIndex, optionIndex);
-                                optionsDiv.appendChild(button);
-                            });
-                            quizEl.appendChild(optionsDiv);
-
-                            const feedbackDiv = document.createElement('div');
-                            feedbackDiv.id = `feedback-${studyGuideData.indexOf(section)}-${quizIndex}`;
-                            feedbackDiv.className = 'mt-4 text-sm p-4 rounded-lg hidden';
-                            quizEl.appendChild(feedbackDiv);
-
-                            quizContainers[quizIndex].appendChild(quizEl);
-                        }
-                    });
-                }
-
-                // Actualizar enlace activo en la barra lateral
-                document.querySelectorAll('.sidebar-link').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('data-id') === sectionId) {
-                        link.classList.add('active');
-                    }
-                });
-            }
+        function getInitialState() {
+          return {
+            vitals: { pas: 80, fc: 125, hb: 6.5, encefalopatia: 2 },
+            ivAccess: false,
+            vasoactiveGiven: false,
+            antibioticGiven: false,
+          };
         }
 
-        // Inicializar la aplicación
-        window.onload = () => {
-            // Poblar el menú de navegación
-            studyGuideData.forEach(section => {
-                const link = document.createElement('a');
-                link.href = '#';
-                link.textContent = section.title;
-                link.className = 'sidebar-link block w-full text-left p-3 rounded-md hover:bg-gray-700';
-                link.setAttribute('data-id', section.id);
-                link.onclick = (e) => {
-                    e.preventDefault();
-                    renderSection(section.id);
-                };
-                navigationMenu.appendChild(link);
-            });
+        function renderVitals() {
+          vitalsDisplay.innerHTML = `<div class="vital-sim"><span class="vital-label-sim">PAS</span> <span class="vital-value-sim ${state.vitals.pas >= 90 ? 'stable' : ''}">${state.vitals.pas}</span></div> <div class="vital-sim"><span class="vital-label-sim">FC</span> <span class="vital-value-sim ${state.vitals.fc <= 100 ? 'stable' : ''}">${state.vitals.fc}</span></div> <div class="vital-sim"><span class="vital-label-sim">Hb</span> <span class="vital-value-sim ${state.vitals.hb >= 7 ? 'stable' : ''}">${state.vitals.hb}</span></div>`;
+        }
 
-            // Renderizar la primera sección por defecto
-            renderSection('intro');
-        };
+        function renderScenario(id) {
+          const scenario = scenarios.find((s) => s.id === id);
+          if (!scenario) return;
+          if (scenario.updateState) state = scenario.updateState(state);
+          renderVitals();
+          scenarioText.innerHTML = scenario.text;
+          optionsContainer.innerHTML = '';
+          feedbackText.style.display = 'none';
+          scenario.options.forEach((option) => {
+            const button = document.createElement('button');
+            button.innerHTML = option.text;
+            button.onclick = () => handleOptionClick(option);
+            optionsContainer.appendChild(button);
+          });
+        }
+
+        function handleOptionClick(selectedOption) {
+          feedbackText.style.display = 'block';
+          Array.from(optionsContainer.children).forEach(
+            (btn) => (btn.disabled = true),
+          );
+          if (selectedOption.correct) {
+            feedbackText.innerHTML = `<strong>${selectedOption.feedback}</strong>`;
+            feedbackText.className = 'feedback-correct-sim';
+            setTimeout(() => renderScenario(selectedOption.nextScenario), 2500);
+          } else {
+            const failScenario = scenarios.find(
+              (s) => s.id === selectedOption.nextScenario,
+            );
+            feedbackText.innerHTML = failScenario.text;
+            feedbackText.className = 'feedback-incorrect-sim';
+            optionsContainer.innerHTML = '';
+            failScenario.options.forEach((opt) => {
+              const button = document.createElement('button');
+              button.innerHTML = opt.text;
+              button.onclick = () => {
+                if (opt.nextScenario === 0) state = getInitialState();
+                renderScenario(opt.nextScenario);
+              };
+              optionsContainer.appendChild(button);
+            });
+          }
+        }
+        state = getInitialState();
+        renderScenario(0);
+      };
+
+      const mainContent = document.getElementById('main-content');
+      const navigationMenu = document.getElementById('navigation-menu');
+
+      function renderSection(sectionId) {
+        const section = studyGuideData.find((s) => s.id === sectionId);
+        if (section) {
+          mainContent.innerHTML = section.content;
+          mainContent.scrollTop = 0;
+
+          // Ejecutar script si existe
+          if (section.script === 'presentationScript') {
+            presentationScript();
+          } else if (section.script === 'simulatorScript') {
+            simulatorScript();
+          }
+
+          // Renderizar quizzes si existen
+          if (section.quizzes) {
+            const quizContainers =
+              mainContent.querySelectorAll('.quiz-container');
+            section.quizzes.forEach((quiz, quizIndex) => {
+              // Asignar cada quiz a su contenedor correspondiente
+              if (quizContainers[quizIndex]) {
+                const quizEl = document.createElement('div');
+                quizEl.className =
+                  'bg-white p-6 rounded-lg border-2 border-gray-200';
+
+                const questionP = document.createElement('p');
+                questionP.className = 'font-medium text-gray-700 mb-4';
+                questionP.textContent = quiz.question;
+                quizEl.appendChild(questionP);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'space-y-3';
+                quiz.options.forEach((option, optionIndex) => {
+                  const button = document.createElement('button');
+                  button.className =
+                    'quiz-option w-full text-left p-4 rounded-lg bg-gray-100 hover:bg-blue-100';
+                  button.textContent = `${String.fromCharCode(65 + optionIndex)}) ${option}`;
+                  button.onclick = () =>
+                    checkAnswer(
+                      studyGuideData.indexOf(section),
+                      quizIndex,
+                      optionIndex,
+                    );
+                  optionsDiv.appendChild(button);
+                });
+                quizEl.appendChild(optionsDiv);
+
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.id = `feedback-${studyGuideData.indexOf(section)}-${quizIndex}`;
+                feedbackDiv.className = 'mt-4 text-sm p-4 rounded-lg hidden';
+                quizEl.appendChild(feedbackDiv);
+
+                quizContainers[quizIndex].appendChild(quizEl);
+              }
+            });
+          }
+
+          // Actualizar enlace activo en la barra lateral
+          document.querySelectorAll('.sidebar-link').forEach((link) => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-id') === sectionId) {
+              link.classList.add('active');
+            }
+          });
+        }
+      }
+
+      // Inicializar la aplicación
+      window.onload = () => {
+        // Poblar el menú de navegación
+        studyGuideData.forEach((section) => {
+          const link = document.createElement('a');
+          link.href = '#';
+          link.textContent = section.title;
+          link.className =
+            'sidebar-link block w-full text-left p-3 rounded-md hover:bg-gray-700';
+          link.setAttribute('data-id', section.id);
+          link.onclick = (e) => {
+            e.preventDefault();
+            renderSection(section.id);
+          };
+          navigationMenu.appendChild(link);
+        });
+
+        // Renderizar la primera sección por defecto
+        renderSection('intro');
+      };
     </script>
-</body>
+  </body>
 </html>

@@ -1,219 +1,288 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Autoevaluación: Razonamiento Clínico</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .question-card {
-            transition: transform 0.3s ease-in-out;
-            border-left: 5px solid transparent;
-        }
-        .option-label {
-            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-            cursor: pointer;
-        }
-        .option-label:hover {
-            background-color: #e0f2fe; /* light-blue-100 */
-            border-color: #3b82f6; /* blue-500 */
-        }
-        .option-label.selected {
-            background-color: #bfdbfe; /* blue-200 */
-            border-color: #2563eb; /* blue-600 */
-            color: #1e3a8a; /* blue-900 */
-        }
-         .option-label.correct {
-            background-color: #dcfce7; /* green-100 */
-            border-color: #22c55e; /* green-500 */
-        }
-        .option-label.incorrect {
-            background-color: #fee2e2; /* red-100 */
-            border-color: #ef4444; /* red-500 */
-        }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .question-card {
+        transition: transform 0.3s ease-in-out;
+        border-left: 5px solid transparent;
+      }
+      .option-label {
+        transition:
+          background-color 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+        cursor: pointer;
+      }
+      .option-label:hover {
+        background-color: #e0f2fe; /* light-blue-100 */
+        border-color: #3b82f6; /* blue-500 */
+      }
+      .option-label.selected {
+        background-color: #bfdbfe; /* blue-200 */
+        border-color: #2563eb; /* blue-600 */
+        color: #1e3a8a; /* blue-900 */
+      }
+      .option-label.correct {
+        background-color: #dcfce7; /* green-100 */
+        border-color: #22c55e; /* green-500 */
+      }
+      .option-label.incorrect {
+        background-color: #fee2e2; /* red-100 */
+        border-color: #ef4444; /* red-500 */
+      }
     </style>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
     <div class="container mx-auto max-w-2xl">
-        <div id="quiz-container" class="bg-white p-8 rounded-xl shadow-2xl">
-            <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">Autoevaluación de Razonamiento Clínico</h1>
-            <p class="text-center text-gray-500 mb-8">Pon a prueba tus conocimientos sobre los modelos de razonamiento clínico.</p>
-            
-            <div id="questions-wrapper">
-                <!-- Las preguntas se cargarán aquí -->
-            </div>
+      <div id="quiz-container" class="bg-white p-8 rounded-xl shadow-2xl">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">
+          Autoevaluación de Razonamiento Clínico
+        </h1>
+        <p class="text-center text-gray-500 mb-8">
+          Pon a prueba tus conocimientos sobre los modelos de razonamiento
+          clínico.
+        </p>
 
-            <div class="mt-8 flex justify-center">
-                <button id="submit-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                    Calificar mi Autoevaluación
-                </button>
-            </div>
+        <div id="questions-wrapper">
+          <!-- Las preguntas se cargarán aquí -->
         </div>
 
-        <div id="result-container" class="hidden bg-white p-8 rounded-xl shadow-2xl text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Resultados de la Autoevaluación</h2>
-            <div id="score-circle" class="w-32 h-32 mx-auto rounded-full flex items-center justify-center text-3xl font-bold text-white mb-6">
-                
-            </div>
-            <p id="score-text" class="text-xl text-gray-700 mb-2"></p>
-            <p id="feedback-text" class="text-lg text-gray-500 mb-8"></p>
-            <button id="retry-btn" class="bg-gray-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                Intentar de Nuevo
-            </button>
+        <div class="mt-8 flex justify-center">
+          <button
+            id="submit-btn"
+            class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all duration-300 transform hover:scale-105 shadow-lg"
+          >
+            Calificar mi Autoevaluación
+          </button>
         </div>
+      </div>
+
+      <div
+        id="result-container"
+        class="hidden bg-white p-8 rounded-xl shadow-2xl text-center"
+      >
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">
+          Resultados de la Autoevaluación
+        </h2>
+        <div
+          id="score-circle"
+          class="w-32 h-32 mx-auto rounded-full flex items-center justify-center text-3xl font-bold text-white mb-6"
+        ></div>
+        <p id="score-text" class="text-xl text-gray-700 mb-2"></p>
+        <p id="feedback-text" class="text-lg text-gray-500 mb-8"></p>
+        <button
+          id="retry-btn"
+          class="bg-gray-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          Intentar de Nuevo
+        </button>
+      </div>
     </div>
 
     <script>
-        const quizData = [
-            {
-                question: "Un médico nota que varios pacientes con un estilo de vida similar desarrollan la misma condición. Con base en estas observaciones, formula una hipótesis general. ¿Qué tipo de razonamiento está utilizando principalmente?",
-                options: ["Deducción", "Inducción", "Abducción", "Determinismo"],
-                answer: "Inducción"
-            },
-            {
-                question: "¿Cuál es la principal debilidad de un Sistema de Soporte a la Decisión Clínica (CDSS) basado en reglas deterministas?",
-                options: ["Su incapacidad para procesar grandes cantidades de datos", "Su alto costo de implementación", "Su rigidez para manejar la incertidumbre y las excepciones", "Su falta de transparencia"],
-                answer: "Su rigidez para manejar la incertidumbre y las excepciones"
-            },
-            {
-                question: "En el Teorema de Bayes, ¿qué representa la 'probabilidad a priori' o P(H)?",
-                options: ["La probabilidad de tener la enfermedad después de la prueba.", "La sensibilidad de la prueba.", "La sospecha clínica inicial antes de considerar nueva evidencia.", "La probabilidad de que la evidencia sea correcta."],
-                answer: "La sospecha clínica inicial antes de considerar nueva evidencia."
-            },
-            {
-                question: "El término 'problema de la caja negra' en el contexto de las redes neuronales se refiere a:",
-                options: ["Su incapacidad para aprender de datos de imágenes.", "La dificultad para entender cómo el modelo llega a sus conclusiones.", "El alto consumo de energía que requieren.", "La necesidad de hardware especializado para su entrenamiento."],
-                answer: "La dificultad para entender cómo el modelo llega a sus conclusiones."
-            },
-            {
-                question: "Un clínico se enfrenta a un conjunto de síntomas desconcertantes y genera una lista de posibles causas (diagnóstico diferencial). Este acto de generación de hipótesis es un ejemplo de:",
-                options: ["Razonamiento Abductivo", "Razonamiento Deductivo", "Análisis Probabilístico", "Reconocimiento de Patrones"],
-                answer: "Razonamiento Abductivo"
-            },
-            {
-                question: "¿Qué técnica de IA Explicable (XAI) se utiliza comúnmente para resaltar las áreas de una imagen médica que fueron más influyentes para la decisión de un modelo?",
-                options: ["LIME", "SHAP", "Árboles de Decisión", "Mapas de Calor (Salicency Maps)"],
-                answer: "Mapas de Calor (Salicency Maps)"
+      const quizData = [
+        {
+          question:
+            'Un médico nota que varios pacientes con un estilo de vida similar desarrollan la misma condición. Con base en estas observaciones, formula una hipótesis general. ¿Qué tipo de razonamiento está utilizando principalmente?',
+          options: ['Deducción', 'Inducción', 'Abducción', 'Determinismo'],
+          answer: 'Inducción',
+        },
+        {
+          question:
+            '¿Cuál es la principal debilidad de un Sistema de Soporte a la Decisión Clínica (CDSS) basado en reglas deterministas?',
+          options: [
+            'Su incapacidad para procesar grandes cantidades de datos',
+            'Su alto costo de implementación',
+            'Su rigidez para manejar la incertidumbre y las excepciones',
+            'Su falta de transparencia',
+          ],
+          answer: 'Su rigidez para manejar la incertidumbre y las excepciones',
+        },
+        {
+          question:
+            "En el Teorema de Bayes, ¿qué representa la 'probabilidad a priori' o P(H)?",
+          options: [
+            'La probabilidad de tener la enfermedad después de la prueba.',
+            'La sensibilidad de la prueba.',
+            'La sospecha clínica inicial antes de considerar nueva evidencia.',
+            'La probabilidad de que la evidencia sea correcta.',
+          ],
+          answer:
+            'La sospecha clínica inicial antes de considerar nueva evidencia.',
+        },
+        {
+          question:
+            "El término 'problema de la caja negra' en el contexto de las redes neuronales se refiere a:",
+          options: [
+            'Su incapacidad para aprender de datos de imágenes.',
+            'La dificultad para entender cómo el modelo llega a sus conclusiones.',
+            'El alto consumo de energía que requieren.',
+            'La necesidad de hardware especializado para su entrenamiento.',
+          ],
+          answer:
+            'La dificultad para entender cómo el modelo llega a sus conclusiones.',
+        },
+        {
+          question:
+            'Un clínico se enfrenta a un conjunto de síntomas desconcertantes y genera una lista de posibles causas (diagnóstico diferencial). Este acto de generación de hipótesis es un ejemplo de:',
+          options: [
+            'Razonamiento Abductivo',
+            'Razonamiento Deductivo',
+            'Análisis Probabilístico',
+            'Reconocimiento de Patrones',
+          ],
+          answer: 'Razonamiento Abductivo',
+        },
+        {
+          question:
+            '¿Qué técnica de IA Explicable (XAI) se utiliza comúnmente para resaltar las áreas de una imagen médica que fueron más influyentes para la decisión de un modelo?',
+          options: [
+            'LIME',
+            'SHAP',
+            'Árboles de Decisión',
+            'Mapas de Calor (Salicency Maps)',
+          ],
+          answer: 'Mapas de Calor (Salicency Maps)',
+        },
+      ];
+
+      const quizContainer = document.getElementById('quiz-container');
+      const questionsWrapper = document.getElementById('questions-wrapper');
+      const submitBtn = document.getElementById('submit-btn');
+      const resultContainer = document.getElementById('result-container');
+      const scoreCircle = document.getElementById('score-circle');
+      const scoreText = document.getElementById('score-text');
+      const feedbackText = document.getElementById('feedback-text');
+      const retryBtn = document.getElementById('retry-btn');
+
+      function loadQuiz() {
+        questionsWrapper.innerHTML = '';
+        quizData.forEach((quizItem, index) => {
+          const questionElement = document.createElement('div');
+          questionElement.className =
+            'question-card bg-white p-6 rounded-lg shadow-md mb-6';
+
+          const questionText = document.createElement('p');
+          questionText.className = 'text-lg font-semibold text-gray-700 mb-4';
+          questionText.textContent = `${index + 1}. ${quizItem.question}`;
+          questionElement.appendChild(questionText);
+
+          const optionsElement = document.createElement('div');
+          optionsElement.className = 'space-y-3';
+          optionsElement.id = `q${index}-options`;
+
+          quizItem.options.forEach((option) => {
+            const optionContainer = document.createElement('div');
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `question${index}`;
+            radio.value = option;
+            radio.id = `q${index}-${option.replace(/\s+/g, '')}`;
+            radio.className = 'hidden';
+
+            const label = document.createElement('label');
+            label.htmlFor = `q${index}-${option.replace(/\s+/g, '')}`;
+            label.textContent = option;
+            label.className =
+              'option-label block w-full text-left p-4 border-2 border-gray-200 rounded-lg';
+
+            radio.addEventListener('change', () => {
+              // Remove 'selected' class from all labels for this question
+              document
+                .querySelectorAll(`input[name="question${index}"]`)
+                .forEach((r) => {
+                  document
+                    .querySelector(`label[for="${r.id}"]`)
+                    .classList.remove('selected');
+                });
+              // Add 'selected' class to the clicked label
+              label.classList.add('selected');
+            });
+
+            optionContainer.appendChild(radio);
+            optionContainer.appendChild(label);
+            optionsElement.appendChild(optionContainer);
+          });
+
+          questionElement.appendChild(optionsElement);
+          questionsWrapper.appendChild(questionElement);
+        });
+      }
+
+      submitBtn.addEventListener('click', () => {
+        let score = 0;
+        quizData.forEach((quizItem, index) => {
+          const selectedOption = document.querySelector(
+            `input[name="question${index}"]:checked`,
+          );
+          const optionsContainer = document.getElementById(`q${index}-options`);
+          const labels = optionsContainer.getElementsByTagName('label');
+
+          Array.from(labels).forEach((label) => {
+            label.classList.remove('selected'); // Remove selection visual
+            const radioId = label.getAttribute('for');
+            const radio = document.getElementById(radioId);
+
+            if (radio.value === quizItem.answer) {
+              label.classList.add('correct');
+            } else if (radio.checked) {
+              label.classList.add('incorrect');
             }
-        ];
+          });
 
-        const quizContainer = document.getElementById('quiz-container');
-        const questionsWrapper = document.getElementById('questions-wrapper');
-        const submitBtn = document.getElementById('submit-btn');
-        const resultContainer = document.getElementById('result-container');
-        const scoreCircle = document.getElementById('score-circle');
-        const scoreText = document.getElementById('score-text');
-        const feedbackText = document.getElementById('feedback-text');
-        const retryBtn = document.getElementById('retry-btn');
-
-        function loadQuiz() {
-            questionsWrapper.innerHTML = '';
-            quizData.forEach((quizItem, index) => {
-                const questionElement = document.createElement('div');
-                questionElement.className = 'question-card bg-white p-6 rounded-lg shadow-md mb-6';
-                
-                const questionText = document.createElement('p');
-                questionText.className = 'text-lg font-semibold text-gray-700 mb-4';
-                questionText.textContent = `${index + 1}. ${quizItem.question}`;
-                questionElement.appendChild(questionText);
-
-                const optionsElement = document.createElement('div');
-                optionsElement.className = 'space-y-3';
-                optionsElement.id = `q${index}-options`;
-
-                quizItem.options.forEach(option => {
-                    const optionContainer = document.createElement('div');
-                    const radio = document.createElement('input');
-                    radio.type = 'radio';
-                    radio.name = `question${index}`;
-                    radio.value = option;
-                    radio.id = `q${index}-${option.replace(/\s+/g, '')}`;
-                    radio.className = 'hidden';
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `q${index}-${option.replace(/\s+/g, '')}`;
-                    label.textContent = option;
-                    label.className = 'option-label block w-full text-left p-4 border-2 border-gray-200 rounded-lg';
-                    
-                    radio.addEventListener('change', () => {
-                        // Remove 'selected' class from all labels for this question
-                        document.querySelectorAll(`input[name="question${index}"]`).forEach(r => {
-                            document.querySelector(`label[for="${r.id}"]`).classList.remove('selected');
-                        });
-                        // Add 'selected' class to the clicked label
-                        label.classList.add('selected');
-                    });
-
-                    optionContainer.appendChild(radio);
-                    optionContainer.appendChild(label);
-                    optionsElement.appendChild(optionContainer);
-                });
-                
-                questionElement.appendChild(optionsElement);
-                questionsWrapper.appendChild(questionElement);
-            });
-        }
-
-        submitBtn.addEventListener('click', () => {
-            let score = 0;
-            quizData.forEach((quizItem, index) => {
-                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-                const optionsContainer = document.getElementById(`q${index}-options`);
-                const labels = optionsContainer.getElementsByTagName('label');
-
-                Array.from(labels).forEach(label => {
-                    label.classList.remove('selected'); // Remove selection visual
-                    const radioId = label.getAttribute('for');
-                    const radio = document.getElementById(radioId);
-                    
-                    if (radio.value === quizItem.answer) {
-                        label.classList.add('correct');
-                    } else if (radio.checked) {
-                        label.classList.add('incorrect');
-                    }
-                });
-
-                if (selectedOption && selectedOption.value === quizItem.answer) {
-                    score++;
-                }
-            });
-
-            showResults(score);
+          if (selectedOption && selectedOption.value === quizItem.answer) {
+            score++;
+          }
         });
 
-        function showResults(score) {
-            quizContainer.classList.add('hidden');
-            resultContainer.classList.remove('hidden');
+        showResults(score);
+      });
 
-            const percentage = Math.round((score / quizData.length) * 100);
-            scoreCircle.textContent = `${percentage}%`;
-            scoreText.textContent = `Obtuviste ${score} de ${quizData.length} respuestas correctas.`;
+      function showResults(score) {
+        quizContainer.classList.add('hidden');
+        resultContainer.classList.remove('hidden');
 
-            if (percentage >= 80) {
-                feedbackText.textContent = "¡Excelente trabajo! Tienes un sólido conocimiento de los modelos de razonamiento clínico.";
-                scoreCircle.className = 'w-32 h-32 mx-auto rounded-full flex items-center justify-center text-3xl font-bold text-white mb-6 bg-green-500';
-            } else if (percentage >= 50) {
-                feedbackText.textContent = "¡Buen trabajo! Has comprendido los conceptos principales. Sigue repasando para afianzar los detalles.";
-                 scoreCircle.className = 'w-32 h-32 mx-auto rounded-full flex items-center justify-center text-3xl font-bold text-white mb-6 bg-yellow-500';
-            } else {
-                feedbackText.textContent = "Parece que algunos conceptos no quedaron claros. Te recomendamos repasar la presentación y el material de lectura.";
-                 scoreCircle.className = 'w-32 h-32 mx-auto rounded-full flex items-center justify-center text-3xl font-bold text-white mb-6 bg-red-500';
-            }
+        const percentage = Math.round((score / quizData.length) * 100);
+        scoreCircle.textContent = `${percentage}%`;
+        scoreText.textContent = `Obtuviste ${score} de ${quizData.length} respuestas correctas.`;
+
+        if (percentage >= 80) {
+          feedbackText.textContent =
+            '¡Excelente trabajo! Tienes un sólido conocimiento de los modelos de razonamiento clínico.';
+          scoreCircle.className =
+            'w-32 h-32 mx-auto rounded-full flex items-center justify-center text-3xl font-bold text-white mb-6 bg-green-500';
+        } else if (percentage >= 50) {
+          feedbackText.textContent =
+            '¡Buen trabajo! Has comprendido los conceptos principales. Sigue repasando para afianzar los detalles.';
+          scoreCircle.className =
+            'w-32 h-32 mx-auto rounded-full flex items-center justify-center text-3xl font-bold text-white mb-6 bg-yellow-500';
+        } else {
+          feedbackText.textContent =
+            'Parece que algunos conceptos no quedaron claros. Te recomendamos repasar la presentación y el material de lectura.';
+          scoreCircle.className =
+            'w-32 h-32 mx-auto rounded-full flex items-center justify-center text-3xl font-bold text-white mb-6 bg-red-500';
         }
+      }
 
-        retryBtn.addEventListener('click', () => {
-            resultContainer.classList.add('hidden');
-            quizContainer.classList.remove('hidden');
-            loadQuiz();
-        });
-
-        // Initial load
+      retryBtn.addEventListener('click', () => {
+        resultContainer.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
         loadQuiz();
+      });
+
+      // Initial load
+      loadQuiz();
     </script>
-</body>
+  </body>
 </html>

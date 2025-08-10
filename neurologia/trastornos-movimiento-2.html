@@ -1,372 +1,1153 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Módulo: Trastornos del Movimiento II - Power Semiotics</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-        .accordion-button.active .accordion-icon {
-            transform: rotate(180deg);
-        }
-        /* Estilos para contenido embebido */
-        .embedded-content h3 { margin-top: 1.5rem; margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600; color: #1e3a8a; }
-        .embedded-content p { margin-bottom: 1rem; line-height: 1.7; }
-        .embedded-content strong { font-weight: 600; }
-        .embedded-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
-        /* Estilos mejorados para textarea */
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            margin-top: 10px;
-            min-height: 120px; /* Aumentado para mejor visibilidad */
-            resize: vertical;
-            background-color: #f9fafb; /* Color de fondo sutil */
-        }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+      }
+      .accordion-button.active .accordion-icon {
+        transform: rotate(180deg);
+      }
+      /* Estilos para contenido embebido */
+      .embedded-content h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1e3a8a;
+      }
+      .embedded-content p {
+        margin-bottom: 1rem;
+        line-height: 1.7;
+      }
+      .embedded-content strong {
+        font-weight: 600;
+      }
+      .embedded-content ul {
+        list-style-type: disc;
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      /* Estilos mejorados para textarea */
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        margin-top: 10px;
+        min-height: 120px; /* Aumentado para mejor visibilidad */
+        resize: vertical;
+        background-color: #f9fafb; /* Color de fondo sutil */
+      }
     </style>
-</head>
-<body class="bg-gray-100">
-
+  </head>
+  <body class="bg-gray-100">
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/neurologia.html" class="text-xl font-bold text-blue-700">&larr; Volver al Hub de Neurología</a>
-            <div class="text-xl font-bold text-gray-700">Power Semiotics</div>
-        </nav>
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="/neurologia.html" class="text-xl font-bold text-blue-700"
+          >&larr; Volver al Hub de Neurología</a
+        >
+        <div class="text-xl font-bold text-gray-700">Power Semiotics</div>
+      </nav>
     </header>
 
     <!-- Main Module Container -->
     <div class="container mx-auto p-4 md:p-8">
-        <div class="text-center mb-10">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Módulo: Trastornos del Movimiento II</h1>
-            <p class="text-md text-gray-600">Siga los pasos en orden para una experiencia de aprendizaje completa.</p>
+      <div class="text-center mb-10">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
+          Módulo: Trastornos del Movimiento II
+        </h1>
+        <p class="text-md text-gray-600">
+          Siga los pasos en orden para una experiencia de aprendizaje completa.
+        </p>
+      </div>
+
+      <!-- Botón de Descarga PDF -->
+      <div class="text-center mb-12">
+        <a
+          href="/assets/pdf/Trastornos-del-Movimiento-2.pdf"
+          download
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm"
+        >
+          <i class="fas fa-download mr-2"></i>
+          Descargar Banco de Conocimientos (PDF)
+        </a>
+      </div>
+
+      <!-- Accordion Container -->
+      <div id="accordion-container" class="space-y-4 max-w-5xl mx-auto">
+        <!-- Accordion Item 1: Guía de Conocimiento -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors"
+          >
+            <span>1. Guía de Conocimiento: Diagnóstico Diferencial</span>
+            <svg
+              class="accordion-icon w-6 h-6 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div
+              class="p-5 border-t border-gray-200 text-gray-700 embedded-content"
+            >
+              <h3>El Concepto de "Banderas Rojas"</h3>
+              <p>
+                Las "Banderas Rojas" son signos y síntomas atípicos que deben
+                alertar al médico de que un paciente probablemente no tiene
+                Enfermedad de Parkinson Idiopática (EPI), sino un
+                parkinsonismo-plus o secundario. Su identificación es la
+                habilidad más importante en el diagnóstico diferencial, ya que
+                cambia radicalmente el pronóstico y el manejo. Las banderas
+                rojas clave incluyen: caídas precoces, mala respuesta a
+                Levodopa, simetría de síntomas desde el inicio, disautonomía
+                precoz y severa, y anormalidades de los movimientos oculares.
+              </p>
+
+              <h3>Parkinsonismos-Plus (Atípicos)</h3>
+              <ul>
+                <li>
+                  <strong>Parálisis Supranuclear Progresiva (PSP):</strong> El
+                  perfil clásico es un parkinsonismo simétrico con marcada
+                  inestabilidad postural y caídas precoces (típicamente hacia
+                  atrás), rigidez del cuello (retrocolis) y la característica
+                  parálisis de la mirada vertical hacia abajo.
+                </li>
+                <li>
+                  <strong>Atrofia Multisistémica (AMS):</strong> La clave del
+                  diagnóstico es la disautonomía precoz y severa (hipotensión
+                  ortostática, incontinencia urinaria). Puede presentarse con
+                  predominio de parkinsonismo (AMS-P) o de ataxia (AMS-C).
+                </li>
+                <li>
+                  <strong>Degeneración Corticobasal (DCB):</strong> Se
+                  caracteriza por un parkinsonismo marcadamente asimétrico,
+                  asociado a apraxia, mioclonías y el fenómeno de la "mano
+                  ajena".
+                </li>
+              </ul>
+
+              <h3>Diferenciación del Temblor</h3>
+              <p>
+                El temblor es el trastorno del movimiento más frecuente. La
+                diferenciación es clínica:
+              </p>
+              <ul>
+                <li>
+                  <strong>Temblor Esencial:</strong> Temblor de acción (postural
+                  y cinético), a menudo bilateral, que mejora
+                  característicamente con el alcohol.
+                </li>
+                <li>
+                  <strong>Temblor Parkinsoniano:</strong> Temblor de reposo,
+                  asimétrico, que disminuye con la acción.
+                </li>
+                <li>
+                  <strong>Temblor Cerebeloso:</strong> Temblor de intención, que
+                  empeora al acercarse a un objetivo, asociado a ataxia y
+                  dismetría.
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <!-- Botón de Descarga PDF -->
-        <div class="text-center mb-12">
-            <a href="/assets/pdf/Trastornos-del-Movimiento-2.pdf" download class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm">
-                <i class="fas fa-download mr-2"></i>
-                Descargar Banco de Conocimientos (PDF)
-            </a>
+        <!-- Accordion Item 2: Presentación Interactiva -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors"
+          >
+            <span>2. Presentación Interactiva: Diagnóstico Diferencial</span>
+            <svg
+              class="accordion-icon w-6 h-6 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div
+              id="presentation-container-parent"
+              class="p-5 border-t border-gray-200"
+            >
+              <!-- El contenido de la presentación se cargará aquí -->
+            </div>
+          </div>
         </div>
 
-
-        <!-- Accordion Container -->
-        <div id="accordion-container" class="space-y-4 max-w-5xl mx-auto">
-
-            <!-- Accordion Item 1: Guía de Conocimiento -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-                    <span>1. Guía de Conocimiento: Diagnóstico Diferencial</span>
-                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <div class="p-5 border-t border-gray-200 text-gray-700 embedded-content">
-                        <h3>El Concepto de "Banderas Rojas"</h3>
-                        <p>Las "Banderas Rojas" son signos y síntomas atípicos que deben alertar al médico de que un paciente probablemente no tiene Enfermedad de Parkinson Idiopática (EPI), sino un parkinsonismo-plus o secundario. Su identificación es la habilidad más importante en el diagnóstico diferencial, ya que cambia radicalmente el pronóstico y el manejo. Las banderas rojas clave incluyen: caídas precoces, mala respuesta a Levodopa, simetría de síntomas desde el inicio, disautonomía precoz y severa, y anormalidades de los movimientos oculares.</p>
-                        
-                        <h3>Parkinsonismos-Plus (Atípicos)</h3>
-                        <ul>
-                            <li><strong>Parálisis Supranuclear Progresiva (PSP):</strong> El perfil clásico es un parkinsonismo simétrico con marcada inestabilidad postural y caídas precoces (típicamente hacia atrás), rigidez del cuello (retrocolis) y la característica parálisis de la mirada vertical hacia abajo.</li>
-                            <li><strong>Atrofia Multisistémica (AMS):</strong> La clave del diagnóstico es la disautonomía precoz y severa (hipotensión ortostática, incontinencia urinaria). Puede presentarse con predominio de parkinsonismo (AMS-P) o de ataxia (AMS-C).</li>
-                            <li><strong>Degeneración Corticobasal (DCB):</strong> Se caracteriza por un parkinsonismo marcadamente asimétrico, asociado a apraxia, mioclonías y el fenómeno de la "mano ajena".</li>
-                        </ul>
-
-                        <h3>Diferenciación del Temblor</h3>
-                        <p>El temblor es el trastorno del movimiento más frecuente. La diferenciación es clínica:</p>
-                        <ul>
-                            <li><strong>Temblor Esencial:</strong> Temblor de acción (postural y cinético), a menudo bilateral, que mejora característicamente con el alcohol.</li>
-                            <li><strong>Temblor Parkinsoniano:</strong> Temblor de reposo, asimétrico, que disminuye con la acción.</li>
-                            <li><strong>Temblor Cerebeloso:</strong> Temblor de intención, que empeora al acercarse a un objetivo, asociado a ataxia y dismetría.</li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- Accordion Item 3: Herramienta Interactiva -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors"
+          >
+            <span>3. Herramienta: Clasificador de Fenotipos Clínicos</span>
+            <svg
+              class="accordion-icon w-6 h-6 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div
+              id="classifier-container-parent"
+              class="p-5 border-t border-gray-200"
+            >
+              <!-- El contenido del clasificador se cargará aquí -->
             </div>
-
-            <!-- Accordion Item 2: Presentación Interactiva -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-                    <span>2. Presentación Interactiva: Diagnóstico Diferencial</span>
-                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <div id="presentation-container-parent" class="p-5 border-t border-gray-200">
-                        <!-- El contenido de la presentación se cargará aquí -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Accordion Item 3: Herramienta Interactiva -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-                    <span>3. Herramienta: Clasificador de Fenotipos Clínicos</span>
-                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <div id="classifier-container-parent" class="p-5 border-t border-gray-200">
-                        <!-- El contenido del clasificador se cargará aquí -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Accordion Item 4: Actividad Interactiva (ABP) -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-                    <span>4. Actividad Interactiva: Casos Clínicos ABP</span>
-                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <div id="abp-container-parent" class="p-5 border-t border-gray-200">
-                        <!-- El contenido de ABP se cargará aquí -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Accordion Item 5: Banco de Preguntas -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-                    <span>5. Banco de Preguntas: Autoevaluación de Diagnóstico Diferencial</span>
-                    <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <div id="quiz-container-parent" class="p-5 border-t border-gray-200">
-                        <!-- El contenido del quiz se cargará aquí -->
-                    </div>
-                </div>
-            </div>
-
+          </div>
         </div>
+
+        <!-- Accordion Item 4: Actividad Interactiva (ABP) -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors"
+          >
+            <span>4. Actividad Interactiva: Casos Clínicos ABP</span>
+            <svg
+              class="accordion-icon w-6 h-6 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div id="abp-container-parent" class="p-5 border-t border-gray-200">
+              <!-- El contenido de ABP se cargará aquí -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 5: Banco de Preguntas -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors"
+          >
+            <span
+              >5. Banco de Preguntas: Autoevaluación de Diagnóstico
+              Diferencial</span
+            >
+            <svg
+              class="accordion-icon w-6 h-6 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div
+              id="quiz-container-parent"
+              class="p-5 border-t border-gray-200"
+            >
+              <!-- El contenido del quiz se cargará aquí -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
     <footer class="bg-white mt-12 py-6">
-        <div class="container mx-auto text-center text-gray-600">
-            &copy; 2025 Power Semiotics. Todos los derechos reservados.
-        </div>
+      <div class="container mx-auto text-center text-gray-600">
+        &copy; 2025 Power Semiotics. Todos los derechos reservados.
+      </div>
     </footer>
 
     <!-- TEMPLATES FOR DYNAMIC CONTENT (Hidden) -->
     <template id="presentation-template">
-        <div id="presentation-root">
-            <style>
-                #presentation-root .slide { display: none; animation: fadeIn 0.5s; min-height: 520px; padding: 2.5rem; box-sizing: border-box; }
-                #presentation-root .slide.active { display: flex; flex-direction: column; justify-content: center; }
-                #presentation-root @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-                #presentation-root h2 { font-size: 2.25rem; font-weight: 700; color: #1e3a8a; margin-bottom: 1.5rem; }
-                #presentation-root p, #presentation-root li { font-size: 1.125rem; line-height: 1.75; color: #374151; }
-                #presentation-root ul { list-style-position: inside; space-y: 0.75rem; }
-                #presentation-root .brand-gradient { background: linear-gradient(to right, #005A9C, #003F6C); }
-            </style>
-            <div class="w-full max-w-5xl bg-white rounded-xl overflow-hidden flex flex-col h-full">
-                <div id="slide-container" class="flex-grow">
-                    <div class="slide active text-center"><span class="text-xl text-gray-500">Neurología - 6to Semestre</span><h1 class="text-5xl font-bold text-gray-800 mt-4">Trastornos del Movimiento II</h1><p class="text-3xl text-blue-700 mt-2 font-semibold">Diagnóstico Diferencial en Atención Primaria</p><div class="border-b-4 border-blue-500 w-24 my-8 mx-auto"></div></div>
-                    <div class="slide"><h2>1. El Rol del Médico de Atención Primaria (AP)</h2><div class="space-y-6 text-lg"><p><i class="fas fa-hospital-user text-blue-500 mr-3 w-6 text-center"></i>Usted es la **puerta de entrada** al Sistema Nacional de Salud (MSP e IESS).</p><p><i class="fas fa-magnifying-glass-chart text-blue-500 mr-3 w-6 text-center"></i>Su capacidad de **sospecha clínica y referencia oportuna** es el factor determinante.</p><p class="mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500"><strong>Objetivo Clave de Hoy:</strong> "Sospechar con alta precisión para referir de manera efectiva".</p></div></div>
-                    <div class="slide"><h2>2. Punto de Partida: El Paciente con Parkinsonismo</h2><div class="grid md:grid-cols-2 gap-6 text-lg mt-4"><div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500"><h3 class="font-bold mb-3 text-xl">Perfil Típico de EPI</h3><ul class="list-disc space-y-2"><li>**Bradicinesia** + Rigidez y/o Temblor de Reposo.</li><li>Inicio **Asimétrico**.</li><li>**Buena respuesta** a Levodopa.</li><li>Progresión lenta.</li></ul></div><div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 flex flex-col justify-center"><h3 class="font-bold mb-3 text-xl">La Pregunta Clave de Hoy</h3><p class="text-2xl font-semibold text-red-700">¿Y si el paciente **NO** sigue este patrón?</p></div></div></div>
-                    <div class="slide"><h2 class="text-4xl text-red-600 text-center"><i class="fas fa-flag mr-3"></i>3. ¡BANDERAS ROJAS!</h2><p class="text-lg text-gray-600 mb-6 text-center">Signos que alertan que **NO** es EPI.</p><ul class="space-y-3 text-lg list-disc bg-red-50 p-6 rounded-lg columns-2"><li>**Caídas precoces** (< 3 años)</li><li>**Mala respuesta** a Levodopa</li><li>**Simetría** de síntomas al inicio</li><li>**Disautonomía precoz** y severa</li><li>Anormalidades de la **mirada vertical**</li><li>Signos **cerebelosos** o **mioclonías**</li><li>**Demencia precoz** (< 1 año)</li></ul></div>
-                    <div class="slide"><h2>4. Parkinsonismos-Plus (Atípicos)</h2><div class="space-y-4"><div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-purple-700">Parálisis Supranuclear Progresiva (PSP)</h3><p class="mt-1">Parkinsonismo simétrico + **Caídas precoces hacia atrás** + **Parálisis de la mirada vertical hacia abajo**.</p></div><div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-teal-700">Atrofia Multisistémica (AMS)</h3><p class="mt-1">La clave es la **disautonomía precoz y severa**.</p></div><div class="p-4 border rounded-lg"><h3 class="font-bold text-xl text-orange-700">Degeneración Corticobasal (DCB)</h3><p class="mt-1">Parkinsonismo **marcadamente asimétrico** + Apraxia + **"mano ajena"**.</p></div></div></div>
-                    <div class="slide"><h2>5. Parkinsonismos Secundarios</h2><div class="space-y-6"><div class="p-6 bg-yellow-50 rounded-lg"><h3 class="font-bold text-xl text-yellow-800"><i class="fas fa-pills mr-2"></i>Inducido por Fármacos</h3><p class="mt-2">Culpables comunes: Metoclopramida, Haloperidol, Flunarizina.</p></div><div class="p-6 bg-indigo-50 rounded-lg"><h3 class="font-bold text-xl text-indigo-800"><i class="fas fa-brain mr-2"></i>Vascular</h3><p class="mt-2">"Parkinsonismo de la mitad inferior" (afecta más la marcha).</p></div></div></div>
-                    <div class="slide"><h2>6. Algoritmo Diagnóstico: Parkinsonismo</h2><div class="text-center"><div class="p-4 bg-blue-100 border-2 border-blue-400 rounded-lg inline-block"><p class="font-semibold text-lg">Paciente con Síndrome Parkinsoniano</p></div><i class="fas fa-arrow-down text-2xl text-gray-400 my-2"></i><div class="p-4 bg-yellow-100 border-2 border-yellow-400 rounded-lg inline-block"><p class="font-semibold text-lg">¿Existen "Banderas Rojas"?</p></div><div class="flex justify-around mt-2"><div class="w-1/2 px-2 text-center"><i class="fas fa-arrow-down text-2xl text-red-500"></i><div class="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg h-full"><p class="font-bold text-red-700">SÍ</p><p class="text-sm mt-2">Sospecha de Parkinsonismo Atípico/Secundario</p><p class="font-semibold mt-4">→ Referencia Prioritaria</p></div></div><div class="w-1/2 px-2 text-center"><i class="fas fa-arrow-down text-2xl text-green-500"></i><div class="mt-2 p-3 bg-green-50 border border-green-300 rounded-lg h-full"><p class="font-bold text-green-700">NO</p><p class="text-sm mt-2">¿Asimetría y buena respuesta a L-Dopa?</p><p class="font-semibold mt-4">→ Alta Sospecha de EPI</p></div></div></div></div></div>
-                    <div class="slide"><h2>7. Hipercinesias: El Paciente con Temblor</h2><div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead><tr><th class="border-b-2 p-3 bg-gray-100">Característica</th><th class="border-b-2 p-3 bg-blue-50">T. Parkinsoniano</th><th class="border-b-2 p-3 bg-green-50">T. Esencial</th><th class="border-b-2 p-3 bg-red-50">T. Cerebeloso</th></tr></thead><tbody><tr><td class="border-b p-3 font-semibold">Situación</td><td class="border-b p-3">Máximo en **reposo**</td><td class="border-b p-3">Máximo en **postura y acción**</td><td class="border-b p-3">Máximo en **movimiento dirigido**</td></tr><tr><td class="border-b p-3 font-semibold">Mejora con Alcohol</td><td class="border-b p-3">No</td><td class="border-b p-3">**Sí, característicamente**</td><td class="border-b p-3">No</td></tr><tr><td class="border-b p-3 font-semibold">Signos Asociados</td><td class="border-b p-3">Bradicinesia, rigidez</td><td class="border-b p-3">Ninguno (historia familiar)</td><td class="border-b p-3">Ataxia, dismetría</td></tr></tbody></table></div><p class="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500"><strong>No olvide el Temblor Fisiológico Exacerbado.</strong></p></div>
-                    <div class="slide"><h2>8. Otras Hipercinesias</h2><ul class="list-disc space-y-4 mb-6"><li><strong>Corea:</strong> Movimientos breves, irregulares, "danzantes".</li><li><strong>Distonía:</strong> Contracciones sostenidas que causan posturas anómalas. Buscar el **"truco sensorial"**.</li><li><strong>Mioclonías:</strong> Sacudidas súbitas, breves, tipo "shock eléctrico".</li></ul><div class="p-4 bg-red-50 rounded-lg border-l-4 border-red-500"><h3 class="font-bold text-red-700 text-xl"><i class="fas fa-search mr-2"></i>Prioridad en AP: ¡Buscar causas secundarias!</h3></div></div>
-                    <div class="slide"><h2>9. Pruebas Terapéuticas en AP</h2><p class="text-lg text-gray-600 mb-6">La respuesta a un fármaco puede ser una valiosa herramienta diagnóstica.</p><div class="space-y-4"><div class="flex items-start"><i class="fas fa-pills text-2xl text-green-600 mt-1 mr-4"></i><div><h3 class="font-semibold text-xl">Reto con Levodopa</h3><p>Una mejoría clara apoya fuertemente el diagnóstico de **EPI**.</p></div></div><div class="flex items-start"><i class="fas fa-wine-glass text-2xl text-red-600 mt-1 mr-4"></i><div><h3 class="font-semibold text-xl">Reto con Etanol</h3><p>Una mejoría notable es altamente específica para **Temblor Esencial**.</p></div></div></div></div>
-                    <div class="slide"><h2>10. La Vía del Paciente en el SNS de Ecuador</h2><div class="space-y-4"><div class="flex items-center bg-gray-50 p-4 rounded-lg"><i class="fas fa-file-alt text-4xl text-blue-500 mr-5"></i><div><strong class="text-gray-800 text-xl">Formulario 053: La Herramienta Clave</strong><p class="text-base">Una referencia debe ser **pertinente** y bien justificada.</p></div></div><div class="flex items-center bg-gray-50 p-4 rounded-lg"><i class="fas fa-sitemap text-4xl text-blue-500 mr-5"></i><div><strong class="text-gray-800 text-xl">Niveles de Atención</strong><p class="text-base">Conocer la capacidad resolutiva de su Centro de Salud.</p></div></div></div></div>
-                    <div class="slide"><h2>11. Criterios Prácticos de Referencia</h2><div class="space-y-4"><div class="p-4 bg-red-100 border-l-4 border-red-500 rounded-lg"><h3 class="font-bold text-red-800">URGENTE (Emergencia)</h3><p>Inicio agudo de corea, distonía o balismo.</p></div><div class="p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg"><h3 class="font-bold text-yellow-800">PRIORITARIA (Consulta Externa)</h3><ul class="list-disc mt-2"><li>Sospecha de parkinsonismo con **"Banderas Rojas"**.</li><li>Sospecha de EPI en paciente joven (< 50 años).</li></ul></div><div class="p-4 bg-green-100 border-l-4 border-green-500 rounded-lg"><h3 class="font-bold text-green-800">NO PRIORITARIA (Consulta Externa)</h3><p>Temblor Esencial clásico que impacta la calidad de vida.</p></div></div></div>
-                    <div class="slide"><h2>12. Herramientas Pedagógicas</h2><div class="grid md:grid-cols-2 gap-6"><div class="p-4 bg-gray-50 rounded-lg text-center"><i class="fas fa-user-friends text-4xl text-blue-500 mb-3"></i><h3 class="font-bold text-xl">Casos Clínicos Simulados</h3><p>Discusión en grupo de los casos clínicos.</p></div><div class="p-4 bg-gray-50 rounded-lg text-center"><i class="fas fa-tasks text-4xl text-blue-500 mb-3"></i><h3 class="font-bold text-xl">Estación ECOE/OSCE</h3><p>Evaluación práctica estandarizada.</p></div></div></div>
-                    <div class="slide"><h2>13. Conclusiones para el Futuro Médico</h2><div class="space-y-4 text-xl"><p><i class="fas fa-user-md text-green-500 mr-3 w-6 text-center"></i>Su **habilidad clínica** es la herramienta más poderosa.</p><p><i class="fas fa-flag text-red-500 mr-3 w-6 text-center"></i>Aprender a reconocer **"Banderas Rojas"** es fundamental.</p><p><i class="fas fa-route text-blue-500 mr-3 w-6 text-center"></i>**Saber navegar el sistema de salud** es parte del manejo.</p></div></div>
-                    <div class="slide text-center"><h2 class="text-5xl font-bold text-gray-800">¡Gracias!</h2><p class="text-3xl text-gray-600 mt-4">¿Preguntas?</p></div>
-                </div>
-                <div class="brand-gradient text-white flex items-center justify-between p-4 mt-auto">
-                    <button id="prevBtn" class="bg-white/20 hover:bg-white/40 px-4 py-2 rounded-lg transition-colors disabled:opacity-50">Anterior</button>
-                    <div id="slide-counter" class="font-semibold"></div>
-                    <button id="nextBtn" class="bg-white/20 hover:bg-white/40 px-4 py-2 rounded-lg transition-colors">Siguiente</button>
-                </div>
+      <div id="presentation-root">
+        <style>
+          #presentation-root .slide {
+            display: none;
+            animation: fadeIn 0.5s;
+            min-height: 520px;
+            padding: 2.5rem;
+            box-sizing: border-box;
+          }
+          #presentation-root .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+          #presentation-root @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+          #presentation-root h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 1.5rem;
+          }
+          #presentation-root p,
+          #presentation-root li {
+            font-size: 1.125rem;
+            line-height: 1.75;
+            color: #374151;
+          }
+          #presentation-root ul {
+            list-style-position: inside;
+            space-y: 0.75rem;
+          }
+          #presentation-root .brand-gradient {
+            background: linear-gradient(to right, #005a9c, #003f6c);
+          }
+        </style>
+        <div
+          class="w-full max-w-5xl bg-white rounded-xl overflow-hidden flex flex-col h-full"
+        >
+          <div id="slide-container" class="flex-grow">
+            <div class="slide active text-center">
+              <span class="text-xl text-gray-500"
+                >Neurología - 6to Semestre</span
+              >
+              <h1 class="text-5xl font-bold text-gray-800 mt-4">
+                Trastornos del Movimiento II
+              </h1>
+              <p class="text-3xl text-blue-700 mt-2 font-semibold">
+                Diagnóstico Diferencial en Atención Primaria
+              </p>
+              <div class="border-b-4 border-blue-500 w-24 my-8 mx-auto"></div>
             </div>
+            <div class="slide">
+              <h2>1. El Rol del Médico de Atención Primaria (AP)</h2>
+              <div class="space-y-6 text-lg">
+                <p>
+                  <i
+                    class="fas fa-hospital-user text-blue-500 mr-3 w-6 text-center"
+                  ></i
+                  >Usted es la **puerta de entrada** al Sistema Nacional de
+                  Salud (MSP e IESS).
+                </p>
+                <p>
+                  <i
+                    class="fas fa-magnifying-glass-chart text-blue-500 mr-3 w-6 text-center"
+                  ></i
+                  >Su capacidad de **sospecha clínica y referencia oportuna** es
+                  el factor determinante.
+                </p>
+                <p
+                  class="mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500"
+                >
+                  <strong>Objetivo Clave de Hoy:</strong> "Sospechar con alta
+                  precisión para referir de manera efectiva".
+                </p>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>2. Punto de Partida: El Paciente con Parkinsonismo</h2>
+              <div class="grid md:grid-cols-2 gap-6 text-lg mt-4">
+                <div
+                  class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500"
+                >
+                  <h3 class="font-bold mb-3 text-xl">Perfil Típico de EPI</h3>
+                  <ul class="list-disc space-y-2">
+                    <li>**Bradicinesia** + Rigidez y/o Temblor de Reposo.</li>
+                    <li>Inicio **Asimétrico**.</li>
+                    <li>**Buena respuesta** a Levodopa.</li>
+                    <li>Progresión lenta.</li>
+                  </ul>
+                </div>
+                <div
+                  class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 flex flex-col justify-center"
+                >
+                  <h3 class="font-bold mb-3 text-xl">
+                    La Pregunta Clave de Hoy
+                  </h3>
+                  <p class="text-2xl font-semibold text-red-700">
+                    ¿Y si el paciente **NO** sigue este patrón?
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <h2 class="text-4xl text-red-600 text-center">
+                <i class="fas fa-flag mr-3"></i>3. ¡BANDERAS ROJAS!
+              </h2>
+              <p class="text-lg text-gray-600 mb-6 text-center">
+                Signos que alertan que **NO** es EPI.
+              </p>
+              <ul
+                class="space-y-3 text-lg list-disc bg-red-50 p-6 rounded-lg columns-2"
+              >
+                <li>**Caídas precoces** (< 3 años)</li>
+                <li>**Mala respuesta** a Levodopa</li>
+                <li>**Simetría** de síntomas al inicio</li>
+                <li>**Disautonomía precoz** y severa</li>
+                <li>Anormalidades de la **mirada vertical**</li>
+                <li>Signos **cerebelosos** o **mioclonías**</li>
+                <li>**Demencia precoz** (< 1 año)</li>
+              </ul>
+            </div>
+            <div class="slide">
+              <h2>4. Parkinsonismos-Plus (Atípicos)</h2>
+              <div class="space-y-4">
+                <div class="p-4 border rounded-lg">
+                  <h3 class="font-bold text-xl text-purple-700">
+                    Parálisis Supranuclear Progresiva (PSP)
+                  </h3>
+                  <p class="mt-1">
+                    Parkinsonismo simétrico + **Caídas precoces hacia atrás** +
+                    **Parálisis de la mirada vertical hacia abajo**.
+                  </p>
+                </div>
+                <div class="p-4 border rounded-lg">
+                  <h3 class="font-bold text-xl text-teal-700">
+                    Atrofia Multisistémica (AMS)
+                  </h3>
+                  <p class="mt-1">
+                    La clave es la **disautonomía precoz y severa**.
+                  </p>
+                </div>
+                <div class="p-4 border rounded-lg">
+                  <h3 class="font-bold text-xl text-orange-700">
+                    Degeneración Corticobasal (DCB)
+                  </h3>
+                  <p class="mt-1">
+                    Parkinsonismo **marcadamente asimétrico** + Apraxia +
+                    **"mano ajena"**.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>5. Parkinsonismos Secundarios</h2>
+              <div class="space-y-6">
+                <div class="p-6 bg-yellow-50 rounded-lg">
+                  <h3 class="font-bold text-xl text-yellow-800">
+                    <i class="fas fa-pills mr-2"></i>Inducido por Fármacos
+                  </h3>
+                  <p class="mt-2">
+                    Culpables comunes: Metoclopramida, Haloperidol, Flunarizina.
+                  </p>
+                </div>
+                <div class="p-6 bg-indigo-50 rounded-lg">
+                  <h3 class="font-bold text-xl text-indigo-800">
+                    <i class="fas fa-brain mr-2"></i>Vascular
+                  </h3>
+                  <p class="mt-2">
+                    "Parkinsonismo de la mitad inferior" (afecta más la marcha).
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>6. Algoritmo Diagnóstico: Parkinsonismo</h2>
+              <div class="text-center">
+                <div
+                  class="p-4 bg-blue-100 border-2 border-blue-400 rounded-lg inline-block"
+                >
+                  <p class="font-semibold text-lg">
+                    Paciente con Síndrome Parkinsoniano
+                  </p>
+                </div>
+                <i class="fas fa-arrow-down text-2xl text-gray-400 my-2"></i>
+                <div
+                  class="p-4 bg-yellow-100 border-2 border-yellow-400 rounded-lg inline-block"
+                >
+                  <p class="font-semibold text-lg">
+                    ¿Existen "Banderas Rojas"?
+                  </p>
+                </div>
+                <div class="flex justify-around mt-2">
+                  <div class="w-1/2 px-2 text-center">
+                    <i class="fas fa-arrow-down text-2xl text-red-500"></i>
+                    <div
+                      class="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg h-full"
+                    >
+                      <p class="font-bold text-red-700">SÍ</p>
+                      <p class="text-sm mt-2">
+                        Sospecha de Parkinsonismo Atípico/Secundario
+                      </p>
+                      <p class="font-semibold mt-4">→ Referencia Prioritaria</p>
+                    </div>
+                  </div>
+                  <div class="w-1/2 px-2 text-center">
+                    <i class="fas fa-arrow-down text-2xl text-green-500"></i>
+                    <div
+                      class="mt-2 p-3 bg-green-50 border border-green-300 rounded-lg h-full"
+                    >
+                      <p class="font-bold text-green-700">NO</p>
+                      <p class="text-sm mt-2">
+                        ¿Asimetría y buena respuesta a L-Dopa?
+                      </p>
+                      <p class="font-semibold mt-4">→ Alta Sospecha de EPI</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>7. Hipercinesias: El Paciente con Temblor</h2>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr>
+                      <th class="border-b-2 p-3 bg-gray-100">Característica</th>
+                      <th class="border-b-2 p-3 bg-blue-50">
+                        T. Parkinsoniano
+                      </th>
+                      <th class="border-b-2 p-3 bg-green-50">T. Esencial</th>
+                      <th class="border-b-2 p-3 bg-red-50">T. Cerebeloso</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="border-b p-3 font-semibold">Situación</td>
+                      <td class="border-b p-3">Máximo en **reposo**</td>
+                      <td class="border-b p-3">
+                        Máximo en **postura y acción**
+                      </td>
+                      <td class="border-b p-3">
+                        Máximo en **movimiento dirigido**
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="border-b p-3 font-semibold">
+                        Mejora con Alcohol
+                      </td>
+                      <td class="border-b p-3">No</td>
+                      <td class="border-b p-3">**Sí, característicamente**</td>
+                      <td class="border-b p-3">No</td>
+                    </tr>
+                    <tr>
+                      <td class="border-b p-3 font-semibold">
+                        Signos Asociados
+                      </td>
+                      <td class="border-b p-3">Bradicinesia, rigidez</td>
+                      <td class="border-b p-3">Ninguno (historia familiar)</td>
+                      <td class="border-b p-3">Ataxia, dismetría</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p
+                class="mt-4 p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-500"
+              >
+                <strong>No olvide el Temblor Fisiológico Exacerbado.</strong>
+              </p>
+            </div>
+            <div class="slide">
+              <h2>8. Otras Hipercinesias</h2>
+              <ul class="list-disc space-y-4 mb-6">
+                <li>
+                  <strong>Corea:</strong> Movimientos breves, irregulares,
+                  "danzantes".
+                </li>
+                <li>
+                  <strong>Distonía:</strong> Contracciones sostenidas que causan
+                  posturas anómalas. Buscar el **"truco sensorial"**.
+                </li>
+                <li>
+                  <strong>Mioclonías:</strong> Sacudidas súbitas, breves, tipo
+                  "shock eléctrico".
+                </li>
+              </ul>
+              <div class="p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+                <h3 class="font-bold text-red-700 text-xl">
+                  <i class="fas fa-search mr-2"></i>Prioridad en AP: ¡Buscar
+                  causas secundarias!
+                </h3>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>9. Pruebas Terapéuticas en AP</h2>
+              <p class="text-lg text-gray-600 mb-6">
+                La respuesta a un fármaco puede ser una valiosa herramienta
+                diagnóstica.
+              </p>
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <i class="fas fa-pills text-2xl text-green-600 mt-1 mr-4"></i>
+                  <div>
+                    <h3 class="font-semibold text-xl">Reto con Levodopa</h3>
+                    <p>
+                      Una mejoría clara apoya fuertemente el diagnóstico de
+                      **EPI**.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i
+                    class="fas fa-wine-glass text-2xl text-red-600 mt-1 mr-4"
+                  ></i>
+                  <div>
+                    <h3 class="font-semibold text-xl">Reto con Etanol</h3>
+                    <p>
+                      Una mejoría notable es altamente específica para **Temblor
+                      Esencial**.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>10. La Vía del Paciente en el SNS de Ecuador</h2>
+              <div class="space-y-4">
+                <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                  <i class="fas fa-file-alt text-4xl text-blue-500 mr-5"></i>
+                  <div>
+                    <strong class="text-gray-800 text-xl"
+                      >Formulario 053: La Herramienta Clave</strong
+                    >
+                    <p class="text-base">
+                      Una referencia debe ser **pertinente** y bien justificada.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center bg-gray-50 p-4 rounded-lg">
+                  <i class="fas fa-sitemap text-4xl text-blue-500 mr-5"></i>
+                  <div>
+                    <strong class="text-gray-800 text-xl"
+                      >Niveles de Atención</strong
+                    >
+                    <p class="text-base">
+                      Conocer la capacidad resolutiva de su Centro de Salud.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>11. Criterios Prácticos de Referencia</h2>
+              <div class="space-y-4">
+                <div
+                  class="p-4 bg-red-100 border-l-4 border-red-500 rounded-lg"
+                >
+                  <h3 class="font-bold text-red-800">URGENTE (Emergencia)</h3>
+                  <p>Inicio agudo de corea, distonía o balismo.</p>
+                </div>
+                <div
+                  class="p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg"
+                >
+                  <h3 class="font-bold text-yellow-800">
+                    PRIORITARIA (Consulta Externa)
+                  </h3>
+                  <ul class="list-disc mt-2">
+                    <li>Sospecha de parkinsonismo con **"Banderas Rojas"**.</li>
+                    <li>Sospecha de EPI en paciente joven (< 50 años).</li>
+                  </ul>
+                </div>
+                <div
+                  class="p-4 bg-green-100 border-l-4 border-green-500 rounded-lg"
+                >
+                  <h3 class="font-bold text-green-800">
+                    NO PRIORITARIA (Consulta Externa)
+                  </h3>
+                  <p>
+                    Temblor Esencial clásico que impacta la calidad de vida.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>12. Herramientas Pedagógicas</h2>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-4 bg-gray-50 rounded-lg text-center">
+                  <i
+                    class="fas fa-user-friends text-4xl text-blue-500 mb-3"
+                  ></i>
+                  <h3 class="font-bold text-xl">Casos Clínicos Simulados</h3>
+                  <p>Discusión en grupo de los casos clínicos.</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg text-center">
+                  <i class="fas fa-tasks text-4xl text-blue-500 mb-3"></i>
+                  <h3 class="font-bold text-xl">Estación ECOE/OSCE</h3>
+                  <p>Evaluación práctica estandarizada.</p>
+                </div>
+              </div>
+            </div>
+            <div class="slide">
+              <h2>13. Conclusiones para el Futuro Médico</h2>
+              <div class="space-y-4 text-xl">
+                <p>
+                  <i
+                    class="fas fa-user-md text-green-500 mr-3 w-6 text-center"
+                  ></i
+                  >Su **habilidad clínica** es la herramienta más poderosa.
+                </p>
+                <p>
+                  <i class="fas fa-flag text-red-500 mr-3 w-6 text-center"></i
+                  >Aprender a reconocer **"Banderas Rojas"** es fundamental.
+                </p>
+                <p>
+                  <i class="fas fa-route text-blue-500 mr-3 w-6 text-center"></i
+                  >**Saber navegar el sistema de salud** es parte del manejo.
+                </p>
+              </div>
+            </div>
+            <div class="slide text-center">
+              <h2 class="text-5xl font-bold text-gray-800">¡Gracias!</h2>
+              <p class="text-3xl text-gray-600 mt-4">¿Preguntas?</p>
+            </div>
+          </div>
+          <div
+            class="brand-gradient text-white flex items-center justify-between p-4 mt-auto"
+          >
+            <button
+              id="prevBtn"
+              class="bg-white/20 hover:bg-white/40 px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
+            >
+              Anterior
+            </button>
+            <div id="slide-counter" class="font-semibold"></div>
+            <button
+              id="nextBtn"
+              class="bg-white/20 hover:bg-white/40 px-4 py-2 rounded-lg transition-colors"
+            >
+              Siguiente
+            </button>
+          </div>
         </div>
+      </div>
     </template>
 
     <template id="abp-template">
-        <div id="abp-consolidado-acordeon">
-            <style>
-                #abp-consolidado-acordeon .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
-                #abp-consolidado-acordeon .accordion-header { cursor: pointer; }
-                #abp-consolidado-acordeon .accordion-header .icon { transition: transform 0.3s ease; }
-                #abp-consolidado-acordeon .accordion-header.open .icon { transform: rotate(90deg); }
-                #abp-consolidado-acordeon textarea { min-height: 120px; }
-            </style>
-            <div class="max-w-5xl mx-auto">
-                <div class="text-center mb-8"><h1 class="text-3xl font-bold text-gray-800">Casos Clínicos ABP</h1></div>
-                <div id="main-accordion-abp" class="space-y-4">
-                    <div class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg">
-                        <div class="accordion-header bg-blue-700 text-white p-5 flex justify-between items-center"><h2 class="text-2xl font-bold">Caso 1: La Secretaria con Caídas</h2><i class="fas fa-chevron-right icon text-2xl"></i></div>
-                        <div class="accordion-content"><div class="p-6">
-                            <div class="bg-blue-50 p-6 rounded-lg mb-6"><h3 class="text-xl font-bold text-blue-800 mb-3">Presentación del Caso</h3><p class="text-gray-700">Paciente femenina de 65 años, secretaria jubilada, es traída por su hija a un Centro de Salud Tipo C en Quito. La historia comenzó hace aproximadamente 18 meses con inestabilidad al caminar. Ha sufrido 4 caídas en los últimos 6 meses, "sin tropezarse con nada, como si se fuera para atrás". La hija nota que su madre tiene una "mirada fija, de asombro" y que a menudo se atraganta con los líquidos. Se le inició tratamiento con Levodopa/Carbidopa hace 3 meses, sin ninguna mejoría. En la exploración, se evidencia rigidez simétrica, más marcada en el cuello, con tendencia al retrocolis. No se observa temblor. La marcha es de base ancha e inestable. Al pedirle que siga el dedo del examinador, se evidencia una marcada limitación para la mirada vertical, especialmente hacia abajo. El pull test es marcadamente positivo.</p></div>
-                            <div class="space-y-2">
-                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-blue-600">Salto 1:</span> Clarificar Términos</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="Definir: Retrocolis, Pull test, Rigidez simétrica, Oftalmoparesia vertical..."></textarea></div></div>
-                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-blue-600">Salto 2:</span> Definir el Problema</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="¿Cuál es el diagnóstico en una paciente con parkinsonismo simétrico, caídas precoces y mala respuesta a Levodopa?"></textarea></div></div>
-                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-blue-600">Salto 7:</span> Síntesis y Reporte</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="Diagnóstico: Alta sospecha de Parálisis Supranuclear Progresiva (PSP). Justificación: Basado en la constelación de hallazgos... Plan: Referencia a Fisioterapia, Terapia de Deglución y Neurología."></textarea></div></div>
-                            </div>
-                        </div></div>
+      <div id="abp-consolidado-acordeon">
+        <style>
+          #abp-consolidado-acordeon .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+          }
+          #abp-consolidado-acordeon .accordion-header {
+            cursor: pointer;
+          }
+          #abp-consolidado-acordeon .accordion-header .icon {
+            transition: transform 0.3s ease;
+          }
+          #abp-consolidado-acordeon .accordion-header.open .icon {
+            transform: rotate(90deg);
+          }
+          #abp-consolidado-acordeon textarea {
+            min-height: 120px;
+          }
+        </style>
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Casos Clínicos ABP</h1>
+          </div>
+          <div id="main-accordion-abp" class="space-y-4">
+            <div
+              class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg"
+            >
+              <div
+                class="accordion-header bg-blue-700 text-white p-5 flex justify-between items-center"
+              >
+                <h2 class="text-2xl font-bold">
+                  Caso 1: La Secretaria con Caídas
+                </h2>
+                <i class="fas fa-chevron-right icon text-2xl"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="p-6">
+                  <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                    <h3 class="text-xl font-bold text-blue-800 mb-3">
+                      Presentación del Caso
+                    </h3>
+                    <p class="text-gray-700">
+                      Paciente femenina de 65 años, secretaria jubilada, es
+                      traída por su hija a un Centro de Salud Tipo C en Quito.
+                      La historia comenzó hace aproximadamente 18 meses con
+                      inestabilidad al caminar. Ha sufrido 4 caídas en los
+                      últimos 6 meses, "sin tropezarse con nada, como si se
+                      fuera para atrás". La hija nota que su madre tiene una
+                      "mirada fija, de asombro" y que a menudo se atraganta con
+                      los líquidos. Se le inició tratamiento con
+                      Levodopa/Carbidopa hace 3 meses, sin ninguna mejoría. En
+                      la exploración, se evidencia rigidez simétrica, más
+                      marcada en el cuello, con tendencia al retrocolis. No se
+                      observa temblor. La marcha es de base ancha e inestable.
+                      Al pedirle que siga el dedo del examinador, se evidencia
+                      una marcada limitación para la mirada vertical,
+                      especialmente hacia abajo. El pull test es marcadamente
+                      positivo.
+                    </p>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="step-accordion border rounded-lg">
+                      <div
+                        class="accordion-header bg-gray-100 p-4 flex justify-between items-center"
+                      >
+                        <h4 class="text-lg font-semibold">
+                          <span class="text-blue-600">Salto 1:</span> Clarificar
+                          Términos
+                        </h4>
+                        <i class="fas fa-chevron-right icon"></i>
+                      </div>
+                      <div class="accordion-content p-4">
+                        <textarea
+                          placeholder="Definir: Retrocolis, Pull test, Rigidez simétrica, Oftalmoparesia vertical..."
+                        ></textarea>
+                      </div>
                     </div>
-                    <div class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg">
-                        <div class="accordion-header bg-green-700 text-white p-5 flex justify-between items-center"><h2 class="text-2xl font-bold">Caso 2: El Agricultor Rígido</h2><i class="fas fa-chevron-right icon text-2xl"></i></div>
-                        <div class="accordion-content"><div class="p-6">
-                             <div class="bg-green-50 p-6 rounded-lg mb-6"><h3 class="text-xl font-bold text-green-800 mb-3">Presentación del Caso</h3><p class="text-gray-700">Paciente masculino de 68 años, agricultor rural, acude a un Centro de Salud Tipo A por "lentitud" de 2 años de evolución. Su esposa refiere que "arrastra los pies" y casi no mueve el brazo derecho. Él se queja de temblor en su mano derecha en reposo. No ha tenido caídas. Refiere pérdida de olfato y estreñimiento severo desde hace años. En la exploración: hipomimia, temblor de reposo en mano derecha, rigidez en rueda dentada derecha, bradicinesia derecha. Pull test normal.</p></div>
-                             <div class="space-y-2">
-                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-green-600">Salto 2:</span> Definir el Problema</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="¿Qué elementos clínicos nos permiten diferenciar con alta probabilidad una EPI de sus imitadores en este paciente?"></textarea></div></div>
-                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-green-600">Salto 7:</span> Síntesis y Reporte</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="Diagnóstico: Alta probabilidad de EPI. Justificación: Cumple criterios de síndrome parkinsoniano y presenta características de soporte, con ausencia destacada de banderas rojas, lo que aleja la sospecha de parkinsonismos atípicos."></textarea></div></div>
-                             </div>
-                        </div></div>
+                    <div class="step-accordion border rounded-lg">
+                      <div
+                        class="accordion-header bg-gray-100 p-4 flex justify-between items-center"
+                      >
+                        <h4 class="text-lg font-semibold">
+                          <span class="text-blue-600">Salto 2:</span> Definir el
+                          Problema
+                        </h4>
+                        <i class="fas fa-chevron-right icon"></i>
+                      </div>
+                      <div class="accordion-content p-4">
+                        <textarea
+                          placeholder="¿Cuál es el diagnóstico en una paciente con parkinsonismo simétrico, caídas precoces y mala respuesta a Levodopa?"
+                        ></textarea>
+                      </div>
                     </div>
-                    <div class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg">
-                        <div class="accordion-header bg-pink-700 text-white p-5 flex justify-between items-center"><h2 class="text-2xl font-bold">Caso 3: La Universitaria con Temblor</h2><i class="fas fa-chevron-right icon text-2xl"></i></div>
-                        <div class="accordion-content"><div class="p-6">
-                            <div class="bg-pink-50 p-6 rounded-lg mb-6"><h3 class="text-xl font-bold text-pink-800 mb-3">Presentación del Caso</h3><p class="text-gray-700">Paciente femenina de 20 años, estudiante, consulta en un Centro de Salud Tipo B por temblor en ambas manos desde hace 6 meses. Empeora con el estrés de los exámenes y el café. Le dificulta escribir. Su padre y abuela paterna tienen un temblor similar. En la exploración: temblor postural fino bilateral, aumenta ligeramente en la maniobra dedo-nariz, sin dismetría. No hay temblor en reposo. Resto del examen normal.</p></div>
-                            <div class="space-y-2">
-                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-pink-600">Salto 2:</span> Definir el Problema</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="¿Cómo diferenciar un Temblor Esencial (TE) de un Temblor Fisiológico Exacerbado (TFE) en una paciente joven con historia familiar?"></textarea></div></div>
-                                <div class="step-accordion border rounded-lg"><div class="accordion-header bg-gray-100 p-4 flex justify-between items-center"><h4 class="text-lg font-semibold"><span class="text-pink-600">Salto 7:</span> Síntesis y Reporte</h4><i class="fas fa-chevron-right icon"></i></div><div class="accordion-content p-4"><textarea placeholder="Diagnóstico más probable: Temblor Esencial. Plan en AP: Solicitar TSH/T4L, glicemia. Recomendar medidas no farmacológicas (reducir cafeína, manejo de estrés). Discutir propranolol a dosis bajas si es incapacitante."></textarea></div></div>
-                            </div>
-                        </div></div>
+                    <div class="step-accordion border rounded-lg">
+                      <div
+                        class="accordion-header bg-gray-100 p-4 flex justify-between items-center"
+                      >
+                        <h4 class="text-lg font-semibold">
+                          <span class="text-blue-600">Salto 7:</span> Síntesis y
+                          Reporte
+                        </h4>
+                        <i class="fas fa-chevron-right icon"></i>
+                      </div>
+                      <div class="accordion-content p-4">
+                        <textarea
+                          placeholder="Diagnóstico: Alta sospecha de Parálisis Supranuclear Progresiva (PSP). Justificación: Basado en la constelación de hallazgos... Plan: Referencia a Fisioterapia, Terapia de Deglución y Neurología."
+                        ></textarea>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+            <div
+              class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg"
+            >
+              <div
+                class="accordion-header bg-green-700 text-white p-5 flex justify-between items-center"
+              >
+                <h2 class="text-2xl font-bold">Caso 2: El Agricultor Rígido</h2>
+                <i class="fas fa-chevron-right icon text-2xl"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="p-6">
+                  <div class="bg-green-50 p-6 rounded-lg mb-6">
+                    <h3 class="text-xl font-bold text-green-800 mb-3">
+                      Presentación del Caso
+                    </h3>
+                    <p class="text-gray-700">
+                      Paciente masculino de 68 años, agricultor rural, acude a
+                      un Centro de Salud Tipo A por "lentitud" de 2 años de
+                      evolución. Su esposa refiere que "arrastra los pies" y
+                      casi no mueve el brazo derecho. Él se queja de temblor en
+                      su mano derecha en reposo. No ha tenido caídas. Refiere
+                      pérdida de olfato y estreñimiento severo desde hace años.
+                      En la exploración: hipomimia, temblor de reposo en mano
+                      derecha, rigidez en rueda dentada derecha, bradicinesia
+                      derecha. Pull test normal.
+                    </p>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="step-accordion border rounded-lg">
+                      <div
+                        class="accordion-header bg-gray-100 p-4 flex justify-between items-center"
+                      >
+                        <h4 class="text-lg font-semibold">
+                          <span class="text-green-600">Salto 2:</span> Definir
+                          el Problema
+                        </h4>
+                        <i class="fas fa-chevron-right icon"></i>
+                      </div>
+                      <div class="accordion-content p-4">
+                        <textarea
+                          placeholder="¿Qué elementos clínicos nos permiten diferenciar con alta probabilidad una EPI de sus imitadores en este paciente?"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="step-accordion border rounded-lg">
+                      <div
+                        class="accordion-header bg-gray-100 p-4 flex justify-between items-center"
+                      >
+                        <h4 class="text-lg font-semibold">
+                          <span class="text-green-600">Salto 7:</span> Síntesis
+                          y Reporte
+                        </h4>
+                        <i class="fas fa-chevron-right icon"></i>
+                      </div>
+                      <div class="accordion-content p-4">
+                        <textarea
+                          placeholder="Diagnóstico: Alta probabilidad de EPI. Justificación: Cumple criterios de síndrome parkinsoniano y presenta características de soporte, con ausencia destacada de banderas rojas, lo que aleja la sospecha de parkinsonismos atípicos."
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="case-accordion border rounded-xl overflow-hidden bg-white shadow-lg"
+            >
+              <div
+                class="accordion-header bg-pink-700 text-white p-5 flex justify-between items-center"
+              >
+                <h2 class="text-2xl font-bold">
+                  Caso 3: La Universitaria con Temblor
+                </h2>
+                <i class="fas fa-chevron-right icon text-2xl"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="p-6">
+                  <div class="bg-pink-50 p-6 rounded-lg mb-6">
+                    <h3 class="text-xl font-bold text-pink-800 mb-3">
+                      Presentación del Caso
+                    </h3>
+                    <p class="text-gray-700">
+                      Paciente femenina de 20 años, estudiante, consulta en un
+                      Centro de Salud Tipo B por temblor en ambas manos desde
+                      hace 6 meses. Empeora con el estrés de los exámenes y el
+                      café. Le dificulta escribir. Su padre y abuela paterna
+                      tienen un temblor similar. En la exploración: temblor
+                      postural fino bilateral, aumenta ligeramente en la
+                      maniobra dedo-nariz, sin dismetría. No hay temblor en
+                      reposo. Resto del examen normal.
+                    </p>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="step-accordion border rounded-lg">
+                      <div
+                        class="accordion-header bg-gray-100 p-4 flex justify-between items-center"
+                      >
+                        <h4 class="text-lg font-semibold">
+                          <span class="text-pink-600">Salto 2:</span> Definir el
+                          Problema
+                        </h4>
+                        <i class="fas fa-chevron-right icon"></i>
+                      </div>
+                      <div class="accordion-content p-4">
+                        <textarea
+                          placeholder="¿Cómo diferenciar un Temblor Esencial (TE) de un Temblor Fisiológico Exacerbado (TFE) en una paciente joven con historia familiar?"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="step-accordion border rounded-lg">
+                      <div
+                        class="accordion-header bg-gray-100 p-4 flex justify-between items-center"
+                      >
+                        <h4 class="text-lg font-semibold">
+                          <span class="text-pink-600">Salto 7:</span> Síntesis y
+                          Reporte
+                        </h4>
+                        <i class="fas fa-chevron-right icon"></i>
+                      </div>
+                      <div class="accordion-content p-4">
+                        <textarea
+                          placeholder="Diagnóstico más probable: Temblor Esencial. Plan en AP: Solicitar TSH/T4L, glicemia. Recomendar medidas no farmacológicas (reducir cafeína, manejo de estrés). Discutir propranolol a dosis bajas si es incapacitante."
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </template>
 
     <script>
-        // --- Funciones Globales para Interacción ---
-        function classifier_diagnose() {
-            const signs = {
-                caidas: document.getElementById('sign_caidas').checked,
-                mirada: document.getElementById('sign_mirada').checked,
-                disautonomia: document.getElementById('sign_disautonomia').checked,
-                asimetria: document.getElementById('sign_asimetria').checked,
-                apraxia: document.getElementById('sign_apraxia').checked,
-                farmacos: document.getElementById('sign_farmacos').checked,
-                vascular: document.getElementById('sign_vascular').checked
-            };
-            const resultEl = document.getElementById('classifier_result');
-            let resultText = '';
+      // --- Funciones Globales para Interacción ---
+      function classifier_diagnose() {
+        const signs = {
+          caidas: document.getElementById('sign_caidas').checked,
+          mirada: document.getElementById('sign_mirada').checked,
+          disautonomia: document.getElementById('sign_disautonomia').checked,
+          asimetria: document.getElementById('sign_asimetria').checked,
+          apraxia: document.getElementById('sign_apraxia').checked,
+          farmacos: document.getElementById('sign_farmacos').checked,
+          vascular: document.getElementById('sign_vascular').checked,
+        };
+        const resultEl = document.getElementById('classifier_result');
+        let resultText = '';
 
-            if (signs.caidas && signs.mirada) {
-                resultText = '<strong>Alta Sospecha de Parálisis Supranuclear Progresiva (PSP).</strong> La combinación de caídas precoces y parálisis de la mirada vertical es muy característica de PSP.';
-            } else if (signs.disautonomia) {
-                resultText = '<strong>Alta Sospecha de Atrofia Multisistémica (AMS).</strong> La disautonomía precoz y severa es el sello distintivo de la AMS.';
-            } else if (signs.asimetria && signs.apraxia) {
-                resultText = '<strong>Alta Sospecha de Degeneración Corticobasal (DCB).</strong> El parkinsonismo marcadamente asimétrico junto con apraxia o el fenómeno de la mano ajena es clásico de DCB.';
-            } else if (signs.farmacos) {
-                resultText = '<strong>Considerar Parkinsonismo Inducido por Fármacos.</strong> Es una causa común y reversible. Se requiere una anamnesis farmacológica exhaustiva.';
-            } else if (signs.vascular) {
-                resultText = '<strong>Considerar Parkinsonismo Vascular.</strong> Especialmente si el predominio es en miembros inferiores ("parkinsonismo de la mitad inferior") y hay factores de riesgo vascular.';
+        if (signs.caidas && signs.mirada) {
+          resultText =
+            '<strong>Alta Sospecha de Parálisis Supranuclear Progresiva (PSP).</strong> La combinación de caídas precoces y parálisis de la mirada vertical es muy característica de PSP.';
+        } else if (signs.disautonomia) {
+          resultText =
+            '<strong>Alta Sospecha de Atrofia Multisistémica (AMS).</strong> La disautonomía precoz y severa es el sello distintivo de la AMS.';
+        } else if (signs.asimetria && signs.apraxia) {
+          resultText =
+            '<strong>Alta Sospecha de Degeneración Corticobasal (DCB).</strong> El parkinsonismo marcadamente asimétrico junto con apraxia o el fenómeno de la mano ajena es clásico de DCB.';
+        } else if (signs.farmacos) {
+          resultText =
+            '<strong>Considerar Parkinsonismo Inducido por Fármacos.</strong> Es una causa común y reversible. Se requiere una anamnesis farmacológica exhaustiva.';
+        } else if (signs.vascular) {
+          resultText =
+            '<strong>Considerar Parkinsonismo Vascular.</strong> Especialmente si el predominio es en miembros inferiores ("parkinsonismo de la mitad inferior") y hay factores de riesgo vascular.';
+        } else {
+          resultText =
+            'Seleccione una combinación de signos para obtener una orientación diagnóstica. Si no hay banderas rojas claras, considere Enfermedad de Parkinson Idiopática.';
+        }
+        resultEl.innerHTML = `<div class="p-4 mt-4 bg-blue-100 text-blue-800 rounded-lg">${resultText}</div>`;
+      }
+
+      function quiz_selectAnswer(btn, isCorrect) {
+        const currentQuestion = btn.closest('.question-block');
+        const feedbackEl = currentQuestion.querySelector('.feedback');
+        const options = currentQuestion.querySelectorAll('.option-btn');
+
+        options.forEach((opt) => (opt.disabled = true));
+
+        if (isCorrect) {
+          btn.classList.add('correct');
+          feedbackEl.innerHTML =
+            '<strong>¡Correcto!</strong> ' + btn.dataset.feedback;
+          feedbackEl.classList.add('correct');
+        } else {
+          btn.classList.add('incorrect');
+          feedbackEl.innerHTML =
+            '<strong>Incorrecto.</strong> ' + btn.dataset.feedback;
+          feedbackEl.classList.add('incorrect');
+          options.forEach((opt) => {
+            if (opt.dataset.correct === 'true') {
+              opt.classList.add('correct');
+            }
+          });
+        }
+        feedbackEl.style.display = 'block';
+      }
+
+      // --- Lógica de la Presentación (Diapositivas) ---
+      function setupPresentation(container) {
+        const slideContainer = container.querySelector('#slide-container');
+        const slides = Array.from(
+          slideContainer.querySelectorAll('.slide'),
+        ).filter((slide) => slide.innerHTML.trim() !== '');
+        const prevBtn = container.querySelector('#prevBtn');
+        const nextBtn = container.querySelector('#nextBtn');
+        const slideCounter = container.querySelector('#slide-counter');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+          slides.forEach((slide, index) =>
+            slide.classList.toggle('active', index === n),
+          );
+          currentSlide = n;
+          if (slideCounter)
+            slideCounter.textContent = `Diapositiva ${n + 1} de ${totalSlides}`;
+          if (prevBtn) prevBtn.disabled = n === 0;
+          if (nextBtn) nextBtn.disabled = n === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+          const newSlide = currentSlide + direction;
+          if (newSlide >= 0 && newSlide < totalSlides) {
+            showSlide(newSlide);
+          }
+        }
+
+        if (nextBtn && prevBtn) {
+          nextBtn.addEventListener('click', () => changeSlide(1));
+          prevBtn.addEventListener('click', () => changeSlide(-1));
+        }
+
+        showSlide(0);
+      }
+
+      // --- Lógica del Acordeón del ABP ---
+      function setupAbpAccordion(container) {
+        container.querySelectorAll('.accordion-header').forEach((header) => {
+          header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            header.classList.toggle('open');
+            if (content.style.maxHeight) {
+              content.style.maxHeight = null;
             } else {
-                resultText = 'Seleccione una combinación de signos para obtener una orientación diagnóstica. Si no hay banderas rojas claras, considere Enfermedad de Parkinson Idiopática.';
+              content.style.maxHeight = content.scrollHeight + 'px';
+              const parentContent = header.closest('.accordion-content');
+              if (parentContent) {
+                setTimeout(() => {
+                  parentContent.style.maxHeight =
+                    parentContent.scrollHeight + content.scrollHeight + 'px';
+                }, 300);
+              }
             }
-            resultEl.innerHTML = `<div class="p-4 mt-4 bg-blue-100 text-blue-800 rounded-lg">${resultText}</div>`;
-        }
+          });
+        });
+      }
 
-        function quiz_selectAnswer(btn, isCorrect) {
-            const currentQuestion = btn.closest('.question-block');
-            const feedbackEl = currentQuestion.querySelector('.feedback');
-            const options = currentQuestion.querySelectorAll('.option-btn');
-            
-            options.forEach(opt => opt.disabled = true);
-            
-            if (isCorrect) {
-                btn.classList.add('correct');
-                feedbackEl.innerHTML = '<strong>¡Correcto!</strong> ' + btn.dataset.feedback;
-                feedbackEl.classList.add('correct');
-            } else {
-                btn.classList.add('incorrect');
-                feedbackEl.innerHTML = '<strong>Incorrecto.</strong> ' + btn.dataset.feedback;
-                feedbackEl.classList.add('incorrect');
-                options.forEach(opt => {
-                    if (opt.dataset.correct === 'true') {
-                        opt.classList.add('correct');
-                    }
-                });
+      document.addEventListener('DOMContentLoaded', function () {
+        // --- Dynamic Content Loaders ---
+        const contentLoaders = {
+          'presentation-container-parent': function (container) {
+            const template = document.getElementById('presentation-template');
+            if (template) {
+              const clone = template.content.cloneNode(true);
+              container.appendChild(clone);
+              setupPresentation(container.querySelector('#presentation-root'));
             }
-            feedbackEl.style.display = 'block';
-        }
-
-        // --- Lógica de la Presentación (Diapositivas) ---
-        function setupPresentation(container) {
-            const slideContainer = container.querySelector('#slide-container');
-            const slides = Array.from(slideContainer.querySelectorAll('.slide')).filter(slide => slide.innerHTML.trim() !== '');
-            const prevBtn = container.querySelector('#prevBtn');
-            const nextBtn = container.querySelector('#nextBtn');
-            const slideCounter = container.querySelector('#slide-counter');
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-
-            function showSlide(n) {
-                slides.forEach((slide, index) => slide.classList.toggle('active', index === n));
-                currentSlide = n;
-                if (slideCounter) slideCounter.textContent = `Diapositiva ${n + 1} de ${totalSlides}`;
-                if (prevBtn) prevBtn.disabled = n === 0;
-                if (nextBtn) nextBtn.disabled = n === totalSlides - 1;
-            }
-
-            function changeSlide(direction) {
-                const newSlide = currentSlide + direction;
-                if (newSlide >= 0 && newSlide < totalSlides) {
-                    showSlide(newSlide);
-                }
-            }
-            
-            if (nextBtn && prevBtn) {
-                nextBtn.addEventListener('click', () => changeSlide(1));
-                prevBtn.addEventListener('click', () => changeSlide(-1));
-            }
-
-            showSlide(0);
-        }
-
-        // --- Lógica del Acordeón del ABP ---
-        function setupAbpAccordion(container) {
-             container.querySelectorAll('.accordion-header').forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = header.nextElementSibling;
-                    header.classList.toggle('open');
-                    if (content.style.maxHeight) {
-                        content.style.maxHeight = null;
-                    } else {
-                        content.style.maxHeight = content.scrollHeight + "px";
-                        const parentContent = header.closest('.accordion-content');
-                        if (parentContent) {
-                            setTimeout(() => {
-                                parentContent.style.maxHeight = parentContent.scrollHeight + content.scrollHeight + "px";
-                            }, 300);
-                        }
-                    }
-                });
-            });
-        }
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Dynamic Content Loaders ---
-            const contentLoaders = {
-                'presentation-container-parent': function(container) {
-                    const template = document.getElementById('presentation-template');
-                    if (template) {
-                        const clone = template.content.cloneNode(true);
-                        container.appendChild(clone);
-                        setupPresentation(container.querySelector('#presentation-root'));
-                    }
-                },
-                'classifier-container-parent': function(container) {
-                    container.innerHTML = `
+          },
+          'classifier-container-parent': function (container) {
+            container.innerHTML = `
                         <div class="bg-gray-50 p-6 rounded-lg">
                             <h3 class="text-xl font-bold text-gray-800 mb-4">Clasificador de Fenotipos Clínicos</h3>
                             <p class="mb-4 text-gray-600">Seleccione los signos y síntomas clave de su paciente con parkinsonismo para obtener una orientación diagnóstica.</p>
@@ -384,17 +1165,19 @@
                             </div>
                             <div id="classifier_result"></div>
                         </div>`;
-                },
-                'abp-container-parent': function(container) {
-                    const template = document.getElementById('abp-template');
-                    if (template) {
-                        const clone = template.content.cloneNode(true);
-                        container.appendChild(clone);
-                        setupAbpAccordion(container.querySelector('#abp-consolidado-acordeon'));
-                    }
-                },
-                'quiz-container-parent': function(container) {
-                    container.innerHTML = `
+          },
+          'abp-container-parent': function (container) {
+            const template = document.getElementById('abp-template');
+            if (template) {
+              const clone = template.content.cloneNode(true);
+              container.appendChild(clone);
+              setupAbpAccordion(
+                container.querySelector('#abp-consolidado-acordeon'),
+              );
+            }
+          },
+          'quiz-container-parent': function (container) {
+            container.innerHTML = `
                         <div id="quiz-content-wrapper" class="embedded-content">
                             <style>
                                 #quiz-content-wrapper .question-block { margin-bottom: 2rem; border-left: 4px solid #eee; padding-left: 1rem; }
@@ -409,15 +1192,78 @@
                             <h3 class="text-2xl font-bold text-gray-800 mb-6">Autoevaluación: Diagnóstico Diferencial</h3>
                             <div id="quiz-questions"></div>
                         </div>`;
-                    const quizData = [
-                        { question: "Un paciente con parkinsonismo presenta hipotensión ortostática severa y síncopes en los primeros 2 años de la enfermedad. ¿Cuál es la sospecha diagnóstica más alta?", options: ["Enfermedad de Parkinson Idiopática", "Parálisis Supranuclear Progresiva (PSP)", "Atrofia Multisistémica (AMS)", "Degeneración Corticobasal (DCB)"], correct: 2, justification: "La disautonomía precoz y severa es la bandera roja más característica de la AMS." },
-                        { question: "El 'truco sensorial' o 'gesto antagonista' es un fenómeno clínico altamente sugestivo de:", options: ["Corea", "Mioclonías", "Temblor Esencial", "Distonía"], correct: 3, justification: "El truco sensorial, donde un leve estímulo táctil alivia la contracción, es patognomónico de la distonía." },
-                        { question: "Un paciente con temblor de acción bilateral en manos, historia familiar positiva y que reporta mejoría con una copa de vino, probablemente tiene:", options: ["Temblor Parkinsoniano", "Temblor Cerebeloso", "Temblor Esencial", "Temblor Fisiológico Exacerbado"], correct: 2, justification: "La combinación de temblor de acción, historia familiar y respuesta al alcohol es el perfil clásico del Temblor Esencial." },
-                        { question: "¿Cuál de las siguientes 'banderas rojas' es más específica para la Parálisis Supranuclear Progresiva (PSP)?", options: ["Simetría de síntomas", "Mala respuesta a Levodopa", "Parálisis de la mirada vertical hacia abajo", "Caídas"], correct: 2, justification: "Aunque las caídas y la mala respuesta a L-Dopa pueden verse en otras entidades, la oftalmoparesia vertical es el signo más distintivo de la PSP." },
-                        { question: "Un paciente desarrolla un parkinsonismo simétrico de forma subaguda. ¿Qué causa secundaria es IMPERATIVO descartar primero mediante la anamnesis?", options: ["Exposición a pesticidas", "Infección viral previa", "Uso de fármacos (ej. metoclopramida)", "Trauma craneal"], correct: 2, justification: "El parkinsonismo inducido por fármacos es una de las causas secundarias más comunes y reversibles, y debe ser investigado activamente." }
-                    ];
-                    const questionsContainer = container.querySelector('#quiz-questions');
-                    questionsContainer.innerHTML = quizData.map((q, i) => `
+            const quizData = [
+              {
+                question:
+                  'Un paciente con parkinsonismo presenta hipotensión ortostática severa y síncopes en los primeros 2 años de la enfermedad. ¿Cuál es la sospecha diagnóstica más alta?',
+                options: [
+                  'Enfermedad de Parkinson Idiopática',
+                  'Parálisis Supranuclear Progresiva (PSP)',
+                  'Atrofia Multisistémica (AMS)',
+                  'Degeneración Corticobasal (DCB)',
+                ],
+                correct: 2,
+                justification:
+                  'La disautonomía precoz y severa es la bandera roja más característica de la AMS.',
+              },
+              {
+                question:
+                  "El 'truco sensorial' o 'gesto antagonista' es un fenómeno clínico altamente sugestivo de:",
+                options: [
+                  'Corea',
+                  'Mioclonías',
+                  'Temblor Esencial',
+                  'Distonía',
+                ],
+                correct: 3,
+                justification:
+                  'El truco sensorial, donde un leve estímulo táctil alivia la contracción, es patognomónico de la distonía.',
+              },
+              {
+                question:
+                  'Un paciente con temblor de acción bilateral en manos, historia familiar positiva y que reporta mejoría con una copa de vino, probablemente tiene:',
+                options: [
+                  'Temblor Parkinsoniano',
+                  'Temblor Cerebeloso',
+                  'Temblor Esencial',
+                  'Temblor Fisiológico Exacerbado',
+                ],
+                correct: 2,
+                justification:
+                  'La combinación de temblor de acción, historia familiar y respuesta al alcohol es el perfil clásico del Temblor Esencial.',
+              },
+              {
+                question:
+                  "¿Cuál de las siguientes 'banderas rojas' es más específica para la Parálisis Supranuclear Progresiva (PSP)?",
+                options: [
+                  'Simetría de síntomas',
+                  'Mala respuesta a Levodopa',
+                  'Parálisis de la mirada vertical hacia abajo',
+                  'Caídas',
+                ],
+                correct: 2,
+                justification:
+                  'Aunque las caídas y la mala respuesta a L-Dopa pueden verse en otras entidades, la oftalmoparesia vertical es el signo más distintivo de la PSP.',
+              },
+              {
+                question:
+                  'Un paciente desarrolla un parkinsonismo simétrico de forma subaguda. ¿Qué causa secundaria es IMPERATIVO descartar primero mediante la anamnesis?',
+                options: [
+                  'Exposición a pesticidas',
+                  'Infección viral previa',
+                  'Uso de fármacos (ej. metoclopramida)',
+                  'Trauma craneal',
+                ],
+                correct: 2,
+                justification:
+                  'El parkinsonismo inducido por fármacos es una de las causas secundarias más comunes y reversibles, y debe ser investigado activamente.',
+              },
+            ];
+            const questionsContainer =
+              container.querySelector('#quiz-questions');
+            questionsContainer.innerHTML = quizData
+              .map(
+                (q, i) => `
                         <div class="question-block">
                             <p class="font-semibold">${i + 1}. ${q.question}</p>
                             <div class="options-container">
@@ -425,45 +1271,51 @@
                             </div>
                             <div class="feedback"></div>
                         </div>
-                    `).join('');
+                    `,
+              )
+              .join('');
+          },
+        };
+
+        // --- Accordion Functionality ---
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        accordionButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const content = button.nextElementSibling;
+            const isActive = button.classList.contains('active');
+
+            // Close all other accordions on the main level
+            document
+              .querySelectorAll(
+                '#accordion-container > div > .accordion-button',
+              )
+              .forEach((otherButton) => {
+                if (otherButton !== button) {
+                  otherButton.classList.remove('active');
+                  otherButton.nextElementSibling.style.maxHeight = null;
                 }
-            };
-            
-            // --- Accordion Functionality ---
-            const accordionButtons = document.querySelectorAll('.accordion-button');
-            accordionButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const content = button.nextElementSibling;
-                    const isActive = button.classList.contains('active');
+              });
 
-                    // Close all other accordions on the main level
-                    document.querySelectorAll('#accordion-container > div > .accordion-button').forEach(otherButton => {
-                        if (otherButton !== button) {
-                            otherButton.classList.remove('active');
-                            otherButton.nextElementSibling.style.maxHeight = null;
-                        }
-                    });
-
-                    if (isActive) {
-                        button.classList.remove('active');
-                        content.style.maxHeight = null;
-                    } else {
-                        button.classList.add('active');
-                        const contentDiv = content.firstElementChild;
-                        if (contentDiv && !contentDiv.dataset.loaded) {
-                            if (contentLoaders[contentDiv.id]) {
-                                contentLoaders[contentDiv.id](contentDiv);
-                                contentDiv.dataset.loaded = "true";
-                            }
-                        }
-                        // Use a timeout to allow the content to be rendered before calculating scrollHeight
-                        setTimeout(() => {
-                           content.style.maxHeight = content.scrollHeight + "px";
-                        }, 50); 
-                    }
-                });
-            });
+            if (isActive) {
+              button.classList.remove('active');
+              content.style.maxHeight = null;
+            } else {
+              button.classList.add('active');
+              const contentDiv = content.firstElementChild;
+              if (contentDiv && !contentDiv.dataset.loaded) {
+                if (contentLoaders[contentDiv.id]) {
+                  contentLoaders[contentDiv.id](contentDiv);
+                  contentDiv.dataset.loaded = 'true';
+                }
+              }
+              // Use a timeout to allow the content to be rendered before calculating scrollHeight
+              setTimeout(() => {
+                content.style.maxHeight = content.scrollHeight + 'px';
+              }, 50);
+            }
+          });
         });
+      });
     </script>
-</body>
+  </body>
 </html>

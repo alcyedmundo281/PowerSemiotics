@@ -1,265 +1,456 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Módulo Interactivo: Hemorragia Digestiva</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
-        }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f0f4f8;
+      }
 
-        /* --- Estilos Generales de Navegación --- */
-        .module-section { display: none; }
-        .module-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
+      /* --- Estilos Generales de Navegación --- */
+      .module-section {
+        display: none;
+      }
+      .module-section.active {
+        display: block;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            border-left: 4px solid transparent;
-            transition: all 0.3s ease;
-            color: #4b5563; /* text-gray-600 */
-        }
-        .nav-link:hover {
-            background-color: #f3f4f6; /* bg-gray-100 */
-            border-left-color: #9ca3af; /* border-gray-400 */
-            color: #111827; /* text-gray-900 */
-        }
-        .nav-link.active {
-            border-left-color: #ef4444; /* border-red-500 */
-            background-color: #fee2e2; /* bg-red-50 */
-            color: #b91c1c; /* text-red-700 */
-            font-weight: 600;
-        }
-        .nav-link .nav-icon {
-            margin-right: 0.75rem;
-            width: 20px;
-            text-align: center;
-        }
+      }
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-left: 4px solid transparent;
+        transition: all 0.3s ease;
+        color: #4b5563; /* text-gray-600 */
+      }
+      .nav-link:hover {
+        background-color: #f3f4f6; /* bg-gray-100 */
+        border-left-color: #9ca3af; /* border-gray-400 */
+        color: #111827; /* text-gray-900 */
+      }
+      .nav-link.active {
+        border-left-color: #ef4444; /* border-red-500 */
+        background-color: #fee2e2; /* bg-red-50 */
+        color: #b91c1c; /* text-red-700 */
+        font-weight: 600;
+      }
+      .nav-link .nav-icon {
+        margin-right: 0.75rem;
+        width: 20px;
+        text-align: center;
+      }
 
-        /* --- Estilos de la Presentación (Componente 1) --- */
-        #presentation-container .slide { display: none; animation: fadeIn 0.5s ease-in-out; }
-        #presentation-container .slide.active { display: block; }
-        #presentation-container .svg-diagram path, #presentation-container .svg-diagram circle, #presentation-container .svg-diagram rect { transition: all 0.3s ease; }
-        #presentation-container .svg-diagram .label-group:hover text { font-weight: bold; }
-        #presentation-container .svg-diagram #healthy:hover .mucosa-fill { fill: #fca5a5; }
-        #presentation-container .svg-diagram #ulcer:hover .ulcer-crater { fill: #ef4444; }
-        #presentation-container .svg-diagram #varices:hover .varices-vein { fill: #60a5fa; }
+      /* --- Estilos de la Presentación (Componente 1) --- */
+      #presentation-container .slide {
+        display: none;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      #presentation-container .slide.active {
+        display: block;
+      }
+      #presentation-container .svg-diagram path,
+      #presentation-container .svg-diagram circle,
+      #presentation-container .svg-diagram rect {
+        transition: all 0.3s ease;
+      }
+      #presentation-container .svg-diagram .label-group:hover text {
+        font-weight: bold;
+      }
+      #presentation-container .svg-diagram #healthy:hover .mucosa-fill {
+        fill: #fca5a5;
+      }
+      #presentation-container .svg-diagram #ulcer:hover .ulcer-crater {
+        fill: #ef4444;
+      }
+      #presentation-container .svg-diagram #varices:hover .varices-vein {
+        fill: #60a5fa;
+      }
 
-        /* --- Estilos del Diagnóstico Interactivo (Componente 2) --- */
-        #diagnostic-tool-container .checkbox-label input:checked + div {
-            border-color: #ef4444;
-            background-color: #fee2e2;
-            transform: scale(1.02);
-        }
-        #diagnostic-tool-container #resultCard { transition: opacity 0.5s, transform 0.5s; }
+      /* --- Estilos del Diagnóstico Interactivo (Componente 2) --- */
+      #diagnostic-tool-container .checkbox-label input:checked + div {
+        border-color: #ef4444;
+        background-color: #fee2e2;
+        transform: scale(1.02);
+      }
+      #diagnostic-tool-container #resultCard {
+        transition:
+          opacity 0.5s,
+          transform 0.5s;
+      }
 
-        /* --- Estilos de la Autoevaluación (Componente 3) --- */
-        #quiz-container .option-btn.correct { background-color: #dcfce7; border-color: #4ade80; }
-        #quiz-container .option-btn.incorrect { background-color: #fee2e2; border-color: #f87171; }
-        #quiz-container .feedback-box { transition: all 0.3s ease-in-out; }
-        #quiz-container #progress-ring { transition: stroke-dasharray 1s ease-out; transform: rotate(-90deg); transform-origin: 50% 50%; }
-
+      /* --- Estilos de la Autoevaluación (Componente 3) --- */
+      #quiz-container .option-btn.correct {
+        background-color: #dcfce7;
+        border-color: #4ade80;
+      }
+      #quiz-container .option-btn.incorrect {
+        background-color: #fee2e2;
+        border-color: #f87171;
+      }
+      #quiz-container .feedback-box {
+        transition: all 0.3s ease-in-out;
+      }
+      #quiz-container #progress-ring {
+        transition: stroke-dasharray 1s ease-out;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+      }
     </style>
-</head>
-<body class="bg-gray-100">
-
+  </head>
+  <body class="bg-gray-100">
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">Módulo Interactivo: Hemorragia Digestiva</h1>
-            <p class="text-lg text-gray-600">Un abordaje integral desde la fisiopatología hasta el manejo clínico de emergencias.</p>
-        </div>
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
+          Módulo Interactivo: Hemorragia Digestiva
+        </h1>
+        <p class="text-lg text-gray-600">
+          Un abordaje integral desde la fisiopatología hasta el manejo clínico
+          de emergencias.
+        </p>
+      </div>
 
-        <div class="flex flex-col lg:flex-row gap-8">
-            <aside class="w-full lg:w-1/4 lg:sticky top-8 self-start">
-                <div class="bg-white p-4 rounded-xl shadow-lg">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4 px-4">Índice del Módulo</h3>
-                    <nav id="module-nav" class="space-y-1">
-                        <a href="#presentacion" class="nav-link active"><i class="fas fa-desktop nav-icon"></i>Presentación Interactiva</a>
-                        <a href="#herramienta" class="nav-link"><i class="fas fa-stethoscope nav-icon"></i>Herramienta Diagnóstica</a>
-                        <a href="#autoevaluacion" class="nav-link"><i class="fas fa-vial-circle-check nav-icon"></i>Autoevaluación Gamificada</a>
-                    </nav>
-                </div>
-            </aside>
+      <div class="flex flex-col lg:flex-row gap-8">
+        <aside class="w-full lg:w-1/4 lg:sticky top-8 self-start">
+          <div class="bg-white p-4 rounded-xl shadow-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 px-4">
+              Índice del Módulo
+            </h3>
+            <nav id="module-nav" class="space-y-1">
+              <a href="#presentacion" class="nav-link active"
+                ><i class="fas fa-desktop nav-icon"></i>Presentación
+                Interactiva</a
+              >
+              <a href="#herramienta" class="nav-link"
+                ><i class="fas fa-stethoscope nav-icon"></i>Herramienta
+                Diagnóstica</a
+              >
+              <a href="#autoevaluacion" class="nav-link"
+                ><i class="fas fa-vial-circle-check nav-icon"></i>Autoevaluación
+                Gamificada</a
+              >
+            </nav>
+          </div>
+        </aside>
 
-            <main id="main-content" class="w-full lg:w-3/4 bg-white p-6 md:p-8 rounded-xl shadow-lg min-h-[70vh]">
-                <!-- El contenido dinámico se cargará aquí -->
-            </main>
-        </div>
+        <main
+          id="main-content"
+          class="w-full lg:w-3/4 bg-white p-6 md:p-8 rounded-xl shadow-lg min-h-[70vh]"
+        >
+          <!-- El contenido dinámico se cargará aquí -->
+        </main>
+      </div>
     </div>
 
     <!-- TEMPLATES PARA LOS COMPONENTES -->
 
     <!-- Template 1: Presentación Interactiva -->
     <template id="presentation-template">
-        <div id="presentation-container" class="w-full h-full flex flex-col bg-white/60 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black ring-opacity-5">
-            <div id="slide-area" class="flex-grow bg-slate-100/80 rounded-t-lg p-6 md:p-12 overflow-y-auto relative min-h-[55vh]">
-                <!-- Las diapositivas se inyectan aquí -->
-            </div>
-            <div class="flex-shrink-0 bg-white/80 p-4 flex items-center justify-between border-t border-gray-200">
-                <button id="prevBtn" class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <i class="fas fa-arrow-left mr-2"></i>Anterior
-                </button>
-                <div id="slide-counter" class="text-lg font-semibold text-gray-700"></div>
-                <button id="nextBtn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                    Siguiente<i class="fas fa-arrow-right ml-2"></i>
-                </button>
-            </div>
+      <div
+        id="presentation-container"
+        class="w-full h-full flex flex-col bg-white/60 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black ring-opacity-5"
+      >
+        <div
+          id="slide-area"
+          class="flex-grow bg-slate-100/80 rounded-t-lg p-6 md:p-12 overflow-y-auto relative min-h-[55vh]"
+        >
+          <!-- Las diapositivas se inyectan aquí -->
         </div>
+        <div
+          class="flex-shrink-0 bg-white/80 p-4 flex items-center justify-between border-t border-gray-200"
+        >
+          <button
+            id="prevBtn"
+            class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <i class="fas fa-arrow-left mr-2"></i>Anterior
+          </button>
+          <div
+            id="slide-counter"
+            class="text-lg font-semibold text-gray-700"
+          ></div>
+          <button
+            id="nextBtn"
+            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Siguiente<i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
     </template>
-    
+
     <!-- Template 2: Herramienta Diagnóstica -->
     <template id="diagnostic-tool-template">
-        <div id="diagnostic-tool-container" class="w-full max-w-2xl mx-auto">
-            <div class="bg-gradient-to-br from-red-50 to-orange-100 rounded-2xl shadow-xl p-8 md:p-12">
-                <div class="text-center mb-8">
-                    <h1 class="text-3xl font-bold text-slate-800">Asistente de Diagnóstico Diferencial</h1>
-                    <p class="text-lg text-slate-600 mt-2">Seleccione el hallazgo clínico clave del paciente.</p>
-                </div>
-                <div id="findings" class="space-y-4">
-                    <label class="checkbox-label block cursor-pointer">
-                        <input type="radio" name="clinical_finding" value="varices" class="sr-only">
-                        <div class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all">
-                            <p class="font-semibold text-slate-700">Hematemesis masiva y estigmas de hepatopatía (ictericia, ascitis)</p>
-                        </div>
-                    </label>
-                    <label class="checkbox-label block cursor-pointer">
-                        <input type="radio" name="clinical_finding" value="eup" class="sr-only">
-                        <div class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all">
-                            <p class="font-semibold text-slate-700">Melena, epigastralgia y consumo reciente de AINEs</p>
-                        </div>
-                    </label>
-                    <label class="checkbox-label block cursor-pointer">
-                        <input type="radio" name="clinical_finding" value="diverticular" class="sr-only">
-                        <div class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all">
-                            <p class="font-semibold text-slate-700">Hematoquecia masiva e indolora en paciente de 80 años</p>
-                        </div>
-                    </label>
-                    <label class="checkbox-label block cursor-pointer">
-                        <input type="radio" name="clinical_finding" value="anorrectal" class="sr-only">
-                        <div class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all">
-                            <p class="font-semibold text-slate-700">Rectorragia leve intermitente en paciente de 30 años</p>
-                        </div>
-                    </label>
-                    <label class="checkbox-label block cursor-pointer">
-                        <input type="radio" name="clinical_finding" value="colitis" class="sr-only">
-                        <div class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all">
-                            <p class="font-semibold text-slate-700">Diarrea sanguinolenta, fiebre y dolor abdominal bajo</p>
-                        </div>
-                    </label>
-                </div>
-                <div class="mt-8 text-center">
-                    <button id="analyzeBtn" class="w-full md:w-auto bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:scale-105 hover:brightness-110 transition-all duration-300 disabled:opacity-50" disabled>
-                        <i class="fas fa-stethoscope mr-2"></i>Analizar Sospecha Clínica
-                    </button>
-                </div>
-                <div id="resultCard" class="mt-8 p-6 rounded-lg border-l-8 opacity-0 -translate-y-5" style="display: none;">
-                    <div class="flex items-start">
-                        <div id="resultIcon" class="text-4xl mr-4"></div>
-                        <div>
-                            <h2 id="resultTitle" class="text-2xl font-bold"></h2>
-                            <p id="resultJustification" class="text-md text-slate-700 mt-2"></p>
-                        </div>
-                    </div>
-                </div>
+      <div id="diagnostic-tool-container" class="w-full max-w-2xl mx-auto">
+        <div
+          class="bg-gradient-to-br from-red-50 to-orange-100 rounded-2xl shadow-xl p-8 md:p-12"
+        >
+          <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">
+              Asistente de Diagnóstico Diferencial
+            </h1>
+            <p class="text-lg text-slate-600 mt-2">
+              Seleccione el hallazgo clínico clave del paciente.
+            </p>
+          </div>
+          <div id="findings" class="space-y-4">
+            <label class="checkbox-label block cursor-pointer">
+              <input
+                type="radio"
+                name="clinical_finding"
+                value="varices"
+                class="sr-only"
+              />
+              <div
+                class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all"
+              >
+                <p class="font-semibold text-slate-700">
+                  Hematemesis masiva y estigmas de hepatopatía (ictericia,
+                  ascitis)
+                </p>
+              </div>
+            </label>
+            <label class="checkbox-label block cursor-pointer">
+              <input
+                type="radio"
+                name="clinical_finding"
+                value="eup"
+                class="sr-only"
+              />
+              <div
+                class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all"
+              >
+                <p class="font-semibold text-slate-700">
+                  Melena, epigastralgia y consumo reciente de AINEs
+                </p>
+              </div>
+            </label>
+            <label class="checkbox-label block cursor-pointer">
+              <input
+                type="radio"
+                name="clinical_finding"
+                value="diverticular"
+                class="sr-only"
+              />
+              <div
+                class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all"
+              >
+                <p class="font-semibold text-slate-700">
+                  Hematoquecia masiva e indolora en paciente de 80 años
+                </p>
+              </div>
+            </label>
+            <label class="checkbox-label block cursor-pointer">
+              <input
+                type="radio"
+                name="clinical_finding"
+                value="anorrectal"
+                class="sr-only"
+              />
+              <div
+                class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all"
+              >
+                <p class="font-semibold text-slate-700">
+                  Rectorragia leve intermitente en paciente de 30 años
+                </p>
+              </div>
+            </label>
+            <label class="checkbox-label block cursor-pointer">
+              <input
+                type="radio"
+                name="clinical_finding"
+                value="colitis"
+                class="sr-only"
+              />
+              <div
+                class="p-4 border-2 border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-300 transition-all"
+              >
+                <p class="font-semibold text-slate-700">
+                  Diarrea sanguinolenta, fiebre y dolor abdominal bajo
+                </p>
+              </div>
+            </label>
+          </div>
+          <div class="mt-8 text-center">
+            <button
+              id="analyzeBtn"
+              class="w-full md:w-auto bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:scale-105 hover:brightness-110 transition-all duration-300 disabled:opacity-50"
+              disabled
+            >
+              <i class="fas fa-stethoscope mr-2"></i>Analizar Sospecha Clínica
+            </button>
+          </div>
+          <div
+            id="resultCard"
+            class="mt-8 p-6 rounded-lg border-l-8 opacity-0 -translate-y-5"
+            style="display: none"
+          >
+            <div class="flex items-start">
+              <div id="resultIcon" class="text-4xl mr-4"></div>
+              <div>
+                <h2 id="resultTitle" class="text-2xl font-bold"></h2>
+                <p
+                  id="resultJustification"
+                  class="text-md text-slate-700 mt-2"
+                ></p>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </template>
 
     <!-- Template 3: Autoevaluación Gamificada -->
     <template id="quiz-template">
-        <div id="quiz-container" class="w-full max-w-3xl mx-auto">
-            <!-- Quiz Card -->
-            <div id="quiz-card" class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                <div class="p-8">
-                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
-                        <div id="progress-bar" class="bg-red-600 h-2.5 rounded-full" style="width: 0%; transition: width 0.5s ease-in-out;"></div>
-                    </div>
-                    <div id="question-header" class="mb-6">
-                        <p class="text-sm font-semibold text-red-600">Pregunta <span id="question-number"></span> de <span id="total-questions"></span></p>
-                        <h2 id="question-text" class="text-2xl font-bold text-slate-800 mt-2"></h2>
-                    </div>
-                    <div id="options-container" class="space-y-4"></div>
-                    <div id="feedback-container" class="mt-6" style="display: none;"></div>
-                    <div class="mt-6 text-right">
-                        <button id="next-btn" class="bg-red-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-red-700 transition-all duration-300" style="display: none;">Siguiente <i class="fas fa-arrow-right ml-2"></i></button>
-                    </div>
-                </div>
+      <div id="quiz-container" class="w-full max-w-3xl mx-auto">
+        <!-- Quiz Card -->
+        <div
+          id="quiz-card"
+          class="bg-white rounded-2xl shadow-xl overflow-hidden"
+        >
+          <div class="p-8">
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+              <div
+                id="progress-bar"
+                class="bg-red-600 h-2.5 rounded-full"
+                style="width: 0%; transition: width 0.5s ease-in-out"
+              ></div>
             </div>
-            <!-- Results Card -->
-            <div id="results-container" class="bg-white rounded-2xl shadow-xl p-8 text-center" style="display: none;">
-                <h2 class="text-3xl font-bold text-slate-800">Resultados del Quiz</h2>
-                <div class="my-8">
-                    <svg class="mx-auto" width="150" height="150" viewBox="0 0 36 36">
-                        <path class="text-gray-200" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.8"/>
-                        <path id="progress-ring" class="text-red-600" stroke-linecap="round" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.8" stroke-dasharray="0, 100"/>
-                    </svg>
-                    <p class="text-5xl font-extrabold text-slate-800 mt-[-95px] mb-[60px]" id="score-text"></p>
-                </div>
-                <p id="feedback-message" class="text-xl text-slate-600 mb-8"></p>
-                <button id="retry-btn" class="bg-gray-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-800 transition-all duration-300">
-                    <i class="fas fa-redo mr-2"></i>Repetir el Quiz
-                </button>
+            <div id="question-header" class="mb-6">
+              <p class="text-sm font-semibold text-red-600">
+                Pregunta <span id="question-number"></span> de
+                <span id="total-questions"></span>
+              </p>
+              <h2
+                id="question-text"
+                class="text-2xl font-bold text-slate-800 mt-2"
+              ></h2>
             </div>
+            <div id="options-container" class="space-y-4"></div>
+            <div
+              id="feedback-container"
+              class="mt-6"
+              style="display: none"
+            ></div>
+            <div class="mt-6 text-right">
+              <button
+                id="next-btn"
+                class="bg-red-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-red-700 transition-all duration-300"
+                style="display: none"
+              >
+                Siguiente <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </div>
         </div>
+        <!-- Results Card -->
+        <div
+          id="results-container"
+          class="bg-white rounded-2xl shadow-xl p-8 text-center"
+          style="display: none"
+        >
+          <h2 class="text-3xl font-bold text-slate-800">Resultados del Quiz</h2>
+          <div class="my-8">
+            <svg class="mx-auto" width="150" height="150" viewBox="0 0 36 36">
+              <path
+                class="text-gray-200"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.8"
+              />
+              <path
+                id="progress-ring"
+                class="text-red-600"
+                stroke-linecap="round"
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.8"
+                stroke-dasharray="0, 100"
+              />
+            </svg>
+            <p
+              class="text-5xl font-extrabold text-slate-800 mt-[-95px] mb-[60px]"
+              id="score-text"
+            ></p>
+          </div>
+          <p id="feedback-message" class="text-xl text-slate-600 mb-8"></p>
+          <button
+            id="retry-btn"
+            class="bg-gray-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-gray-800 transition-all duration-300"
+          >
+            <i class="fas fa-redo mr-2"></i>Repetir el Quiz
+          </button>
+        </div>
+      </div>
     </template>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-
+      document.addEventListener('DOMContentLoaded', () => {
         const mainContent = document.getElementById('main-content');
         const navLinks = document.querySelectorAll('.nav-link');
 
         const contentLoaders = {
-            'presentacion': setupPresentation,
-            'herramienta': setupDiagnosticTool,
-            'autoevaluacion': setupQuiz,
+          presentacion: setupPresentation,
+          herramienta: setupDiagnosticTool,
+          autoevaluacion: setupQuiz,
         };
-        
-        function switchSection(hash) {
-            hash = hash.replace('#', '');
-            
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.hash === `#${hash}`);
-            });
-            
-            mainContent.innerHTML = '';
-            const templateId = {
-                'presentacion': 'presentation-template',
-                'herramienta': 'diagnostic-tool-template',
-                'autoevaluacion': 'quiz-template'
-            }[hash];
 
-            const template = document.getElementById(templateId);
-            if (template) {
-                const content = template.content.cloneNode(true);
-                mainContent.appendChild(content);
-                if (contentLoaders[hash]) {
-                    contentLoaders[hash]();
-                }
+        function switchSection(hash) {
+          hash = hash.replace('#', '');
+
+          navLinks.forEach((link) => {
+            link.classList.toggle('active', link.hash === `#${hash}`);
+          });
+
+          mainContent.innerHTML = '';
+          const templateId = {
+            presentacion: 'presentation-template',
+            herramienta: 'diagnostic-tool-template',
+            autoevaluacion: 'quiz-template',
+          }[hash];
+
+          const template = document.getElementById(templateId);
+          if (template) {
+            const content = template.content.cloneNode(true);
+            mainContent.appendChild(content);
+            if (contentLoaders[hash]) {
+              contentLoaders[hash]();
             }
+          }
         }
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetHash = link.getAttribute('href');
-                switchSection(targetHash);
-                history.pushState(null, null, targetHash);
-            });
+        navLinks.forEach((link) => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetHash = link.getAttribute('href');
+            switchSection(targetHash);
+            history.pushState(null, null, targetHash);
+          });
         });
 
         // Initial load
@@ -268,196 +459,403 @@
 
         // --- LÓGICA DEL COMPONENTE 1: PRESENTACIÓN ---
         function setupPresentation() {
-            const slidesData = [
-                { title: "Hemorragia Digestiva: Abordaje Integral", content: "<p class='text-xl text-slate-600 leading-relaxed'>Asignatura: Gastroenterología - Séptimo Semestre<br>Universidad Central del Ecuador</p><p class='mt-4 text-2xl font-semibold text-slate-700'>Una emergencia médica frecuente que requiere un manejo sistemático y protocolizado para optimizar los resultados del paciente.</p>" },
-                { title: "Definición y Clasificación", content: "<h3 class='text-2xl font-semibold text-slate-700 mb-4'>Clasificación Topográfica (Ligamento de Treitz)</h3><ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-2'><li><b>HDA (Alta):</b> Proximal al ligamento. La más común (esófago, estómago, duodeno).</li><li><b>HDB (Baja):</b> Distal al ligamento (intestino delgado, colon, recto).</li></ul>" },
-                { title: "Epidemiología: Un Paradigma Cambiante", content: "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>HDA en Descenso:</b> Gracias a la erradicación de <i>H. pylori</i> y uso de IBP.</li><li><b>HDB en Ascenso:</b> Debido al envejecimiento poblacional y uso de antitrombóticos.</li><li><b>Mortalidad:</b> HDA (5-14%) > HDB (2-4%), aunque la brecha se está cerrando.</li></ul>" },
-                { title: "Fisiopatología Clave", content: `<p class='text-xl text-slate-600 leading-relaxed mb-6'>La hemorragia ocurre cuando se rompe el equilibrio entre factores agresores y protectores.</p><div class="svg-diagram w-full max-w-4xl mx-auto"><svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg"><g id="healthy" class="label-group"><rect x="50" y="50" width="200" height="150" fill="#fee2e2" class="mucosa-fill" rx="10"/><path d="M50 80 Q 150 60, 250 80" stroke="#f87171" stroke-width="4" fill="none"/><text x="150" y="230" text-anchor="middle" font-size="20" fill="#4b5563">1. Mucosa Sana</text></g><g id="ulcer" class="label-group"><rect x="350" y="50" width="200" height="150" fill="#fee2e2" rx="10"/><path d="M350 80 Q 450 60, 550 80" stroke="#f87171" stroke-width="4" fill="none"/><circle cx="450" cy="90" r="25" fill="#b91c1c" class="ulcer-crater"/><path d="M450 90 v 30" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/><text x="450" y="230" text-anchor="middle" font-size="20" fill="#4b5563">2. Úlcera Péptica</text></g><g id="varices" class="label-group"><rect x="650" y="50" width="200" height="150" fill="#dbeafe" rx="10"/><path d="M650 80 Q 700 110, 750 80 T 850 80" stroke="#93c5fd" stroke-width="12" fill="none" class="varices-vein"/><path d="M720 85 l 10 10 M730 85 l -10 10" stroke="#ef4444" stroke-width="3"/><text x="750" y="230" text-anchor="middle" font-size="20" fill="#4b5563">3. Várices Esofágicas</text></g></svg></div>` },
-                { title: "Manifestaciones Clínicas Cardinales", content: "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Hematemesis:</b> Vómito de sangre (rojo rutilante o 'posos de café').</li><li><b>Melena:</b> Heces negras, alquitranadas.</li><li><b>Hematoquecia:</b> Sangre roja/granate mezclada con heces.</li></ul>" },
-                { title: "Signos Sistémicos de Hipovolemia", content: "<p class='text-xl text-slate-600 leading-relaxed mb-4'>Respuesta fisiológica a la pérdida de volumen:</p><ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-2'><li><b>Tempranos:</b> Taquicardia, ansiedad, palidez.</li><li><b>Moderados:</b> Hipotensión ortostática.</li><li><b>Severos (Shock):</b> Hipotensión en reposo, alteración mental.</li></ul>" },
-                { title: "Etiologías Principales de HDA", content: "<ol class='list-decimal list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Enfermedad Ulcerosa Péptica (EUP)</b></li><li><b>Hemorragia Varicosa</b></li><li><b>Síndrome de Mallory-Weiss</b></li></ol>" },
-                { title: "Etiologías Principales de HDB", content: "<ol class='list-decimal list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Enfermedad Diverticular</b></li><li><b>Angiodisplasia</b></li><li><b>Colitis (Isquémica, EII)</b></li></ol>" },
-                { title: "Abordaje Inicial: La Prioridad es el ABCDE", content: "<h3 class='text-2xl font-semibold text-slate-700 mb-4'>'Reanimar primero, diagnosticar después'</h3><ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>A (Airway):</b> Proteger vía aérea.</li><li><b>B (Breathing):</b> Oxígeno suplementario.</li><li><b>C (Circulation):</b> 2 vías venosas gruesas, cristaloides, transfusión restrictiva (Hb 7-9 g/dL).</li></ul>" },
-                { title: "Evaluación Clave: Laboratorios y Tacto Rectal", content: "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Tacto Rectal:</b> ¡Obligatorio!</li><li><b>Dato Clave de Laboratorio:</b> Cociente BUN/Creatinina > 30 sugiere fuertemente HDA.</li></ul>" },
-                { title: "Estratificación del Riesgo en HDA: Glasgow-Blatchford (GBS)", content: "<p class='text-xl text-slate-600 leading-relaxed'>Herramienta PRE-endoscopia para identificar pacientes de bajo riesgo.</p><p class='mt-4 text-2xl font-bold text-center text-red-600 bg-red-100 p-4 rounded-lg'>Un puntaje GBS ≤ 1 permite considerar un manejo ambulatorio seguro.</p>" },
-                { title: "Estratificación del Riesgo en HDB: Escala de Oakland", content: "<p class='text-xl text-slate-600 leading-relaxed'>Herramienta específica para HDB con el mismo objetivo: identificar bajo riesgo.</p><p class='mt-4 text-2xl font-bold text-center text-red-600 bg-red-100 p-4 rounded-lg'>Un puntaje Oakland ≤ 8 identifica candidatos a manejo ambulatorio seguro.</p>" },
-                { title: "Manejo de HDA No Varicosa: Rol de los IBP", content: "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Pre-endoscopia:</b> IBP IV a altas dosis para disminuir estigmas de alto riesgo.</li><li><b>Post-hemostasia:</b> Continuar infusión de IBP por 72h para estabilizar el coágulo.</li></ul>" },
-                { title: "Manejo de HDA Varicosa", content: "<p class='text-xl text-slate-600 leading-relaxed mb-4'>En sospecha de cirrosis, iniciar empíricamente:</p><ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Fármaco Vasoactivo (Octreótida)</b></li><li><b>Profilaxis Antibiótica (Ceftriaxona)</b></li></ul>" },
-                { title: "Clasificación de Forrest", content: `<p class='text-xl text-slate-600 leading-relaxed mb-4'>Guía visual para la terapia endoscópica.</p><div class='grid grid-cols-1 md:grid-cols-3 gap-4 text-center'><div class='bg-red-100 p-4 rounded-lg'><h4 class='font-bold text-red-700'>Alto Riesgo (Ia, Ib, IIa)</h4><p>Terapia combinada.</p></div><div class='bg-yellow-100 p-4 rounded-lg'><h4 class='font-bold text-yellow-700'>Riesgo Intermedio (IIb)</h4><p>Remover coágulo y tratar.</p></div><div class='bg-green-100 p-4 rounded-lg'><h4 class='font-bold text-green-700'>Bajo Riesgo (IIc, III)</h4><p>No tratar.</p></div></div>` },
-                { title: "Terapia Endoscópica en HDA", content: "<p class='text-xl text-slate-600 leading-relaxed'>El estándar de oro para lesiones de alto riesgo es la <b>Terapia Combinada</b>.</p><p class='mt-4 text-2xl font-semibold text-center text-slate-700'>Inyección de Adrenalina + Un segundo método (Térmico o Mecánico)</p>" },
-                { title: "Abordaje de HDB: Estable vs. Inestable", content: "<div class='mt-4 grid grid-cols-1 md:grid-cols-2 gap-6'><div class='text-center'><h3 class='text-2xl font-semibold text-slate-700'>Paciente Estable</h3><p class='text-xl text-slate-600'><b>Colonoscopia</b> (<24h)</p></div><div class='text-center'><h3 class='text-2xl font-semibold text-slate-700'>Paciente Inestable</h3><p class='text-xl text-slate-600'><b>Angiografía por TC</b></p></div></div>" },
-                { title: "Opciones Terapéuticas en HDB", content: "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Endoscopia:</b> Clips, terapia térmica.</li><li><b>Radiología Intervencionista:</b> Embolización arterial selectiva.</li><li><b>Cirugía:</b> Último recurso.</li></ul>" },
-                { title: "Algoritmo de Manejo Integrado", content: "<ol class='list-decimal list-inside text-xl text-slate-600 leading-relaxed space-y-2 mt-4'><li>Sospecha Clínica</li><li>ABCDE + Labs + Fármacos</li><li>Estratificar Riesgo (GBS/Oakland)</li><li>Seleccionar Prueba Diagnóstica</li><li>Aplicar Terapia Dirigida</li><li>Prevención Secundaria</li></ol>" },
-                { title: "Conclusiones y Prevención Secundaria", content: "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li>La estabilización hemodinámica es la prioridad.</li><li>La estratificación del riesgo optimiza el manejo.</li><li>La prevención secundaria es vital: erradicar <i>H. pylori</i> y optimizar uso de AINEs/antitrombóticos.</li></ul>" },
-            ];
-            const slideArea = document.getElementById('slide-area');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const slideCounter = document.getElementById('slide-counter');
-            let currentSlide = 0;
+          const slidesData = [
+            {
+              title: 'Hemorragia Digestiva: Abordaje Integral',
+              content:
+                "<p class='text-xl text-slate-600 leading-relaxed'>Asignatura: Gastroenterología - Séptimo Semestre<br>Universidad Central del Ecuador</p><p class='mt-4 text-2xl font-semibold text-slate-700'>Una emergencia médica frecuente que requiere un manejo sistemático y protocolizado para optimizar los resultados del paciente.</p>",
+            },
+            {
+              title: 'Definición y Clasificación',
+              content:
+                "<h3 class='text-2xl font-semibold text-slate-700 mb-4'>Clasificación Topográfica (Ligamento de Treitz)</h3><ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-2'><li><b>HDA (Alta):</b> Proximal al ligamento. La más común (esófago, estómago, duodeno).</li><li><b>HDB (Baja):</b> Distal al ligamento (intestino delgado, colon, recto).</li></ul>",
+            },
+            {
+              title: 'Epidemiología: Un Paradigma Cambiante',
+              content:
+                "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>HDA en Descenso:</b> Gracias a la erradicación de <i>H. pylori</i> y uso de IBP.</li><li><b>HDB en Ascenso:</b> Debido al envejecimiento poblacional y uso de antitrombóticos.</li><li><b>Mortalidad:</b> HDA (5-14%) > HDB (2-4%), aunque la brecha se está cerrando.</li></ul>",
+            },
+            {
+              title: 'Fisiopatología Clave',
+              content: `<p class='text-xl text-slate-600 leading-relaxed mb-6'>La hemorragia ocurre cuando se rompe el equilibrio entre factores agresores y protectores.</p><div class="svg-diagram w-full max-w-4xl mx-auto"><svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg"><g id="healthy" class="label-group"><rect x="50" y="50" width="200" height="150" fill="#fee2e2" class="mucosa-fill" rx="10"/><path d="M50 80 Q 150 60, 250 80" stroke="#f87171" stroke-width="4" fill="none"/><text x="150" y="230" text-anchor="middle" font-size="20" fill="#4b5563">1. Mucosa Sana</text></g><g id="ulcer" class="label-group"><rect x="350" y="50" width="200" height="150" fill="#fee2e2" rx="10"/><path d="M350 80 Q 450 60, 550 80" stroke="#f87171" stroke-width="4" fill="none"/><circle cx="450" cy="90" r="25" fill="#b91c1c" class="ulcer-crater"/><path d="M450 90 v 30" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/><text x="450" y="230" text-anchor="middle" font-size="20" fill="#4b5563">2. Úlcera Péptica</text></g><g id="varices" class="label-group"><rect x="650" y="50" width="200" height="150" fill="#dbeafe" rx="10"/><path d="M650 80 Q 700 110, 750 80 T 850 80" stroke="#93c5fd" stroke-width="12" fill="none" class="varices-vein"/><path d="M720 85 l 10 10 M730 85 l -10 10" stroke="#ef4444" stroke-width="3"/><text x="750" y="230" text-anchor="middle" font-size="20" fill="#4b5563">3. Várices Esofágicas</text></g></svg></div>`,
+            },
+            {
+              title: 'Manifestaciones Clínicas Cardinales',
+              content:
+                "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Hematemesis:</b> Vómito de sangre (rojo rutilante o 'posos de café').</li><li><b>Melena:</b> Heces negras, alquitranadas.</li><li><b>Hematoquecia:</b> Sangre roja/granate mezclada con heces.</li></ul>",
+            },
+            {
+              title: 'Signos Sistémicos de Hipovolemia',
+              content:
+                "<p class='text-xl text-slate-600 leading-relaxed mb-4'>Respuesta fisiológica a la pérdida de volumen:</p><ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-2'><li><b>Tempranos:</b> Taquicardia, ansiedad, palidez.</li><li><b>Moderados:</b> Hipotensión ortostática.</li><li><b>Severos (Shock):</b> Hipotensión en reposo, alteración mental.</li></ul>",
+            },
+            {
+              title: 'Etiologías Principales de HDA',
+              content:
+                "<ol class='list-decimal list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Enfermedad Ulcerosa Péptica (EUP)</b></li><li><b>Hemorragia Varicosa</b></li><li><b>Síndrome de Mallory-Weiss</b></li></ol>",
+            },
+            {
+              title: 'Etiologías Principales de HDB',
+              content:
+                "<ol class='list-decimal list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Enfermedad Diverticular</b></li><li><b>Angiodisplasia</b></li><li><b>Colitis (Isquémica, EII)</b></li></ol>",
+            },
+            {
+              title: 'Abordaje Inicial: La Prioridad es el ABCDE',
+              content:
+                "<h3 class='text-2xl font-semibold text-slate-700 mb-4'>'Reanimar primero, diagnosticar después'</h3><ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>A (Airway):</b> Proteger vía aérea.</li><li><b>B (Breathing):</b> Oxígeno suplementario.</li><li><b>C (Circulation):</b> 2 vías venosas gruesas, cristaloides, transfusión restrictiva (Hb 7-9 g/dL).</li></ul>",
+            },
+            {
+              title: 'Evaluación Clave: Laboratorios y Tacto Rectal',
+              content:
+                "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Tacto Rectal:</b> ¡Obligatorio!</li><li><b>Dato Clave de Laboratorio:</b> Cociente BUN/Creatinina > 30 sugiere fuertemente HDA.</li></ul>",
+            },
+            {
+              title:
+                'Estratificación del Riesgo en HDA: Glasgow-Blatchford (GBS)',
+              content:
+                "<p class='text-xl text-slate-600 leading-relaxed'>Herramienta PRE-endoscopia para identificar pacientes de bajo riesgo.</p><p class='mt-4 text-2xl font-bold text-center text-red-600 bg-red-100 p-4 rounded-lg'>Un puntaje GBS ≤ 1 permite considerar un manejo ambulatorio seguro.</p>",
+            },
+            {
+              title: 'Estratificación del Riesgo en HDB: Escala de Oakland',
+              content:
+                "<p class='text-xl text-slate-600 leading-relaxed'>Herramienta específica para HDB con el mismo objetivo: identificar bajo riesgo.</p><p class='mt-4 text-2xl font-bold text-center text-red-600 bg-red-100 p-4 rounded-lg'>Un puntaje Oakland ≤ 8 identifica candidatos a manejo ambulatorio seguro.</p>",
+            },
+            {
+              title: 'Manejo de HDA No Varicosa: Rol de los IBP',
+              content:
+                "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Pre-endoscopia:</b> IBP IV a altas dosis para disminuir estigmas de alto riesgo.</li><li><b>Post-hemostasia:</b> Continuar infusión de IBP por 72h para estabilizar el coágulo.</li></ul>",
+            },
+            {
+              title: 'Manejo de HDA Varicosa',
+              content:
+                "<p class='text-xl text-slate-600 leading-relaxed mb-4'>En sospecha de cirrosis, iniciar empíricamente:</p><ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Fármaco Vasoactivo (Octreótida)</b></li><li><b>Profilaxis Antibiótica (Ceftriaxona)</b></li></ul>",
+            },
+            {
+              title: 'Clasificación de Forrest',
+              content: `<p class='text-xl text-slate-600 leading-relaxed mb-4'>Guía visual para la terapia endoscópica.</p><div class='grid grid-cols-1 md:grid-cols-3 gap-4 text-center'><div class='bg-red-100 p-4 rounded-lg'><h4 class='font-bold text-red-700'>Alto Riesgo (Ia, Ib, IIa)</h4><p>Terapia combinada.</p></div><div class='bg-yellow-100 p-4 rounded-lg'><h4 class='font-bold text-yellow-700'>Riesgo Intermedio (IIb)</h4><p>Remover coágulo y tratar.</p></div><div class='bg-green-100 p-4 rounded-lg'><h4 class='font-bold text-green-700'>Bajo Riesgo (IIc, III)</h4><p>No tratar.</p></div></div>`,
+            },
+            {
+              title: 'Terapia Endoscópica en HDA',
+              content:
+                "<p class='text-xl text-slate-600 leading-relaxed'>El estándar de oro para lesiones de alto riesgo es la <b>Terapia Combinada</b>.</p><p class='mt-4 text-2xl font-semibold text-center text-slate-700'>Inyección de Adrenalina + Un segundo método (Térmico o Mecánico)</p>",
+            },
+            {
+              title: 'Abordaje de HDB: Estable vs. Inestable',
+              content:
+                "<div class='mt-4 grid grid-cols-1 md:grid-cols-2 gap-6'><div class='text-center'><h3 class='text-2xl font-semibold text-slate-700'>Paciente Estable</h3><p class='text-xl text-slate-600'><b>Colonoscopia</b> (<24h)</p></div><div class='text-center'><h3 class='text-2xl font-semibold text-slate-700'>Paciente Inestable</h3><p class='text-xl text-slate-600'><b>Angiografía por TC</b></p></div></div>",
+            },
+            {
+              title: 'Opciones Terapéuticas en HDB',
+              content:
+                "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li><b>Endoscopia:</b> Clips, terapia térmica.</li><li><b>Radiología Intervencionista:</b> Embolización arterial selectiva.</li><li><b>Cirugía:</b> Último recurso.</li></ul>",
+            },
+            {
+              title: 'Algoritmo de Manejo Integrado',
+              content:
+                "<ol class='list-decimal list-inside text-xl text-slate-600 leading-relaxed space-y-2 mt-4'><li>Sospecha Clínica</li><li>ABCDE + Labs + Fármacos</li><li>Estratificar Riesgo (GBS/Oakland)</li><li>Seleccionar Prueba Diagnóstica</li><li>Aplicar Terapia Dirigida</li><li>Prevención Secundaria</li></ol>",
+            },
+            {
+              title: 'Conclusiones y Prevención Secundaria',
+              content:
+                "<ul class='list-disc list-inside text-xl text-slate-600 leading-relaxed space-y-3'><li>La estabilización hemodinámica es la prioridad.</li><li>La estratificación del riesgo optimiza el manejo.</li><li>La prevención secundaria es vital: erradicar <i>H. pylori</i> y optimizar uso de AINEs/antitrombóticos.</li></ul>",
+            },
+          ];
+          const slideArea = document.getElementById('slide-area');
+          const prevBtn = document.getElementById('prevBtn');
+          const nextBtn = document.getElementById('nextBtn');
+          const slideCounter = document.getElementById('slide-counter');
+          let currentSlide = 0;
 
-            function renderSlides() {
-                slideArea.innerHTML = slidesData.map((slide, index) => `
+          function renderSlides() {
+            slideArea.innerHTML = slidesData
+              .map(
+                (slide, index) => `
                     <div class="slide absolute inset-0 p-6 md:p-12 flex items-center justify-center ${index === 0 ? 'active' : ''}" data-index="${index}">
                         <div class="text-center">
                             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-6">${slide.title}</h2>
                             <div>${slide.content}</div>
                         </div>
                     </div>
-                `).join('');
-            }
+                `,
+              )
+              .join('');
+          }
 
-            function showSlide(index) {
-                document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
-                const activeSlide = document.querySelector(`.slide[data-index="${index}"]`);
-                if (activeSlide) activeSlide.classList.add('active');
-                slideCounter.textContent = `${index + 1} / ${slidesData.length}`;
-                prevBtn.disabled = index === 0;
-                nextBtn.disabled = index === slidesData.length - 1;
-            }
+          function showSlide(index) {
+            document
+              .querySelectorAll('.slide')
+              .forEach((slide) => slide.classList.remove('active'));
+            const activeSlide = document.querySelector(
+              `.slide[data-index="${index}"]`,
+            );
+            if (activeSlide) activeSlide.classList.add('active');
+            slideCounter.textContent = `${index + 1} / ${slidesData.length}`;
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === slidesData.length - 1;
+          }
 
-            prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } });
-            nextBtn.addEventListener('click', () => { if (currentSlide < slidesData.length - 1) { currentSlide++; showSlide(currentSlide); } });
-            
-            renderSlides();
-            showSlide(currentSlide);
+          prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+              currentSlide--;
+              showSlide(currentSlide);
+            }
+          });
+          nextBtn.addEventListener('click', () => {
+            if (currentSlide < slidesData.length - 1) {
+              currentSlide++;
+              showSlide(currentSlide);
+            }
+          });
+
+          renderSlides();
+          showSlide(currentSlide);
         }
 
         // --- LÓGICA DEL COMPONENTE 2: HERRAMIENTA DIAGNÓSTICA ---
         function setupDiagnosticTool() {
-            const findings = document.getElementById('findings');
-            const analyzeBtn = document.getElementById('analyzeBtn');
-            const resultCard = document.getElementById('resultCard');
-            const resultIcon = document.getElementById('resultIcon');
-            const resultTitle = document.getElementById('resultTitle');
-            const resultJustification = document.getElementById('resultJustification');
+          const findings = document.getElementById('findings');
+          const analyzeBtn = document.getElementById('analyzeBtn');
+          const resultCard = document.getElementById('resultCard');
+          const resultIcon = document.getElementById('resultIcon');
+          const resultTitle = document.getElementById('resultTitle');
+          const resultJustification = document.getElementById(
+            'resultJustification',
+          );
 
-            const diagnoses = {
-                varices: { title: "Hemorragia Varicosa", icon: "<i class='fas fa-wine-bottle text-purple-600'></i>", borderColor: "border-purple-600", bgColor: "bg-purple-50", justification: "La hematemesis masiva en un paciente con estigmas de hepatopatía es altamente sugestiva de ruptura de várices esofágicas por hipertensión portal." },
-                eup: { title: "Enfermedad Ulcerosa Péptica (EUP)", icon: "<i class='fas fa-fire-alt text-red-600'></i>", borderColor: "border-red-600", bgColor: "bg-red-50", justification: "La melena, epigastralgia y el antecedente de consumo de AINEs hacen de la úlcera péptica sangrante el diagnóstico más probable." },
-                diverticular: { title: "Enfermedad Diverticular", icon: "<i class='fas fa-circle-notch text-blue-600'></i>", borderColor: "border-blue-600", bgColor: "bg-blue-50", justification: "La hematoquecia masiva, aguda e indolora en un paciente de edad avanzada es la presentación clásica de la hemorragia diverticular." },
-                anorrectal: { title: "Patología Anorrectal", icon: "<i class='fas fa-toilet-paper text-pink-600'></i>", borderColor: "border-pink-600", bgColor: "bg-pink-50", justification: "La rectorragia leve (sangre roja fresca) en un paciente joven apunta a un origen muy distal como hemorroides o fisuras." },
-                colitis: { title: "Colitis (EII / Infecciosa)", icon: "<i class='fas fa-bacteria text-yellow-600'></i>", borderColor: "border-yellow-600", bgColor: "bg-yellow-50", justification: "La diarrea sanguinolenta con fiebre y dolor abdominal sugiere un proceso inflamatorio del colon, como colitis infecciosa o EII." }
-            };
+          const diagnoses = {
+            varices: {
+              title: 'Hemorragia Varicosa',
+              icon: "<i class='fas fa-wine-bottle text-purple-600'></i>",
+              borderColor: 'border-purple-600',
+              bgColor: 'bg-purple-50',
+              justification:
+                'La hematemesis masiva en un paciente con estigmas de hepatopatía es altamente sugestiva de ruptura de várices esofágicas por hipertensión portal.',
+            },
+            eup: {
+              title: 'Enfermedad Ulcerosa Péptica (EUP)',
+              icon: "<i class='fas fa-fire-alt text-red-600'></i>",
+              borderColor: 'border-red-600',
+              bgColor: 'bg-red-50',
+              justification:
+                'La melena, epigastralgia y el antecedente de consumo de AINEs hacen de la úlcera péptica sangrante el diagnóstico más probable.',
+            },
+            diverticular: {
+              title: 'Enfermedad Diverticular',
+              icon: "<i class='fas fa-circle-notch text-blue-600'></i>",
+              borderColor: 'border-blue-600',
+              bgColor: 'bg-blue-50',
+              justification:
+                'La hematoquecia masiva, aguda e indolora en un paciente de edad avanzada es la presentación clásica de la hemorragia diverticular.',
+            },
+            anorrectal: {
+              title: 'Patología Anorrectal',
+              icon: "<i class='fas fa-toilet-paper text-pink-600'></i>",
+              borderColor: 'border-pink-600',
+              bgColor: 'bg-pink-50',
+              justification:
+                'La rectorragia leve (sangre roja fresca) en un paciente joven apunta a un origen muy distal como hemorroides o fisuras.',
+            },
+            colitis: {
+              title: 'Colitis (EII / Infecciosa)',
+              icon: "<i class='fas fa-bacteria text-yellow-600'></i>",
+              borderColor: 'border-yellow-600',
+              bgColor: 'bg-yellow-50',
+              justification:
+                'La diarrea sanguinolenta con fiebre y dolor abdominal sugiere un proceso inflamatorio del colon, como colitis infecciosa o EII.',
+            },
+          };
 
-            let selectedFinding = null;
-            findings.addEventListener('change', (e) => {
-                if (e.target.name === 'clinical_finding') {
-                    selectedFinding = e.target.value;
-                    analyzeBtn.disabled = false;
-                    resultCard.style.display = 'none';
-                    resultCard.classList.remove('opacity-100', 'translate-y-0');
-                    resultCard.classList.add('opacity-0', '-translate-y-5');
-                }
-            });
+          let selectedFinding = null;
+          findings.addEventListener('change', (e) => {
+            if (e.target.name === 'clinical_finding') {
+              selectedFinding = e.target.value;
+              analyzeBtn.disabled = false;
+              resultCard.style.display = 'none';
+              resultCard.classList.remove('opacity-100', 'translate-y-0');
+              resultCard.classList.add('opacity-0', '-translate-y-5');
+            }
+          });
 
-            analyzeBtn.addEventListener('click', () => {
-                if (selectedFinding && diagnoses[selectedFinding]) {
-                    const diagnosis = diagnoses[selectedFinding];
-                    resultTitle.textContent = diagnosis.title;
-                    resultIcon.innerHTML = diagnosis.icon;
-                    resultJustification.textContent = diagnosis.justification;
-                    resultCard.className = `mt-8 p-6 rounded-lg border-l-8 opacity-0 -translate-y-5 ${diagnosis.borderColor} ${diagnosis.bgColor}`;
-                    resultCard.style.display = 'block';
-                    setTimeout(() => {
-                        resultCard.classList.remove('opacity-0', '-translate-y-5');
-                        resultCard.classList.add('opacity-100', 'translate-y-0');
-                    }, 50);
-                }
-            });
+          analyzeBtn.addEventListener('click', () => {
+            if (selectedFinding && diagnoses[selectedFinding]) {
+              const diagnosis = diagnoses[selectedFinding];
+              resultTitle.textContent = diagnosis.title;
+              resultIcon.innerHTML = diagnosis.icon;
+              resultJustification.textContent = diagnosis.justification;
+              resultCard.className = `mt-8 p-6 rounded-lg border-l-8 opacity-0 -translate-y-5 ${diagnosis.borderColor} ${diagnosis.bgColor}`;
+              resultCard.style.display = 'block';
+              setTimeout(() => {
+                resultCard.classList.remove('opacity-0', '-translate-y-5');
+                resultCard.classList.add('opacity-100', 'translate-y-0');
+              }, 50);
+            }
+          });
         }
 
         // --- LÓGICA DEL COMPONENTE 3: AUTOEVALUACIÓN ---
         function setupQuiz() {
-            const quizData = [
-                { question: "Paciente con hematemesis, PAS 80/50, FC 130. ¿Cuál es la PRIMERA acción prioritaria?", options: ["Administrar Omeprazol IV.", "Realizar EDA urgente.", "Canalizar 2 vías venosas de gran calibre e iniciar resucitación con cristaloides.", "Solicitar Angio-TC."], correct: 2, justification: "La prioridad absoluta ante un shock hipovolémico es la estabilización hemodinámica (ABCDE). La resucitación con fluidos es la medida que salva la vida." },
-                { question: "Paciente estable con melena, GBS=1. ¿Cuál es el manejo más adecuado?", options: ["Hospitalizar en UCI para EDA <12h.", "Dar de alta con IBP oral y programar EDA ambulatoria.", "Hospitalizar en planta para observación.", "Realizar colonoscopia."], correct: 1, justification: "Un score GBS ≤ 1 identifica a un grupo de muy bajo riesgo que puede ser manejado de forma segura como paciente ambulatorio, evitando una hospitalización innecesaria." },
-                { question: "En una EDA se observa una úlcera con un vaso visible no sangrante (Forrest IIa). ¿Cuál es el tratamiento de elección?", options: ["Inyección de adrenalina como monoterapia.", "Terapia combinada: inyección + clips hemostáticos.", "Observación y altas dosis de IBP IV.", "Coagulación con plasma de argón (APC) únicamente."], correct: 1, justification: "Las lesiones de alto riesgo (Forrest Ia, Ib, IIa) requieren terapia combinada (inyección + método mecánico/térmico), que es superior a la monoterapia para reducir el resangrado." },
-                { question: "Paciente con HDB masiva e inestabilidad hemodinámica persistente. ¿Cuál es la prueba diagnóstica de PRIMERA LÍNEA?", options: ["Colonoscopia urgente.", "Endoscopia digestiva alta.", "Gammagrafía con glóbulos rojos marcados.", "Angiografía por Tomografía Computarizada (Angio-TC)."], correct: 3, justification: "En un paciente con HDB inestable, la Angio-TC es la prueba de elección. Es rápida, no invasiva y localiza con precisión el sangrado activo para guiar la terapia posterior." },
-                { question: "Paciente con cirrosis conocida presenta HDA. ¿Qué DOS fármacos deben iniciarse empíricamente junto a la resucitación?", options: ["Omeprazol y Sucralfato.", "Octreótida y Ceftriaxona.", "Vitamina K y Furosemida.", "Propranolol y Lactulosa."], correct: 1, justification: "En una HDA en un cirrótico, se sospecha origen varicoso. El manejo estándar incluye un agente vasoactivo (octreótida) para reducir la presión portal y un antibiótico profiláctico (ceftriaxona) para prevenir infecciones." }
-            ];
-            
-            const quizCard = document.getElementById('quiz-card');
-            const resultsContainer = document.getElementById('results-container');
-            const nextBtn = document.getElementById('next-btn');
-            const retryBtn = document.getElementById('retry-btn');
-            let currentQuestionIndex = 0;
-            let score = 0;
+          const quizData = [
+            {
+              question:
+                'Paciente con hematemesis, PAS 80/50, FC 130. ¿Cuál es la PRIMERA acción prioritaria?',
+              options: [
+                'Administrar Omeprazol IV.',
+                'Realizar EDA urgente.',
+                'Canalizar 2 vías venosas de gran calibre e iniciar resucitación con cristaloides.',
+                'Solicitar Angio-TC.',
+              ],
+              correct: 2,
+              justification:
+                'La prioridad absoluta ante un shock hipovolémico es la estabilización hemodinámica (ABCDE). La resucitación con fluidos es la medida que salva la vida.',
+            },
+            {
+              question:
+                'Paciente estable con melena, GBS=1. ¿Cuál es el manejo más adecuado?',
+              options: [
+                'Hospitalizar en UCI para EDA <12h.',
+                'Dar de alta con IBP oral y programar EDA ambulatoria.',
+                'Hospitalizar en planta para observación.',
+                'Realizar colonoscopia.',
+              ],
+              correct: 1,
+              justification:
+                'Un score GBS ≤ 1 identifica a un grupo de muy bajo riesgo que puede ser manejado de forma segura como paciente ambulatorio, evitando una hospitalización innecesaria.',
+            },
+            {
+              question:
+                'En una EDA se observa una úlcera con un vaso visible no sangrante (Forrest IIa). ¿Cuál es el tratamiento de elección?',
+              options: [
+                'Inyección de adrenalina como monoterapia.',
+                'Terapia combinada: inyección + clips hemostáticos.',
+                'Observación y altas dosis de IBP IV.',
+                'Coagulación con plasma de argón (APC) únicamente.',
+              ],
+              correct: 1,
+              justification:
+                'Las lesiones de alto riesgo (Forrest Ia, Ib, IIa) requieren terapia combinada (inyección + método mecánico/térmico), que es superior a la monoterapia para reducir el resangrado.',
+            },
+            {
+              question:
+                'Paciente con HDB masiva e inestabilidad hemodinámica persistente. ¿Cuál es la prueba diagnóstica de PRIMERA LÍNEA?',
+              options: [
+                'Colonoscopia urgente.',
+                'Endoscopia digestiva alta.',
+                'Gammagrafía con glóbulos rojos marcados.',
+                'Angiografía por Tomografía Computarizada (Angio-TC).',
+              ],
+              correct: 3,
+              justification:
+                'En un paciente con HDB inestable, la Angio-TC es la prueba de elección. Es rápida, no invasiva y localiza con precisión el sangrado activo para guiar la terapia posterior.',
+            },
+            {
+              question:
+                'Paciente con cirrosis conocida presenta HDA. ¿Qué DOS fármacos deben iniciarse empíricamente junto a la resucitación?',
+              options: [
+                'Omeprazol y Sucralfato.',
+                'Octreótida y Ceftriaxona.',
+                'Vitamina K y Furosemida.',
+                'Propranolol y Lactulosa.',
+              ],
+              correct: 1,
+              justification:
+                'En una HDA en un cirrótico, se sospecha origen varicoso. El manejo estándar incluye un agente vasoactivo (octreótida) para reducir la presión portal y un antibiótico profiláctico (ceftriaxona) para prevenir infecciones.',
+            },
+          ];
 
-            function startQuiz() {
-                currentQuestionIndex = 0;
-                score = 0;
-                resultsContainer.style.display = 'none';
-                quizCard.style.display = 'block';
-                showQuestion();
-            }
+          const quizCard = document.getElementById('quiz-card');
+          const resultsContainer = document.getElementById('results-container');
+          const nextBtn = document.getElementById('next-btn');
+          const retryBtn = document.getElementById('retry-btn');
+          let currentQuestionIndex = 0;
+          let score = 0;
 
-            function showQuestion() {
-                const question = quizData[currentQuestionIndex];
-                document.getElementById('question-number').innerText = currentQuestionIndex + 1;
-                document.getElementById('total-questions').innerText = quizData.length;
-                document.getElementById('question-text').innerText = question.question;
-                
-                const optionsContainer = document.getElementById('options-container');
-                optionsContainer.innerHTML = '';
-                question.options.forEach((option, index) => {
-                    const button = document.createElement('button');
-                    button.innerHTML = option;
-                    button.className = 'option-btn w-full text-left p-4 border rounded-lg hover:bg-gray-100 transition-all duration-300';
-                    button.addEventListener('click', () => selectAnswer(index, button, question));
-                    optionsContainer.appendChild(button);
-                });
-                
-                document.getElementById('progress-bar').style.width = `${((currentQuestionIndex) / quizData.length) * 100}%`;
-                document.getElementById('feedback-container').style.display = 'none';
-                nextBtn.style.display = 'none';
-            }
+          function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsContainer.style.display = 'none';
+            quizCard.style.display = 'block';
+            showQuestion();
+          }
 
-            function selectAnswer(selectedIndex, selectedBtn, question) {
-                const correctIndex = question.correct;
-                const isCorrect = selectedIndex === correctIndex;
-                if (isCorrect) score++;
+          function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            document.getElementById('question-number').innerText =
+              currentQuestionIndex + 1;
+            document.getElementById('total-questions').innerText =
+              quizData.length;
+            document.getElementById('question-text').innerText =
+              question.question;
 
-                document.querySelectorAll('.option-btn').forEach((btn, index) => {
-                    btn.disabled = true;
-                    if (index === correctIndex) btn.classList.add('correct');
-                    else if (btn === selectedBtn) btn.classList.add('incorrect');
-                });
-                
-                const feedbackContainer = document.getElementById('feedback-container');
-                feedbackContainer.innerHTML = `<div class="feedback-box p-4 rounded-lg border-l-4 ${isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}"><p class="font-bold">${isCorrect ? 'Correcto' : 'Incorrecto'}:</p><p class="mt-1 text-slate-700">${question.justification}</p></div>`;
-                feedbackContainer.style.display = 'block';
-                nextBtn.style.display = 'block';
-            }
-
-            function showResults() {
-                quizCard.style.display = 'none';
-                resultsContainer.style.display = 'block';
-                const percentage = Math.round((score / quizData.length) * 100);
-                document.getElementById('score-text').innerText = `${percentage}%`;
-                const progressRing = document.getElementById('progress-ring');
-                const circumference = 2 * Math.PI * 15.9155;
-                progressRing.style.strokeDasharray = `${circumference}`;
-                progressRing.style.strokeDashoffset = `${circumference - (percentage / 100) * circumference}`;
-                
-                const feedbackMessage = document.getElementById('feedback-message');
-                if (percentage === 100) feedbackMessage.innerText = "¡Excelente! Dominio completo.";
-                else if (percentage >= 75) feedbackMessage.innerText = "¡Muy bien! Sólido conocimiento.";
-                else feedbackMessage.innerText = "Sigue repasando los puntos clave.";
-            }
-
-            nextBtn.addEventListener('click', () => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < quizData.length) showQuestion();
-                else {
-                    document.getElementById('progress-bar').style.width = '100%';
-                    showResults();
-                }
+            const optionsContainer =
+              document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+              const button = document.createElement('button');
+              button.innerHTML = option;
+              button.className =
+                'option-btn w-full text-left p-4 border rounded-lg hover:bg-gray-100 transition-all duration-300';
+              button.addEventListener('click', () =>
+                selectAnswer(index, button, question),
+              );
+              optionsContainer.appendChild(button);
             });
-            retryBtn.addEventListener('click', startQuiz);
-            startQuiz();
+
+            document.getElementById('progress-bar').style.width =
+              `${(currentQuestionIndex / quizData.length) * 100}%`;
+            document.getElementById('feedback-container').style.display =
+              'none';
+            nextBtn.style.display = 'none';
+          }
+
+          function selectAnswer(selectedIndex, selectedBtn, question) {
+            const correctIndex = question.correct;
+            const isCorrect = selectedIndex === correctIndex;
+            if (isCorrect) score++;
+
+            document.querySelectorAll('.option-btn').forEach((btn, index) => {
+              btn.disabled = true;
+              if (index === correctIndex) btn.classList.add('correct');
+              else if (btn === selectedBtn) btn.classList.add('incorrect');
+            });
+
+            const feedbackContainer =
+              document.getElementById('feedback-container');
+            feedbackContainer.innerHTML = `<div class="feedback-box p-4 rounded-lg border-l-4 ${isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50'}"><p class="font-bold">${isCorrect ? 'Correcto' : 'Incorrecto'}:</p><p class="mt-1 text-slate-700">${question.justification}</p></div>`;
+            feedbackContainer.style.display = 'block';
+            nextBtn.style.display = 'block';
+          }
+
+          function showResults() {
+            quizCard.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('score-text').innerText = `${percentage}%`;
+            const progressRing = document.getElementById('progress-ring');
+            const circumference = 2 * Math.PI * 15.9155;
+            progressRing.style.strokeDasharray = `${circumference}`;
+            progressRing.style.strokeDashoffset = `${circumference - (percentage / 100) * circumference}`;
+
+            const feedbackMessage = document.getElementById('feedback-message');
+            if (percentage === 100)
+              feedbackMessage.innerText = '¡Excelente! Dominio completo.';
+            else if (percentage >= 75)
+              feedbackMessage.innerText = '¡Muy bien! Sólido conocimiento.';
+            else
+              feedbackMessage.innerText = 'Sigue repasando los puntos clave.';
+          }
+
+          nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) showQuestion();
+            else {
+              document.getElementById('progress-bar').style.width = '100%';
+              showResults();
+            }
+          });
+          retryBtn.addEventListener('click', startQuiz);
+          startQuiz();
         }
-    });
+      });
     </script>
-</body>
+  </body>
 </html>

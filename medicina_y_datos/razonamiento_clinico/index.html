@@ -1,146 +1,246 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Módulo: Razonamiento Clínico - Powersemiotics</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .gradient-text {
-            background: -webkit-linear-gradient(#4F46E5, #DB2777);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .module-link {
-            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-        }
-        .module-link:hover {
-            background-color: #eef2ff; /* indigo-50 */
-            border-left-color: #4f46e5; /* indigo-600 */
-            color: #3730a3; /* indigo-800 */
-        }
-        .module-link.active {
-            background-color: #e0e7ff; /* indigo-100 */
-            border-left-color: #4f46e5; /* indigo-600 */
-            font-weight: 600;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-    </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .gradient-text {
+        background: -webkit-linear-gradient(#4f46e5, #db2777);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .module-link {
+        transition:
+          background-color 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .module-link:hover {
+        background-color: #eef2ff; /* indigo-50 */
+        border-left-color: #4f46e5; /* indigo-600 */
+        color: #3730a3; /* indigo-800 */
+      }
+      .module-link.active {
+        background-color: #e0e7ff; /* indigo-100 */
+        border-left-color: #4f46e5; /* indigo-600 */
+        font-weight: 600;
+      }
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-800">
     <!-- Encabezado -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="https://powersemiotics.com/index.html" class="flex items-center space-x-2">
-                <img src="https://powersemiotics.com/assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8">
-                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-            </a>
-            <div>
-                <a href="https://powersemiotics.com/medicina_y_datos.html" class="text-indigo-600 font-semibold hover:underline">Medicina y Datos</a>
-            </div>
-        </nav>
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a
+          href="https://powersemiotics.com/index.html"
+          class="flex items-center space-x-2"
+        >
+          <img
+            src="https://powersemiotics.com/assets/images/logo.png"
+            alt="Logo de Powersemiotics"
+            class="h-8 w-8"
+          />
+          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+        </a>
+        <div>
+          <a
+            href="https://powersemiotics.com/medicina_y_datos.html"
+            class="text-indigo-600 font-semibold hover:underline"
+            >Medicina y Datos</a
+          >
+        </div>
+      </nav>
     </header>
 
     <!-- Contenido Principal del Módulo -->
     <div class="container mx-auto px-6 py-12">
-        <div class="lg:flex lg:space-x-12">
-            
-            <!-- Barra Lateral del Módulo -->
-            <aside class="lg:w-1/4 mb-12 lg:mb-0">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="font-bold text-lg mb-4 border-b pb-3">Contenido del Módulo</h3>
-                    <nav class="space-y-1">
-                        <a href="./presentacion.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
-                            <i class="fas fa-play-circle w-6 text-center mr-3 text-indigo-500"></i>
-                            <span>Presentación</span>
-                        </a>
-                        <a href="./pagina_conocimiento.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
-                            <i class="fas fa-book-open w-6 text-center mr-3 text-indigo-500"></i>
-                            <span>Página de Conocimiento</span>
-                        </a>
-                        <!-- Sub-módulos de contenido -->
-                        <div class="pt-2">
-                            <h4 class="px-3 text-sm font-semibold text-gray-500 uppercase tracking-wider">Tópicos Fundamentales</h4>
-                            <div class="mt-2 space-y-1">
-                                <a href="./IA_Explicable/index.html" class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm">
-                                    <i class="fas fa-search-plus w-6 text-center mr-3"></i> IA Explicable (XAI)
-                                </a>
-                                <a href="./Inferencia_Probabilistica/index.html" class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm">
-                                    <i class="fas fa-project-diagram w-6 text-center mr-3"></i> Inferencia Probabilística
-                                </a>
-                                <a href="./Modelos_Computacionales/index.html" class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm">
-                                    <i class="fas fa-cogs w-6 text-center mr-3"></i> Modelos Computacionales
-                                </a>
-                                <a href="./Etica_y_Sesgos/index.html" class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm">
-                                    <i class="fas fa-balance-scale w-6 text-center mr-3"></i> Ética y Sesgos
-                                </a>
-                                <a href="./Aplicaciones_Practicas/index.html" class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm">
-                                    <i class="fas fa-notes-medical w-6 text-center mr-3"></i> Aplicaciones Prácticas
-                                </a>
-                            </div>
-                        </div>
-                        <a href="./taller_practico.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
-                            <i class="fas fa-laptop-code w-6 text-center mr-3 text-indigo-500"></i>
-                            <span>Taller Práctico</span>
-                        </a>
-                        <a href="./autoevaluacion.html" class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link">
-                            <i class="fas fa-question-circle w-6 text-center mr-3 text-indigo-500"></i>
-                            <span>Autoevaluación</span>
-                        </a>
-                    </nav>
+      <div class="lg:flex lg:space-x-12">
+        <!-- Barra Lateral del Módulo -->
+        <aside class="lg:w-1/4 mb-12 lg:mb-0">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="font-bold text-lg mb-4 border-b pb-3">
+              Contenido del Módulo
+            </h3>
+            <nav class="space-y-1">
+              <a
+                href="./presentacion.html"
+                class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link"
+              >
+                <i
+                  class="fas fa-play-circle w-6 text-center mr-3 text-indigo-500"
+                ></i>
+                <span>Presentación</span>
+              </a>
+              <a
+                href="./pagina_conocimiento.html"
+                class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link"
+              >
+                <i
+                  class="fas fa-book-open w-6 text-center mr-3 text-indigo-500"
+                ></i>
+                <span>Página de Conocimiento</span>
+              </a>
+              <!-- Sub-módulos de contenido -->
+              <div class="pt-2">
+                <h4
+                  class="px-3 text-sm font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  Tópicos Fundamentales
+                </h4>
+                <div class="mt-2 space-y-1">
+                  <a
+                    href="./IA_Explicable/index.html"
+                    class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm"
+                  >
+                    <i class="fas fa-search-plus w-6 text-center mr-3"></i> IA
+                    Explicable (XAI)
+                  </a>
+                  <a
+                    href="./Inferencia_Probabilistica/index.html"
+                    class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm"
+                  >
+                    <i class="fas fa-project-diagram w-6 text-center mr-3"></i>
+                    Inferencia Probabilística
+                  </a>
+                  <a
+                    href="./Modelos_Computacionales/index.html"
+                    class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm"
+                  >
+                    <i class="fas fa-cogs w-6 text-center mr-3"></i> Modelos
+                    Computacionales
+                  </a>
+                  <a
+                    href="./Etica_y_Sesgos/index.html"
+                    class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm"
+                  >
+                    <i class="fas fa-balance-scale w-6 text-center mr-3"></i>
+                    Ética y Sesgos
+                  </a>
+                  <a
+                    href="./Aplicaciones_Practicas/index.html"
+                    class="flex items-center p-3 pl-6 text-gray-600 border-l-4 border-transparent module-link text-sm"
+                  >
+                    <i class="fas fa-notes-medical w-6 text-center mr-3"></i>
+                    Aplicaciones Prácticas
+                  </a>
                 </div>
-            </aside>
+              </div>
+              <a
+                href="./taller_practico.html"
+                class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link"
+              >
+                <i
+                  class="fas fa-laptop-code w-6 text-center mr-3 text-indigo-500"
+                ></i>
+                <span>Taller Práctico</span>
+              </a>
+              <a
+                href="./autoevaluacion.html"
+                class="flex items-center p-3 text-gray-700 border-l-4 border-transparent module-link"
+              >
+                <i
+                  class="fas fa-question-circle w-6 text-center mr-3 text-indigo-500"
+                ></i>
+                <span>Autoevaluación</span>
+              </a>
+            </nav>
+          </div>
+        </aside>
 
-            <!-- Contenido Principal de la Página Hub -->
-            <main class="lg:w-3/4">
-                <div class="bg-white p-8 rounded-lg shadow-md">
-                    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-                        Módulo: La Arquitectura del Juicio Clínico
-                    </h1>
-                    <p class="text-lg text-gray-600 mb-6">
-                        Bienvenido al módulo de Razonamiento Clínico. Este curso está diseñado para guiarte a través de los conceptos fundamentales que están redefiniendo la práctica médica en la era de los datos. Desde la transparencia de la IA hasta el manejo de la incertidumbre y los desafíos éticos, aquí encontrarás los recursos para potenciar tu juicio clínico.
-                    </p>
-                    <div class="bg-indigo-50 border-l-4 border-indigo-400 p-4 rounded-r-lg">
-                        <div class="flex">
-                            <div class="py-1"><i class="fas fa-info-circle text-indigo-500 mr-3"></i></div>
-                            <div>
-                                <p class="text-sm text-indigo-700">Utiliza el menú de la izquierda para navegar por las diferentes lecciones y actividades. Te recomendamos seguir el orden propuesto para una mejor experiencia de aprendizaje.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h2 class="text-2xl font-bold text-gray-800 mt-10 mb-4 border-b pb-2">Objetivos de Aprendizaje</h2>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Comprender la importancia de la <strong>IA Explicable (XAI)</strong> para la confianza y seguridad en el diagnóstico.</li>
-                        <li>Aplicar conceptos de <strong>Inferencia Probabilística</strong> para manejar la incertidumbre clínica.</li>
-                        <li>Diferenciar los distintos <strong>Modelos Computacionales</strong> y sus aplicaciones en salud.</li>
-                        <li>Identificar los principales <strong>desafíos éticos y sesgos</strong> en la IA médica.</li>
-                        <li>Reconocer <strong>aplicaciones prácticas</strong> de estas tecnologías en casos de estudio reales.</li>
-                    </ul>
-
-                    <div class="mt-12 text-center">
-                        <a href="./presentacion.html" class="inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-lg">
-                            Comenzar Módulo <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
+        <!-- Contenido Principal de la Página Hub -->
+        <main class="lg:w-3/4">
+          <div class="bg-white p-8 rounded-lg shadow-md">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+              Módulo: La Arquitectura del Juicio Clínico
+            </h1>
+            <p class="text-lg text-gray-600 mb-6">
+              Bienvenido al módulo de Razonamiento Clínico. Este curso está
+              diseñado para guiarte a través de los conceptos fundamentales que
+              están redefiniendo la práctica médica en la era de los datos.
+              Desde la transparencia de la IA hasta el manejo de la
+              incertidumbre y los desafíos éticos, aquí encontrarás los recursos
+              para potenciar tu juicio clínico.
+            </p>
+            <div
+              class="bg-indigo-50 border-l-4 border-indigo-400 p-4 rounded-r-lg"
+            >
+              <div class="flex">
+                <div class="py-1">
+                  <i class="fas fa-info-circle text-indigo-500 mr-3"></i>
                 </div>
-            </main>
+                <div>
+                  <p class="text-sm text-indigo-700">
+                    Utiliza el menú de la izquierda para navegar por las
+                    diferentes lecciones y actividades. Te recomendamos seguir
+                    el orden propuesto para una mejor experiencia de
+                    aprendizaje.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-        </div>
+            <h2
+              class="text-2xl font-bold text-gray-800 mt-10 mb-4 border-b pb-2"
+            >
+              Objetivos de Aprendizaje
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+              <li>
+                Comprender la importancia de la
+                <strong>IA Explicable (XAI)</strong> para la confianza y
+                seguridad en el diagnóstico.
+              </li>
+              <li>
+                Aplicar conceptos de
+                <strong>Inferencia Probabilística</strong> para manejar la
+                incertidumbre clínica.
+              </li>
+              <li>
+                Diferenciar los distintos
+                <strong>Modelos Computacionales</strong> y sus aplicaciones en
+                salud.
+              </li>
+              <li>
+                Identificar los principales
+                <strong>desafíos éticos y sesgos</strong> en la IA médica.
+              </li>
+              <li>
+                Reconocer <strong>aplicaciones prácticas</strong> de estas
+                tecnologías en casos de estudio reales.
+              </li>
+            </ul>
+
+            <div class="mt-12 text-center">
+              <a
+                href="./presentacion.html"
+                class="inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-transform transform hover:scale-105 shadow-lg"
+              >
+                Comenzar Módulo <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
 
     <!-- Pie de página -->
     <footer class="bg-white mt-16">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
-        </div>
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>
