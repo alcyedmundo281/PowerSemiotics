@@ -11,7 +11,7 @@
  */
 
 const express = require('express');
-const fetch = require('node-fetch');
+// Use the global `fetch` available in modern versions of Node.js
 
 const app = express();
 const port = process.env.PORT || 3000;
