@@ -1,4 +1,5 @@
 # PowerSemiotics
+
 Power Semiotics Official WebSite
 
 ## Development
@@ -22,3 +23,8 @@ Lint JavaScript files:
 ```bash
 npm run lint
 ```
+
+### Naming Conventions
+
+All directories and files use **kebab-case** (lowercase words separated by hyphens).
+This keeps URLs consistent and easy to read.
