@@ -101,5 +101,5 @@ app.use(express.static('.'));
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Servidor proxy de IA escuchando en http://localhost:${port}`);
+
 });
