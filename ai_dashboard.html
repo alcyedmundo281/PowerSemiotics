@@ -5,96 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Dashboard (Local) | PowerSemiotics</title>
     <!-- Google font to match the rest of the site -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      /*
-         * This page reuses much of the styling from the original dashboard
-         * and adds a small status area to display model loading progress.
-         */
-      body {
-        font-family: 'Inter', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f8fafc;
-        color: #1f2937;
-      }
-      header {
-        background-color: #ffffff;
-        padding: 1rem 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-      header h1 {
-        font-size: 1.5rem;
-        margin: 0;
-      }
-      .nav {
-        display: flex;
-        gap: 1rem;
-      }
-      .nav a {
-        color: #1f2937;
-        text-decoration: none;
-        font-weight: 600;
-      }
-      .nav a:hover {
-        color: #4f46e5;
-      }
-      .container {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-      }
-      textarea {
-        width: 100%;
-        height: 150px;
-        padding: 0.5rem;
-        font-size: 1rem;
-        border-radius: 4px;
-        border: 1px solid #e5e7eb;
-        resize: vertical;
-      }
-      select,
-      button {
-        padding: 0.5rem;
-        font-size: 1rem;
-        margin-top: 0.75rem;
-      }
-      button {
-        background-color: #4f46e5;
-        color: #ffffff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-      }
-      button:hover {
-        background-color: #4338ca;
-      }
-      output {
-        margin-top: 1rem;
-        display: block;
-        white-space: pre-wrap;
-        border: 1px solid #e5e7eb;
-        padding: 0.75rem;
-        border-radius: 4px;
-        min-height: 100px;
-        background-color: #ffffff;
-      }
-      /* Loading status styling */
-      #loadingStatus {
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        color: #374151;
-      }
-    </style>
+    <link href="assets/tailwind.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="font-sans">
     <header>
       <h1>AI Dashboard (Local)</h1>
       <!-- Updated navigation bar. Add this page to your existing site navigation. -->
