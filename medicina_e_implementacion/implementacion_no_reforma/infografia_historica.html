@@ -6,88 +6,11 @@
     <title>
       Infografía: Contexto Histórico del Financiamiento de la Salud en Ecuador
     </title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #fdfdfd;
-      }
-      h1,
-      h2,
-      h3,
-      h4 {
-        font-family: 'Playfair Display', serif;
-        text-wrap: balance;
-      }
-      .hero-bg {
-        background-color: #1a2a4c;
-        color: white;
-      }
-      .timeline-container::before {
-        content: '';
-        position: absolute;
-        width: 3px;
-        background-color: #e5e7eb;
-        top: 0;
-        bottom: 0;
-        left: 50%;
-        margin-left: -1.5px;
-      }
-      .timeline-item {
-        position: relative;
-        width: 50%;
-      }
-      .timeline-item:nth-child(odd) {
-        left: 0;
-        padding-right: 2rem;
-      }
-      .timeline-item:nth-child(even) {
-        left: 50%;
-        padding-left: 2rem;
-      }
-      .timeline-dot {
-        content: '';
-        position: absolute;
-        width: 1rem;
-        height: 1rem;
-        background-color: #f97316; /* Orange-500 */
-        border: 3px solid #f8fafc;
-        top: 20px;
-        border-radius: 50%;
-        z-index: 1;
-      }
-      .timeline-item:nth-child(odd) .timeline-dot {
-        right: -0.5rem;
-      }
-      .timeline-item:nth-child(even) .timeline-dot {
-        left: -0.5rem;
-      }
-      .card {
-        background-color: white;
-        border-radius: 0.5rem;
-        padding: 1.5rem;
-        box-shadow:
-          0 4px 6px -1px rgb(0 0 0 / 0.1),
-          0 2px 4px -2px rgb(0 0 0 / 0.1);
-        border: 1px solid #f3f4f6;
-      }
-      .chart-container {
-        position: relative;
-        height: 400px;
-        width: 100%;
-        max-width: 800px;
-        margin: 1rem auto;
-      }
-    </style>
+    <link href="../../assets/tailwind.css" rel="stylesheet" />
   </head>
-  <body class="text-gray-800">
+  <body class="font-sans text-gray-800">
     <main>
       <section id="intro" class="pt-20 pb-16 md:pt-24 md:pb-20 hero-bg">
         <div class="container mx-auto px-6 text-center">
