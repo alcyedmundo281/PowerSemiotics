@@ -4,61 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Módulo: Trastornos del Movimiento II - Power Semiotics</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease-in-out;
-      }
-      .accordion-button.active .accordion-icon {
-        transform: rotate(180deg);
-      }
-      /* Estilos para contenido embebido */
-      .embedded-content h3 {
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #1e3a8a;
-      }
-      .embedded-content p {
-        margin-bottom: 1rem;
-        line-height: 1.7;
-      }
-      .embedded-content strong {
-        font-weight: 600;
-      }
-      .embedded-content ul {
-        list-style-type: disc;
-        margin-left: 1.5rem;
-        margin-bottom: 1rem;
-      }
-      /* Estilos mejorados para textarea */
-      textarea {
-        width: 100%;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #d1d5db;
-        margin-top: 10px;
-        min-height: 120px; /* Aumentado para mejor visibilidad */
-        resize: vertical;
-        background-color: #f9fafb; /* Color de fondo sutil */
-      }
-    </style>
+    <link href="../assets/tailwind.css" rel="stylesheet" />
   </head>
-  <body class="bg-gray-100">
+  <body class="font-sans bg-gray-100">
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
       <nav
@@ -313,47 +265,6 @@
     <!-- TEMPLATES FOR DYNAMIC CONTENT (Hidden) -->
     <template id="presentation-template">
       <div id="presentation-root">
-        <style>
-          #presentation-root .slide {
-            display: none;
-            animation: fadeIn 0.5s;
-            min-height: 520px;
-            padding: 2.5rem;
-            box-sizing: border-box;
-          }
-          #presentation-root .slide.active {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-          }
-          #presentation-root @keyframes fadeIn {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-          #presentation-root h2 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 1.5rem;
-          }
-          #presentation-root p,
-          #presentation-root li {
-            font-size: 1.125rem;
-            line-height: 1.75;
-            color: #374151;
-          }
-          #presentation-root ul {
-            list-style-position: inside;
-            space-y: 0.75rem;
-          }
-          #presentation-root .brand-gradient {
-            background: linear-gradient(to right, #005a9c, #003f6c);
-          }
-        </style>
         <div
           class="w-full max-w-5xl bg-white rounded-xl overflow-hidden flex flex-col h-full"
         >
@@ -765,25 +676,6 @@
 
     <template id="abp-template">
       <div id="abp-consolidado-acordeon">
-        <style>
-          #abp-consolidado-acordeon .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-          }
-          #abp-consolidado-acordeon .accordion-header {
-            cursor: pointer;
-          }
-          #abp-consolidado-acordeon .accordion-header .icon {
-            transition: transform 0.3s ease;
-          }
-          #abp-consolidado-acordeon .accordion-header.open .icon {
-            transform: rotate(90deg);
-          }
-          #abp-consolidado-acordeon textarea {
-            min-height: 120px;
-          }
-        </style>
         <div class="max-w-5xl mx-auto">
           <div class="text-center mb-8">
             <h1 class="text-3xl font-bold text-gray-800">Casos Clínicos ABP</h1>
@@ -1179,16 +1071,7 @@
           'quiz-container-parent': function (container) {
             container.innerHTML = `
                         <div id="quiz-content-wrapper" class="embedded-content">
-                            <style>
-                                #quiz-content-wrapper .question-block { margin-bottom: 2rem; border-left: 4px solid #eee; padding-left: 1rem; }
-                                #quiz-content-wrapper .options-container button { display: block; width: 100%; padding: 0.75rem; margin-top: 0.5rem; border: 1px solid #ddd; border-radius: 5px; text-align: left; background-color: #f9f9f9; cursor: pointer; }
-                                #quiz-content-wrapper .options-container button:hover:not(:disabled) { background-color: #e9e9e9; }
-                                #quiz-content-wrapper .options-container button.correct { background-color: #c8e6c9; border-color: #2e7d32; font-weight: bold; }
-                                #quiz-content-wrapper .options-container button.incorrect { background-color: #ffcdd2; border-color: #c62828; }
-                                #quiz-content-wrapper .feedback { margin-top: 1rem; padding: 0.75rem; border-radius: 5px; display: none; }
-                                #quiz-content-wrapper .feedback.correct { background-color: #e8f5e9; color: #155724; }
-                                #quiz-content-wrapper .feedback.incorrect { background-color: #ffebee; color: #b71c1c; }
-                            </style>
+                            
                             <h3 class="text-2xl font-bold text-gray-800 mb-6">Autoevaluación: Diagnóstico Diferencial</h3>
                             <div id="quiz-questions"></div>
                         </div>`;

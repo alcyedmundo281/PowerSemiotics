@@ -4,124 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Módulo Interactivo: Hemorragia Digestiva</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
 
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f0f4f8;
-      }
-
-      /* --- Estilos Generales de Navegación --- */
-      .module-section {
-        display: none;
-      }
-      .module-section.active {
-        display: block;
-        animation: fadeIn 0.5s ease-in-out;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .nav-link {
-        display: flex;
-        align-items: center;
-        padding: 0.75rem 1rem;
-        border-left: 4px solid transparent;
-        transition: all 0.3s ease;
-        color: #4b5563; /* text-gray-600 */
-      }
-      .nav-link:hover {
-        background-color: #f3f4f6; /* bg-gray-100 */
-        border-left-color: #9ca3af; /* border-gray-400 */
-        color: #111827; /* text-gray-900 */
-      }
-      .nav-link.active {
-        border-left-color: #ef4444; /* border-red-500 */
-        background-color: #fee2e2; /* bg-red-50 */
-        color: #b91c1c; /* text-red-700 */
-        font-weight: 600;
-      }
-      .nav-link .nav-icon {
-        margin-right: 0.75rem;
-        width: 20px;
-        text-align: center;
-      }
-
-      /* --- Estilos de la Presentación (Componente 1) --- */
-      #presentation-container .slide {
-        display: none;
-        animation: fadeIn 0.5s ease-in-out;
-      }
-      #presentation-container .slide.active {
-        display: block;
-      }
-      #presentation-container .svg-diagram path,
-      #presentation-container .svg-diagram circle,
-      #presentation-container .svg-diagram rect {
-        transition: all 0.3s ease;
-      }
-      #presentation-container .svg-diagram .label-group:hover text {
-        font-weight: bold;
-      }
-      #presentation-container .svg-diagram #healthy:hover .mucosa-fill {
-        fill: #fca5a5;
-      }
-      #presentation-container .svg-diagram #ulcer:hover .ulcer-crater {
-        fill: #ef4444;
-      }
-      #presentation-container .svg-diagram #varices:hover .varices-vein {
-        fill: #60a5fa;
-      }
-
-      /* --- Estilos del Diagnóstico Interactivo (Componente 2) --- */
-      #diagnostic-tool-container .checkbox-label input:checked + div {
-        border-color: #ef4444;
-        background-color: #fee2e2;
-        transform: scale(1.02);
-      }
-      #diagnostic-tool-container #resultCard {
-        transition:
-          opacity 0.5s,
-          transform 0.5s;
-      }
-
-      /* --- Estilos de la Autoevaluación (Componente 3) --- */
-      #quiz-container .option-btn.correct {
-        background-color: #dcfce7;
-        border-color: #4ade80;
-      }
-      #quiz-container .option-btn.incorrect {
-        background-color: #fee2e2;
-        border-color: #f87171;
-      }
-      #quiz-container .feedback-box {
-        transition: all 0.3s ease-in-out;
-      }
-      #quiz-container #progress-ring {
-        transition: stroke-dasharray 1s ease-out;
-        transform: rotate(-90deg);
-        transform-origin: 50% 50%;
-      }
-    </style>
+    <link href="../assets/tailwind.css" rel="stylesheet" />
   </head>
-  <body class="bg-gray-100">
+  <body class="font-sans bg-gray-100">
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
       <div class="text-center mb-8">
         <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">

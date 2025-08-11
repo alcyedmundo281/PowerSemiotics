@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Enfermedades Neuromusculares</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -12,100 +11,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <style>
-      /* Estilos adicionales para mejorar la apariencia y funcionalidad */
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      .accordion-button:hover {
-        background-color: #f0f0f0;
-      }
-      /* Estilos para la presentación interactiva */
-      .slide {
-        display: none;
-        padding: 2rem;
-        border: 1px solid #e2e8f0;
-        border-radius: 0.5rem;
-        background-color: #f8fafc;
-        text-align: center;
-        min-height: 300px; /* Aumentar altura mínima para tablas */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: opacity 0.5s ease-in-out;
-      }
-      .slide.active {
-        display: flex;
-      }
-      /* Estilos para la herramienta de diagnóstico */
-      .checkbox-label {
-        display: block;
-        padding: 1rem;
-        border: 1px solid #d1d5db;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition:
-          background-color 0.2s,
-          border-color 0.2s;
-      }
-      .checkbox-label:hover {
-        background-color: #f3f4f6;
-        border-color: #6b7280;
-      }
-      input[type='checkbox']:checked + .checkbox-label {
-        background-color: #dbeafe;
-        border-color: #3b82f6;
-      }
-      /* Estilos para el quiz */
-      .quiz-option {
-        display: block;
-        width: 100%;
-        text-align: left;
-        padding: 1rem;
-        border: 1px solid #d1d5db;
-        border-radius: 0.5rem;
-        margin-bottom: 0.5rem;
-        transition: background-color 0.2s;
-      }
-      .quiz-option:hover {
-        background-color: #f3f4f6;
-      }
-      .quiz-option.selected {
-        background-color: #dbeafe;
-        border-color: #3b82f6;
-      }
-      .quiz-option.correct {
-        background-color: #d1fae5;
-        border-color: #10b981;
-      }
-      .quiz-option.incorrect {
-        background-color: #fee2e2;
-        border-color: #ef4444;
-      }
-      .progress-bar-container {
-        background-color: #e5e7eb;
-        border-radius: 9999px;
-        height: 10px;
-      }
-      .progress-bar {
-        background-color: #3b82f6;
-        height: 10px;
-        border-radius: 9999px;
-        transition: width 0.3s ease-in-out;
-      }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="../assets/tailwind.css" rel="stylesheet" />
   </head>
-  <body class="bg-gray-100">
+  <body class="font-sans bg-gray-100">
     <div class="container mx-auto px-4 py-8">
       <header class="text-center mb-10">
         <h1 class="text-4xl font-bold text-gray-800">
