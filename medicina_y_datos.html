@@ -4,14 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medicina y Datos - Powersemiotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-
-    <link href="assets/tailwind.css" rel="stylesheet" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .gradient-text {
+        background: -webkit-linear-gradient(#4f46e5, #db2777);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .card-hover-effect {
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .card-hover-effect:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+    </style>
   </head>
-  <body class="font-sans bg-gray-50 text-gray-800">
+  <body class="bg-gray-50 text-gray-800">
     <header class="bg-white shadow-sm sticky top-0 z-50">
       <nav
         class="container mx-auto px-6 py-4 flex justify-between items-center"
