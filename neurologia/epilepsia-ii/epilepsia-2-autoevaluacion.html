@@ -4,9 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Autoevaluación: Neurología - Epilepsia II</title>
-    <link href="../../assets/tailwind.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #111827; /* bg-gray-900 */
+      }
+      .slider-container {
+        scroll-behavior: smooth;
+      }
+      .slide {
+        flex-shrink: 0;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .option-button {
+        transition: all 0.2s ease-in-out;
+      }
+      .feedback-box {
+        transition: opacity 0.3s ease-in-out;
+      }
+    </style>
   </head>
-  <body class="font-sans flex items-center justify-center min-h-screen">
+  <body class="flex items-center justify-center min-h-screen">
     <div class="relative w-full h-screen flex flex-col">
       <!-- Contenedor del Slider -->
       <div
