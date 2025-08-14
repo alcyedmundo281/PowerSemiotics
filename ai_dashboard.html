@@ -51,16 +51,26 @@
       let engine;
       let engineReady = false;
       const statusEl = document.getElementById('loadingStatus');
+      let articleMode = false;
 
-      // Pre-fill the user input from a "text" query parameter, if provided.
-      // This allows topic pages to pass content directly into the dashboard.
+      // Pre-fill the user input from query parameters, including article context.
       const params = new URLSearchParams(window.location.search);
+      const contextFlag = params.get('context');
       const prefill = params.get('text');
-      if (prefill) {
+      const inputEl = document.getElementById('userInput');
+      const taskEl = document.getElementById('task');
+      if (contextFlag === 'true') {
+        const articleText = sessionStorage.getItem('articleContext');
+        if (articleText && inputEl && taskEl) {
+          inputEl.value = `${articleText}\n\nPregunta: `;
+          taskEl.value = 'question';
+          articleMode = true;
+        }
+        sessionStorage.removeItem('articleContext');
+      } else if (prefill && inputEl) {
         // URLSearchParams handles percent-encoding, but replace + with spaces for safety.
         const decoded = decodeURIComponent(prefill.replace(/\+/g, ' '));
-        const inputEl = document.getElementById('userInput');
-        if (inputEl) inputEl.value = decoded;
+        inputEl.value = decoded;
       }
 
       /**
@@ -106,32 +116,38 @@
       function buildMessages(input, task) {
         let systemContent;
         let userContent;
-        switch (task) {
-          case 'summarize':
-            systemContent =
-              'Eres un asistente útil que resume textos en español en resúmenes breves y concisos.';
-            userContent = 'Resume el siguiente texto:\n' + input;
-            break;
-          case 'translate':
-            systemContent =
-              'Eres un asistente útil que traduce textos del español al inglés.';
-            userContent = 'Traduce al inglés el siguiente texto:\n' + input;
-            break;
-          case 'question':
-            systemContent =
-              'Eres un asistente conocedor que responde preguntas de manera clara y precisa.';
-            userContent = input;
-            break;
-          case 'example':
-            systemContent =
-              'Eres un asistente creativo que genera ejemplos o analogías para ilustrar conceptos.';
-            userContent =
-              'Genera dos ejemplos para ilustrar el siguiente concepto:\n' +
-              input;
-            break;
-          default:
-            systemContent = 'Eres un asistente útil.';
-            userContent = input;
+        if (articleMode && task === 'question') {
+          systemContent =
+            'Eres un asistente experto. El siguiente texto es de un artículo. Responde las preguntas del usuario sobre este contenido.';
+          userContent = input;
+        } else {
+          switch (task) {
+            case 'summarize':
+              systemContent =
+                'Eres un asistente útil que resume textos en español en resúmenes breves y concisos.';
+              userContent = 'Resume el siguiente texto:\n' + input;
+              break;
+            case 'translate':
+              systemContent =
+                'Eres un asistente útil que traduce textos del español al inglés.';
+              userContent = 'Traduce al inglés el siguiente texto:\n' + input;
+              break;
+            case 'question':
+              systemContent =
+                'Eres un asistente conocedor que responde preguntas de manera clara y precisa.';
+              userContent = input;
+              break;
+            case 'example':
+              systemContent =
+                'Eres un asistente creativo que genera ejemplos o analogías para ilustrar conceptos.';
+              userContent =
+                'Genera dos ejemplos para ilustrar el siguiente concepto:\n' +
+                input;
+              break;
+            default:
+              systemContent = 'Eres un asistente útil.';
+              userContent = input;
+          }
         }
         return [
           { role: 'system', content: systemContent },
