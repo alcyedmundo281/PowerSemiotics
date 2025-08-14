@@ -52,6 +52,8 @@
       let engineReady = false;
       const statusEl = document.getElementById('loadingStatus');
       let articleMode = false;
+      const ARTICLE_SYSTEM_PROMPT =
+        'Eres un asistente experto. El siguiente texto es de un artículo. Responde las preguntas del usuario sobre este contenido.';
 
       // Pre-fill the user input from query parameters, including article context.
       const params = new URLSearchParams(window.location.search);
@@ -117,8 +119,7 @@
         let systemContent;
         let userContent;
         if (articleMode && task === 'question') {
-          systemContent =
-            'Eres un asistente experto. El siguiente texto es de un artículo. Responde las preguntas del usuario sobre este contenido.';
+          systemContent = ARTICLE_SYSTEM_PROMPT;
           userContent = input;
         } else {
           switch (task) {
