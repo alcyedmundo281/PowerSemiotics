@@ -12,6 +12,20 @@
     <link href="../assets/tailwind.css" rel="stylesheet" />
   </head>
   <body class="font-sans bg-gray-100">
+    <header
+      class="bg-gray-800 text-white shadow-md sticky top-0 z-50 firefox:bg-opacity-90"
+    >
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <h1 class="text-xl font-bold">Gastroenterología</h1>
+        <nav>
+          <a
+            href="/ai_dashboard.html"
+            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >AI Dashboard</a
+          >
+        </nav>
+      </div>
+    </header>
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
       <div class="text-center mb-8">
         <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
@@ -21,6 +35,39 @@
           Un abordaje integral desde la fisiopatología hasta el manejo clínico
           de emergencias.
         </p>
+      </div>
+
+      <!-- Presentación Interactiva -->
+      <div
+        id="presentation-container"
+        class="w-full h-full flex flex-col bg-white/60 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black ring-opacity-5 mb-8"
+      >
+        <div
+          id="slide-area"
+          class="flex-grow bg-slate-100/80 rounded-t-lg p-6 md:p-12 overflow-y-auto relative min-h-[55vh]"
+        >
+          <!-- Las diapositivas se inyectan aquí -->
+        </div>
+        <div
+          class="flex-shrink-0 bg-white/80 p-4 flex items-center justify-between border-t border-gray-200"
+        >
+          <button
+            id="prevBtn"
+            class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <i class="fas fa-arrow-left mr-2"></i>Anterior
+          </button>
+          <div
+            id="slide-counter"
+            class="text-lg font-semibold text-gray-700"
+          ></div>
+          <button
+            id="nextBtn"
+            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Siguiente<i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
       </div>
 
       <div class="flex flex-col lg:flex-row gap-8">
@@ -36,16 +83,6 @@
               aria-orientation="vertical"
               aria-label="Secciones del módulo"
             >
-              <button
-                id="tab-presentacion"
-                data-target="presentacion"
-                class="nav-link active w-full text-left"
-                role="tab"
-                aria-selected="true"
-                aria-controls="presentacion"
-              >
-                <i class="fas fa-desktop nav-icon"></i>Presentación Interactiva
-              </button>
               <button
                 id="tab-herramienta"
                 data-target="herramienta"
@@ -82,41 +119,6 @@
     </div>
 
     <!-- TEMPLATES PARA LOS COMPONENTES -->
-
-    <!-- Template 1: Presentación Interactiva -->
-    <template id="presentation-template">
-      <div
-        id="presentation-container"
-        class="w-full h-full flex flex-col bg-white/60 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black ring-opacity-5"
-      >
-        <div
-          id="slide-area"
-          class="flex-grow bg-slate-100/80 rounded-t-lg p-6 md:p-12 overflow-y-auto relative min-h-[55vh]"
-        >
-          <!-- Las diapositivas se inyectan aquí -->
-        </div>
-        <div
-          class="flex-shrink-0 bg-white/80 p-4 flex items-center justify-between border-t border-gray-200"
-        >
-          <button
-            id="prevBtn"
-            class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <i class="fas fa-arrow-left mr-2"></i>Anterior
-          </button>
-          <div
-            id="slide-counter"
-            class="text-lg font-semibold text-gray-700"
-          ></div>
-          <button
-            id="nextBtn"
-            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-800 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Siguiente<i class="fas fa-arrow-right ml-2"></i>
-          </button>
-        </div>
-      </div>
-    </template>
 
     <!-- Template 2: Herramienta Diagnóstica -->
     <template id="diagnostic-tool-template">
@@ -331,7 +333,6 @@
         const navLinks = document.querySelectorAll('.nav-link');
 
         const contentLoaders = {
-          presentacion: setupPresentation,
           herramienta: setupDiagnosticTool,
           autoevaluacion: setupQuiz,
         };
@@ -348,22 +349,26 @@
 
           mainContent.innerHTML = '';
           const templateId = {
-            presentacion: 'presentation-template',
             herramienta: 'diagnostic-tool-template',
             autoevaluacion: 'quiz-template',
           }[hash];
 
-          const template = document.getElementById(templateId);
-          if (template) {
-            const content = template.content.cloneNode(true);
-            mainContent.appendChild(content);
-            mainContent.setAttribute('role', 'tabpanel');
-            mainContent.setAttribute('tabindex', '0');
-            mainContent.setAttribute('aria-labelledby', `tab-${hash}`);
-            mainContent.focus();
-            if (contentLoaders[hash]) {
-              contentLoaders[hash]();
+          if (templateId) {
+            const template = document.getElementById(templateId);
+            if (template) {
+              const content = template.content.cloneNode(true);
+              mainContent.appendChild(content);
+              mainContent.setAttribute('role', 'tabpanel');
+              mainContent.setAttribute('tabindex', '0');
+              mainContent.setAttribute('aria-labelledby', `tab-${hash}`);
+              mainContent.focus();
+              if (contentLoaders[hash]) {
+                contentLoaders[hash]();
+              }
             }
+          } else {
+            mainContent.innerHTML =
+              '<div class="text-center text-gray-500"><p>Seleccione una herramienta del menú.</p></div>';
           }
         }
 
@@ -387,10 +392,11 @@
         });
 
         // Initial load
-        const initialHash = window.location.hash.substring(1) || 'presentacion';
-        switchSection(initialHash);
+        const initialHash = window.location.hash.substring(1);
+        switchSection(initialHash || ''); // Load content based on hash or show default message
+        setupPresentation(); // Cargar la presentación siempre
 
-        // --- LÓGICA DEL COMPONENTE 1: PRESENTACIÓN ---
+        // --- LÓGICA DEL COMPONENTE 1: PRESENTACIÓN (se carga automáticamente) ---
         function setupPresentation() {
           const slidesData = [
             {
