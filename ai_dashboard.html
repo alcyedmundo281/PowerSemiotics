@@ -3,22 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Dashboard (Local) | PowerSemiotics</title>
+    <title>AI Dashboard | PowerSemiotics</title>
     <!-- Google font to match the rest of the site -->
     <link href="assets/tailwind.css" rel="stylesheet" />
   </head>
   <body class="font-sans">
     <header>
-      <h1>AI Dashboard (Local)</h1>
+      <h1>AI Dashboard</h1>
       <!-- Updated navigation bar. Add this page to your existing site navigation. -->
       <nav class="nav">
         <a href="index.html">Inicio</a>
-        <a href="ai_dashboard.html">AI Dashboard (API)</a>
-        <a href="ai_dashboard_local.html">AI Dashboard (Local)</a>
+        <a href="ai_dashboard.html">AI Dashboard</a>
       </nav>
     </header>
     <div class="container">
-      <h2>Herramientas de Aprendizaje Generativo (Local)</h2>
+      <h2>Herramientas de Aprendizaje Generativo</h2>
       <p>
         Este panel utiliza <strong>WebGPU</strong> para ejecutar un modelo de
         lenguaje directamente en su navegador, sin enviar los datos a ningún
@@ -52,6 +51,17 @@
       let engine;
       let engineReady = false;
       const statusEl = document.getElementById('loadingStatus');
+
+      // Pre-fill the user input from a "text" query parameter, if provided.
+      // This allows topic pages to pass content directly into the dashboard.
+      const params = new URLSearchParams(window.location.search);
+      const prefill = params.get('text');
+      if (prefill) {
+        // URLSearchParams handles percent-encoding, but replace + with spaces for safety.
+        const decoded = decodeURIComponent(prefill.replace(/\+/g, ' '));
+        const inputEl = document.getElementById('userInput');
+        if (inputEl) inputEl.value = decoded;
+      }
 
       /**
        * Load the local model into the WebLLM engine. This may take time on the
