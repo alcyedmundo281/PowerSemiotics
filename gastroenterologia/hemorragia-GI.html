@@ -12,6 +12,9 @@
     <link href="../assets/tailwind.css" rel="stylesheet" />
   </head>
   <body class="font-sans bg-gray-100">
+    <div class="bg-gray-800 text-white p-2 text-right">
+      <a href="../ai_dashboard.html" class="underline text-sm">AI Dashboard</a>
+    </div>
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
       <div class="text-center mb-8">
         <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
@@ -23,25 +26,47 @@
         </p>
       </div>
 
+      <section id="presentation-section" class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">
+          Presentación Interactiva
+        </h2>
+      </section>
+
       <div class="flex flex-col lg:flex-row gap-8">
         <aside class="w-full lg:w-1/4 lg:sticky top-8 self-start">
           <div class="bg-white p-4 rounded-xl shadow-lg">
             <h3 class="text-lg font-bold text-gray-800 mb-4 px-4">
               Índice del Módulo
             </h3>
-            <nav id="module-nav" class="space-y-1">
-              <a href="#presentacion" class="nav-link active"
-                ><i class="fas fa-desktop nav-icon"></i>Presentación
-                Interactiva</a
+            <nav
+              id="module-nav"
+              class="space-y-1"
+              role="tablist"
+              aria-orientation="vertical"
+              aria-label="Secciones del módulo"
+            >
+              <button
+                id="tab-herramienta"
+                data-target="herramienta"
+                class="nav-link active w-full text-left"
+                role="tab"
+                aria-selected="true"
+                aria-controls="herramienta"
               >
-              <a href="#herramienta" class="nav-link"
-                ><i class="fas fa-stethoscope nav-icon"></i>Herramienta
-                Diagnóstica</a
+                <i class="fas fa-stethoscope nav-icon"></i>Herramienta
+                Diagnóstica
+              </button>
+              <button
+                id="tab-autoevaluacion"
+                data-target="autoevaluacion"
+                class="nav-link w-full text-left"
+                role="tab"
+                aria-selected="false"
+                aria-controls="autoevaluacion"
               >
-              <a href="#autoevaluacion" class="nav-link"
-                ><i class="fas fa-vial-circle-check nav-icon"></i>Autoevaluación
-                Gamificada</a
-              >
+                <i class="fas fa-vial-circle-check nav-icon"></i>Autoevaluación
+                Gamificada
+              </button>
             </nav>
           </div>
         </aside>
@@ -304,22 +329,36 @@
         const mainContent = document.getElementById('main-content');
         const navLinks = document.querySelectorAll('.nav-link');
 
+        const presentationSection = document.getElementById(
+          'presentation-section',
+        );
+        const presentationTemplate = document.getElementById(
+          'presentation-template',
+        );
+        if (presentationSection && presentationTemplate) {
+          presentationSection.appendChild(
+            presentationTemplate.content.cloneNode(true),
+          );
+          setupPresentation();
+        }
+
         const contentLoaders = {
-          presentacion: setupPresentation,
           herramienta: setupDiagnosticTool,
           autoevaluacion: setupQuiz,
         };
 
-        function switchSection(hash) {
-          hash = hash.replace('#', '');
+        function switchSection(target) {
+          const hash = target.replace('#', '');
 
           navLinks.forEach((link) => {
-            link.classList.toggle('active', link.hash === `#${hash}`);
+            const isActive = link.dataset.target === hash;
+            link.classList.toggle('active', isActive);
+            link.setAttribute('aria-selected', isActive);
+            link.setAttribute('tabindex', isActive ? '0' : '-1');
           });
 
           mainContent.innerHTML = '';
           const templateId = {
-            presentacion: 'presentation-template',
             herramienta: 'diagnostic-tool-template',
             autoevaluacion: 'quiz-template',
           }[hash];
@@ -328,6 +367,10 @@
           if (template) {
             const content = template.content.cloneNode(true);
             mainContent.appendChild(content);
+            mainContent.setAttribute('role', 'tabpanel');
+            mainContent.setAttribute('tabindex', '0');
+            mainContent.setAttribute('aria-labelledby', `tab-${hash}`);
+            mainContent.focus();
             if (contentLoaders[hash]) {
               contentLoaders[hash]();
             }
@@ -337,14 +380,24 @@
         navLinks.forEach((link) => {
           link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetHash = link.getAttribute('href');
-            switchSection(targetHash);
-            history.pushState(null, null, targetHash);
+            const target = link.dataset.target;
+            switchSection(target);
+            history.pushState(null, null, `#${target}`);
+          });
+          link.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+              e.preventDefault();
+              const index = Array.from(navLinks).indexOf(link);
+              const direction = e.key === 'ArrowDown' ? 1 : -1;
+              const newIndex =
+                (index + direction + navLinks.length) % navLinks.length;
+              navLinks[newIndex].focus();
+            }
           });
         });
 
         // Initial load
-        const initialHash = window.location.hash || '#presentacion';
+        const initialHash = window.location.hash.substring(1) || 'herramienta';
         switchSection(initialHash);
 
         // --- LÓGICA DEL COMPONENTE 1: PRESENTACIÓN ---
