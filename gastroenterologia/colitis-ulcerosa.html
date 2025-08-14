@@ -11,6 +11,24 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link href="../assets/tailwind.css" rel="stylesheet" />
+    <style>
+      .ai-button {
+        background-color: #4f46e5;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ai-button:hover {
+        background-color: #4338ca;
+      }
+    </style>
   </head>
   <body class="font-sans">
     <div class="main-container">
@@ -29,6 +47,9 @@
         >
           <i class="fas fa-download"></i> Descargar Guía en PDF
         </a>
+        <button id="ask-ai-button" class="ai-button">
+          <i class="fas fa-robot"></i> Preguntar a la IA sobre este artículo
+        </button>
       </div>
 
       <div id="accordion">
@@ -738,6 +759,24 @@
             accordionContent.style.maxHeight =
               accordionContent.scrollHeight + 'px';
           }
+        }
+
+        // Logic for the 'Ask AI' button
+        const askAiButton = document.getElementById('ask-ai-button');
+        if (askAiButton) {
+          askAiButton.addEventListener('click', () => {
+            const contentElement = document.querySelector('.content-section');
+            if (contentElement) {
+              const articleText = contentElement.innerText;
+              // Use sessionStorage to pass the text, avoiding long URLs
+              sessionStorage.setItem('articleContext', articleText);
+              // Redirect with a simple flag
+              window.location.href = `../ai_dashboard.html?context=true`;
+            } else {
+              console.error('Could not find the article content to analyze.');
+              alert('No se pudo encontrar el contenido del artículo para analizar.');
+            }
+          });
         }
       });
     </script>

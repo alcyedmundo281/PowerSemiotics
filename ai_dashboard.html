@@ -3,37 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Dashboard (Local) | PowerSemiotics</title>
+    <title>AI Dashboard | PowerSemiotics</title>
     <!-- Google font to match the rest of the site -->
     <link href="assets/tailwind.css" rel="stylesheet" />
   </head>
   <body class="font-sans">
     <header>
-      <h1>AI Dashboard (Local)</h1>
+      <h1>AI Dashboard</h1>
       <!-- Updated navigation bar. Add this page to your existing site navigation. -->
       <nav class="nav">
         <a href="index.html">Inicio</a>
-        <a href="ai_dashboard.html">AI Dashboard (API)</a>
-        <a href="ai_dashboard_local.html">AI Dashboard (Local)</a>
+        <a href="ai_dashboard.html">AI Dashboard</a>
       </nav>
     </header>
     <div class="container">
-      <h2>Herramientas de Aprendizaje Generativo (Local)</h2>
+      <h2>Herramientas de Aprendizaje Generativo</h2>
       <p>
         Este panel utiliza <strong>WebGPU</strong> para ejecutar un modelo de
         lenguaje directamente en su navegador, sin enviar los datos a ningún
         servidor. Su navegador debe soportar WebGPU para un rendimiento óptimo.
       </p>
-      <textarea
-        id="userInput"
-        placeholder="Ingrese aquí el texto o pregunta..."
-      ></textarea>
-      <select id="task">
-        <option value="summarize">Resumir</option>
-        <option value="translate">Traducir (al inglés)</option>
-        <option value="question">Responder preguntas</option>
-        <option value="example">Generar ejemplos</option>
-      </select>
+      <div id="context-container" style="display: none; margin-bottom: 1rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Contexto del Artículo</h3>
+        <pre id="context-text" style="background-color: #f3f4f6; border: 1px solid #d1d5db; border-radius: 0.375rem; padding: 0.75rem; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto;"></pre>
+      </div>
+      <div id="qa-container">
+        <textarea
+          id="userQuestion"
+          placeholder="Escriba aquí su pregunta sobre el texto..."
+          style="width: 100%; min-height: 100px; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 0.375rem;"
+        ></textarea>
+        <!-- The task dropdown is now hidden, as the task is implied by the context -->
+        <select id="task" style="display: none;">
+          <option value="context-qa" selected>Pregunta sobre el texto</option>
+          <option value="summarize">Resumir</option>
+          <option value="translate">Traducir (al inglés)</option>
+          <option value="question">Pregunta general</option>
+          <option value="example">Generar ejemplos</option>
+        </select>
+      </div>
       <button id="generateBtn">Generar</button>
       <p id="loadingStatus"></p>
       <output id="output"></output>
@@ -52,6 +60,30 @@
       let engine;
       let engineReady = false;
       const statusEl = document.getElementById('loadingStatus');
+
+      // Handle article text passed via sessionStorage
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('context')) {
+        const articleText = sessionStorage.getItem('articleContext');
+        if (articleText) {
+          // Show the context container and populate it
+          const contextContainer = document.getElementById('context-container');
+          const contextTextEl = document.getElementById('context-text');
+          contextContainer.style.display = 'block';
+          contextTextEl.textContent = articleText; // No need to decode
+
+          // Update UI to reflect contextual Q&A mode
+          document.querySelector('.container h2').textContent = 'Preguntas sobre el Artículo';
+          document.getElementById('userQuestion').placeholder = 'Haga una pregunta específica sobre el texto proporcionado...';
+
+          // Set the task to contextual Q&A
+          document.getElementById('task').value = 'context-qa';
+        }
+      } else {
+        // If no context, show the task dropdown and set a general placeholder
+        document.getElementById('task').style.display = 'block';
+        document.getElementById('userQuestion').placeholder = 'Ingrese aquí el texto o pregunta...';
+      }
 
       /**
        * Load the local model into the WebLLM engine. This may take time on the
@@ -93,36 +125,32 @@
        * @param {string} task - Selected task (summarize, translate, question, example)
        * @returns {Array<Object>} - An array of messages formatted for WebLLM
        */
-      function buildMessages(input, task) {
-        let systemContent;
-        let userContent;
+      function buildMessages(task, userQuestion, articleContext = '') {
+        let systemContent = 'Eres un asistente útil.';
+        let userContent = userQuestion;
+
         switch (task) {
+          case 'context-qa':
+            systemContent = 'Eres un asistente experto que responde preguntas concisamente basándose únicamente en el texto proporcionado.';
+            userContent = `Basado en el siguiente texto:\n\n---\n${articleContext}\n---\n\nPor favor, responde la siguiente pregunta: ${userQuestion}`;
+            break;
           case 'summarize':
-            systemContent =
-              'Eres un asistente útil que resume textos en español en resúmenes breves y concisos.';
-            userContent = 'Resume el siguiente texto:\n' + input;
+            systemContent = 'Eres un asistente que resume textos en español de forma concisa.';
+            userContent = `Resume el siguiente texto:\n${userQuestion}`;
             break;
           case 'translate':
-            systemContent =
-              'Eres un asistente útil que traduce textos del español al inglés.';
-            userContent = 'Traduce al inglés el siguiente texto:\n' + input;
+            systemContent = 'Eres un traductor que convierte textos del español al inglés.';
+            userContent = `Traduce al inglés el siguiente texto:\n${userQuestion}`;
             break;
           case 'question':
-            systemContent =
-              'Eres un asistente conocedor que responde preguntas de manera clara y precisa.';
-            userContent = input;
+            systemContent = 'Eres un experto que responde preguntas educativas en español.';
             break;
           case 'example':
-            systemContent =
-              'Eres un asistente creativo que genera ejemplos o analogías para ilustrar conceptos.';
-            userContent =
-              'Genera dos ejemplos para ilustrar el siguiente concepto:\n' +
-              input;
+            systemContent = 'Eres un tutor que genera ejemplos claros en español sobre el tema proporcionado.';
+            userContent = `Genera dos ejemplos para ilustrar el siguiente concepto:\n${userQuestion}`;
             break;
-          default:
-            systemContent = 'Eres un asistente útil.';
-            userContent = input;
         }
+
         return [
           { role: 'system', content: systemContent },
           { role: 'user', content: userContent },
@@ -136,12 +164,12 @@
        * @param {string} task - Task name selected by the user
        * @returns {Promise<string>} - The model's textual response
        */
-      async function callLocalModel(input, task) {
+      async function callLocalModel(task, userQuestion, articleContext) {
         // Ensure the engine has been loaded (lazy load on first request)
         if (!engineReady) {
           await loadModel();
         }
-        const messages = buildMessages(input, task);
+        const messages = buildMessages(task, userQuestion, articleContext);
         const reply = await engine.chat.completions.create({ messages });
         return reply.choices[0].message.content.trim();
       }
@@ -150,16 +178,20 @@
       document
         .getElementById('generateBtn')
         .addEventListener('click', async () => {
-          const text = document.getElementById('userInput').value.trim();
+          const userQuestion = document.getElementById('userQuestion').value.trim();
           const task = document.getElementById('task').value;
           const outputEl = document.getElementById('output');
-          if (!text) {
+
+          if (!userQuestion) {
             outputEl.textContent = 'Por favor, ingrese un texto o pregunta.';
             return;
           }
+
+          const articleContext = document.getElementById('context-text').textContent;
+
           outputEl.textContent = 'Generando...';
           try {
-            const result = await callLocalModel(text, task);
+            const result = await callLocalModel(task, userQuestion, articleContext);
             outputEl.textContent = result;
           } catch (error) {
             outputEl.textContent = 'Error: ' + error.message;
