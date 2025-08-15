@@ -12,109 +12,141 @@
     <link href="assets/tailwind.css" rel="stylesheet" />
   </head>
   <body class="font-sans bg-gray-50 text-gray-800">
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <a href="index.html" class="flex items-center space-x-2">
-          <!-- Asumiendo que tienes un logo, si no, puedes quitar la img -->
-          <!-- <img src="assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8"> -->
-          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-        </a>
-        <div>
-          <a href="medicina_y_datos.html" class="text-indigo-600 font-semibold"
-            >Medicina y Datos</a
-          >
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-[240px,1fr,320px] h-screen">
+      <nav class="sticky top-0 h-screen p-6 bg-gray-50 flex flex-col space-y-4">
+        <a href="index.html" class="text-indigo-600 hover:underline">Inicio</a>
+        <a href="medicina_y_datos.html" class="text-indigo-600 hover:underline"
+          >Medicina y Datos</a
+        >
+        <a
+          href="farmacoterapia_racional.html"
+          class="text-indigo-600 hover:underline"
+          >Farmacoterapia Racional</a
+        >
+        <a
+          href="medicina_e_implementacion.html"
+          class="text-indigo-600 hover:underline"
+          >Medicina e Implementación</a
+        >
+        <a href="gastroenterologia.html" class="text-indigo-600 hover:underline"
+          >Gastroenterología</a
+        >
+        <a href="neurologia.html" class="text-indigo-600 hover:underline"
+          >Neurología</a
+        >
       </nav>
-    </header>
+      <div class="overflow-y-auto">
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+          <nav class="px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+              <!-- Asumiendo que tienes un logo, si no, puedes quitar la img -->
+              <!-- <img src="assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8"> -->
+              <span class="text-2xl font-bold gradient-text"
+                >Powersemiotics</span
+              >
+            </a>
+            <div>
+              <a
+                href="medicina_y_datos.html"
+                class="text-indigo-600 font-semibold"
+                >Medicina y Datos</a
+              >
+            </div>
+          </nav>
+        </header>
 
-    <main class="container mx-auto px-6 py-20">
-      <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          El Universo de la Medicina y los Datos
-        </h1>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-          Explora nuestros módulos de conocimiento en la intersección de la
-          ciencia de datos, la inteligencia artificial y la práctica clínica.
-        </p>
+        <main class="px-6 py-20">
+          <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              El Universo de la Medicina y los Datos
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl">
+              Explora nuestros módulos de conocimiento en la intersección de la
+              ciencia de datos, la inteligencia artificial y la práctica
+              clínica.
+            </p>
+          </div>
+
+          <div class="max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Card 1: Módulo de Razonamiento Clínico -->
+            <a
+              href="medicina_y_datos/razonamiento_clinico/index.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-brain text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Razonamiento Clínico
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Analiza la nueva arquitectura del juicio clínico en la era
+                computacional, desde la lógica hasta la IA.
+              </p>
+            </a>
+
+            <!-- Card 2: Módulo de Cuantificar Incertidumbre -->
+            <a
+              href="medicina_y_datos/cuantificando_incertidumbre/index.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-calculator text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Unidad 3: Cuantificando la Incertidumbre
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Herramientas para evaluar la evidencia diagnóstica y tomar
+                decisiones informadas.
+              </p>
+            </a>
+
+            <!-- Card 3: Módulo de Sesgos de la Mente -->
+            <a
+              href="medicina_y_datos/sesgos_de_la_mente.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-user-doctor text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Unidad 4: Los Sesgos de la Mente
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Aprende a identificar y mitigar los atajos mentales que afectan
+                el juicio clínico y conducen al error diagnóstico.
+              </p>
+            </a>
+
+            <!-- Card 4: Módulo de Inferencia Causal (NUEVO) -->
+            <a
+              href="medicina_y_datos/inferencia-causal.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-sitemap text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Unidad 5: Inferencia Causal
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Aprende a distinguir la correlación de la causalidad y a estimar
+                el verdadero efecto de las intervenciones.
+              </p>
+            </a>
+          </div>
+        </main>
+
+        <footer class="bg-white mt-20">
+          <div class="px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+          </div>
+        </footer>
       </div>
-
-      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Card 1: Módulo de Razonamiento Clínico -->
-        <a
-          href="medicina_y_datos/razonamiento_clinico/index.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-brain text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Razonamiento Clínico
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Analiza la nueva arquitectura del juicio clínico en la era
-            computacional, desde la lógica hasta la IA.
-          </p>
-        </a>
-
-        <!-- Card 2: Módulo de Cuantificar Incertidumbre -->
-        <a
-          href="medicina_y_datos/cuantificando_incertidumbre/index.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-calculator text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Unidad 3: Cuantificando la Incertidumbre
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Herramientas para evaluar la evidencia diagnóstica y tomar
-            decisiones informadas.
-          </p>
-        </a>
-
-        <!-- Card 3: Módulo de Sesgos de la Mente -->
-        <a
-          href="medicina_y_datos/sesgos_de_la_mente.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-user-doctor text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Unidad 4: Los Sesgos de la Mente
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Aprende a identificar y mitigar los atajos mentales que afectan el
-            juicio clínico y conducen al error diagnóstico.
-          </p>
-        </a>
-
-        <!-- Card 4: Módulo de Inferencia Causal (NUEVO) -->
-        <a
-          href="medicina_y_datos/inferencia-causal.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-sitemap text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Unidad 5: Inferencia Causal
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Aprende a distinguir la correlación de la causalidad y a estimar el
-            verdadero efecto de las intervenciones.
-          </p>
-        </a>
+      <div class="sticky top-0 h-screen">
+        <iframe src="ai_dashboard.html" class="w-full h-full"></iframe>
       </div>
-    </main>
-
-    <footer class="bg-white mt-20">
-      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-        <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
-      </div>
-    </footer>
+    </div>
   </body>
 </html>

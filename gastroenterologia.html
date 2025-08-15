@@ -12,180 +12,211 @@
     <link href="assets/tailwind.css" rel="stylesheet" />
   </head>
   <body class="font-sans bg-gray-50 text-gray-800">
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <a href="index.html" class="flex items-center space-x-2">
-          <img
-            src="assets/images/logo.png"
-            alt="Logo de Powersemiotics"
-            class="h-8 w-8"
-          />
-          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-        </a>
-        <div>
-          <a href="gastroenterologia.html" class="text-red-800 font-semibold"
-            >Gastroenterología</a
-          >
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-[240px,1fr,320px] h-screen">
+      <nav class="sticky top-0 h-screen p-6 bg-gray-50 flex flex-col space-y-4">
+        <a href="index.html" class="text-indigo-600 hover:underline">Inicio</a>
+        <a href="medicina_y_datos.html" class="text-indigo-600 hover:underline"
+          >Medicina y Datos</a
+        >
+        <a
+          href="farmacoterapia_racional.html"
+          class="text-indigo-600 hover:underline"
+          >Farmacoterapia Racional</a
+        >
+        <a
+          href="medicina_e_implementacion.html"
+          class="text-indigo-600 hover:underline"
+          >Medicina e Implementación</a
+        >
+        <a href="gastroenterologia.html" class="text-indigo-600 hover:underline"
+          >Gastroenterología</a
+        >
+        <a href="neurologia.html" class="text-indigo-600 hover:underline"
+          >Neurología</a
+        >
       </nav>
-    </header>
+      <div class="overflow-y-auto">
+        <header class="bg-white shadow-sm sticky top-0 z-50">
+          <nav class="px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+              <img
+                src="assets/images/logo.png"
+                alt="Logo de Powersemiotics"
+                class="h-8 w-8"
+              />
+              <span class="text-2xl font-bold gradient-text"
+                >Powersemiotics</span
+              >
+            </a>
+            <div>
+              <a
+                href="gastroenterologia.html"
+                class="text-red-800 font-semibold"
+                >Gastroenterología</a
+              >
+            </div>
+          </nav>
+        </header>
 
-    <main class="container mx-auto px-6 py-16">
-      <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Módulos de Gastroenterología
-        </h1>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-          Explora nuestros cursos interactivos sobre el diagnóstico y manejo de
-          las principales patologías gastroenterológicas.
-        </p>
+        <main class="px-6 py-16">
+          <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Módulos de Gastroenterología
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl">
+              Explora nuestros cursos interactivos sobre el diagnóstico y manejo
+              de las principales patologías gastroenterológicas.
+            </p>
+          </div>
+
+          <div
+            class="max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <!-- Módulo: Pruebas Diagnósticas -->
+            <a
+              href="gastroenterologia/pruebas-diagnosticas.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-microscope text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Pruebas Diagnósticas
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Selección racional de endoscopia, ecografía, TC y pruebas de
+                aliento.
+              </p>
+            </a>
+
+            <!-- Módulo: Hemorragia Digestiva -->
+            <a
+              href="gastroenterologia/hemorragia-GI.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-droplet text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Hemorragia Digestiva
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Abordaje integral de la hemorragia digestiva, desde la
+                fisiopatología hasta el manejo de emergencias.
+              </p>
+            </a>
+
+            <!-- Módulo: Colitis Ulcerosa -->
+            <a
+              href="gastroenterologia/colitis-ulcerosa.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-notes-medical text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Colitis Ulcerosa
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Diagnóstico y manejo de la colitis ulcerosa adaptado al contexto
+                ecuatoriano.
+              </p>
+            </a>
+
+            <!-- Módulo: Enfermedad Hepática I -->
+            <a
+              href="gastroenterologia/enfermedad_hepatica_i/index.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-liver text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Enfermedad Hepática I
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Pruebas de función hepática y patrones de lesión en la
+                evaluación inicial.
+              </p>
+            </a>
+
+            <!-- Módulo: Enfermedad Hepática II -->
+            <a
+              href="gastroenterologia/enfermedad_hepatica_ii/index.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-vials text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Enfermedad Hepática II
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Complicaciones y manejo avanzado de la enfermedad hepática.
+              </p>
+            </a>
+
+            <!-- Módulo: Pancreatitis Aguda -->
+            <a
+              href="gastroenterologia/pancreatitis_aguda/index.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-fire text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Pancreatitis Aguda
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Patologías del páncreas y vías biliares con actividades
+                interactivas.
+              </p>
+            </a>
+
+            <!-- Módulo: Gastroenteropatías por AINEs -->
+            <a
+              href="gastroenterologia/gastroenteropatias-aines.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-pills text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Gastroenteropatías por AINEs
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Prevención y manejo del daño gastrointestinal inducido por
+                antiinflamatorios.
+              </p>
+            </a>
+
+            <!-- Módulo: Manejo Multidisciplinario -->
+            <a
+              href="gastroenterologia/manejo-multidisciplinario.html"
+              class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+            >
+              <div class="flex items-center mb-4">
+                <i class="fas fa-users text-4xl gradient-text"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-800">
+                Módulo: Manejo Multidisciplinario
+              </h2>
+              <p class="text-gray-600 text-md mt-2">
+                Enfoque colaborativo para el manejo integral del paciente.
+              </p>
+            </a>
+          </div>
+        </main>
+
+        <footer class="bg-white mt-20">
+          <div class="px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
+          </div>
+        </footer>
       </div>
-
-      <div
-        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      >
-        <!-- Módulo: Pruebas Diagnósticas -->
-        <a
-          href="gastroenterologia/pruebas-diagnosticas.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-microscope text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Pruebas Diagnósticas
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Selección racional de endoscopia, ecografía, TC y pruebas de
-            aliento.
-          </p>
-        </a>
-
-        <!-- Módulo: Hemorragia Digestiva -->
-        <a
-          href="gastroenterologia/hemorragia-GI.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-droplet text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Hemorragia Digestiva
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Abordaje integral de la hemorragia digestiva, desde la
-            fisiopatología hasta el manejo de emergencias.
-          </p>
-        </a>
-
-        <!-- Módulo: Colitis Ulcerosa -->
-        <a
-          href="gastroenterologia/colitis-ulcerosa.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-notes-medical text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Colitis Ulcerosa
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Diagnóstico y manejo de la colitis ulcerosa adaptado al contexto
-            ecuatoriano.
-          </p>
-        </a>
-
-        <!-- Módulo: Enfermedad Hepática I -->
-        <a
-          href="gastroenterologia/enfermedad_hepatica_i/index.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-liver text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Enfermedad Hepática I
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Pruebas de función hepática y patrones de lesión en la evaluación
-            inicial.
-          </p>
-        </a>
-
-        <!-- Módulo: Enfermedad Hepática II -->
-        <a
-          href="gastroenterologia/enfermedad_hepatica_ii/index.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-vials text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Enfermedad Hepática II
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Complicaciones y manejo avanzado de la enfermedad hepática.
-          </p>
-        </a>
-
-        <!-- Módulo: Pancreatitis Aguda -->
-        <a
-          href="gastroenterologia/pancreatitis_aguda/index.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-fire text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Pancreatitis Aguda
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Patologías del páncreas y vías biliares con actividades
-            interactivas.
-          </p>
-        </a>
-
-        <!-- Módulo: Gastroenteropatías por AINEs -->
-        <a
-          href="gastroenterologia/gastroenteropatias-aines.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-pills text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Gastroenteropatías por AINEs
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Prevención y manejo del daño gastrointestinal inducido por
-            antiinflamatorios.
-          </p>
-        </a>
-
-        <!-- Módulo: Manejo Multidisciplinario -->
-        <a
-          href="gastroenterologia/manejo-multidisciplinario.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-users text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Manejo Multidisciplinario
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Enfoque colaborativo para el manejo integral del paciente.
-          </p>
-        </a>
+      <div class="sticky top-0 h-screen">
+        <iframe src="ai_dashboard.html" class="w-full h-full"></iframe>
       </div>
-    </main>
-
-    <footer class="bg-white mt-20">
-      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-        <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
-      </div>
-    </footer>
+    </div>
   </body>
 </html>
