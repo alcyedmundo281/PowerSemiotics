@@ -58,8 +58,11 @@
       }
 
       #content-wrapper {
+        /* Letter-size canvas that scales within the viewport */
         width: 816px;
         height: 1056px;
+        max-width: 100%;
+        max-height: 100%;
         background-color: var(--card-bg);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         overflow: auto;
@@ -449,6 +452,7 @@
         <iframe
           src="../ai_dashboard.html"
           title="AI Dashboard"
+          aria-label="AI Dashboard"
           loading="lazy"
         ></iframe>
       </aside>
@@ -849,6 +853,5 @@
         showQuestion();
       }
     </script>
-    <script src="/assets/ask-ai.js"></script>
   </body>
 </html>
