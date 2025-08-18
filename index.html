@@ -12,189 +12,160 @@
     <link href="assets/tailwind.css" rel="stylesheet" />
   </head>
   <body class="font-sans bg-white text-gray-800">
-    <div class="grid grid-cols-1 md:grid-cols-[240px,1fr,320px] h-screen">
-      <nav class="sticky top-0 h-screen p-6 bg-gray-50 flex flex-col space-y-4">
-        <a href="index.html" class="text-indigo-600 hover:underline">Inicio</a>
-        <a href="medicina_y_datos.html" class="text-indigo-600 hover:underline"
-          >Medicina y Datos</a
+    <!-- Encabezado con Rutas Corregidas -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="index.html" class="flex items-center space-x-2">
+          <img
+            src="assets/images/logo.png"
+            alt="Logo de Powersemiotics"
+            class="h-8 w-8"
+          />
+          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+        </a>
+        <div>
+          <a
+            href="ai_dashboard.html"
+            class="text-indigo-600 font-semibold hover:underline mr-4"
+            >AI Dashboard</a
+          >
+          <a
+            href="mailto:alcyedmundo@gmail.com"
+            class="text-indigo-600 font-semibold hover:underline"
+            >Contacto</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <!-- Sección Hero -->
+    <section class="hero-section">
+      <div class="container mx-auto px-6 py-20 text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">
+          Decodificando el Lenguaje de la Ciencia
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          Un portal dedicado a explorar la intersección de la semiótica, la
+          ciencia de datos y el conocimiento médico. Transformamos datos
+          complejos en símbolos poderosos.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sección de Tópicos Principales -->
+    <main class="container mx-auto px-6 py-16">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
+        Explora Nuestras Áreas de Conocimiento
+      </h2>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto"
+      >
+        <!-- Card 1: Medicina y Datos -->
+        <a
+          href="medicina_y_datos.html"
+          class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center"
         >
+          <i class="fas fa-brain text-5xl gradient-text mb-5"></i>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">
+            Medicina y Datos
+          </h3>
+          <p class="text-gray-600">
+            La nueva arquitectura del juicio clínico, desde el razonamiento
+            computacional hasta la genómica y la IA explicable.
+          </p>
+        </a>
+
+        <!-- Card 2: Farmacoterapia Racional -->
         <a
           href="farmacoterapia_racional.html"
-          class="text-indigo-600 hover:underline"
-          >Farmacoterapia Racional</a
+          class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center"
         >
+          <i class="fas fa-pills text-5xl gradient-text mb-5"></i>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">
+            Farmacoterapia Racional
+          </h3>
+          <p class="text-gray-600">
+            Optimización del uso de medicamentos a través de la evidencia, la
+            farmacogenómica y la toma de decisiones basada en datos.
+          </p>
+        </a>
+
+        <!-- Card 3: Medicina e Implementación -->
         <a
           href="medicina_e_implementacion.html"
-          class="text-indigo-600 hover:underline"
-          >Medicina e Implementación</a
+          class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center"
         >
-        <a href="gastroenterologia.html" class="text-indigo-600 hover:underline"
-          >Gastroenterología</a
-        >
-        <a href="neurologia.html" class="text-indigo-600 hover:underline"
-          >Neurología</a
-        >
-      </nav>
-      <div class="overflow-y-auto">
-        <!-- Encabezado con Rutas Corregidas -->
-        <header class="bg-white shadow-sm sticky top-0 z-50">
-          <nav class="px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2">
-              <img
-                src="assets/images/logo.png"
-                alt="Logo de Powersemiotics"
-                class="h-8 w-8"
-              />
-              <span class="text-2xl font-bold gradient-text"
-                >Powersemiotics</span
-              >
-            </a>
-            <div>
-              <a
-                href="ai_dashboard.html"
-                class="text-indigo-600 font-semibold hover:underline mr-4"
-                >AI Dashboard</a
-              >
-              <a
-                href="mailto:alcyedmundo@gmail.com"
-                class="text-indigo-600 font-semibold hover:underline"
-                >Contacto</a
-              >
-            </div>
-          </nav>
-        </header>
+          <i class="fas fa-project-diagram text-5xl gradient-text mb-5"></i>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">
+            Medicina e Implementación
+          </h3>
+          <p class="text-gray-600">
+            Estudio de los métodos para promover la adopción de la evidencia
+            científica en la práctica clínica y la política de salud.
+          </p>
+        </a>
 
-        <!-- Sección Hero -->
-        <section class="hero-section">
-          <div class="px-6 py-20 text-center">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">
-              Decodificando el Lenguaje de la Ciencia
-            </h1>
-            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mb-8">
-              Un portal dedicado a explorar la intersección de la semiótica, la
-              ciencia de datos y el conocimiento médico. Transformamos datos
-              complejos en símbolos poderosos.
+        <!-- Card 4: Gastroenterología -->
+        <a
+          href="gastroenterologia.html"
+          class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center lg:col-start-1 lg:col-end-2"
+        >
+          <i class="fas fa-bacterium text-5xl gradient-text mb-5"></i>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">
+            Gastroenterología
+          </h3>
+          <p class="text-gray-600">
+            Análisis profundos sobre enfermedades hepáticas, microbiota y las
+            últimas innovaciones en el campo digestivo.
+          </p>
+        </a>
+
+        <!-- Card 5: Neurología -->
+        <a
+          href="neurologia.html"
+          class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center lg:col-start-2 lg:col-end-3"
+        >
+          <i class="fas fa-head-side-virus text-5xl gradient-text mb-5"></i>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">Neurología</h3>
+          <p class="text-gray-600">
+            Estudios sobre epilepsia, enfermedades neurodegenerativas y los
+            avances en la comprensión del cerebro humano.
+          </p>
+        </a>
+      </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-800 text-white mt-16">
+      <div class="container mx-auto px-6 py-10">
+        <div class="md:flex justify-between">
+          <div class="mb-6 md:mb-0">
+            <h4 class="text-lg font-bold mb-2">Powersemiotics</h4>
+            <p class="text-gray-400">
+              Decodificando la ciencia, un símbolo a la vez.
             </p>
           </div>
-        </section>
-
-        <!-- Sección de Tópicos Principales -->
-        <main class="px-6 py-16">
-          <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
-            Explora Nuestras Áreas de Conocimiento
-          </h2>
-
-          <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl"
-          >
-            <!-- Card 1: Medicina y Datos -->
-            <a
-              href="medicina_y_datos.html"
-              class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center"
-            >
-              <i class="fas fa-brain text-5xl gradient-text mb-5"></i>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2">
-                Medicina y Datos
-              </h3>
-              <p class="text-gray-600">
-                La nueva arquitectura del juicio clínico, desde el razonamiento
-                computacional hasta la genómica y la IA explicable.
-              </p>
-            </a>
-
-            <!-- Card 2: Farmacoterapia Racional -->
-            <a
-              href="farmacoterapia_racional.html"
-              class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center"
-            >
-              <i class="fas fa-pills text-5xl gradient-text mb-5"></i>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2">
-                Farmacoterapia Racional
-              </h3>
-              <p class="text-gray-600">
-                Optimización del uso de medicamentos a través de la evidencia,
-                la farmacogenómica y la toma de decisiones basada en datos.
-              </p>
-            </a>
-
-            <!-- Card 3: Medicina e Implementación -->
-            <a
-              href="medicina_e_implementacion.html"
-              class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center"
-            >
-              <i class="fas fa-project-diagram text-5xl gradient-text mb-5"></i>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2">
-                Medicina e Implementación
-              </h3>
-              <p class="text-gray-600">
-                Estudio de los métodos para promover la adopción de la evidencia
-                científica en la práctica clínica y la política de salud.
-              </p>
-            </a>
-
-            <!-- Card 4: Gastroenterología -->
-            <a
-              href="gastroenterologia.html"
-              class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center lg:col-start-1 lg:col-end-2"
-            >
-              <i class="fas fa-bacterium text-5xl gradient-text mb-5"></i>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2">
-                Gastroenterología
-              </h3>
-              <p class="text-gray-600">
-                Análisis profundos sobre enfermedades hepáticas, microbiota y
-                las últimas innovaciones en el campo digestivo.
-              </p>
-            </a>
-
-            <!-- Card 5: Neurología -->
-            <a
-              href="neurologia.html"
-              class="block bg-white p-8 rounded-xl border border-gray-200 group card-hover-effect text-center lg:col-start-2 lg:col-end-3"
-            >
-              <i class="fas fa-head-side-virus text-5xl gradient-text mb-5"></i>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2">Neurología</h3>
-              <p class="text-gray-600">
-                Estudios sobre epilepsia, enfermedades neurodegenerativas y los
-                avances en la comprensión del cerebro humano.
-              </p>
-            </a>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="#" class="text-gray-400 hover:text-white"
+              ><i class="fab fa-github"></i
+            ></a>
           </div>
-        </main>
-
-        <!-- Pie de página -->
-        <footer class="bg-gray-800 text-white mt-16">
-          <div class="px-6 py-10">
-            <div class="md:flex justify-between">
-              <div class="mb-6 md:mb-0">
-                <h4 class="text-lg font-bold mb-2">Powersemiotics</h4>
-                <p class="text-gray-400">
-                  Decodificando la ciencia, un símbolo a la vez.
-                </p>
-              </div>
-              <div class="flex space-x-4">
-                <a href="#" class="text-gray-400 hover:text-white"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a href="#" class="text-gray-400 hover:text-white"
-                  ><i class="fab fa-linkedin"></i
-                ></a>
-                <a href="#" class="text-gray-400 hover:text-white"
-                  ><i class="fab fa-github"></i
-                ></a>
-              </div>
-            </div>
-            <div
-              class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-500"
-            >
-              <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
-            </div>
-          </div>
-        </footer>
+        </div>
+        <div
+          class="mt-8 border-t border-gray-700 pt-6 text-center text-gray-500"
+        >
+          <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
       </div>
-      <div class="sticky top-0 h-screen">
-        <iframe src="ai_dashboard.html" class="w-full h-full"></iframe>
-      </div>
-    </div>
+    </footer>
   </body>
 </html>
