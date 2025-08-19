@@ -3,855 +3,152 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Módulo Interactivo de Neurología</title>
+    <title>Módulo: Cefaleas - Powersemiotics</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <style>
-      :root {
-        --primary-color: #005a9c;
-        --secondary-color: #003366;
-        --background-color: #f0f4f8;
-        --text-color: #333;
-        --card-bg: #ffffff;
-        --accent-color: #e3f2fd;
-        --success-color: #28a745;
-        --danger-color: #dc3545;
-      }
 
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: var(--background-color);
-        color: var(--text-color);
-        margin: 0;
-        display: flex;
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      /* --- Layout Principal --- */
-      #app-container {
-        display: flex;
-        width: 100%;
-        height: 100%;
-      }
-
-      aside#side-nav {
-        width: 280px;
-        background-color: var(--card-bg);
-        padding: 25px;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-        z-index: 10;
-      }
-
-      main#content-area {
-        flex-grow: 1;
-        padding: 30px;
-        overflow: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #content-wrapper {
-        /* Letter-size canvas that scales within the viewport */
-        width: 816px;
-        height: 1056px;
-        max-width: 100%;
-        max-height: 100%;
-        background-color: var(--card-bg);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        overflow: auto;
-      }
-
-      aside#ai-panel {
-        width: 360px;
-        background-color: var(--card-bg);
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-      }
-      #ai-panel iframe {
-        border: none;
-        width: 100%;
-        height: 100%;
-      }
-
-      /* --- Panel de Navegación --- */
-      #side-nav h1 {
-        color: var(--primary-color);
-        font-size: 1.5em;
-        margin: 0 0 30px 0;
-        border-bottom: 2px solid var(--accent-color);
-        padding-bottom: 15px;
-      }
-      #side-nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      #side-nav li a {
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        color: var(--secondary-color);
-        text-decoration: none;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        transition:
-          background-color 0.3s,
-          color 0.3s;
-      }
-      #side-nav li a .fa-solid {
-        margin-right: 15px;
-        width: 20px;
-        text-align: center;
-      }
-      #side-nav li a:hover {
-        background-color: var(--accent-color);
-      }
-      #side-nav li a.active {
-        background-color: var(--primary-color);
-        color: white;
-        font-weight: bold;
-        box-shadow: 0 4px 8px rgba(0, 90, 156, 0.2);
-      }
-
-      /* --- Estilos Generales de Componentes --- */
-      .component-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* --- Estilos de la Presentación --- */
-      #presentation-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .slide {
-        background-color: var(--card-bg);
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        flex-grow: 1;
-        padding: 40px;
-        box-sizing: border-box;
-        display: none;
-        flex-direction: column;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        overflow-y: auto;
-      }
-      .slide.active {
-        display: flex;
-        opacity: 1;
-      }
-      .slide h1,
-      .slide h2,
-      .slide h3 {
-        color: var(--secondary-color);
-        margin-bottom: 20px;
-        width: 100%;
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      .slide h1 {
-        font-size: 2.2em;
-        text-align: center;
-        border-bottom: none;
-      }
-      .slide h2 {
-        font-size: 1.8em;
-      }
-      .slide h3 {
-        font-size: 1.4em;
-        color: var(--primary-color);
-        border-bottom: 1px solid #ccc;
-      }
-      .slide p,
-      .slide ul,
-      .slide li {
-        font-size: 1.1em;
-        line-height: 1.6;
-        text-align: left;
-        max-width: 100%;
-      }
-      .slide ul {
-        list-style-type: none;
-        padding-left: 20px;
-      }
-      .slide li::before {
-        content: '✓';
-        color: var(--primary-color);
-        font-weight: bold;
-        display: inline-block;
-        width: 1.2em;
-        margin-left: -1.2em;
-      }
-      .title-slide {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      .navigation {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 20px;
-      }
-      .nav-button {
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1em;
-        border-radius: 5px;
-        cursor: pointer;
-        margin: 0 10px;
-        transition: background-color 0.3s;
-      }
-      .nav-button:hover {
-        background-color: var(--secondary-color);
-      }
-      .nav-button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      #slide-counter {
-        font-size: 1.1em;
-        color: var(--text-color);
-        font-weight: bold;
-      }
-      .comparative-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        font-size: 0.9em;
-      }
-      .comparative-table th,
-      .comparative-table td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-      }
-      .comparative-table th {
-        background-color: var(--accent-color);
-        color: var(--secondary-color);
-        font-weight: bold;
-      }
-      .case-study {
-        background-color: var(--accent-color);
-        border-left: 5px solid var(--primary-color);
-        padding: 15px;
-        margin-top: 15px;
-        border-radius: 5px;
-      }
-
-      /* --- Estilos de la Herramienta Diagnóstica --- */
-      .diagnostic-tool-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .diagnostic-tool-card h2 {
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      .scenario-option {
-        margin-bottom: 15px;
-      }
-      .scenario-option label {
-        display: block;
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition:
-          border-color 0.3s,
-          background-color 0.3s;
-      }
-      .scenario-option input[type='radio'] {
-        display: none;
-      }
-      .scenario-option input[type='radio']:checked + label {
-        border-color: var(--primary-color);
-        background-color: var(--accent-color);
-        font-weight: bold;
-      }
-      #diagnostic-result {
-        margin-top: 25px;
-        padding: 20px;
-        border-radius: 8px;
-        border-left: 5px solid;
-        display: none;
-      }
-      #diagnostic-result.eda {
-        border-color: #ff9800;
-      }
-      #diagnostic-result.tc {
-        border-color: #f44336;
-      }
-      #diagnostic-result.eco {
-        border-color: #4caf50;
-      }
-      #diagnostic-result.aliento {
-        border-color: #2196f3;
-      }
-      #diagnostic-result h3 {
-        margin-top: 0;
-      }
-
-      /* --- Estilos de la Autoevaluación --- */
-      .quiz-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .quiz-card h2 {
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      #question-container p {
-        font-size: 1.2em;
-        font-weight: 500;
-      }
-      .quiz-options {
-        list-style: none;
-        padding: 0;
-      }
-      .quiz-options li {
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-bottom: 10px;
-        transition: background-color 0.3s;
-      }
-      .quiz-options li:hover {
-        background-color: var(--accent-color);
-      }
-      .quiz-options li.correct {
-        background-color: #d4edda;
-        border-color: var(--success-color);
-      }
-      .quiz-options li.incorrect {
-        background-color: #f8d7da;
-        border-color: var(--danger-color);
-      }
-      #feedback-text {
-        margin-top: 15px;
-        padding: 10px;
-        border-radius: 5px;
-      }
-      #quiz-result-container {
-        text-align: center;
-      }
-      #quiz-result-container h3 {
-        font-size: 2em;
-        color: var(--primary-color);
-      }
-      #quiz-result-container p {
-        font-size: 1.3em;
-      }
-
-      @media (max-width: 768px) {
-        #app-container {
-          flex-direction: column;
-        }
-        aside#side-nav {
-          width: 100%;
-          height: auto;
-          flex-direction: row;
-          overflow-x: auto;
-          padding: 10px;
-        }
-        aside#ai-panel {
-          display: none;
-        }
-        #side-nav h1 {
-          display: none;
-        }
-        #side-nav ul {
-          display: flex;
-        }
-        #side-nav li a {
-          flex-direction: column;
-          font-size: 0.8em;
-          padding: 10px 5px;
-        }
-        #side-nav li a .fa-solid {
-          margin-right: 0;
-          margin-bottom: 5px;
-        }
-        main#content-area {
-          padding: 15px;
-        }
-        #content-wrapper {
-          width: 100%;
-          height: auto;
-        }
-      }
-    </style>
+    <link href="../../assets/tailwind.css" rel="stylesheet" />
   </head>
-  <body>
-    <div id="app-container">
-      <aside id="side-nav">
-        <h1>Diagnóstico Neuro</h1>
-        <nav>
-          <ul>
-            <li>
-              <a
-                href="#"
-                class="nav-link active"
-                data-template="presentation-template"
-                ><i class="fa-solid fa-book-open"></i> Base de Conocimiento</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="nav-link"
-                data-template="diagnostic-tool-template"
-                ><i class="fa-solid fa-stethoscope"></i> Herramienta
-                Diagnóstica</a
-              >
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-template="quiz-template"
-                ><i class="fa-solid fa-gamepad"></i> Autoevaluación</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </aside>
-
-      <main id="content-area">
-        <div id="content-wrapper"></div>
-      </main>
-      <aside id="ai-panel">
-        <iframe
-          src="../../ai_dashboard.html"
-          title="AI Dashboard"
-          aria-label="AI Dashboard"
-          loading="lazy"
-        ></iframe>
-      </aside>
-    </div>
-
-    <!-- ########## TEMPLATES ########## -->
-
-    <!-- Plantilla 1: Presentación Interactiva -->
-    <template id="presentation-template">
-      <div class="component-container">
-        <div id="presentation-container">
-          <!-- Las diapositivas se insertarán aquí por JS -->
+  <body class="font-sans bg-gray-100">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="../../index.html" class="flex items-center space-x-2">
+          <img
+            src="../../assets/images/logo.png"
+            alt="Logo de Powersemiotics"
+            class="h-8 w-8"
+          />
+          <span class="text-2xl font-bold gradient-text-header"
+            >Powersemiotics</span
+          >
+        </a>
+        <div>
+          <a
+            href="../../neurologia.html"
+            class="text-indigo-600 font-semibold hover:underline"
+          >
+            <i class="fas fa-arrow-left mr-2"></i>Volver a Neurología
+          </a>
         </div>
-        <div class="navigation">
-          <button id="prev-btn" class="nav-button">Anterior</button>
-          <span id="slide-counter"></span>
-          <button id="next-btn" class="nav-button">Siguiente</button>
-        </div>
-      </div>
-    </template>
+      </nav>
+    </header>
 
-    <!-- Plantilla 2: Herramienta Diagnóstica -->
-    <template id="diagnostic-tool-template">
-      <div class="component-container">
-        <div class="diagnostic-tool-card">
-          <h2>Herramienta de Decisión Clínica</h2>
-          <p>
-            Seleccione el escenario clínico principal para ver la prueba
-            diagnóstica de primera línea recomendada.
+    <main class="container mx-auto px-4 md:px-6 py-12">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+            Módulo de Cefaleas
+          </h1>
+          <p class="text-lg text-gray-600">
+            Un curso interactivo para el abordaje diagnóstico y manejo de las
+            cefaleas primarias más importantes.
           </p>
-          <div id="diagnostic-scenarios">
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario1"
-                name="clinical_scenario"
-                value="eco"
-              />
-              <label for="scenario1"
-                >Dolor crónico en hipocondrio derecho, sospecha de patología
-                biliar.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario2"
-                name="clinical_scenario"
-                value="eda"
-              />
-              <label for="scenario2"
-                >Hombre > 60 años con dispepsia de nueva aparición y pérdida de
-                peso.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario3"
-                name="clinical_scenario"
-                value="tc"
-              />
-              <label for="scenario3"
-                >Paciente con dolor abdominal agudo, severo, y signos de
-                peritonismo en urgencias.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario4"
-                name="clinical_scenario"
-                value="aliento"
-              />
-              <label for="scenario4"
-                >Mujer con hinchazón, gases y diarrea crónicos; estudios
-                endoscópicos previos normales.</label
-              >
-            </div>
-          </div>
-          <button id="analyze-btn" class="nav-button" style="margin-top: 20px">
-            Analizar Escenario
-          </button>
-          <div id="diagnostic-result">
-            <h3 id="result-title"></h3>
-            <p id="result-rationale"></p>
-          </div>
         </div>
-      </div>
-    </template>
 
-    <!-- Plantilla 3: Autoevaluación Gamificada -->
-    <template id="quiz-template">
-      <div class="component-container">
-        <div class="quiz-card">
-          <h2>Autoevaluación de Casos Clínicos</h2>
-          <div id="quiz-container">
-            <div id="question-container">
-              <p id="question-text"></p>
-              <ul class="quiz-options" id="quiz-options"></ul>
-            </div>
-            <div id="feedback-text"></div>
-            <button
-              id="next-question-btn"
-              class="nav-button"
-              style="display: none; margin-top: 15px"
+        <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+            Recursos Educativos del Módulo
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a
+              href="./cefaleas-presentacion.html"
+              target="_blank"
+              class="block p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500 resource-card"
             >
-              Siguiente Pregunta
-            </button>
-          </div>
-          <div id="quiz-result-container" style="display: none">
-            <h3>¡Evaluación Completada!</h3>
-            <p id="score-text"></p>
-            <button id="restart-quiz-btn" class="nav-button">
-              Repetir Evaluación
-            </button>
+              <div class="flex items-center">
+                <div class="flex-shrink-0 mr-4">
+                  <i
+                    class="fas fa-chalkboard-teacher text-4xl text-blue-600"
+                  ></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-blue-800">
+                    1. Presentación
+                  </h3>
+                  <p class="text-sm text-blue-700">
+                    Repasa los conceptos clave en formato de diapositivas
+                    interactivas.
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            <a
+              href="./conocimiento-cefaleas.html"
+              target="_blank"
+              class="block p-6 bg-green-50 rounded-lg border-l-4 border-green-500 resource-card"
+            >
+              <div class="flex items-center">
+                <div class="flex-shrink-0 mr-4">
+                  <i class="fas fa-book-open text-4xl text-green-600"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-green-800">
+                    2. Banco de Conocimientos
+                  </h3>
+                  <p class="text-sm text-green-700">
+                    Consulta la guía teórica profunda para estudio y docencia.
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            <a
+              href="./taller-cefaleas.html"
+              target="_blank"
+              class="block p-6 bg-purple-50 rounded-lg border-l-4 border-purple-500 resource-card"
+            >
+              <div class="flex items-center">
+                <div class="flex-shrink-0 mr-4">
+                  <i class="fas fa-vial text-4xl text-purple-600"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-purple-800">
+                    3. Taller Práctico
+                  </h3>
+                  <p class="text-sm text-purple-700">
+                    Aplica tus conocimientos diferenciando casos clínicos
+                    reales.
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            <a
+              href="./cefaleas-autoevaluacion.html"
+              target="_blank"
+              class="block p-6 bg-yellow-50 rounded-lg border-l-4 border-yellow-500 resource-card"
+            >
+              <div class="flex items-center">
+                <div class="flex-shrink-0 mr-4">
+                  <i
+                    class="fas fa-question-circle text-4xl text-yellow-600"
+                  ></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-yellow-800">
+                    4. Autoevaluación
+                  </h3>
+                  <p class="text-sm text-yellow-700">
+                    Mide tu dominio del diagnóstico diferencial de las cefaleas.
+                  </p>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
       </div>
-    </template>
+    </main>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const contentWrapper = document.getElementById('content-wrapper');
-
-        const templates = {
-          'presentation-template': initPresentation,
-          'diagnostic-tool-template': initDiagnosticTool,
-          'quiz-template': initQuiz,
-        };
-
-        function loadContent(templateId) {
-          // Limpiar contenido anterior
-          contentWrapper.innerHTML = '';
-
-          // Clonar y añadir nuevo contenido
-          const template = document.getElementById(templateId);
-          if (template) {
-            const clone = template.content.cloneNode(true);
-            contentWrapper.appendChild(clone);
-
-            // Inicializar el script del componente
-            if (templates[templateId]) {
-              templates[templateId]();
-            }
-          }
-        }
-
-        navLinks.forEach((link) => {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            navLinks.forEach((l) => l.classList.remove('active'));
-            link.classList.add('active');
-
-            const templateId = link.getAttribute('data-template');
-            loadContent(templateId);
-          });
-        });
-
-        // Cargar el contenido inicial (Presentación)
-        loadContent('presentation-template');
-      });
-
-      // --- LÓGICA DE LA PRESENTACIÓN ---
-      function initPresentation() {
-        const presentationContainer = document.getElementById(
-          'presentation-container',
-        );
-        if (!presentationContainer) return;
-
-        const slidesContent = [
-          `<div class="slide active title-slide"><h1>Fundamentos de las Técnicas Diagnósticas en Neurología</h1><p>Indicaciones, Limitaciones y Aplicación Clínica</p></div>`,
-          `<div class="slide"><h2>Introducción: La Evolución del Diagnóstico</h2><ul><li><strong>De la anamnesis a la tecnología:</strong> Evolución desde la clínica pura a un paradigma sofisticado.</li><li><strong>Herramientas modernas:</strong> Endoscopia, Ecografía, TC, Pruebas de Aliento.</li><li><strong>El reto clínico:</strong> La selección de la prueba adecuada es una habilidad fundamental.</li><li><strong>Objetivo:</strong> Dotar de un marco conceptual para la aplicación racional y efectiva de estas técnicas.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 1: Endoscopia Digestiva</h2><h3>La Exploración Directa y Terapéutica</h3><ul><li><strong>Principio:</strong> Visualización directa de la mucosa GI con un tubo flexible y cámara HD.</li><li><strong>Capacidad Dual:</strong> Es la única técnica que es <strong>diagnóstica y terapéutica</strong> a la vez.<ul><li><strong>Diagnóstica:</strong> Inspección visual y toma de <strong>biopsias (estándar de oro)</strong>.</li><li><strong>Terapéutica:</strong> Polipectomía, hemostasia, dilatación, etc.</li></ul></li></ul></div>`,
-          `<div class="slide"><h2>Endoscopia Digestiva Alta (EDA)</h2><h3>Indicaciones Diagnósticas Clave</h3><ul><li><strong>Dispepsia con signos de alarma:</strong> >55 años, pérdida de peso, anorexia.</li><li><strong>ERGE persistente o con alarma:</strong> Disfagia, odinofagia. Detección de Esófago de Barrett.</li><li><strong>Hemorragia Digestiva Alta (Urgente):</strong> Hematemesis, melena.</li><li><strong>Anemia ferropénica</strong> de origen no aclarado.</li><li><strong>Confirmación histológica:</strong> Enfermedad celíaca, gastritis por <em>H. pylori</em>.</li></ul></div>`,
-          `<div class="slide"><h2>Colonoscopia</h2><h3>Indicaciones Diagnósticas y de Cribado</h3><ul><li><strong>Cribado de Cáncer Colorrectal (CCR):</strong> Estándar de oro a partir de 45-50 años.</li><li><strong>Evaluación de síntomas bajos:</strong> Rectorragia, cambio de hábito intestinal.</li><li><strong>Anemia ferropénica</strong> (si la EDA es negativa).</li><li><strong>Diagnóstico y seguimiento de Enfermedad Inflamatoria Intestinal (EII).</strong></li></ul></div>`,
-          `<div class="slide"><h2>Endoscopia: Riesgos y Limitaciones</h2><h3>¿Cuándo NO hacer una endoscopia?</h3><ul><li><strong>Contraindicaciones Absolutas:</strong><ul><li>Sospecha de <strong>perforación</strong> de víscera.</li><li>Inestabilidad hemodinámica (shock).</li><li>Colitis fulminante o megacolon tóxico.</li></ul></li><li><strong>Riesgos Principales (Bajos pero Reales):</strong><ul><li><strong>Perforación:</strong> El más temido, mayor en procedimientos terapéuticos.</li><li><strong>Sangrado:</strong> El más común, especialmente tras polipectomía.</li><li><strong>Complicaciones de la sedación.</strong></li></ul></li></ul></div>`,
-          `<div class="slide"><h2>Sección 2: Ecografía Abdominal</h2><h3>La Ventana No Invasiva al Abdomen</h3><ul><li><strong>Principio:</strong> Ondas de ultrasonido para crear imágenes en tiempo real.</li><li><strong>Ventaja Fundamental:</strong> <strong>Totalmente inocua. No usa radiación ionizante.</strong></li><li><strong>Ideal para:</strong> Niños y mujeres embarazadas.</li></ul></div>`,
-          `<div class="slide"><h2>Ecografía: Aplicaciones Clásicas y Emergentes</h2><h3>Rol Principal</h3><ul><li><strong>Patología biliar (1ª línea):</strong> Detección de <strong>cálculos (colelitiasis)</strong> y <strong>colecistitis</strong>.</li><li><strong>Hígado y Páncreas:</strong> Detección de quistes, tumores, hígado graso.</li></ul><h3>"Revolución Silenciosa" en Tubo Digestivo</h3><ul><li><strong>Apendicitis Aguda:</strong> Técnica de primera línea en niños y mujeres jóvenes.</li><li><strong>Enfermedad Inflamatoria Intestinal (EII):</strong> Valiosa para detectar inflamación y monitorizar respuesta al tratamiento.</li></ul></div>`,
-          `<div class="slide"><h2>Ecografía: Limitaciones Críticas</h2><ul><li><strong>Altamente Operador-Dependiente:</strong> La calidad depende de la habilidad de quien la realiza.</li><li><strong>Interferencia por Gas Intestinal:</strong> El gas es el "enemigo" del ultrasonido.</li><li><strong>Hábito del Paciente:</strong> La obesidad degrada la calidad de la imagen.</li><li><strong>"Puntos Ciegos":</strong> El recto y gran parte del intestino delgado son difíciles de visualizar.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 3: Tomografía Computarizada (TC)</h2><h3>Mapeo Anatómico de Alta Resolución</h3><ul><li><strong>Principio:</strong> Rayos X que rotan alrededor del paciente para crear "cortes" detallados.</li><li><strong>Visión Panorámica:</strong> Ofrece un mapa anatómico 3D de toda la cavidad abdominal.</li><li><strong>Uso de Contraste (Fundamental):</strong> Intravenoso (Yodo) y Enteral (Oral/Rectal).</li></ul></div>`,
-          `<div class="slide"><h2>TC Abdominal: Indicaciones de Primera Línea</h2><ul><li><strong>Abdomen Agudo Severo (URGENCIAS):</strong> Diagnóstico rápido de obstrucción, perforación, isquemia, diverticulitis complicada.</li><li><strong>Estadificación Oncológica:</strong> Fundamental para evaluar la extensión de cánceres y buscar metástasis.</li><li><strong>Detección de Complicaciones:</strong> La mejor técnica para ver abscesos y colecciones.</li></ul></div>`,
-          `<div class="slide"><h2>TC: Limitaciones y Riesgos Críticos</h2><ul><li><strong>Radiación Ionizante (Limitación MÁS IMPORTANTE):</strong> Riesgo acumulativo de cáncer. Evitarse en jóvenes y exploraciones repetidas si es posible.</li><li><strong>Riesgos del Contraste IV Yodado:</strong><ul><li><strong>Nefrotoxicidad:</strong> Puede dañar los riñones.</li><li><strong>Reacciones Alérgicas.</strong></li></ul></li><li><strong>Limitada para patología de la mucosa:</strong> No ve lesiones superficiales como la endoscopia.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 4: Pruebas Funcionales de Aliento</h2><h3>Evaluando la Fisiología y el Metabolismo</h3><ul><li><strong>Principio:</strong> Miden la función, no la anatomía.</li><li><strong>Metodología:</strong> Se ingiere un sustrato y se mide el gas producido en el aliento (CO₂, H₂, CH₄).</li><li><strong>Ventajas:</strong> No invasivas, seguras, de bajo coste y muy precisas para preguntas específicas.</li></ul></div>`,
-          `<div class="slide"><h2>Pruebas de Aliento: Aplicaciones Clave</h2><ul><li><strong>Infección por <em>H. pylori</em> (Prueba de Urea):</strong> Método NO INVASIVO de elección para diagnóstico y confirmación de erradicación.</li><li><strong>Sobrecrecimiento Bacteriano (SIBO) y Malabsorción (Lactosa/Fructosa):</strong> Estudio de hinchazón, gases y diarrea crónica cuando otros estudios son normales.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 5: Enfoque Diagnóstico Integrado</h2><h3>Selección de la Prueba Óptima</h3><ul><li><strong>Dolor agudo severo →</strong> <strong>TC con contraste</strong></li><li><strong>Dolor en hipocondrio derecho →</strong> <strong>Ecografía</strong></li><li><strong>Dispepsia con signos de alarma →</strong> <strong>Endoscopia Alta (EDA)</strong></li><li><strong>Hinchazón y gases crónicos →</strong> <strong>Pruebas de Aliento</strong></li><li><strong>Sospecha de EII →</strong> 1º <strong>Colonoscopia con biopsias</strong>, 2º <strong>Entero-TC/RM o Ecografía</strong></li></ul></div>`,
-          `<div class="slide"><h2>Tabla Comparativa de Modalidades</h2><table class="comparative-table"><thead><tr><th>Característica</th><th>Endoscopia</th><th>Ecografía</th><th>TC Abdominal</th><th>Pruebas de Aliento</th></tr></thead><tbody><tr><td><strong>Principio</strong></td><td>Visualización directa</td><td>Ultrasonido</td><td>Rayos X</td><td>Metabolitos gaseosos</td></tr><tr><td><strong>Ventaja Principal</strong></td><td>Diagnóstica + Terapéutica</td><td><strong>Sin radiación</strong>, bajo coste</td><td>Rapidez, visión panorámica</td><td>No invasiva, alta precisión</td></tr><tr><td><strong>Riesgo/Limitación</strong></td><td>Invasiva, perforación</td><td>Operador-dependiente, gas</td><td><strong>Radiación ionizante</strong></td><td>Falsos +/- por preparación</td></tr></tbody></table></div>`,
-          `<div class="slide title-slide"><h1>Conclusiones</h1><p>El arte de la gastroenterología reside en integrar la clínica con la tecnología, seleccionando la herramienta adecuada para cada paciente y cada pregunta.</p></div>`,
-        ];
-
-        presentationContainer.innerHTML = slidesContent.join('');
-
-        const slides = presentationContainer.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const slideCounter = document.getElementById('slide-counter');
-
-        let currentSlideIndex = 0;
-        const totalSlides = slides.length;
-
-        function showSlide(index) {
-          slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-          });
-          slideCounter.textContent = `${index + 1} / ${totalSlides}`;
-          prevBtn.disabled = index === 0;
-          nextBtn.disabled = index === totalSlides - 1;
-        }
-
-        nextBtn.addEventListener('click', () => {
-          if (currentSlideIndex < totalSlides - 1) {
-            currentSlideIndex++;
-            showSlide(currentSlideIndex);
-          }
-        });
-
-        prevBtn.addEventListener('click', () => {
-          if (currentSlideIndex > 0) {
-            currentSlideIndex--;
-            showSlide(currentSlideIndex);
-          }
-        });
-        showSlide(currentSlideIndex);
-      }
-
-      // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA ---
-      function initDiagnosticTool() {
-        const analyzeBtn = document.getElementById('analyze-btn');
-        if (!analyzeBtn) return;
-
-        const resultDiv = document.getElementById('diagnostic-result');
-        const resultTitle = document.getElementById('result-title');
-        const resultRationale = document.getElementById('result-rationale');
-
-        const recommendations = {
-          eco: {
-            title: 'Ecografía Abdominal',
-            rationale:
-              'Es la prueba de primera línea, segura, económica y excelente para detectar patología biliar (cálculos) o hepática, que son la causa más probable de dolor en el hipocondrio derecho.',
-            class: 'eco',
-          },
-          eda: {
-            title: 'Endoscopia Digestiva Alta (EDA)',
-            rationale:
-              'Los signos de alarma (edad > 55, pérdida de peso) obligan a descartar una neoplasia esofagogástrica. La EDA es mandatoria porque permite la visualización directa y la toma de biopsias.',
-            class: 'eda',
-          },
-          tc: {
-            title: 'TC Abdominal con Contraste',
-            rationale:
-              'Ante una posible catástrofe intraabdominal (perforación, isquemia, etc.), la TC es la prueba de elección por su rapidez, visión panorámica y alta precisión para guiar una intervención urgente.',
-            class: 'tc',
-          },
-          aliento: {
-            title: 'Pruebas de Aliento',
-            rationale:
-              'Dado que los estudios anatómicos (endoscopias) son normales, la sospecha se inclina hacia un trastorno funcional. Las pruebas de aliento para SIBO o malabsorción son el paso más racional y menos invasivo.',
-            class: 'aliento',
-          },
-        };
-
-        analyzeBtn.addEventListener('click', () => {
-          const selectedScenario = document.querySelector(
-            'input[name="clinical_scenario"]:checked',
-          );
-          if (selectedScenario) {
-            const value = selectedScenario.value;
-            const recommendation = recommendations[value];
-
-            resultTitle.textContent =
-              'Prueba recomendada: ' + recommendation.title;
-            resultRationale.textContent =
-              'Justificación: ' + recommendation.rationale;
-            resultDiv.className = ''; // Reset class
-            resultDiv.classList.add(recommendation.class);
-            resultDiv.style.display = 'block';
-          } else {
-            resultTitle.textContent = 'Por favor, seleccione un escenario.';
-            resultRationale.textContent = '';
-            resultDiv.style.display = 'block';
-            resultDiv.className = '';
-          }
-        });
-      }
-
-      // --- LÓGICA DE LA AUTOEVALUACIÓN ---
-      function initQuiz() {
-        const quizContainer = document.getElementById('quiz-container');
-        if (!quizContainer) return;
-
-        const questionText = document.getElementById('question-text');
-        const quizOptions = document.getElementById('quiz-options');
-        const feedbackText = document.getElementById('feedback-text');
-        const nextBtn = document.getElementById('next-question-btn');
-        const resultContainer = document.getElementById(
-          'quiz-result-container',
-        );
-        const scoreText = document.getElementById('score-text');
-        const restartBtn = document.getElementById('restart-quiz-btn');
-
-        const questions = [
-          {
-            question:
-              'Mujer de 25 años con dolor en fosa ilíaca derecha y test de embarazo negativo. ¿Cuál es la primera prueba de imagen recomendada?',
-            options: [
-              'Ecografía abdominal',
-              'TC con contraste',
-              'RM abdominal',
-              'Endoscopia',
-            ],
-            correct: 0,
-          },
-          {
-            question:
-              'Paciente con hematemesis y melena. ¿Cuál es la prueba diagnóstica inicial?',
-            options: [
-              'Colonoscopia',
-              'Ecografía',
-              'Endoscopia digestiva alta',
-              'TC de abdomen',
-            ],
-            correct: 2,
-          },
-          {
-            question:
-              'Dolor en hipocondrio derecho acompañado de fiebre y leucocitosis. ¿Cuál es la prueba de elección?',
-            options: [
-              'Radiografía simple',
-              'Ecografía abdominal',
-              'Endoscopia',
-              'TC sin contraste',
-            ],
-            correct: 1,
-          },
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-
-        function showQuestion() {
-          const q = questions[currentQuestion];
-          questionText.textContent = q.question;
-          quizOptions.innerHTML = '';
-          q.options.forEach((opt, idx) => {
-            const li = document.createElement('li');
-            li.textContent = opt;
-            li.addEventListener('click', () => selectAnswer(idx));
-            quizOptions.appendChild(li);
-          });
-          feedbackText.textContent = '';
-          feedbackText.style.backgroundColor = '';
-          nextBtn.style.display = 'none';
-        }
-
-        function selectAnswer(index) {
-          const q = questions[currentQuestion];
-          const options = quizOptions.querySelectorAll('li');
-          options.forEach((li, idx) => {
-            if (idx === q.correct) {
-              li.classList.add('correct');
-            } else if (idx === index) {
-              li.classList.add('incorrect');
-            }
-            li.style.pointerEvents = 'none';
-          });
-          if (index === q.correct) {
-            feedbackText.textContent = '¡Correcto!';
-            feedbackText.style.backgroundColor = '#d4edda';
-            score++;
-          } else {
-            feedbackText.textContent = 'Respuesta incorrecta';
-            feedbackText.style.backgroundColor = '#f8d7da';
-          }
-          nextBtn.style.display = 'inline-block';
-        }
-
-        nextBtn.addEventListener('click', () => {
-          currentQuestion++;
-          if (currentQuestion < questions.length) {
-            showQuestion();
-          } else {
-            quizContainer.style.display = 'none';
-            resultContainer.style.display = 'block';
-            scoreText.textContent = `Tu puntaje: ${score} de ${questions.length}`;
-          }
-        });
-
-        restartBtn.addEventListener('click', () => {
-          currentQuestion = 0;
-          score = 0;
-          quizContainer.style.display = 'block';
-          resultContainer.style.display = 'none';
-          showQuestion();
-        });
-
-        showQuestion();
-      }
-    </script>
+    <footer class="bg-white mt-16 border-t">
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+    <script src="/assets/ask-ai.js"></script>
   </body>
 </html>
