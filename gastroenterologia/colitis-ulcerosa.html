@@ -1,857 +1,1196 @@
-<!doctype html> 
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Módulo Interactivo de Gastroenterología</title>
+    <title>Módulo Educativo: Colitis Ulcerosa</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-      :root {
-        --primary-color: #005a9c;
-        --secondary-color: #003366;
-        --background-color: #f0f4f8;
-        --text-color: #333;
-        --card-bg: #ffffff;
-        --accent-color: #e3f2fd;
-        --success-color: #28a745;
-        --danger-color: #dc3545;
-      }
-
+      /* --- Estilos Generales --- */
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: var(--background-color);
-        color: var(--text-color);
         margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        color: #212529;
+        line-height: 1.7;
+      }
+      .main-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+      }
+      h1.main-title {
+        text-align: center;
+        color: #003366;
+        border-bottom: 3px solid #0056b3;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+      }
+      .intro-text {
+        text-align: center;
+        font-size: 1.1em;
+        margin-bottom: 20px;
+        color: #495057;
+      }
+
+      /* --- Estilo del Botón de Descarga --- */
+      .download-button-container {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .download-button {
+        display: inline-block;
+        background-color: #28a745;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1em;
+        transition:
+          background-color 0.3s,
+          transform 0.2s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .download-button:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+      }
+      .download-button .fas {
+        margin-right: 8px;
+      }
+
+      /* --- Estilos del Acordeón --- */
+      .accordion-item {
+        margin-bottom: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+      }
+      .accordion-item:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .accordion-header {
+        background-color: #0056b3;
+        color: white;
+        padding: 20px;
+        cursor: pointer;
         display: flex;
-        height: 100vh;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.4em;
+        font-weight: 600;
+      }
+      .accordion-header::after {
+        content: '+';
+        font-size: 2em;
+        line-height: 1;
+        transition: transform 0.3s ease;
+      }
+      .accordion-item.active .accordion-header::after {
+        transform: rotate(45deg);
+      }
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.5s ease-out,
+          padding 0.5s ease-out;
+        background-color: #ffffff;
+        padding: 0 30px;
+      }
+      .accordion-item.active .accordion-content {
+        padding: 30px;
+      }
+
+      /* --- Estilos del Contenido Interno --- */
+      .content-section h2,
+      .content-section h3,
+      .content-section h4 {
+        color: #003366;
+      }
+      .content-section h2 {
+        font-size: 1.8em;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .content-section h3 {
+        font-size: 1.5em;
+        margin-top: 25px;
+        margin-bottom: 15px;
+      }
+      .content-section p,
+      .content-section li {
+        font-size: 1.1em;
+      }
+      .content-section ul {
+        list-style-type: disc;
+        padding-left: 25px;
+      }
+
+      /* Stats Cards */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        text-align: center;
+        margin: 30px 0;
+      }
+      .stat-card {
+        background-color: #e9f5ff;
+        border-left: 5px solid #0056b3;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .stat-card-value {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #003366;
+      }
+      .stat-card-label {
+        font-size: 1em;
+        color: #495057;
+      }
+      .stat-card.danger {
+        background-color: #fff0f1;
+        border-left-color: #dc3545;
+      }
+      .stat-card.danger .stat-card-value {
+        color: #dc3545;
+      }
+
+      /* Chart Container */
+      .chart-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 30px auto;
+        height: 300px;
+      }
+
+      /* --- Estilos para la Presentación (Diapositivas) --- */
+      .presentation-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
         overflow: hidden;
       }
-
-      /* --- Layout Principal --- */
-      #app-container {
-        display: flex;
+      .slide {
+        display: none;
+        padding: 40px;
+        min-height: 500px;
+        animation: fadeIn 0.5s;
+      }
+      .slide.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .slide h2,
+      .slide h3 {
+        color: #0056b3;
+      }
+      .slide h2 {
+        font-size: 1.8em;
+        margin-top: 30px;
+      }
+      .slide h3 {
+        font-size: 1.4em;
+      }
+      .slide p,
+      .slide li {
+        line-height: 1.6;
+        font-size: 1.1em;
+      }
+      .slide ul {
+        list-style-type: disc;
+        padding-left: 20px;
+      }
+      .slide table {
         width: 100%;
-        height: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
       }
-
-      aside#side-nav {
-        width: 280px;
-        background-color: var(--card-bg);
-        padding: 25px;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      .slide th,
+      .slide td {
+        border: 1px solid #dee2e6;
+        padding: 12px;
+        text-align: left;
+      }
+      .slide th {
+        background-color: #e9ecef;
+      }
+      .navigation {
         display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-        z-index: 10;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #0056b3;
       }
-
-      main#content-area {
-        flex-grow: 1;
-        padding: 30px;
-        overflow: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #content-wrapper {
-        /* Letter-size canvas that scales within the viewport */
-        width: 816px;
-        height: 1056px;
-        max-width: 100%;
-        max-height: 100%;
-        background-color: var(--card-bg);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        overflow: auto;
-      }
-
-      aside#ai-panel {
-        width: 360px;
-        background-color: var(--card-bg);
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-      }
-      #ai-panel iframe {
+      .nav-button {
+        background-color: #fff;
+        color: #0056b3;
         border: none;
-        width: 100%;
-        height: 100%;
-      }
-
-      /* --- Panel de Navegación --- */
-      #side-nav h1 {
-        color: var(--primary-color);
-        font-size: 1.5em;
-        margin: 0 0 30px 0;
-        border-bottom: 2px solid var(--accent-color);
-        padding-bottom: 15px;
-      }
-      #side-nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      #side-nav li a {
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        color: var(--secondary-color);
-        text-decoration: none;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-weight: 500;
+        padding: 10px 20px;
+        font-size: 1em;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
         transition:
           background-color 0.3s,
           color 0.3s;
       }
-      #side-nav li a .fa-solid {
-        margin-right: 15px;
-        width: 20px;
-        text-align: center;
-      }
-      #side-nav li a:hover {
-        background-color: var(--accent-color);
-      }
-      #side-nav li a.active {
-        background-color: var(--primary-color);
-        color: white;
-        font-weight: bold;
-        box-shadow: 0 4px 8px rgba(0, 90, 156, 0.2);
-      }
-
-      /* --- Estilos Generales de Componentes --- */
-      .component-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* --- Estilos de la Presentación --- */
-      #presentation-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .slide {
-        background-color: var(--card-bg);
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        flex-grow: 1;
-        padding: 40px;
-        box-sizing: border-box;
-        display: none;
-        flex-direction: column;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        overflow-y: auto;
-      }
-      .slide.active {
-        display: flex;
-        opacity: 1;
-      }
-      .slide h1,
-      .slide h2,
-      .slide h3 {
-        color: var(--secondary-color);
-        margin-bottom: 20px;
-        width: 100%;
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      .slide h1 {
-        font-size: 2.2em;
-        text-align: center;
-        border-bottom: none;
-      }
-      .slide h2 {
-        font-size: 1.8em;
-      }
-      .slide h3 {
-        font-size: 1.4em;
-        color: var(--primary-color);
-        border-bottom: 1px solid #ccc;
-      }
-      .slide p,
-      .slide ul,
-      .slide li {
-        font-size: 1.1em;
-        line-height: 1.6;
-        text-align: left;
-        max-width: 100%;
-      }
-      .slide ul {
-        list-style-type: none;
-        padding-left: 20px;
-      }
-      .slide li::before {
-        content: '✓';
-        color: var(--primary-color);
-        font-weight: bold;
-        display: inline-block;
-        width: 1.2em;
-        margin-left: -1.2em;
-      }
-      .title-slide {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      .navigation {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 20px;
-      }
-      .nav-button {
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1em;
-        border-radius: 5px;
-        cursor: pointer;
-        margin: 0 10px;
-        transition: background-color 0.3s;
-      }
       .nav-button:hover {
-        background-color: var(--secondary-color);
+        background-color: #e9ecef;
       }
       .nav-button:disabled {
         background-color: #ccc;
         cursor: not-allowed;
       }
-      #slide-counter {
-        font-size: 1.1em;
-        color: var(--text-color);
+      .slide-counter {
+        color: #fff;
+        font-size: 1.2em;
         font-weight: bold;
+        align-self: center;
       }
-      .comparative-table {
-        width: 100%;
-        border-collapse: collapse;
+
+      /* --- Estilos para la Actividad ABP --- */
+      .interactive-container {
+        border: 2px dashed #0056b3;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #f0f2f5;
+      }
+      .abp-phase {
+        margin-bottom: 25px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .abp-phase h3 {
+        color: #003366;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 10px;
+      }
+      .abp-hidden {
+        display: none;
+      }
+      .abp-decision-section {
         margin-top: 20px;
-        font-size: 0.9em;
       }
-      .comparative-table th,
-      .comparative-table td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-      }
-      .comparative-table th {
-        background-color: var(--accent-color);
-        color: var(--secondary-color);
-        font-weight: bold;
-      }
-      .case-study {
-        background-color: var(--accent-color);
-        border-left: 5px solid var(--primary-color);
-        padding: 15px;
+      .abp-feedback {
         margin-top: 15px;
+        padding: 10px;
         border-radius: 5px;
       }
+      .abp-feedback.correct {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .abp-feedback.incorrect {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      #abp-hypothesis-board,
+      #abp-learning-objectives {
+        width: 100%;
+        min-height: 80px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-top: 10px;
+      }
+      .abp-reveal-button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 10px;
+      }
+      .abp-reveal-button:hover {
+        background-color: #0056b3;
+      }
+      .abp-decision-section button.verify {
+        background-color: #28a745;
+        margin-left: 10px;
+      }
+      .abp-decision-section button.verify:hover {
+        background-color: #218838;
+      }
 
-      /* --- Estilos de la Herramienta Diagnóstica --- */
-      .diagnostic-tool-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
+      /* --- Estilos para el Quiz --- */
+      #quiz-container {
+        max-width: 800px;
+        margin: 20px auto;
+        background: white;
         padding: 30px;
+        border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       }
-      .diagnostic-tool-card h2 {
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
+      #quiz-container h1 {
+        text-align: center;
+        color: #003366;
       }
-      .scenario-option {
+      .quiz-vignette {
+        background-color: #e9ecef;
+        padding: 15px;
+        border-radius: 5px;
         margin-bottom: 15px;
+        border-left: 5px solid #0056b3;
       }
-      .scenario-option label {
-        display: block;
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition:
-          border-color 0.3s,
-          background-color 0.3s;
-      }
-      .scenario-option input[type='radio'] {
-        display: none;
-      }
-      .scenario-option input[type='radio']:checked + label {
-        border-color: var(--primary-color);
-        background-color: var(--accent-color);
+      .quiz-question-text {
         font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 20px;
       }
-      #diagnostic-result {
-        margin-top: 25px;
-        padding: 20px;
-        border-radius: 8px;
-        border-left: 5px solid;
-        display: none;
-      }
-      #diagnostic-result.eda {
-        border-color: #ff9800;
-      }
-      #diagnostic-result.tc {
-        border-color: #f44336;
-      }
-      #diagnostic-result.eco {
-        border-color: #4caf50;
-      }
-      #diagnostic-result.aliento {
-        border-color: #2196f3;
-      }
-      #diagnostic-result h3 {
-        margin-top: 0;
-      }
-
-      /* --- Estilos de la Autoevaluación --- */
-      .quiz-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .quiz-card h2 {
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      #question-container p {
-        font-size: 1.2em;
-        font-weight: 500;
-      }
-      .quiz-options {
-        list-style: none;
-        padding: 0;
-      }
-      .quiz-options li {
+      .quiz-options button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        text-align: left;
         background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
         cursor: pointer;
-        margin-bottom: 10px;
+        font-size: 1em;
         transition: background-color 0.3s;
       }
-      .quiz-options li:hover {
-        background-color: var(--accent-color);
+      .quiz-options button:hover:not(:disabled) {
+        background-color: #e9ecef;
       }
-      .quiz-options li.correct {
-        background-color: #d4edda;
-        border-color: var(--success-color);
+      .quiz-options button:disabled {
+        cursor: not-allowed;
       }
-      .quiz-options li.incorrect {
-        background-color: #f8d7da;
-        border-color: var(--danger-color);
+      .quiz-options button.selected {
+        background-color: #0056b3;
+        color: white;
+        border-color: #003366;
       }
-      #feedback-text {
-        margin-top: 15px;
-        padding: 10px;
+      #quiz-navigation {
+        text-align: center;
+        margin-top: 20px;
+      }
+      #quiz-nav-button {
+        background-color: #0056b3;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-size: 1.1em;
+        cursor: pointer;
+      }
+      #quiz-nav-button:hover {
+        background-color: #003366;
+      }
+      #quiz-results-area {
+        display: none;
+      }
+      .quiz-result-item {
+        margin-bottom: 25px;
+        padding: 15px;
         border-radius: 5px;
       }
-      #quiz-result-container {
-        text-align: center;
+      .quiz-result-item.correct {
+        background-color: #d4edda;
+        border-left: 5px solid #28a745;
       }
-      #quiz-result-container h3 {
-        font-size: 2em;
-        color: var(--primary-color);
+      .quiz-result-item.incorrect {
+        background-color: #f8d7da;
+        border-left: 5px solid #dc3545;
       }
-      #quiz-result-container p {
-        font-size: 1.3em;
-      }
-
-      @media (max-width: 768px) {
-        #app-container {
-          flex-direction: column;
-        }
-        aside#side-nav {
-          width: 100%;
-          height: auto;
-          flex-direction: row;
-          overflow-x: auto;
-          padding: 10px;
-        }
-        aside#ai-panel {
-          display: none;
-        }
-        #side-nav h1 {
-          display: none;
-        }
-        #side-nav ul {
-          display: flex;
-        }
-        #side-nav li a {
-          flex-direction: column;
-          font-size: 0.8em;
-          padding: 10px 5px;
-        }
-        #side-nav li a .fa-solid {
-          margin-right: 0;
-          margin-bottom: 5px;
-        }
-        main#content-area {
-          padding: 15px;
-        }
-        #content-wrapper {
-          width: 100%;
-          height: auto;
-        }
+      .quiz-justification {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed #ccc;
       }
     </style>
   </head>
   <body>
-    <div id="app-container">
-      <aside id="side-nav">
-        <h1>Diagnóstico GI</h1>
-        <nav>
-          <ul>
-            <li>
-              <a
-                href="#"
-                class="nav-link active"
-                data-template="presentation-template"
-                ><i class="fa-solid fa-book-open"></i> Base de Conocimiento</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="nav-link"
-                data-template="diagnostic-tool-template"
-                ><i class="fa-solid fa-stethoscope"></i> Herramienta
-                Diagnóstica</a
-              >
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-template="quiz-template"
-                ><i class="fa-solid fa-gamepad"></i> Autoevaluación</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </aside>
+    <div class="main-container">
+      <h1 class="main-title">Módulo Educativo: Colitis Ulcerosa</h1>
+      <p class="intro-text">
+        Bienvenido al módulo de aprendizaje sobre Colitis Ulcerosa, adaptado al
+        contexto ecuatoriano. Haga clic en cada sección para expandir y explorar
+        el contenido, desde la guía teórica hasta las actividades interactivas.
+      </p>
 
-      <main id="content-area">
-        <div id="content-wrapper"></div>
-      </main>
-      <aside id="ai-panel">
-        <iframe
-          src="../ai_dashboard.html"
-          title="AI Dashboard"
-          aria-label="AI Dashboard"
-          loading="lazy"
-        ></iframe>
-      </aside>
+      <div class="download-button-container">
+        <a
+          href="../assets/pdf/Colitis-Ulcerosa.pdf"
+          class="download-button"
+          download
+        >
+          <i class="fas fa-download"></i> Descargar Guía en PDF
+        </a>
+      </div>
+
+      <div id="accordion">
+        <!-- Acordeón 1: Guía de Conocimiento -->
+        <div class="accordion-item">
+          <div class="accordion-header">1. Guía de Conocimiento</div>
+          <div class="accordion-content">
+            <div class="content-section">
+              <h2>La Realidad de la CU en Ecuador</h2>
+              <p>
+                La Colitis Ulcerosa ya no es una enfermedad rara en nuestro
+                país. Su creciente incidencia, sobre todo en zonas urbanas, y su
+                presentación a menudo severa, exige un alto índice de sospecha
+                por parte del médico de atención primaria.
+              </p>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-card-value">3.7</div>
+                  <div class="stat-card-label">casos por 100,000 hab.</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-value">41%</div>
+                  <div class="stat-card-label">debuta como Pancolitis</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-value">~42</div>
+                  <div class="stat-card-label">años (Edad de diagnóstico)</div>
+                </div>
+                <div class="stat-card danger">
+                  <div class="stat-card-value">>1 Año</div>
+                  <div class="stat-card-label">
+                    de retraso diagnóstico (42.5%)
+                  </div>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="cuEcChart"></canvas>
+              </div>
+
+              <h2>Diagnóstico y Clasificación</h2>
+              <h3>El Camino al Diagnóstico</h3>
+              <p>
+                El diagnóstico de CU es un proceso deductivo que integra la
+                clínica, los biomarcadores y la endoscopia. En Ecuador, es
+                crucial descartar primero causas infecciosas.
+              </p>
+              <ul>
+                <li>
+                  <strong>Paso 1: Sospecha Clínica.</strong> Diarrea crónica (>4
+                  sem) con sangre.
+                </li>
+                <li>
+                  <strong>Paso 2: Descarte Infeccioso.</strong> Coprocultivo y
+                  coproparasitario.
+                </li>
+                <li>
+                  <strong>Paso 3: Biomarcadores.</strong> Calprotectina Fecal es
+                  clave (>150 µg/g sugiere EII).
+                </li>
+                <li>
+                  <strong>Paso 4: Endoscopia + Biopsia.</strong> Estándar de oro
+                  para confirmar y ver extensión.
+                </li>
+              </ul>
+
+              <h3>Clasificación de la Enfermedad (Montreal)</h3>
+              <p>
+                Clasificar la enfermedad por su extensión es crucial para el
+                tratamiento.
+              </p>
+              <ul>
+                <li>
+                  <strong>E1 - Proctitis:</strong> Inflamación limitada al
+                  recto.
+                </li>
+                <li>
+                  <strong>E2 - Colitis Izquierda:</strong> Inflamación hasta el
+                  ángulo esplénico.
+                </li>
+                <li>
+                  <strong>E3 - Colitis Extensa (Pancolitis):</strong>
+                  Inflamación más allá del ángulo esplénico.
+                </li>
+              </ul>
+
+              <h2>Manejo Terapéutico en Ecuador</h2>
+              <p>
+                El tratamiento se basa en la extensión y severidad, utilizando
+                los fármacos disponibles en el Cuadro Nacional de Medicamentos
+                Básicos (CNMB).
+              </p>
+              <ul>
+                <li>
+                  <strong>CU Leve-Moderada:</strong> La Mesalazina (oral y/o
+                  tópica) es la primera línea.
+                </li>
+                <li>
+                  <strong>Brote Moderado-Severo:</strong> Se usan
+                  Corticosteroides (ej. Prednisona) para inducir la remisión.
+                  ¡No para mantenimiento!
+                </li>
+                <li>
+                  <strong>Mantenimiento:</strong> Se usan inmunomoduladores como
+                  la Azatioprina para mantener la remisión libre de esteroides.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acordeón 2: Presentación Interactiva -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            2. Presentación Interactiva para la Clase
+          </div>
+          <div class="accordion-content">
+            <div class="presentation-container">
+              <div id="slides-container">
+                <!-- Slides will be injected here by JS -->
+              </div>
+              <div class="navigation">
+                <button id="prevBtn" class="nav-button">Anterior</button>
+                <div id="slideCounter" class="slide-counter"></div>
+                <button id="nextBtn" class="nav-button">Siguiente</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acordeón 3: Actividad ABP -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            3. Actividad de Aprendizaje Basado en Problemas (ABP)
+          </div>
+          <div class="accordion-content">
+            <div class="interactive-container">
+              <!-- Fase 1: Presentación del Problema -->
+              <div id="abp-phase-1" class="abp-phase">
+                <h3>Fase 1: Presentación del Problema (Caso Clínico)</h3>
+                <p>
+                  Javier Mendoza, 25 años, estudiante de Guayaquil, acude a un
+                  Centro de Salud del MSP. Refiere 3 meses de dolor cólico bajo,
+                  diarrea (5-6/día) con moco y, en las últimas 2 semanas, sangre
+                  roja. Ha perdido 5 kg. Tratamiento previo para amebiasis no
+                  funcionó.
+                </p>
+              </div>
+
+              <!-- Fase 2: Formulación de Hipótesis -->
+              <div id="abp-phase-2" class="abp-phase">
+                <h3>
+                  Fase 2: Formulación de Hipótesis y Objetivos de Aprendizaje
+                </h3>
+                <p>
+                  Basado en el caso, ¿cuáles son tus hipótesis diagnósticas?
+                  ¿Qué necesitas aprender para manejar a este paciente?
+                </p>
+                <textarea
+                  id="abp-hypothesis-board"
+                  placeholder="Escribe aquí tus hipótesis. Ej: Colitis infecciosa persistente, Enfermedad Inflamatoria Intestinal (CU vs EC)..."
+                ></textarea>
+                <p class="mt-4">Define tus objetivos de aprendizaje:</p>
+                <textarea
+                  id="abp-learning-objectives"
+                  placeholder="Escribe aquí lo que necesitas investigar. Ej: Rol de la calprotectina fecal, criterios de Montreal..."
+                ></textarea>
+                <button
+                  class="abp-reveal-button"
+                  onclick="revealNextPhase('abp-phase-3')"
+                >
+                  Continuar al Estudio
+                </button>
+              </div>
+
+              <!-- Fase 3: Estudio y Evolución del Caso -->
+              <div id="abp-phase-3" class="abp-phase abp-hidden">
+                <h3>Fase 3: Estudio y Evolución del Caso</h3>
+                <p>
+                  <strong>(Periodo de estudio simulado)</strong> Ahora que has
+                  investigado, se presenta la evolución del paciente.
+                </p>
+                <div
+                  class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4"
+                  role="alert"
+                >
+                  <p class="font-bold">
+                    Resultados de Laboratorio y Endoscopia:
+                  </p>
+                  <p>
+                    <strong>Labs:</strong> Hb 11.0 g/dL, PCR 25 mg/L,
+                    Calprotectina Fecal 850 µg/g.
+                  </p>
+                  <p>
+                    <strong>Endoscopia:</strong> Inflamación continua desde el
+                    recto hasta el ángulo esplénico, con friabilidad. Biopsia
+                    confirma CU crónica activa.
+                  </p>
+                </div>
+                <button
+                  class="abp-reveal-button"
+                  onclick="revealNextPhase('abp-phase-4')"
+                >
+                  Continuar a la Toma de Decisiones
+                </button>
+              </div>
+
+              <!-- Fase 4: Toma de Decisiones -->
+              <div id="abp-phase-4" class="abp-phase abp-hidden">
+                <h3>Fase 4: Toma de Decisiones sobre el Caso</h3>
+                <div class="abp-decision-section">
+                  <p>
+                    <strong
+                      >1. Con la nueva información, ¿cómo clasifica la
+                      enfermedad de Javier según Montreal?</strong
+                    >
+                  </p>
+                  <input type="radio" name="clas" value="e1s1" /> Proctitis
+                  (E1), Leve (S1)<br />
+                  <input type="radio" name="clas" value="e2s2" /> Colitis
+                  Izquierda (E2), Moderada (S2)<br />
+                  <input type="radio" name="clas" value="e3s3" /> Colitis
+                  Extensa (E3), Grave (S3)<br />
+                  <button class="verify" onclick="checkAbpDecision('clas')">
+                    Verificar
+                  </button>
+                  <div id="feedback-clas" class="abp-feedback abp-hidden"></div>
+                </div>
+                <div class="abp-decision-section">
+                  <p>
+                    <strong
+                      >2. ¿Cuál es el tratamiento de INDUCCIÓN inicial más
+                      apropiado para Javier, según el CNMB?</strong
+                    >
+                  </p>
+                  <input type="radio" name="ind" value="mesalazina" />
+                  Mesalazina oral a dosis altas.<br />
+                  <input type="radio" name="ind" value="prednisona" />
+                  Prednisona oral con pauta de descenso.<br />
+                  <input type="radio" name="ind" value="azatioprina" />
+                  Azatioprina como monoterapia.<br />
+                  <button class="verify" onclick="checkAbpDecision('ind')">
+                    Verificar
+                  </button>
+                  <div id="feedback-ind" class="abp-feedback abp-hidden"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acordeón 4: Autoevaluación -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            4. Autoevaluación Interactiva (Quiz)
+          </div>
+          <div class="accordion-content">
+            <div id="quiz-container">
+              <h1>Autoevaluación: Colitis Ulcerosa</h1>
+              <div id="quiz-question-area">
+                <div id="quiz-vignette-text" class="quiz-vignette"></div>
+                <p id="quiz-question-text" class="quiz-question-text"></p>
+                <div id="quiz-options-container" class="quiz-options"></div>
+              </div>
+              <div id="quiz-navigation">
+                <button id="quiz-nav-button">Siguiente Pregunta</button>
+              </div>
+              <div id="quiz-results-area" style="display: none">
+                <h2 style="text-align: center">
+                  Resultados y Revisión Pedagógica
+                </h2>
+                <p
+                  style="text-align: center; font-size: 1.2em"
+                  id="quiz-score"
+                ></p>
+                <div id="quiz-review-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="text-center mt-8 mb-8">
+        <a href="../" class="text-blue-600 hover:underline"
+          >← Volver al Hub de Gastroenterología</a
+        >
+      </footer>
     </div>
-
-    <!-- ########## TEMPLATES ########## -->
-
-    <!-- Plantilla 1: Presentación Interactiva -->
-    <template id="presentation-template">
-      <div class="component-container">
-        <div id="presentation-container">
-          <!-- Las diapositivas se insertarán aquí por JS -->
-        </div>
-        <div class="navigation">
-          <button id="prev-btn" class="nav-button">Anterior</button>
-          <span id="slide-counter"></span>
-          <button id="next-btn" class="nav-button">Siguiente</button>
-        </div>
-      </div>
-    </template>
-
-    <!-- Plantilla 2: Herramienta Diagnóstica -->
-    <template id="diagnostic-tool-template">
-      <div class="component-container">
-        <div class="diagnostic-tool-card">
-          <h2>Herramienta de Decisión Clínica</h2>
-          <p>
-            Seleccione el escenario clínico principal para ver la prueba
-            diagnóstica de primera línea recomendada.
-          </p>
-          <div id="diagnostic-scenarios">
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario1"
-                name="clinical_scenario"
-                value="eco"
-              />
-              <label for="scenario1"
-                >Dolor crónico en hipocondrio derecho, sospecha de patología
-                biliar.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario2"
-                name="clinical_scenario"
-                value="eda"
-              />
-              <label for="scenario2"
-                >Hombre > 60 años con dispepsia de nueva aparición y pérdida de
-                peso.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario3"
-                name="clinical_scenario"
-                value="tc"
-              />
-              <label for="scenario3"
-                >Paciente con dolor abdominal agudo, severo, y signos de
-                peritonismo en urgencias.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario4"
-                name="clinical_scenario"
-                value="aliento"
-              />
-              <label for="scenario4"
-                >Mujer con hinchazón, gases y diarrea crónicos; estudios
-                endoscópicos previos normales.</label
-              >
-            </div>
-          </div>
-          <button id="analyze-btn" class="nav-button" style="margin-top: 20px">
-            Analizar Escenario
-          </button>
-          <div id="diagnostic-result">
-            <h3 id="result-title"></h3>
-            <p id="result-rationale"></p>
-          </div>
-        </div>
-      </div>
-    </template>
-
-    <!-- Plantilla 3: Autoevaluación Gamificada -->
-    <template id="quiz-template">
-      <div class="component-container">
-        <div class="quiz-card">
-          <h2>Autoevaluación de Casos Clínicos</h2>
-          <div id="quiz-container">
-            <div id="question-container">
-              <p id="question-text"></p>
-              <ul class="quiz-options" id="quiz-options"></ul>
-            </div>
-            <div id="feedback-text"></div>
-            <button
-              id="next-question-btn"
-              class="nav-button"
-              style="display: none; margin-top: 15px"
-            >
-              Siguiente Pregunta
-            </button>
-          </div>
-          <div id="quiz-result-container" style="display: none">
-            <h3>¡Evaluación Completada!</h3>
-            <p id="score-text"></p>
-            <button id="restart-quiz-btn" class="nav-button">
-              Repetir Evaluación
-            </button>
-          </div>
-        </div>
-      </div>
-    </template>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const contentWrapper = document.getElementById('content-wrapper');
-
-        const templates = {
-          'presentation-template': initPresentation,
-          'diagnostic-tool-template': initDiagnosticTool,
-          'quiz-template': initQuiz,
-        };
-
-        function loadContent(templateId) {
-          // Limpiar contenido anterior
-          contentWrapper.innerHTML = '';
-
-          // Clonar y añadir nuevo contenido
-          const template = document.getElementById(templateId);
-          if (template) {
-            const clone = template.content.cloneNode(true);
-            contentWrapper.appendChild(clone);
-
-            // Inicializar el script del componente
-            if (templates[templateId]) {
-              templates[templateId]();
+        // Accordion Logic
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach((item) => {
+          const header = item.querySelector('.accordion-header');
+          header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            accordionItems.forEach((i) => {
+              i.classList.remove('active');
+              i.querySelector('.accordion-content').style.maxHeight = null;
+            });
+            if (!isActive) {
+              item.classList.add('active');
+              const content = item.querySelector('.accordion-content');
+              content.style.maxHeight = content.scrollHeight + 'px';
             }
-          }
-        }
-
-        navLinks.forEach((link) => {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            navLinks.forEach((l) => l.classList.remove('active'));
-            link.classList.add('active');
-
-            const templateId = link.getAttribute('data-template');
-            loadContent(templateId);
           });
         });
 
-        // Cargar el contenido inicial (Presentación)
-        loadContent('presentation-template');
-      });
+        // Chart.js Logic
+        const ecuadorData = { cu: 2.5, ec: 1 };
+        const ctx = document.getElementById('cuEcChart')?.getContext('2d');
+        if (ctx) {
+          new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Colitis Ulcerosa', 'Enf. de Crohn'],
+              datasets: [
+                {
+                  label: 'Relación en Ecuador',
+                  data: [ecuadorData.cu, ecuadorData.ec],
+                  backgroundColor: ['#0056b3', '#6c757d'],
+                  borderColor: '#ffffff',
+                  borderWidth: 2,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { position: 'bottom' } },
+            },
+          });
+        }
 
-      // --- LÓGICA DE LA PRESENTACIÓN ---
-      function initPresentation() {
-        const presentationContainer = document.getElementById(
-          'presentation-container',
-        );
-        if (!presentationContainer) return;
+        // ABP Logic
+        window.revealNextPhase = function (phaseId) {
+          const nextPhase = document.getElementById(phaseId);
+          if (nextPhase) {
+            nextPhase.classList.remove('abp-hidden');
+            adjustAccordionHeight(nextPhase);
+          }
+        };
 
-        const slidesContent = [
-          `<div class="slide active title-slide"><h1>Fundamentos de las Técnicas Diagnósticas en Gastroenterología</h1><p>Indicaciones, Limitaciones y Aplicación Clínica</p></div>`,
-          `<div class="slide"><h2>Introducción: La Evolución del Diagnóstico</h2><ul><li><strong>De la anamnesis a la tecnología:</strong> Evolución desde la clínica pura a un paradigma sofisticado.</li><li><strong>Herramientas modernas:</strong> Endoscopia, Ecografía, TC, Pruebas de Aliento.</li><li><strong>El reto clínico:</strong> La selección de la prueba adecuada es una habilidad fundamental.</li><li><strong>Objetivo:</strong> Dotar de un marco conceptual para la aplicación racional y efectiva de estas técnicas.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 1: Endoscopia Digestiva</h2><h3>La Exploración Directa y Terapéutica</h3><ul><li><strong>Principio:</strong> Visualización directa de la mucosa GI con un tubo flexible y cámara HD.</li><li><strong>Capacidad Dual:</strong> Es la única técnica que es <strong>diagnóstica y terapéutica</strong> a la vez.<ul><li><strong>Diagnóstica:</strong> Inspección visual y toma de <strong>biopsias (estándar de oro)</strong>.</li><li><strong>Terapéutica:</strong> Polipectomía, hemostasia, dilatación, etc.</li></ul></li></ul></div>`,
-          `<div class="slide"><h2>Endoscopia Digestiva Alta (EDA)</h2><h3>Indicaciones Diagnósticas Clave</h3><ul><li><strong>Dispepsia con signos de alarma:</strong> >55 años, pérdida de peso, anorexia.</li><li><strong>ERGE persistente o con alarma:</strong> Disfagia, odinofagia. Detección de Esófago de Barrett.</li><li><strong>Hemorragia Digestiva Alta (Urgente):</strong> Hematemesis, melena.</li><li><strong>Anemia ferropénica</strong> de origen no aclarado.</li><li><strong>Confirmación histológica:</strong> Enfermedad celíaca, gastritis por <em>H. pylori</em>.</li></ul></div>`,
-          `<div class="slide"><h2>Colonoscopia</h2><h3>Indicaciones Diagnósticas y de Cribado</h3><ul><li><strong>Cribado de Cáncer Colorrectal (CCR):</strong> Estándar de oro a partir de 45-50 años.</li><li><strong>Evaluación de síntomas bajos:</strong> Rectorragia, cambio de hábito intestinal.</li><li><strong>Anemia ferropénica</strong> (si la EDA es negativa).</li><li><strong>Diagnóstico y seguimiento de Enfermedad Inflamatoria Intestinal (EII).</strong></li></ul></div>`,
-          `<div class="slide"><h2>Endoscopia: Riesgos y Limitaciones</h2><h3>¿Cuándo NO hacer una endoscopia?</h3><ul><li><strong>Contraindicaciones Absolutas:</strong><ul><li>Sospecha de <strong>perforación</strong> de víscera.</li><li>Inestabilidad hemodinámica (shock).</li><li>Colitis fulminante o megacolon tóxico.</li></ul></li><li><strong>Riesgos Principales (Bajos pero Reales):</strong><ul><li><strong>Perforación:</strong> El más temido, mayor en procedimientos terapéuticos.</li><li><strong>Sangrado:</strong> El más común, especialmente tras polipectomía.</li><li><strong>Complicaciones de la sedación.</strong></li></ul></li></ul></div>`,
-          `<div class="slide"><h2>Sección 2: Ecografía Abdominal</h2><h3>La Ventana No Invasiva al Abdomen</h3><ul><li><strong>Principio:</strong> Ondas de ultrasonido para crear imágenes en tiempo real.</li><li><strong>Ventaja Fundamental:</strong> <strong>Totalmente inocua. No usa radiación ionizante.</strong></li><li><strong>Ideal para:</strong> Niños y mujeres embarazadas.</li></ul></div>`,
-          `<div class="slide"><h2>Ecografía: Aplicaciones Clásicas y Emergentes</h2><h3>Rol Principal</h3><ul><li><strong>Patología biliar (1ª línea):</strong> Detección de <strong>cálculos (colelitiasis)</strong> y <strong>colecistitis</strong>.</li><li><strong>Hígado y Páncreas:</strong> Detección de quistes, tumores, hígado graso.</li></ul><h3>"Revolución Silenciosa" en Tubo Digestivo</h3><ul><li><strong>Apendicitis Aguda:</strong> Técnica de primera línea en niños y mujeres jóvenes.</li><li><strong>Enfermedad Inflamatoria Intestinal (EII):</strong> Valiosa para detectar inflamación y monitorizar respuesta al tratamiento.</li></ul></div>`,
-          `<div class="slide"><h2>Ecografía: Limitaciones Críticas</h2><ul><li><strong>Altamente Operador-Dependiente:</strong> La calidad depende de la habilidad de quien la realiza.</li><li><strong>Interferencia por Gas Intestinal:</strong> El gas es el "enemigo" del ultrasonido.</li><li><strong>Hábito del Paciente:</strong> La obesidad degrada la calidad de la imagen.</li><li><strong>"Puntos Ciegos":</strong> El recto y gran parte del intestino delgado son difíciles de visualizar.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 3: Tomografía Computarizada (TC)</h2><h3>Mapeo Anatómico de Alta Resolución</h3><ul><li><strong>Principio:</strong> Rayos X que rotan alrededor del paciente para crear "cortes" detallados.</li><li><strong>Visión Panorámica:</strong> Ofrece un mapa anatómico 3D de toda la cavidad abdominal.</li><li><strong>Uso de Contraste (Fundamental):</strong> Intravenoso (Yodo) y Enteral (Oral/Rectal).</li></ul></div>`,
-          `<div class="slide"><h2>TC Abdominal: Indicaciones de Primera Línea</h2><ul><li><strong>Abdomen Agudo Severo (URGENCIAS):</strong> Diagnóstico rápido de obstrucción, perforación, isquemia, diverticulitis complicada.</li><li><strong>Estadificación Oncológica:</strong> Fundamental para evaluar la extensión de cánceres y buscar metástasis.</li><li><strong>Detección de Complicaciones:</strong> La mejor técnica para ver abscesos y colecciones.</li></ul></div>`,
-          `<div class="slide"><h2>TC: Limitaciones y Riesgos Críticos</h2><ul><li><strong>Radiación Ionizante (Limitación MÁS IMPORTANTE):</strong> Riesgo acumulativo de cáncer. Evitarse en jóvenes y exploraciones repetidas si es posible.</li><li><strong>Riesgos del Contraste IV Yodado:</strong><ul><li><strong>Nefrotoxicidad:</strong> Puede dañar los riñones.</li><li><strong>Reacciones Alérgicas.</strong></li></ul></li><li><strong>Limitada para patología de la mucosa:</strong> No ve lesiones superficiales como la endoscopia.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 4: Pruebas Funcionales de Aliento</h2><h3>Evaluando la Fisiología y el Metabolismo</h3><ul><li><strong>Principio:</strong> Miden la función, no la anatomía.</li><li><strong>Metodología:</strong> Se ingiere un sustrato y se mide el gas producido en el aliento (CO₂, H₂, CH₄).</li><li><strong>Ventajas:</strong> No invasivas, seguras, de bajo coste y muy precisas para preguntas específicas.</li></ul></div>`,
-          `<div class="slide"><h2>Pruebas de Aliento: Aplicaciones Clave</h2><ul><li><strong>Infección por <em>H. pylori</em> (Prueba de Urea):</strong> Método NO INVASIVO de elección para diagnóstico y confirmación de erradicación.</li><li><strong>Sobrecrecimiento Bacteriano (SIBO) y Malabsorción (Lactosa/Fructosa):</strong> Estudio de hinchazón, gases y diarrea crónica cuando otros estudios son normales.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 5: Enfoque Diagnóstico Integrado</h2><h3>Selección de la Prueba Óptima</h3><ul><li><strong>Dolor agudo severo →</strong> <strong>TC con contraste</strong></li><li><strong>Dolor en hipocondrio derecho →</strong> <strong>Ecografía</strong></li><li><strong>Dispepsia con signos de alarma →</strong> <strong>Endoscopia Alta (EDA)</strong></li><li><strong>Hinchazón y gases crónicos →</strong> <strong>Pruebas de Aliento</strong></li><li><strong>Sospecha de EII →</strong> 1º <strong>Colonoscopia con biopsias</strong>, 2º <strong>Entero-TC/RM o Ecografía</strong></li></ul></div>`,
-          `<div class="slide"><h2>Tabla Comparativa de Modalidades</h2><table class="comparative-table"><thead><tr><th>Característica</th><th>Endoscopia</th><th>Ecografía</th><th>TC Abdominal</th><th>Pruebas de Aliento</th></tr></thead><tbody><tr><td><strong>Principio</strong></td><td>Visualización directa</td><td>Ultrasonido</td><td>Rayos X</td><td>Metabolitos gaseosos</td></tr><tr><td><strong>Ventaja Principal</strong></td><td>Diagnóstica + Terapéutica</td><td><strong>Sin radiación</strong>, bajo coste</td><td>Rapidez, visión panorámica</td><td>No invasiva, alta precisión</td></tr><tr><td><strong>Riesgo/Limitación</strong></td><td>Invasiva, perforación</td><td>Operador-dependiente, gas</td><td><strong>Radiación ionizante</strong></td><td>Falsos +/- por preparación</td></tr></tbody></table></div>`,
-          `<div class="slide title-slide"><h1>Conclusiones</h1><p>El arte de la gastroenterología reside en integrar la clínica con la tecnología, seleccionando la herramienta adecuada para cada paciente y cada pregunta.</p></div>`,
+        window.checkAbpDecision = function (decisionType) {
+          let feedbackText = '';
+          let isCorrect = false;
+          let feedbackElement;
+          const selectedValue = document.querySelector(
+            `input[name="${decisionType}"]:checked`,
+          )?.value;
+
+          if (!selectedValue) {
+            alert('Por favor, seleccione una opción.');
+            return;
+          }
+
+          switch (decisionType) {
+            case 'clas':
+              feedbackElement = document.getElementById('feedback-clas');
+              if (selectedValue === 'e2s2') {
+                feedbackText =
+                  '<strong>Correcto.</strong> La inflamación hasta el ángulo esplénico es Colitis Izquierda (E2) y los síntomas corresponden a un brote Moderado (S2).';
+                isCorrect = true;
+              } else {
+                feedbackText =
+                  '<strong>Incorrecto.</strong> Revise la clasificación de Montreal. La inflamación llega hasta el ángulo esplénico (E2) y los síntomas sistémicos lo clasifican como moderado (S2).';
+              }
+              break;
+            case 'ind':
+              feedbackElement = document.getElementById('feedback-ind');
+              if (selectedValue === 'prednisona') {
+                feedbackText =
+                  '<strong>Correcto.</strong> Para un brote moderado, se requiere un corticoide sistémico como la Prednisona para inducir la remisión. La Mesalazina sola es insuficiente y la Azatioprina es para mantenimiento, no inducción.';
+                isCorrect = true;
+              } else {
+                feedbackText =
+                  '<strong>Incorrecto.</strong> La Mesalazina es para casos leves o mantenimiento. La Azatioprina tiene un inicio de acción muy lento y no se usa para inducción. La Prednisona es la elección para apagar un brote moderado.';
+              }
+              break;
+          }
+
+          feedbackElement.innerHTML = feedbackText;
+          feedbackElement.className = `abp-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+          feedbackElement.classList.remove('abp-hidden');
+          adjustAccordionHeight(feedbackElement);
+        };
+
+        // Presentation Logic
+        const slidesData = [
+          {
+            title:
+              'Colitis Ulcerosa: Abordaje Integral para Atención Primaria en Ecuador',
+            content:
+              '<h2>Colitis Ulcerosa: Abordaje Integral para Atención Primaria en Ecuador</h2><p>Gastroenterología - Semana 6</p><p>Facultad de Medicina, Universidad Central del Ecuador</p>',
+          },
+          {
+            title: '¿Qué es la Colitis Ulcerosa (CU)?',
+            content:
+              '<h2>¿Qué es la Colitis Ulcerosa (CU)?</h2><p><strong>Definición:</strong> Enfermedad Inflamatoria Intestinal (EII) crónica y recurrente, caracterizada por una inflamación difusa limitada a la mucosa y submucosa del colon.</p><h3>Características Clave:</h3><ul><li>Afectación Rectal Constante</li><li>Extensión Continua</li><li>Limitación al Colon</li></ul>',
+          },
+          {
+            title: 'Fisiopatología: La Tríada de la Enfermedad',
+            content:
+              "<h2>Fisiopatología: La Tríada de la Enfermedad</h2><p>Respuesta inmune desregulada contra la microbiota intestinal en un individuo genéticamente susceptible, desencadenada por factores ambientales.</p><ul><li><strong>Genética:</strong> Agregación familiar, pero no hereditaria.</li><li><strong>Ambiente:</strong> 'Estilo de vida occidental' (dieta, antibióticos).</li><li><strong>Microbiota (Disbiosis):</strong> Pérdida de tolerancia a bacterias comensales.</li></ul>",
+          },
+          {
+            title: 'Epidemiología: La Realidad en Ecuador',
+            content:
+              '<h2>Epidemiología: La Realidad en Ecuador</h2><ul><li><strong>Prevalencia de CU:</strong> 3,7 por cada 100.000 habitantes.</li><li>Es la EII más común en el país (Relación CU:EC de 2,5:1).</li><li><strong>Edad promedio al diagnóstico:</strong> 42 años.</li><li>Mayor incidencia en zonas urbanas.</li></ul>',
+          },
+          {
+            title: 'El Paciente Ecuatoriano: Un Fenotipo Preocupante',
+            content:
+              '<h2>El Paciente Ecuatoriano: Un Fenotipo Preocupante</h2><ul><li><strong>Retraso Diagnóstico:</strong> 42,5% diagnosticados >12 meses después del inicio de síntomas.</li><li><strong>Síntoma Principal:</strong> Rectorragia (62,2%).</li><li><strong>Extensión al Diagnóstico:</strong> La forma más frecuente es la Colitis Extensa (Pancolitis) en el 41%.</li></ul><p>La sospecha temprana en Atención Primaria es CRÍTICA.</p>',
+          },
+          {
+            title: 'Clínica: Síntomas Intestinales',
+            content:
+              '<h2>Clínica: Síntomas Intestinales</h2><ul><li><strong>Diarrea Sanguinolenta:</strong> El síntoma cardinal (>90%).</li><li><strong>Tenesmo Rectal:</strong> Sensación persistente y dolorosa de necesitar evacuar.</li><li><strong>Urgencia Defecatoria.</strong></li><li><strong>Dolor Abdominal:</strong> Típicamente cólico, alivia con la defecación.</li></ul>',
+          },
+          {
+            title: 'Clínica: Manifestaciones Extraintestinales (MEI)',
+            content:
+              '<h2>Clínica: Manifestaciones Extraintestinales (MEI)</h2><p>Hasta el 50% de los pacientes las desarrollan.</p><ul><li><strong>Articulares:</strong> Artritis Periférica, Espondiloartropatía Axial.</li><li><strong>Cutáneas:</strong> Eritema Nodoso, Pioderma Gangrenoso.</li><li><strong>Oculares:</strong> Epiescleritis, Uveítis (¡Urgencia!).</li><li><strong>Hepatobiliar:</strong> Colangitis Esclerosante Primaria (CEP).</li></ul>',
+          },
+          {
+            title: 'Diagnóstico: Sospecha y Laboratorio en AP',
+            content:
+              '<h2>Diagnóstico: Sospecha y Laboratorio en AP</h2><p>1. <strong>Sospecha Clínica:</strong> Diarrea crónica (>4 sem) con sangre.</p><p>2. <strong>Diagnóstico Diferencial:</strong> ¡Descartar Infecciones primero! (Shigella, Salmonella, E. histolytica).</p><p>3. <strong>Laboratorio:</strong> Anemia, ↑ PCR, ↑ VSG. <strong>Calprotectina Fecal</strong> es clave (>150 µg/g).</p>',
+          },
+          {
+            title: 'Diagnóstico Definitivo: Endoscopia y Biopsia',
+            content:
+              '<h2>Diagnóstico Definitivo: Endoscopia y Biopsia</h2><p><strong>Estándar de Oro:</strong> Ileocolonoscopia con toma de biopsias.</p><h3>Hallazgos Endoscópicos:</h3><ul><li>Inflamación continua y confluente.</li><li>Pérdida del patrón vascular, eritema, friabilidad.</li></ul><h3>Hallazgos Histopatológicos:</h3><ul><li>Distorsión de la arquitectura de las criptas.</li><li>Abscesos crípticos.</li><li>Ausencia de granulomas.</li></ul>',
+          },
+          {
+            title: 'Clasificación de la Enfermedad (Montreal)',
+            content:
+              '<h2>Clasificación de la Enfermedad (Montreal)</h2><h3>Extensión Máxima:</h3><ul><li><strong>E1:</strong> Proctitis</li><li><strong>E2:</strong> Colitis Izquierda</li><li><strong>E3:</strong> Colitis Extensa (Pancolitis)</li></ul><h3>Severidad del Brote:</h3><ul><li><strong>S0:</strong> Remisión</li><li><strong>S1:</strong> Leve</li><li><strong>S2:</strong> Moderada</li><li><strong>S3:</strong> Grave</li></ul>',
+          },
+          {
+            title: 'Taller: Interpretación Endoscópica (Score de Mayo)',
+            content:
+              '<h2>Taller: Interpretación Endoscópica (Score de Mayo)</h2><table><thead><tr><th>Score</th><th>Hallazgos Clave</th></tr></thead><tbody><tr><td><strong>Mayo 1 (Leve)</strong></td><td>Eritema, patrón vascular disminuido, sin friabilidad.</td></tr><tr><td><strong>Mayo 2 (Moderada)</strong></td><td>Eritema marcado, ausencia de patrón vascular, friabilidad, erosiones.</td></tr><tr><td><strong>Mayo 3 (Severa)</strong></td><td>Sangrado espontáneo, ulceraciones extensas.</td></tr></tbody></table>',
+          },
+          {
+            title: 'Objetivos del Tratamiento',
+            content:
+              '<h2>Objetivos del Tratamiento</h2><ul><li><strong>A corto plazo:</strong> Inducir la remisión clínica.</li><li><strong>A largo plazo:</strong> Mantener la remisión, lograr una remisión libre de esteroides, y alcanzar la curación de la mucosa (remisión endoscópica).</li></ul>',
+          },
+          {
+            title: 'Manejo de CU Leve-Moderada (1ª Línea)',
+            content:
+              '<h2>Manejo de CU Leve-Moderada (1ª Línea)</h2><h3>Aminosalicilatos (5-ASA):</h3><p><strong>Mesalazina</strong> es de elección. La vía (oral/tópica) depende de la extensión.</p><h3>Corticosteroides:</h3><p><strong>¡SOLO para inducir remisión, NO para mantenimiento!</strong> Se usa Prednisona oral para brotes que no responden a 5-ASA.</p>',
+          },
+          {
+            title: 'Manejo Avanzado y Criterios de Referencia',
+            content:
+              "<h2>Manejo Avanzado y Criterios de Referencia</h2><h3>¿Cuándo Referir Urgente?</h3><ul><li>Fallo al tratamiento de primera línea.</li><li>Cortico-dependencia o Cortico-refractariedad.</li><li>Debut con enfermedad severa.</li></ul><h3>Inmunomoduladores (2ª Línea):</h3><p><strong>Azatioprina (AZA):</strong> Agente 'ahorrador de esteroides'.</p>",
+          },
+          {
+            title: 'Conclusiones y Mensajes Clave',
+            content:
+              '<h2>Conclusiones y Mensajes Clave</h2><ol><li>La CU es una enfermedad emergente en Ecuador.</li><li>El médico de AP tiene un rol CRÍTICO en la sospecha temprana.</li><li>La calprotectina fecal es una herramienta útil y disponible.</li><li>El tratamiento se individualiza según extensión y severidad.</li><li>Los fármacos de 1ª y 2ª línea están disponibles en el CNMB.</li></ol>',
+          },
         ];
 
-        presentationContainer.innerHTML = slidesContent.join('');
+        let currentSlide = 0;
+        const slidesContainer = document.getElementById('slides-container');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
 
-        const slides = presentationContainer.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const slideCounter = document.getElementById('slide-counter');
-
-        let currentSlideIndex = 0;
-        const totalSlides = slides.length;
+        function renderSlides() {
+          if (!slidesContainer) return;
+          slidesContainer.innerHTML = slidesData
+            .map(
+              (slide, index) => `
+            <div class="slide ${index === 0 ? 'active' : ''}">
+                ${slide.content}
+            </div>
+        `,
+            )
+            .join('');
+        }
 
         function showSlide(index) {
-          slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-          });
-          slideCounter.textContent = `${index + 1} / ${totalSlides}`;
-          prevBtn.disabled = index === 0;
-          nextBtn.disabled = index === totalSlides - 1;
+          const slides = slidesContainer.querySelectorAll('.slide');
+          if (slides.length === 0) return;
+          slides.forEach((slide, i) =>
+            slide.classList.toggle('active', i === index),
+          );
+          currentSlide = index;
+          updateNav();
         }
 
-        nextBtn.addEventListener('click', () => {
-          if (currentSlideIndex < totalSlides - 1) {
-            currentSlideIndex++;
-            showSlide(currentSlideIndex);
-          }
-        });
+        function updateNav() {
+          if (slideCounter)
+            slideCounter.textContent = `${currentSlide + 1} / ${slidesData.length}`;
+          if (prevBtn) prevBtn.disabled = currentSlide === 0;
+          if (nextBtn)
+            nextBtn.disabled = currentSlide === slidesData.length - 1;
+        }
 
-        prevBtn.addEventListener('click', () => {
-          if (currentSlideIndex > 0) {
-            currentSlideIndex--;
-            showSlide(currentSlideIndex);
-          }
-        });
-        showSlide(currentSlideIndex);
-      }
+        if (slidesContainer) {
+          renderSlides();
+          showSlide(0);
+          prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) showSlide(currentSlide - 1);
+          });
+          nextBtn.addEventListener('click', () => {
+            if (currentSlide < slidesData.length - 1)
+              showSlide(currentSlide + 1);
+          });
+        }
 
-      // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA ---
-      function initDiagnosticTool() {
-        const analyzeBtn = document.getElementById('analyze-btn');
-        if (!analyzeBtn) return;
-
-        const resultDiv = document.getElementById('diagnostic-result');
-        const resultTitle = document.getElementById('result-title');
-        const resultRationale = document.getElementById('result-rationale');
-
-        const recommendations = {
-          eco: {
-            title: 'Ecografía Abdominal',
-            rationale:
-              'Es la prueba de primera línea, segura, económica y excelente para detectar patología biliar (cálculos) o hepática, que son la causa más probable de dolor en el hipocondrio derecho.',
-            class: 'eco',
-          },
-          eda: {
-            title: 'Endoscopia Digestiva Alta (EDA)',
-            rationale:
-              'Los signos de alarma (edad > 55, pérdida de peso) obligan a descartar una neoplasia esofagogástrica. La EDA es mandatoria porque permite la visualización directa y la toma de biopsias.',
-            class: 'eda',
-          },
-          tc: {
-            title: 'TC Abdominal con Contraste',
-            rationale:
-              'Ante una posible catástrofe intraabdominal (perforación, isquemia, etc.), la TC es la prueba de elección por su rapidez, visión panorámica y alta precisión para guiar una intervención urgente.',
-            class: 'tc',
-          },
-          aliento: {
-            title: 'Pruebas de Aliento',
-            rationale:
-              'Dado que los estudios anatómicos (endoscopias) son normales, la sospecha se inclina hacia un trastorno funcional. Las pruebas de aliento para SIBO o malabsorción son el paso más racional y menos invasivo.',
-            class: 'aliento',
-          },
-        };
-
-        analyzeBtn.addEventListener('click', () => {
-          const selectedScenario = document.querySelector(
-            'input[name="clinical_scenario"]:checked',
-          );
-          if (selectedScenario) {
-            const value = selectedScenario.value;
-            const recommendation = recommendations[value];
-
-            resultTitle.textContent =
-              'Prueba recomendada: ' + recommendation.title;
-            resultRationale.textContent =
-              'Justificación: ' + recommendation.rationale;
-            resultDiv.className = ''; // Reset class
-            resultDiv.classList.add(recommendation.class);
-            resultDiv.style.display = 'block';
-          } else {
-            resultTitle.textContent = 'Por favor, seleccione un escenario.';
-            resultRationale.textContent = '';
-            resultDiv.style.display = 'block';
-            resultDiv.className = '';
-          }
-        });
-      }
-
-      // --- LÓGICA DE LA AUTOEVALUACIÓN ---
-      function initQuiz() {
-        const quizContainer = document.getElementById('quiz-container');
-        if (!quizContainer) return;
-
-        const questionText = document.getElementById('question-text');
-        const quizOptions = document.getElementById('quiz-options');
-        const feedbackText = document.getElementById('feedback-text');
-        const nextBtn = document.getElementById('next-question-btn');
-        const resultContainer = document.getElementById(
-          'quiz-result-container',
-        );
-        const scoreText = document.getElementById('score-text');
-        const restartBtn = document.getElementById('restart-quiz-btn');
-
-        const questions = [
+        // Quiz Logic
+        const quizData = [
           {
-            question:
-              'Mujer de 25 años con dolor en fosa ilíaca derecha y test de embarazo negativo. ¿Cuál es la primera prueba de imagen recomendada?',
+            vignette:
+              'Paciente de 25 años con diagnóstico de Proctitis Ulcerosa (E1) leve.',
+            question: '¿Cuál es el tratamiento de primera línea más efectivo?',
             options: [
-              'Ecografía abdominal',
-              'TC con contraste',
-              'RM abdominal',
-              'Endoscopia',
+              'Prednisona oral',
+              'Mesalazina oral',
+              'Mesalazina en supositorios',
+              'Azatioprina',
             ],
-            correct: 0,
+            correctAnswer: 2,
+            justification:
+              'Para la enfermedad limitada al recto (Proctitis), la terapia tópica con supositorios de Mesalazina es la más efectiva y tiene menos efectos sistémicos.',
           },
           {
+            vignette:
+              'Paciente con Colitis Ulcerosa extensa de 15 años de evolución.',
             question:
-              'Paciente con hematemesis y melena. ¿Cuál es la prueba diagnóstica inicial?',
+              '¿Cuál es la recomendación más importante para su seguimiento a largo plazo?',
             options: [
-              'Colonoscopia',
-              'Ecografía',
-              'Endoscopia digestiva alta',
-              'TC de abdomen',
+              'Realizar coprocultivos anuales',
+              'Monitorizar niveles de Calprotectina Fecal cada 6 meses',
+              'Realizar colonoscopia de vigilancia para displasia cada 1-3 años',
+              'Mantener tratamiento con corticoides a dosis bajas',
             ],
-            correct: 2,
+            correctAnswer: 2,
+            justification:
+              'Debido al riesgo aumentado de cáncer colorrectal después de 8-10 años de enfermedad extensa, la vigilancia con colonoscopia es crucial.',
           },
           {
+            vignette:
+              'Un paciente con CU en tratamiento con Mesalazina oral presenta un brote moderado. Se inicia Prednisona 40mg/día.',
             question:
-              'Dolor en hipocondrio derecho acompañado de fiebre y leucocitosis. ¿Cuál es la prueba de elección?',
+              '¿Cuál es el siguiente paso más importante en su manejo a mediano plazo?',
             options: [
-              'Radiografía simple',
-              'Ecografía abdominal',
-              'Endoscopia',
-              'TC sin contraste',
+              'Mantener la Prednisona indefinidamente.',
+              'Suspender la Mesalazina ya que no fue efectiva.',
+              'Planificar una pauta de descenso gradual de la Prednisona una vez que se logre la remisión.',
+              'Referir para cirugía de inmediato.',
             ],
-            correct: 1,
+            correctAnswer: 2,
+            justification:
+              'Los corticoides son solo para inducir la remisión. Es crucial planificar su retirada gradual para evitar efectos adversos a largo plazo y la corticodependencia. La Mesalazina se debe mantener como terapia de base.',
+          },
+          {
+            vignette:
+              'Un paciente con CU pregunta sobre la dieta. Ha leído en internet que debe evitar el gluten y los lácteos para curarse.',
+            question:
+              '¿Cuál es el consejo más adecuado sobre la dieta durante un brote de CU?',
+            options: [
+              'Confirmar que debe eliminar el gluten y los lácteos de forma estricta.',
+              'Recomendar una dieta baja en fibra y residuos para reducir los síntomas.',
+              'Indicar que la dieta no tiene ningún rol en el manejo de la CU.',
+              'Sugerir un ayuno completo para dejar descansar el intestino.',
+            ],
+            correctAnswer: 1,
+            justification:
+              'Aunque ninguna dieta cura la CU, una dieta baja en fibra/residuos puede ayudar a manejar los síntomas durante un brote. No hay evidencia sólida para recomendar la eliminación universal de gluten o lácteos, a menos que haya una intolerancia o celiaquía concomitante.',
+          },
+          {
+            vignette:
+              'Un paciente joven con diagnóstico reciente de Colitis Izquierda (E2) está preocupado por las complicaciones a largo plazo.',
+            question:
+              '¿Cuál de las siguientes es la manifestación extraintestinal (MEI) más comúnmente asociada a la Colitis Ulcerosa?',
+            options: [
+              'Nefrolitiasis (cálculos renales).',
+              'Pancreatitis aguda.',
+              'Artritis periférica.',
+              'Colelitiasis (cálculos en la vesícula).',
+            ],
+            correctAnswer: 2,
+            justification:
+              'Las manifestaciones articulares, como la artritis periférica, son el tipo más frecuente de manifestación extraintestinal en pacientes con Enfermedad Inflamatoria Intestinal, incluyendo la Colitis Ulcerosa.',
           },
         ];
+        let currentQuizQuestionIndex = 0;
+        let userAnswers = [];
 
-        let currentQuestion = 0;
-        let score = 0;
-
-        function showQuestion() {
-          const q = questions[currentQuestion];
-          questionText.textContent = q.question;
-          quizOptions.innerHTML = '';
-          q.options.forEach((opt, idx) => {
-            const li = document.createElement('li');
-            li.textContent = opt;
-            li.addEventListener('click', () => selectAnswer(idx));
-            quizOptions.appendChild(li);
-          });
-          feedbackText.textContent = '';
-          feedbackText.style.backgroundColor = '';
-          nextBtn.style.display = 'none';
+        const quizNavButton = document.getElementById('quiz-nav-button');
+        if (quizNavButton) {
+          quizNavButton.addEventListener('click', nextQuizQuestion);
         }
 
-        function selectAnswer(index) {
-          const q = questions[currentQuestion];
-          const options = quizOptions.querySelectorAll('li');
-          options.forEach((li, idx) => {
-            if (idx === q.correct) {
-              li.classList.add('correct');
-            } else if (idx === index) {
-              li.classList.add('incorrect');
+        function displayQuizQuestion() {
+          if (currentQuizQuestionIndex >= quizData.length) {
+            showQuizResults();
+            return;
+          }
+          document.getElementById('quiz-question-area').style.display = 'block';
+          document.getElementById('quiz-navigation').style.display = 'block';
+          document.getElementById('quiz-results-area').style.display = 'none';
+
+          const q = quizData[currentQuizQuestionIndex];
+          document.getElementById('quiz-vignette-text').textContent =
+            q.vignette;
+          document.getElementById('quiz-question-text').textContent =
+            q.question;
+          const optionsContainer = document.getElementById(
+            'quiz-options-container',
+          );
+          optionsContainer.innerHTML = '';
+          q.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+            button.onclick = () => selectQuizOption(index, button);
+            optionsContainer.appendChild(button);
+          });
+          quizNavButton.textContent =
+            currentQuizQuestionIndex === quizData.length - 1
+              ? 'Finalizar y Ver Resultados'
+              : 'Siguiente Pregunta';
+        }
+
+        function selectQuizOption(index, button) {
+          const options = document.querySelectorAll(
+            '#quiz-options-container button',
+          );
+          options.forEach((btn) => btn.classList.remove('selected'));
+          button.classList.add('selected');
+          userAnswers[currentQuizQuestionIndex] = index;
+        }
+
+        function nextQuizQuestion() {
+          if (userAnswers[currentQuizQuestionIndex] === undefined) {
+            alert('Por favor, seleccione una opción.');
+            return;
+          }
+          currentQuizQuestionIndex++;
+          displayQuizQuestion();
+        }
+
+        function showQuizResults() {
+          document.getElementById('quiz-question-area').style.display = 'none';
+          document.getElementById('quiz-navigation').style.display = 'none';
+          const resultsArea = document.getElementById('quiz-results-area');
+          resultsArea.style.display = 'block';
+
+          let score = 0;
+          userAnswers.forEach((answer, index) => {
+            if (answer === quizData[index].correctAnswer) {
+              score++;
             }
-            li.style.pointerEvents = 'none';
           });
-          if (index === q.correct) {
-            feedbackText.textContent = '¡Correcto!';
-            feedbackText.style.backgroundColor = '#d4edda';
-            score++;
-          } else {
-            feedbackText.textContent = 'Respuesta incorrecta';
-            feedbackText.style.backgroundColor = '#f8d7da';
-          }
-          nextBtn.style.display = 'inline-block';
+
+          document.getElementById('quiz-score').textContent =
+            `Su puntaje: ${score} de ${quizData.length} (${((score / quizData.length) * 100).toFixed(0)}%)`;
+
+          const reviewContainer = document.getElementById(
+            'quiz-review-container',
+          );
+          reviewContainer.innerHTML = '';
+          quizData.forEach((q, i) => {
+            const isCorrect = userAnswers[i] === q.correctAnswer;
+            const resultItem = document.createElement('div');
+            resultItem.className = `quiz-result-item ${isCorrect ? 'correct' : 'incorrect'}`;
+            let reviewHTML = `
+                <p class="font-bold">${i + 1}. ${q.question}</p>
+                <p><strong>Su respuesta:</strong> ${q.options[userAnswers[i]]}</p>
+                ${!isCorrect ? `<p><strong>Respuesta correcta:</strong> ${q.options[q.correctAnswer]}</p>` : ''}
+                <div class="quiz-justification">
+                    <p><strong>Justificación:</strong> ${q.justification}</p>
+                </div>`;
+            resultItem.innerHTML = reviewHTML;
+            reviewContainer.appendChild(resultItem);
+          });
+          adjustAccordionHeight(reviewContainer);
         }
 
-        nextBtn.addEventListener('click', () => {
-          currentQuestion++;
-          if (currentQuestion < questions.length) {
-            showQuestion();
-          } else {
-            quizContainer.style.display = 'none';
-            resultContainer.style.display = 'block';
-            scoreText.textContent = `Tu puntaje: ${score} de ${questions.length}`;
+        const quizAccordionHeader = document.querySelector(
+          '.accordion-item:nth-child(4)',
+        );
+        if (quizAccordionHeader) {
+          quizAccordionHeader
+            .querySelector('.accordion-header')
+            .addEventListener('click', () => {
+              if (quizAccordionHeader.classList.contains('active')) {
+                if (
+                  currentQuizQuestionIndex === 0 &&
+                  userAnswers.length === 0
+                ) {
+                  displayQuizQuestion();
+                }
+              }
+            });
+        }
+
+        function adjustAccordionHeight(element) {
+          const accordionContent = element.closest('.accordion-content');
+          if (accordionContent && accordionContent.style.maxHeight !== '0px') {
+            accordionContent.style.maxHeight =
+              accordionContent.scrollHeight + 'px';
           }
-        });
-
-        restartBtn.addEventListener('click', () => {
-          currentQuestion = 0;
-          score = 0;
-          quizContainer.style.display = 'block';
-          resultContainer.style.display = 'none';
-          showQuestion();
-        });
-
-        showQuestion();
-      }
+        }
+      });
     </script>
+    <script>
+      // Dynamically add an "Ask AI" link to allow questions about the article
+      document.addEventListener('DOMContentLoaded', () => {
+        const targetContainer = document.querySelector(
+          '.download-button-container',
+        );
+        if (!targetContainer) return;
+        const contentElement = document.querySelector('.content-section');
+        if (!contentElement) return;
+        const askAiLink = document.createElement('a');
+        askAiLink.href = '#';
+        askAiLink.textContent =
+          '¿Tiene preguntas sobre este artículo? Haga clic aquí para preguntar a la IA.';
+        Object.assign(askAiLink.style, {
+          display: 'block',
+          textAlign: 'center',
+          margin: '1.5rem 0',
+          fontSize: '1.1em',
+          fontWeight: 'bold',
+          textDecoration: 'underline',
+          color: '#4f46e5',
+        });
+        askAiLink.addEventListener('click', (event) => {
+          event.preventDefault();
+          const articleText = contentElement.innerText;
+          sessionStorage.setItem('articleContext', articleText);
+          window.location.href = `../ai_dashboard.html?context=true`;
+        });
+        targetContainer.parentNode.insertBefore(
+          askAiLink,
+          targetContainer.nextSibling,
+        );
+      });
+    </script>
+    <script src="/assets/ask-ai.js"></script>
   </body>
 </html>
