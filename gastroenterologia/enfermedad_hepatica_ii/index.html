@@ -3,705 +3,855 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guía de Estudio: Enfermedad Hepática</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="../../assets/tailwind.css" rel="stylesheet" />
+    <title>Módulo Interactivo de Gastroenterología</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #005a9c;
+        --secondary-color: #003366;
+        --background-color: #f0f4f8;
+        --text-color: #333;
+        --card-bg: #ffffff;
+        --accent-color: #e3f2fd;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* --- Layout Principal --- */
+      #app-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+
+      aside#side-nav {
+        width: 280px;
+        background-color: var(--card-bg);
+        padding: 25px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        z-index: 10;
+      }
+
+      main#content-area {
+        flex-grow: 1;
+        padding: 30px;
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #content-wrapper {
+        /* Letter-size canvas that scales within the viewport */
+        width: 816px;
+        height: 1056px;
+        max-width: 100%;
+        max-height: 100%;
+        background-color: var(--card-bg);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+      }
+
+      aside#ai-panel {
+        width: 360px;
+        background-color: var(--card-bg);
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+      #ai-panel iframe {
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* --- Panel de Navegación --- */
+      #side-nav h1 {
+        color: var(--primary-color);
+        font-size: 1.5em;
+        margin: 0 0 30px 0;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 15px;
+      }
+      #side-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      #side-nav li a {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        color: var(--secondary-color);
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+      #side-nav li a .fa-solid {
+        margin-right: 15px;
+        width: 20px;
+        text-align: center;
+      }
+      #side-nav li a:hover {
+        background-color: var(--accent-color);
+      }
+      #side-nav li a.active {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 90, 156, 0.2);
+      }
+
+      /* --- Estilos Generales de Componentes --- */
+      .component-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- Estilos de la Presentación --- */
+      #presentation-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .slide {
+        background-color: var(--card-bg);
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        flex-grow: 1;
+        padding: 40px;
+        box-sizing: border-box;
+        display: none;
+        flex-direction: column;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        overflow-y: auto;
+      }
+      .slide.active {
+        display: flex;
+        opacity: 1;
+      }
+      .slide h1,
+      .slide h2,
+      .slide h3 {
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+        width: 100%;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+      .slide h1 {
+        font-size: 2.2em;
+        text-align: center;
+        border-bottom: none;
+      }
+      .slide h2 {
+        font-size: 1.8em;
+      }
+      .slide h3 {
+        font-size: 1.4em;
+        color: var(--primary-color);
+        border-bottom: 1px solid #ccc;
+      }
+      .slide p,
+      .slide ul,
+      .slide li {
+        font-size: 1.1em;
+        line-height: 1.6;
+        text-align: left;
+        max-width: 100%;
+      }
+      .slide ul {
+        list-style-type: none;
+        padding-left: 20px;
+      }
+      .slide li::before {
+        content: '✓';
+        color: var(--primary-color);
+        font-weight: bold;
+        display: inline-block;
+        width: 1.2em;
+        margin-left: -1.2em;
+      }
+      .title-slide {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .navigation {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+      }
+      .nav-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 10px;
+        transition: background-color 0.3s;
+      }
+      .nav-button:hover {
+        background-color: var(--secondary-color);
+      }
+      .nav-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      #slide-counter {
+        font-size: 1.1em;
+        color: var(--text-color);
+        font-weight: bold;
+      }
+      .comparative-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 0.9em;
+      }
+      .comparative-table th,
+      .comparative-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+      .comparative-table th {
+        background-color: var(--accent-color);
+        color: var(--secondary-color);
+        font-weight: bold;
+      }
+      .case-study {
+        background-color: var(--accent-color);
+        border-left: 5px solid var(--primary-color);
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 5px;
+      }
+
+      /* --- Estilos de la Herramienta Diagnóstica --- */
+      .diagnostic-tool-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .diagnostic-tool-card h2 {
+        color: var(--secondary-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+      .scenario-option {
+        margin-bottom: 15px;
+      }
+      .scenario-option label {
+        display: block;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition:
+          border-color 0.3s,
+          background-color 0.3s;
+      }
+      .scenario-option input[type='radio'] {
+        display: none;
+      }
+      .scenario-option input[type='radio']:checked + label {
+        border-color: var(--primary-color);
+        background-color: var(--accent-color);
+        font-weight: bold;
+      }
+      #diagnostic-result {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 5px solid;
+        display: none;
+      }
+      #diagnostic-result.eda {
+        border-color: #ff9800;
+      }
+      #diagnostic-result.tc {
+        border-color: #f44336;
+      }
+      #diagnostic-result.eco {
+        border-color: #4caf50;
+      }
+      #diagnostic-result.aliento {
+        border-color: #2196f3;
+      }
+      #diagnostic-result h3 {
+        margin-top: 0;
+      }
+
+      /* --- Estilos de la Autoevaluación --- */
+      .quiz-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .quiz-card h2 {
+        color: var(--secondary-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+      #question-container p {
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+      .quiz-options {
+        list-style: none;
+        padding: 0;
+      }
+      .quiz-options li {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        transition: background-color 0.3s;
+      }
+      .quiz-options li:hover {
+        background-color: var(--accent-color);
+      }
+      .quiz-options li.correct {
+        background-color: #d4edda;
+        border-color: var(--success-color);
+      }
+      .quiz-options li.incorrect {
+        background-color: #f8d7da;
+        border-color: var(--danger-color);
+      }
+      #feedback-text {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      #quiz-result-container {
+        text-align: center;
+      }
+      #quiz-result-container h3 {
+        font-size: 2em;
+        color: var(--primary-color);
+      }
+      #quiz-result-container p {
+        font-size: 1.3em;
+      }
+
+      @media (max-width: 768px) {
+        #app-container {
+          flex-direction: column;
+        }
+        aside#side-nav {
+          width: 100%;
+          height: auto;
+          flex-direction: row;
+          overflow-x: auto;
+          padding: 10px;
+        }
+        aside#ai-panel {
+          display: none;
+        }
+        #side-nav h1 {
+          display: none;
+        }
+        #side-nav ul {
+          display: flex;
+        }
+        #side-nav li a {
+          flex-direction: column;
+          font-size: 0.8em;
+          padding: 10px 5px;
+        }
+        #side-nav li a .fa-solid {
+          margin-right: 0;
+          margin-bottom: 5px;
+        }
+        main#content-area {
+          padding: 15px;
+        }
+        #content-wrapper {
+          width: 100%;
+          height: auto;
+        }
+      }
+    </style>
   </head>
-  <body class="font-sans bg-gray-100">
-    <div class="flex flex-col md:flex-row min-h-screen">
-      <!-- Sidebar -->
-      <aside
-        id="sidebar"
-        class="w-full md:w-64 bg-gray-800 text-white p-6 md:p-4 space-y-2 flex-shrink-0"
-      >
-        <h1 class="text-2xl font-bold mb-4 text-center">PowerSemiotics</h1>
-        <h2 class="text-lg font-semibold mb-4 text-center text-gray-300">
-          Enfermedad Hepática
-        </h2>
-        <nav id="navigation-menu">
-          <!-- Los enlaces se generan dinámicamente -->
+  <body>
+    <div id="app-container">
+      <aside id="side-nav">
+        <h1>Diagnóstico GI</h1>
+        <nav>
+          <ul>
+            <li>
+              <a
+                href="#"
+                class="nav-link active"
+                data-template="presentation-template"
+                ><i class="fa-solid fa-book-open"></i> Base de Conocimiento</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="nav-link"
+                data-template="diagnostic-tool-template"
+                ><i class="fa-solid fa-stethoscope"></i> Herramienta
+                Diagnóstica</a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-template="quiz-template"
+                ><i class="fa-solid fa-gamepad"></i> Autoevaluación</a
+              >
+            </li>
+          </ul>
         </nav>
       </aside>
 
-      <!-- Main Content -->
-      <main id="main-content" class="flex-1 p-6 md:p-10 overflow-y-auto">
-        <!-- El contenido se genera dinámicamente -->
+      <main id="content-area">
+        <div id="content-wrapper"></div>
       </main>
+      <aside id="ai-panel">
+        <iframe
+          src="../../ai_dashboard.html"
+          title="AI Dashboard"
+          aria-label="AI Dashboard"
+          loading="lazy"
+        ></iframe>
+      </aside>
     </div>
 
+    <!-- ########## TEMPLATES ########## -->
+
+    <!-- Plantilla 1: Presentación Interactiva -->
+    <template id="presentation-template">
+      <div class="component-container">
+        <div id="presentation-container">
+          <!-- Las diapositivas se insertarán aquí por JS -->
+        </div>
+        <div class="navigation">
+          <button id="prev-btn" class="nav-button">Anterior</button>
+          <span id="slide-counter"></span>
+          <button id="next-btn" class="nav-button">Siguiente</button>
+        </div>
+      </div>
+    </template>
+
+    <!-- Plantilla 2: Herramienta Diagnóstica -->
+    <template id="diagnostic-tool-template">
+      <div class="component-container">
+        <div class="diagnostic-tool-card">
+          <h2>Herramienta de Decisión Clínica</h2>
+          <p>
+            Seleccione el escenario clínico principal para ver la prueba
+            diagnóstica de primera línea recomendada.
+          </p>
+          <div id="diagnostic-scenarios">
+            <div class="scenario-option">
+              <input
+                type="radio"
+                id="scenario1"
+                name="clinical_scenario"
+                value="eco"
+              />
+              <label for="scenario1"
+                >Dolor crónico en hipocondrio derecho, sospecha de patología
+                biliar.</label
+              >
+            </div>
+            <div class="scenario-option">
+              <input
+                type="radio"
+                id="scenario2"
+                name="clinical_scenario"
+                value="eda"
+              />
+              <label for="scenario2"
+                >Hombre > 60 años con dispepsia de nueva aparición y pérdida de
+                peso.</label
+              >
+            </div>
+            <div class="scenario-option">
+              <input
+                type="radio"
+                id="scenario3"
+                name="clinical_scenario"
+                value="tc"
+              />
+              <label for="scenario3"
+                >Paciente con dolor abdominal agudo, severo, y signos de
+                peritonismo en urgencias.</label
+              >
+            </div>
+            <div class="scenario-option">
+              <input
+                type="radio"
+                id="scenario4"
+                name="clinical_scenario"
+                value="aliento"
+              />
+              <label for="scenario4"
+                >Mujer con hinchazón, gases y diarrea crónicos; estudios
+                endoscópicos previos normales.</label
+              >
+            </div>
+          </div>
+          <button id="analyze-btn" class="nav-button" style="margin-top: 20px">
+            Analizar Escenario
+          </button>
+          <div id="diagnostic-result">
+            <h3 id="result-title"></h3>
+            <p id="result-rationale"></p>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Plantilla 3: Autoevaluación Gamificada -->
+    <template id="quiz-template">
+      <div class="component-container">
+        <div class="quiz-card">
+          <h2>Autoevaluación de Casos Clínicos</h2>
+          <div id="quiz-container">
+            <div id="question-container">
+              <p id="question-text"></p>
+              <ul class="quiz-options" id="quiz-options"></ul>
+            </div>
+            <div id="feedback-text"></div>
+            <button
+              id="next-question-btn"
+              class="nav-button"
+              style="display: none; margin-top: 15px"
+            >
+              Siguiente Pregunta
+            </button>
+          </div>
+          <div id="quiz-result-container" style="display: none">
+            <h3>¡Evaluación Completada!</h3>
+            <p id="score-text"></p>
+            <button id="restart-quiz-btn" class="nav-button">
+              Repetir Evaluación
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
+
     <script>
-      // Función global para ser llamada desde el HTML
-      window.checkAnswer = (
-        sectionIndex,
-        questionIndex,
-        selectedOptionIndex,
-      ) => {
-        const quizData = studyGuideData[sectionIndex].quizzes[questionIndex];
-        const feedbackId = `feedback-${sectionIndex}-${questionIndex}`;
+      document.addEventListener('DOMContentLoaded', () => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentWrapper = document.getElementById('content-wrapper');
 
-        const feedbackEl = document.getElementById(feedbackId);
-        const quizContainer = feedbackEl.closest('.quiz-container');
-        const options = quizContainer.querySelectorAll('.quiz-option');
+        const templates = {
+          'presentation-template': initPresentation,
+          'diagnostic-tool-template': initDiagnosticTool,
+          'quiz-template': initQuiz,
+        };
 
-        // Deshabilitar todos los botones para esta pregunta
-        options.forEach((button) => (button.disabled = true));
+        function loadContent(templateId) {
+          // Limpiar contenido anterior
+          contentWrapper.innerHTML = '';
 
-        const selectedButton = options[selectedOptionIndex];
+          // Clonar y añadir nuevo contenido
+          const template = document.getElementById(templateId);
+          if (template) {
+            const clone = template.content.cloneNode(true);
+            contentWrapper.appendChild(clone);
 
-        if (selectedOptionIndex === quizData.correct) {
-          selectedButton.classList.add('correct');
-          feedbackEl.innerHTML = `<strong>¡Correcto!</strong> ${quizData.feedback}`;
-          feedbackEl.className =
-            'mt-4 text-sm p-4 rounded-lg bg-green-100 text-green-800 animate-fade-in';
-        } else {
-          selectedButton.classList.add('incorrect');
-          options[quizData.correct].classList.add('correct');
-          feedbackEl.innerHTML = `<strong>Incorrecto.</strong> La respuesta correcta se ha resaltado en verde. ${quizData.feedback}`;
-          feedbackEl.className =
-            'mt-4 text-sm p-4 rounded-lg bg-red-100 text-red-800 animate-fade-in';
+            // Inicializar el script del componente
+            if (templates[templateId]) {
+              templates[templateId]();
+            }
+          }
         }
-      };
 
-      const studyGuideData = [
-        {
-          id: 'intro',
-          title: 'Bienvenida',
-          content: `
-                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-4">Guía de Estudio Interactiva: Enfermedad Hepática</h2>
-                        <p class="text-lg text-gray-600 mb-6">Este recurso unificado está diseñado para ser tu compañero de estudio principal para las semanas 10 y 11. Aquí encontrarás todo lo que necesitas, desde la presentación de clase hasta un simulador y una autoevaluación.</p>
-                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
-                            <h4 class="font-bold text-blue-800">¿Cómo usar este recurso?</h4>
-                            <ul class="list-disc list-inside mt-2 text-blue-700">
-                                <li><strong>Presentación de Clase:</strong> Úsala para seguir la clase o como una revisión visual rápida de los temas.</li>
-                                <li><strong>Simulador Clínico:</strong> ¡Ponte a prueba! Aplica tus conocimientos para manejar una emergencia médica en un entorno seguro.</li>
-                                <li><strong>Texto y Autoevaluación:</strong> Consulta el material de lectura detallado en cada sección para profundizar y luego pon a prueba tu comprensión con los casos clínicos.</li>
-                            </ul>
-                        </div>
-                        <p class="mt-6 text-gray-600">Usa el menú de la izquierda para navegar entre las diferentes herramientas. ¡Éxitos en tu estudio!</p>
-                    </div>
-                `,
-        },
-        {
-          id: 'presentacion',
-          title: '1. Presentación de Clase',
-          content: `
-                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Presentación: Enfermedad Hepática II y III</h2>
-                        <div id="presentation-content"></div>
-                    </div>
-                `,
-          script: 'presentationScript',
-        },
-        {
-          id: 'simulador',
-          title: '2. Simulador Clínico (HVA)',
-          content: `
-                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Simulador: Manejo de Hemorragia Variceal Aguda</h2>
-                        <div id="simulator-content" class="embedded-content-container"></div>
-                    </div>
-                `,
-          script: 'simulatorScript',
-        },
-        {
-          id: 'texto-autoevaluacion',
-          title: '3. Texto y Autoevaluación',
-          content: `
-                    <div class="bg-white p-8 rounded-xl shadow-lg animate-fade-in text-guide">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Texto Guía y Casos Clínicos</h2>
-                        
-                        <h3>Hepatitis Virales Crónicas en Ecuador: VHB y VHC</h3>
-                        <h4>Panorama Epidemiológico Nacional</h4>
-                        <p>Las hepatitis virales son un problema de salud pública global y nacional. En Ecuador, la vigilancia epidemiológica es clave para la sospecha clínica:</p>
-                        <ul>
-                            <li><strong>Hepatitis B (VHB):</strong> La prevalencia general es baja (<2%), pero existen focos de endemicidad intermedia (2-7%) en la <strong>cuenca Amazónica</strong>. El genotipo predominante es el F. El grupo más afectado es el de 20 a 49 años.</li>
-                            <li><strong>Hepatitis C (VHC):</strong> La mayoría de los infectados no conocen su diagnóstico. El MSP promueve activamente el tamizaje y tratamiento.</li>
-                        </ul>
-                        <div class="mt-8">
-                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Ponte a Prueba</h4>
-                            <div class="quiz-container space-y-4"></div>
-                        </div>
-                        
-                        <h3>Diagnóstico y Estratificación de la Hepatitis B Crónica (VHB)</h3>
-                        <p>La cronicidad se define por la persistencia del <strong>HBsAg por más de 6 meses</strong>. Una vez confirmada, se debe estratificar la fase de la enfermedad para decidir el manejo, usando HBeAg, Anti-HBe, ALT y carga viral (ADN-VHB).</p>
-                        <div class="highlight-box">
-                            <strong>Fases de la Infección Crónica por VHB:</strong>
-                            <ul>
-                                <li><strong>Inmunotolerancia:</strong> Alta carga viral, ALT normal. Se vigila.</li>
-                                <li><strong>Inmunoactiva (HBeAg+ o HBeAg-):</strong> Carga viral elevada y ALT elevada. <strong>Requiere tratamiento.</strong></li>
-                                <li><strong>Portador Inactivo:</strong> Carga viral baja (<2,000 UI/mL), ALT normal. Se vigila.</li>
-                            </ul>
-                        </div>
-                        <div class="mt-8">
-                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Ponte a Prueba</h4>
-                            <div class="quiz-container space-y-4"></div>
-                        </div>
+        navLinks.forEach((link) => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
 
-                        <h3>Cirrosis Hepática: Diagnóstico y Pronóstico</h3>
-                        <h4>Diagnóstico y Escalas Pronósticas</h4>
-                        <p>La cirrosis es el estadio final de múltiples hepatopatías. Se diagnostica por una combinación de hallazgos clínicos, de laboratorio e imagen. Las escalas de <strong>Child-Pugh</strong> (evaluación clínica global) y <strong>MELD</strong> (predicción de mortalidad) son cruciales para estratificar la severidad.</p>
-                        <div class="mt-8">
-                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Ponte a Prueba</h4>
-                            <div class="quiz-container space-y-4"></div>
-                        </div>
+            navLinks.forEach((l) => l.classList.remove('active'));
+            link.classList.add('active');
 
-                        <h3>Manejo de las Complicaciones Mayores</h3>
-                        <h4>Hemorragia Variceal Aguda (HVA) y Otras Complicaciones</h4>
-                        <p>La HVA es una emergencia médica que requiere un protocolo claro: resucitación, transfusión restrictiva, fármacos (vasoactivos + antibióticos) y endoscopia temprana. Otras complicaciones como la Ascitis, PBE y Encefalopatía Hepática (EH) también requieren un manejo específico, donde es clave identificar y tratar los factores precipitantes.</p>
-                        <div class="mt-8">
-                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Ponte a Prueba</h4>
-                            <div class="quiz-container space-y-4"></div>
-                        </div>
-
-                        <h3>Vigilancia del Carcinoma Hepatocelular (CHC)</h3>
-                        <p>Es la consecuencia más temida a largo plazo. La detección temprana es la única opción curativa y se basa en la vigilancia estricta de la población de riesgo.</p>
-                        <div class="mt-8">
-                            <h4 class="text-xl font-semibold text-gray-800 mb-4">Ponte a Prueba</h4>
-                            <div class="quiz-container space-y-4"></div>
-                        </div>
-                    </div>
-                `,
-          quizzes: [
-            {
-              question:
-                'Un agricultor de 45 años, de Morona Santiago, acude por astenia. Laboratorio: ALT 85 U/L. Perfil viral: HBsAg (+), Anti-HBc total (+), Anti-HBc IgM (-), HBeAg (-), Anti-HBe (+). ¿Cuál es el siguiente paso MÁS apropiado?',
-              options: [
-                'Iniciar Tenofovir inmediatamente.',
-                'Solicitar carga viral (ADN-VHB) y repetir transaminasas.',
-                'Asegurar que es un portador inactivo y dar seguimiento anual.',
-                'Solicitar ecografía para descartar esteatosis.',
-              ],
-              correct: 1,
-              feedback:
-                'Correcto. El paciente tiene una hepatitis B crónica HBeAg-negativa. Para diferenciar si está en la fase inmunoactiva (que requiere tratamiento) o es un portador inactivo, es indispensable conocer el nivel de ADN-VHB y confirmar la persistencia de la elevación de ALT.',
-            },
-            {
-              question:
-                'Una mujer de 32 años en su semana 28 de gestación es HBsAg (+). Exámenes: HBeAg (+), ALT 30 U/L y carga viral de 500,000 UI/mL. ¿Cuál es la conducta MÁS adecuada?',
-              options: [
-                'Iniciar Tenofovir a la madre y planificar vacuna + HBIg al recién nacido.',
-                'Recomendar cesárea electiva.',
-                'Administrar únicamente la vacuna al recién nacido.',
-                'Suspender la lactancia materna.',
-              ],
-              correct: 0,
-              feedback:
-                'Correcto. Con una carga viral >200,000 UI/mL, está indicada la terapia antiviral en el tercer trimestre para reducir la transmisión, además de la inmunoprofilaxis completa (activa y pasiva) al neonato.',
-            },
-            {
-              question:
-                'Paciente de 62 años con cirrosis (Child-Pugh B8) llega a emergencias por hematemesis. PA 85/50, FC 115 lpm. Además de la resucitación, ¿qué fármacos debe administrar INMEDIATAMENTE?',
-              options: [
-                'Omeprazol IV y Metoclopramida IV.',
-                'Furosemida IV y Lactulosa.',
-                'Terlipresina IV y Ceftriaxona IV.',
-                'Albúmina humana IV y Vitamina K IV.',
-              ],
-              correct: 2,
-              feedback:
-                'Correcto. El manejo inicial de la HVA se basa en resucitación, fármacos vasoactivos (Terlipresina) para reducir la presión portal y profilaxis antibiótica (Ceftriaxona) para prevenir infecciones, que son un gatillo de resangrado.',
-            },
-            {
-              question:
-                'Paciente de 68 años con cirrosis alcohólica (Child C11) es hospitalizado por encefalopatía. Tiene fiebre, disuria y ascitis. ¿Cuál es el factor precipitante MÁS probable y cómo lo confirma?',
-              options: [
-                'Estreñimiento / Tacto rectal.',
-                'Hemorragia digestiva oculta / Sangre oculta en heces.',
-                'Infección (PBE o ITU) / Paracentesis diagnóstica y examen de orina.',
-                'Exceso de proteínas / Niveles de amonio.',
-              ],
-              correct: 2,
-              feedback:
-                'Correcto. La infección es uno de los precipitantes más comunes y graves de EH. Ante un paciente con ascitis, fiebre y encefalopatía, es mandatorio descartar PBE mediante una paracentesis.',
-            },
-            {
-              question:
-                'Paciente de 55 años con cirrosis por VHB (Child-Pugh A5) acude a su control semestral. ¿Cuál es la indicación de VIGILANCIA más importante para la detección temprana de CHC?',
-              options: [
-                'Alfa-fetoproteína (AFP) sérica cada 6 meses.',
-                'TC de abdomen con contraste anualmente.',
-                'Ecografía abdominal cada 6 meses.',
-                'Endoscopia digestiva alta cada 2 años.',
-              ],
-              correct: 2,
-              feedback:
-                'Correcto. La piedra angular de la vigilancia del carcinoma hepatocelular en todos los pacientes con cirrosis es la ecografía abdominal cada 6 meses. La AFP es un complemento, pero no la reemplaza.',
-            },
-          ],
-        },
-      ];
-
-      // Contenido de los componentes externos
-      const presentationScript = () => {
-        const container = document.getElementById('presentation-content');
-        container.innerHTML = `
-                
-                <div class="slider-container">
-                    <div class="slide active">
-                        <h1>Enfermedad Hepática II y III</h1>
-                        <h2>Semanas 10 y 11: De la Hepatitis Crónica a las Complicaciones Mayores</h2>
-                        <p>Un paquete educativo para estudiantes de Medicina en Ecuador.</p>
-                        <div class="highlight">
-                            <p><strong>Objetivo General:</strong> Capacitar al futuro médico general en el diagnóstico, estratificación y manejo de la enfermedad hepática crónica y sus complicaciones, con un enfoque en la realidad epidemiológica y los recursos del sistema de salud ecuatoriano.</p>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h1>Semana 10: De la Hepatitis Crónica a la Cirrosis</h1>
-                        <h2>Sección 1: Hepatitis Virales Crónicas en Ecuador (VHB y VHC)</h2>
-                        <p>Las hepatitis virales son un problema de salud pública global y nacional, siendo una causa principal de enfermedad hepática crónica.</p>
-                        <div class="ecuador-focus">
-                            <h3>Enfoque Ecuador</h3>
-                            <ul>
-                                <li><strong>Hepatitis B (2024):</strong> 155 casos reportados hasta la SE 24. Provincia más afectada: Pichincha (44 casos). Grupo etario principal: 20-49 años.</li>
-                                <li><strong>Endemicidad:</strong> Prevalencia general baja (<2%), pero con focos de endemicidad intermedia (2-7%) en la cuenca amazónica.</li>
-                                <li><strong>Genotipos:</strong> VHB predominante es el Genotipo F (96%).</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h2>Diagnóstico y Estratificación de la Hepatitis B Crónica (VHB)</h2>
-                        <p>El diagnóstico preciso requiere una interpretación correcta de los marcadores serológicos.</p>
-                        <h3>Fases de la Infección Crónica por VHB</h3>
-                        <ul>
-                            <li><strong>Infección Crónica HBeAg-positivo (Inmunotolerancia):</strong> Alta carga viral (ADN-VHB), ALT normal. Vigilancia.</li>
-                            <li><strong>Hepatitis Crónica HBeAg-positivo (Inmunoactiva):</strong> Alta carga viral, ALT elevada. Requiere tratamiento.</li>
-                            <li><strong>Infección Crónica HBeAg-negativo (Portador Inactivo):</strong> Baja carga viral (<2,000 UI/mL), ALT normal. Vigilancia.</li>
-                            <li><strong>Hepatitis Crónica HBeAg-negativo (Mutante):</strong> Carga viral fluctuante (>2,000 UI/mL), ALT elevada. Requiere tratamiento.</li>
-                        </ul>
-                        <div class="highlight"><strong>Clave:</strong> La decisión de tratar se basa en la combinación de ADN-VHB, ALT y el grado de fibrosis.</div>
-                    </div>
-                    <div class="slide">
-                        <h2>Manejo según Guías del MSP y Estándares Internacionales</h2>
-                        <h3>Principios Terapéuticos</h3>
-                        <ul>
-                            <li><strong>Objetivo VHB:</strong> Supresión viral a largo plazo, prevenir progresión a cirrosis y CHC.</li>
-                            <li><strong>Fármacos de 1ra Línea (VHB) en Ecuador:</strong> Entecavir (ETV) y Tenofovir (TDF).</li>
-                            <li><strong>Diagnóstico VHC:</strong> Inicia con Anti-VHC. Si es reactivo, confirmar con carga viral (ARN-VHC).</li>
-                            <li><strong>Tratamiento VHC:</strong> Antivirales de Acción Directa (AAD) con tasas de curación >95%.</li>
-                            <li><strong>Prevención TMI del VHB:</strong> Tamizaje a gestantes. Terapia antiviral en 3er trimestre si carga viral >200,000 UI/mL. Vacuna + Inmunoglobulina (HBIg) al recién nacido.</li>
-                        </ul>
-                        <p>El rol del médico general es clave en el tamizaje, diagnóstico inicial y la referencia oportuna al especialista.</p>
-                    </div>
-                    <div class="slide">
-                        <h2>Sección 2: Cirrosis Hepática: Diagnóstico y Pronóstico</h2>
-                        <p>La cirrosis es la vía final común de múltiples hepatopatías crónicas. Su diagnóstico es clínico, de laboratorio e imagenológico.</p>
-                        <h3>Hallazgos Clave</h3>
-                        <ul>
-                            <li><strong>Clínicos:</strong> Estigmas de hepatopatía (ictericia, arañas vasculares, eritema palmar).</li>
-                            <li><strong>Laboratorio:</strong> Trombocitopenia (a menudo el primer signo), hipoalbuminemia, INR prolongado.</li>
-                            <li><strong>Imagen (Eco):</strong> Hígado nodular, esplenomegalia, ascitis.</li>
-                        </ul>
-                        <div class="highlight">
-                            <p>El <strong>Índice APRI</strong> (AST/Plaquetas) es una herramienta no invasiva y accesible para estimar la fibrosis.</p>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h2>Escalas Pronósticas: Child-Pugh y MELD</h2>
-                        <p>Herramientas esenciales para estratificar la severidad y predecir la mortalidad.</p>
-                        <h3>Escala de Child-Pugh</h3>
-                        <p>Evalúa 5 parámetros (Bilirrubina, Albúmina, Ascitis, Encefalopatía, INR). Clasifica la cirrosis en:</p>
-                        <ul>
-                            <li><strong>Clase A (5-6 pts):</strong> Compensada. Buen pronóstico.</li>
-                            <li><strong>Clase B (7-9 pts):</strong> Compromiso funcional.</li>
-                            <li><strong>Clase C (10-15 pts):</strong> Descompensada. Mal pronóstico.</li>
-                        </ul>
-                        <h3>Escala MELD</h3>
-                        <p>Fórmula logarítmica (Bilirrubina, INR, Creatinina). Predice mortalidad a 90 días y prioriza para trasplante hepático.</p>
-                        <div class="ecuador-focus">
-                            <h3>Aplicación Práctica</h3>
-                            <p>El médico general usará <strong>Child-Pugh</strong> para evaluar la severidad global en la consulta. <strong>MELD</strong> es la herramienta del especialista y del centro de trasplantes.</p>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h1>Semana 11: Manejo de las Complicaciones Mayores</h1>
-                        <h2>Sección 3: Hemorragia Variceal Aguda (HVA)</h2>
-                        <p>Una emergencia médica con una mortalidad de hasta el 20%. El manejo inicial es crucial.</p>
-                        <h3>Protocolo "Código HVA": Pasos Críticos</h3>
-                        <ol>
-                            <li><strong>Estabilización Hemodinámica:</strong> 2 vías IV, resucitación con cristaloides.</li>
-                            <li><strong>Transfusión Restrictiva:</strong> Objetivo de Hb 7-8 g/dL. ¡Evitar sobretransfusión!</li>
-                            <li><strong>Fármacos Inmediatos:</strong>
-                                <ul>
-                                    <li><strong>Vasoactivos:</strong> Terlipresina o Octreótide ANTES de la endoscopia.</li>
-                                    <li><strong>Antibióticos:</strong> Ceftriaxona 1g IV profiláctico para todos.</li>
-                                </ul>
-                            </li>
-                            <li><strong>Endoscopia Urgente (<12h):</strong> Ligadura con bandas es la terapia de elección para várices esofágicas.</li>
-                        </ol>
-                    </div>
-                    <div class="slide">
-                        <h2>Manejo del Fracaso y Prevención Secundaria de HVA</h2>
-                        <h3>Fracaso del Tratamiento (10-20% de los casos)</h3>
-                        <ul>
-                            <li><strong>Terapia de Rescate:</strong> Sonda-balón (Sengstaken-Blakemore) como puente temporal.</li>
-                            <li><strong>Tratamiento Definitivo de Rescate:</strong> TIPS (Shunt Portosistémico Intrahepático Transyugular). Considerar TIPS "temprano" (<72h) en pacientes de alto riesgo.</li>
-                        </ul>
-                        <h3>Prevención Secundaria (para evitar resangrado)</h3>
-                        <div class="highlight">
-                            <p><strong>La mejor estrategia:</strong> Terapia combinada de <strong>Beta-bloqueadores no selectivos</strong> (Propranolol) + <strong>Ligadura endoscópica seriada</strong> hasta erradicar las várices.</p>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h2>Sección 4: Otras Complicaciones de la Cirrosis</h2>
-                        <h3>Ascitis y Peritonitis Bacteriana Espontánea (PBE)</h3>
-                        <ul>
-                            <li><strong>Diagnóstico Ascitis:</strong> GASA (Gradiente Albúmina Suero-Ascitis) ≥ 1.1 g/dL indica hipertensión portal.</li>
-                            <li><strong>Manejo Ascitis:</strong> Restricción de sodio, diuréticos (Espironolactona ± Furosemida).</li>
-                            <li><strong>Diagnóstico PBE:</strong> Paracentesis en paciente con ascitis y fiebre/dolor/encefalopatía. PMN ≥ 250/mm³ en líquido ascítico.</li>
-                            <li><strong>Tratamiento PBE:</strong> Cefalosporinas de 3ra generación (ej. Cefotaxima).</li>
-                        </ul>
-                    </div>
-                    <div class="slide">
-                        <h2>Encefalopatía Hepática (EH)</h2>
-                        <p>Disfunción cerebral por insuficiencia hepática. Es un diagnóstico de exclusión.</p>
-                        <h3>Clasificación de West Haven</h3>
-                        <ul>
-                            <li><strong>Grado 1:</strong> Alteración leve, euforia/ansiedad.</li>
-                            <li><strong>Grado 2:</strong> Letargia, desorientación, asterixis.</li>
-                            <li><strong>Grado 3:</strong> Somnolencia, confusión marcada.</li>
-                            <li><strong>Grado 4:</strong> Coma.</li>
-                        </ul>
-                        <div class="ecuador-focus">
-                            <h3>Manejo Práctico</h3>
-                            <p><strong>Pregunta Clave:</strong> ¿Por qué tiene EH *hoy*? Buscar y tratar el <strong>factor precipitante</strong> es fundamental (infecciones, HDA, deshidratación, fármacos).</p>
-                            <p><strong>Tratamiento 1ra Línea:</strong> Lactulosa (oral/enema) para lograr 2-3 deposiciones/día.</p>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <h2>Sección 5: Carcinoma Hepatocelular (CHC)</h2>
-                        <p>La consecuencia más temida a largo plazo de la cirrosis.</p>
-                        <h3>Vigilancia y Diagnóstico</h3>
-                        <ul>
-                            <li><strong>Población de Alto Riesgo:</strong> TODOS los pacientes con cirrosis.</li>
-                            <li><strong>Protocolo de Vigilancia:</strong> Ecografía abdominal cada 6 meses. Es una responsabilidad del médico general asegurar su cumplimiento.</li>
-                            <li><strong>Diagnóstico:</strong> En pacientes de alto riesgo, una lesión con patrón vascular típico en TC/RM contrastada es suficiente (no requiere biopsia).</li>
-                        </ul>
-                        <div class="highlight">
-                            <p><strong>Mensaje Final:</strong> El manejo de la enfermedad hepática crónica es un maratón, no un sprint. El médico general es el director de orquesta que coordina la vigilancia, el manejo de las complicaciones y la referencia oportuna para salvar y mejorar la calidad de vida de sus pacientes.</p>
-                        </div>
-                    </div>
-                    <div class="navigation">
-                        <button id="prevBtn" class="nav-button">Anterior</button>
-                        <div id="slideCounter" class="slide-counter"></div>
-                        <button id="nextBtn" class="nav-button">Siguiente</button>
-                    </div>
-                </div>
-            `;
-        const slides = container.querySelectorAll('.slide');
-        const prevBtn = container.querySelector('#prevBtn');
-        const nextBtn = container.querySelector('#nextBtn');
-        const slideCounter = container.querySelector('#slideCounter');
-        let currentSlide = 0;
-
-        function showSlide(n) {
-          slides.forEach((slide) => slide.classList.remove('active'));
-          slides[n].classList.add('active');
-          currentSlide = n;
-          slideCounter.textContent = `Diapositiva ${currentSlide + 1} de ${slides.length}`;
-        }
-        nextBtn.addEventListener('click', () => {
-          if (currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+            const templateId = link.getAttribute('data-template');
+            loadContent(templateId);
+          });
         });
-        prevBtn.addEventListener('click', () => {
-          if (currentSlide > 0) showSlide(currentSlide - 1);
-        });
-        showSlide(0);
-      };
 
-      const simulatorScript = () => {
-        const container = document.getElementById('simulator-content');
-        container.innerHTML = `
-                
-                <div id="game-container">
-                    <h1 class="text-xl font-bold text-center text-red-700 mb-4">Simulador Clínico: Código HVA</h1>
-                    <div id="vitals-display-sim"></div>
-                    <div id="scenario-text-sim">Cargando simulación...</div>
-                    <div id="options-container-sim"></div>
-                    <div id="feedback-text-sim"></div>
-                </div>
-            `;
+        // Cargar el contenido inicial (Presentación)
+        loadContent('presentation-template');
+      });
 
-        const scenarioText = container.querySelector('#scenario-text-sim');
-        const optionsContainer = container.querySelector(
-          '#options-container-sim',
+      // --- LÓGICA DE LA PRESENTACIÓN ---
+      function initPresentation() {
+        const presentationContainer = document.getElementById(
+          'presentation-container',
         );
-        const feedbackText = container.querySelector('#feedback-text-sim');
-        const vitalsDisplay = container.querySelector('#vitals-display-sim');
-        let state = {};
+        if (!presentationContainer) return;
 
-        const scenarios = [
+        const slidesContent = [
+          `<div class="slide active title-slide"><h1>Fundamentos de las Técnicas Diagnósticas en Gastroenterología</h1><p>Indicaciones, Limitaciones y Aplicación Clínica</p></div>`,
+          `<div class="slide"><h2>Introducción: La Evolución del Diagnóstico</h2><ul><li><strong>De la anamnesis a la tecnología:</strong> Evolución desde la clínica pura a un paradigma sofisticado.</li><li><strong>Herramientas modernas:</strong> Endoscopia, Ecografía, TC, Pruebas de Aliento.</li><li><strong>El reto clínico:</strong> La selección de la prueba adecuada es una habilidad fundamental.</li><li><strong>Objetivo:</strong> Dotar de un marco conceptual para la aplicación racional y efectiva de estas técnicas.</li></ul></div>`,
+          `<div class="slide"><h2>Sección 1: Endoscopia Digestiva</h2><h3>La Exploración Directa y Terapéutica</h3><ul><li><strong>Principio:</strong> Visualización directa de la mucosa GI con un tubo flexible y cámara HD.</li><li><strong>Capacidad Dual:</strong> Es la única técnica que es <strong>diagnóstica y terapéutica</strong> a la vez.<ul><li><strong>Diagnóstica:</strong> Inspección visual y toma de <strong>biopsias (estándar de oro)</strong>.</li><li><strong>Terapéutica:</strong> Polipectomía, hemostasia, dilatación, etc.</li></ul></li></ul></div>`,
+          `<div class="slide"><h2>Endoscopia Digestiva Alta (EDA)</h2><h3>Indicaciones Diagnósticas Clave</h3><ul><li><strong>Dispepsia con signos de alarma:</strong> >55 años, pérdida de peso, anorexia.</li><li><strong>ERGE persistente o con alarma:</strong> Disfagia, odinofagia. Detección de Esófago de Barrett.</li><li><strong>Hemorragia Digestiva Alta (Urgente):</strong> Hematemesis, melena.</li><li><strong>Anemia ferropénica</strong> de origen no aclarado.</li><li><strong>Confirmación histológica:</strong> Enfermedad celíaca, gastritis por <em>H. pylori</em>.</li></ul></div>`,
+          `<div class="slide"><h2>Colonoscopia</h2><h3>Indicaciones Diagnósticas y de Cribado</h3><ul><li><strong>Cribado de Cáncer Colorrectal (CCR):</strong> Estándar de oro a partir de 45-50 años.</li><li><strong>Evaluación de síntomas bajos:</strong> Rectorragia, cambio de hábito intestinal.</li><li><strong>Anemia ferropénica</strong> (si la EDA es negativa).</li><li><strong>Diagnóstico y seguimiento de Enfermedad Inflamatoria Intestinal (EII).</strong></li></ul></div>`,
+          `<div class="slide"><h2>Endoscopia: Riesgos y Limitaciones</h2><h3>¿Cuándo NO hacer una endoscopia?</h3><ul><li><strong>Contraindicaciones Absolutas:</strong><ul><li>Sospecha de <strong>perforación</strong> de víscera.</li><li>Inestabilidad hemodinámica (shock).</li><li>Colitis fulminante o megacolon tóxico.</li></ul></li><li><strong>Riesgos Principales (Bajos pero Reales):</strong><ul><li><strong>Perforación:</strong> El más temido, mayor en procedimientos terapéuticos.</li><li><strong>Sangrado:</strong> El más común, especialmente tras polipectomía.</li><li><strong>Complicaciones de la sedación.</strong></li></ul></li></ul></div>`,
+          `<div class="slide"><h2>Sección 2: Ecografía Abdominal</h2><h3>La Ventana No Invasiva al Abdomen</h3><ul><li><strong>Principio:</strong> Ondas de ultrasonido para crear imágenes en tiempo real.</li><li><strong>Ventaja Fundamental:</strong> <strong>Totalmente inocua. No usa radiación ionizante.</strong></li><li><strong>Ideal para:</strong> Niños y mujeres embarazadas.</li></ul></div>`,
+          `<div class="slide"><h2>Ecografía: Aplicaciones Clásicas y Emergentes</h2><h3>Rol Principal</h3><ul><li><strong>Patología biliar (1ª línea):</strong> Detección de <strong>cálculos (colelitiasis)</strong> y <strong>colecistitis</strong>.</li><li><strong>Hígado y Páncreas:</strong> Detección de quistes, tumores, hígado graso.</li></ul><h3>"Revolución Silenciosa" en Tubo Digestivo</h3><ul><li><strong>Apendicitis Aguda:</strong> Técnica de primera línea en niños y mujeres jóvenes.</li><li><strong>Enfermedad Inflamatoria Intestinal (EII):</strong> Valiosa para detectar inflamación y monitorizar respuesta al tratamiento.</li></ul></div>`,
+          `<div class="slide"><h2>Ecografía: Limitaciones Críticas</h2><ul><li><strong>Altamente Operador-Dependiente:</strong> La calidad depende de la habilidad de quien la realiza.</li><li><strong>Interferencia por Gas Intestinal:</strong> El gas es el "enemigo" del ultrasonido.</li><li><strong>Hábito del Paciente:</strong> La obesidad degrada la calidad de la imagen.</li><li><strong>"Puntos Ciegos":</strong> El recto y gran parte del intestino delgado son difíciles de visualizar.</li></ul></div>`,
+          `<div class="slide"><h2>Sección 3: Tomografía Computarizada (TC)</h2><h3>Mapeo Anatómico de Alta Resolución</h3><ul><li><strong>Principio:</strong> Rayos X que rotan alrededor del paciente para crear "cortes" detallados.</li><li><strong>Visión Panorámica:</strong> Ofrece un mapa anatómico 3D de toda la cavidad abdominal.</li><li><strong>Uso de Contraste (Fundamental):</strong> Intravenoso (Yodo) y Enteral (Oral/Rectal).</li></ul></div>`,
+          `<div class="slide"><h2>TC Abdominal: Indicaciones de Primera Línea</h2><ul><li><strong>Abdomen Agudo Severo (URGENCIAS):</strong> Diagnóstico rápido de obstrucción, perforación, isquemia, diverticulitis complicada.</li><li><strong>Estadificación Oncológica:</strong> Fundamental para evaluar la extensión de cánceres y buscar metástasis.</li><li><strong>Detección de Complicaciones:</strong> La mejor técnica para ver abscesos y colecciones.</li></ul></div>`,
+          `<div class="slide"><h2>TC: Limitaciones y Riesgos Críticos</h2><ul><li><strong>Radiación Ionizante (Limitación MÁS IMPORTANTE):</strong> Riesgo acumulativo de cáncer. Evitarse en jóvenes y exploraciones repetidas si es posible.</li><li><strong>Riesgos del Contraste IV Yodado:</strong><ul><li><strong>Nefrotoxicidad:</strong> Puede dañar los riñones.</li><li><strong>Reacciones Alérgicas.</strong></li></ul></li><li><strong>Limitada para patología de la mucosa:</strong> No ve lesiones superficiales como la endoscopia.</li></ul></div>`,
+          `<div class="slide"><h2>Sección 4: Pruebas Funcionales de Aliento</h2><h3>Evaluando la Fisiología y el Metabolismo</h3><ul><li><strong>Principio:</strong> Miden la función, no la anatomía.</li><li><strong>Metodología:</strong> Se ingiere un sustrato y se mide el gas producido en el aliento (CO₂, H₂, CH₄).</li><li><strong>Ventajas:</strong> No invasivas, seguras, de bajo coste y muy precisas para preguntas específicas.</li></ul></div>`,
+          `<div class="slide"><h2>Pruebas de Aliento: Aplicaciones Clave</h2><ul><li><strong>Infección por <em>H. pylori</em> (Prueba de Urea):</strong> Método NO INVASIVO de elección para diagnóstico y confirmación de erradicación.</li><li><strong>Sobrecrecimiento Bacteriano (SIBO) y Malabsorción (Lactosa/Fructosa):</strong> Estudio de hinchazón, gases y diarrea crónica cuando otros estudios son normales.</li></ul></div>`,
+          `<div class="slide"><h2>Sección 5: Enfoque Diagnóstico Integrado</h2><h3>Selección de la Prueba Óptima</h3><ul><li><strong>Dolor agudo severo →</strong> <strong>TC con contraste</strong></li><li><strong>Dolor en hipocondrio derecho →</strong> <strong>Ecografía</strong></li><li><strong>Dispepsia con signos de alarma →</strong> <strong>Endoscopia Alta (EDA)</strong></li><li><strong>Hinchazón y gases crónicos →</strong> <strong>Pruebas de Aliento</strong></li><li><strong>Sospecha de EII →</strong> 1º <strong>Colonoscopia con biopsias</strong>, 2º <strong>Entero-TC/RM o Ecografía</strong></li></ul></div>`,
+          `<div class="slide"><h2>Tabla Comparativa de Modalidades</h2><table class="comparative-table"><thead><tr><th>Característica</th><th>Endoscopia</th><th>Ecografía</th><th>TC Abdominal</th><th>Pruebas de Aliento</th></tr></thead><tbody><tr><td><strong>Principio</strong></td><td>Visualización directa</td><td>Ultrasonido</td><td>Rayos X</td><td>Metabolitos gaseosos</td></tr><tr><td><strong>Ventaja Principal</strong></td><td>Diagnóstica + Terapéutica</td><td><strong>Sin radiación</strong>, bajo coste</td><td>Rapidez, visión panorámica</td><td>No invasiva, alta precisión</td></tr><tr><td><strong>Riesgo/Limitación</strong></td><td>Invasiva, perforación</td><td>Operador-dependiente, gas</td><td><strong>Radiación ionizante</strong></td><td>Falsos +/- por preparación</td></tr></tbody></table></div>`,
+          `<div class="slide title-slide"><h1>Conclusiones</h1><p>El arte de la gastroenterología reside en integrar la clínica con la tecnología, seleccionando la herramienta adecuada para cada paciente y cada pregunta.</p></div>`,
+        ];
+
+        presentationContainer.innerHTML = slidesContent.join('');
+
+        const slides = presentationContainer.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const slideCounter = document.getElementById('slide-counter');
+
+        let currentSlideIndex = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+          });
+          slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+          prevBtn.disabled = index === 0;
+          nextBtn.disabled = index === totalSlides - 1;
+        }
+
+        nextBtn.addEventListener('click', () => {
+          if (currentSlideIndex < totalSlides - 1) {
+            currentSlideIndex++;
+            showSlide(currentSlideIndex);
+          }
+        });
+
+        prevBtn.addEventListener('click', () => {
+          if (currentSlideIndex > 0) {
+            currentSlideIndex--;
+            showSlide(currentSlideIndex);
+          }
+        });
+        showSlide(currentSlideIndex);
+      }
+
+      // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA ---
+      function initDiagnosticTool() {
+        const analyzeBtn = document.getElementById('analyze-btn');
+        if (!analyzeBtn) return;
+
+        const resultDiv = document.getElementById('diagnostic-result');
+        const resultTitle = document.getElementById('result-title');
+        const resultRationale = document.getElementById('result-rationale');
+
+        const recommendations = {
+          eco: {
+            title: 'Ecografía Abdominal',
+            rationale:
+              'Es la prueba de primera línea, segura, económica y excelente para detectar patología biliar (cálculos) o hepática, que son la causa más probable de dolor en el hipocondrio derecho.',
+            class: 'eco',
+          },
+          eda: {
+            title: 'Endoscopia Digestiva Alta (EDA)',
+            rationale:
+              'Los signos de alarma (edad > 55, pérdida de peso) obligan a descartar una neoplasia esofagogástrica. La EDA es mandatoria porque permite la visualización directa y la toma de biopsias.',
+            class: 'eda',
+          },
+          tc: {
+            title: 'TC Abdominal con Contraste',
+            rationale:
+              'Ante una posible catástrofe intraabdominal (perforación, isquemia, etc.), la TC es la prueba de elección por su rapidez, visión panorámica y alta precisión para guiar una intervención urgente.',
+            class: 'tc',
+          },
+          aliento: {
+            title: 'Pruebas de Aliento',
+            rationale:
+              'Dado que los estudios anatómicos (endoscopias) son normales, la sospecha se inclina hacia un trastorno funcional. Las pruebas de aliento para SIBO o malabsorción son el paso más racional y menos invasivo.',
+            class: 'aliento',
+          },
+        };
+
+        analyzeBtn.addEventListener('click', () => {
+          const selectedScenario = document.querySelector(
+            'input[name="clinical_scenario"]:checked',
+          );
+          if (selectedScenario) {
+            const value = selectedScenario.value;
+            const recommendation = recommendations[value];
+
+            resultTitle.textContent =
+              'Prueba recomendada: ' + recommendation.title;
+            resultRationale.textContent =
+              'Justificación: ' + recommendation.rationale;
+            resultDiv.className = ''; // Reset class
+            resultDiv.classList.add(recommendation.class);
+            resultDiv.style.display = 'block';
+          } else {
+            resultTitle.textContent = 'Por favor, seleccione un escenario.';
+            resultRationale.textContent = '';
+            resultDiv.style.display = 'block';
+            resultDiv.className = '';
+          }
+        });
+      }
+
+      // --- LÓGICA DE LA AUTOEVALUACIÓN ---
+      function initQuiz() {
+        const quizContainer = document.getElementById('quiz-container');
+        if (!quizContainer) return;
+
+        const questionText = document.getElementById('question-text');
+        const quizOptions = document.getElementById('quiz-options');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-question-btn');
+        const resultContainer = document.getElementById(
+          'quiz-result-container',
+        );
+        const scoreText = document.getElementById('score-text');
+        const restartBtn = document.getElementById('restart-quiz-btn');
+
+        const questions = [
           {
-            id: 0,
-            text: 'Paciente de 58 años con cirrosis llega por hematemesis. Está letárgico y desorientado.',
+            question:
+              'Mujer de 25 años con dolor en fosa ilíaca derecha y test de embarazo negativo. ¿Cuál es la primera prueba de imagen recomendada?',
             options: [
-              {
-                text: 'Asegurar vía aérea (ABCDE) y canalizar 2 vías IV.',
-                correct: true,
-                nextScenario: 1,
-                feedback:
-                  'Correcto. La prioridad es la estabilización hemodinámica.',
-              },
-              {
-                text: 'Llamar a endoscopia urgentemente.',
-                correct: false,
-                nextScenario: 'fail_endoscopy_first',
-              },
-              {
-                text: 'Administrar un sedante (diazepam).',
-                correct: false,
-                nextScenario: 'fail_sedation',
-              },
+              'Ecografía abdominal',
+              'TC con contraste',
+              'RM abdominal',
+              'Endoscopia',
             ],
+            correct: 0,
           },
           {
-            id: 'fail_endoscopy_first',
-            text: 'El paciente sufre una parada cardiorrespiratoria por hipovolemia. **Error Crítico:** La resucitación es ANTES que la endoscopia.',
-            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
-          },
-          {
-            id: 'fail_sedation',
-            text: 'Las benzodiacepinas empeoran la encefalopatía. El paciente entra en coma. **Error Crítico:** Evitar sedantes.',
-            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
-          },
-          {
-            id: 1,
-            text: 'Vía aérea asegurada y accesos IV listos. ¿Siguiente paso URGENTE?',
-            updateState: (s) => {
-              s.ivAccess = true;
-              return s;
-            },
+            question:
+              'Paciente con hematemesis y melena. ¿Cuál es la prueba diagnóstica inicial?',
             options: [
-              {
-                text: 'Administrar Terlipresina y Ceftriaxona IV.',
-                correct: true,
-                nextScenario: 2,
-                feedback:
-                  'Excelente. La terapia farmacológica temprana reduce la mortalidad.',
-              },
-              {
-                text: 'Transfundir 2 paquetes de glóbulos rojos.',
-                correct: false,
-                nextScenario: 'fail_liberal_transfusion',
-              },
+              'Colonoscopia',
+              'Ecografía',
+              'Endoscopia digestiva alta',
+              'TC de abdomen',
             ],
+            correct: 2,
           },
           {
-            id: 'fail_liberal_transfusion',
-            text: 'La transfusión agresiva eleva la presión portal y provoca resangrado masivo. **Error Crítico:** La transfusión debe ser RESTRICTIVA (objetivo Hb 7-8 g/dL).',
-            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
-          },
-          {
-            id: 2,
-            text: 'Fármacos administrados. Lab: Hb 6.5 g/dL. PA 90/50. ¿Política de transfusión?',
-            updateState: (s) => {
-              s.vasoactiveGiven = true;
-              s.antibioticGiven = true;
-              s.vitals.pas = 90;
-              s.vitals.fc = 110;
-              return s;
-            },
+            question:
+              'Dolor en hipocondrio derecho acompañado de fiebre y leucocitosis. ¿Cuál es la prueba de elección?',
             options: [
-              {
-                text: 'Transfundir 1 paquete GR para objetivo Hb > 7 g/dL.',
-                correct: true,
-                nextScenario: 3,
-                feedback:
-                  'Perfecto. Estrategia restrictiva para mantener perfusión sin exacerbar hipertensión portal.',
-              },
-              {
-                text: 'Transfundir hasta Hb > 10 g/dL.',
-                correct: false,
-                nextScenario: 'fail_liberal_transfusion',
-              },
+              'Radiografía simple',
+              'Ecografía abdominal',
+              'Endoscopia',
+              'TC sin contraste',
             ],
-          },
-          {
-            id: 3,
-            text: 'Hb en 7.5 g/dL. Paciente más estable (PA 95/60, FC 100). ¿Ahora qué?',
-            updateState: (s) => {
-              s.vitals.hb = 7.5;
-              s.vitals.pas = 95;
-              s.vitals.fc = 100;
-              return s;
-            },
-            options: [
-              {
-                text: 'Coordinar endoscopia urgente (<12h).',
-                correct: true,
-                nextScenario: 4,
-                feedback:
-                  'Correcto. Una vez estabilizado, el siguiente paso es el tratamiento endoscópico.',
-              },
-              {
-                text: 'Esperar 24h a ver si se detiene el sangrado.',
-                correct: false,
-                nextScenario: 'fail_wait',
-              },
-            ],
-          },
-          {
-            id: 'fail_wait',
-            text: 'Retrasar la endoscopia aumenta el riesgo de resangrado. El paciente vuelve a sangrar. **Error:** La endoscopia debe ser temprana.',
-            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
-          },
-          {
-            id: 4,
-            text: '¡Excelente! Ha estabilizado al paciente. El gastroenterólogo está en camino. Ha completado con éxito el manejo inicial.',
-            options: [{ text: 'Reiniciar Simulación', nextScenario: 0 }],
+            correct: 1,
           },
         ];
 
-        function getInitialState() {
-          return {
-            vitals: { pas: 80, fc: 125, hb: 6.5, encefalopatia: 2 },
-            ivAccess: false,
-            vasoactiveGiven: false,
-            antibioticGiven: false,
-          };
-        }
+        let currentQuestion = 0;
+        let score = 0;
 
-        function renderVitals() {
-          vitalsDisplay.innerHTML = `<div class="vital-sim"><span class="vital-label-sim">PAS</span> <span class="vital-value-sim ${state.vitals.pas >= 90 ? 'stable' : ''}">${state.vitals.pas}</span></div> <div class="vital-sim"><span class="vital-label-sim">FC</span> <span class="vital-value-sim ${state.vitals.fc <= 100 ? 'stable' : ''}">${state.vitals.fc}</span></div> <div class="vital-sim"><span class="vital-label-sim">Hb</span> <span class="vital-value-sim ${state.vitals.hb >= 7 ? 'stable' : ''}">${state.vitals.hb}</span></div>`;
-        }
-
-        function renderScenario(id) {
-          const scenario = scenarios.find((s) => s.id === id);
-          if (!scenario) return;
-          if (scenario.updateState) state = scenario.updateState(state);
-          renderVitals();
-          scenarioText.innerHTML = scenario.text;
-          optionsContainer.innerHTML = '';
-          feedbackText.style.display = 'none';
-          scenario.options.forEach((option) => {
-            const button = document.createElement('button');
-            button.innerHTML = option.text;
-            button.onclick = () => handleOptionClick(option);
-            optionsContainer.appendChild(button);
+        function showQuestion() {
+          const q = questions[currentQuestion];
+          questionText.textContent = q.question;
+          quizOptions.innerHTML = '';
+          q.options.forEach((opt, idx) => {
+            const li = document.createElement('li');
+            li.textContent = opt;
+            li.addEventListener('click', () => selectAnswer(idx));
+            quizOptions.appendChild(li);
           });
+          feedbackText.textContent = '';
+          feedbackText.style.backgroundColor = '';
+          nextBtn.style.display = 'none';
         }
 
-        function handleOptionClick(selectedOption) {
-          feedbackText.style.display = 'block';
-          Array.from(optionsContainer.children).forEach(
-            (btn) => (btn.disabled = true),
-          );
-          if (selectedOption.correct) {
-            feedbackText.innerHTML = `<strong>${selectedOption.feedback}</strong>`;
-            feedbackText.className = 'feedback-correct-sim';
-            setTimeout(() => renderScenario(selectedOption.nextScenario), 2500);
-          } else {
-            const failScenario = scenarios.find(
-              (s) => s.id === selectedOption.nextScenario,
-            );
-            feedbackText.innerHTML = failScenario.text;
-            feedbackText.className = 'feedback-incorrect-sim';
-            optionsContainer.innerHTML = '';
-            failScenario.options.forEach((opt) => {
-              const button = document.createElement('button');
-              button.innerHTML = opt.text;
-              button.onclick = () => {
-                if (opt.nextScenario === 0) state = getInitialState();
-                renderScenario(opt.nextScenario);
-              };
-              optionsContainer.appendChild(button);
-            });
-          }
-        }
-        state = getInitialState();
-        renderScenario(0);
-      };
-
-      const mainContent = document.getElementById('main-content');
-      const navigationMenu = document.getElementById('navigation-menu');
-
-      function renderSection(sectionId) {
-        const section = studyGuideData.find((s) => s.id === sectionId);
-        if (section) {
-          mainContent.innerHTML = section.content;
-          mainContent.scrollTop = 0;
-
-          // Ejecutar script si existe
-          if (section.script === 'presentationScript') {
-            presentationScript();
-          } else if (section.script === 'simulatorScript') {
-            simulatorScript();
-          }
-
-          // Renderizar quizzes si existen
-          if (section.quizzes) {
-            const quizContainers =
-              mainContent.querySelectorAll('.quiz-container');
-            section.quizzes.forEach((quiz, quizIndex) => {
-              // Asignar cada quiz a su contenedor correspondiente
-              if (quizContainers[quizIndex]) {
-                const quizEl = document.createElement('div');
-                quizEl.className =
-                  'bg-white p-6 rounded-lg border-2 border-gray-200';
-
-                const questionP = document.createElement('p');
-                questionP.className = 'font-medium text-gray-700 mb-4';
-                questionP.textContent = quiz.question;
-                quizEl.appendChild(questionP);
-
-                const optionsDiv = document.createElement('div');
-                optionsDiv.className = 'space-y-3';
-                quiz.options.forEach((option, optionIndex) => {
-                  const button = document.createElement('button');
-                  button.className =
-                    'quiz-option w-full text-left p-4 rounded-lg bg-gray-100 hover:bg-blue-100';
-                  button.textContent = `${String.fromCharCode(65 + optionIndex)}) ${option}`;
-                  button.onclick = () =>
-                    checkAnswer(
-                      studyGuideData.indexOf(section),
-                      quizIndex,
-                      optionIndex,
-                    );
-                  optionsDiv.appendChild(button);
-                });
-                quizEl.appendChild(optionsDiv);
-
-                const feedbackDiv = document.createElement('div');
-                feedbackDiv.id = `feedback-${studyGuideData.indexOf(section)}-${quizIndex}`;
-                feedbackDiv.className = 'mt-4 text-sm p-4 rounded-lg hidden';
-                quizEl.appendChild(feedbackDiv);
-
-                quizContainers[quizIndex].appendChild(quizEl);
-              }
-            });
-          }
-
-          // Actualizar enlace activo en la barra lateral
-          document.querySelectorAll('.sidebar-link').forEach((link) => {
-            link.classList.remove('active');
-            if (link.getAttribute('data-id') === sectionId) {
-              link.classList.add('active');
+        function selectAnswer(index) {
+          const q = questions[currentQuestion];
+          const options = quizOptions.querySelectorAll('li');
+          options.forEach((li, idx) => {
+            if (idx === q.correct) {
+              li.classList.add('correct');
+            } else if (idx === index) {
+              li.classList.add('incorrect');
             }
+            li.style.pointerEvents = 'none';
           });
+          if (index === q.correct) {
+            feedbackText.textContent = '¡Correcto!';
+            feedbackText.style.backgroundColor = '#d4edda';
+            score++;
+          } else {
+            feedbackText.textContent = 'Respuesta incorrecta';
+            feedbackText.style.backgroundColor = '#f8d7da';
+          }
+          nextBtn.style.display = 'inline-block';
         }
-      }
 
-      // Inicializar la aplicación
-      window.onload = () => {
-        // Poblar el menú de navegación
-        studyGuideData.forEach((section) => {
-          const link = document.createElement('a');
-          link.href = '#';
-          link.textContent = section.title;
-          link.className =
-            'sidebar-link block w-full text-left p-3 rounded-md hover:bg-gray-700';
-          link.setAttribute('data-id', section.id);
-          link.onclick = (e) => {
-            e.preventDefault();
-            renderSection(section.id);
-          };
-          navigationMenu.appendChild(link);
+        nextBtn.addEventListener('click', () => {
+          currentQuestion++;
+          if (currentQuestion < questions.length) {
+            showQuestion();
+          } else {
+            quizContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+            scoreText.textContent = `Tu puntaje: ${score} de ${questions.length}`;
+          }
         });
 
-        // Renderizar la primera sección por defecto
-        renderSection('intro');
-      };
+        restartBtn.addEventListener('click', () => {
+          currentQuestion = 0;
+          score = 0;
+          quizContainer.style.display = 'block';
+          resultContainer.style.display = 'none';
+          showQuestion();
+        });
+
+        showQuestion();
+      }
     </script>
-    <script src="/assets/ask-ai.js"></script>
   </body>
 </html>

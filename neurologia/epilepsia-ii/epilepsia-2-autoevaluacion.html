@@ -3,324 +3,855 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Autoevaluación: Neurología - Epilepsia II</title>
-    <link href="../../assets/tailwind.css" rel="stylesheet" />
+    <title>Módulo Interactivo de Neurología</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #005a9c;
+        --secondary-color: #003366;
+        --background-color: #f0f4f8;
+        --text-color: #333;
+        --card-bg: #ffffff;
+        --accent-color: #e3f2fd;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        margin: 0;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* --- Layout Principal --- */
+      #app-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+
+      aside#side-nav {
+        width: 280px;
+        background-color: var(--card-bg);
+        padding: 25px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        z-index: 10;
+      }
+
+      main#content-area {
+        flex-grow: 1;
+        padding: 30px;
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #content-wrapper {
+        /* Letter-size canvas that scales within the viewport */
+        width: 816px;
+        height: 1056px;
+        max-width: 100%;
+        max-height: 100%;
+        background-color: var(--card-bg);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+      }
+
+      aside#ai-panel {
+        width: 360px;
+        background-color: var(--card-bg);
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+      #ai-panel iframe {
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* --- Panel de Navegación --- */
+      #side-nav h1 {
+        color: var(--primary-color);
+        font-size: 1.5em;
+        margin: 0 0 30px 0;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 15px;
+      }
+      #side-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      #side-nav li a {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        color: var(--secondary-color);
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-weight: 500;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+      }
+      #side-nav li a .fa-solid {
+        margin-right: 15px;
+        width: 20px;
+        text-align: center;
+      }
+      #side-nav li a:hover {
+        background-color: var(--accent-color);
+      }
+      #side-nav li a.active {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 90, 156, 0.2);
+      }
+
+      /* --- Estilos Generales de Componentes --- */
+      .component-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- Estilos de la Presentación --- */
+      #presentation-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .slide {
+        background-color: var(--card-bg);
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        flex-grow: 1;
+        padding: 40px;
+        box-sizing: border-box;
+        display: none;
+        flex-direction: column;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        overflow-y: auto;
+      }
+      .slide.active {
+        display: flex;
+        opacity: 1;
+      }
+      .slide h1,
+      .slide h2,
+      .slide h3 {
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+        width: 100%;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+      .slide h1 {
+        font-size: 2.2em;
+        text-align: center;
+        border-bottom: none;
+      }
+      .slide h2 {
+        font-size: 1.8em;
+      }
+      .slide h3 {
+        font-size: 1.4em;
+        color: var(--primary-color);
+        border-bottom: 1px solid #ccc;
+      }
+      .slide p,
+      .slide ul,
+      .slide li {
+        font-size: 1.1em;
+        line-height: 1.6;
+        text-align: left;
+        max-width: 100%;
+      }
+      .slide ul {
+        list-style-type: none;
+        padding-left: 20px;
+      }
+      .slide li::before {
+        content: '✓';
+        color: var(--primary-color);
+        font-weight: bold;
+        display: inline-block;
+        width: 1.2em;
+        margin-left: -1.2em;
+      }
+      .title-slide {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .navigation {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+      }
+      .nav-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 10px;
+        transition: background-color 0.3s;
+      }
+      .nav-button:hover {
+        background-color: var(--secondary-color);
+      }
+      .nav-button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      #slide-counter {
+        font-size: 1.1em;
+        color: var(--text-color);
+        font-weight: bold;
+      }
+      .comparative-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        font-size: 0.9em;
+      }
+      .comparative-table th,
+      .comparative-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+      .comparative-table th {
+        background-color: var(--accent-color);
+        color: var(--secondary-color);
+        font-weight: bold;
+      }
+      .case-study {
+        background-color: var(--accent-color);
+        border-left: 5px solid var(--primary-color);
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 5px;
+      }
+
+      /* --- Estilos de la Herramienta Diagnóstica --- */
+      .diagnostic-tool-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .diagnostic-tool-card h2 {
+        color: var(--secondary-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+      .scenario-option {
+        margin-bottom: 15px;
+      }
+      .scenario-option label {
+        display: block;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition:
+          border-color 0.3s,
+          background-color 0.3s;
+      }
+      .scenario-option input[type='radio'] {
+        display: none;
+      }
+      .scenario-option input[type='radio']:checked + label {
+        border-color: var(--primary-color);
+        background-color: var(--accent-color);
+        font-weight: bold;
+      }
+      #diagnostic-result {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 5px solid;
+        display: none;
+      }
+      #diagnostic-result.eda {
+        border-color: #ff9800;
+      }
+      #diagnostic-result.tc {
+        border-color: #f44336;
+      }
+      #diagnostic-result.eco {
+        border-color: #4caf50;
+      }
+      #diagnostic-result.aliento {
+        border-color: #2196f3;
+      }
+      #diagnostic-result h3 {
+        margin-top: 0;
+      }
+
+      /* --- Estilos de la Autoevaluación --- */
+      .quiz-card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .quiz-card h2 {
+        color: var(--secondary-color);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 10px;
+      }
+      #question-container p {
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+      .quiz-options {
+        list-style: none;
+        padding: 0;
+      }
+      .quiz-options li {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        transition: background-color 0.3s;
+      }
+      .quiz-options li:hover {
+        background-color: var(--accent-color);
+      }
+      .quiz-options li.correct {
+        background-color: #d4edda;
+        border-color: var(--success-color);
+      }
+      .quiz-options li.incorrect {
+        background-color: #f8d7da;
+        border-color: var(--danger-color);
+      }
+      #feedback-text {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      #quiz-result-container {
+        text-align: center;
+      }
+      #quiz-result-container h3 {
+        font-size: 2em;
+        color: var(--primary-color);
+      }
+      #quiz-result-container p {
+        font-size: 1.3em;
+      }
+
+      @media (max-width: 768px) {
+        #app-container {
+          flex-direction: column;
+        }
+        aside#side-nav {
+          width: 100%;
+          height: auto;
+          flex-direction: row;
+          overflow-x: auto;
+          padding: 10px;
+        }
+        aside#ai-panel {
+          display: none;
+        }
+        #side-nav h1 {
+          display: none;
+        }
+        #side-nav ul {
+          display: flex;
+        }
+        #side-nav li a {
+          flex-direction: column;
+          font-size: 0.8em;
+          padding: 10px 5px;
+        }
+        #side-nav li a .fa-solid {
+          margin-right: 0;
+          margin-bottom: 5px;
+        }
+        main#content-area {
+          padding: 15px;
+        }
+        #content-wrapper {
+          width: 100%;
+          height: auto;
+        }
+      }
+    </style>
   </head>
-  <body class="font-sans flex items-center justify-center min-h-screen">
-    <div class="relative w-full h-screen flex flex-col">
-      <!-- Contenedor del Slider -->
-      <div
-        id="slider-container"
-        class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar"
-      >
-        <!-- Slide 0: Pantalla de Inicio -->
-        <div
-          id="slide-0"
-          class="slide w-full h-full flex items-center justify-center p-8"
-        >
-          <div
-            class="bg-gray-800 border border-gray-700 p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl"
-          >
-            <h1 class="text-4xl font-extrabold text-white mb-2">
-              Autoevaluación Formativa
-            </h1>
-            <p class="text-xl text-sky-400 font-semibold mb-6">
-              Neurología - Módulo Epilepsia II
-            </p>
-            <p class="mb-8 text-lg text-gray-300">
-              Evalúa tu conocimiento sobre el manejo del estado epiléptico y el
-              tratamiento crónico de la epilepsia.
-            </p>
-            <button
-              onclick="scrollToSlide(1)"
-              class="w-full bg-sky-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-sky-700 transition-all transform hover:scale-105 text-lg"
-            >
-              Comenzar Evaluación
-            </button>
-            <a
-              href="index.html"
-              class="mt-4 block text-gray-400 hover:text-sky-400 transition"
-              >← Volver al menú del módulo</a
-            >
-          </div>
+  <body>
+    <div id="app-container">
+      <aside id="side-nav">
+        <h1>Diagnóstico Neuro</h1>
+        <nav>
+          <ul>
+            <li>
+              <a
+                href="#"
+                class="nav-link active"
+                data-template="presentation-template"
+                ><i class="fa-solid fa-book-open"></i> Base de Conocimiento</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="nav-link"
+                data-template="diagnostic-tool-template"
+                ><i class="fa-solid fa-stethoscope"></i> Herramienta
+                Diagnóstica</a
+              >
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-template="quiz-template"
+                ><i class="fa-solid fa-gamepad"></i> Autoevaluación</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main id="content-area">
+        <div id="content-wrapper"></div>
+      </main>
+      <aside id="ai-panel">
+        <iframe
+          src="../../ai_dashboard.html"
+          title="AI Dashboard"
+          aria-label="AI Dashboard"
+          loading="lazy"
+        ></iframe>
+      </aside>
+    </div>
+
+    <!-- ########## TEMPLATES ########## -->
+
+    <!-- Plantilla 1: Presentación Interactiva -->
+    <template id="presentation-template">
+      <div class="component-container">
+        <div id="presentation-container">
+          <!-- Las diapositivas se insertarán aquí por JS -->
         </div>
+        <div class="navigation">
+          <button id="prev-btn" class="nav-button">Anterior</button>
+          <span id="slide-counter"></span>
+          <button id="next-btn" class="nav-button">Siguiente</button>
+        </div>
+      </div>
+    </template>
 
-        <!-- Slides de Preguntas se generarán con JS -->
-
-        <!-- Slide Final: Resultados -->
-        <div
-          id="slide-results"
-          class="slide w-full h-full flex items-center justify-center p-8"
-        >
-          <div
-            class="bg-gray-800 border border-gray-700 p-8 md:p-12 rounded-2xl shadow-xl text-center max-w-2xl"
-          >
-            <h1 class="text-4xl font-extrabold text-white mb-4">
-              Evaluación Completada
-            </h1>
-            <div
-              id="score-circle"
-              class="w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-gray-600"
-            ></div>
-            <p id="score-text" class="text-xl text-gray-200 mb-2"></p>
-            <p id="result-message" class="text-lg text-gray-300 mb-8"></p>
-            <button
-              onclick="restartQuiz()"
-              class="w-full bg-sky-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-sky-700 transition-all text-lg"
-            >
-              Intentar de Nuevo
-            </button>
-            <a
-              href="index.html"
-              class="mt-4 block text-gray-400 hover:text-sky-400 transition"
-              >← Volver al menú del módulo</a
-            >
+    <!-- Plantilla 2: Herramienta Diagnóstica -->
+    <template id="diagnostic-tool-template">
+      <div class="component-container">
+        <div class="diagnostic-tool-card">
+          <h2>Herramienta de Decisión Clínica</h2>
+          <p>
+            Seleccione el escenario clínico principal para ver la prueba
+            diagnóstica de primera línea recomendada.
+          </p>
+          <div id="diagnostic-scenarios">
+            <div class="scenario-option">
+              <input
+                type="radio"
+                id="scenario1"
+                name="clinical_scenario"
+                value="eco"
+              />
+              <label for="scenario1"
+                >Dolor crónico en hipocondrio derecho, sospecha de patología
+                biliar.</label
+              >
+            </div>
+            <div class="scenario-option">
+              <input
+                type="radio"
+                id="scenario2"
+                name="clinical_scenario"
+                value="eda"
+              />
+              <label for="scenario2"
+                >Hombre > 60 años con dispepsia de nueva aparición y pérdida de
+                peso.</label
+              >
+            </div>
+            <div class="scenario-option">
+              <input
+                type="radio"
+                id="scenario3"
+                name="clinical_scenario"
+                value="tc"
+              />
+              <label for="scenario3"
+                >Paciente con dolor abdominal agudo, severo, y signos de
+                peritonismo en urgencias.</label
+              >
+            </div>
+            <div class="scenario-option">
+              <input
+                type="radio"
+                id="scenario4"
+                name="clinical_scenario"
+                value="aliento"
+              />
+              <label for="scenario4"
+                >Mujer con hinchazón, gases y diarrea crónicos; estudios
+                endoscópicos previos normales.</label
+              >
+            </div>
+          </div>
+          <button id="analyze-btn" class="nav-button" style="margin-top: 20px">
+            Analizar Escenario
+          </button>
+          <div id="diagnostic-result">
+            <h3 id="result-title"></h3>
+            <p id="result-rationale"></p>
           </div>
         </div>
       </div>
-    </div>
+    </template>
+
+    <!-- Plantilla 3: Autoevaluación Gamificada -->
+    <template id="quiz-template">
+      <div class="component-container">
+        <div class="quiz-card">
+          <h2>Autoevaluación de Casos Clínicos</h2>
+          <div id="quiz-container">
+            <div id="question-container">
+              <p id="question-text"></p>
+              <ul class="quiz-options" id="quiz-options"></ul>
+            </div>
+            <div id="feedback-text"></div>
+            <button
+              id="next-question-btn"
+              class="nav-button"
+              style="display: none; margin-top: 15px"
+            >
+              Siguiente Pregunta
+            </button>
+          </div>
+          <div id="quiz-result-container" style="display: none">
+            <h3>¡Evaluación Completada!</h3>
+            <p id="score-text"></p>
+            <button id="restart-quiz-btn" class="nav-button">
+              Repetir Evaluación
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
 
     <script>
-      const quizData = [
-        {
-          question:
-            'Un hombre de 40 años es traído a emergencias con una crisis tónico-clónica que ha durado 10 minutos. El equipo logra canalizar una vía IV. ¿Cuál es la intervención farmacológica de primera línea más apropiada en este momento?',
-          options: [
-            'Dosis de carga de Fenitoína IV.',
-            'Infusión continua de Propofol.',
-            'Inyección de Lorazepam IV.',
-            'Inyección de Levetiracetam IM.',
-          ],
-          correctAnswerIndex: 2,
-          explanations: [
-            '<b>Incorrecto.</b> La Fenitoína es un fármaco de segunda línea, que se utiliza si las benzodiacepinas (primera línea) no logran detener la crisis.',
-            '<b>Incorrecto.</b> El Propofol es un anestésico general reservado para el estado epiléptico refractario (tercera línea), que requiere manejo en UCI e intubación.',
-            '<b>Correcto.</b> Las benzodiacepinas intravenosas, como el Lorazepam o el Diazepam, son el tratamiento de emergencia de primera elección para yugular una crisis en un estado epiléptico establecido (definido a los 5 min).',
-            '<b>Incorrecto.</b> Aunque el Levetiracetam es un FAE de segunda línea IV, la vía intramuscular (IM) no es la de elección en este escenario. El Midazolam IM es una alternativa si no se logra un acceso IV.',
-          ],
-        },
-        {
-          question:
-            'Una mujer de 22 años es diagnosticada con Epilepsia Mioclónica Juvenil (EMJ). ¿Cuál de los siguientes fármacos antiepilépticos es la opción de tratamiento más adecuada y específica para su síndrome?',
-          options: [
-            'Carbamazepina.',
-            'Etosuximida.',
-            'Ácido Valproico.',
-            'Gabapentina.',
-          ],
-          correctAnswerIndex: 2,
-          explanations: [
-            '<b>Incorrecto.</b> La Carbamazepina es un fármaco excelente para crisis focales, pero es conocido por empeorar las crisis mioclónicas, por lo que está contraindicado en la EMJ.',
-            '<b>Incorrecto.</b> La Etosuximida es el fármaco de elección para las crisis de ausencia puras, pero no es eficaz para las crisis mioclónicas o tónico-clónicas que también ocurren en la EMJ.',
-            '<b>Correcto.</b> El Ácido Valproico es el fármaco de primera línea para la EMJ porque es de amplio espectro y muy eficaz contra los tres tipos de crisis de este síndrome: mioclónicas, tónico-clónicas y ausencias.',
-            '<b>Incorrecto.</b> La Gabapentina se usa principalmente para el dolor neuropático y como coadyuvante en crisis focales, pero no es un tratamiento de primera línea para síndromes generalizados como la EMJ.',
-          ],
-        },
-        {
-          question:
-            'Un paciente en tratamiento por un estado epiléptico recibió dos dosis de diazepam sin éxito. Se decide administrar una dosis de carga de Fenitoína IV. ¿Qué parámetro se debe monitorizar de forma estricta durante la infusión?',
-          options: [
-            'Niveles de glucosa sérica.',
-            'Presión arterial y electrocardiograma (ECG).',
-            'Conteo de plaquetas.',
-            'Función hepática.',
-          ],
-          correctAnswerIndex: 1,
-          explanations: [
-            '<b>Incorrecto.</b> La glucosa se mide al inicio para descartar hipoglicemia como causa de la crisis, pero no es el parámetro principal a monitorizar durante la infusión de Fenitoína.',
-            '<b>Correcto.</b> La Fenitoína puede causar efectos cardiovasculares adversos, como hipotensión severa y arritmias cardíacas (ej. bradicardia), especialmente si se administra rápidamente. Por ello, la monitorización continua de la presión arterial y el ECG es mandatoria.',
-            '<b>Incorrecto.</b> Aunque algunos FAE pueden afectar las plaquetas a largo plazo, no es una monitorización crítica durante una infusión de carga de emergencia.',
-            '<b>Incorrecto.</b> La toxicidad hepática es una preocupación con algunos FAE a largo plazo (como el Ácido Valproico), pero no es el riesgo agudo principal durante la infusión de Fenitoína.',
-          ],
-        },
-        {
-          question:
-            'Un paciente con epilepsia focal bien controlada con Carbamazepina presenta un episodio de sacudidas mioclónicas generalizadas. Un neurólogo decide cambiar el tratamiento. ¿Cuál es la razón más probable para este cambio?',
-          options: [
-            'La Carbamazepina es muy costosa.',
-            'La Carbamazepina puede empeorar las crisis mioclónicas.',
-            'La Carbamazepina no tiene efecto en el cerebro.',
-            'El paciente desarrolló una alergia súbita.',
-          ],
-          correctAnswerIndex: 1,
-          explanations: [
-            '<b>Incorrecto.</b> El costo no es la razón clínica principal para el cambio en este escenario específico.',
-            '<b>Correcto.</b> Es un principio farmacológico clave que ciertos FAE, especialmente los bloqueadores de canales de sodio como la Carbamazepina y la Lamotrigina, pueden paradójicamente exacerbar o provocar ciertos tipos de crisis generalizadas, como las mioclonías.',
-            '<b>Incorrecto.</b> La Carbamazepina es muy efectiva, pero su mecanismo de acción la hace específica para ciertos tipos de crisis (focales) e inadecuada para otros.',
-            '<b>Incorrecto.</b> Aunque una alergia es una razón para cambiar un fármaco, la aparición de un nuevo tipo de crisis específico (mioclonías) apunta a una razón farmacodinámica, no a una reacción alérgica.',
-          ],
-        },
-        {
-          question:
-            'Según la definición operacional del estado epiléptico, ¿a partir de qué duración de una crisis convulsiva tónico-clónica se debe iniciar el tratamiento farmacológico de emergencia (tiempo T1)?',
-          options: ['1 minuto.', '5 minutos.', '15 minutos.', '30 minutos.'],
-          correctAnswerIndex: 1,
-          explanations: [
-            '<b>Incorrecto.</b> Un minuto es muy poco tiempo; la mayoría de las crisis tónico-clónicas duran entre 1 y 3 minutos y se autolimitan.',
-            '<b>Correcto.</b> El tiempo T1 es el punto en el que se considera que los mecanismos intrínsecos de terminación de la crisis han fallado y se requiere intervención farmacológica inmediata para prevenir que se perpetúe. Para las crisis tónico-clónicas, este umbral es de 5 minutos.',
-            '<b>Incorrecto.</b> Esperar 15 minutos retrasa peligrosamente el tratamiento y aumenta el riesgo de que el estado epiléptico se vuelva refractario.',
-            '<b>Incorrecto.</b> Este es el tiempo T2, el punto a partir del cual se considera que existe un riesgo inminente de daño neuronal a largo plazo, no el punto de inicio del tratamiento.',
-          ],
-        },
-      ];
+      document.addEventListener('DOMContentLoaded', () => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentWrapper = document.getElementById('content-wrapper');
 
-      const sliderContainer = document.getElementById('slider-container');
-      const totalQuestions = quizData.length;
-      let score = 0;
+        const templates = {
+          'presentation-template': initPresentation,
+          'diagnostic-tool-template': initDiagnosticTool,
+          'quiz-template': initQuiz,
+        };
 
-      function buildQuiz() {
-        const resultsSlide = document.getElementById('slide-results');
-        quizData.forEach((q, index) => {
-          const slide = document.createElement('div');
-          slide.id = `slide-${index + 1}`;
-          slide.className =
-            'slide w-full h-full flex items-center justify-center p-4 md:p-8';
-          slide.innerHTML = `
-                    <div class="bg-gray-800 border border-gray-700 p-8 rounded-2xl shadow-xl w-full max-w-2xl">
-                        <div class="mb-6">
-                            <p class="text-base font-semibold text-sky-400">Pregunta ${index + 1} de ${totalQuestions}</p>
-                            <h2 class="text-2xl font-bold text-white mt-2">${q.question}</h2>
-                        </div>
-                        <div id="options-container-${index}" class="space-y-3">
-                            ${q.options
-                              .map(
-                                (option, i) => `
-                                <button onclick="selectAnswer(${index}, ${i})" class="option-button w-full text-left p-4 bg-gray-700 rounded-lg hover:bg-sky-900 transition-colors border-2 border-transparent text-lg text-gray-300">
-                                    <span class="text-sky-500 font-bold mr-2">${String.fromCharCode(65 + i)}.</span> ${option}
-                                </button>
-                            `,
-                              )
-                              .join('')}
-                        </div>
-                        <div id="feedback-container-${index}" class="mt-6 space-y-2 hidden">
-                           ${q.explanations
-                             .map(
-                               (exp, i) => `
-                                <div id="feedback-${index}-${i}" class="feedback-box p-3 rounded-lg text-base">
-                                     <span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> <span class="feedback-content">${exp}</span>
-                                </div>
-                           `,
-                             )
-                             .join('')}
-                        </div>
-                    </div>
-                `;
-          sliderContainer.insertBefore(slide, resultsSlide);
-        });
-      }
+        function loadContent(templateId) {
+          // Limpiar contenido anterior
+          contentWrapper.innerHTML = '';
 
-      function selectAnswer(questionIndex, selectedIndex) {
-        const question = quizData[questionIndex];
-        const optionsContainer = document.getElementById(
-          `options-container-${questionIndex}`,
-        );
-        const feedbackContainer = document.getElementById(
-          `feedback-container-${questionIndex}`,
-        );
-        const isCorrect = selectedIndex === question.correctAnswerIndex;
+          // Clonar y añadir nuevo contenido
+          const template = document.getElementById(templateId);
+          if (template) {
+            const clone = template.content.cloneNode(true);
+            contentWrapper.appendChild(clone);
 
-        if (optionsContainer.dataset.answered) return;
-        optionsContainer.dataset.answered = 'true';
-
-        if (isCorrect) {
-          score++;
-        }
-
-        Array.from(optionsContainer.children).forEach((button, index) => {
-          const feedbackBox = document.getElementById(
-            `feedback-${questionIndex}-${index}`,
-          );
-          if (index === question.correctAnswerIndex) {
-            button.className =
-              'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-green-900 border-green-500 text-green-300';
-            feedbackBox.className =
-              'feedback-box p-3 rounded-lg text-base bg-green-900/50 text-green-300';
-          } else if (index === selectedIndex) {
-            button.className =
-              'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-red-900 border-red-500 text-red-300';
-            feedbackBox.className =
-              'feedback-box p-3 rounded-lg text-base bg-red-900/50 text-red-300';
-          } else {
-            button.className =
-              'option-button w-full text-left p-4 rounded-lg border-2 text-lg bg-gray-800 text-gray-500 border-gray-700';
-            feedbackBox.className =
-              'feedback-box p-3 rounded-lg text-base text-gray-500';
-          }
-        });
-
-        feedbackContainer.classList.remove('hidden');
-
-        if (areAllQuestionsAnswered()) {
-          setTimeout(() => scrollToSlide(totalQuestions + 1), 3000);
-        }
-      }
-
-      function areAllQuestionsAnswered() {
-        for (let i = 0; i < totalQuestions; i++) {
-          if (
-            !document.getElementById(`options-container-${i}`).dataset.answered
-          ) {
-            return false;
+            // Inicializar el script del componente
+            if (templates[templateId]) {
+              templates[templateId]();
+            }
           }
         }
-        showResults();
-        return true;
-      }
 
-      function showResults() {
-        const scoreCircle = document.getElementById('score-circle');
-        const scoreText = document.getElementById('score-text');
-        const resultMessage = document.getElementById('result-message');
-        const scorePercentage = Math.round((score / totalQuestions) * 100);
+        navLinks.forEach((link) => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
 
-        scoreCircle.textContent = `${scorePercentage}%`;
-        scoreText.textContent = `Tu calificación: ${score} de ${totalQuestions} correctas.`;
+            navLinks.forEach((l) => l.classList.remove('active'));
+            link.classList.add('active');
 
-        if (scorePercentage === 100) {
-          scoreCircle.className =
-            'w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-green-500';
-          resultMessage.textContent =
-            '¡Excelente! Dominas el manejo de emergencias en epilepsia.';
-        } else if (scorePercentage >= 60) {
-          scoreCircle.className =
-            'w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-yellow-500';
-          resultMessage.textContent =
-            '¡Muy bien! Tienes una base sólida. Revisa las explicaciones para perfeccionar los detalles.';
-        } else {
-          scoreCircle.className =
-            'w-32 h-32 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-white mb-4 bg-red-500';
-          resultMessage.textContent =
-            'Sigue estudiando. Es crucial dominar estos protocolos. Revisa con atención las explicaciones.';
-        }
-      }
-
-      function restartQuiz() {
-        score = 0;
-        for (let i = 0; i < totalQuestions; i++) {
-          const optionsCont = document.getElementById(`options-container-${i}`);
-          const feedbackCont = document.getElementById(
-            `feedback-container-${i}`,
-          );
-          delete optionsCont.dataset.answered;
-          feedbackCont.classList.add('hidden');
-          Array.from(optionsCont.children).forEach((button) => {
-            button.className =
-              'option-button w-full text-left p-4 bg-gray-700 rounded-lg hover:bg-sky-900 transition-colors border-2 border-transparent text-lg text-gray-300';
+            const templateId = link.getAttribute('data-template');
+            loadContent(templateId);
           });
+        });
+
+        // Cargar el contenido inicial (Presentación)
+        loadContent('presentation-template');
+      });
+
+      // --- LÓGICA DE LA PRESENTACIÓN ---
+      function initPresentation() {
+        const presentationContainer = document.getElementById(
+          'presentation-container',
+        );
+        if (!presentationContainer) return;
+
+        const slidesContent = [
+          `<div class="slide active title-slide"><h1>Fundamentos de las Técnicas Diagnósticas en Neurología</h1><p>Indicaciones, Limitaciones y Aplicación Clínica</p></div>`,
+          `<div class="slide"><h2>Introducción: La Evolución del Diagnóstico</h2><ul><li><strong>De la anamnesis a la tecnología:</strong> Evolución desde la clínica pura a un paradigma sofisticado.</li><li><strong>Herramientas modernas:</strong> Endoscopia, Ecografía, TC, Pruebas de Aliento.</li><li><strong>El reto clínico:</strong> La selección de la prueba adecuada es una habilidad fundamental.</li><li><strong>Objetivo:</strong> Dotar de un marco conceptual para la aplicación racional y efectiva de estas técnicas.</li></ul></div>`,
+          `<div class="slide"><h2>Sección 1: Endoscopia Digestiva</h2><h3>La Exploración Directa y Terapéutica</h3><ul><li><strong>Principio:</strong> Visualización directa de la mucosa GI con un tubo flexible y cámara HD.</li><li><strong>Capacidad Dual:</strong> Es la única técnica que es <strong>diagnóstica y terapéutica</strong> a la vez.<ul><li><strong>Diagnóstica:</strong> Inspección visual y toma de <strong>biopsias (estándar de oro)</strong>.</li><li><strong>Terapéutica:</strong> Polipectomía, hemostasia, dilatación, etc.</li></ul></li></ul></div>`,
+          `<div class="slide"><h2>Endoscopia Digestiva Alta (EDA)</h2><h3>Indicaciones Diagnósticas Clave</h3><ul><li><strong>Dispepsia con signos de alarma:</strong> >55 años, pérdida de peso, anorexia.</li><li><strong>ERGE persistente o con alarma:</strong> Disfagia, odinofagia. Detección de Esófago de Barrett.</li><li><strong>Hemorragia Digestiva Alta (Urgente):</strong> Hematemesis, melena.</li><li><strong>Anemia ferropénica</strong> de origen no aclarado.</li><li><strong>Confirmación histológica:</strong> Enfermedad celíaca, gastritis por <em>H. pylori</em>.</li></ul></div>`,
+          `<div class="slide"><h2>Colonoscopia</h2><h3>Indicaciones Diagnósticas y de Cribado</h3><ul><li><strong>Cribado de Cáncer Colorrectal (CCR):</strong> Estándar de oro a partir de 45-50 años.</li><li><strong>Evaluación de síntomas bajos:</strong> Rectorragia, cambio de hábito intestinal.</li><li><strong>Anemia ferropénica</strong> (si la EDA es negativa).</li><li><strong>Diagnóstico y seguimiento de Enfermedad Inflamatoria Intestinal (EII).</strong></li></ul></div>`,
+          `<div class="slide"><h2>Endoscopia: Riesgos y Limitaciones</h2><h3>¿Cuándo NO hacer una endoscopia?</h3><ul><li><strong>Contraindicaciones Absolutas:</strong><ul><li>Sospecha de <strong>perforación</strong> de víscera.</li><li>Inestabilidad hemodinámica (shock).</li><li>Colitis fulminante o megacolon tóxico.</li></ul></li><li><strong>Riesgos Principales (Bajos pero Reales):</strong><ul><li><strong>Perforación:</strong> El más temido, mayor en procedimientos terapéuticos.</li><li><strong>Sangrado:</strong> El más común, especialmente tras polipectomía.</li><li><strong>Complicaciones de la sedación.</strong></li></ul></li></ul></div>`,
+          `<div class="slide"><h2>Sección 2: Ecografía Abdominal</h2><h3>La Ventana No Invasiva al Abdomen</h3><ul><li><strong>Principio:</strong> Ondas de ultrasonido para crear imágenes en tiempo real.</li><li><strong>Ventaja Fundamental:</strong> <strong>Totalmente inocua. No usa radiación ionizante.</strong></li><li><strong>Ideal para:</strong> Niños y mujeres embarazadas.</li></ul></div>`,
+          `<div class="slide"><h2>Ecografía: Aplicaciones Clásicas y Emergentes</h2><h3>Rol Principal</h3><ul><li><strong>Patología biliar (1ª línea):</strong> Detección de <strong>cálculos (colelitiasis)</strong> y <strong>colecistitis</strong>.</li><li><strong>Hígado y Páncreas:</strong> Detección de quistes, tumores, hígado graso.</li></ul><h3>"Revolución Silenciosa" en Tubo Digestivo</h3><ul><li><strong>Apendicitis Aguda:</strong> Técnica de primera línea en niños y mujeres jóvenes.</li><li><strong>Enfermedad Inflamatoria Intestinal (EII):</strong> Valiosa para detectar inflamación y monitorizar respuesta al tratamiento.</li></ul></div>`,
+          `<div class="slide"><h2>Ecografía: Limitaciones Críticas</h2><ul><li><strong>Altamente Operador-Dependiente:</strong> La calidad depende de la habilidad de quien la realiza.</li><li><strong>Interferencia por Gas Intestinal:</strong> El gas es el "enemigo" del ultrasonido.</li><li><strong>Hábito del Paciente:</strong> La obesidad degrada la calidad de la imagen.</li><li><strong>"Puntos Ciegos":</strong> El recto y gran parte del intestino delgado son difíciles de visualizar.</li></ul></div>`,
+          `<div class="slide"><h2>Sección 3: Tomografía Computarizada (TC)</h2><h3>Mapeo Anatómico de Alta Resolución</h3><ul><li><strong>Principio:</strong> Rayos X que rotan alrededor del paciente para crear "cortes" detallados.</li><li><strong>Visión Panorámica:</strong> Ofrece un mapa anatómico 3D de toda la cavidad abdominal.</li><li><strong>Uso de Contraste (Fundamental):</strong> Intravenoso (Yodo) y Enteral (Oral/Rectal).</li></ul></div>`,
+          `<div class="slide"><h2>TC Abdominal: Indicaciones de Primera Línea</h2><ul><li><strong>Abdomen Agudo Severo (URGENCIAS):</strong> Diagnóstico rápido de obstrucción, perforación, isquemia, diverticulitis complicada.</li><li><strong>Estadificación Oncológica:</strong> Fundamental para evaluar la extensión de cánceres y buscar metástasis.</li><li><strong>Detección de Complicaciones:</strong> La mejor técnica para ver abscesos y colecciones.</li></ul></div>`,
+          `<div class="slide"><h2>TC: Limitaciones y Riesgos Críticos</h2><ul><li><strong>Radiación Ionizante (Limitación MÁS IMPORTANTE):</strong> Riesgo acumulativo de cáncer. Evitarse en jóvenes y exploraciones repetidas si es posible.</li><li><strong>Riesgos del Contraste IV Yodado:</strong><ul><li><strong>Nefrotoxicidad:</strong> Puede dañar los riñones.</li><li><strong>Reacciones Alérgicas.</strong></li></ul></li><li><strong>Limitada para patología de la mucosa:</strong> No ve lesiones superficiales como la endoscopia.</li></ul></div>`,
+          `<div class="slide"><h2>Sección 4: Pruebas Funcionales de Aliento</h2><h3>Evaluando la Fisiología y el Metabolismo</h3><ul><li><strong>Principio:</strong> Miden la función, no la anatomía.</li><li><strong>Metodología:</strong> Se ingiere un sustrato y se mide el gas producido en el aliento (CO₂, H₂, CH₄).</li><li><strong>Ventajas:</strong> No invasivas, seguras, de bajo coste y muy precisas para preguntas específicas.</li></ul></div>`,
+          `<div class="slide"><h2>Pruebas de Aliento: Aplicaciones Clave</h2><ul><li><strong>Infección por <em>H. pylori</em> (Prueba de Urea):</strong> Método NO INVASIVO de elección para diagnóstico y confirmación de erradicación.</li><li><strong>Sobrecrecimiento Bacteriano (SIBO) y Malabsorción (Lactosa/Fructosa):</strong> Estudio de hinchazón, gases y diarrea crónica cuando otros estudios son normales.</li></ul></div>`,
+          `<div class="slide"><h2>Sección 5: Enfoque Diagnóstico Integrado</h2><h3>Selección de la Prueba Óptima</h3><ul><li><strong>Dolor agudo severo →</strong> <strong>TC con contraste</strong></li><li><strong>Dolor en hipocondrio derecho →</strong> <strong>Ecografía</strong></li><li><strong>Dispepsia con signos de alarma →</strong> <strong>Endoscopia Alta (EDA)</strong></li><li><strong>Hinchazón y gases crónicos →</strong> <strong>Pruebas de Aliento</strong></li><li><strong>Sospecha de EII →</strong> 1º <strong>Colonoscopia con biopsias</strong>, 2º <strong>Entero-TC/RM o Ecografía</strong></li></ul></div>`,
+          `<div class="slide"><h2>Tabla Comparativa de Modalidades</h2><table class="comparative-table"><thead><tr><th>Característica</th><th>Endoscopia</th><th>Ecografía</th><th>TC Abdominal</th><th>Pruebas de Aliento</th></tr></thead><tbody><tr><td><strong>Principio</strong></td><td>Visualización directa</td><td>Ultrasonido</td><td>Rayos X</td><td>Metabolitos gaseosos</td></tr><tr><td><strong>Ventaja Principal</strong></td><td>Diagnóstica + Terapéutica</td><td><strong>Sin radiación</strong>, bajo coste</td><td>Rapidez, visión panorámica</td><td>No invasiva, alta precisión</td></tr><tr><td><strong>Riesgo/Limitación</strong></td><td>Invasiva, perforación</td><td>Operador-dependiente, gas</td><td><strong>Radiación ionizante</strong></td><td>Falsos +/- por preparación</td></tr></tbody></table></div>`,
+          `<div class="slide title-slide"><h1>Conclusiones</h1><p>El arte de la gastroenterología reside en integrar la clínica con la tecnología, seleccionando la herramienta adecuada para cada paciente y cada pregunta.</p></div>`,
+        ];
+
+        presentationContainer.innerHTML = slidesContent.join('');
+
+        const slides = presentationContainer.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const slideCounter = document.getElementById('slide-counter');
+
+        let currentSlideIndex = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+          });
+          slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+          prevBtn.disabled = index === 0;
+          nextBtn.disabled = index === totalSlides - 1;
         }
-        scrollToSlide(0);
+
+        nextBtn.addEventListener('click', () => {
+          if (currentSlideIndex < totalSlides - 1) {
+            currentSlideIndex++;
+            showSlide(currentSlideIndex);
+          }
+        });
+
+        prevBtn.addEventListener('click', () => {
+          if (currentSlideIndex > 0) {
+            currentSlideIndex--;
+            showSlide(currentSlideIndex);
+          }
+        });
+        showSlide(currentSlideIndex);
       }
 
-      function scrollToSlide(slideIndex) {
-        const slideWidth = sliderContainer.clientWidth;
-        sliderContainer.scrollTo({
-          left: slideIndex * slideWidth,
-          behavior: 'smooth',
+      // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA ---
+      function initDiagnosticTool() {
+        const analyzeBtn = document.getElementById('analyze-btn');
+        if (!analyzeBtn) return;
+
+        const resultDiv = document.getElementById('diagnostic-result');
+        const resultTitle = document.getElementById('result-title');
+        const resultRationale = document.getElementById('result-rationale');
+
+        const recommendations = {
+          eco: {
+            title: 'Ecografía Abdominal',
+            rationale:
+              'Es la prueba de primera línea, segura, económica y excelente para detectar patología biliar (cálculos) o hepática, que son la causa más probable de dolor en el hipocondrio derecho.',
+            class: 'eco',
+          },
+          eda: {
+            title: 'Endoscopia Digestiva Alta (EDA)',
+            rationale:
+              'Los signos de alarma (edad > 55, pérdida de peso) obligan a descartar una neoplasia esofagogástrica. La EDA es mandatoria porque permite la visualización directa y la toma de biopsias.',
+            class: 'eda',
+          },
+          tc: {
+            title: 'TC Abdominal con Contraste',
+            rationale:
+              'Ante una posible catástrofe intraabdominal (perforación, isquemia, etc.), la TC es la prueba de elección por su rapidez, visión panorámica y alta precisión para guiar una intervención urgente.',
+            class: 'tc',
+          },
+          aliento: {
+            title: 'Pruebas de Aliento',
+            rationale:
+              'Dado que los estudios anatómicos (endoscopias) son normales, la sospecha se inclina hacia un trastorno funcional. Las pruebas de aliento para SIBO o malabsorción son el paso más racional y menos invasivo.',
+            class: 'aliento',
+          },
+        };
+
+        analyzeBtn.addEventListener('click', () => {
+          const selectedScenario = document.querySelector(
+            'input[name="clinical_scenario"]:checked',
+          );
+          if (selectedScenario) {
+            const value = selectedScenario.value;
+            const recommendation = recommendations[value];
+
+            resultTitle.textContent =
+              'Prueba recomendada: ' + recommendation.title;
+            resultRationale.textContent =
+              'Justificación: ' + recommendation.rationale;
+            resultDiv.className = ''; // Reset class
+            resultDiv.classList.add(recommendation.class);
+            resultDiv.style.display = 'block';
+          } else {
+            resultTitle.textContent = 'Por favor, seleccione un escenario.';
+            resultRationale.textContent = '';
+            resultDiv.style.display = 'block';
+            resultDiv.className = '';
+          }
         });
       }
 
-      buildQuiz();
+      // --- LÓGICA DE LA AUTOEVALUACIÓN ---
+      function initQuiz() {
+        const quizContainer = document.getElementById('quiz-container');
+        if (!quizContainer) return;
+
+        const questionText = document.getElementById('question-text');
+        const quizOptions = document.getElementById('quiz-options');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-question-btn');
+        const resultContainer = document.getElementById(
+          'quiz-result-container',
+        );
+        const scoreText = document.getElementById('score-text');
+        const restartBtn = document.getElementById('restart-quiz-btn');
+
+        const questions = [
+          {
+            question:
+              'Mujer de 25 años con dolor en fosa ilíaca derecha y test de embarazo negativo. ¿Cuál es la primera prueba de imagen recomendada?',
+            options: [
+              'Ecografía abdominal',
+              'TC con contraste',
+              'RM abdominal',
+              'Endoscopia',
+            ],
+            correct: 0,
+          },
+          {
+            question:
+              'Paciente con hematemesis y melena. ¿Cuál es la prueba diagnóstica inicial?',
+            options: [
+              'Colonoscopia',
+              'Ecografía',
+              'Endoscopia digestiva alta',
+              'TC de abdomen',
+            ],
+            correct: 2,
+          },
+          {
+            question:
+              'Dolor en hipocondrio derecho acompañado de fiebre y leucocitosis. ¿Cuál es la prueba de elección?',
+            options: [
+              'Radiografía simple',
+              'Ecografía abdominal',
+              'Endoscopia',
+              'TC sin contraste',
+            ],
+            correct: 1,
+          },
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function showQuestion() {
+          const q = questions[currentQuestion];
+          questionText.textContent = q.question;
+          quizOptions.innerHTML = '';
+          q.options.forEach((opt, idx) => {
+            const li = document.createElement('li');
+            li.textContent = opt;
+            li.addEventListener('click', () => selectAnswer(idx));
+            quizOptions.appendChild(li);
+          });
+          feedbackText.textContent = '';
+          feedbackText.style.backgroundColor = '';
+          nextBtn.style.display = 'none';
+        }
+
+        function selectAnswer(index) {
+          const q = questions[currentQuestion];
+          const options = quizOptions.querySelectorAll('li');
+          options.forEach((li, idx) => {
+            if (idx === q.correct) {
+              li.classList.add('correct');
+            } else if (idx === index) {
+              li.classList.add('incorrect');
+            }
+            li.style.pointerEvents = 'none';
+          });
+          if (index === q.correct) {
+            feedbackText.textContent = '¡Correcto!';
+            feedbackText.style.backgroundColor = '#d4edda';
+            score++;
+          } else {
+            feedbackText.textContent = 'Respuesta incorrecta';
+            feedbackText.style.backgroundColor = '#f8d7da';
+          }
+          nextBtn.style.display = 'inline-block';
+        }
+
+        nextBtn.addEventListener('click', () => {
+          currentQuestion++;
+          if (currentQuestion < questions.length) {
+            showQuestion();
+          } else {
+            quizContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+            scoreText.textContent = `Tu puntaje: ${score} de ${questions.length}`;
+          }
+        });
+
+        restartBtn.addEventListener('click', () => {
+          currentQuestion = 0;
+          score = 0;
+          quizContainer.style.display = 'block';
+          resultContainer.style.display = 'none';
+          showQuestion();
+        });
+
+        showQuestion();
+      }
     </script>
-    <script src="/assets/ask-ai.js"></script>
   </body>
 </html>
