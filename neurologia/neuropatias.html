@@ -3,855 +3,793 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Módulo Interactivo de Neurología</title>
+    <title>Módulo Interactivo: Neuropatías Periféricas</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <style>
-      :root {
-        --primary-color: #005a9c;
-        --secondary-color: #003366;
-        --background-color: #f0f4f8;
-        --text-color: #333;
-        --card-bg: #ffffff;
-        --accent-color: #e3f2fd;
-        --success-color: #28a745;
-        --danger-color: #dc3545;
-      }
 
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: var(--background-color);
-        color: var(--text-color);
-        margin: 0;
-        display: flex;
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      /* --- Layout Principal --- */
-      #app-container {
-        display: flex;
-        width: 100%;
-        height: 100%;
-      }
-
-      aside#side-nav {
-        width: 280px;
-        background-color: var(--card-bg);
-        padding: 25px;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-        z-index: 10;
-      }
-
-      main#content-area {
-        flex-grow: 1;
-        padding: 30px;
-        overflow: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #content-wrapper {
-        /* Letter-size canvas that scales within the viewport */
-        width: 816px;
-        height: 1056px;
-        max-width: 100%;
-        max-height: 100%;
-        background-color: var(--card-bg);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        overflow: auto;
-      }
-
-      aside#ai-panel {
-        width: 360px;
-        background-color: var(--card-bg);
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-      }
-      #ai-panel iframe {
-        border: none;
-        width: 100%;
-        height: 100%;
-      }
-
-      /* --- Panel de Navegación --- */
-      #side-nav h1 {
-        color: var(--primary-color);
-        font-size: 1.5em;
-        margin: 0 0 30px 0;
-        border-bottom: 2px solid var(--accent-color);
-        padding-bottom: 15px;
-      }
-      #side-nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      #side-nav li a {
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        color: var(--secondary-color);
-        text-decoration: none;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        transition:
-          background-color 0.3s,
-          color 0.3s;
-      }
-      #side-nav li a .fa-solid {
-        margin-right: 15px;
-        width: 20px;
-        text-align: center;
-      }
-      #side-nav li a:hover {
-        background-color: var(--accent-color);
-      }
-      #side-nav li a.active {
-        background-color: var(--primary-color);
-        color: white;
-        font-weight: bold;
-        box-shadow: 0 4px 8px rgba(0, 90, 156, 0.2);
-      }
-
-      /* --- Estilos Generales de Componentes --- */
-      .component-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* --- Estilos de la Presentación --- */
-      #presentation-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .slide {
-        background-color: var(--card-bg);
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        flex-grow: 1;
-        padding: 40px;
-        box-sizing: border-box;
-        display: none;
-        flex-direction: column;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        overflow-y: auto;
-      }
-      .slide.active {
-        display: flex;
-        opacity: 1;
-      }
-      .slide h1,
-      .slide h2,
-      .slide h3 {
-        color: var(--secondary-color);
-        margin-bottom: 20px;
-        width: 100%;
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      .slide h1 {
-        font-size: 2.2em;
-        text-align: center;
-        border-bottom: none;
-      }
-      .slide h2 {
-        font-size: 1.8em;
-      }
-      .slide h3 {
-        font-size: 1.4em;
-        color: var(--primary-color);
-        border-bottom: 1px solid #ccc;
-      }
-      .slide p,
-      .slide ul,
-      .slide li {
-        font-size: 1.1em;
-        line-height: 1.6;
-        text-align: left;
-        max-width: 100%;
-      }
-      .slide ul {
-        list-style-type: none;
-        padding-left: 20px;
-      }
-      .slide li::before {
-        content: '✓';
-        color: var(--primary-color);
-        font-weight: bold;
-        display: inline-block;
-        width: 1.2em;
-        margin-left: -1.2em;
-      }
-      .title-slide {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      .navigation {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 20px;
-      }
-      .nav-button {
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1em;
-        border-radius: 5px;
-        cursor: pointer;
-        margin: 0 10px;
-        transition: background-color 0.3s;
-      }
-      .nav-button:hover {
-        background-color: var(--secondary-color);
-      }
-      .nav-button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      #slide-counter {
-        font-size: 1.1em;
-        color: var(--text-color);
-        font-weight: bold;
-      }
-      .comparative-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        font-size: 0.9em;
-      }
-      .comparative-table th,
-      .comparative-table td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-      }
-      .comparative-table th {
-        background-color: var(--accent-color);
-        color: var(--secondary-color);
-        font-weight: bold;
-      }
-      .case-study {
-        background-color: var(--accent-color);
-        border-left: 5px solid var(--primary-color);
-        padding: 15px;
-        margin-top: 15px;
-        border-radius: 5px;
-      }
-
-      /* --- Estilos de la Herramienta Diagnóstica --- */
-      .diagnostic-tool-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .diagnostic-tool-card h2 {
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      .scenario-option {
-        margin-bottom: 15px;
-      }
-      .scenario-option label {
-        display: block;
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition:
-          border-color 0.3s,
-          background-color 0.3s;
-      }
-      .scenario-option input[type='radio'] {
-        display: none;
-      }
-      .scenario-option input[type='radio']:checked + label {
-        border-color: var(--primary-color);
-        background-color: var(--accent-color);
-        font-weight: bold;
-      }
-      #diagnostic-result {
-        margin-top: 25px;
-        padding: 20px;
-        border-radius: 8px;
-        border-left: 5px solid;
-        display: none;
-      }
-      #diagnostic-result.eda {
-        border-color: #ff9800;
-      }
-      #diagnostic-result.tc {
-        border-color: #f44336;
-      }
-      #diagnostic-result.eco {
-        border-color: #4caf50;
-      }
-      #diagnostic-result.aliento {
-        border-color: #2196f3;
-      }
-      #diagnostic-result h3 {
-        margin-top: 0;
-      }
-
-      /* --- Estilos de la Autoevaluación --- */
-      .quiz-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .quiz-card h2 {
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      #question-container p {
-        font-size: 1.2em;
-        font-weight: 500;
-      }
-      .quiz-options {
-        list-style: none;
-        padding: 0;
-      }
-      .quiz-options li {
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-bottom: 10px;
-        transition: background-color 0.3s;
-      }
-      .quiz-options li:hover {
-        background-color: var(--accent-color);
-      }
-      .quiz-options li.correct {
-        background-color: #d4edda;
-        border-color: var(--success-color);
-      }
-      .quiz-options li.incorrect {
-        background-color: #f8d7da;
-        border-color: var(--danger-color);
-      }
-      #feedback-text {
-        margin-top: 15px;
-        padding: 10px;
-        border-radius: 5px;
-      }
-      #quiz-result-container {
-        text-align: center;
-      }
-      #quiz-result-container h3 {
-        font-size: 2em;
-        color: var(--primary-color);
-      }
-      #quiz-result-container p {
-        font-size: 1.3em;
-      }
-
-      @media (max-width: 768px) {
-        #app-container {
-          flex-direction: column;
-        }
-        aside#side-nav {
-          width: 100%;
-          height: auto;
-          flex-direction: row;
-          overflow-x: auto;
-          padding: 10px;
-        }
-        aside#ai-panel {
-          display: none;
-        }
-        #side-nav h1 {
-          display: none;
-        }
-        #side-nav ul {
-          display: flex;
-        }
-        #side-nav li a {
-          flex-direction: column;
-          font-size: 0.8em;
-          padding: 10px 5px;
-        }
-        #side-nav li a .fa-solid {
-          margin-right: 0;
-          margin-bottom: 5px;
-        }
-        main#content-area {
-          padding: 15px;
-        }
-        #content-wrapper {
-          width: 100%;
-          height: auto;
-        }
-      }
-    </style>
+    <link href="../assets/tailwind.css" rel="stylesheet" />
   </head>
-  <body>
-    <div id="app-container">
-      <aside id="side-nav">
-        <h1>Diagnóstico Neuro</h1>
-        <nav>
-          <ul>
-            <li>
-              <a
-                href="#"
-                class="nav-link active"
-                data-template="presentation-template"
-                ><i class="fa-solid fa-book-open"></i> Base de Conocimiento</a
+  <body class="font-sans bg-gray-100">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
+          Módulo Interactivo: Neuropatías Periféricas
+        </h1>
+        <p class="text-lg text-gray-600">
+          Un enfoque integral desde la fisiopatología hasta la práctica clínica
+          en Ecuador.
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8">
+        <aside class="w-full lg:w-1/4 lg:sticky top-8 self-start">
+          <div class="bg-white p-4 rounded-xl shadow-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 px-4">
+              Índice del Módulo
+            </h3>
+            <nav id="module-nav" class="space-y-1">
+              <a href="#guia" class="nav-link active"
+                ><i class="fas fa-book-open nav-icon"></i>Guía de
+                Conocimiento</a
               >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="nav-link"
-                data-template="diagnostic-tool-template"
-                ><i class="fa-solid fa-stethoscope"></i> Herramienta
+              <a href="#presentacion" class="nav-link"
+                ><i class="fas fa-desktop nav-icon"></i>Presentación
+                Interactiva</a
+              >
+              <a href="#herramienta" class="nav-link"
+                ><i class="fas fa-stethoscope nav-icon"></i>Herramienta
                 Diagnóstica</a
               >
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-template="quiz-template"
-                ><i class="fa-solid fa-gamepad"></i> Autoevaluación</a
+              <a href="#autoevaluacion" class="nav-link"
+                ><i class="fas fa-vial-circle-check nav-icon"></i>Autoevaluación
+                Gamificada</a
               >
-            </li>
-          </ul>
-        </nav>
-      </aside>
+            </nav>
+          </div>
+        </aside>
 
-      <main id="content-area">
-        <div id="content-wrapper"></div>
-      </main>
-      <aside id="ai-panel">
-        <iframe
-          src="../ai_dashboard.html"
-          title="AI Dashboard"
-          aria-label="AI Dashboard"
-          loading="lazy"
-        ></iframe>
-      </aside>
+        <main class="w-full lg:w-3/4">
+          <div
+            id="content-container"
+            class="bg-white p-6 md:p-8 rounded-xl shadow-lg min-h-[600px]"
+          >
+            <section id="section-guia" class="module-section active">
+              <h2
+                class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-200 pb-3"
+              >
+                Bienvenido al Módulo de Neuropatías Periféricas
+              </h2>
+              <div class="space-y-6 text-gray-700 leading-loose">
+                <p>
+                  Este módulo interactivo está diseñado para guiarle a través de
+                  los conceptos fundamentales de las neuropatías periféricas,
+                  con un enfoque especial en el contexto clínico y de salud
+                  pública de Ecuador. Utilice el
+                  <b class="text-blue-600">panel de navegación</b> a la
+                  izquierda para explorar los diferentes componentes de
+                  aprendizaje.
+                </p>
+
+                <div class="bg-sky-50 p-6 rounded-lg border-l-4 border-sky-500">
+                  <h3 class="text-xl font-semibold text-sky-800 mb-2">
+                    Puntos Clave a Recordar
+                  </h3>
+                  <ul class="list-disc list-inside space-y-2">
+                    <li>
+                      La
+                      <b class="text-sky-700">Polineuropatía Diabética (PND)</b>
+                      es la causa más común de neuropatía en Ecuador y un
+                      problema de salud pública de primer orden.
+                    </li>
+                    <li>
+                      El
+                      <b class="text-sky-700"
+                        >Síndrome de Guillain-Barré (SGB)</b
+                      >
+                      es el prototipo de la neuropatía aguda y una emergencia
+                      neurológica.
+                    </li>
+                    <li>
+                      El razonamiento clínico para diferenciar los patrones (ej.
+                      <b class="text-sky-700">axonopatía vs. desmielinización</b
+                      >,
+                      <b class="text-sky-700"
+                        >polineuropatía vs. mononeuropatía múltiple</b
+                      >) es más importante que memorizar listas de causas.
+                    </li>
+                  </ul>
+                </div>
+                <p>
+                  Comience con la
+                  <b class="text-blue-600">Presentación Interactiva</b> para
+                  establecer una base sólida, luego ponga a prueba su
+                  razonamiento con la
+                  <b class="text-blue-600">Herramienta Diagnóstica</b> y
+                  finalmente, evalúe su conocimiento con la
+                  <b class="text-blue-600">Autoevaluación Gamificada</b>.
+                </p>
+
+                <!-- Enlaces a los AI Dashboards -->
+                <div class="mt-8 bg-white p-4 rounded-lg shadow-md">
+                  <h4 class="text-lg font-semibold text-blue-600 mb-2">
+                    ¿Necesitas ayuda de IA con este tema?
+                  </h4>
+                  <ul class="list-disc list-inside space-y-1">
+                    <li>
+                      <a
+                        href="../ai_dashboard.html"
+                        class="text-blue-500 hover:underline"
+                        >AI Dashboard (API)</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="../ai_dashboard_local.html"
+                        class="text-blue-500 hover:underline"
+                        >AI Dashboard (Local)</a
+                      >
+                    </li>
+                  </ul>
+                  <p class="text-sm text-gray-500 mt-2">
+                    Usa estos paneles para resumir, traducir, formular preguntas
+                    o generar ejemplos del contenido de este módulo.
+                  </p>
+                </div>
+                <!-- Fin de enlaces a los AI Dashboards -->
+              </div>
+            </section>
+
+            <section id="section-presentacion" class="module-section"></section>
+            <section id="section-herramienta" class="module-section"></section>
+            <section
+              id="section-autoevaluacion"
+              class="module-section"
+            ></section>
+          </div>
+        </main>
+      </div>
     </div>
 
-    <!-- ########## TEMPLATES ########## -->
-
-    <!-- Plantilla 1: Presentación Interactiva -->
     <template id="presentation-template">
-      <div class="component-container">
-        <div id="presentation-container">
-          <!-- Las diapositivas se insertarán aquí por JS -->
-        </div>
-        <div class="navigation">
-          <button id="prev-btn" class="nav-button">Anterior</button>
-          <span id="slide-counter"></span>
-          <button id="next-btn" class="nav-button">Siguiente</button>
+      <div id="presentation-container">
+        <div
+          class="w-full h-full flex flex-col bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black ring-opacity-5"
+        >
+          <div class="flex-grow p-4 md:p-8 overflow-y-auto">
+            <div
+              class="bg-slate-100 rounded-lg w-full h-full flex items-center justify-center p-8 md:p-12 min-h-[500px] relative"
+            ></div>
+          </div>
+          <div
+            class="flex-shrink-0 p-4 bg-slate-200/50 border-t border-slate-300/70"
+          >
+            <div class="flex items-center justify-between max-w-md mx-auto">
+              <button
+                id="prevBtn"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <i class="fas fa-arrow-left mr-2"></i> Anterior
+              </button>
+              <div
+                id="slide-counter"
+                class="text-lg font-semibold text-slate-700"
+              ></div>
+              <button
+                id="nextBtn"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors"
+              >
+                Siguiente <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </template>
 
-    <!-- Plantilla 2: Herramienta Diagnóstica -->
     <template id="diagnostic-tool-template">
-      <div class="component-container">
-        <div class="diagnostic-tool-card">
-          <h2>Herramienta de Decisión Clínica</h2>
-          <p>
-            Seleccione el escenario clínico principal para ver la prueba
-            diagnóstica de primera línea recomendada.
-          </p>
-          <div id="diagnostic-scenarios">
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario1"
-                name="clinical_scenario"
-                value="eco"
-              />
-              <label for="scenario1"
-                >Dolor crónico en hipocondrio derecho, sospecha de patología
-                biliar.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario2"
-                name="clinical_scenario"
-                value="eda"
-              />
-              <label for="scenario2"
-                >Hombre > 60 años con dispepsia de nueva aparición y pérdida de
-                peso.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario3"
-                name="clinical_scenario"
-                value="tc"
-              />
-              <label for="scenario3"
-                >Paciente con dolor abdominal agudo, severo, y signos de
-                peritonismo en urgencias.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario4"
-                name="clinical_scenario"
-                value="aliento"
-              />
-              <label for="scenario4"
-                >Mujer con hinchazón, gases y diarrea crónicos; estudios
-                endoscópicos previos normales.</label
-              >
-            </div>
+      <div id="diagnostic-tool-container" class="w-full max-w-2xl mx-auto">
+        <div
+          id="diagnosisCard"
+          class="bg-gradient-to-br from-sky-50 to-cyan-100 rounded-2xl shadow-xl p-8 md:p-12"
+        >
+          <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-slate-800">
+              Asistente de Diagnóstico Diferencial
+            </h1>
+            <p class="text-slate-500 mt-2">
+              Seleccione los hallazgos clínicos clave para obtener una
+              orientación diagnóstica.
+            </p>
           </div>
-          <button id="analyze-btn" class="nav-button" style="margin-top: 20px">
-            Analizar Escenario
+          <div id="symptomsContainer" class="space-y-4 mb-8">
+            <label
+              class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"
+              ><input type="checkbox" data-symptom="ascendingWeakness" /><span
+                class="checkbox-custom"
+                ><i class="fas fa-check"></i></span
+              ><span class="font-semibold text-slate-700"
+                >Debilidad ascendente y simétrica</span
+              ></label
+            >
+            <label
+              class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"
+              ><input type="checkbox" data-symptom="arreflexia" /><span
+                class="checkbox-custom"
+                ><i class="fas fa-check"></i></span
+              ><span class="font-semibold text-slate-700"
+                >Arreflexia generalizada</span
+              ></label
+            >
+            <label
+              class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"
+              ><input type="checkbox" data-symptom="burningPain" /><span
+                class="checkbox-custom"
+                ><i class="fas fa-check"></i></span
+              ><span class="font-semibold text-slate-700"
+                >Dolor quemante en "guante y calcetín"</span
+              ></label
+            >
+            <label
+              class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"
+              ><input type="checkbox" data-symptom="vibratoryLoss" /><span
+                class="checkbox-custom"
+                ><i class="fas fa-check"></i></span
+              ><span class="font-semibold text-slate-700"
+                >Pérdida de sensibilidad vibratoria</span
+              ></label
+            >
+            <label
+              class="checkbox-label flex items-center p-4 bg-white border-2 border-slate-200 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 hover:border-sky-400"
+              ><input
+                type="checkbox"
+                data-symptom="mononeuropathyMultiplex"
+              /><span class="checkbox-custom"><i class="fas fa-check"></i></span
+              ><span class="font-semibold text-slate-700"
+                >Mononeuropatía múltiple (asimétrica)</span
+              ></label
+            >
+          </div>
+          <button
+            id="analyzeBtn"
+            class="w-full flex items-center justify-center p-4 bg-gradient-to-r from-sky-500 to-cyan-500 text-white font-bold text-lg rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:brightness-110"
+          >
+            <i class="fa-solid fa-stethoscope mr-3"></i> Analizar Hallazgos
           </button>
-          <div id="diagnostic-result">
-            <h3 id="result-title"></h3>
-            <p id="result-rationale"></p>
-          </div>
+        </div>
+        <div
+          id="resultCard"
+          class="mt-8 bg-white rounded-2xl shadow-xl p-8 text-center opacity-0 transform translate-y-5"
+          style="display: none"
+        >
+          <div id="resultIcon" class="text-6xl mb-4 mx-auto"></div>
+          <h2 id="resultTitle" class="text-4xl font-extrabold"></h2>
+          <p
+            id="resultJustification"
+            class="text-slate-600 mt-4 text-lg leading-relaxed"
+          ></p>
         </div>
       </div>
     </template>
 
-    <!-- Plantilla 3: Autoevaluación Gamificada -->
     <template id="quiz-template">
-      <div class="component-container">
-        <div class="quiz-card">
-          <h2>Autoevaluación de Casos Clínicos</h2>
-          <div id="quiz-container">
-            <div id="question-container">
-              <p id="question-text"></p>
-              <ul class="quiz-options" id="quiz-options"></ul>
+      <div id="quiz-container" class="w-full max-w-3xl mx-auto">
+        <div
+          id="quiz-card"
+          class="quiz-card bg-white rounded-2xl shadow-xl overflow-hidden"
+        >
+          <div class="p-8 pb-0">
+            <div class="bg-gray-200 rounded-full h-2.5">
+              <div
+                id="progress-bar"
+                class="bg-gradient-to-r from-cyan-500 to-blue-500 h-2.5 rounded-full progress-bar-inner"
+                style="width: 0%"
+              ></div>
             </div>
-            <div id="feedback-text"></div>
-            <button
-              id="next-question-btn"
-              class="nav-button"
-              style="display: none; margin-top: 15px"
-            >
-              Siguiente Pregunta
-            </button>
           </div>
-          <div id="quiz-result-container" style="display: none">
-            <h3>¡Evaluación Completada!</h3>
-            <p id="score-text"></p>
-            <button id="restart-quiz-btn" class="nav-button">
-              Repetir Evaluación
-            </button>
+          <div id="question-area" class="p-8">
+            <h2
+              class="text-lg font-bold text-blue-600 mb-2"
+              id="question-counter"
+            ></h2>
+            <p
+              class="text-xl text-slate-800 font-semibold leading-relaxed"
+              id="question-text"
+            ></p>
+            <div id="options-container" class="mt-8 space-y-4"></div>
+            <div id="feedback-container" class="feedback-container mt-6">
+              <div id="feedback-box" class="p-4 rounded-lg">
+                <h3 class="font-bold mb-2">Justificación Pedagógica:</h3>
+                <div id="feedback-text" class="space-y-2 text-sm"></div>
+              </div>
+            </div>
+            <div id="next-btn-container" class="next-btn-container mt-6">
+              <button
+                id="next-btn"
+                class="w-full p-3 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
+              >
+                Siguiente Pregunta <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
           </div>
+        </div>
+        <div
+          id="results-container"
+          class="text-center p-8 bg-white rounded-2xl shadow-xl"
+          style="display: none"
+        >
+          <h2 class="text-3xl font-extrabold text-slate-800 mb-4">
+            Quiz Completado
+          </h2>
+          <div class="relative inline-flex items-center justify-center my-6">
+            <svg class="w-40 h-40">
+              <circle
+                class="text-gray-200"
+                stroke-width="10"
+                stroke="currentColor"
+                fill="transparent"
+                r="60"
+                cx="80"
+                cy="80"
+              />
+              <circle
+                id="progress-ring"
+                class="progress-ring__circle text-blue-500"
+                stroke-width="10"
+                stroke-linecap="round"
+                stroke="currentColor"
+                fill="transparent"
+                r="60"
+                cx="80"
+                cy="80"
+              /></svg
+            ><span
+              id="score-text"
+              class="absolute text-4xl font-extrabold text-blue-600"
+            ></span>
+          </div>
+          <p
+            id="results-feedback"
+            class="text-xl text-slate-600 font-semibold mb-8"
+          ></p>
+          <button
+            id="restart-btn"
+            class="w-full max-w-xs mx-auto p-4 bg-gray-800 text-white font-bold rounded-lg shadow-md hover:bg-gray-900 transition-all duration-300"
+          >
+            <i class="fas fa-redo mr-2"></i> Repetir el Quiz
+          </button>
         </div>
       </div>
     </template>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
+        // --- LÓGICA DE NAVEGACIÓN PRINCIPAL ---
         const navLinks = document.querySelectorAll('.nav-link');
-        const contentWrapper = document.getElementById('content-wrapper');
+        const sections = document.querySelectorAll('.module-section');
+        const contentContainer = document.getElementById('content-container');
 
-        const templates = {
-          'presentation-template': initPresentation,
-          'diagnostic-tool-template': initDiagnosticTool,
-          'quiz-template': initQuiz,
+        const contentLoaders = {
+          'section-presentacion': (container) => {
+            const template = document.getElementById('presentation-template');
+            container.innerHTML = '';
+            container.appendChild(template.content.cloneNode(true));
+            setupPresentation(
+              container.querySelector('#presentation-container'),
+            );
+          },
+          'section-herramienta': (container) => {
+            const template = document.getElementById(
+              'diagnostic-tool-template',
+            );
+            container.innerHTML = '';
+            container.appendChild(template.content.cloneNode(true));
+            setupDiagnosticTool(
+              container.querySelector('#diagnostic-tool-container'),
+            );
+          },
+          'section-autoevaluacion': (container) => {
+            const template = document.getElementById('quiz-template');
+            container.innerHTML = '';
+            container.appendChild(template.content.cloneNode(true));
+            setupQuiz(container.querySelector('#quiz-container'));
+          },
         };
 
-        function loadContent(templateId) {
-          // Limpiar contenido anterior
-          contentWrapper.innerHTML = '';
+        function switchSection(hash) {
+          hash = hash.substring(1);
+          let targetSectionId = 'section-' + hash;
+          let targetSection = document.getElementById(targetSectionId);
 
-          // Clonar y añadir nuevo contenido
-          const template = document.getElementById(templateId);
-          if (template) {
-            const clone = template.content.cloneNode(true);
-            contentWrapper.appendChild(clone);
+          if (!targetSection) {
+            hash = 'guia';
+            targetSectionId = 'section-guia';
+            targetSection = document.getElementById(targetSectionId);
+          }
 
-            // Inicializar el script del componente
-            if (templates[templateId]) {
-              templates[templateId]();
-            }
+          navLinks.forEach((link) =>
+            link.classList.toggle('active', link.hash === '#' + hash),
+          );
+          sections.forEach((section) =>
+            section.classList.toggle('active', section.id === targetSectionId),
+          );
+
+          if (
+            contentLoaders[targetSectionId] &&
+            !targetSection.dataset.loaded
+          ) {
+            contentLoaders[targetSectionId](targetSection);
+            targetSection.dataset.loaded = 'true';
           }
         }
 
         navLinks.forEach((link) => {
           link.addEventListener('click', (e) => {
             e.preventDefault();
-
-            navLinks.forEach((l) => l.classList.remove('active'));
-            link.classList.add('active');
-
-            const templateId = link.getAttribute('data-template');
-            loadContent(templateId);
+            const targetId = link.getAttribute('href');
+            switchSection(targetId);
+            history.pushState(null, null, targetId);
+            window.scrollTo({
+              top: contentContainer.offsetTop - 80,
+              behavior: 'smooth',
+            });
           });
         });
 
-        // Cargar el contenido inicial (Presentación)
-        loadContent('presentation-template');
-      });
-
-      // --- LÓGICA DE LA PRESENTACIÓN ---
-      function initPresentation() {
-        const presentationContainer = document.getElementById(
-          'presentation-container',
-        );
-        if (!presentationContainer) return;
-
-        const slidesContent = [
-          `<div class="slide active title-slide"><h1>Fundamentos de las Técnicas Diagnósticas en Neurología</h1><p>Indicaciones, Limitaciones y Aplicación Clínica</p></div>`,
-          `<div class="slide"><h2>Introducción: La Evolución del Diagnóstico</h2><ul><li><strong>De la anamnesis a la tecnología:</strong> Evolución desde la clínica pura a un paradigma sofisticado.</li><li><strong>Herramientas modernas:</strong> Endoscopia, Ecografía, TC, Pruebas de Aliento.</li><li><strong>El reto clínico:</strong> La selección de la prueba adecuada es una habilidad fundamental.</li><li><strong>Objetivo:</strong> Dotar de un marco conceptual para la aplicación racional y efectiva de estas técnicas.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 1: Endoscopia Digestiva</h2><h3>La Exploración Directa y Terapéutica</h3><ul><li><strong>Principio:</strong> Visualización directa de la mucosa GI con un tubo flexible y cámara HD.</li><li><strong>Capacidad Dual:</strong> Es la única técnica que es <strong>diagnóstica y terapéutica</strong> a la vez.<ul><li><strong>Diagnóstica:</strong> Inspección visual y toma de <strong>biopsias (estándar de oro)</strong>.</li><li><strong>Terapéutica:</strong> Polipectomía, hemostasia, dilatación, etc.</li></ul></li></ul></div>`,
-          `<div class="slide"><h2>Endoscopia Digestiva Alta (EDA)</h2><h3>Indicaciones Diagnósticas Clave</h3><ul><li><strong>Dispepsia con signos de alarma:</strong> >55 años, pérdida de peso, anorexia.</li><li><strong>ERGE persistente o con alarma:</strong> Disfagia, odinofagia. Detección de Esófago de Barrett.</li><li><strong>Hemorragia Digestiva Alta (Urgente):</strong> Hematemesis, melena.</li><li><strong>Anemia ferropénica</strong> de origen no aclarado.</li><li><strong>Confirmación histológica:</strong> Enfermedad celíaca, gastritis por <em>H. pylori</em>.</li></ul></div>`,
-          `<div class="slide"><h2>Colonoscopia</h2><h3>Indicaciones Diagnósticas y de Cribado</h3><ul><li><strong>Cribado de Cáncer Colorrectal (CCR):</strong> Estándar de oro a partir de 45-50 años.</li><li><strong>Evaluación de síntomas bajos:</strong> Rectorragia, cambio de hábito intestinal.</li><li><strong>Anemia ferropénica</strong> (si la EDA es negativa).</li><li><strong>Diagnóstico y seguimiento de Enfermedad Inflamatoria Intestinal (EII).</strong></li></ul></div>`,
-          `<div class="slide"><h2>Endoscopia: Riesgos y Limitaciones</h2><h3>¿Cuándo NO hacer una endoscopia?</h3><ul><li><strong>Contraindicaciones Absolutas:</strong><ul><li>Sospecha de <strong>perforación</strong> de víscera.</li><li>Inestabilidad hemodinámica (shock).</li><li>Colitis fulminante o megacolon tóxico.</li></ul></li><li><strong>Riesgos Principales (Bajos pero Reales):</strong><ul><li><strong>Perforación:</strong> El más temido, mayor en procedimientos terapéuticos.</li><li><strong>Sangrado:</strong> El más común, especialmente tras polipectomía.</li><li><strong>Complicaciones de la sedación.</strong></li></ul></li></ul></div>`,
-          `<div class="slide"><h2>Sección 2: Ecografía Abdominal</h2><h3>La Ventana No Invasiva al Abdomen</h3><ul><li><strong>Principio:</strong> Ondas de ultrasonido para crear imágenes en tiempo real.</li><li><strong>Ventaja Fundamental:</strong> <strong>Totalmente inocua. No usa radiación ionizante.</strong></li><li><strong>Ideal para:</strong> Niños y mujeres embarazadas.</li></ul></div>`,
-          `<div class="slide"><h2>Ecografía: Aplicaciones Clásicas y Emergentes</h2><h3>Rol Principal</h3><ul><li><strong>Patología biliar (1ª línea):</strong> Detección de <strong>cálculos (colelitiasis)</strong> y <strong>colecistitis</strong>.</li><li><strong>Hígado y Páncreas:</strong> Detección de quistes, tumores, hígado graso.</li></ul><h3>"Revolución Silenciosa" en Tubo Digestivo</h3><ul><li><strong>Apendicitis Aguda:</strong> Técnica de primera línea en niños y mujeres jóvenes.</li><li><strong>Enfermedad Inflamatoria Intestinal (EII):</strong> Valiosa para detectar inflamación y monitorizar respuesta al tratamiento.</li></ul></div>`,
-          `<div class="slide"><h2>Ecografía: Limitaciones Críticas</h2><ul><li><strong>Altamente Operador-Dependiente:</strong> La calidad depende de la habilidad de quien la realiza.</li><li><strong>Interferencia por Gas Intestinal:</strong> El gas es el "enemigo" del ultrasonido.</li><li><strong>Hábito del Paciente:</strong> La obesidad degrada la calidad de la imagen.</li><li><strong>"Puntos Ciegos":</strong> El recto y gran parte del intestino delgado son difíciles de visualizar.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 3: Tomografía Computarizada (TC)</h2><h3>Mapeo Anatómico de Alta Resolución</h3><ul><li><strong>Principio:</strong> Rayos X que rotan alrededor del paciente para crear "cortes" detallados.</li><li><strong>Visión Panorámica:</strong> Ofrece un mapa anatómico 3D de toda la cavidad abdominal.</li><li><strong>Uso de Contraste (Fundamental):</strong> Intravenoso (Yodo) y Enteral (Oral/Rectal).</li></ul></div>`,
-          `<div class="slide"><h2>TC Abdominal: Indicaciones de Primera Línea</h2><ul><li><strong>Abdomen Agudo Severo (URGENCIAS):</strong> Diagnóstico rápido de obstrucción, perforación, isquemia, diverticulitis complicada.</li><li><strong>Estadificación Oncológica:</strong> Fundamental para evaluar la extensión de cánceres y buscar metástasis.</li><li><strong>Detección de Complicaciones:</strong> La mejor técnica para ver abscesos y colecciones.</li></ul></div>`,
-          `<div class="slide"><h2>TC: Limitaciones y Riesgos Críticos</h2><ul><li><strong>Radiación Ionizante (Limitación MÁS IMPORTANTE):</strong> Riesgo acumulativo de cáncer. Evitarse en jóvenes y exploraciones repetidas si es posible.</li><li><strong>Riesgos del Contraste IV Yodado:</strong><ul><li><strong>Nefrotoxicidad:</strong> Puede dañar los riñones.</li><li><strong>Reacciones Alérgicas.</strong></li></ul></li><li><strong>Limitada para patología de la mucosa:</strong> No ve lesiones superficiales como la endoscopia.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 4: Pruebas Funcionales de Aliento</h2><h3>Evaluando la Fisiología y el Metabolismo</h3><ul><li><strong>Principio:</strong> Miden la función, no la anatomía.</li><li><strong>Metodología:</strong> Se ingiere un sustrato y se mide el gas producido en el aliento (CO₂, H₂, CH₄).</li><li><strong>Ventajas:</strong> No invasivas, seguras, de bajo coste y muy precisas para preguntas específicas.</li></ul></div>`,
-          `<div class="slide"><h2>Pruebas de Aliento: Aplicaciones Clave</h2><ul><li><strong>Infección por <em>H. pylori</em> (Prueba de Urea):</strong> Método NO INVASIVO de elección para diagnóstico y confirmación de erradicación.</li><li><strong>Sobrecrecimiento Bacteriano (SIBO) y Malabsorción (Lactosa/Fructosa):</strong> Estudio de hinchazón, gases y diarrea crónica cuando otros estudios son normales.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 5: Enfoque Diagnóstico Integrado</h2><h3>Selección de la Prueba Óptima</h3><ul><li><strong>Dolor agudo severo →</strong> <strong>TC con contraste</strong></li><li><strong>Dolor en hipocondrio derecho →</strong> <strong>Ecografía</strong></li><li><strong>Dispepsia con signos de alarma →</strong> <strong>Endoscopia Alta (EDA)</strong></li><li><strong>Hinchazón y gases crónicos →</strong> <strong>Pruebas de Aliento</strong></li><li><strong>Sospecha de EII →</strong> 1º <strong>Colonoscopia con biopsias</strong>, 2º <strong>Entero-TC/RM o Ecografía</strong></li></ul></div>`,
-          `<div class="slide"><h2>Tabla Comparativa de Modalidades</h2><table class="comparative-table"><thead><tr><th>Característica</th><th>Endoscopia</th><th>Ecografía</th><th>TC Abdominal</th><th>Pruebas de Aliento</th></tr></thead><tbody><tr><td><strong>Principio</strong></td><td>Visualización directa</td><td>Ultrasonido</td><td>Rayos X</td><td>Metabolitos gaseosos</td></tr><tr><td><strong>Ventaja Principal</strong></td><td>Diagnóstica + Terapéutica</td><td><strong>Sin radiación</strong>, bajo coste</td><td>Rapidez, visión panorámica</td><td>No invasiva, alta precisión</td></tr><tr><td><strong>Riesgo/Limitación</strong></td><td>Invasiva, perforación</td><td>Operador-dependiente, gas</td><td><strong>Radiación ionizante</strong></td><td>Falsos +/- por preparación</td></tr></tbody></table></div>`,
-          `<div class="slide title-slide"><h1>Conclusiones</h1><p>El arte de la gastroenterología reside en integrar la clínica con la tecnología, seleccionando la herramienta adecuada para cada paciente y cada pregunta.</p></div>`,
-        ];
-
-        presentationContainer.innerHTML = slidesContent.join('');
-
-        const slides = presentationContainer.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const slideCounter = document.getElementById('slide-counter');
-
-        let currentSlideIndex = 0;
-        const totalSlides = slides.length;
-
-        function showSlide(index) {
-          slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-          });
-          slideCounter.textContent = `${index + 1} / ${totalSlides}`;
-          prevBtn.disabled = index === 0;
-          nextBtn.disabled = index === totalSlides - 1;
+        if (window.location.hash) {
+          switchSection(window.location.hash);
+        } else {
+          switchSection('#guia');
         }
 
-        nextBtn.addEventListener('click', () => {
-          if (currentSlideIndex < totalSlides - 1) {
-            currentSlideIndex++;
-            showSlide(currentSlideIndex);
+        // --- LÓGICA DE LA PRESENTACIÓN (Componente 1) ---
+        function setupPresentation(container) {
+          const slideData = [
+            // Diapositivas 1-5: Introducción y Fundamentos
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 1</h3><h2 class="text-4xl font-extrabold text-slate-800">Neuropatías Periféricas: Un Enfoque Integral</h2><p class="text-lg text-slate-600 mt-4">Desde la Fisiopatología hasta la Práctica Clínica en el Sistema de Salud Ecuatoriano.</p></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 2</h3><h2 class="text-3xl font-bold text-slate-800">Definición y Alcance</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">Grupo heterogéneo de trastornos por daño al <b class="text-blue-600">Sistema Nervioso Periférico (SNP)</b>. Se manifiestan con síntomas motores, sensitivos y autonómicos, representando un desafío diagnóstico.</p></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 3</h3><h2 class="text-3xl font-bold text-slate-800">Relevancia en Ecuador</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl"><b class="text-red-600">Diabetes Mellitus:</b> 2ª causa de mortalidad general, con hasta 70% de pacientes desarrollando neuropatía. <br><b class="text-red-600">Síndrome de Guillain-Barré (SGB):</b> Prototipo de neuropatía aguda que requiere vigilancia epidemiológica activa.</p></div>`,
+            `<div class="w-full"><h3 class="text-2xl font-semibold text-blue-600 mb-2 text-center">Diapositiva 4</h3><h2 class="text-3xl font-bold text-slate-800 mb-4 text-center">Arquitectura del Nervio Periférico</h2><svg viewBox="0 0 800 200" class="nerve-diagram w-full h-auto"><text x="400" y="20" text-anchor="middle" class="text-xl font-bold fill-slate-700">Estructura Microscópica</text><g transform="translate(50, 50)"><rect x="0" y="0" width="700" height="100" class="nerve-bg" rx="10"/><path d="M 10 50 H 690" class="axon"/><rect x="50" y="25" width="80" height="50" class="myelin" rx="5"/><text x="90" y="90" class="label" text-anchor="middle">Mielina</text><rect x="150" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="250" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="350" y="25" width="80" height="50" class="myelin" rx="5"/><rect x="450" y="25" width="80" height="50" class="myelin" rx="5"/><text x="590" y="55" class="label" text-anchor="middle">Nodo de Ranvier</text></g></svg><p class="text-center mt-2 text-slate-600">La <b class="text-blue-600">mielina</b>, producida por las células de Schwann, permite la conducción saltatoria y rápida del impulso nervioso.</p></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 5</h3><h2 class="text-3xl font-bold text-slate-800">Mecanismos Fisiopatológicos Clave</h2><div class="flex gap-6 mt-4"><div class="flex-1 bg-white p-4 rounded-lg shadow-sm"><h4 class="font-bold text-lg">Axonopatía Distal</h4><p class="text-sm">Daño primario al axón, típico de causas metabólicas (DM). Progresión "en guante y calcetín".</p></div><div class="flex-1 bg-white p-4 rounded-lg shadow-sm"><h4 class="font-bold text-lg">Desmielinización Segmentaria</h4><p class="text-sm">Daño primario a la mielina, típico de causas inflamatorias (SGB). Causa enlentecimiento drástico de la conducción.</p></div></div></div>`,
+            // Diapositivas 6-10: Diagnóstico
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 6</h3><h2 class="text-3xl font-bold text-slate-800">Clasificación de las Neuropatías</h2><ul class="list-disc list-inside text-left max-w-lg mx-auto mt-4 text-lg"><li><b class="text-blue-600">Temporalidad:</b> Aguda (SGB), Subaguda, Crónica (PND).</li><li><b class="text-blue-600">Distribución:</b> Mononeuropatía, Mononeuropatía Múltiple, Polineuropatía.</li><li><b class="text-blue-600">Fibra Afectada:</b> Motora, Sensitiva (fibras grandes/pequeñas), Autonómica.</li></ul></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 7</h3><h2 class="text-3xl font-bold text-slate-800">Correlación Clínico-Fisiopatológica</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">La habilidad clave es inferir el mecanismo a partir de la clínica. <br> <b class="text-red-600">Debilidad aguda + arreflexia ➡️ Desmielinización (SGB).</b> <br> <b class="text-red-600">Dolor crónico distal + simétrico ➡️ Axonopatía (PND).</b></p></div>`,
+            `<div class="text-left"><h3 class="text-2xl font-semibold text-blue-600 mb-4 text-center">Diapositiva 8</h3><h2 class="text-3xl font-bold text-slate-800 text-center mb-4">El Pilar del Diagnóstico: Anamnesis</h2><ul class="list-disc list-inside text-lg space-y-2"><li><b class="text-slate-800">Síntomas:</b> Diferenciar negativos (pérdida: adormecimiento) vs. positivos (ganancia anómala: dolor).</li><li><b class="text-slate-800">Distribución:</b> ¿Dónde comenzaron? ¿Simétricos o asimétricos?</li><li><b class="text-slate-800">Tipo de Fibra:</b> ¿Dificultad con botones (grandes)? ¿Dolor quemante (pequeñas)? ¿Mareo al pararse (autonómicas)?</li></ul></div>`,
+            `<div class="text-left"><h3 class="text-2xl font-semibold text-blue-600 mb-4 text-center">Diapositiva 9</h3><h2 class="text-3xl font-bold text-slate-800 text-center mb-4">El Pilar del Diagnóstico: Examen Físico</h2><ul class="list-disc list-inside text-lg space-y-2"><li><b class="text-slate-800">Motor:</b> Fuerza (MRC), Tono, y <b class="text-red-600">Reflejos Osteotendinosos</b> (la arreflexia aquílea es clave).</li><li><b class="text-slate-800">Sensitivo:</b> Diapasón 128 Hz (vibración), alfiler (dolor).</li><li><b class="text-slate-800">Tamizaje en Diabetes:</b> <b class="text-red-600">Monofilamento de 10g</b> para evaluar pérdida de sensación protectora y riesgo de úlcera.</li></ul></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 10</h3><h2 class="text-3xl font-bold text-slate-800">Estudios Electrodiagnósticos (EDX)</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">Son una extensión del examen físico para diferenciar patrones. <br> <b class="text-blue-600">Patrón Axonal:</b> Reducción de amplitud (pérdida de axones). <br> <b class="text-blue-600">Patrón Desmielinizante:</b> Disminución de velocidad (daño a la mielina).</p></div>`,
+            // Diapositivas 11-15: Modelos Prototípicos
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 11</h3><h2 class="text-3xl font-bold text-slate-800">Modelo Crónico: Polineuropatía Diabética (PND)</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">La hiperglicemia crónica daña los nervios por múltiples vías (polioles, AGEs, estrés oxidativo). <b class="text-red-600">Cerca del 50% son asintomáticos al inicio,</b> lo que subraya la importancia del tamizaje activo.</p></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 12</h3><h2 class="text-3xl font-bold text-slate-800">Modelo Agudo: Síndrome de Guillain-Barré (SGB)</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">Trastorno post-infeccioso (ej. *Campylobacter jejuni*, Zika) que constituye una <b class="text-red-600">emergencia neurológica</b> por el riesgo de insuficiencia respiratoria.</p></div>`,
+            `<div class="text-left"><h3 class="text-2xl font-semibold text-blue-600 mb-4 text-center">Diapositiva 13</h3><h2 class="text-3xl font-bold text-slate-800 text-center mb-4">SGB: Criterios Diagnósticos</h2><ul class="list-disc list-inside text-lg space-y-2"><li class="font-bold text-red-600">Requerido: Debilidad progresiva + Arreflexia/hiporreflexia marcada.</li><li>Apoyan fuertemente: Progresión en días a 4 sem, simetría, afectación de nervios craneales, disfunción autonómica.</li><li>Apoyo paraclínico: Disociación albúmino-citológica en LCR, patrón desmielinizante en EDX.</li></ul></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 14</h3><h2 class="text-3xl font-bold text-slate-800">SGB: Manejo de Complicaciones Agudas</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl"><b class="text-red-600">Insuficiencia Respiratoria (25-30%):</b> La más grave. Requiere monitoreo en UCI y ventilación mecánica proactiva (ej. CVF < 20 mL/kg). <br> <b class="text-red-600">Disfunción Autonómica:</b> Fluctuaciones de PA y FC que requieren monitoreo cardíaco.</p></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 15</h3><h2 class="text-3xl font-bold text-slate-800">SGB: Terapias Inmunomoduladoras</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">Indicadas si el paciente no puede caminar (Hughes ≥3). <br> <b class="text-blue-600">Primera línea:</b> Inmunoglobulina IV (IVIg) o Plasmaféresis (PE), con eficacia equivalente. <br> <b class="text-red-600">¡NO usar corticosteroides!</b> Son ineficaces.</p></div>`,
+            // Diapositivas 16-20: Tratamiento y Flujo en el Sistema de Salud
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 16</h3><h2 class="text-3xl font-bold text-slate-800">Farmacoterapia Racional del Dolor Neuropático</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">Se basa en neuromoduladores. El principio universal es <b class="text-red-600">"start low, go slow"</b> (empezar bajo, ir lento), titulando la dosis gradualmente para balancear eficacia y efectos adversos.</p></div>`,
+            `<div class="w-full"><h3 class="text-2xl font-semibold text-blue-600 mb-2 text-center">Diapositiva 17</h3><h2 class="text-3xl font-bold text-slate-800 mb-4 text-center">Fármacos en el CNMB de Ecuador</h2><div class="overflow-x-auto"><table class="custom-table"><thead><tr><th>Fármaco</th><th>Clase</th><th>Nivel de Prescripción</th></tr></thead><tbody><tr><td><b>Amitriptilina</b></td><td>ATC</td><td>General</td></tr><tr><td><b>Gabapentina</b></td><td>Gabapentinoide</td><td>General</td></tr><tr><td><b>Carbamazepina</b></td><td>Bloq. Canales Na+</td><td>General</td></tr><tr><td><b>Pregabalina</b></td><td>Gabapentinoide</td><td>Especialidad</td></tr><tr><td><b>Duloxetina</b></td><td>IRSN</td><td>Especialidad</td></tr></tbody></table></div><p class="text-center text-sm mt-2">El médico debe dominar el manejo de fármacos de nivel general como Amitriptilina y Gabapentina.</p></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 18</h3><h2 class="text-3xl font-bold text-slate-800">Rol del Médico de Atención Primaria (AP)</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">Es la <b class="text-blue-600">puerta de entrada al sistema</b>. Sus roles son: sospecha inicial, manejo de casos prevalentes (PND), identificación de "banderas Rojas" y referencia oportuna y efectiva.</p></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 19</h3><h2 class="text-3xl font-bold text-slate-800">Criterios de Referencia Urgente</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">La "bandera roja" más importante que requiere referencia <b class="text-red-600">URGENTE</b> a Emergencia es: <br><b>Debilidad rápidamente progresiva (días) en más de una extremidad, con arreflexia.</b> (Sospecha de SGB).</p></div>`,
+            `<div class="text-center"><h3 class="text-2xl font-semibold text-blue-600 mb-4">Diapositiva 20</h3><h2 class="text-3xl font-bold text-slate-800">El Formulario 053: Comunicación Clínica Clave</h2><p class="text-lg text-slate-600 mt-4 max-w-3xl">Es el instrumento de comunicación clínica asincrónica. Un resumen bien estructurado (S-O-A-P) en la <b class="text-blue-600">casilla 3</b> asegura la continuidad del cuidado y optimiza los recursos.</p></div>`,
+          ];
+
+          const slideContainer = container.querySelector('.bg-slate-100');
+          const prevBtn = container.querySelector('#prevBtn');
+          const nextBtn = container.querySelector('#nextBtn');
+          const slideCounter = container.querySelector('#slide-counter');
+          let currentSlide = 0;
+
+          function renderSlides() {
+            slideContainer.innerHTML = slideData
+              .map(
+                (content, index) =>
+                  `<div class="slide-content absolute w-full h-full p-6 md:p-10 ${index === 0 ? 'active' : ''}">${content}</div>`,
+              )
+              .join('');
           }
-        });
 
-        prevBtn.addEventListener('click', () => {
-          if (currentSlideIndex > 0) {
-            currentSlideIndex--;
-            showSlide(currentSlideIndex);
+          function showSlide(n) {
+            const slides = slideContainer.querySelectorAll('.slide-content');
+            slides.forEach((slide, index) =>
+              slide.classList.toggle('active', index === n),
+            );
+            currentSlide = n;
+            slideCounter.textContent = `${n + 1} / ${slides.length}`;
+            prevBtn.disabled = n === 0;
+            nextBtn.disabled = n === slides.length - 1;
           }
-        });
-        showSlide(currentSlideIndex);
-      }
 
-      // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA ---
-      function initDiagnosticTool() {
-        const analyzeBtn = document.getElementById('analyze-btn');
-        if (!analyzeBtn) return;
+          renderSlides();
+          showSlide(0);
 
-        const resultDiv = document.getElementById('diagnostic-result');
-        const resultTitle = document.getElementById('result-title');
-        const resultRationale = document.getElementById('result-rationale');
+          nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+          prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+        }
 
-        const recommendations = {
-          eco: {
-            title: 'Ecografía Abdominal',
-            rationale:
-              'Es la prueba de primera línea, segura, económica y excelente para detectar patología biliar (cálculos) o hepática, que son la causa más probable de dolor en el hipocondrio derecho.',
-            class: 'eco',
-          },
-          eda: {
-            title: 'Endoscopia Digestiva Alta (EDA)',
-            rationale:
-              'Los signos de alarma (edad > 55, pérdida de peso) obligan a descartar una neoplasia esofagogástrica. La EDA es mandatoria porque permite la visualización directa y la toma de biopsias.',
-            class: 'eda',
-          },
-          tc: {
-            title: 'TC Abdominal con Contraste',
-            rationale:
-              'Ante una posible catástrofe intraabdominal (perforación, isquemia, etc.), la TC es la prueba de elección por su rapidez, visión panorámica y alta precisión para guiar una intervención urgente.',
-            class: 'tc',
-          },
-          aliento: {
-            title: 'Pruebas de Aliento',
-            rationale:
-              'Dado que los estudios anatómicos (endoscopias) son normales, la sospecha se inclina hacia un trastorno funcional. Las pruebas de aliento para SIBO o malabsorción son el paso más racional y menos invasivo.',
-            class: 'aliento',
-          },
-        };
-
-        analyzeBtn.addEventListener('click', () => {
-          const selectedScenario = document.querySelector(
-            'input[name="clinical_scenario"]:checked',
+        // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA (Componente 2) ---
+        function setupDiagnosticTool(container) {
+          const diagnosisCard = container.querySelector('#diagnosisCard');
+          const analyzeBtn = container.querySelector('#analyzeBtn');
+          const resultCard = container.querySelector('#resultCard');
+          const resultIcon = container.querySelector('#resultIcon');
+          const resultTitle = container.querySelector('#resultTitle');
+          const resultJustification = container.querySelector(
+            '#resultJustification',
           );
-          if (selectedScenario) {
-            const value = selectedScenario.value;
-            const recommendation = recommendations[value];
+          const checkboxes = container.querySelectorAll(
+            'input[type="checkbox"]',
+          );
 
-            resultTitle.textContent =
-              'Prueba recomendada: ' + recommendation.title;
-            resultRationale.textContent =
-              'Justificación: ' + recommendation.rationale;
-            resultDiv.className = ''; // Reset class
-            resultDiv.classList.add(recommendation.class);
-            resultDiv.style.display = 'block';
-          } else {
-            resultTitle.textContent = 'Por favor, seleccione un escenario.';
-            resultRationale.textContent = '';
-            resultDiv.style.display = 'block';
-            resultDiv.className = '';
-          }
-        });
-      }
-
-      // --- LÓGICA DE LA AUTOEVALUACIÓN ---
-      function initQuiz() {
-        const quizContainer = document.getElementById('quiz-container');
-        if (!quizContainer) return;
-
-        const questionText = document.getElementById('question-text');
-        const quizOptions = document.getElementById('quiz-options');
-        const feedbackText = document.getElementById('feedback-text');
-        const nextBtn = document.getElementById('next-question-btn');
-        const resultContainer = document.getElementById(
-          'quiz-result-container',
-        );
-        const scoreText = document.getElementById('score-text');
-        const restartBtn = document.getElementById('restart-quiz-btn');
-
-        const questions = [
-          {
-            question:
-              'Mujer de 25 años con dolor en fosa ilíaca derecha y test de embarazo negativo. ¿Cuál es la primera prueba de imagen recomendada?',
-            options: [
-              'Ecografía abdominal',
-              'TC con contraste',
-              'RM abdominal',
-              'Endoscopia',
-            ],
-            correct: 0,
-          },
-          {
-            question:
-              'Paciente con hematemesis y melena. ¿Cuál es la prueba diagnóstica inicial?',
-            options: [
-              'Colonoscopia',
-              'Ecografía',
-              'Endoscopia digestiva alta',
-              'TC de abdomen',
-            ],
-            correct: 2,
-          },
-          {
-            question:
-              'Dolor en hipocondrio derecho acompañado de fiebre y leucocitosis. ¿Cuál es la prueba de elección?',
-            options: [
-              'Radiografía simple',
-              'Ecografía abdominal',
-              'Endoscopia',
-              'TC sin contraste',
-            ],
-            correct: 1,
-          },
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-
-        function showQuestion() {
-          const q = questions[currentQuestion];
-          questionText.textContent = q.question;
-          quizOptions.innerHTML = '';
-          q.options.forEach((opt, idx) => {
-            const li = document.createElement('li');
-            li.textContent = opt;
-            li.addEventListener('click', () => selectAnswer(idx));
-            quizOptions.appendChild(li);
+          checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+              diagnosisCard.classList.remove('card-pulse');
+              void diagnosisCard.offsetWidth;
+              diagnosisCard.classList.add('card-pulse');
+            });
           });
-          feedbackText.textContent = '';
-          feedbackText.style.backgroundColor = '';
-          nextBtn.style.display = 'none';
-        }
 
-        function selectAnswer(index) {
-          const q = questions[currentQuestion];
-          const options = quizOptions.querySelectorAll('li');
-          options.forEach((li, idx) => {
-            if (idx === q.correct) {
-              li.classList.add('correct');
-            } else if (idx === index) {
-              li.classList.add('incorrect');
+          analyzeBtn.addEventListener('click', () => {
+            const selectedSymptoms = {};
+            checkboxes.forEach((checkbox) => {
+              if (checkbox.checked)
+                selectedSymptoms[checkbox.dataset.symptom] = true;
+            });
+
+            let diag = {
+              title: 'Hallazgos no concluyentes',
+              justification:
+                'La combinación de síntomas seleccionada no corresponde a un patrón clásico. Considere otras etiologías o refine la anamnesis y el examen físico. Este es un asistente educativo y no reemplaza el juicio clínico.',
+              icon: '<i class="fa-solid fa-question-circle text-gray-400"></i>',
+              borderColor: 'border-gray-400',
+            };
+
+            if (
+              selectedSymptoms.ascendingWeakness &&
+              selectedSymptoms.arreflexia
+            ) {
+              diag = {
+                title: 'Síndrome de Guillain-Barré (SGB)',
+                justification:
+                  'La constelación de debilidad aguda, ascendente, simétrica y con arreflexia generalizada es el sello clínico de una neuropatía desmielinizante aguda, cuyo arquetipo es el SGB.',
+                icon: '<i class="fa-solid fa-lungs-virus text-red-500"></i>',
+                borderColor: 'border-red-500',
+              };
+            } else if (
+              selectedSymptoms.burningPain &&
+              selectedSymptoms.vibratoryLoss
+            ) {
+              diag = {
+                title: 'Polineuropatía Diabética (PND)',
+                justification:
+                  'La presencia de síntomas de fibras pequeñas (dolor quemante) y de fibras grandes (pérdida de vibración) en una distribución distal y simétrica ("en guante y calcetín") es característica de una axonopatía distal, el mecanismo típico de la PND.',
+                icon: '<i class="fa-solid fa-shoe-prints text-blue-500"></i>',
+                borderColor: 'border-blue-500',
+              };
+            } else if (selectedSymptoms.mononeuropathyMultiplex) {
+              diag = {
+                title: 'Vasculitis (Mononeuropatía Múltiple)',
+                justification:
+                  'La afectación secuencial, asimétrica y escalonada de nervios no contiguos (mononeuropatía múltiple) es una "bandera roja" que sugiere un proceso sistémico que afecta los vasos sanguíneos de los nervios (vasa nervorum), como ocurre en las vasculitis.',
+                icon: '<i class="fa-solid fa-diagram-project text-amber-500"></i>',
+                borderColor: 'border-amber-500',
+              };
             }
-            li.style.pointerEvents = 'none';
+
+            resultIcon.innerHTML = diag.icon;
+            resultTitle.textContent = diag.title;
+            resultJustification.innerHTML = diag.justification;
+            resultCard.className = `mt-8 bg-white rounded-2xl shadow-xl p-8 text-center opacity-0 transform translate-y-5 border-t-8 ${diag.borderColor}`;
+            resultCard.style.display = 'block';
+            setTimeout(() => {
+              resultCard.classList.remove('opacity-0', 'translate-y-5');
+              resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 10);
           });
-          if (index === q.correct) {
-            feedbackText.textContent = '¡Correcto!';
-            feedbackText.style.backgroundColor = '#d4edda';
-            score++;
-          } else {
-            feedbackText.textContent = 'Respuesta incorrecta';
-            feedbackText.style.backgroundColor = '#f8d7da';
-          }
-          nextBtn.style.display = 'inline-block';
         }
 
-        nextBtn.addEventListener('click', () => {
-          currentQuestion++;
-          if (currentQuestion < questions.length) {
-            showQuestion();
-          } else {
-            quizContainer.style.display = 'none';
-            resultContainer.style.display = 'block';
-            scoreText.textContent = `Tu puntaje: ${score} de ${questions.length}`;
+        // --- LÓGICA DE LA AUTOEVALUACIÓN (Componente 3) ---
+        function setupQuiz(container) {
+          const quizData = [
+            {
+              question:
+                'Paciente de 65 años con diabetes de 15 años de evolución, consulta por dolor quemante y adormecimiento en ambos pies que ha progresado lentamente hasta las rodillas. Al examen, presenta hipoestesia vibratoria y aquíleos ausentes. ¿Cuál es el diagnóstico más probable?',
+              options: [
+                'Síndrome de Guillain-Barré (SGB)',
+                'Polineuropatía Diabética (PND)',
+                'Mononeuropatía Múltiple por vasculitis',
+                'Neuropatía por atrapamiento del nervio mediano',
+              ],
+              correctAnswer: 1,
+              justification: {
+                correct:
+                  "Correcto. El cuadro de un paciente con diabetes de larga data que presenta síntomas sensitivos crónicos, de progresión lenta, simétricos y distales (patrón 'en guante y calcetín'), con afectación de fibras grandes (vibración) y pequeñas (dolor), es el sello de una axonopatía distal, típica de la PND.",
+                incorrect: [
+                  'Incorrecto. El SGB es una neuropatía aguda y motora.',
+                  'Incorrecto. La vasculitis es asimétrica y escalonada.',
+                  'Incorrecto. El síndrome del túnel carpiano es una mononeuropatía de la mano.',
+                ],
+              },
+            },
+            {
+              question:
+                'Un paciente de 30 años acude a emergencia por una historia de 4 días de debilidad en las piernas que ahora le dificulta subir escaleras, y desde ayer nota debilidad en los brazos. Al examen, presenta arreflexia generalizada. ¿Cuál es la sospecha diagnóstica principal?',
+              options: [
+                'Polineuropatía diabética de inicio atípico',
+                'Vasculitis sistémica',
+                'Síndrome de Guillain-Barré (SGB)',
+                'Déficit de Vitamina B12',
+              ],
+              correctAnswer: 2,
+              justification: {
+                correct:
+                  'Correcto. La debilidad motora aguda (días), ascendente, simétrica y con arreflexia es la presentación clásica del SGB, una emergencia neurológica.',
+                incorrect: [
+                  'Incorrecto. La PND es crónica.',
+                  'Incorrecto. La vasculitis es asimétrica.',
+                  'Incorrecto. El déficit de B12 es crónico y primariamente sensitivo.',
+                ],
+              },
+            },
+            {
+              question:
+                "En un centro de AP en Ecuador, un paciente con PND dolorosa necesita iniciar tratamiento. Según el CNMB y el principio de 'empezar bajo, ir lento', ¿cuál es una opción de primera línea adecuada y disponible?",
+              options: [
+                'Inmunoglobulina Intravenosa (IVIg)',
+                'Corticosteroides a altas dosis',
+                'Amitriptilina 10-25 mg por la noche',
+                'Tramadol 100 mg cada 8 horas',
+              ],
+              correctAnswer: 2,
+              justification: {
+                correct:
+                  "Correcto. La amitriptilina está en el CNMB, es efectiva y la dosis de inicio baja y nocturna sigue la estrategia 'start low, go slow' para minimizar efectos adversos.",
+                incorrect: [
+                  'Incorrecto. IVIg es para neuropatías inmunes como el SGB.',
+                  'Incorrecto. Los corticoides no están indicados para el dolor neuropático diabético.',
+                  'Incorrecto. Tramadol no es primera línea y la dosis de inicio es muy alta.',
+                ],
+              },
+            },
+          ];
+
+          let currentQuestionIndex = 0;
+          let score = 0;
+          const quizCard = container.querySelector('#quiz-card');
+          const resultsContainer =
+            container.querySelector('#results-container');
+          const progressBar = container.querySelector('#progress-bar');
+          const questionCounter = container.querySelector('#question-counter');
+          const questionText = container.querySelector('#question-text');
+          const optionsContainer =
+            container.querySelector('#options-container');
+          const feedbackContainer = container.querySelector(
+            '#feedback-container',
+          );
+          const feedbackBox = container.querySelector('#feedback-box');
+          const feedbackText = container.querySelector('#feedback-text');
+          const nextBtnContainer = container.querySelector(
+            '#next-btn-container',
+          );
+          const nextBtn = container.querySelector('#next-btn');
+          const restartBtn = container.querySelector('#restart-btn');
+          const scoreText = container.querySelector('#score-text');
+          const progressRing = container.querySelector('#progress-ring');
+          const resultsFeedback = container.querySelector('#results-feedback');
+
+          function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsContainer.style.display = 'none';
+            quizCard.style.display = 'block';
+            quizCard.classList.remove('fade-out');
+            displayQuestion();
           }
-        });
 
-        restartBtn.addEventListener('click', () => {
-          currentQuestion = 0;
-          score = 0;
-          quizContainer.style.display = 'block';
-          resultContainer.style.display = 'none';
-          showQuestion();
-        });
+          function displayQuestion() {
+            quizCard.classList.add('fade-out');
+            setTimeout(() => {
+              const question = quizData[currentQuestionIndex];
+              feedbackContainer.style.display = 'none';
+              nextBtnContainer.style.display = 'none';
+              optionsContainer.innerHTML = '';
+              progressBar.style.width = `${(currentQuestionIndex / quizData.length) * 100}%`;
+              questionCounter.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizData.length}`;
+              questionText.textContent = question.question;
+              question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className =
+                  'option-btn w-full text-left p-4 border-2 border-gray-200 rounded-lg hover:bg-gray-100 transition-all duration-300';
+                button.textContent = option;
+                button.onclick = () => selectAnswer(index, button);
+                optionsContainer.appendChild(button);
+              });
+              quizCard.classList.remove('fade-out');
+            }, 500);
+          }
 
-        showQuestion();
-      }
+          function selectAnswer(selectedIndex, selectedButton) {
+            const question = quizData[currentQuestionIndex];
+            const correctIndex = question.correctAnswer;
+            optionsContainer
+              .querySelectorAll('.option-btn')
+              .forEach((btn) => (btn.disabled = true));
+            selectedButton.classList.add('selected');
+            const isCorrect = selectedIndex === correctIndex;
+            if (isCorrect) {
+              score++;
+              selectedButton.classList.add('correct');
+              feedbackBox.className =
+                'p-4 rounded-lg bg-green-50 border border-green-300';
+            } else {
+              selectedButton.classList.add('incorrect');
+              optionsContainer
+                .querySelectorAll('.option-btn')
+                [correctIndex].classList.add('correct');
+              feedbackBox.className =
+                'p-4 rounded-lg bg-red-50 border border-red-300';
+            }
+            showFeedback(question);
+          }
+
+          function showFeedback(question) {
+            let justificationHTML = `<p class="font-bold text-green-700">${question.justification.correct}</p>`;
+            justificationHTML += `<div class="mt-3 border-t pt-2 space-y-2">${question.options
+              .map((opt, index) => {
+                if (index !== question.correctAnswer)
+                  return `<p><strong class="text-red-700">Opción "${opt}":</strong> ${
+                    question.justification.incorrect[
+                      question.options
+                        .map((o, i) => i)
+                        .filter((i) => i !== question.correctAnswer)
+                        .indexOf(index)
+                    ]
+                  }</p>`;
+                return '';
+              })
+              .join('')}</div>`;
+            feedbackText.innerHTML = justificationHTML;
+            feedbackContainer.style.display = 'block';
+            nextBtnContainer.style.display = 'block';
+            nextBtn.textContent =
+              currentQuestionIndex === quizData.length - 1
+                ? 'Ver Resultados Finales'
+                : 'Siguiente Pregunta';
+          }
+
+          nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            currentQuestionIndex < quizData.length
+              ? displayQuestion()
+              : showResults();
+          });
+
+          restartBtn.addEventListener('click', startQuiz);
+
+          function showResults() {
+            quizCard.classList.add('fade-out');
+            setTimeout(() => {
+              quizCard.style.display = 'none';
+              resultsContainer.style.display = 'block';
+              const percentage = Math.round((score / quizData.length) * 100);
+              scoreText.textContent = `${percentage}%`;
+              const radius = progressRing.r.baseVal.value;
+              const circumference = radius * 2 * Math.PI;
+              progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
+              progressRing.style.strokeDashoffset =
+                circumference - (percentage / 100) * circumference;
+              if (percentage === 100)
+                resultsFeedback.textContent = '¡Excelente! Dominio completo.';
+              else if (percentage >= 70)
+                resultsFeedback.textContent = '¡Muy bien! Sólido conocimiento.';
+              else
+                resultsFeedback.textContent =
+                  'Buen intento. Repasa los puntos clave.';
+            }, 500);
+          }
+
+          startQuiz();
+        }
+      });
     </script>
+    <script src="/assets/ask-ai.js"></script>
   </body>
 </html>
