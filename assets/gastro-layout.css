@@ -1,0 +1,75 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+#app-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+aside#side-nav {
+  width: 280px;
+  background-color: #ffffff;
+  padding: 25px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+#side-nav h1 {
+  color: #005a9c;
+  font-size: 1.4em;
+  margin: 0 0 30px 0;
+  border-bottom: 2px solid #e3f2fd;
+  padding-bottom: 15px;
+}
+#side-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#side-nav li a {
+  display: block;
+  padding: 10px 15px;
+  color: #003366;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+#side-nav li a:hover {
+  background-color: #e3f2fd;
+}
+main#content-area {
+  flex-grow: 1;
+  padding: 30px;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#content-wrapper {
+  width: 816px;
+  height: 1056px;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+aside#ai-panel {
+  width: 360px;
+  background-color: #ffffff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+#ai-panel iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
