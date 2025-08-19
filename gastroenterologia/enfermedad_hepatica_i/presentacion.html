@@ -3,855 +3,595 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Módulo Interactivo de Gastroenterología</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <style>
-      :root {
-        --primary-color: #005a9c;
-        --secondary-color: #003366;
-        --background-color: #f0f4f8;
-        --text-color: #333;
-        --card-bg: #ffffff;
-        --accent-color: #e3f2fd;
-        --success-color: #28a745;
-        --danger-color: #dc3545;
-      }
-
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: var(--background-color);
-        color: var(--text-color);
-        margin: 0;
-        display: flex;
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      /* --- Layout Principal --- */
-      #app-container {
-        display: flex;
-        width: 100%;
-        height: 100%;
-      }
-
-      aside#side-nav {
-        width: 280px;
-        background-color: var(--card-bg);
-        padding: 25px;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-        z-index: 10;
-      }
-
-      main#content-area {
-        flex-grow: 1;
-        padding: 30px;
-        overflow: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #content-wrapper {
-        /* Letter-size canvas that scales within the viewport */
-        width: 816px;
-        height: 1056px;
-        max-width: 100%;
-        max-height: 100%;
-        background-color: var(--card-bg);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        overflow: auto;
-      }
-
-      aside#ai-panel {
-        width: 360px;
-        background-color: var(--card-bg);
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-      }
-      #ai-panel iframe {
-        border: none;
-        width: 100%;
-        height: 100%;
-      }
-
-      /* --- Panel de Navegación --- */
-      #side-nav h1 {
-        color: var(--primary-color);
-        font-size: 1.5em;
-        margin: 0 0 30px 0;
-        border-bottom: 2px solid var(--accent-color);
-        padding-bottom: 15px;
-      }
-      #side-nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      #side-nav li a {
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        color: var(--secondary-color);
-        text-decoration: none;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        font-weight: 500;
-        transition:
-          background-color 0.3s,
-          color 0.3s;
-      }
-      #side-nav li a .fa-solid {
-        margin-right: 15px;
-        width: 20px;
-        text-align: center;
-      }
-      #side-nav li a:hover {
-        background-color: var(--accent-color);
-      }
-      #side-nav li a.active {
-        background-color: var(--primary-color);
-        color: white;
-        font-weight: bold;
-        box-shadow: 0 4px 8px rgba(0, 90, 156, 0.2);
-      }
-
-      /* --- Estilos Generales de Componentes --- */
-      .component-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* --- Estilos de la Presentación --- */
-      #presentation-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .slide {
-        background-color: var(--card-bg);
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        flex-grow: 1;
-        padding: 40px;
-        box-sizing: border-box;
-        display: none;
-        flex-direction: column;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        overflow-y: auto;
-      }
-      .slide.active {
-        display: flex;
-        opacity: 1;
-      }
-      .slide h1,
-      .slide h2,
-      .slide h3 {
-        color: var(--secondary-color);
-        margin-bottom: 20px;
-        width: 100%;
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      .slide h1 {
-        font-size: 2.2em;
-        text-align: center;
-        border-bottom: none;
-      }
-      .slide h2 {
-        font-size: 1.8em;
-      }
-      .slide h3 {
-        font-size: 1.4em;
-        color: var(--primary-color);
-        border-bottom: 1px solid #ccc;
-      }
-      .slide p,
-      .slide ul,
-      .slide li {
-        font-size: 1.1em;
-        line-height: 1.6;
-        text-align: left;
-        max-width: 100%;
-      }
-      .slide ul {
-        list-style-type: none;
-        padding-left: 20px;
-      }
-      .slide li::before {
-        content: '✓';
-        color: var(--primary-color);
-        font-weight: bold;
-        display: inline-block;
-        width: 1.2em;
-        margin-left: -1.2em;
-      }
-      .title-slide {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      .navigation {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 20px;
-      }
-      .nav-button {
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1em;
-        border-radius: 5px;
-        cursor: pointer;
-        margin: 0 10px;
-        transition: background-color 0.3s;
-      }
-      .nav-button:hover {
-        background-color: var(--secondary-color);
-      }
-      .nav-button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      #slide-counter {
-        font-size: 1.1em;
-        color: var(--text-color);
-        font-weight: bold;
-      }
-      .comparative-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        font-size: 0.9em;
-      }
-      .comparative-table th,
-      .comparative-table td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-      }
-      .comparative-table th {
-        background-color: var(--accent-color);
-        color: var(--secondary-color);
-        font-weight: bold;
-      }
-      .case-study {
-        background-color: var(--accent-color);
-        border-left: 5px solid var(--primary-color);
-        padding: 15px;
-        margin-top: 15px;
-        border-radius: 5px;
-      }
-
-      /* --- Estilos de la Herramienta Diagnóstica --- */
-      .diagnostic-tool-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .diagnostic-tool-card h2 {
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      .scenario-option {
-        margin-bottom: 15px;
-      }
-      .scenario-option label {
-        display: block;
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition:
-          border-color 0.3s,
-          background-color 0.3s;
-      }
-      .scenario-option input[type='radio'] {
-        display: none;
-      }
-      .scenario-option input[type='radio']:checked + label {
-        border-color: var(--primary-color);
-        background-color: var(--accent-color);
-        font-weight: bold;
-      }
-      #diagnostic-result {
-        margin-top: 25px;
-        padding: 20px;
-        border-radius: 8px;
-        border-left: 5px solid;
-        display: none;
-      }
-      #diagnostic-result.eda {
-        border-color: #ff9800;
-      }
-      #diagnostic-result.tc {
-        border-color: #f44336;
-      }
-      #diagnostic-result.eco {
-        border-color: #4caf50;
-      }
-      #diagnostic-result.aliento {
-        border-color: #2196f3;
-      }
-      #diagnostic-result h3 {
-        margin-top: 0;
-      }
-
-      /* --- Estilos de la Autoevaluación --- */
-      .quiz-card {
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .quiz-card h2 {
-        color: var(--secondary-color);
-        border-bottom: 2px solid var(--primary-color);
-        padding-bottom: 10px;
-      }
-      #question-container p {
-        font-size: 1.2em;
-        font-weight: 500;
-      }
-      .quiz-options {
-        list-style: none;
-        padding: 0;
-      }
-      .quiz-options li {
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-bottom: 10px;
-        transition: background-color 0.3s;
-      }
-      .quiz-options li:hover {
-        background-color: var(--accent-color);
-      }
-      .quiz-options li.correct {
-        background-color: #d4edda;
-        border-color: var(--success-color);
-      }
-      .quiz-options li.incorrect {
-        background-color: #f8d7da;
-        border-color: var(--danger-color);
-      }
-      #feedback-text {
-        margin-top: 15px;
-        padding: 10px;
-        border-radius: 5px;
-      }
-      #quiz-result-container {
-        text-align: center;
-      }
-      #quiz-result-container h3 {
-        font-size: 2em;
-        color: var(--primary-color);
-      }
-      #quiz-result-container p {
-        font-size: 1.3em;
-      }
-
-      @media (max-width: 768px) {
-        #app-container {
-          flex-direction: column;
-        }
-        aside#side-nav {
-          width: 100%;
-          height: auto;
-          flex-direction: row;
-          overflow-x: auto;
-          padding: 10px;
-        }
-        aside#ai-panel {
-          display: none;
-        }
-        #side-nav h1 {
-          display: none;
-        }
-        #side-nav ul {
-          display: flex;
-        }
-        #side-nav li a {
-          flex-direction: column;
-          font-size: 0.8em;
-          padding: 10px 5px;
-        }
-        #side-nav li a .fa-solid {
-          margin-right: 0;
-          margin-bottom: 5px;
-        }
-        main#content-area {
-          padding: 15px;
-        }
-        #content-wrapper {
-          width: 100%;
-          height: auto;
-        }
-      }
-    </style>
+    <title>Presentación: Enfermedad Hepática I</title>
+    <link href="../../assets/tailwind.css" rel="stylesheet" />
   </head>
-  <body>
-    <div id="app-container">
-      <aside id="side-nav">
-        <h1>Diagnóstico GI</h1>
-        <nav>
-          <ul>
-            <li>
-              <a
-                href="#"
-                class="nav-link active"
-                data-template="presentation-template"
-                ><i class="fa-solid fa-book-open"></i> Base de Conocimiento</a
+  <body class="font-sans bg-gray-100 text-gray-800">
+    <div class="relative w-full h-screen flex flex-col">
+      <div
+        id="slider-container"
+        class="slider-container flex w-full h-full overflow-x-auto no-scrollbar"
+      >
+        <!-- Slide 1: Título -->
+        <div
+          id="slide-1"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-slate-900 text-white"
+        >
+          <div class="text-center max-w-4xl">
+            <p class="text-xl md:text-2xl text-cyan-300">
+              Gastroenterología - Semana 9
+            </p>
+            <h1 class="text-4xl md:text-5xl font-extrabold my-4">
+              Enfermedad Hepática I
+            </h1>
+            <p class="mt-4 text-xl font-light">
+              Abordaje de la Hepatitis Virales y la Enfermedad Hepática Grasa
+            </p>
+            <svg
+              class="mt-8 mx-auto w-full max-w-sm"
+              viewBox="0 0 200 150"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M 40 130 Q 100 -20 160 130" fill="#a5f3fc" />
+              <path d="M 50 130 C 60 100, 140 100, 150 130" fill="#0e7490" />
+              <text
+                x="100"
+                y="90"
+                text-anchor="middle"
+                font-size="14"
+                fill="white"
+                font-weight="bold"
               >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="nav-link"
-                data-template="diagnostic-tool-template"
-                ><i class="fa-solid fa-stethoscope"></i> Herramienta
-                Diagnóstica</a
-              >
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-template="quiz-template"
-                ><i class="fa-solid fa-gamepad"></i> Autoevaluación</a
-              >
-            </li>
-          </ul>
-        </nav>
-      </aside>
+                Hígado
+              </text>
+            </svg>
+          </div>
+        </div>
 
-      <main id="content-area">
-        <div id="content-wrapper"></div>
-      </main>
-      <aside id="ai-panel">
-        <iframe
-          src="../../ai_dashboard.html"
-          title="AI Dashboard"
-          aria-label="AI Dashboard"
-          loading="lazy"
-        ></iframe>
-      </aside>
+        <!-- Slide 2: Objetivos -->
+        <div
+          id="slide-2"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-white"
+        >
+          <div class="max-w-4xl w-full">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              Objetivos de Aprendizaje
+            </h2>
+            <ul class="space-y-4 text-lg md:text-xl">
+              <li class="flex items-start">
+                <span class="text-cyan-500 mr-3 mt-1">&#10003;</span
+                ><span
+                  >Diferenciar los perfiles epidemiológicos y de transmisión de
+                  las hepatitis virales A, B y C.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-cyan-500 mr-3 mt-1">&#10003;</span
+                ><span
+                  >Interpretar correctamente los marcadores serológicos para el
+                  diagnóstico de la hepatitis B aguda y crónica.</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-cyan-500 mr-3 mt-1">&#10003;</span
+                ><span
+                  >Identificar los factores de riesgo y la fisiopatología de la
+                  enfermedad hepática grasa no alcohólica (NAFLD).</span
+                >
+              </li>
+              <li class="flex items-start">
+                <span class="text-cyan-500 mr-3 mt-1">&#10003;</span
+                ><span
+                  >Describir el abordaje diagnóstico inicial de un paciente con
+                  enzimas hepáticas elevadas.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Slide 3: El Hígado como Laboratorio Central -->
+        <div
+          id="slide-3"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50"
+        >
+          <div class="max-w-4xl w-full text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              El Paciente con Pruebas Hepáticas Alteradas
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+              La elevación de transaminasas (ALT, AST) es una de las
+              alteraciones de laboratorio más comunes. Es una señal de "lesión
+              hepatocelular".
+            </p>
+            <p class="text-2xl font-bold text-blue-800">
+              Nuestra misión: Actuar como detectives para encontrar la causa.
+            </p>
+          </div>
+        </div>
+
+        <!-- Slide 4: Hepatitis Virales Agudas -->
+        <div
+          id="slide-4"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-white"
+        >
+          <div class="max-w-5xl w-full">
+            <h2
+              class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center"
+            >
+              Hepatitis Virales: Comparativa
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div
+                class="bg-amber-50 p-6 rounded-lg border-2 border-amber-200 text-center"
+              >
+                <h3 class="font-bold text-2xl text-amber-800">
+                  Hepatitis A (VHA)
+                </h3>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Transmisión:</strong> Fecal-Oral.
+                  "Enfermedad de manos sucias".
+                </p>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Cronicidad:</strong> Nunca.
+                </p>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Diagnóstico:</strong> Anti-VHA IgM.
+                </p>
+              </div>
+              <div
+                class="bg-red-50 p-6 rounded-lg border-2 border-red-200 text-center"
+              >
+                <h3 class="font-bold text-2xl text-red-800">
+                  Hepatitis B (VHB)
+                </h3>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Transmisión:</strong> Sexual,
+                  parenteral, perinatal.
+                </p>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Cronicidad:</strong> Sí (5-10% en
+                  adultos).
+                </p>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Diagnóstico:</strong> HBsAg, Anti-HBc
+                  IgM/IgG.
+                </p>
+              </div>
+              <div
+                class="bg-sky-50 p-6 rounded-lg border-2 border-sky-200 text-center"
+              >
+                <h3 class="font-bold text-2xl text-sky-800">
+                  Hepatitis C (VHC)
+                </h3>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Transmisión:</strong> Principalmente
+                  parenteral.
+                </p>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Cronicidad:</strong> Sí (>80%). "La
+                  epidemia silenciosa".
+                </p>
+                <p class="mt-2 text-gray-700">
+                  <strong class="block">Diagnóstico:</strong> Anti-VHC, ARN-VHC.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5: Serología Hepatitis B -->
+        <div
+          id="slide-5"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50"
+        >
+          <div class="max-w-4xl w-full text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              Interpretando la Serología de Hepatitis B
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+              Entender estos 3 marcadores es clave para el diagnóstico.
+            </p>
+            <svg class="w-full max-w-2xl mx-auto" viewBox="0 0 500 150">
+              <g
+                text-anchor="middle"
+                font-family="Inter"
+                font-weight="bold"
+                font-size="14"
+              >
+                <rect
+                  x="10"
+                  y="10"
+                  width="150"
+                  height="120"
+                  rx="10"
+                  fill="#fef2f2"
+                />
+                <text x="85" y="40" fill="#991b1b">HBsAg</text>
+                <text x="85" y="60" font-size="12" font-weight="normal">
+                  Antígeno de Superficie
+                </text>
+                <text
+                  x="85"
+                  y="80"
+                  font-size="12"
+                  font-weight="bold"
+                  fill="#7f1d1d"
+                >
+                  Marca INFECCIÓN
+                </text>
+                <text x="85" y="100" font-size="12" font-weight="normal">
+                  (Aguda o Crónica)
+                </text>
+
+                <rect
+                  x="175"
+                  y="10"
+                  width="150"
+                  height="120"
+                  rx="10"
+                  fill="#eff6ff"
+                />
+                <text x="250" y="40" fill="#1e40af">Anti-HBs</text>
+                <text x="250" y="60" font-size="12" font-weight="normal">
+                  Anticuerpo de Superficie
+                </text>
+                <text
+                  x="250"
+                  y="80"
+                  font-size="12"
+                  font-weight="bold"
+                  fill="#1d4ed8"
+                >
+                  Marca INMUNIDAD
+                </text>
+                <text x="250" y="100" font-size="12" font-weight="normal">
+                  (Vacuna o Curación)
+                </text>
+
+                <rect
+                  x="340"
+                  y="10"
+                  width="150"
+                  height="120"
+                  rx="10"
+                  fill="#f0fdf4"
+                />
+                <text x="415" y="40" fill="#166534">Anti-HBc</text>
+                <text x="415" y="60" font-size="12" font-weight="normal">
+                  Anticuerpo de "Core"
+                </text>
+                <text
+                  x="415"
+                  y="80"
+                  font-size="12"
+                  font-weight="bold"
+                  fill="#15803d"
+                >
+                  Marca CONTACTO
+                </text>
+                <text x="415" y="100" font-size="12" font-weight="normal">
+                  (IgM: agudo, IgG: pasado)
+                </text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Slide 6: El Otro Extremo del Espectro -->
+        <div
+          id="slide-6"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-white"
+        >
+          <div class="max-w-4xl w-full text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              La Epidemia Moderna: Enfermedad Hepática Grasa
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+              La causa más común de enfermedad hepática crónica en el mundo
+              occidental.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 class="font-bold text-2xl text-amber-700">NAFLD</h3>
+                <p class="font-semibold text-gray-700 mb-2">
+                  (Enfermedad Hepática Grasa No Alcohólica)
+                </p>
+                <p>
+                  Simple acumulación de grasa (esteatosis) en el hígado.
+                  Generalmente benigna.
+                </p>
+              </div>
+              <div>
+                <h3 class="font-bold text-2xl text-red-700">NASH</h3>
+                <p class="font-semibold text-gray-700 mb-2">
+                  (Esteatohepatitis No Alcohólica)
+                </p>
+                <p>
+                  Grasa + **Inflamación y daño celular**. Puede progresar a
+                  cirrosis y cáncer.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 7: Fisiopatología NAFLD -->
+        <div
+          id="slide-7"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50"
+        >
+          <div class="max-w-4xl w-full text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              Fisiopatología de NAFLD: La "Teoría de Múltiples Impactos"
+            </h2>
+            <svg class="w-full max-w-3xl mx-auto" viewBox="0 0 500 150">
+              <defs>
+                <marker
+                  id="arrow-g"
+                  viewBox="0 0 10 10"
+                  refX="5"
+                  refY="5"
+                  markerWidth="6"
+                  markerHeight="6"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280" />
+                </marker>
+              </defs>
+              <g text-anchor="middle" font-family="Inter" font-weight="bold">
+                <rect
+                  x="10"
+                  y="50"
+                  width="120"
+                  height="50"
+                  rx="10"
+                  fill="#dbeafe"
+                />
+                <text x="70" y="75" font-size="12">
+                  Resistencia a la Insulina
+                </text>
+                <line
+                  x1="130"
+                  y1="75"
+                  x2="190"
+                  y2="75"
+                  stroke="#6b7280"
+                  stroke-width="2"
+                  marker-end="url(#arrow-g)"
+                />
+                <rect
+                  x="190"
+                  y="50"
+                  width="120"
+                  height="50"
+                  rx="10"
+                  fill="#fee2e2"
+                />
+                <text x="250" y="75" font-size="12">Esteatosis (Grasa)</text>
+                <line
+                  x1="310"
+                  y1="75"
+                  x2="370"
+                  y2="75"
+                  stroke="#6b7280"
+                  stroke-width="2"
+                  marker-end="url(#arrow-g)"
+                />
+                <rect
+                  x="370"
+                  y="50"
+                  width="120"
+                  height="50"
+                  rx="10"
+                  fill="#fecaca"
+                />
+                <text x="430" y="75" font-size="12">Inflamación (NASH)</text>
+                <text x="250" y="20" font-size="14" fill="#1e40af">
+                  1er Impacto
+                </text>
+                <text x="430" y="20" font-size="14" fill="#991b1b">
+                  2do Impacto
+                </text>
+              </g>
+            </svg>
+            <p class="mt-4 text-gray-600">
+              La resistencia a la insulina (común en obesidad y diabetes tipo 2)
+              causa el primer impacto: la acumulación de grasa. Factores
+              adicionales (estrés oxidativo, dieta, microbiota) causan el
+              segundo impacto: la inflamación que define a NASH.
+            </p>
+          </div>
+        </div>
+
+        <!-- Slide 8: Progresión -->
+        <div
+          id="slide-8"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-white"
+        >
+          <div class="max-w-4xl w-full">
+            <h2
+              class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center"
+            >
+              La Vía Final Común: Fibrosis y Cirrosis
+            </h2>
+            <p class="text-center text-xl text-gray-600 mb-8">
+              Independientemente de la causa (viral, grasa, alcohol), la
+              inflamación crónica del hígado lleva a la cicatrización
+              (fibrosis), que puede culminar en cirrosis.
+            </p>
+            <svg class="w-full max-w-4xl mx-auto" viewBox="0 0 600 100">
+              <defs>
+                <marker
+                  id="arrow-g2"
+                  viewBox="0 0 10 10"
+                  refX="5"
+                  refY="5"
+                  markerWidth="6"
+                  markerHeight="6"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#4b5563" />
+                </marker>
+              </defs>
+              <g
+                text-anchor="middle"
+                font-family="Inter"
+                font-weight="bold"
+                font-size="12"
+              >
+                <text x="50" y="50">Hígado Sano</text>
+                <line
+                  x1="100"
+                  y1="50"
+                  x2="140"
+                  y2="50"
+                  stroke="#4b5563"
+                  stroke-width="2"
+                  marker-end="url(#arrow-g2)"
+                />
+                <text x="190" y="50">Inflamación (Hepatitis)</text>
+                <line
+                  x1="240"
+                  y1="50"
+                  x2="280"
+                  y2="50"
+                  stroke="#4b5563"
+                  stroke-width="2"
+                  marker-end="url(#arrow-g2)"
+                />
+                <text x="330" y="50">Fibrosis</text>
+                <line
+                  x1="380"
+                  y1="50"
+                  x2="420"
+                  y2="50"
+                  stroke="#4b5563"
+                  stroke-width="2"
+                  marker-end="url(#arrow-g2)"
+                />
+                <text x="470" y="50" fill="#b91c1c">Cirrosis</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Slide 9: Puente a Actividad -->
+        <div
+          id="slide-9"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-amber-100"
+        >
+          <div class="max-w-4xl w-full text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-amber-800 mb-6">
+              Puente a la Actividad Práctica
+            </h2>
+            <div class="p-8 bg-white rounded-lg shadow-lg">
+              <p class="text-2xl font-semibold text-gray-800">
+                Reciben en la consulta a un paciente de 45 años, asintomático,
+                con sobrepeso, que en un chequeo de rutina presenta una ALT de
+                85 U/L (valor normal < 40).
+              </p>
+              <p class="mt-6 text-3xl font-bold text-blue-700">
+                ¿Cuál es su plan de estudio inicial para descubrir la causa?
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 10: Cierre -->
+        <div
+          id="slide-10"
+          class="slide w-full h-full flex items-center justify-center p-8 bg-slate-900 text-white"
+        >
+          <div class="text-center max-w-4xl">
+            <h2 class="text-4xl md:text-6xl font-bold">Preguntas y Cierre</h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controles de Navegación -->
+      <div
+        class="fixed bottom-0 left-0 right-0 p-4 bg-black/10 backdrop-blur-sm"
+      >
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+          <button
+            id="prevBtn"
+            class="bg-white/80 text-gray-800 font-bold py-2 px-6 rounded-lg shadow-md hover:bg-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Anterior
+          </button>
+          <div id="slide-counter" class="text-white font-medium text-sm">
+            Diapositiva 1 / 10
+          </div>
+          <button
+            id="nextBtn"
+            class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Siguiente
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- ########## TEMPLATES ########## -->
-
-    <!-- Plantilla 1: Presentación Interactiva -->
-    <template id="presentation-template">
-      <div class="component-container">
-        <div id="presentation-container">
-          <!-- Las diapositivas se insertarán aquí por JS -->
-        </div>
-        <div class="navigation">
-          <button id="prev-btn" class="nav-button">Anterior</button>
-          <span id="slide-counter"></span>
-          <button id="next-btn" class="nav-button">Siguiente</button>
-        </div>
-      </div>
-    </template>
-
-    <!-- Plantilla 2: Herramienta Diagnóstica -->
-    <template id="diagnostic-tool-template">
-      <div class="component-container">
-        <div class="diagnostic-tool-card">
-          <h2>Herramienta de Decisión Clínica</h2>
-          <p>
-            Seleccione el escenario clínico principal para ver la prueba
-            diagnóstica de primera línea recomendada.
-          </p>
-          <div id="diagnostic-scenarios">
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario1"
-                name="clinical_scenario"
-                value="eco"
-              />
-              <label for="scenario1"
-                >Dolor crónico en hipocondrio derecho, sospecha de patología
-                biliar.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario2"
-                name="clinical_scenario"
-                value="eda"
-              />
-              <label for="scenario2"
-                >Hombre > 60 años con dispepsia de nueva aparición y pérdida de
-                peso.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario3"
-                name="clinical_scenario"
-                value="tc"
-              />
-              <label for="scenario3"
-                >Paciente con dolor abdominal agudo, severo, y signos de
-                peritonismo en urgencias.</label
-              >
-            </div>
-            <div class="scenario-option">
-              <input
-                type="radio"
-                id="scenario4"
-                name="clinical_scenario"
-                value="aliento"
-              />
-              <label for="scenario4"
-                >Mujer con hinchazón, gases y diarrea crónicos; estudios
-                endoscópicos previos normales.</label
-              >
-            </div>
-          </div>
-          <button id="analyze-btn" class="nav-button" style="margin-top: 20px">
-            Analizar Escenario
-          </button>
-          <div id="diagnostic-result">
-            <h3 id="result-title"></h3>
-            <p id="result-rationale"></p>
-          </div>
-        </div>
-      </div>
-    </template>
-
-    <!-- Plantilla 3: Autoevaluación Gamificada -->
-    <template id="quiz-template">
-      <div class="component-container">
-        <div class="quiz-card">
-          <h2>Autoevaluación de Casos Clínicos</h2>
-          <div id="quiz-container">
-            <div id="question-container">
-              <p id="question-text"></p>
-              <ul class="quiz-options" id="quiz-options"></ul>
-            </div>
-            <div id="feedback-text"></div>
-            <button
-              id="next-question-btn"
-              class="nav-button"
-              style="display: none; margin-top: 15px"
-            >
-              Siguiente Pregunta
-            </button>
-          </div>
-          <div id="quiz-result-container" style="display: none">
-            <h3>¡Evaluación Completada!</h3>
-            <p id="score-text"></p>
-            <button id="restart-quiz-btn" class="nav-button">
-              Repetir Evaluación
-            </button>
-          </div>
-        </div>
-      </div>
-    </template>
-
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const contentWrapper = document.getElementById('content-wrapper');
+      const sliderContainer = document.getElementById('slider-container');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideCounter = document.getElementById('slide-counter');
+      const slides = document.querySelectorAll('.slide');
+      const totalSlides = slides.length;
+      let currentSlide = 1;
 
-        const templates = {
-          'presentation-template': initPresentation,
-          'diagnostic-tool-template': initDiagnosticTool,
-          'quiz-template': initQuiz,
-        };
+      function updateUI() {
+        slideCounter.textContent = `Diapositiva ${currentSlide} / ${totalSlides}`;
+        prevBtn.disabled = currentSlide === 1;
+        nextBtn.disabled = currentSlide === totalSlides;
+      }
 
-        function loadContent(templateId) {
-          // Limpiar contenido anterior
-          contentWrapper.innerHTML = '';
-
-          // Clonar y añadir nuevo contenido
-          const template = document.getElementById(templateId);
-          if (template) {
-            const clone = template.content.cloneNode(true);
-            contentWrapper.appendChild(clone);
-
-            // Inicializar el script del componente
-            if (templates[templateId]) {
-              templates[templateId]();
-            }
-          }
-        }
-
-        navLinks.forEach((link) => {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            navLinks.forEach((l) => l.classList.remove('active'));
-            link.classList.add('active');
-
-            const templateId = link.getAttribute('data-template');
-            loadContent(templateId);
-          });
+      function scrollToSlide(slideNumber) {
+        const slideWidth = sliderContainer.clientWidth;
+        sliderContainer.scrollTo({
+          left: (slideNumber - 1) * slideWidth,
+          behavior: 'smooth',
         });
+      }
 
-        // Cargar el contenido inicial (Presentación)
-        loadContent('presentation-template');
+      nextBtn.addEventListener('click', () => {
+        if (currentSlide < totalSlides) {
+          currentSlide++;
+          scrollToSlide(currentSlide);
+          updateUI();
+        }
       });
 
-      // --- LÓGICA DE LA PRESENTACIÓN ---
-      function initPresentation() {
-        const presentationContainer = document.getElementById(
-          'presentation-container',
-        );
-        if (!presentationContainer) return;
-
-        const slidesContent = [
-          `<div class="slide active title-slide"><h1>Fundamentos de las Técnicas Diagnósticas en Gastroenterología</h1><p>Indicaciones, Limitaciones y Aplicación Clínica</p></div>`,
-          `<div class="slide"><h2>Introducción: La Evolución del Diagnóstico</h2><ul><li><strong>De la anamnesis a la tecnología:</strong> Evolución desde la clínica pura a un paradigma sofisticado.</li><li><strong>Herramientas modernas:</strong> Endoscopia, Ecografía, TC, Pruebas de Aliento.</li><li><strong>El reto clínico:</strong> La selección de la prueba adecuada es una habilidad fundamental.</li><li><strong>Objetivo:</strong> Dotar de un marco conceptual para la aplicación racional y efectiva de estas técnicas.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 1: Endoscopia Digestiva</h2><h3>La Exploración Directa y Terapéutica</h3><ul><li><strong>Principio:</strong> Visualización directa de la mucosa GI con un tubo flexible y cámara HD.</li><li><strong>Capacidad Dual:</strong> Es la única técnica que es <strong>diagnóstica y terapéutica</strong> a la vez.<ul><li><strong>Diagnóstica:</strong> Inspección visual y toma de <strong>biopsias (estándar de oro)</strong>.</li><li><strong>Terapéutica:</strong> Polipectomía, hemostasia, dilatación, etc.</li></ul></li></ul></div>`,
-          `<div class="slide"><h2>Endoscopia Digestiva Alta (EDA)</h2><h3>Indicaciones Diagnósticas Clave</h3><ul><li><strong>Dispepsia con signos de alarma:</strong> >55 años, pérdida de peso, anorexia.</li><li><strong>ERGE persistente o con alarma:</strong> Disfagia, odinofagia. Detección de Esófago de Barrett.</li><li><strong>Hemorragia Digestiva Alta (Urgente):</strong> Hematemesis, melena.</li><li><strong>Anemia ferropénica</strong> de origen no aclarado.</li><li><strong>Confirmación histológica:</strong> Enfermedad celíaca, gastritis por <em>H. pylori</em>.</li></ul></div>`,
-          `<div class="slide"><h2>Colonoscopia</h2><h3>Indicaciones Diagnósticas y de Cribado</h3><ul><li><strong>Cribado de Cáncer Colorrectal (CCR):</strong> Estándar de oro a partir de 45-50 años.</li><li><strong>Evaluación de síntomas bajos:</strong> Rectorragia, cambio de hábito intestinal.</li><li><strong>Anemia ferropénica</strong> (si la EDA es negativa).</li><li><strong>Diagnóstico y seguimiento de Enfermedad Inflamatoria Intestinal (EII).</strong></li></ul></div>`,
-          `<div class="slide"><h2>Endoscopia: Riesgos y Limitaciones</h2><h3>¿Cuándo NO hacer una endoscopia?</h3><ul><li><strong>Contraindicaciones Absolutas:</strong><ul><li>Sospecha de <strong>perforación</strong> de víscera.</li><li>Inestabilidad hemodinámica (shock).</li><li>Colitis fulminante o megacolon tóxico.</li></ul></li><li><strong>Riesgos Principales (Bajos pero Reales):</strong><ul><li><strong>Perforación:</strong> El más temido, mayor en procedimientos terapéuticos.</li><li><strong>Sangrado:</strong> El más común, especialmente tras polipectomía.</li><li><strong>Complicaciones de la sedación.</strong></li></ul></li></ul></div>`,
-          `<div class="slide"><h2>Sección 2: Ecografía Abdominal</h2><h3>La Ventana No Invasiva al Abdomen</h3><ul><li><strong>Principio:</strong> Ondas de ultrasonido para crear imágenes en tiempo real.</li><li><strong>Ventaja Fundamental:</strong> <strong>Totalmente inocua. No usa radiación ionizante.</strong></li><li><strong>Ideal para:</strong> Niños y mujeres embarazadas.</li></ul></div>`,
-          `<div class="slide"><h2>Ecografía: Aplicaciones Clásicas y Emergentes</h2><h3>Rol Principal</h3><ul><li><strong>Patología biliar (1ª línea):</strong> Detección de <strong>cálculos (colelitiasis)</strong> y <strong>colecistitis</strong>.</li><li><strong>Hígado y Páncreas:</strong> Detección de quistes, tumores, hígado graso.</li></ul><h3>"Revolución Silenciosa" en Tubo Digestivo</h3><ul><li><strong>Apendicitis Aguda:</strong> Técnica de primera línea en niños y mujeres jóvenes.</li><li><strong>Enfermedad Inflamatoria Intestinal (EII):</strong> Valiosa para detectar inflamación y monitorizar respuesta al tratamiento.</li></ul></div>`,
-          `<div class="slide"><h2>Ecografía: Limitaciones Críticas</h2><ul><li><strong>Altamente Operador-Dependiente:</strong> La calidad depende de la habilidad de quien la realiza.</li><li><strong>Interferencia por Gas Intestinal:</strong> El gas es el "enemigo" del ultrasonido.</li><li><strong>Hábito del Paciente:</strong> La obesidad degrada la calidad de la imagen.</li><li><strong>"Puntos Ciegos":</strong> El recto y gran parte del intestino delgado son difíciles de visualizar.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 3: Tomografía Computarizada (TC)</h2><h3>Mapeo Anatómico de Alta Resolución</h3><ul><li><strong>Principio:</strong> Rayos X que rotan alrededor del paciente para crear "cortes" detallados.</li><li><strong>Visión Panorámica:</strong> Ofrece un mapa anatómico 3D de toda la cavidad abdominal.</li><li><strong>Uso de Contraste (Fundamental):</strong> Intravenoso (Yodo) y Enteral (Oral/Rectal).</li></ul></div>`,
-          `<div class="slide"><h2>TC Abdominal: Indicaciones de Primera Línea</h2><ul><li><strong>Abdomen Agudo Severo (URGENCIAS):</strong> Diagnóstico rápido de obstrucción, perforación, isquemia, diverticulitis complicada.</li><li><strong>Estadificación Oncológica:</strong> Fundamental para evaluar la extensión de cánceres y buscar metástasis.</li><li><strong>Detección de Complicaciones:</strong> La mejor técnica para ver abscesos y colecciones.</li></ul></div>`,
-          `<div class="slide"><h2>TC: Limitaciones y Riesgos Críticos</h2><ul><li><strong>Radiación Ionizante (Limitación MÁS IMPORTANTE):</strong> Riesgo acumulativo de cáncer. Evitarse en jóvenes y exploraciones repetidas si es posible.</li><li><strong>Riesgos del Contraste IV Yodado:</strong><ul><li><strong>Nefrotoxicidad:</strong> Puede dañar los riñones.</li><li><strong>Reacciones Alérgicas.</strong></li></ul></li><li><strong>Limitada para patología de la mucosa:</strong> No ve lesiones superficiales como la endoscopia.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 4: Pruebas Funcionales de Aliento</h2><h3>Evaluando la Fisiología y el Metabolismo</h3><ul><li><strong>Principio:</strong> Miden la función, no la anatomía.</li><li><strong>Metodología:</strong> Se ingiere un sustrato y se mide el gas producido en el aliento (CO₂, H₂, CH₄).</li><li><strong>Ventajas:</strong> No invasivas, seguras, de bajo coste y muy precisas para preguntas específicas.</li></ul></div>`,
-          `<div class="slide"><h2>Pruebas de Aliento: Aplicaciones Clave</h2><ul><li><strong>Infección por <em>H. pylori</em> (Prueba de Urea):</strong> Método NO INVASIVO de elección para diagnóstico y confirmación de erradicación.</li><li><strong>Sobrecrecimiento Bacteriano (SIBO) y Malabsorción (Lactosa/Fructosa):</strong> Estudio de hinchazón, gases y diarrea crónica cuando otros estudios son normales.</li></ul></div>`,
-          `<div class="slide"><h2>Sección 5: Enfoque Diagnóstico Integrado</h2><h3>Selección de la Prueba Óptima</h3><ul><li><strong>Dolor agudo severo →</strong> <strong>TC con contraste</strong></li><li><strong>Dolor en hipocondrio derecho →</strong> <strong>Ecografía</strong></li><li><strong>Dispepsia con signos de alarma →</strong> <strong>Endoscopia Alta (EDA)</strong></li><li><strong>Hinchazón y gases crónicos →</strong> <strong>Pruebas de Aliento</strong></li><li><strong>Sospecha de EII →</strong> 1º <strong>Colonoscopia con biopsias</strong>, 2º <strong>Entero-TC/RM o Ecografía</strong></li></ul></div>`,
-          `<div class="slide"><h2>Tabla Comparativa de Modalidades</h2><table class="comparative-table"><thead><tr><th>Característica</th><th>Endoscopia</th><th>Ecografía</th><th>TC Abdominal</th><th>Pruebas de Aliento</th></tr></thead><tbody><tr><td><strong>Principio</strong></td><td>Visualización directa</td><td>Ultrasonido</td><td>Rayos X</td><td>Metabolitos gaseosos</td></tr><tr><td><strong>Ventaja Principal</strong></td><td>Diagnóstica + Terapéutica</td><td><strong>Sin radiación</strong>, bajo coste</td><td>Rapidez, visión panorámica</td><td>No invasiva, alta precisión</td></tr><tr><td><strong>Riesgo/Limitación</strong></td><td>Invasiva, perforación</td><td>Operador-dependiente, gas</td><td><strong>Radiación ionizante</strong></td><td>Falsos +/- por preparación</td></tr></tbody></table></div>`,
-          `<div class="slide title-slide"><h1>Conclusiones</h1><p>El arte de la gastroenterología reside en integrar la clínica con la tecnología, seleccionando la herramienta adecuada para cada paciente y cada pregunta.</p></div>`,
-        ];
-
-        presentationContainer.innerHTML = slidesContent.join('');
-
-        const slides = presentationContainer.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const slideCounter = document.getElementById('slide-counter');
-
-        let currentSlideIndex = 0;
-        const totalSlides = slides.length;
-
-        function showSlide(index) {
-          slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-          });
-          slideCounter.textContent = `${index + 1} / ${totalSlides}`;
-          prevBtn.disabled = index === 0;
-          nextBtn.disabled = index === totalSlides - 1;
+      prevBtn.addEventListener('click', () => {
+        if (currentSlide > 1) {
+          currentSlide--;
+          scrollToSlide(currentSlide);
+          updateUI();
         }
+      });
 
-        nextBtn.addEventListener('click', () => {
-          if (currentSlideIndex < totalSlides - 1) {
-            currentSlideIndex++;
-            showSlide(currentSlideIndex);
+      let scrollTimeout;
+      sliderContainer.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          const newSlide =
+            Math.round(
+              sliderContainer.scrollLeft / sliderContainer.clientWidth,
+            ) + 1;
+          if (newSlide !== currentSlide) {
+            currentSlide = newSlide;
+            updateUI();
           }
-        });
+        }, 100);
+      });
 
-        prevBtn.addEventListener('click', () => {
-          if (currentSlideIndex > 0) {
-            currentSlideIndex--;
-            showSlide(currentSlideIndex);
-          }
-        });
-        showSlide(currentSlideIndex);
-      }
-
-      // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA ---
-      function initDiagnosticTool() {
-        const analyzeBtn = document.getElementById('analyze-btn');
-        if (!analyzeBtn) return;
-
-        const resultDiv = document.getElementById('diagnostic-result');
-        const resultTitle = document.getElementById('result-title');
-        const resultRationale = document.getElementById('result-rationale');
-
-        const recommendations = {
-          eco: {
-            title: 'Ecografía Abdominal',
-            rationale:
-              'Es la prueba de primera línea, segura, económica y excelente para detectar patología biliar (cálculos) o hepática, que son la causa más probable de dolor en el hipocondrio derecho.',
-            class: 'eco',
-          },
-          eda: {
-            title: 'Endoscopia Digestiva Alta (EDA)',
-            rationale:
-              'Los signos de alarma (edad > 55, pérdida de peso) obligan a descartar una neoplasia esofagogástrica. La EDA es mandatoria porque permite la visualización directa y la toma de biopsias.',
-            class: 'eda',
-          },
-          tc: {
-            title: 'TC Abdominal con Contraste',
-            rationale:
-              'Ante una posible catástrofe intraabdominal (perforación, isquemia, etc.), la TC es la prueba de elección por su rapidez, visión panorámica y alta precisión para guiar una intervención urgente.',
-            class: 'tc',
-          },
-          aliento: {
-            title: 'Pruebas de Aliento',
-            rationale:
-              'Dado que los estudios anatómicos (endoscopias) son normales, la sospecha se inclina hacia un trastorno funcional. Las pruebas de aliento para SIBO o malabsorción son el paso más racional y menos invasivo.',
-            class: 'aliento',
-          },
-        };
-
-        analyzeBtn.addEventListener('click', () => {
-          const selectedScenario = document.querySelector(
-            'input[name="clinical_scenario"]:checked',
-          );
-          if (selectedScenario) {
-            const value = selectedScenario.value;
-            const recommendation = recommendations[value];
-
-            resultTitle.textContent =
-              'Prueba recomendada: ' + recommendation.title;
-            resultRationale.textContent =
-              'Justificación: ' + recommendation.rationale;
-            resultDiv.className = ''; // Reset class
-            resultDiv.classList.add(recommendation.class);
-            resultDiv.style.display = 'block';
-          } else {
-            resultTitle.textContent = 'Por favor, seleccione un escenario.';
-            resultRationale.textContent = '';
-            resultDiv.style.display = 'block';
-            resultDiv.className = '';
-          }
-        });
-      }
-
-      // --- LÓGICA DE LA AUTOEVALUACIÓN ---
-      function initQuiz() {
-        const quizContainer = document.getElementById('quiz-container');
-        if (!quizContainer) return;
-
-        const questionText = document.getElementById('question-text');
-        const quizOptions = document.getElementById('quiz-options');
-        const feedbackText = document.getElementById('feedback-text');
-        const nextBtn = document.getElementById('next-question-btn');
-        const resultContainer = document.getElementById(
-          'quiz-result-container',
-        );
-        const scoreText = document.getElementById('score-text');
-        const restartBtn = document.getElementById('restart-quiz-btn');
-
-        const questions = [
-          {
-            question:
-              'Mujer de 25 años con dolor en fosa ilíaca derecha y test de embarazo negativo. ¿Cuál es la primera prueba de imagen recomendada?',
-            options: [
-              'Ecografía abdominal',
-              'TC con contraste',
-              'RM abdominal',
-              'Endoscopia',
-            ],
-            correct: 0,
-          },
-          {
-            question:
-              'Paciente con hematemesis y melena. ¿Cuál es la prueba diagnóstica inicial?',
-            options: [
-              'Colonoscopia',
-              'Ecografía',
-              'Endoscopia digestiva alta',
-              'TC de abdomen',
-            ],
-            correct: 2,
-          },
-          {
-            question:
-              'Dolor en hipocondrio derecho acompañado de fiebre y leucocitosis. ¿Cuál es la prueba de elección?',
-            options: [
-              'Radiografía simple',
-              'Ecografía abdominal',
-              'Endoscopia',
-              'TC sin contraste',
-            ],
-            correct: 1,
-          },
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-
-        function showQuestion() {
-          const q = questions[currentQuestion];
-          questionText.textContent = q.question;
-          quizOptions.innerHTML = '';
-          q.options.forEach((opt, idx) => {
-            const li = document.createElement('li');
-            li.textContent = opt;
-            li.addEventListener('click', () => selectAnswer(idx));
-            quizOptions.appendChild(li);
-          });
-          feedbackText.textContent = '';
-          feedbackText.style.backgroundColor = '';
-          nextBtn.style.display = 'none';
-        }
-
-        function selectAnswer(index) {
-          const q = questions[currentQuestion];
-          const options = quizOptions.querySelectorAll('li');
-          options.forEach((li, idx) => {
-            if (idx === q.correct) {
-              li.classList.add('correct');
-            } else if (idx === index) {
-              li.classList.add('incorrect');
-            }
-            li.style.pointerEvents = 'none';
-          });
-          if (index === q.correct) {
-            feedbackText.textContent = '¡Correcto!';
-            feedbackText.style.backgroundColor = '#d4edda';
-            score++;
-          } else {
-            feedbackText.textContent = 'Respuesta incorrecta';
-            feedbackText.style.backgroundColor = '#f8d7da';
-          }
-          nextBtn.style.display = 'inline-block';
-        }
-
-        nextBtn.addEventListener('click', () => {
-          currentQuestion++;
-          if (currentQuestion < questions.length) {
-            showQuestion();
-          } else {
-            quizContainer.style.display = 'none';
-            resultContainer.style.display = 'block';
-            scoreText.textContent = `Tu puntaje: ${score} de ${questions.length}`;
-          }
-        });
-
-        restartBtn.addEventListener('click', () => {
-          currentQuestion = 0;
-          score = 0;
-          quizContainer.style.display = 'block';
-          resultContainer.style.display = 'none';
-          showQuestion();
-        });
-
-        showQuestion();
-      }
+      window.addEventListener('resize', () => {
+        scrollToSlide(currentSlide);
+      });
+      updateUI();
     </script>
+    <script src="/assets/ask-ai.js"></script>
   </body>
 </html>
