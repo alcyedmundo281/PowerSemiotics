@@ -2,6 +2,39 @@
 // The script looks for common content containers and attaches a link that
 // captures the article text and redirects the user to the AI dashboard.
 document.addEventListener('DOMContentLoaded', () => {
+  const isNeurologySubpage =
+    window.location.pathname.startsWith('/neurologia/');
+
+  if (isNeurologySubpage) {
+    const leftWidth = 224; // Tailwind w-56
+    const rightWidth = 384; // Tailwind w-96
+
+    document.body.style.marginLeft = `${leftWidth}px`;
+    document.body.style.marginRight = `${rightWidth}px`;
+
+    const leftPanel = document.createElement('div');
+    leftPanel.className =
+      'hidden md:flex flex-col fixed top-0 left-0 h-full w-56 bg-gray-50 border-r p-4 space-y-4';
+    leftPanel.innerHTML = `
+      <nav class="space-y-2">
+        <a href="/index.html" class="block text-indigo-600 font-semibold hover:underline">Inicio</a>
+        <a href="/neurologia.html" class="block text-indigo-600 font-semibold hover:underline">Neurología</a>
+      </nav>
+    `;
+    document.body.appendChild(leftPanel);
+
+    const rightPanel = document.createElement('div');
+    rightPanel.className =
+      'hidden lg:block fixed top-0 right-0 h-full w-96 border-l bg-white';
+    const iframe = document.createElement('iframe');
+    iframe.src = '/ai_dashboard.html';
+    iframe.title = 'AI Dashboard';
+    iframe.className = 'w-full h-full';
+    rightPanel.appendChild(iframe);
+    document.body.appendChild(rightPanel);
+    return;
+  }
+
   const targetContainer =
     document.querySelector('.download-button-container') ||
     document.querySelector('.text-center.mb-12') ||
