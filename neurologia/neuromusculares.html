@@ -1,600 +1,484 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CanvasMed-AI: Enfermedades Neuromusculares</title>
+    <title>Enfermedades Neuromusculares</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    
+    <!-- Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
+
     <style>
-      /* Estilos base para asegurar que el canvas ocupe toda la pantalla */
-      html,
+      /* Custom styles for interactive elements */
       body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background-color: #0f172a; /* Color de fondo base (slate-900) */
         font-family: 'Inter', sans-serif;
-        color: #f8fafc; /* Color de texto base (slate-50) */
       }
-      /* Estilos del canvas */
-      #presentationCanvas {
+      .gradient-text {
+        background: linear-gradient(to right, #4f46e5, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      /* Styles for the diagnostic tool checkboxes */
+      .checkbox-label {
         display: block;
-        width: 100%;
-        height: 100%;
-      }
-      /* Estilos de la capa de instrucciones inicial */
-      #instructions-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(15, 23, 42, 0.9); /* Fondo semitransparente */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        cursor: pointer;
-        z-index: 10;
-        transition: opacity 0.5s ease;
-      }
-      #instructions-overlay h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: #38bdf8; /* Color de acento (sky-400) */
-      }
-      #instructions-overlay p {
-        font-size: 1.2rem;
-        max-width: 600px;
-        line-height: 1.6;
-      }
-      #instructions-overlay .key-icon {
-        display: inline-block;
-        background-color: #334155; /* slate-700 */
-        padding: 0.5rem 0.8rem;
+        padding: 1rem;
+        border: 2px solid #e5e7eb;
         border-radius: 0.5rem;
-        border-bottom: 3px solid #1e293b; /* slate-800 */
-        margin: 0 0.25rem;
-        font-family: monospace;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        font-weight: 500;
+        height: 100%; /* Ensure labels in the same row have same height */
+      }
+      .checkbox-label:hover {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+      }
+      input[type="checkbox"]:checked + .checkbox-label {
+        border-color: #3b82f6;
+        background-color: #dbeafe;
+        color: #1e40af;
+        box-shadow: 0 0 0 2px #bfdbfe;
+      }
+      /* Styles for the quiz progress bar */
+      .progress-bar-container {
+        width: 100%;
+        background-color: #e5e7eb;
+        border-radius: 9999px;
+        height: 1rem;
+        overflow: hidden;
+      }
+      .progress-bar {
+        background-color: #3b82f6;
+        height: 100%;
+        border-radius: 9999px;
+        transition: width 0.3s ease-in-out;
       }
     </style>
   </head>
-  <body>
-    <!-- Capa de instrucciones que desaparece al hacer clic -->
-    <div id="instructions-overlay">
-      <div>
-        <h1>Bienvenido</h1>
-        <p>
-          Utilice las teclas de flecha <span class="key-icon">▲</span> (Arriba)
-          y <span class="key-icon">▼</span> (Abajo) para navegar por la
-          presentación.
-        </p>
-        <p style="margin-top: 2rem; font-size: 1rem; opacity: 0.7">
-          (Haga clic en cualquier lugar para comenzar)
-        </p>
-      </div>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#" class="flex items-center space-x-2">
+          <!-- Placeholder for a logo -->
+          <i class="fas fa-brain text-3xl text-indigo-600"></i>
+          <span class="text-2xl font-bold gradient-text">CanvasMed-AI</span>
+        </a>
+        <div>
+          <a href="#" class="text-indigo-600 font-semibold hover:underline">Hub</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
+      <!-- Sticky Side Navigation -->
+      <nav class="w-full lg:w-64 bg-white shadow-lg rounded-lg p-4 mb-8 lg:mb-0 lg:mr-8 self-start sticky top-24">
+        <h3 class="text-xl font-bold mb-4 text-gray-700">Secciones</h3>
+        <ul>
+          <li class="mb-2">
+            <a href="#guia" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-book-open w-6 text-center mr-3"></i>Guía
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#presentacion" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-desktop w-6 text-center mr-3"></i>Presentación
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#herramienta" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-stethoscope w-6 text-center mr-3"></i>Asistente
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#abp" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-user-md w-6 text-center mr-3"></i>Caso Clínico
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#autoevaluacion" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-clipboard-check w-6 text-center mr-3"></i>Autoevaluación
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="flex-grow">
+        <header class="text-center mb-10">
+          <h1 class="text-4xl font-bold text-gray-800">
+            Plataforma Educativa de Enfermedades Neuromusculares
+          </h1>
+          <p class="text-lg text-gray-600 mt-2">
+            Un recurso integral para el aprendizaje y diagnóstico
+          </p>
+        </header>
+
+        <!-- Knowledge Guide -->
+        <section id="guia" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Guía Rápida de Conocimiento
+          </h2>
+          <p class="mb-6 text-gray-600">
+            Resumen conciso de Miastenia Gravis (MG), Distrofia Muscular de Duchenne (DMD) y Miopatías Inflamatorias (MII).
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full table-auto border-collapse border border-gray-300">
+              <thead class="bg-gray-200">
+                <tr>
+                  <th class="border border-gray-300 p-3 text-left">Característica</th>
+                  <th class="border border-gray-300 p-3 text-left">Miastenia Gravis (MG)</th>
+                  <th class="border border-gray-300 p-3 text-left">Distrofia Muscular de Duchenne (DMD)</th>
+                  <th class="border border-gray-300 p-3 text-left">Miopatías Inflamatorias (MII)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover:bg-gray-50">
+                  <td class="border border-gray-300 p-3 font-semibold">Etiología</td>
+                  <td class="border border-gray-300 p-3">Autoinmune (Ac anti-AChR, anti-MuSK)</td>
+                  <td class="border border-gray-300 p-3">Genética (mutación gen distrofina)</td>
+                  <td class="border border-gray-300 p-3">Autoinmune (infiltrado inflamatorio)</td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="border border-gray-300 p-3 font-semibold">Clínica Clave</td>
+                  <td class="border border-gray-300 p-3">Ptosis fluctuante, diplopía, debilidad muscular fatigable</td>
+                  <td class="border border-gray-300 p-3">Signo de Gowers, debilidad muscular proximal, pseudohipertrofia</td>
+                  <td class="border border-gray-300 p-3">Debilidad proximal simétrica, rash (Dermatomiositis)</td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="border border-gray-300 p-3 font-semibold">Marcadores Diagnósticos</td>
+                  <td class="border border-gray-300 p-3">Ac anti-AChR, ENR, Test de Hielo</td>
+                  <td class="border border-gray-300 p-3">CK muy elevada, test genético</td>
+                  <td class="border border-gray-300 p-3">Ac anti-Jo-1, CK elevada, biopsia muscular</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Interactive Presentation (Updated Section) -->
+        <section id="presentacion" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+              Presentación Interactiva
+            </h2>
+            <div class="w-full h-[600px] border rounded-lg overflow-hidden shadow-inner">
+              <iframe 
+                class="w-full h-full" 
+                srcdoc="
+                  <!DOCTYPE html>
+                  <html lang=&quot;es&quot;>
+                  <head>
+                      <meta charset=&quot;UTF-8&quot;>
+                      <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+                      <title>CanvasMed-AI: Enfermedades Neuromusculares</title>
+                      <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+                      <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+                      <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap&quot; rel=&quot;stylesheet&quot;>
+                      <style>
+                          html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #0f172a; font-family: 'Inter', sans-serif; color: #f8fafc; }
+                          #presentationCanvas { display: block; width: 100%; height: 100%; }
+                          #instructions-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.9); display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; cursor: pointer; z-index: 10; transition: opacity 0.5s ease; }
+                          #instructions-overlay h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #38bdf8; }
+                          #instructions-overlay p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; }
+                          #instructions-overlay .key-icon { display: inline-block; background-color: #334155; padding: 0.5rem 0.8rem; border-radius: 0.5rem; border-bottom: 3px solid #1e293b; margin: 0 0.25rem; font-family: monospace; }
+                      </style>
+                  </head>
+                  <body>
+                      <div id=&quot;instructions-overlay&quot;>
+                          <div>
+                              <h1>Bienvenido</h1>
+                              <p>Utilice las teclas de flecha <span class=&quot;key-icon&quot;>▲</span> (Arriba) y <span class=&quot;key-icon&quot;>▼</span> (Abajo) para navegar por la presentación.</p>
+                              <p style=&quot;margin-top: 2rem; font-size: 1rem; opacity: 0.7;&quot;>(Haga clic en cualquier lugar para comenzar)</p>
+                          </div>
+                      </div>
+                      <canvas id=&quot;presentationCanvas&quot;></canvas>
+                      <script>
+                          const canvas = document.getElementById('presentationCanvas');
+                          const ctx = canvas.getContext('2d');
+                          const instructionsOverlay = document.getElementById('instructions-overlay');
+                          let currentSlide = 0;
+                          const STYLES = { BACKGROUND: '#0f172a', TEXT: '#f8fafc', ACCENT: '#38bdf8', TABLE_HEADER_BG: '#1e293b', TABLE_BORDER: '#334155', FONT_FAMILY: 'Inter, sans-serif' };
+                          const slides = [
+                              { type: 'title', title: 'Enfermedades de la Unión Neuromuscular y Músculo', subtitle: 'Un Análisis Clínico por CanvasMed-AI' },
+                              { type: 'content', title: 'Introducción: Enfermedades Neuromusculares (ENM)', points: ['Grupo heterogéneo de patologías que afectan la unidad motora.', 'Abarcan desde la motoneurona hasta el músculo.', 'Son condiciones crónicas, progresivas y a menudo incapacitantes.', 'Clasificación principal: Trastornos de la unión, Distrofias y Miopatías.'] },
+                              { type: 'content', title: 'Fisiopatología de la Miastenia Gravis (MG)', points: ['Enfermedad autoinmune mediada por anticuerpos.', 'Ataque a proteínas de la membrana postsináptica, principalmente receptores de acetilcolina (AChR).', 'Resultado: Interrupción de la transmisión neuromuscular.', 'El timo juega un papel central, con hiperplasia o timomas frecuentes.'] },
+                              { type: 'content', title: 'Clínica de la Miastenia Gravis', points: ['Característica principal: Debilidad muscular fluctuante y fatigable.', 'Forma Ocular: Ptosis (párpado caído) y diplopía (visión doble).', 'Forma Generalizada: Afecta músculos bulbares (habla, deglución), axiales y de extremidades.', 'Crisis Miasténica: Emergencia médica con compromiso respiratorio que requiere ventilación mecánica.'] },
+                              { type: 'content', title: 'Diagnóstico de la Miastenia Gravis', points: ['Clínico: Historia de debilidad fatigable.', 'Electrodiagnóstico: Estimulación Nerviosa Repetitiva (ENR) y EMG de Fibra Única (EMG-SF), la más sensible.', 'Serología: Detección de anticuerpos anti-AChR (85%) y anti-MuSK.', 'Pruebas de cabecera: Test de la bolsa de hielo.'] },
+                              { type: 'content', title: 'Tratamiento de la Miastenia Gravis', points: ['Sintomático: Piridostigmina (inhibidor de acetilcolinesterasa).', 'Inmunoterapia a largo plazo: Corticosteroides (Prednisona) y ahorradores como Azatioprina.', 'Terapias de rescate (crisis): Inmunoglobulina Intravenosa (IVIg) y Plasmaféresis.', 'Quirúrgico: Timectomía, especialmente en pacientes jóvenes con MG generalizada AChR+.'] },
+                              { type: 'title', title: 'Transición: Distrofias Musculares', subtitle: 'Enfermedades genéticas que causan degeneración muscular progresiva' },
+                              { type: 'content', title: 'Fisiopatología de la Distrofia de Duchenne (DMD)', points: ['Trastorno genético recesivo ligado al cromosoma X.', 'Causado por mutaciones en el gen que codifica la proteína Distrofina.', 'DMD: Ausencia casi total de distrofina funcional.', 'La falta de distrofina hace que las fibras musculares sean frágiles, llevando a necrosis, fibrosis y reemplazo por grasa.'] },
+                              { type: 'content', title: 'Clínica de la Distrofia de Duchenne (DMD)', points: ['Inicio en la infancia temprana (2-5 años).', 'Signo de Gowers: El niño &quot;trepa&quot; por sus propias piernas para levantarse.', 'Pseudo-hipertrofia de pantorrillas.', 'Progresión rápida: Pérdida de la marcha en la adolescencia temprana y afectación cardiorrespiratoria severa.'] },
+                              { type: 'content', title: 'Diagnóstico de la Distrofia de Duchenne (DMD)', points: ['Sospecha clínica y niveles de Creatina Quinasa (CK) masivamente elevados (>100x).', 'Confirmación: Prueba genética molecular para identificar la mutación en el gen DMD.', 'Biopsia muscular: Muestra ausencia de distrofina (usada si la prueba genética no es concluyente).', 'El diagnóstico diferencial clave es la Distrofia de Becker (DMB), una forma más leve con distrofina anormal o reducida.'] },
+                              { type: 'title', title: 'Transición: Miopatías Inflamatorias', subtitle: 'Enfermedades autoinmunes que atacan el músculo estriado' },
+                              { type: 'content', title: 'Clasificación de las Miopatías Inflamatorias (MII)', points: ['Dermatomiositis (DM): Debilidad muscular con manifestaciones cutáneas (eritema en heliotropo, pápulas de Gottron).', 'Polimiositis (PM): Debilidad muscular sin afectación cutánea.', 'Miopatía Necrotizante Inmunomediada (MNIM): Forma severa con necrosis muscular extensa.', 'Miositis por Cuerpos de Inclusión (MCI): Afecta a mayores de 50 años, progresión lenta, resistente a tratamiento.'] },
+                              { type: 'content', title: 'Clínica de Dermatomiositis (DM) y Polimiositis (PM)', points: ['Debilidad muscular proximal y simétrica (cinturas escapular y pélvica).', 'Afectación de flexores del cuello.', 'Manifestaciones sistémicas: Enfermedad pulmonar intersticial, artritis, fenómeno de Raynaud.', 'En DM de adultos, existe un riesgo aumentado de malignidad subyacente, requiriendo cribado oncológico.'] },
+                              { type: 'table', title: 'Tabla Comparativa de Patologías Clave', headers: ['Característica', 'Miastenia Gravis', 'Duchenne (DMD)', 'Miopatías (DM/PM)'], rows: [['Etiología', 'Autoinmune (Anti-AChR)', 'Genética (Ausencia de distrofina)', 'Autoinmune (Inflamación muscular)'], ['Inicio Típico', 'Mujeres <40, Hombres >60', 'Infancia (2-5 años)', 'Niños y Adultos (40-50 años)'], ['Clínica Clave', 'Debilidad fatigable, ptosis', 'Signo de Gowers, debilidad progresiva', 'Debilidad proximal, rash (en DM)'], ['Marcador DX', 'Anticuerpos, EMG (decremento)', 'CK muy elevada, Test genético', 'CK elevada, Biopsia, Auto-ACs']] },
+                              { type: 'title', title: 'Conclusiones y Cierre', subtitle: 'El diagnóstico preciso y el manejo multidisciplinario son clave para mejorar la calidad de vida en pacientes con ENM.' }
+                          ];
+                          function getDynamicFontSize(vw) { return (vw / 100) * canvas.width; }
+                          function wrapText(ctx, text, x, y, maxWidth, lineHeight) { const words = text.split(' '); let line = ''; let currentY = y; for (let n = 0; n < words.length; n++) { const testLine = line + words[n] + ' '; const testWidth = ctx.measureText(testLine).width; if (testWidth > maxWidth && n > 0) { ctx.fillText(line, x, currentY); line = words[n] + ' '; currentY += lineHeight; } else { line = testLine; } } ctx.fillText(line, x, currentY); return currentY - y + lineHeight; }
+                          function drawTitleSlide(slide) { const centerX = canvas.width / 2; const centerY = canvas.height / 2; ctx.font = `bold ${getDynamicFontSize(4.5)}px ${STYLES.FONT_FAMILY}`; ctx.fillStyle = STYLES.TEXT; const titleHeight = wrapText(ctx, slide.title, centerX, centerY - getDynamicFontSize(2), canvas.width * 0.8, getDynamicFontSize(5)); if (slide.subtitle) { ctx.font = `400 ${getDynamicFontSize(2)}px ${STYLES.FONT_FAMILY}`; ctx.fillStyle = STYLES.ACCENT; wrapText(ctx, slide.subtitle, centerX, centerY + titleHeight / 2, canvas.width * 0.7, getDynamicFontSize(2.5)); } }
+                          function drawContentSlide(slide) { const centerX = canvas.width / 2; const contentWidth = canvas.width * 0.75; let totalHeight = 0; const titleSize = getDynamicFontSize(3.5); const pointSize = getDynamicFontSize(2); const titleLineHeight = titleSize * 1.2; const pointLineHeight = pointSize * 1.5; const titleMarginBottom = getDynamicFontSize(4); ctx.font = `bold ${titleSize}px ${STYLES.FONT_FAMILY}`; totalHeight += wrapText(ctx, slide.title, -9999, 0, contentWidth, titleLineHeight) + titleMarginBottom; ctx.font = `400 ${pointSize}px ${STYLES.FONT_FAMILY}`; slide.points.forEach(p => { totalHeight += wrapText(ctx, `• ${p}`, -9999, 0, contentWidth, pointLineHeight) + pointLineHeight * 0.5; }); let currentY = (canvas.height - totalHeight) / 2; ctx.font = `bold ${titleSize}px ${STYLES.FONT_FAMILY}`; ctx.fillStyle = STYLES.ACCENT; currentY += wrapText(ctx, slide.title, centerX, currentY, contentWidth, titleLineHeight) + titleMarginBottom; ctx.font = `400 ${pointSize}px ${STYLES.FONT_FAMILY}`; ctx.fillStyle = STYLES.TEXT; ctx.textAlign = 'left'; const pointStartX = (canvas.width - contentWidth) / 2; slide.points.forEach(p => { currentY += wrapText(ctx, `• ${p}`, pointStartX, currentY, contentWidth, pointLineHeight) + pointLineHeight * 0.5; }); }
+                          function drawTableSlide(slide) { const centerX = canvas.width / 2; const tableWidth = canvas.width * 0.85; const startX = (canvas.width - tableWidth) / 2; ctx.font = `bold ${getDynamicFontSize(3)}px ${STYLES.FONT_FAMILY}`; ctx.fillStyle = STYLES.ACCENT; ctx.textAlign = 'center'; const titleY = canvas.height * 0.15; wrapText(ctx, slide.title, centerX, titleY, tableWidth, getDynamicFontSize(3.5)); const tableY = titleY + getDynamicFontSize(8); const numCols = slide.headers.length; const colWidth = tableWidth / numCols; const rowHeight = getDynamicFontSize(8); const cellPadding = colWidth * 0.05; ctx.font = `bold ${getDynamicFontSize(1.6)}px ${STYLES.FONT_FAMILY}`; ctx.textBaseline = 'middle'; for (let i = 0; i < numCols; i++) { const cellX = startX + i * colWidth; ctx.fillStyle = STYLES.TABLE_HEADER_BG; ctx.fillRect(cellX, tableY, colWidth, rowHeight); ctx.fillStyle = STYLES.TEXT; wrapText(ctx, slide.headers[i], cellX + colWidth / 2, tableY + rowHeight / 2, colWidth - cellPadding * 2, getDynamicFontSize(1.8)); } ctx.font = `400 ${getDynamicFontSize(1.5)}px ${STYLES.FONT_FAMILY}`; for (let i = 0; i < slide.rows.length; i++) { const rowY = tableY + (i + 1) * rowHeight; for (let j = 0; j < numCols; j++) { const cellX = startX + j * colWidth; ctx.fillStyle = STYLES.TEXT; wrapText(ctx, slide.rows[i][j], cellX + colWidth / 2, rowY + rowHeight / 2, colWidth - cellPadding * 2, getDynamicFontSize(1.7)); } } ctx.strokeStyle = STYLES.TABLE_BORDER; ctx.lineWidth = 2; for (let i = 0; i <= numCols; i++) { const lineX = startX + i * colWidth; ctx.beginPath(); ctx.moveTo(lineX, tableY); ctx.lineTo(lineX, tableY + (slide.rows.length + 1) * rowHeight); ctx.stroke(); } for (let i = 0; i <= slide.rows.length + 1; i++) { const lineY = tableY + i * rowHeight; ctx.beginPath(); ctx.moveTo(startX, lineY); ctx.lineTo(startX + tableWidth, lineY); ctx.stroke(); } }
+                          function drawSlide(index) { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = STYLES.BACKGROUND; ctx.fillRect(0, 0, canvas.width, canvas.height); const slide = slides[index]; if (!slide) return; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; switch (slide.type) { case 'title': drawTitleSlide(slide); break; case 'content': drawContentSlide(slide); break; case 'table': drawTableSlide(slide); break; default: console.error(`Tipo de diapositiva desconocido: ${slide.type}`); } }
+                          function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; drawSlide(currentSlide); }
+                          function handleKeyDown(e) { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { if (currentSlide < slides.length - 1) { currentSlide++; drawSlide(currentSlide); } } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { if (currentSlide > 0) { currentSlide--; drawSlide(currentSlide); } } }
+                          instructionsOverlay.addEventListener('click', () => { instructionsOverlay.style.opacity = '0'; setTimeout(() => { instructionsOverlay.style.display = 'none'; }, 500); });
+                          window.addEventListener('keydown', handleKeyDown);
+                          window.addEventListener('resize', resizeCanvas);
+                          resizeCanvas();
+                      </script>
+                  </body>
+                  </html>
+                "
+              ></iframe>
+            </div>
+        </section>
+
+        <!-- Diagnostic Assistant -->
+        <section id="herramienta" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Asistente de Diagnóstico Diferencial
+          </h2>
+          <p class="mb-6 text-gray-600">
+            Seleccione los síntomas y signos clave para obtener una orientación diagnóstica.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+              <input type="checkbox" id="debilidad_fluctuante" class="hidden" data-symptom="mg" />
+              <label for="debilidad_fluctuante" class="checkbox-label">Debilidad fluctuante que mejora con el reposo</label>
+            </div>
+            <div>
+              <input type="checkbox" id="ptosis_diplopia" class="hidden" data-symptom="mg" />
+              <label for="ptosis_diplopia" class="checkbox-label">Ptosis/Diplopía (párpados caídos/visión doble)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="gowers" class="hidden" data-symptom="dmd" />
+              <label for="gowers" class="checkbox-label">Signo de Gowers positivo (niño &lt; 5 años)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="debilidad_proximal" class="hidden" data-symptom="mii dmd" />
+              <label for="debilidad_proximal" class="checkbox-label">Debilidad proximal simétrica</label>
+            </div>
+            <div>
+              <input type="checkbox" id="rash" class="hidden" data-symptom="mii" />
+              <label for="rash" class="checkbox-label">Rash en heliotropo o pápulas de Gottron</label>
+            </div>
+          </div>
+          <button id="analizarBtn" class="w-full px-4 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors">
+            Analizar Síntomas
+          </button>
+          <div id="resultadoDiagnostico" class="mt-6 p-4 rounded-lg bg-gray-100 hidden"></div>
+        </section>
+
+        <!-- Clinical Case -->
+        <section id="abp" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Actividad ABP: Caso Clínico
+          </h2>
+          <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+            <p class="font-bold">Presentación del Paciente:</p>
+            <p>
+              Paciente masculino de 19 años, estudiante universitario, refiere que desde hace 4 meses nota visión doble y párpados caídos que empeoran al final del día mientras estudia. Ocasionalmente, siente que se cansa mucho al subir las escaleras a su departamento.
+            </p>
+          </div>
+          <div class="mt-6">
+            <h3 class="font-bold text-lg mb-2">Preguntas Guía:</h3>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li>¿Cuál es el diagnóstico más probable y por qué?</li>
+              <li>¿Qué hallazgos en la historia clínica apoyan su sospecha?</li>
+              <li>¿Qué pruebas diagnósticas solicitaría para confirmar el diagnóstico?</li>
+              <li>¿Cuál sería el manejo inicial para este paciente?</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Self-Assessment Quiz -->
+        <section id="autoevaluacion" class="p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-2 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Autoevaluación
+          </h2>
+          <p class="mb-4 text-gray-600">Pon a prueba tus conocimientos.</p>
+          <div id="quizProgress" class="mb-4">
+            <div class="flex justify-between mb-1">
+              <span class="text-base font-medium text-blue-700">Progreso</span>
+              <span id="progressText" class="text-sm font-medium text-blue-700"></span>
+            </div>
+            <div class="progress-bar-container">
+              <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+            </div>
+          </div>
+          <div id="quizContainer" class="mb-4">
+            <!-- Quiz questions will be generated here by JavaScript -->
+          </div>
+          <div id="quizResultContainer" class="text-center p-6 bg-gray-100 rounded-lg hidden">
+            <!-- Quiz result will be shown here -->
+          </div>
+        </section>
+      </main>
     </div>
 
-    <!-- El canvas donde se dibujará toda la presentación -->
-    <canvas id="presentationCanvas"></canvas>
-
     <script>
-      // --- CONFIGURACIÓN Y VARIABLES GLOBALES ---
+      document.addEventListener('DOMContentLoaded', function () {
+        // --- NOTE: The presentation logic is now inside the iframe's srcdoc attribute. ---
+        // --- This main script now only handles the Diagnostic Assistant and the Quiz. ---
 
-      const canvas = document.getElementById('presentationCanvas');
-      const ctx = canvas.getContext('2d');
-      const instructionsOverlay = document.getElementById(
-        'instructions-overlay',
-      );
+        // --- DIAGNOSTIC ASSISTANT LOGIC ---
+        const analizarBtn = document.getElementById('analizarBtn');
+        const resultadoDiv = document.getElementById('resultadoDiagnostico');
+        const checkboxes = document.querySelectorAll('#herramienta input[type="checkbox"]');
 
-      let currentSlide = 0;
+        analizarBtn.addEventListener('click', () => {
+            const scores = { mg: 0, dmd: 0, mii: 0 };
+            const activeSymptoms = [];
 
-      // Objeto de estilos para centralizar la configuración visual
-      const STYLES = {
-        BACKGROUND: '#0f172a', // slate-900
-        TEXT: '#f8fafc', // slate-50
-        ACCENT: '#38bdf8', // sky-400
-        TABLE_HEADER_BG: '#1e293b', // slate-800
-        TABLE_BORDER: '#334155', // slate-700
-        FONT_FAMILY: 'Inter, sans-serif',
-      };
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    activeSymptoms.push(cb);
+                    const associatedDiseases = cb.dataset.symptom.split(' ');
+                    associatedDiseases.forEach(disease => {
+                        if (scores.hasOwnProperty(disease)) {
+                            scores[disease]++;
+                        }
+                    });
+                }
+            });
 
-      // --- CONTENIDO DE LAS DIAPOSITIVAS ---
-      // Todo el contenido de la presentación se define aquí para una fácil gestión.
-      const slides = [
-        {
-          type: 'title',
-          title: 'Enfermedades de la Unión Neuromuscular y Músculo',
-          subtitle: 'Un Análisis Clínico por CanvasMed-AI',
-        },
-        {
-          type: 'content',
-          title: 'Introducción: Enfermedades Neuromusculares (ENM)',
-          points: [
-            'Grupo heterogéneo de patologías que afectan la unidad motora.',
-            'Abarcan desde la motoneurona hasta el músculo.',
-            'Son condiciones crónicas, progresivas y a menudo incapacitantes.',
-            'Clasificación principal: Trastornos de la unión, Distrofias y Miopatías.',
-          ],
-        },
-        {
-          type: 'content',
-          title: 'Fisiopatología de la Miastenia Gravis (MG)',
-          points: [
-            'Enfermedad autoinmune mediada por anticuerpos.',
-            'Ataque a proteínas de la membrana postsináptica, principalmente receptores de acetilcolina (AChR).',
-            'Resultado: Interrupción de la transmisión neuromuscular.',
-            'El timo juega un papel central, con hiperplasia o timomas frecuentes.',
-          ],
-        },
-        {
-          type: 'content',
-          title: 'Clínica de la Miastenia Gravis',
-          points: [
-            'Característica principal: Debilidad muscular fluctuante y fatigable.',
-            'Forma Ocular: Ptosis (párpado caído) y diplopía (visión doble).',
-            'Forma Generalizada: Afecta músculos bulbares (habla, deglución), axiales y de extremidades.',
-            'Crisis Miasténica: Emergencia médica con compromiso respiratorio que requiere ventilación mecánica.',
-          ],
-        },
-        {
-          type: 'content',
-          title: 'Diagnóstico de la Miastenia Gravis',
-          points: [
-            'Clínico: Historia de debilidad fatigable.',
-            'Electrodiagnóstico: Estimulación Nerviosa Repetitiva (ENR) y EMG de Fibra Única (EMG-SF), la más sensible.',
-            'Serología: Detección de anticuerpos anti-AChR (85%) y anti-MuSK.',
-            'Pruebas de cabecera: Test de la bolsa de hielo.',
-          ],
-        },
-        {
-          type: 'content',
-          title: 'Tratamiento de la Miastenia Gravis',
-          points: [
-            'Sintomático: Piridostigmina (inhibidor de acetilcolinesterasa).',
-            'Inmunoterapia a largo plazo: Corticosteroides (Prednisona) y ahorradores como Azatioprina.',
-            'Terapias de rescate (crisis): Inmunoglobulina Intravenosa (IVIg) y Plasmaféresis.',
-            'Quirúrgico: Timectomía, especialmente en pacientes jóvenes con MG generalizada AChR+.',
-          ],
-        },
-        {
-          type: 'title',
-          title: 'Transición: Distrofias Musculares',
-          subtitle:
-            'Enfermedades genéticas que causan degeneración muscular progresiva',
-        },
-        {
-          type: 'content',
-          title: 'Fisiopatología de la Distrofia de Duchenne (DMD)',
-          points: [
-            'Trastorno genético recesivo ligado al cromosoma X.',
-            'Causado por mutaciones en el gen que codifica la proteína Distrofina.',
-            'DMD: Ausencia casi total de distrofina funcional.',
-            'La falta de distrofina hace que las fibras musculares sean frágiles, llevando a necrosis, fibrosis y reemplazo por grasa.',
-          ],
-        },
-        {
-          type: 'content',
-          title: 'Clínica de la Distrofia de Duchenne (DMD)',
-          points: [
-            'Inicio en la infancia temprana (2-5 años).',
-            'Signo de Gowers: El niño "trepa" por sus propias piernas para levantarse.',
-            'Pseudo-hipertrofia de pantorrillas.',
-            'Progresión rápida: Pérdida de la marcha en la adolescencia temprana y afectación cardiorrespiratoria severa.',
-          ],
-        },
-        {
-          type: 'content',
-          title: 'Diagnóstico de la Distrofia de Duchenne (DMD)',
-          points: [
-            'Sospecha clínica y niveles de Creatina Quinasa (CK) masivamente elevados (>100x).',
-            'Confirmación: Prueba genética molecular para identificar la mutación en el gen DMD.',
-            'Biopsia muscular: Muestra ausencia de distrofina (usada si la prueba genética no es concluyente).',
-            'El diagnóstico diferencial clave es la Distrofia de Becker (DMB), una forma más leve con distrofina anormal o reducida.',
-          ],
-        },
-        {
-          type: 'title',
-          title: 'Transición: Miopatías Inflamatorias',
-          subtitle: 'Enfermedades autoinmunes que atacan el músculo estriado',
-        },
-        {
-          type: 'content',
-          title: 'Clasificación de las Miopatías Inflamatorias (MII)',
-          points: [
-            'Dermatomiositis (DM): Debilidad muscular con manifestaciones cutáneas (eritema en heliotropo, pápulas de Gottron).',
-            'Polimiositis (PM): Debilidad muscular sin afectación cutánea.',
-            'Miopatía Necrotizante Inmunomediada (MNIM): Forma severa con necrosis muscular extensa.',
-            'Miositis por Cuerpos de Inclusión (MCI): Afecta a mayores de 50 años, progresión lenta, resistente a tratamiento.',
-          ],
-        },
-        {
-          type: 'content',
-          title: 'Clínica de Dermatomiositis (DM) y Polimiositis (PM)',
-          points: [
-            'Debilidad muscular proximal y simétrica (cinturas escapular y pélvica).',
-            'Afectación de flexores del cuello.',
-            'Manifestaciones sistémicas: Enfermedad pulmonar intersticial, artritis, fenómeno de Raynaud.',
-            'En DM de adultos, existe un riesgo aumentado de malignidad subyacente, requiriendo cribado oncológico.',
-          ],
-        },
-        {
-          type: 'table',
-          title: 'Tabla Comparativa de Patologías Clave',
-          headers: [
-            'Característica',
-            'Miastenia Gravis',
-            'Duchenne (DMD)',
-            'Miopatías (DM/PM)',
-          ],
-          rows: [
-            [
-              'Etiología',
-              'Autoinmune (Anti-AChR)',
-              'Genética (Ausencia de distrofina)',
-              'Autoinmune (Inflamación muscular)',
-            ],
-            [
-              'Inicio Típico',
-              'Mujeres <40, Hombres >60',
-              'Infancia (2-5 años)',
-              'Niños y Adultos (40-50 años)',
-            ],
-            [
-              'Clínica Clave',
-              'Debilidad fatigable, ptosis',
-              'Signo de Gowers, debilidad progresiva',
-              'Debilidad proximal, rash (en DM)',
-            ],
-            [
-              'Marcador DX',
-              'Anticuerpos, EMG (decremento)',
-              'CK muy elevada, Test genético',
-              'CK elevada, Biopsia, Auto-ACs',
-            ],
-          ],
-        },
-        {
-          type: 'title',
-          title: 'Conclusiones y Cierre',
-          subtitle:
-            'El diagnóstico preciso y el manejo multidisciplinario son clave para mejorar la calidad de vida en pacientes con ENM.',
-        },
-      ];
+            if (activeSymptoms.length === 0) {
+                resultadoDiv.innerHTML = `<p class="font-semibold text-gray-700">Por favor, seleccione al menos un síntoma.</p>`;
+                resultadoDiv.classList.remove('hidden');
+                return;
+            }
 
-      // --- FUNCIONES DE DIBUJO Y LÓGICA ---
+            const sortedDiagnoses = Object.entries(scores)
+                .filter(([_, score]) => score > 0)
+                .sort((a, b) => b[1] - a[1]);
 
-      /**
-       * Convierte un valor de viewport width (vw) a píxeles.
-       * @param {number} baseVw - El valor base en vw.
-       * @returns {number} El tamaño en píxeles.
-       */
-      function getDynamicFontSize(baseVw) {
-        return (baseVw / 100) * canvas.width;
-      }
-
-      /**
-       * Dibuja texto con ajuste de línea automático y centrado.
-       * @param {CanvasRenderingContext2D} ctx - El contexto del canvas.
-       * @param {string} text - El texto a dibujar.
-       * @param {number} x - La coordenada X central.
-       * @param {number} y - La coordenada Y inicial.
-       * @param {number} maxWidth - El ancho máximo de la línea.
-       * @param {number} lineHeight - La altura de la línea.
-       * @returns {number} La altura total del bloque de texto dibujado.
-       */
-      function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-        const words = text.split(' ');
-        let line = '';
-        let totalHeight = 0;
-        let currentY = y;
-
-        for (let n = 0; n < words.length; n++) {
-          const testLine = line + words[n] + ' ';
-          const metrics = ctx.measureText(testLine);
-          const testWidth = metrics.width;
-          if (testWidth > maxWidth && n > 0) {
-            ctx.fillText(line, x, currentY);
-            line = words[n] + ' ';
-            currentY += lineHeight;
-            totalHeight += lineHeight;
-          } else {
-            line = testLine;
-          }
-        }
-        ctx.fillText(line, x, currentY);
-        totalHeight += lineHeight;
-        return totalHeight;
-      }
-
-      /**
-       * Dibuja una diapositiva de tipo 'título'.
-       * @param {object} slide - El objeto de la diapositiva.
-       */
-      function drawTitleSlide(slide) {
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-
-        // Dibujar título principal
-        ctx.font = `bold ${getDynamicFontSize(4.5)}px ${STYLES.FONT_FAMILY}`;
-        ctx.fillStyle = STYLES.TEXT;
-        const titleHeight = wrapText(
-          ctx,
-          slide.title,
-          centerX,
-          centerY - getDynamicFontSize(2),
-          canvas.width * 0.8,
-          getDynamicFontSize(5),
-        );
-
-        // Dibujar subtítulo
-        if (slide.subtitle) {
-          ctx.font = `400 ${getDynamicFontSize(2)}px ${STYLES.FONT_FAMILY}`;
-          ctx.fillStyle = STYLES.ACCENT;
-          wrapText(
-            ctx,
-            slide.subtitle,
-            centerX,
-            centerY + titleHeight / 2,
-            canvas.width * 0.7,
-            getDynamicFontSize(2.5),
-          );
-        }
-      }
-
-      /**
-       * Dibuja una diapositiva de tipo 'contenido' con título y viñetas.
-       * @param {object} slide - El objeto de la diapositiva.
-       */
-      function drawContentSlide(slide) {
-        const centerX = canvas.width / 2;
-        const contentWidth = canvas.width * 0.75;
-        const startYMargin = canvas.height * 0.15;
-
-        // Calcular altura total para centrar verticalmente
-        let totalContentHeight = 0;
-        const titleSize = getDynamicFontSize(3.5);
-        const pointSize = getDynamicFontSize(2);
-        const titleLineHeight = titleSize * 1.2;
-        const pointLineHeight = pointSize * 1.5;
-        const titleMarginBottom = getDynamicFontSize(4);
-
-        // Medir altura del título
-        ctx.font = `bold ${titleSize}px ${STYLES.FONT_FAMILY}`;
-        const tempTitle = document.createElement('canvas').getContext('2d');
-        tempTitle.font = ctx.font;
-        totalContentHeight +=
-          wrapText(
-            tempTitle,
-            slide.title,
-            0,
-            0,
-            contentWidth,
-            titleLineHeight,
-          ) + titleMarginBottom;
-
-        // Medir altura de los puntos
-        ctx.font = `400 ${pointSize}px ${STYLES.FONT_FAMILY}`;
-        const tempPoint = document.createElement('canvas').getContext('2d');
-        tempPoint.font = ctx.font;
-        slide.points.forEach((point) => {
-          totalContentHeight += wrapText(
-            tempPoint,
-            '• ' + point,
-            0,
-            0,
-            contentWidth,
-            pointLineHeight,
-          );
+            let resultHtml = '<h4 class="font-bold text-lg mb-2">Orientación Diagnóstica:</h4>';
+            if (sortedDiagnoses.length > 0) {
+                resultHtml += '<ul class="list-disc list-inside space-y-2">';
+                sortedDiagnoses.forEach(([disease, score]) => {
+                    let diseaseName = '';
+                    let justification = '';
+                    switch (disease) {
+                        case 'mg':
+                            diseaseName = 'Miastenia Gravis (MG)';
+                            justification = 'Sugerido por síntomas de debilidad fatigable y afectación ocular.';
+                            break;
+                        case 'dmd':
+                            diseaseName = 'Distrofia Muscular de Duchenne (DMD)';
+                            justification = 'Sugerido por debilidad proximal en un niño con Signo de Gowers.';
+                            break;
+                        case 'mii':
+                            diseaseName = 'Miopatías Inflamatorias (MII)';
+                            justification = 'Sugerido por debilidad proximal simétrica, especialmente si se acompaña de rash cutáneo.';
+                            break;
+                    }
+                    resultHtml += `<li><span class="font-semibold">${diseaseName}:</span> ${justification} (Puntuación de coincidencia: ${score})</li>`;
+                });
+                resultHtml += '</ul>';
+            } else {
+                resultHtml += '<p>Los síntomas seleccionados no coinciden claramente con un patrón específico de las enfermedades listadas.</p>';
+            }
+            resultadoDiv.innerHTML = resultHtml;
+            resultadoDiv.classList.remove('hidden');
         });
 
-        let currentY = (canvas.height - totalContentHeight) / 2;
+        // --- SELF-ASSESSMENT QUIZ LOGIC ---
+        const quizQuestions = [
+            { question: "La debilidad fluctuante que empeora con el ejercicio es característica de:", options: ["Miastenia Gravis", "DMD", "Miopatía Inflamatoria"], answer: "Miastenia Gravis" },
+            { question: "El Signo de Gowers es un hallazgo clásico en:", options: ["Miastenia Gravis", "DMD", "Miopatía Inflamatoria"], answer: "DMD" },
+            { question: "Las pápulas de Gottron y el rash en heliotropo se asocian con:", options: ["Polimiositis", "Dermatomiositis", "Miastenia Gravis"], answer: "Dermatomiositis" },
+            { question: "El principal marcador serológico en la mayoría de los casos de Miastenia Gravis es:", options: ["Anti-Jo-1", "Anti-MuSK", "Anti-AChR"], answer: "Anti-AChR" },
+        ];
 
-        // Dibujar título
-        ctx.font = `bold ${titleSize}px ${STYLES.FONT_FAMILY}`;
-        ctx.fillStyle = STYLES.ACCENT;
-        const titleHeight = wrapText(
-          ctx,
-          slide.title,
-          centerX,
-          currentY,
-          contentWidth,
-          titleLineHeight,
-        );
-        currentY += titleHeight + titleMarginBottom;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const quizContainer = document.getElementById('quizContainer');
+        const quizResultContainer = document.getElementById('quizResultContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
 
-        // Dibujar viñetas
-        ctx.font = `400 ${pointSize}px ${STYLES.FONT_FAMILY}`;
-        ctx.fillStyle = STYLES.TEXT;
-        ctx.textAlign = 'left'; // Alinear viñetas a la izquierda del bloque centrado
-        const pointStartX = (canvas.width - contentWidth) / 2;
-        slide.points.forEach((point) => {
-          const pointText = `• ${point}`;
-          const pointHeight = wrapText(
-            ctx,
-            pointText,
-            pointStartX,
-            currentY,
-            contentWidth,
-            pointLineHeight,
-          );
-          currentY += pointHeight + pointLineHeight * 0.5;
-        });
-      }
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                showResults();
+                return;
+            }
 
-      /**
-       * Dibuja una diapositiva de tipo 'tabla'.
-       * @param {object} slide - El objeto de la diapositiva.
-       */
-      function drawTableSlide(slide) {
-        const centerX = canvas.width / 2;
-        const tableWidth = canvas.width * 0.85;
-        const startX = (canvas.width - tableWidth) / 2;
-
-        // Dibujar título de la tabla
-        ctx.font = `bold ${getDynamicFontSize(3)}px ${STYLES.FONT_FAMILY}`;
-        ctx.fillStyle = STYLES.ACCENT;
-        ctx.textAlign = 'center';
-        const titleY = canvas.height * 0.15;
-        wrapText(
-          ctx,
-          slide.title,
-          centerX,
-          titleY,
-          tableWidth,
-          getDynamicFontSize(3.5),
-        );
-
-        const tableY = titleY + getDynamicFontSize(8);
-        const numCols = slide.headers.length;
-        const colWidth = tableWidth / numCols;
-        const rowHeight = getDynamicFontSize(8);
-        const cellPadding = colWidth * 0.05;
-
-        ctx.font = `bold ${getDynamicFontSize(1.6)}px ${STYLES.FONT_FAMILY}`;
-        ctx.textBaseline = 'middle';
-
-        // Dibujar cabecera
-        for (let i = 0; i < numCols; i++) {
-          const cellX = startX + i * colWidth;
-          ctx.fillStyle = STYLES.TABLE_HEADER_BG;
-          ctx.fillRect(cellX, tableY, colWidth, rowHeight);
-          ctx.fillStyle = STYLES.TEXT;
-          wrapText(
-            ctx,
-            slide.headers[i],
-            cellX + colWidth / 2,
-            tableY + rowHeight / 2,
-            colWidth - cellPadding * 2,
-            getDynamicFontSize(1.8),
-          );
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            quizContainer.innerHTML = `
+                <div class="font-semibold text-lg mb-4">${currentQuestion.question}</div>
+                <div class="space-y-3">
+                    ${currentQuestion.options.map(option => `
+                        <button class="block w-full text-left p-3 bg-gray-100 hover:bg-blue-100 rounded-lg transition-colors quiz-option">${option}</button>
+                    `).join('')}
+                </div>
+            `;
+            
+            updateProgress();
+            
+            document.querySelectorAll('.quiz-option').forEach(button => {
+                button.addEventListener('click', handleAnswer);
+            });
         }
 
-        // Dibujar filas de contenido
-        ctx.font = `400 ${getDynamicFontSize(1.5)}px ${STYLES.FONT_FAMILY}`;
-        for (let i = 0; i < slide.rows.length; i++) {
-          const rowY = tableY + (i + 1) * rowHeight;
-          for (let j = 0; j < numCols; j++) {
-            const cellX = startX + j * colWidth;
-            ctx.fillStyle = STYLES.TEXT;
-            wrapText(
-              ctx,
-              slide.rows[i][j],
-              cellX + colWidth / 2,
-              rowY + rowHeight / 2,
-              colWidth - cellPadding * 2,
-              getDynamicFontSize(1.7),
-            );
-          }
+        function handleAnswer(e) {
+            const selectedOption = e.target.textContent;
+            const correctAnswer = quizQuestions[currentQuestionIndex].answer;
+            if (selectedOption === correctAnswer) {
+                score++;
+            }
+            currentQuestionIndex++;
+            loadQuestion();
         }
 
-        // Dibujar bordes de la tabla
-        ctx.strokeStyle = STYLES.TABLE_BORDER;
-        ctx.lineWidth = 2;
-        // Bordes verticales
-        for (let i = 0; i <= numCols; i++) {
-          const lineX = startX + i * colWidth;
-          ctx.beginPath();
-          ctx.moveTo(lineX, tableY);
-          ctx.lineTo(lineX, tableY + (slide.rows.length + 1) * rowHeight);
-          ctx.stroke();
+        function updateProgress() {
+            const progressPercentage = (currentQuestionIndex / quizQuestions.length) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+            progressText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
         }
-        // Bordes horizontales
-        for (let i = 0; i <= slide.rows.length + 1; i++) {
-          const lineY = tableY + i * rowHeight;
-          ctx.beginPath();
-          ctx.moveTo(startX, lineY);
-          ctx.lineTo(startX + tableWidth, lineY);
-          ctx.stroke();
+        
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            quizResultContainer.classList.remove('hidden');
+            progressBar.style.width = '100%';
+            progressText.textContent = `Completado`;
+
+            quizResultContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">¡Cuestionario Completo!</h3>
+                <p class="text-xl">Tu puntuación: <span class="font-bold text-blue-600">${score} de ${quizQuestions.length}</span></p>
+                <button id="restartQuiz" class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Volver a Intentar</button>
+            `;
+            
+            document.getElementById('restartQuiz').addEventListener('click', () => {
+                currentQuestionIndex = 0;
+                score = 0;
+                quizContainer.classList.remove('hidden');
+                quizResultContainer.classList.add('hidden');
+                loadQuestion();
+            });
         }
-      }
 
-      /**
-       * Función principal de renderizado que se llama para dibujar cualquier diapositiva.
-       * @param {number} index - El índice de la diapositiva a dibujar.
-       */
-      function drawSlide(index) {
-        // Limpiar el canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Dibujar el fondo
-        ctx.fillStyle = STYLES.BACKGROUND;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        const slide = slides[index];
-        if (!slide) return;
-
-        // Configuración de texto por defecto para cada diapositiva
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        // Llamar a la función de dibujo apropiada según el tipo de diapositiva
-        switch (slide.type) {
-          case 'title':
-            drawTitleSlide(slide);
-            break;
-          case 'content':
-            drawContentSlide(slide);
-            break;
-          case 'table':
-            drawTableSlide(slide);
-            break;
-          default:
-            console.error(`Tipo de diapositiva desconocido: ${slide.type}`);
-        }
-      }
-
-      /**
-       * Ajusta el tamaño del canvas a la ventana y redibuja la diapositiva actual.
-       */
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        drawSlide(currentSlide);
-      }
-
-      /**
-       * Maneja la navegación con las teclas de flecha.
-       * @param {KeyboardEvent} e - El evento del teclado.
-       */
-      function handleKeyDown(e) {
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-          if (currentSlide < slides.length - 1) {
-            currentSlide++;
-            drawSlide(currentSlide);
-          }
-        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-          if (currentSlide > 0) {
-            currentSlide--;
-            drawSlide(currentSlide);
-          }
-        }
-      }
-
-      // --- INICIALIZACIÓN Y EVENT LISTENERS ---
-
-      // Listener para ocultar las instrucciones
-      instructionsOverlay.addEventListener('click', () => {
-        instructionsOverlay.style.opacity = '0';
-        setTimeout(() => {
-          instructionsOverlay.style.display = 'none';
-        }, 500); // Coincide con la duración de la transición CSS
+        loadQuestion(); // Initial quiz load
       });
-
-      // Listeners para la navegación y el redimensionamiento
-      window.addEventListener('keydown', handleKeyDown);
-      window.addEventListener('resize', resizeCanvas);
-
-      // Llamada inicial para configurar el canvas y dibujar la primera diapositiva
-      resizeCanvas();
     </script>
   </body>
 </html>
