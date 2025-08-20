@@ -6,22 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.pathname.startsWith('/neurologia/');
 
   if (isNeurologySubpage) {
-    const leftWidth = 224; // Tailwind w-56
     const rightWidth = 384; // Tailwind w-96
-
-    document.body.style.marginLeft = `${leftWidth}px`;
     document.body.style.marginRight = `${rightWidth}px`;
-
-    const leftPanel = document.createElement('div');
-    leftPanel.className =
-      'hidden md:flex flex-col fixed top-0 left-0 h-full w-56 bg-gray-50 border-r p-4 space-y-4';
-    leftPanel.innerHTML = `
-      <nav class="space-y-2">
-        <a href="/index.html" class="block text-indigo-600 font-semibold hover:underline">Inicio</a>
-        <a href="/neurologia.html" class="block text-indigo-600 font-semibold hover:underline">Neurología</a>
-      </nav>
-    `;
-    document.body.appendChild(leftPanel);
 
     const rightPanel = document.createElement('div');
     rightPanel.className =
