@@ -1,94 +1,141 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Enfermedades Neuromusculares</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      xintegrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      xintegrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="../assets/tailwind.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Custom styles for interactive elements */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .gradient-text {
+        background: linear-gradient(to right, #4f46e5, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      /* Styles for the diagnostic tool checkboxes */
+      .checkbox-label {
+        display: block;
+        padding: 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        font-weight: 500;
+      }
+      .checkbox-label:hover {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+      }
+      input[type="checkbox"]:checked + .checkbox-label {
+        border-color: #3b82f6;
+        background-color: #dbeafe;
+        color: #1e40af;
+        box-shadow: 0 0 0 2px #bfdbfe;
+      }
+      /* Styles for the quiz progress bar */
+      .progress-bar-container {
+        width: 100%;
+        background-color: #e5e7eb;
+        border-radius: 9999px;
+        height: 1rem;
+        overflow: hidden;
+      }
+      .progress-bar {
+        background-color: #3b82f6;
+        height: 100%;
+        border-radius: 9999px;
+        transition: width 0.3s ease-in-out;
+      }
+      /* Styles for the presentation carousel */
+      .slide {
+        display: none;
+        padding: 2rem;
+        text-align: center;
+        min-height: 400px; /* Ensure consistent height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .slide.active {
+        display: flex; /* Use flex to control content alignment */
+      }
+    </style>
   </head>
-  <body class="font-sans bg-gray-100">
+  <body class="bg-gray-50">
+    <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <a href="../index.html" class="flex items-center space-x-2">
-          <img
-            src="../assets/images/logo.png"
-            alt="Logo de Powersemiotics"
-            class="h-8 w-8"
-          />
-          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+      <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#" class="flex items-center space-x-2">
+          <!-- Placeholder for a logo -->
+          <i class="fas fa-brain text-3xl text-indigo-600"></i>
+          <span class="text-2xl font-bold gradient-text">CanvasMed-AI</span>
         </a>
         <div>
-          <a
-            href="../neurologia.html"
-            class="text-indigo-600 font-semibold hover:underline"
-            >Hub</a
-          >
+          <a href="#" class="text-indigo-600 font-semibold hover:underline">Hub</a>
         </div>
       </nav>
     </header>
 
+    <!-- Main Content Area -->
     <div class="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
-      <!-- Menú de Navegación Lateral -->
-      <nav
-        class="w-full lg:w-64 bg-white shadow-lg rounded-lg p-4 mb-8 lg:mb-0 lg:mr-8 self-start sticky top-24"
-      >
+      <!-- Sticky Side Navigation -->
+      <nav class="w-full lg:w-64 bg-white shadow-lg rounded-lg p-4 mb-8 lg:mb-0 lg:mr-8 self-start sticky top-24">
         <h3 class="text-xl font-bold mb-4 text-gray-700">Secciones</h3>
         <ul>
           <li class="mb-2">
-            <a
-              href="#guia"
-              class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"
-              ><i class="fas fa-book-open w-6 text-center mr-3"></i>Guía de
-              Conocimiento</a
-            >
+            <a href="#guia" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-book-open w-6 text-center mr-3"></i>Guía
+            </a>
           </li>
           <li class="mb-2">
-            <a
-              href="#presentacion"
-              class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"
-              ><i class="fas fa-desktop w-6 text-center mr-3"></i
-              >Presentación</a
-            >
+            <a href="#presentacion" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-desktop w-6 text-center mr-3"></i>Presentación
+            </a>
           </li>
           <li class="mb-2">
-            <a
-              href="#herramienta"
-              class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"
-              ><i class="fas fa-stethoscope w-6 text-center mr-3"></i>Asistente
-              Diagnóstico</a
-            >
+            <a href="#herramienta" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-stethoscope w-6 text-center mr-3"></i>Asistente
+            </a>
           </li>
           <li class="mb-2">
-            <a
-              href="#abp"
-              class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"
-              ><i class="fas fa-user-md w-6 text-center mr-3"></i>Caso
-              Clínico</a
-            >
+            <a href="#abp" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-user-md w-6 text-center mr-3"></i>Caso Clínico
+            </a>
           </li>
           <li class="mb-2">
-            <a
-              href="#autoevaluacion"
-              class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"
-              ><i class="fas fa-clipboard-check w-6 text-center mr-3"></i
-              >Autoevaluación</a
-            >
+            <a href="#autoevaluacion" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-clipboard-check w-6 text-center mr-3"></i>Autoevaluación
+            </a>
           </li>
         </ul>
       </nav>
 
-      <!-- Contenido Principal -->
-      <main class="flex-grow max-w-[816px] mx-auto">
+      <!-- Main Content -->
+      <main class="flex-grow">
         <header class="text-center mb-10">
           <h1 class="text-4xl font-bold text-gray-800">
             Plataforma Educativa de Enfermedades Neuromusculares
@@ -98,201 +145,112 @@
           </p>
         </header>
 
-        <!-- Guía de Conocimiento -->
+        <!-- Knowledge Guide -->
         <section id="guia" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
-          <h2
-            class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2"
-          >
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
             Guía Rápida de Conocimiento
           </h2>
           <p class="mb-6 text-gray-600">
-            Resumen conciso de Miastenia Gravis (MG), Distrofia Muscular de
-            Duchenne (DMD) y Miopatías Inflamatorias (MII).
+            Resumen conciso de Miastenia Gravis (MG), Distrofia Muscular de Duchenne (DMD) y Miopatías Inflamatorias (MII).
           </p>
           <div class="overflow-x-auto">
-            <table
-              class="w-full table-auto border-collapse border border-gray-300"
-            >
+            <table class="w-full table-auto border-collapse border border-gray-300">
               <thead class="bg-gray-200">
                 <tr>
-                  <th class="border border-gray-300 p-3 text-left">
-                    Característica
-                  </th>
-                  <th class="border border-gray-300 p-3 text-left">
-                    Miastenia Gravis (MG)
-                  </th>
-                  <th class="border border-gray-300 p-3 text-left">
-                    Distrofia Muscular de Duchenne (DMD)
-                  </th>
-                  <th class="border border-gray-300 p-3 text-left">
-                    Miopatías Inflamatorias (MII)
-                  </th>
+                  <th class="border border-gray-300 p-3 text-left">Característica</th>
+                  <th class="border border-gray-300 p-3 text-left">Miastenia Gravis (MG)</th>
+                  <th class="border border-gray-300 p-3 text-left">Distrofia Muscular de Duchenne (DMD)</th>
+                  <th class="border border-gray-300 p-3 text-left">Miopatías Inflamatorias (MII)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="hover:bg-gray-50">
-                  <td class="border border-gray-300 p-3 font-semibold">
-                    Etiología
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    Autoinmune (Ac anti-AChR, anti-MuSK)
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    Genética (mutación gen distrofina)
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    Autoinmune (infiltrado inflamatorio)
-                  </td>
+                  <td class="border border-gray-300 p-3 font-semibold">Etiología</td>
+                  <td class="border border-gray-300 p-3">Autoinmune (Ac anti-AChR, anti-MuSK)</td>
+                  <td class="border border-gray-300 p-3">Genética (mutación gen distrofina)</td>
+                  <td class="border border-gray-300 p-3">Autoinmune (infiltrado inflamatorio)</td>
                 </tr>
                 <tr class="hover:bg-gray-50">
-                  <td class="border border-gray-300 p-3 font-semibold">
-                    Clínica Clave
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    Ptosis fluctuante, diplopía, debilidad muscular fatigable
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    Signo de Gowers, debilidad muscular proximal,
-                    pseudohipertrofia
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    Debilidad proximal simétrica, rash (Dermatomiositis)
-                  </td>
+                  <td class="border border-gray-300 p-3 font-semibold">Clínica Clave</td>
+                  <td class="border border-gray-300 p-3">Ptosis fluctuante, diplopía, debilidad muscular fatigable</td>
+                  <td class="border border-gray-300 p-3">Signo de Gowers, debilidad muscular proximal, pseudohipertrofia</td>
+                  <td class="border border-gray-300 p-3">Debilidad proximal simétrica, rash (Dermatomiositis)</td>
                 </tr>
                 <tr class="hover:bg-gray-50">
-                  <td class="border border-gray-300 p-3 font-semibold">
-                    Marcadores Diagnósticos
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    Ac anti-AChR, ENR, Test de Hielo
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    CK muy elevada, test genético
-                  </td>
-                  <td class="border border-gray-300 p-3">
-                    Ac anti-Jo-1, CK elevada, biopsia muscular
-                  </td>
+                  <td class="border border-gray-300 p-3 font-semibold">Marcadores Diagnósticos</td>
+                  <td class="border border-gray-300 p-3">Ac anti-AChR, ENR, Test de Hielo</td>
+                  <td class="border border-gray-300 p-3">CK muy elevada, test genético</td>
+                  <td class="border border-gray-300 p-3">Ac anti-Jo-1, CK elevada, biopsia muscular</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        <!-- Presentación Interactiva -->
-        <section
-          id="presentacion"
-          class="mb-12 p-8 bg-white shadow-lg rounded-lg"
-        >
-          <h2
-            class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2"
-          >
-            Presentación Interactiva
-          </h2>
-          <div id="carousel" class="relative mb-4">
-            <!-- Las diapositivas se generan aquí con JS -->
-          </div>
-          <div class="flex justify-between items-center">
-            <button
-              id="prevBtn"
-              class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-300"
-            >
-              <i class="fas fa-arrow-left"></i> Anterior
-            </button>
-            <span id="slideCounter" class="text-gray-600 font-semibold"></span>
-            <button
-              id="nextBtn"
-              class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-300"
-            >
-              Siguiente <i class="fas fa-arrow-right"></i>
-            </button>
-          </div>
+        <!-- Interactive Presentation -->
+        <section id="presentacion" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+              Presentación Interactiva
+            </h2>
+            <div id="carousel" class="relative mb-4 bg-gray-100 rounded-lg">
+              <!-- Slides will be generated here by JavaScript -->
+            </div>
+            <div class="flex justify-between items-center">
+              <button id="prevBtn" class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-300">
+                <i class="fas fa-arrow-left"></i> Anterior
+              </button>
+              <span id="slideCounter" class="text-gray-600 font-semibold"></span>
+              <button id="nextBtn" class="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-300">
+                Siguiente <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
         </section>
 
-        <!-- Herramienta Interactiva -->
-        <section
-          id="herramienta"
-          class="mb-12 p-8 bg-white shadow-lg rounded-lg"
-        >
-          <h2
-            class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2"
-          >
+        <!-- Diagnostic Assistant -->
+        <section id="herramienta" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
             Asistente de Diagnóstico Diferencial
           </h2>
           <p class="mb-6 text-gray-600">
-            Seleccione los síntomas y signos clave para obtener una orientación
-            diagnóstica.
+            Seleccione los síntomas y signos clave para obtener una orientación diagnóstica.
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div>
-              <input
-                type="checkbox"
-                id="debilidad_fluctuante"
-                class="hidden"
-              /><label for="debilidad_fluctuante" class="checkbox-label"
-                >Debilidad fluctuante que mejora con el reposo</label
-              >
+              <input type="checkbox" id="debilidad_fluctuante" class="hidden" data-symptom="mg" />
+              <label for="debilidad_fluctuante" class="checkbox-label">Debilidad fluctuante que mejora con el reposo</label>
             </div>
             <div>
-              <input
-                type="checkbox"
-                id="ptosis_diplopia"
-                class="hidden"
-              /><label for="ptosis_diplopia" class="checkbox-label"
-                >Ptosis/Diplopía (párpados caídos/visión doble)</label
-              >
+              <input type="checkbox" id="ptosis_diplopia" class="hidden" data-symptom="mg" />
+              <label for="ptosis_diplopia" class="checkbox-label">Ptosis/Diplopía (párpados caídos/visión doble)</label>
             </div>
             <div>
-              <input type="checkbox" id="gowers" class="hidden" /><label
-                for="gowers"
-                class="checkbox-label"
-                >Signo de Gowers positivo (niño < 5 años)</label
-              >
+              <input type="checkbox" id="gowers" class="hidden" data-symptom="dmd" />
+              <label for="gowers" class="checkbox-label">Signo de Gowers positivo (niño &lt; 5 años)</label>
             </div>
             <div>
-              <input
-                type="checkbox"
-                id="debilidad_proximal"
-                class="hidden"
-              /><label for="debilidad_proximal" class="checkbox-label"
-                >Debilidad proximal simétrica</label
-              >
+              <input type="checkbox" id="debilidad_proximal" class="hidden" data-symptom="mii dmd" />
+              <label for="debilidad_proximal" class="checkbox-label">Debilidad proximal simétrica</label>
             </div>
             <div>
-              <input type="checkbox" id="rash" class="hidden" /><label
-                for="rash"
-                class="checkbox-label"
-                >Rash en heliotropo o pápulas de Gottron</label
-              >
+              <input type="checkbox" id="rash" class="hidden" data-symptom="mii" />
+              <label for="rash" class="checkbox-label">Rash en heliotropo o pápulas de Gottron</label>
             </div>
           </div>
-          <button
-            id="analizarBtn"
-            class="w-full px-4 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors"
-          >
+          <button id="analizarBtn" class="w-full px-4 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors">
             Analizar Síntomas
           </button>
-          <div
-            id="resultadoDiagnostico"
-            class="mt-6 p-4 rounded-lg bg-gray-100 hidden"
-          ></div>
+          <div id="resultadoDiagnostico" class="mt-6 p-4 rounded-lg bg-gray-100 hidden"></div>
         </section>
 
-        <!-- Actividad ABP -->
+        <!-- Clinical Case -->
         <section id="abp" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
-          <h2
-            class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2"
-          >
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
             Actividad ABP: Caso Clínico
           </h2>
-          <div
-            class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg"
-          >
+          <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
             <p class="font-bold">Presentación del Paciente:</p>
             <p>
-              Paciente masculino de 19 años, estudiante universitario, refiere
-              que desde hace 4 meses nota visión doble y párpados caídos que
-              empeoran al final del día mientras estudia. Ocasionalmente, siente
-              que se cansa mucho al subir las escaleras a su departamento.
+              Paciente masculino de 19 años, estudiante universitario, refiere que desde hace 4 meses nota visión doble y párpados caídos que empeoran al final del día mientras estudia. Ocasionalmente, siente que se cansa mucho al subir las escaleras a su departamento.
             </p>
           </div>
           <div class="mt-6">
@@ -300,47 +258,32 @@
             <ul class="list-disc list-inside text-gray-700 space-y-2">
               <li>¿Cuál es el diagnóstico más probable y por qué?</li>
               <li>¿Qué hallazgos en la historia clínica apoyan su sospecha?</li>
-              <li>
-                ¿Qué pruebas diagnósticas solicitaría para confirmar el
-                diagnóstico?
-              </li>
+              <li>¿Qué pruebas diagnósticas solicitaría para confirmar el diagnóstico?</li>
               <li>¿Cuál sería el manejo inicial para este paciente?</li>
             </ul>
           </div>
         </section>
 
-        <!-- Autoevaluación -->
+        <!-- Self-Assessment Quiz -->
         <section id="autoevaluacion" class="p-8 bg-white shadow-lg rounded-lg">
-          <h2
-            class="text-3xl font-bold mb-2 text-gray-800 border-b-2 border-blue-500 pb-2"
-          >
+          <h2 class="text-3xl font-bold mb-2 text-gray-800 border-b-2 border-blue-500 pb-2">
             Autoevaluación
           </h2>
           <p class="mb-4 text-gray-600">Pon a prueba tus conocimientos.</p>
           <div id="quizProgress" class="mb-4">
             <div class="flex justify-between mb-1">
               <span class="text-base font-medium text-blue-700">Progreso</span>
-              <span
-                id="progressText"
-                class="text-sm font-medium text-blue-700"
-              ></span>
+              <span id="progressText" class="text-sm font-medium text-blue-700"></span>
             </div>
             <div class="progress-bar-container">
-              <div
-                id="progressBar"
-                class="progress-bar"
-                style="width: 0%"
-              ></div>
+              <div id="progressBar" class="progress-bar" style="width: 0%"></div>
             </div>
           </div>
           <div id="quizContainer" class="mb-4">
-            <!-- Las preguntas del quiz se generan aquí con JS -->
+            <!-- Quiz questions will be generated here by JavaScript -->
           </div>
-          <div
-            id="quizResultContainer"
-            class="text-center p-6 bg-gray-100 rounded-lg hidden"
-          >
-            <!-- El resultado del quiz se muestra aquí -->
+          <div id="quizResultContainer" class="text-center p-6 bg-gray-100 rounded-lg hidden">
+            <!-- Quiz result will be shown here -->
           </div>
         </section>
       </main>
@@ -348,165 +291,14 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        // --- LÓGICA DE LA PRESENTACIÓN INTERACTIVA ---
+        // --- INTERACTIVE PRESENTATION LOGIC ---
         const slides = [
-          {
-            type: 'title',
-            title: 'Enfermedades de la Unión Neuromuscular y Músculo',
-            subtitle: 'Un Análisis Clínico por CanvasMed-AI',
-          },
-          {
-            type: 'content',
-            title: 'Introducción: Enfermedades Neuromusculares (ENM)',
-            points: [
-              'Grupo heterogéneo de patologías que afectan la unidad motora.',
-              'Abarcan desde la motoneurona hasta el músculo.',
-              'Son condiciones crónicas, progresivas y a menudo incapacitantes.',
-              'Clasificación principal: Trastornos de la unión, Distrofias y Miopatías.',
-            ],
-          },
-          {
-            type: 'content',
-            title: 'Fisiopatología de la Miastenia Gravis (MG)',
-            points: [
-              'Enfermedad autoinmune mediada por anticuerpos.',
-              'Ataque a proteínas de la membrana postsináptica, principalmente receptores de acetilcolina (AChR).',
-              'Resultado: Interrupción de la transmisión neuromuscular.',
-              'El timo juega un papel central, con hiperplasia o timomas frecuentes.',
-            ],
-          },
-          {
-            type: 'content',
-            title: 'Clínica de la Miastenia Gravis',
-            points: [
-              'Característica principal: Debilidad muscular fluctuante y fatigable.',
-              'Forma Ocular: Ptosis (párpado caído) y diplopía (visión doble).',
-              'Forma Generalizada: Afecta músculos bulbares (habla, deglución), axiales y de extremidades.',
-              'Crisis Miasténica: Emergencia médica con compromiso respiratorio.',
-            ],
-          },
-          {
-            type: 'content',
-            title: 'Diagnóstico de la Miastenia Gravis',
-            points: [
-              'Clínico: Historia de debilidad fatigable.',
-              'Electrodiagnóstico: Estimulación Nerviosa Repetitiva (ENR) y EMG de Fibra Única (EMG-SF).',
-              'Serología: Detección de anticuerpos anti-AChR (85%) y anti-MuSK.',
-              'Pruebas de cabecera: Test de la bolsa de hielo.',
-            ],
-          },
-          {
-            type: 'content',
-            title: 'Tratamiento de la Miastenia Gravis',
-            points: [
-              'Sintomático: Piridostigmina (inhibidor de acetilcolinesterasa).',
-              'Inmunoterapia a largo plazo: Corticosteroides y ahorradores como Azatioprina.',
-              'Terapias de rescate (crisis): Inmunoglobulina Intravenosa (IVIg) y Plasmaféresis.',
-              'Quirúrgico: Timectomía.',
-            ],
-          },
-          {
-            type: 'title',
-            title: 'Transición: Distrofias Musculares',
-            subtitle:
-              'Enfermedades genéticas que causan degeneración muscular progresiva',
-          },
-          {
-            type: 'content',
-            title: 'Fisiopatología de la Distrofia de Duchenne (DMD)',
-            points: [
-              'Trastorno genético recesivo ligado al cromosoma X.',
-              'Causado por mutaciones en el gen que codifica la proteína Distrofina.',
-              'DMD: Ausencia casi total de distrofina funcional.',
-              'La falta de distrofina hace que las fibras musculares sean frágiles.',
-            ],
-          },
-          {
-            type: 'content',
-            title: 'Clínica de la Distrofia de Duchenne (DMD)',
-            points: [
-              'Inicio en la infancia temprana (2-5 años).',
-              'Signo de Gowers: El niño "trepa" por sus propias piernas para levantarse.',
-              'Pseudo-hipertrofia de pantorrillas.',
-              'Progresión rápida: Pérdida de la marcha y afectación cardiorrespiratoria.',
-            ],
-          },
-          {
-            type: 'content',
-            title: 'Diagnóstico de la Distrofia de Duchenne (DMD)',
-            points: [
-              'Sospecha clínica y niveles de Creatina Quinasa (CK) masivamente elevados (>100x).',
-              'Confirmación: Prueba genética molecular para identificar la mutación.',
-              'Biopsia muscular: Muestra ausencia de distrofina (uso limitado actualmente).',
-            ],
-          },
-          {
-            type: 'title',
-            title: 'Transición: Miopatías Inflamatorias',
-            subtitle: 'Enfermedades autoinmunes que atacan el músculo estriado',
-          },
-          {
-            type: 'content',
-            title: 'Clasificación de las Miopatías Inflamatorias (MII)',
-            points: [
-              'Dermatomiositis (DM): Debilidad con manifestaciones cutáneas (Gottron, heliotropo).',
-              'Polimiositis (PM): Debilidad muscular sin afectación cutánea.',
-              'Miopatía Necrotizante Inmunomediada (MNIM): Forma severa.',
-              'Miositis por Cuerpos de Inclusión (MCI): Afecta a mayores de 50 años.',
-            ],
-          },
-          {
-            type: 'content',
-            title: 'Clínica de Dermatomiositis (DM) y Polimiositis (PM)',
-            points: [
-              'Debilidad muscular proximal y simétrica.',
-              'Afectación de flexores del cuello.',
-              'Manifestaciones sistémicas: Enfermedad pulmonar, artritis.',
-              'En DM de adultos, riesgo aumentado de malignidad subyacente.',
-            ],
-          },
-          {
-            type: 'table',
-            title: 'Tabla Comparativa de Patologías Clave',
-            headers: [
-              'Característica',
-              'Miastenia Gravis',
-              'Duchenne (DMD)',
-              'Miopatías (DM/PM)',
-            ],
-            rows: [
-              [
-                'Etiología',
-                'Autoinmune (Anti-AChR)',
-                'Genética (Ausencia de distrofina)',
-                'Autoinmune (Inflamación muscular)',
-              ],
-              [
-                'Inicio Típico',
-                'Mujeres <40, Hombres >60',
-                'Infancia (2-5 años)',
-                'Adultos (40-50 años)',
-              ],
-              [
-                'Clínica Clave',
-                'Debilidad fatigable, ptosis',
-                'Signo de Gowers, debilidad progresiva',
-                'Debilidad proximal, rash (en DM)',
-              ],
-              [
-                'Marcador DX',
-                'Anticuerpos, EMG (decremento)',
-                'CK muy elevada, Test genético',
-                'CK elevada, Biopsia, Auto-ACs',
-              ],
-            ],
-          },
-          {
-            type: 'title',
-            title: 'Conclusiones y Cierre',
-            subtitle:
-              'El diagnóstico preciso y el manejo multidisciplinario son clave para mejorar la calidad de vida.',
-          },
+          { type: 'title', title: 'Enfermedades de la Unión Neuromuscular y Músculo', subtitle: 'Un Análisis Clínico por CanvasMed-AI' },
+          { type: 'content', title: 'Introducción: Enfermedades Neuromusculares (ENM)', points: ['Grupo heterogéneo de patologías que afectan la unidad motora.', 'Abarcan desde la motoneurona hasta el músculo.', 'Son condiciones crónicas, progresivas y a menudo incapacitantes.', 'Clasificación principal: Trastornos de la unión, Distrofias y Miopatías.'] },
+          { type: 'content', title: 'Fisiopatología de la Miastenia Gravis (MG)', points: ['Enfermedad autoinmune mediada por anticuerpos.', 'Ataque a proteínas de la membrana postsináptica, principalmente receptores de acetilcolina (AChR).', 'Resultado: Interrupción de la transmisión neuromuscular.', 'El timo juega un papel central, con hiperplasia o timomas frecuentes.'] },
+          { type: 'content', title: 'Clínica de la Miastenia Gravis', points: ['Característica principal: Debilidad muscular fluctuante y fatigable.', 'Forma Ocular: Ptosis (párpado caído) y diplopía (visión doble).', 'Forma Generalizada: Afecta músculos bulbares (habla, deglución), axiales y de extremidades.', 'Crisis Miasténica: Emergencia médica con compromiso respiratorio.'] },
+          { type: 'table', title: 'Tabla Comparativa de Patologías Clave', headers: ['Característica', 'Miastenia Gravis', 'Duchenne (DMD)', 'Miopatías (DM/PM)'], rows: [['Etiología', 'Autoinmune (Anti-AChR)', 'Genética (Ausencia de distrofina)', 'Autoinmune (Inflamación muscular)'], ['Inicio Típico', 'Mujeres <40, Hombres >60', 'Infancia (2-5 años)', 'Adultos (40-50 años)'], ['Clínica Clave', 'Debilidad fatigable, ptosis', 'Signo de Gowers, debilidad progresiva', 'Debilidad proximal, rash (en DM)'], ['Marcador DX', 'Anticuerpos, EMG (decremento)', 'CK muy elevada, Test genético', 'CK elevada, Biopsia, Auto-ACs']] },
+          { type: 'title', title: 'Conclusiones y Cierre', subtitle: 'El diagnóstico preciso y el manejo multidisciplinario son clave para mejorar la calidad de vida.' },
         ];
 
         const carousel = document.getElementById('carousel');
@@ -518,32 +310,23 @@
         function showSlide(index) {
           const slide = slides[index];
           let content = '';
-
           let slideBaseHtml = `<div class="slide active"><div>`;
           let slideEndHtml = `</div></div>`;
 
           if (slide.type === 'title') {
-            content = `${slideBaseHtml}<h3 class="text-2xl font-bold mb-2 text-blue-600">${slide.title}</h3><p class="text-gray-600">${slide.subtitle}</p>${slideEndHtml}`;
+            content = `${slideBaseHtml}<h3 class="text-2xl md:text-4xl font-bold mb-2 text-blue-600">${slide.title}</h3><p class="text-gray-600 text-lg">${slide.subtitle}</p>${slideEndHtml}`;
           } else if (slide.type === 'content') {
-            const pointsHtml = slide.points
-              .map((point) => `<li class="mb-2">${point}</li>`)
-              .join('');
-            content = `${slideBaseHtml}<h3 class="text-xl font-bold mb-4 text-blue-600">${slide.title}</h3><ul class="list-disc list-inside text-left text-gray-700">${pointsHtml}</ul>${slideEndHtml}`;
+            const pointsHtml = slide.points.map(point => `<li class="mb-2 text-left">${point}</li>`).join('');
+            content = `${slideBaseHtml}<h3 class="text-xl md:text-2xl font-bold mb-4 text-blue-600">${slide.title}</h3><ul class="list-disc list-inside text-gray-700 max-w-prose">${pointsHtml}</ul>${slideEndHtml}`;
           } else if (slide.type === 'table') {
-            let tableHtml = `<h3 class="text-xl font-bold mb-4 text-blue-600">${slide.title}</h3><div class="overflow-x-auto w-full"><table class="w-full text-sm text-left">`;
+            let tableHtml = `<h3 class="text-xl md:text-2xl font-bold mb-4 text-blue-600">${slide.title}</h3><div class="overflow-x-auto w-full"><table class="w-full text-sm text-left">`;
             tableHtml += `<thead class="bg-gray-200 text-xs uppercase"><tr>`;
-            slide.headers.forEach((header) => {
-              tableHtml += `<th scope="col" class="py-2 px-3">${header}</th>`;
-            });
+            slide.headers.forEach(header => { tableHtml += `<th scope="col" class="py-2 px-3">${header}</th>`; });
             tableHtml += `</tr></thead><tbody>`;
-            slide.rows.forEach((row) => {
+            slide.rows.forEach(row => {
               tableHtml += `<tr class="bg-white border-b">`;
               row.forEach((cell, i) => {
-                if (i === 0) {
-                  tableHtml += `<th scope="row" class="py-2 px-3 font-medium text-gray-900 whitespace-nowrap">${cell}</th>`;
-                } else {
-                  tableHtml += `<td class="py-2 px-3">${cell}</td>`;
-                }
+                tableHtml += i === 0 ? `<th scope="row" class="py-2 px-3 font-medium text-gray-900 whitespace-nowrap">${cell}</th>` : `<td class="py-2 px-3">${cell}</td>`;
               });
               tableHtml += `</tr>`;
             });
@@ -570,225 +353,147 @@
             showSlide(currentSlide);
           }
         });
+        
+        showSlide(currentSlide); // Initial slide load
 
-        showSlide(currentSlide);
-
-        // --- LÓGICA DEL ASISTENTE DE DIAGNÓSTICO ---
+        // --- DIAGNOSTIC ASSISTANT LOGIC ---
         const analizarBtn = document.getElementById('analizarBtn');
         const resultadoDiv = document.getElementById('resultadoDiagnostico');
+        const checkboxes = document.querySelectorAll('#herramienta input[type="checkbox"]');
 
         analizarBtn.addEventListener('click', () => {
-          const debilidadFluctuante = document.getElementById(
-            'debilidad_fluctuante',
-          ).checked;
-          const ptosisDiplopia =
-            document.getElementById('ptosis_diplopia').checked;
-          const gowers = document.getElementById('gowers').checked;
-          const debilidadProximal =
-            document.getElementById('debilidad_proximal').checked;
-          const rash = document.getElementById('rash').checked;
+            const scores = { mg: 0, dmd: 0, mii: 0 };
+            const activeSymptoms = [];
 
-          let diagnostic = '';
-          let justificacion = '';
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    activeSymptoms.push(cb);
+                    const associatedDiseases = cb.dataset.symptom.split(' ');
+                    associatedDiseases.forEach(disease => {
+                        if (scores.hasOwnProperty(disease)) {
+                            scores[disease]++;
+                        }
+                    });
+                }
+            });
 
-          if (debilidadFluctuante && ptosisDiplopia) {
-            diagnostic = 'Alta sospecha de Miastenia Gravis (MG)';
-            justificacion =
-              'La combinación de debilidad fatigable con síntomas oculares (ptosis/diplopía) es altamente característica de la MG.';
-          } else if (gowers && debilidadProximal) {
-            diagnostic =
-              'Alta sospecha de Distrofia Muscular de Duchenne (DMD)';
-            justificacion =
-              'El signo de Gowers en un niño, junto con debilidad proximal, es el sello distintivo de la DMD.';
-          } else if (debilidadProximal && rash) {
-            diagnostic = 'Alta sospecha de Dermatomiositis (DM)';
-            justificacion =
-              'La debilidad proximal simétrica acompañada de manifestaciones cutáneas típicas apunta fuertemente a una Dermatomiositis.';
-          } else if (debilidadProximal) {
-            diagnostic = 'Sospecha de Miopatía';
-            justificacion =
-              'La debilidad proximal aislada requiere un estudio más profundo, pudiendo corresponder a Polimiositis u otras miopatías.';
-          } else {
-            diagnostic = 'Diagnóstico incierto';
-            justificacion =
-              'Los síntomas seleccionados no conforman un patrón claro. Se requiere una evaluación clínica completa para determinar la causa.';
-          }
+            if (activeSymptoms.length === 0) {
+                resultadoDiv.innerHTML = `<p class="font-semibold text-gray-700">Por favor, seleccione al menos un síntoma.</p>`;
+                resultadoDiv.classList.remove('hidden');
+                return;
+            }
 
-          resultadoDiv.innerHTML = `<p class="font-bold text-lg">${diagnostic}</p><p>${justificacion}</p>`;
-          resultadoDiv.classList.remove('hidden');
+            const sortedDiagnoses = Object.entries(scores)
+                .filter(([_, score]) => score > 0)
+                .sort((a, b) => b[1] - a[1]);
+
+            let resultHtml = '<h4 class="font-bold text-lg mb-2">Orientación Diagnóstica:</h4>';
+            if (sortedDiagnoses.length > 0) {
+                resultHtml += '<ul class="list-disc list-inside space-y-2">';
+                sortedDiagnoses.forEach(([disease, score]) => {
+                    let diseaseName = '';
+                    let justification = '';
+                    switch (disease) {
+                        case 'mg':
+                            diseaseName = 'Miastenia Gravis (MG)';
+                            justification = 'Sugerido por síntomas de debilidad fatigable y afectación ocular.';
+                            break;
+                        case 'dmd':
+                            diseaseName = 'Distrofia Muscular de Duchenne (DMD)';
+                            justification = 'Sugerido por debilidad proximal en un niño con Signo de Gowers.';
+                            break;
+                        case 'mii':
+                            diseaseName = 'Miopatías Inflamatorias (MII)';
+                            justification = 'Sugerido por debilidad proximal simétrica, especialmente si se acompaña de rash cutáneo.';
+                            break;
+                    }
+                    resultHtml += `<li><span class="font-semibold">${diseaseName}:</span> ${justification} (Puntuación de coincidencia: ${score})</li>`;
+                });
+                resultHtml += '</ul>';
+            } else {
+                resultHtml += '<p>Los síntomas seleccionados no coinciden claramente con un patrón específico de las enfermedades listadas.</p>';
+            }
+            resultadoDiv.innerHTML = resultHtml;
+            resultadoDiv.classList.remove('hidden');
         });
 
-        // --- LÓGICA DEL QUIZ DE AUTOEVALUACIÓN ---
+        // --- SELF-ASSESSMENT QUIZ LOGIC ---
         const quizQuestions = [
-          {
-            question:
-              '¿Qué hallazgo es más característico de la Miastenia Gravis?',
-            options: [
-              'Debilidad proximal simétrica',
-              'Signo de Gowers',
-              'Ptosis fluctuante',
-              'Elevada CK',
-            ],
-            answer: 2,
-            justification:
-              'La ptosis fluctuante es un síntoma clásico de la MG debido a la fatigabilidad de los músculos extraoculares.',
-          },
-          {
-            question: 'La ausencia de la proteína distrofina es la causa de:',
-            options: [
-              'Polimiositis',
-              'Distrofia Muscular de Duchenne',
-              'Miastenia Gravis',
-              'Dermatomiositis',
-            ],
-            answer: 1,
-            justification:
-              'La DMD es causada por una mutación en el gen que codifica la distrofina, una proteína esencial para la integridad de la fibra muscular.',
-          },
-          {
-            question:
-              '¿Cuál de estos es un signo cutáneo de la Dermatomiositis?',
-            options: [
-              'Pseudohipertrofia',
-              'Signo de Gowers',
-              'Pápulas de Gottron',
-              'Test de Hielo positivo',
-            ],
-            answer: 2,
-            justification:
-              'Las pápulas de Gottron (lesiones violáceas sobre las articulaciones de los dedos) son patognomónicas de la Dermatomiositis.',
-          },
-          {
-            question: 'El signo de Gowers se asocia típicamente con:',
-            options: [
-              'Debilidad distal',
-              'Debilidad de músculos oculares',
-              'Debilidad de la cintura pélvica',
-              'Debilidad facial',
-            ],
-            answer: 2,
-            justification:
-              "Este signo refleja una marcada debilidad en los músculos de la cintura pélvica y los extensores del tronco, obligando al paciente a usar sus brazos para 'trepar' sobre sus piernas.",
-          },
+            { question: "La debilidad fluctuante que empeora con el ejercicio es característica de:", options: ["Miastenia Gravis", "DMD", "Miopatía Inflamatoria"], answer: "Miastenia Gravis" },
+            { question: "El Signo de Gowers es un hallazgo clásico en:", options: ["Miastenia Gravis", "DMD", "Miopatía Inflamatoria"], answer: "DMD" },
+            { question: "Las pápulas de Gottron y el rash en heliotropo se asocian con:", options: ["Polimiositis", "Dermatomiositis", "Miastenia Gravis"], answer: "Dermatomiositis" },
+            { question: "El principal marcador serológico en la mayoría de los casos de Miastenia Gravis es:", options: ["Anti-Jo-1", "Anti-MuSK", "Anti-AChR"], answer: "Anti-AChR" },
         ];
 
-        const quizContainer = document.getElementById('quizContainer');
-        const quizResultContainer = document.getElementById(
-          'quizResultContainer',
-        );
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
         let currentQuestionIndex = 0;
         let score = 0;
+        const quizContainer = document.getElementById('quizContainer');
+        const quizResultContainer = document.getElementById('quizResultContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
 
-        function showQuestion(index) {
-          const question = quizQuestions[index];
-          let optionsHtml = '';
-          question.options.forEach((option, i) => {
-            optionsHtml += `<button class="quiz-option" data-answer-index="${i}">${option}</button>`;
-          });
+        function loadQuestion() {
+            if (currentQuestionIndex >= quizQuestions.length) {
+                showResults();
+                return;
+            }
 
-          quizContainer.innerHTML = `
-                <div class="p-4 border rounded-lg bg-gray-50">
-                    <p class="text-lg font-semibold mb-4">${index + 1}. ${question.question}</p>
-                    <div class="space-y-2">${optionsHtml}</div>
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            quizContainer.innerHTML = `
+                <div class="font-semibold text-lg mb-4">${currentQuestion.question}</div>
+                <div class="space-y-3">
+                    ${currentQuestion.options.map(option => `
+                        <button class="block w-full text-left p-3 bg-gray-100 hover:bg-blue-100 rounded-lg transition-colors quiz-option">${option}</button>
+                    `).join('')}
                 </div>
             `;
-
-          document.querySelectorAll('.quiz-option').forEach((button) => {
-            button.addEventListener('click', handleAnswer);
-          });
-        }
-
-        function handleAnswer(event) {
-          const selectedButton = event.target;
-          const selectedAnswerIndex = parseInt(
-            selectedButton.dataset.answerIndex,
-          );
-          const question = quizQuestions[currentQuestionIndex];
-          const correctAnswerIndex = question.answer;
-
-          document.querySelectorAll('.quiz-option').forEach((btn) => {
-            btn.disabled = true;
-            const btnIndex = parseInt(btn.dataset.answerIndex);
-            if (btnIndex === correctAnswerIndex) {
-              btn.classList.add('correct');
-            }
-          });
-
-          if (selectedAnswerIndex === correctAnswerIndex) {
-            score++;
-            selectedButton.classList.add('correct');
-          } else {
-            selectedButton.classList.add('incorrect');
-          }
-
-          // Mostrar justificación
-          const justificationEl = document.createElement('div');
-          justificationEl.className =
-            'mt-4 p-3 rounded-lg bg-yellow-100 border border-yellow-300 text-sm';
-          justificationEl.innerHTML = `<span class="font-bold">Justificación:</span> ${question.justification}`;
-          quizContainer.querySelector('.p-4').appendChild(justificationEl);
-
-          setTimeout(() => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quizQuestions.length) {
-              showQuestion(currentQuestionIndex);
-              updateProgress();
-            } else {
-              showResults();
-            }
-          }, 3000); // Espera 3 segundos antes de pasar a la siguiente pregunta
-        }
-
-        function updateProgress() {
-          const progress = (currentQuestionIndex / quizQuestions.length) * 100;
-          progressBar.style.width = `${progress}%`;
-          progressText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
-        }
-
-        function showResults() {
-          quizContainer.classList.add('hidden');
-          quizResultContainer.classList.remove('hidden');
-          progressBar.style.width = '100%';
-          progressText.textContent = `Completado`;
-
-          let message = '';
-          const percentage = (score / quizQuestions.length) * 100;
-          if (percentage === 100) {
-            message = '¡Excelente! Tienes un conocimiento sólido del tema.';
-          } else if (percentage >= 75) {
-            message =
-              '¡Muy bien! Tienes un buen dominio de los conceptos clave.';
-          } else {
-            message =
-              'Sigue estudiando. Revisa la guía de conocimiento para reforzar los conceptos.';
-          }
-
-          quizResultContainer.innerHTML = `
-                <h3 class="text-2xl font-bold mb-2">Quiz Finalizado</h3>
-                <p class="text-xl mb-4">Tu calificación: <span class="font-bold text-blue-600">${score} de ${quizQuestions.length}</span></p>
-                <p class="text-gray-600 mb-6">${message}</p>
-                <button id="restartQuizBtn" class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">Repetir Quiz</button>
-            `;
-
-          document
-            .getElementById('restartQuizBtn')
-            .addEventListener('click', () => {
-              currentQuestionIndex = 0;
-              score = 0;
-              quizContainer.classList.remove('hidden');
-              quizResultContainer.classList.add('hidden');
-              showQuestion(currentQuestionIndex);
-              updateProgress();
+            
+            updateProgress();
+            
+            document.querySelectorAll('.quiz-option').forEach(button => {
+                button.addEventListener('click', handleAnswer);
             });
         }
 
-        // Iniciar el quiz
-        showQuestion(currentQuestionIndex);
-        updateProgress();
+        function handleAnswer(e) {
+            const selectedOption = e.target.textContent;
+            const correctAnswer = quizQuestions[currentQuestionIndex].answer;
+            if (selectedOption === correctAnswer) {
+                score++;
+            }
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function updateProgress() {
+            const progressPercentage = (currentQuestionIndex / quizQuestions.length) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+            progressText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
+        }
+        
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            quizResultContainer.classList.remove('hidden');
+            progressBar.style.width = '100%';
+            progressText.textContent = `Completado`;
+
+            quizResultContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">¡Cuestionario Completo!</h3>
+                <p class="text-xl">Tu puntuación: <span class="font-bold text-blue-600">${score} de ${quizQuestions.length}</span></p>
+                <button id="restartQuiz" class="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Volver a Intentar</button>
+            `;
+            
+            document.getElementById('restartQuiz').addEventListener('click', () => {
+                currentQuestionIndex = 0;
+                score = 0;
+                quizContainer.classList.remove('hidden');
+                quizResultContainer.classList.add('hidden');
+                loadQuestion();
+            });
+        }
+
+        loadQuestion(); // Initial quiz load
       });
     </script>
-    <script src="/assets/ask-ai.js"></script>
   </body>
 </html>
