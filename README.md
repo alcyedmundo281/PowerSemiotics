@@ -24,6 +24,16 @@ Lint JavaScript files:
 npm run lint
 ```
 
+### Run Locally
+
+Launch a simple static server to preview the site:
+
+```bash
+npm start
+```
+
+Then open [http://localhost:8080/neurologia-autoevaluacion.html](http://localhost:8080/neurologia-autoevaluacion.html) or [http://localhost:8080/gastroenterologia-autoevaluacion.html](http://localhost:8080/gastroenterologia-autoevaluacion.html) in your browser.
+
 ### Variables de entorno
 
 1. Copia el archivo `.env.example` a `.env`:
