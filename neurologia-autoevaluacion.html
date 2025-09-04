@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autoevaluación de Neurología - PowerSemiotics</title>
+    <link href="assets/tailwind.css" rel="stylesheet" />
+  </head>
+  <body class="font-sans bg-gray-50 text-gray-800">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="index.html" class="flex items-center space-x-2">
+          <img src="assets/images/logo.png" alt="Logo" class="h-8 w-8" />
+          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+        </a>
+        <div>
+          <a href="neurologia.html" class="text-indigo-800 font-semibold"
+            >Neurología</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        Autoevaluación de Neurología
+      </h1>
+      <p class="mb-8 text-gray-700">
+        Selecciona la mejor respuesta para cada pregunta y haz clic en "Revisar"
+        para ver tu puntuación y las explicaciones.
+      </p>
+      <form id="quiz" class="space-y-8">
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="La penumbra isquémica es tejido potencialmente recuperable si se reperfunde de forma temprana."
+        >
+          <p class="font-semibold">
+            1. ¿Cuál afirma mejor la relación entre la fisiopatología de un ACV
+            isquémico y la ventana terapéutica para la trombólisis?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q1" value="A" class="mr-2" />La
+              hemorragia inmediata permite trombólisis ilimitada.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q1" value="B" class="mr-2" />La
+              existencia de un área de penumbra viable justifica la reperfusión
+              temprana.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q1" value="C" class="mr-2" />La
+              necrosis hemorrágica subaguda es reversible en cualquier
+              momento.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q1" value="D" class="mr-2" />La
+              formación de aneurismas abre una ventana tardía.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="Hipertensión y tabaquismo son factores de riesgo modificables para la enfermedad cerebrovascular."
+        >
+          <p class="font-semibold">
+            2. ¿Qué combinación representa factores de riesgo modificables para
+            enfermedad cerebrovascular?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q2" value="A" class="mr-2" />Edad
+              avanzada y sexo masculino.</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q2"
+                value="B"
+                class="mr-2"
+              />Hipertensión y tabaquismo.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q2" value="C" class="mr-2" />Historia
+              familiar y raza.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q2" value="D" class="mr-2" />Sexo
+              femenino y edad juvenil.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="C"
+          data-explanation="El ACV isquémico suele verse hipodenso en la TAC y puede beneficiarse de terapia de reperfusión."
+        >
+          <p class="font-semibold">
+            3. Respecto a las diferencias entre ACV isquémico y hemorrágico,
+            ¿cuál es correcta?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q3" value="A" class="mr-2" />El
+              isquémico muestra sangre hiper densa en la TAC.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q3" value="B" class="mr-2" />El
+              hemorrágico siempre se trata con trombólisis.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q3" value="C" class="mr-2" />El
+              isquémico suele aparecer hipodenso y puede recibir
+              reperfusión.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q3" value="D" class="mr-2" />El
+              hemorrágico nunca produce efecto de masa.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="La evaluación debe ser rápida: identificación, imagen urgente y valoración para reperfusión."
+        >
+          <p class="font-semibold">
+            4. Ante un paciente con déficit neurológico agudo, ¿cuál es la
+            secuencia inicial adecuada?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q4" value="A" class="mr-2" />Esperar 24
+              horas para confirmar síntomas.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q4" value="B" class="mr-2" />Aplicar la
+              cadena FAST, realizar TAC y considerar reperfusión.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q4" value="C" class="mr-2" />Iniciar
+              anticoagulación sin estudios de imagen.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q4" value="D" class="mr-2" />Tratar
+              solo si hay convulsiones.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="A"
+          data-explanation="Las crisis focales se originan en redes corticales limitadas y las generalizadas tienen inicio bilateral difuso."
+        >
+          <p class="font-semibold">
+            5. ¿Cuál describe correctamente la diferencia fisiopatológica entre
+            epilepsia focal y generalizada?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q5" value="A" class="mr-2" />La focal
+              surge de una red cortical limitada y la generalizada de inicio
+              bilateral.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q5" value="B" class="mr-2" />La focal
+              se origina en el tronco encefálico y la generalizada en la
+              médula.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q5" value="C" class="mr-2" />La
+              generalizada se debe a hiperexcitabilidad de nervios
+              periféricos.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q5" value="D" class="mr-2" />No existe
+              diferencia fisiopatológica.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="La primera convulsión requiere anamnesis, examen físico, pruebas básicas y neuroimagen según el contexto."
+        >
+          <p class="font-semibold">
+            6. Un paciente llega a urgencias tras su primera convulsión. ¿Cuál
+            es la evaluación inicial adecuada?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q6" value="A" class="mr-2" />Omitir
+              estudios y dar de alta.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q6" value="B" class="mr-2" />Realizar
+              anamnesis, examen, laboratorios y neuroimagen cuando esté
+              indicada.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q6" value="C" class="mr-2" />Iniciar
+              antiepilépticos de inmediato sin evaluación.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q6" value="D" class="mr-2" />Limitarse
+              a valoración psiquiátrica.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="Carbamazepina bloquea canales de sodio y el valproato incrementa niveles de GABA, entre otros efectos."
+        >
+          <p class="font-semibold">
+            7. ¿Cuál combinación de mecanismos de acción es correcta para
+            fármacos antiepilépticos de primera línea?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q7" value="A" class="mr-2" />Todos
+              bloquean receptores de serotonina.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q7" value="B" class="mr-2" />La
+              carbamazepina bloquea canales de sodio y el valproato aumenta el
+              GABA.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q7" value="C" class="mr-2" />Las
+              benzodiacepinas inhiben el GABA.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q7" value="D" class="mr-2" />La
+              lamotrigina bloquea receptores dopaminérgicos.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="El POCUS puede evaluar diámetro de la vaina del nervio óptico y desplazamientos de la línea media en el paciente neurocrítico."
+        >
+          <p class="font-semibold">
+            8. ¿Cuál es una utilidad del ultrasonido a la cabecera (POCUS) en
+            neurología crítica?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q8" value="A" class="mr-2" />No tiene
+              utilidad; es exclusivo de obstetricia.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q8" value="B" class="mr-2" />Permite
+              estimar el diámetro de la vaina del nervio óptico y la línea
+              media.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q8" value="C" class="mr-2" />Solo mide
+              la presión arterial.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q8" value="D" class="mr-2" />Está
+              contraindicado en UCI.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="A"
+          data-explanation="El territorio de la arteria cerebral media produce hemiparesia contralateral y afasia si afecta el hemisferio dominante."
+        >
+          <p class="font-semibold">
+            9. ¿Cuál enunciado relaciona correctamente anatomía vascular
+            cerebral y signos clínicos?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q9" value="A" class="mr-2" />Un infarto
+              de la arteria cerebral media causa hemiparesia contralateral y
+              afasia.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q9" value="B" class="mr-2" />La arteria
+              cerebral anterior irriga el lóbulo occipital.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q9" value="C" class="mr-2" />Un infarto
+              de la arteria cerebral posterior produce solo déficits
+              motores.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q9" value="D" class="mr-2" />La arteria
+              basilar irriga exclusivamente el cerebelo.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="La trombectomía mecánica está indicada en oclusiones de grandes vasos hasta 24 horas si la imagen muestra tejido salvable."
+        >
+          <p class="font-semibold">
+            10. ¿Quién es elegible para trombectomía mecánica?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q10" value="A" class="mr-2" />Pacientes
+              con oclusiones distales después de una semana.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q10" value="B" class="mr-2" />Oclusión
+              de gran vaso con ventana hasta 24 h y perfusión favorable.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q10" value="C" class="mr-2" />Todos los
+              ACV hemorrágicos.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q10" value="D" class="mr-2" />Pacientes
+              con AIT sin déficit residual.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="El manejo del estado epiléptico es escalonado: benzodiacepinas, antiepilépticos de segunda línea y anestesia si persiste."
+        >
+          <p class="font-semibold">
+            11. ¿Cuál es el manejo escalonado del estado epiléptico?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q11" value="A" class="mr-2" />Esperar
+              resolución espontánea.</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q11"
+                value="B"
+                class="mr-2"
+              />Benzodiacepinas, luego antiepilépticos y anestésicos si
+              persiste.</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q11"
+                value="C"
+                class="mr-2"
+              />Administrar antibióticos de amplio espectro.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q11" value="D" class="mr-2" />Brindar
+              solo apoyo psicológico.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="La comunicación debe ser honesta, compasiva e involucrar a la familia en decisiones sobre el pronóstico."
+        >
+          <p class="font-semibold">
+            12. ¿Cuál es la mejor práctica al comunicar el pronóstico de un ACV
+            grave a la familia?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q12" value="A" class="mr-2" />Dar
+              seguridad absoluta sobre la evolución.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q12" value="B" class="mr-2" />Comunicar
+              con claridad, discutir pronóstico e involucrar a la
+              familia.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q12" value="C" class="mr-2" />Evitar
+              hablar de decisiones al final de la vida.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q12" value="D" class="mr-2" />Tomar
+              decisiones sin participación familiar.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="La MBE requiere medir riesgos relativos, reducción absoluta y NNT para valorar impacto clínico."
+        >
+          <p class="font-semibold">
+            13. Al evaluar un ensayo clínico de un nuevo fármaco antiepiléptico,
+            ¿qué enfoque basado en evidencia es apropiado?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q13" value="A" class="mr-2" />Aceptar
+              resultados sin analizar medidas de asociación.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q13" value="B" class="mr-2" />Calcular
+              riesgo relativo, reducción absoluta y número necesario a
+              tratar.</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q13"
+                value="C"
+                class="mr-2"
+              />Considerar solo el valor de p.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q13" value="D" class="mr-2" />Ignorar
+              la fuente de financiamiento.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="C"
+          data-explanation="El valor predictivo positivo depende de la prevalencia de la enfermedad en la población estudiada."
+        >
+          <p class="font-semibold">
+            14. ¿Cuál enunciado es correcto respecto a pruebas diagnósticas para
+            epilepsia?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q14" value="A" class="mr-2" />La
+              sensibilidad se calcula como TN/(TN+FP).</label
+            >
+            <label class="block"
+              ><input type="radio" name="q14" value="B" class="mr-2" />La
+              especificidad es TP/(TP+FN).</label
+            >
+            <label class="block"
+              ><input type="radio" name="q14" value="C" class="mr-2" />El valor
+              predictivo positivo depende de la prevalencia.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q14" value="D" class="mr-2" />El valor
+              predictivo negativo es independiente de la prevalencia.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="C"
+          data-explanation="Una probabilidad previa de 20% equivale a odds de 0.25; multiplicada por un LR+ de 4 da odds 1 y una probabilidad posterior de 50%."
+        >
+          <p class="font-semibold">
+            15. Si la probabilidad previa de una enfermedad es 20% y una prueba
+            con LR+ de 4 resulta positiva, ¿cuál es la probabilidad posterior
+            aproximada?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input
+                type="radio"
+                name="q15"
+                value="A"
+                class="mr-2"
+              />20%</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q15"
+                value="B"
+                class="mr-2"
+              />33%</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q15"
+                value="C"
+                class="mr-2"
+              />50%</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q15"
+                value="D"
+                class="mr-2"
+              />80%</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="El primer paso es identificar el problema y revisar la literatura para construir el marco teórico."
+        >
+          <p class="font-semibold">
+            16. ¿Cuál es el primer paso para construir un marco teórico en
+            investigación neurológica?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q16" value="A" class="mr-2" />Analizar
+              datos sin pregunta de investigación.</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q16"
+                value="B"
+                class="mr-2"
+              />Identificar el problema y revisar la literatura.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q16" value="C" class="mr-2" />Iniciar
+              experimentos sin revisión previa.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q16" value="D" class="mr-2" />Elegir
+              métodos antes de formular objetivos.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="El razonamiento bayesiano combina la probabilidad previa con la verosimilitud de la evidencia para obtener la probabilidad posterior."
+        >
+          <p class="font-semibold">
+            17. En razonamiento bayesiano aplicado a neuroimágenes, ¿qué
+            elementos se combinan?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q17" value="A" class="mr-2" />Solo la
+              evidencia observada.</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q17"
+                value="B"
+                class="mr-2"
+              />Probabilidad previa y verosimilitud de la evidencia.</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q17"
+                value="C"
+                class="mr-2"
+              />Pronóstico y tratamiento.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q17" value="D" class="mr-2" />Datos
+              genéticos únicamente.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="El aura epigástrica y los automatismos orales apuntan a origen temporal."
+        >
+          <p class="font-semibold">
+            18. Una crisis con aura epigástrica y automatismos orales sugiere
+            origen en:
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q18" value="A" class="mr-2" />Lóbulo
+              parietal.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q18" value="B" class="mr-2" />Lóbulo
+              temporal.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q18" value="C" class="mr-2" />Lóbulo
+              occipital.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q18" value="D" class="mr-2" />Lóbulo
+              frontal.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="La rehabilitación integral aborda componentes motores, cognitivos y psicosociales con seguimiento a largo plazo."
+        >
+          <p class="font-semibold">
+            19. ¿Cuál descripción se ajusta mejor a la rehabilitación pos‑ACV?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q19" value="A" class="mr-2" />Solo
+              fisioterapia motora.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q19" value="B" class="mr-2" />Abordaje
+              integral motor, cognitivo y psicosocial.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q19" value="C" class="mr-2" />Esperar
+              recuperación espontánea sin intervención.</label
+            >
+            <label class="block"
+              ><input
+                type="radio"
+                name="q19"
+                value="D"
+                class="mr-2"
+              />Únicamente terapia farmacológica.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <div
+          class="question"
+          data-answer="B"
+          data-explanation="La procedencia de los fondos puede orientar las preguntas y potencialmente sesgar los resultados hacia intereses específicos."
+        >
+          <p class="font-semibold">
+            20. ¿Cómo puede influir el origen de los fondos en la investigación
+            neurológica?
+          </p>
+          <div class="mt-2 space-y-2">
+            <label class="block"
+              ><input type="radio" name="q20" value="A" class="mr-2" />No ejerce
+              ninguna influencia.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q20" value="B" class="mr-2" />Puede
+              orientar preguntas y sesgos según intereses del
+              financiador.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q20" value="C" class="mr-2" />Garantiza
+              neutralidad absoluta.</label
+            >
+            <label class="block"
+              ><input type="radio" name="q20" value="D" class="mr-2" />Solo
+              afecta los resultados estadísticos.</label
+            >
+          </div>
+          <p class="mt-2 text-sm hidden feedback"></p>
+        </div>
+
+        <button
+          type="button"
+          onclick="checkAnswers()"
+          class="px-6 py-2 bg-indigo-600 text-white rounded"
+        >
+          Revisar
+        </button>
+        <p id="result" class="mt-4 font-bold hidden"></p>
+      </form>
+    </main>
+
+    <footer class="bg-white mt-20">
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <script>
+      function checkAnswers() {
+        const questions = document.querySelectorAll('.question');
+        let score = 0;
+        questions.forEach((q, index) => {
+          const name = 'q' + (index + 1);
+          const selected = document.querySelector(
+            `input[name="${name}"]:checked`,
+          );
+          const correct = q.dataset.answer;
+          const explanation = q.dataset.explanation;
+          const feedback = q.querySelector('.feedback');
+          if (selected && selected.value === correct) {
+            score++;
+            feedback.textContent = 'Correcto. ' + explanation;
+            feedback.classList.remove('text-red-600');
+            feedback.classList.add('text-green-600');
+          } else {
+            feedback.textContent = 'Incorrecto. ' + explanation;
+            feedback.classList.remove('text-green-600');
+            feedback.classList.add('text-red-600');
+          }
+          feedback.classList.remove('hidden');
+        });
+        const result = document.getElementById('result');
+        result.textContent = 'Puntuación: ' + score + '/' + questions.length;
+        result.classList.remove('hidden');
+      }
+    </script>
+  </body>
+</html>
