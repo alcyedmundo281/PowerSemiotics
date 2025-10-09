@@ -34,7 +34,10 @@ window.addEventListener('load', () => {
   const headings = wrapper.querySelectorAll('h2');
   headings.forEach((h) => {
     if (!h.id) {
-      h.id = h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/gi, '-');
+      h.id = h.textContent
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/gi, '-');
     }
     const li = document.createElement('li');
     const a = document.createElement('a');
