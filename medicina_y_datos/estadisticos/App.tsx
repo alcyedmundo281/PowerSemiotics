@@ -1,30 +1,36 @@
 import React, { useState, useCallback } from 'react';
-import Header from './components/Header';
-import Introduction from './components/Introduction';
-import TaskCard from './components/TaskCard';
-import MisionModal from './components/MisionModal';
-import CalculadoraModal from './components/CalculadoraModal';
-import SesgoModal from './components/SesgoModal';
-import RecursosModal from './components/RecursosModal';
+// import Header from './components/Header';
+// import Introduction from './components/Introduction';
+// import TaskCard from './components/TaskCard';
+// import MisionModal from './components/MisionModal';
+// import CalculadoraModal from './components/CalculadoraModal';
+// import SesgoModal from './components/SesgoModal';
+// import RecursosModal from './components/RecursosModal';
 
 type ModalType = 'mision' | 'calculadora' | 'sesgo' | 'recursos' | null;
 
 const App: React.FC = () => {
-    const [activeModal, setActiveModal] = useState<ModalType>(null);
+    // const [activeModal, setActiveModal] = useState<ModalType>(null);
 
-    const openModal = useCallback((modal: ModalType) => {
-        setActiveModal(modal);
-    }, []);
+    // const openModal = useCallback((modal: ModalType) => {
+    //     setActiveModal(modal);
+    // }, []);
 
-    const closeModal = useCallback(() => {
-        setActiveModal(null);
-    }, []);
+    // const closeModal = useCallback(() => {
+    //     setActiveModal(null);
+    // }, []);
 
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <main className="container mx-auto px-6 py-8">
-                <Introduction />
+                {/* <Introduction /> */}
+                <div style={{ padding: '2rem', textAlign: 'center', border: '1px dashed #ccc', borderRadius: '8px', backgroundColor: '#f9fafb' }}>
+                    <h1 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '1rem' }}>Aplicación en Desarrollo</h1>
+                    <p style={{ marginBottom: '0.5rem' }}>Algunos componentes visuales están deshabilitados temporalmente debido a que faltan archivos en el repositorio.</p>
+                    <p>La funcionalidad principal de la aplicación se restaurará cuando se proporcionen los archivos del directorio <strong>components</strong>.</p>
+                </div>
+                {/*
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <TaskCard
                         icon="🎯"
@@ -59,12 +65,15 @@ const App: React.FC = () => {
                         onButtonClick={() => openModal('recursos')}
                     />
                 </div>
+                */}
             </main>
 
+            {/*
             <MisionModal isOpen={activeModal === 'mision'} onClose={closeModal} />
             <CalculadoraModal isOpen={activeModal === 'calculadora'} onClose={closeModal} />
             <SesgoModal isOpen={activeModal === 'sesgo'} onClose={closeModal} />
             <RecursosModal isOpen={activeModal === 'recursos'} onClose={closeModal} />
+            */}
         </>
     );
 };
