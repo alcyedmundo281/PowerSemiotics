@@ -1,0 +1,14 @@
+# Logs
+*.log
+vite.log
+
+# Dependencies
+/node_modules
+
+# Build artifacts
+/dist
+/dist-ssr
+
+# Local environment variables
+.env.local
+*.local
