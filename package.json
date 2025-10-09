@@ -1,13 +1,18 @@
 {
   "name": "powersemiotics",
   "version": "1.0.0",
+  "private": true,
   "description": "Power Semiotics Official WebSite",
   "scripts": {
+    "build": "npm run build --workspace medicina_y_datos/estadisticos",
     "start": "node local-server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js",
     "format": "prettier --write \"**/*.{js,html}\""
   },
+  "workspaces": [
+    "medicina_y_datos/estadisticos"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
