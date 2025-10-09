@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import Header from './components/Header';
 import Introduction from './components/Introduction';
+import DatasetAccessSection from './components/DatasetAccessSection';
 import TaskCard from './components/TaskCard';
 import MisionModal from './components/MisionModal';
 import CalculadoraModal from './components/CalculadoraModal';
@@ -27,6 +28,7 @@ const App: React.FC = () => {
             <Header />
             <main className="container mx-auto px-6 py-8">
                 <Introduction />
+                <DatasetAccessSection />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <TaskCard
                         icon="🎯"
