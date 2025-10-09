@@ -5,7 +5,7 @@ interface TaskCardProps {
     title: string;
     description: string;
     buttonText: string;
-    colorTheme: 'teal' | 'indigo' | 'amber' | 'purple';
+    colorTheme: 'teal' | 'emerald' | 'indigo' | 'amber' | 'purple';
     onButtonClick: () => void;
 }
 
@@ -15,6 +15,12 @@ const colorStyles = {
         hoverBg: 'bg-teal-600',
         iconBg: 'bg-teal-100',
         iconText: 'text-teal-600',
+    },
+    emerald: {
+        bg: 'bg-emerald-500',
+        hoverBg: 'bg-emerald-600',
+        iconBg: 'bg-emerald-100',
+        iconText: 'text-emerald-600',
     },
     indigo: {
         bg: 'bg-indigo-500',
