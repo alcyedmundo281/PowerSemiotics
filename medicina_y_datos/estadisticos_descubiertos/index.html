@@ -3,60 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Estadísticos al Descubierto: Misión Ecuador</title>
+    <title>Estadísticos Descubiertos · Blueprint Powersemiotics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
+      :root {
+        color-scheme: light;
+      }
       html {
         scroll-behavior: smooth;
       }
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #f0f4f8;
+        background: #0f172a;
+      }
+      .prose-list li::marker {
+        color: inherit;
       }
     </style>
-
-    <link rel="stylesheet" href="./index.css" />
-
-
-
-
-
-
-    <script type="importmap">
-      {
-        "imports": {
-          "react": "https://aistudiocdn.com/react@^19.2.0",
-          "react-dom/client": "https://aistudiocdn.com/react-dom@^19.2.0/client",
-          "recharts": "https://aistudiocdn.com/recharts@^2.12.7",
-          "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-          "react/": "https://aistudiocdn.com/react@^19.2.0/"
-        }
-      }
-    </script>
-    <script type="module" crossorigin src="./assets/index-hohfDXF3.js"></script>
   </head>
-  <body class="text-gray-800">
-    <section
-      id="dataset-fallback"
-      class="container mx-auto px-6 py-8"
-      aria-label="Acceso rápido a la base de datos Chimborazo"
-    >
-      <div class="bg-white rounded-2xl shadow-xl border border-emerald-100 px-8 py-10 mb-12">
-        <div class="flex flex-col lg:flex-row gap-8 lg:items-start lg:justify-between">
+  <body class="bg-slate-100 text-slate-800">
+    <header class="relative overflow-hidden border-b border-white/10 bg-slate-900 text-slate-50">
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.35),_transparent_55%)]"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="relative container mx-auto flex flex-col gap-6 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12"
+      >
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.5em] text-sky-300">Powersemiotics · Medicina y Datos</p>
+          <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl">Estadísticos Descubiertos</h1>
+          <p class="max-w-2xl text-base text-slate-200">
+            Transformamos la estadística en un lenguaje clínico comprensible. Este blueprint redefine la página como un
+            recurso insignia para profesionales que desean dominar la semiótica de los datos en salud.
+          </p>
+        </div>
+        <nav aria-label="Navegación principal" class="flex flex-wrap gap-3 text-sm font-semibold">
+          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#dataset">Dataset</a>
+          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#recursos">Recursos</a>
+          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#vision">Visión</a>
+          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#pedagogia">Pedagogía</a>
+          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#curriculo">Currículo</a>
+          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#experiencia">Experiencia</a>
+          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#accesibilidad">Accesibilidad</a>
+          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#implementacion">Implementación</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-12 py-16 space-y-20">
+      <section
+        id="dataset"
+        class="rounded-3xl border border-emerald-100 bg-white px-8 py-12 shadow-xl shadow-emerald-100/40"
+      >
+        <div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           <div class="flex-1 space-y-4">
-            <h2 class="text-3xl font-extrabold text-emerald-600">Base de Datos: Chimborazo</h2>
-            <p class="text-lg text-gray-700">
-              Ponemos a tu disposición la muestra anonimizada que se utiliza en la misión. Puedes descargarla
-              directamente en formato CSV o abrir la hoja publicada para trabajar desde Google Sheets sin abandonar la
-              plataforma.
+            <p class="text-sm uppercase tracking-[0.3em] text-emerald-500">Base de datos Chimborazo</p>
+            <h2 class="text-3xl font-bold text-emerald-700">Datos abiertos para la misión clínica</h2>
+            <p class="text-base text-slate-600">
+              Ponemos a tu disposición la muestra anonimizada utilizada en la misión. Descárgala como CSV, abre la hoja
+              publicada en línea y revisa las instrucciones completas desde el Centro de recursos.
             </p>
-            <div class="flex flex-col sm:flex-row gap-3 sm:items-center">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
-                class="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:bg-emerald-600"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-emerald-600"
                 href="./muestra-base-datos-anonimizada-chimborazo.html"
                 target="_blank"
                 rel="noreferrer"
@@ -64,20 +78,24 @@
                 Abrir hoja publicada
               </a>
               <a
-                class="inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-500 px-4 py-2 font-semibold text-emerald-600 transition-colors duration-200 hover:bg-emerald-50"
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500 px-6 py-3 text-sm font-semibold text-emerald-600 transition-colors duration-200 hover:bg-emerald-50"
                 href="./muestra-base-datos-anonimizada-chimborazo.csv"
-                download
               >
-                Descargar CSV (≈0.8 KB)
+                Descargar CSV
+              </a>
+              <a
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 px-6 py-3 text-sm font-semibold text-emerald-600 transition-colors duration-200 hover:bg-emerald-50"
+                href="#recursos"
+              >
+                Visitar Centro de recursos
               </a>
             </div>
-            <p class="text-sm text-gray-500 max-w-2xl">
-              La tabla contiene 20 registros ficticios entregados por el Ministerio de Salud Pública para fines formativos.
-              Cada fila representa a un paciente anonimizado con su edad, factores de riesgo y zona de procedencia.
+            <p class="text-xs text-slate-500">
+              20 registros ficticios del Ministerio de Salud Pública con edad, factores de riesgo y procedencia. Uso exclusivo con fines formativos.
             </p>
           </div>
-          <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 w-full lg:max-w-md overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <div class="w-full overflow-x-auto rounded-2xl border border-slate-200 bg-slate-50 p-4 lg:max-w-lg">
+            <table class="min-w-full divide-y divide-slate-200 text-sm">
               <thead class="bg-emerald-500 text-emerald-50 uppercase tracking-wide">
                 <tr>
                   <th class="px-3 py-2 text-left">ID</th>
@@ -89,71 +107,512 @@
                   <th class="px-3 py-2 text-left">Zona</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-gray-200 bg-white">
+              <tbody class="divide-y divide-slate-200 bg-white">
                 <tr>
-                  <td class="px-3 py-2 font-semibold text-gray-900">CH-001</td>
-                  <td class="px-3 py-2 text-gray-700">68</td>
-                  <td class="px-3 py-2 text-gray-700">Masculino</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">Rural</td>
+                  <td class="px-3 py-2 font-semibold text-slate-900">CH-001</td>
+                  <td class="px-3 py-2 text-slate-700">68</td>
+                  <td class="px-3 py-2 text-slate-700">Masculino</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">Rural</td>
                 </tr>
                 <tr>
-                  <td class="px-3 py-2 font-semibold text-gray-900">CH-002</td>
-                  <td class="px-3 py-2 text-gray-700">45</td>
-                  <td class="px-3 py-2 text-gray-700">Femenino</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">Rural</td>
+                  <td class="px-3 py-2 font-semibold text-slate-900">CH-002</td>
+                  <td class="px-3 py-2 text-slate-700">45</td>
+                  <td class="px-3 py-2 text-slate-700">Femenino</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">Rural</td>
                 </tr>
                 <tr>
-                  <td class="px-3 py-2 font-semibold text-gray-900">CH-003</td>
-                  <td class="px-3 py-2 text-gray-700">22</td>
-                  <td class="px-3 py-2 text-gray-700">Masculino</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">Urbano</td>
+                  <td class="px-3 py-2 font-semibold text-slate-900">CH-003</td>
+                  <td class="px-3 py-2 text-slate-700">22</td>
+                  <td class="px-3 py-2 text-slate-700">Masculino</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">Urbano</td>
                 </tr>
                 <tr>
-                  <td class="px-3 py-2 font-semibold text-gray-900">CH-004</td>
-                  <td class="px-3 py-2 text-gray-700">58</td>
-                  <td class="px-3 py-2 text-gray-700">Femenino</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">Urbano</td>
+                  <td class="px-3 py-2 font-semibold text-slate-900">CH-004</td>
+                  <td class="px-3 py-2 text-slate-700">58</td>
+                  <td class="px-3 py-2 text-slate-700">Femenino</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">Urbano</td>
                 </tr>
                 <tr>
-                  <td class="px-3 py-2 font-semibold text-gray-900">CH-005</td>
-                  <td class="px-3 py-2 text-gray-700">71</td>
-                  <td class="px-3 py-2 text-gray-700">Masculino</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">Sí</td>
-                  <td class="px-3 py-2 text-gray-700">Rural</td>
+                  <td class="px-3 py-2 font-semibold text-slate-900">CH-005</td>
+                  <td class="px-3 py-2 text-slate-700">71</td>
+                  <td class="px-3 py-2 text-slate-700">Masculino</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">Sí</td>
+                  <td class="px-3 py-2 text-slate-700">Rural</td>
                 </tr>
                 <tr>
-                  <td class="px-3 py-2 font-semibold text-gray-900">CH-006</td>
-                  <td class="px-3 py-2 text-gray-700">34</td>
-                  <td class="px-3 py-2 text-gray-700">Femenino</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">No</td>
-                  <td class="px-3 py-2 text-gray-700">Urbano</td>
+                  <td class="px-3 py-2 font-semibold text-slate-900">CH-006</td>
+                  <td class="px-3 py-2 text-slate-700">34</td>
+                  <td class="px-3 py-2 text-slate-700">Femenino</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">No</td>
+                  <td class="px-3 py-2 text-slate-700">Urbano</td>
                 </tr>
               </tbody>
             </table>
-            <p class="mt-3 text-xs text-gray-500">
-              Vista previa de los primeros registros. Descarga el CSV para obtener la muestra completa o abre la hoja
-              publicada para consultarla en línea.
+            <p class="mt-3 text-xs text-slate-500">
+              Vista previa de los primeros registros. Descarga el CSV para obtener la muestra completa o abre la hoja publicada para consultarla en línea.
             </p>
           </div>
         </div>
+      </section>
+
+      <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-16 text-slate-100 shadow-2xl">
+        <div
+          class="absolute inset-y-0 right-0 hidden w-1/2 bg-[radial-gradient(circle_at_center,_rgba(45,212,191,0.35),_transparent_65%)] lg:block"
+          aria-hidden="true"
+        ></div>
+        <div class="relative mx-auto flex max-w-5xl flex-col gap-10 lg:flex-row lg:items-center">
+          <div class="flex-1 space-y-6">
+            <p
+              class="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-teal-200"
+            >
+              Blueprint 2025
+            </p>
+            <h2 class="text-4xl font-bold leading-tight sm:text-5xl">Alineamos narrativa, pedagogía y tecnología</h2>
+            <p class="text-base text-slate-200">
+              El rediseño coloca la misión educativa al frente: guiar a profesionales de la salud en el arte de traducir datos en símbolos clínicos accionables. El recorrido está pensado para leerse de arriba hacia abajo como una historia completa.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a
+                class="inline-flex items-center justify-center rounded-full bg-teal-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-teal-500/50 transition-transform duration-200 hover:-translate-y-0.5"
+                href="#curriculo"
+              >
+                Explorar la secuencia curricular
+              </a>
+              <a
+                class="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-slate-100 transition duration-200 hover:bg-white/10"
+                href="#implementacion"
+              >
+                Ver la hoja de ruta
+              </a>
+            </div>
+          </div>
+          <div class="flex-1 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <h3 class="text-sm font-semibold uppercase tracking-[0.4em] text-teal-200">Lectura guiada</h3>
+            <ul class="mt-5 space-y-4 text-sm text-slate-100/90">
+              <li class="flex gap-3">
+                <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-teal-400/30 text-xs font-bold text-teal-200">1</span>
+                <span>Define la identidad y el público objetivo en la sección <strong>Visión</strong>.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-400/30 text-xs font-bold text-sky-200">2</span>
+                <span>Sigue el hilo pedagógico y los módulos para entender cómo se construye la maestría.</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-rose-400/30 text-xs font-bold text-rose-200">3</span>
+                <span>Cierra con accesibilidad e implementación para pasar del concepto a la acción coordinada.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="recursos" class="space-y-10">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm uppercase tracking-[0.3em] text-emerald-500">Centro de recursos</p>
+          <h2 class="mt-4 text-3xl font-bold text-slate-900">Acceso directo a archivos y guías clave</h2>
+          <p class="mt-4 text-base text-slate-600">
+            Encuentra en un solo lugar los enlaces a la hoja publicada, el dataset, la metadata del proyecto y la guía para ejecutar la experiencia en tu propio entorno.
+          </p>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-emerald-700">Recorre el blueprint completo</h3>
+              <p class="text-sm leading-relaxed text-slate-600">
+                Utiliza el menú de navegación superior para saltar entre la visión estratégica, la pedagogía, el currículo y la implementación.
+              </p>
+            </div>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="#vision">Iniciar recorrido</a>
+          </article>
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-emerald-700">Hoja publicada del caso Chimborazo</h3>
+              <p class="text-sm leading-relaxed text-slate-600">
+                Abre la versión en línea de la muestra anonimizada para explorarla sin salir del navegador y compartirla con tu equipo.
+              </p>
+            </div>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="./muestra-base-datos-anonimizada-chimborazo.html" target="_blank" rel="noreferrer">Abrir hoja</a>
+          </article>
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-emerald-700">Dataset anonimizado (CSV)</h3>
+              <p class="text-sm leading-relaxed text-slate-600">
+                Descarga el archivo en formato CSV para trabajar localmente con tus herramientas estadísticas preferidas.
+              </p>
+            </div>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="./muestra-base-datos-anonimizada-chimborazo.csv">Descargar CSV</a>
+          </article>
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-emerald-700">Metadata del proyecto</h3>
+              <p class="text-sm leading-relaxed text-slate-600">
+                Consulta el archivo JSON con información estructurada sobre los módulos, autores y la taxonomía del blueprint.
+              </p>
+            </div>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="./metadata.json">Ver metadata</a>
+          </article>
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-emerald-700">Guía de ejecución local (README)</h3>
+              <p class="text-sm leading-relaxed text-slate-600">
+                Sigue los pasos para instalar dependencias, configurar la clave de API opcional y levantar la aplicación con Vite.
+              </p>
+            </div>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="./README.md">Leer README</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="vision" class="space-y-8">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm uppercase tracking-[0.3em] text-teal-600">Identidad estratégica</p>
+          <h2 class="mt-4 text-4xl font-extrabold text-slate-900">Un recurso premium para descifrar la semiótica de los datos clínicos</h2>
+          <p class="mt-4 text-lg text-slate-600">
+            La página se reorganiza para contar una historia coherente: quién aprende aquí, qué dominará y por qué cada paso importa para la práctica clínica basada en evidencia.
+          </p>
+        </div>
+        <div class="grid gap-6 md:grid-cols-3">
+          <div class="rounded-3xl border border-teal-100 bg-white/90 p-8 shadow-lg shadow-teal-100/40 backdrop-blur-sm">
+            <h3 class="text-xl font-semibold text-teal-700">De la estadística a la semiótica de datos</h3>
+            <p class="mt-3 text-base leading-relaxed text-slate-600">
+              Integramos la filosofía de Powersemiotics para que cada análisis estadístico revele símbolos clínicos con significado profundo.
+            </p>
+          </div>
+          <div class="rounded-3xl border border-teal-100 bg-white/90 p-8 shadow-lg shadow-teal-100/40 backdrop-blur-sm">
+            <h3 class="text-xl font-semibold text-teal-700">Diseñado para profesionales del cuidado</h3>
+            <p class="mt-3 text-base leading-relaxed text-slate-600">
+              Estudiantes de medicina, residentes y clínicos con agendas demandantes encuentran aquí rutas claras, aplicables y breves.
+            </p>
+          </div>
+          <div class="rounded-3xl border border-teal-100 bg-white/90 p-8 shadow-lg shadow-teal-100/40 backdrop-blur-sm">
+            <h3 class="text-xl font-semibold text-teal-700">Competencias para la práctica basada en evidencia</h3>
+            <p class="mt-3 text-base leading-relaxed text-slate-600">
+              Evaluar métodos, elegir pruebas pertinentes, traducir hallazgos en significado clínico e identificar sesgos.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="pedagogia" class="space-y-10">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Arquitectura pedagógica</p>
+          <h2 class="mt-4 text-3xl font-bold text-slate-900">Cómo guiamos el descubrimiento</h2>
+        </div>
+        <div class="grid gap-8 lg:grid-cols-3">
+          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-indigo-600/10 via-white to-white p-8 shadow-xl">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Gagné + Merrill</p>
+              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Modelo instruccional híbrido</h3>
+            </div>
+            <ul class="mt-2 space-y-3 text-sm leading-relaxed text-slate-600">
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Secuencias previsibles de atención, práctica y evaluación.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Retroalimentación inmediata y guiada en cada paso.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Activación de conocimientos previos para anclar conceptos nuevos.</li>
+            </ul>
+          </article>
+          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-indigo-600/10 via-white to-white p-8 shadow-xl">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Aprendizaje centrado en tareas</p>
+              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Casos como brújula</h3>
+            </div>
+            <ul class="mt-2 space-y-3 text-sm leading-relaxed text-slate-600">
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Cada módulo abre con una pregunta clínica auténtica.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>La estadística aparece como la herramienta necesaria para resolver el caso.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>La narrativa refuerza la motivación profesional.</li>
+            </ul>
+          </article>
+          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-indigo-600/10 via-white to-white p-8 shadow-xl">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Microlecciones reutilizables</p>
+              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Currículo modular</h3>
+            </div>
+            <ul class="mt-2 space-y-3 text-sm leading-relaxed text-slate-600">
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Módulos autoconclusivos que caben en una sesión clínica.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Estructura estable: objetivos, caso, guía, práctica, evaluación.</li>
+              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Escalamiento gradual de la complejidad estadística.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="curriculo" class="space-y-12">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm uppercase tracking-[0.3em] text-amber-500">Mapa curricular</p>
+          <h2 class="mt-4 text-4xl font-bold text-slate-900">Secuencia que construye maestría clínica</h2>
+          <p class="mt-4 text-lg text-slate-600">
+            Cada módulo incrementa la complejidad de forma deliberada. Desde formular preguntas precisas hasta interpretar modelos predictivos, la narrativa guía el viaje.
+          </p>
+        </div>
+        <div class="space-y-8">
+          <div class="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div class="max-w-2xl space-y-4">
+                <h3 class="text-2xl font-semibold text-amber-600">1. Fundamentos: formular la pregunta</h3>
+                <p class="text-lg font-medium text-slate-800">¿Cómo convertir una incertidumbre clínica en un problema investigable?</p>
+                <ul class="space-y-2 text-sm text-slate-600 prose-list">
+                  <li>Construir preguntas PICO claras.</li>
+                  <li>Reconocer variables dependientes e independientes.</li>
+                  <li>Clasificar tipos de datos y escalas de medición.</li>
+                </ul>
+              </div>
+              <div class="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
+                <dl class="space-y-3">
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
+                    <dd class="mt-1">PICO, roles de variables, niveles de medición</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
+                    <dd class="mt-1">Constructor interactivo de preguntas clínicas.</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
+                    <dd class="mt-1">Escenarios cortos para identificar variables y objetivos.</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div class="max-w-2xl space-y-4">
+                <h3 class="text-2xl font-semibold text-amber-600">2. Describir la historia que cuentan los datos</h3>
+                <p class="text-lg font-medium text-slate-800">¿Qué resúmenes y visualizaciones iluminan mejor el problema?</p>
+                <ul class="space-y-2 text-sm text-slate-600 prose-list">
+                  <li>Elegir medidas de tendencia central y dispersión según la distribución.</li>
+                  <li>Seleccionar visualizaciones que respeten el tipo de dato.</li>
+                  <li>Interpretar los cambios producidos por valores atípicos.</li>
+                </ul>
+              </div>
+              <div class="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
+                <dl class="space-y-3">
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
+                    <dd class="mt-1">Estadísticos descriptivos, distribución, visualización</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
+                    <dd class="mt-1">Gráficas dinámicas que responden a filtros y outliers.</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
+                    <dd class="mt-1">Interpretar narrativas visuales en minicasos.</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div class="max-w-2xl space-y-4">
+                <h3 class="text-2xl font-semibold text-amber-600">3. Comparar grupos: señal vs. ruido</h3>
+                <p class="text-lg font-medium text-slate-800">¿El contraste observado es real o fruto del azar?</p>
+                <ul class="space-y-2 text-sm text-slate-600 prose-list">
+                  <li>Elegir entre t de Student y Chi-cuadrado con base en la estructura de datos.</li>
+                  <li>Formular hipótesis nula y alternativa pertinentes.</li>
+                  <li>Explicar p-valores, intervalos de confianza y relevancia clínica.</li>
+                </ul>
+              </div>
+              <div class="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
+                <dl class="space-y-3">
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
+                    <dd class="mt-1">Inferencia, hipótesis, significancia</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
+                    <dd class="mt-1">Árbol de decisiones para seleccionar pruebas.</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
+                    <dd class="mt-1">Interpretar salidas estadísticas y redactar conclusiones.</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div class="max-w-2xl space-y-4">
+                <h3 class="text-2xl font-semibold text-amber-600">4. Explorar relaciones y predicciones</h3>
+                <p class="text-lg font-medium text-slate-800">¿Cómo describimos y anticipamos comportamientos entre variables?</p>
+                <ul class="space-y-2 text-sm text-slate-600 prose-list">
+                  <li>Interpretar la fuerza y dirección de correlaciones.</li>
+                  <li>Distinguir correlación de causalidad.</li>
+                  <li>Leer coeficientes de regresión y su significado clínico.</li>
+                </ul>
+              </div>
+              <div class="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
+                <dl class="space-y-3">
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
+                    <dd class="mt-1">Correlación, regresión lineal, confusión</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
+                    <dd class="mt-1">Laboratorio para trazar líneas de tendencia y comparar modelos.</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
+                    <dd class="mt-1">Casos clínicos con outputs de regresión reales.</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experiencia" class="space-y-10">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-sm uppercase tracking-[0.3em] text-rose-500">Engagement profundo</p>
+          <h2 class="mt-4 text-3xl font-bold text-slate-900">Interacciones que despiertan el pensamiento clínico</h2>
+        </div>
+        <div class="grid gap-8 lg:grid-cols-3">
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl bg-white p-8 shadow-xl shadow-rose-100/60">
+            <div>
+              <h3 class="text-2xl font-semibold text-rose-600">Visualizaciones vivas</h3>
+              <p class="mt-3 text-base text-slate-600">
+                Gráficas interactivas creadas con tecnologías modernas convierten cada dataset en un espacio explorable.
+              </p>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600 prose-list">
+              <li>Filtros por subgrupos.</li>
+              <li>Exploración punto a punto.</li>
+              <li>Paletas accesibles y contrastadas.</li>
+            </ul>
+          </article>
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl bg-white p-8 shadow-xl shadow-rose-100/60">
+            <div>
+              <h3 class="text-2xl font-semibold text-rose-600">Virtual Data Lab</h3>
+              <p class="mt-3 text-base text-slate-600">
+                Un microsimulador que replica el flujo analítico completo: explorar, elegir la prueba, ejecutar, interpretar.
+              </p>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600 prose-list">
+              <li>Casos clínicos guían la navegación de datos.</li>
+              <li>Retroalimentación guiada en cada decisión.</li>
+              <li>Resultados inmediatos listos para discusión en equipo.</li>
+            </ul>
+          </article>
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl bg-white p-8 shadow-xl shadow-rose-100/60">
+            <div>
+              <h3 class="text-2xl font-semibold text-rose-600">Tutoría impulsada por IA</h3>
+              <p class="mt-3 text-base text-slate-600">
+                Un asistente socrático que cuestiona, sugiere y refuerza la comprensión sin revelar la respuesta completa.
+              </p>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600 prose-list">
+              <li>Dialoga sobre la elección de métodos.</li>
+              <li>Detecta malinterpretaciones frecuentes.</li>
+              <li>Sugiere recursos de refuerzo.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="accesibilidad" class="grid gap-10 lg:grid-cols-2">
+        <div class="rounded-3xl bg-slate-900 p-8 text-slate-100 shadow-2xl">
+          <p class="text-xs uppercase tracking-[0.4em] text-teal-300">Experiencia universal</p>
+          <h2 class="mt-4 text-3xl font-semibold">Principios de diseño</h2>
+          <ul class="mt-6 space-y-4 text-sm leading-relaxed text-slate-200 prose-list">
+            <li>Diseño claro, tipografía legible y ritmo visual que reduce carga cognitiva.</li>
+            <li>Experiencia totalmente adaptable de escritorio a móvil para jornadas clínicas intensas.</li>
+            <li>Auditorías WCAG 2.1 AA con foco en contraste, navegación por teclado y equivalentes textuales.</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl border border-slate-300 bg-white p-8 shadow-xl">
+          <p class="text-xs uppercase tracking-[0.4em] text-slate-500">Checklist WCAG 2.1 AA</p>
+          <h2 class="mt-4 text-2xl font-semibold text-slate-900">Implementación práctica</h2>
+          <ul class="mt-6 space-y-3 text-sm text-slate-600 prose-list">
+            <li>Alt text narrativo para imágenes y gráficos.</li>
+            <li>Controles y simulaciones accesibles con teclado y lector de pantalla.</li>
+            <li>Capacidades multimedia subtituladas y descriptivas.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="implementacion" class="space-y-10">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-sm uppercase tracking-[0.3em] text-sky-500">Hoja de ruta</p>
+          <h2 class="mt-4 text-3xl font-bold text-slate-900">Del concepto al lanzamiento</h2>
+          <p class="mt-4 text-base text-slate-600">
+            Un plan escalonado para transformar la visión en un recurso vivo que evoluciona con la comunidad médica.
+          </p>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-3">
+          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-sky-600/10 via-white to-white p-8 shadow-xl">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest text-sky-500">1-2 meses</p>
+              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Fase 1 · Fundamentos</h3>
+            </div>
+            <p class="text-sm leading-relaxed text-slate-600">
+              Definición curricular detallada, wireframes de alta fidelidad y prototipo del módulo Fundamentos con PICO Builder.
+            </p>
+          </article>
+          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-sky-600/10 via-white to-white p-8 shadow-xl">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest text-sky-500">3-4 meses</p>
+              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Fase 2 · Núcleo interactivo</h3>
+            </div>
+            <p class="text-sm leading-relaxed text-slate-600">
+              Desarrollo de módulos 2-4, primeras versiones de visualizaciones y lanzamiento beta del Virtual Data Lab.
+            </p>
+          </article>
+          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-sky-600/10 via-white to-white p-8 shadow-xl">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest text-sky-500">2-3 meses</p>
+              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Fase 3 · Lanzamiento y expansión</h3>
+            </div>
+            <p class="text-sm leading-relaxed text-slate-600">
+              Iteraciones guiadas por usuarios, ampliación del laboratorio con nuevos casos y auditoría de accesibilidad previa al despliegue público.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="rounded-3xl bg-gradient-to-r from-teal-500 via-indigo-500 to-sky-600 p-10 text-slate-50 shadow-2xl">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div class="max-w-2xl space-y-4">
+            <h2 class="text-3xl font-bold">Próximo paso: construir el prototipo vivo</h2>
+            <p class="text-base text-slate-100/90">
+              Este blueprint reorganiza el contenido para que cualquier colaborador comprenda de un vistazo la identidad, la pedagogía y el camino de implementación. Actúa como brújula para diseñadores, desarrolladores e instructores.
+            </p>
+          </div>
+          <a
+            class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-slate-900 shadow-lg transition-transform duration-300 hover:-translate-y-0.5"
+            href="#vision"
+          >
+            Revisar los pilares clave
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white/60 py-6">
+      <div class="container mx-auto px-4 text-center text-sm text-slate-500">
+        © <span id="year"></span> Powersemiotics · Estadísticos Descubiertos
       </div>
-    </section>
-    <div id="root"></div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>

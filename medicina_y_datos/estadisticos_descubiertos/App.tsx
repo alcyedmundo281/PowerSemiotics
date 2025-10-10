@@ -163,6 +163,7 @@ const App: React.FC = () => {
             <Header />
             <main className="container mx-auto px-4 sm:px-6 lg:px-12 py-16 space-y-20">
                 <Introduction />
+                <ResourceCenter resources={resourceLibrary} />
 
                 <section id="vision" className="space-y-8">
                     <div className="mx-auto max-w-3xl text-center">
