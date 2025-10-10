@@ -17,10 +17,10 @@ const ResourceCenter: React.FC<ResourceCenterProps> = ({ resources }) => {
         <section id="recursos" className="space-y-10">
             <div className="mx-auto max-w-3xl text-center">
                 <p className="text-sm uppercase tracking-[0.3em] text-emerald-500">Centro de recursos</p>
-                <h2 className="mt-4 text-3xl font-bold text-slate-900">Todo el material de apoyo en un solo lugar</h2>
+                <h2 className="mt-4 text-3xl font-bold text-slate-900">Acceso directo a archivos y guías clave</h2>
                 <p className="mt-4 text-base text-slate-600">
-                    Descarga los archivos de datos, plantillas y referencias metodológicas. Cada enlace abre un recurso listo
-                    para su uso inmediato durante las sesiones del laboratorio.
+                    Encuentra en un solo lugar los enlaces a la hoja publicada, el dataset, la metadata del proyecto y la guía
+                    para ejecutar la experiencia en tu propio entorno.
                 </p>
             </div>
             <div className="grid gap-6 lg:grid-cols-2">

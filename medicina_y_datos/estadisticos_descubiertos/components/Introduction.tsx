@@ -44,50 +44,66 @@ const kitItems = [
 
 const Introduction: React.FC = () => {
     return (
-        <section id="introduccion" className="grid gap-10 lg:grid-cols-[2fr,1fr] lg:items-start">
-            <div className="space-y-6">
-                <p className="text-sm uppercase tracking-[0.35em] text-sky-500">Por qué este laboratorio importa</p>
-                <h2 className="text-3xl font-bold text-slate-900">
-                    Aprende estadística clínica trabajando con un caso latinoamericano
-                </h2>
-                <p className="text-base leading-relaxed text-slate-600">
-                    El material combina narrativa clínica y análisis de datos reales para enseñar a formular preguntas, describir
-                    cohortes, comparar intervenciones y modelar relaciones. Cada bloque incluye ejemplos resueltos, tareas aplicadas
-                    y criterios de éxito para validar tu comprensión sin esperar herramientas externas.
-                </p>
-                <div className="grid gap-6 md:grid-cols-3">
-                    {overviewCards.map((card) => (
-                        <article
-                            key={card.title}
-                            className="rounded-3xl border border-sky-100 bg-white p-6 shadow-lg shadow-sky-100/50"
+        <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-16 text-slate-100 shadow-2xl">
+            <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-[radial-gradient(circle_at_center,_rgba(45,212,191,0.35),_transparent_65%)] lg:block" aria-hidden="true"></div>
+            <div className="relative mx-auto flex max-w-5xl flex-col gap-10 lg:flex-row lg:items-center">
+                <div className="flex-1 space-y-6">
+                    <p className="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-teal-200">
+                        Blueprint 2025
+                    </p>
+                    <h2 className="text-4xl font-bold leading-tight sm:text-5xl">
+                        Alineamos narrativa, pedagogía y tecnología en una sola experiencia
+                    </h2>
+                    <p className="text-base text-slate-200">
+                        El rediseño coloca la misión educativa al frente: guiar a profesionales de la salud en el arte de
+                        traducir datos en símbolos clínicos accionables. El recorrido está pensado para leerse de arriba hacia
+                        abajo como una historia completa.
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                        <a
+                            className="inline-flex items-center justify-center rounded-full bg-teal-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-teal-500/50 transition-transform duration-200 hover:-translate-y-0.5"
+                            href="#curriculo"
                         >
-                            <h3 className="text-lg font-semibold text-slate-900">{card.title}</h3>
-                            <p className="mt-2 text-sm text-slate-600">{card.description}</p>
-                        </article>
-                    ))}
+                            Explorar la secuencia curricular
+                        </a>
+                        <a
+                            className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-slate-100 transition duration-200 hover:bg-white/10"
+                            href="#implementacion"
+                        >
+                            Ver la hoja de ruta
+                        </a>
+                    </div>
+                </div>
+                <div className="flex-1 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+                    <h3 className="text-sm font-semibold uppercase tracking-[0.4em] text-teal-200">Lectura guiada</h3>
+                    <ul className="mt-5 space-y-4 text-sm text-slate-100/90">
+                        <li className="flex gap-3">
+                            <span className="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-teal-400/30 text-xs font-bold text-teal-200">
+                                1
+                            </span>
+                            <span>
+                                Define la identidad y el público objetivo en la sección <strong>Visión</strong>.
+                            </span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-400/30 text-xs font-bold text-sky-200">
+                                2
+                            </span>
+                            <span>
+                                Sigue el hilo pedagógico y los módulos para entender cómo se construye la maestría.
+                            </span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-rose-400/30 text-xs font-bold text-rose-200">
+                                3
+                            </span>
+                            <span>
+                                Cierra con accesibilidad e implementación para pasar del concepto a la acción coordinada.
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <aside className="space-y-4 rounded-3xl border border-sky-100 bg-white p-6 shadow-xl shadow-sky-100/60">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Kit esencial</h3>
-                <ul className="space-y-3 text-sm text-slate-600">
-                    {kitItems.map((item) => (
-                        <li key={item.label} className="flex items-start gap-3">
-                            <span className="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-semibold text-sky-600">
-                                {item.badge}
-                            </span>
-                            <a
-                                className="text-slate-700 underline decoration-sky-400 decoration-2 underline-offset-4 hover:text-sky-600"
-                                href={item.href}
-                                target={item.external ? '_blank' : undefined}
-                                rel={item.external ? 'noreferrer' : undefined}
-                                download={item.download}
-                            >
-                                {item.label}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </aside>
         </section>
     );
 };

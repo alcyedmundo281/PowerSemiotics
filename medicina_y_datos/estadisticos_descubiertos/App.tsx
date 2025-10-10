@@ -3,337 +3,307 @@ import Header from './components/Header';
 import Introduction from './components/Introduction';
 import ResourceCenter from './components/ResourceCenter';
 
-const checklistSteps = [
-    { label: '1', text: 'Descarga el CSV o abre la hoja publicada.', accent: 'bg-sky-400/30 text-sky-100' },
+const visionPillars = [
     {
-        label: '2',
-        text: 'Revisa la guía de preparación y configura tus herramientas (Sheets, Excel, R o Python).',
-        accent: 'bg-teal-400/30 text-teal-100'
+        title: 'De la estadística a la semiótica de datos',
+        description:
+            'Integramos la filosofía de Powersemiotics para que cada análisis estadístico revele símbolos clínicos con significado profundo.'
     },
     {
-        label: '3',
-        text: 'Sigue los cuatro módulos en orden y documenta tus hallazgos en el cuaderno clínico.',
-        accent: 'bg-rose-400/30 text-rose-100'
+        title: 'Diseñado para profesionales del cuidado',
+        description:
+            'Estudiantes de medicina, residentes y clínicos con agendas demandantes encuentran aquí rutas claras, aplicables y breves.'
+    },
+    {
+        title: 'Competencias para la práctica basada en evidencia',
+        description:
+            'Evaluar métodos, elegir pruebas pertinentes, traducir hallazgos en significado clínico e identificar sesgos.'
     }
 ] as const;
 
-const preparationSteps = [
+const pedagogyHighlights = [
     {
-        title: '1. Explora los datos',
-        items: [
-            <>
-                Abre la hoja publicada y localiza las pestañas <strong>Datos</strong> y <strong>Diccionario</strong>.
-            </>,
-            <>Identifica variables clave: edad, sexo, procedencia y factores de riesgo.</>,
-            <>Anota dudas clínicas que quieras responder con la información disponible.</>
+        title: 'Casos como brújula',
+        subtitle: 'Aprendizaje centrado en tareas',
+        points: [
+            'Cada módulo abre con una pregunta clínica auténtica.',
+            'La estadística aparece como la herramienta necesaria para resolver el caso.',
+            'La narrativa refuerza la motivación profesional.'
         ]
     },
     {
-        title: '2. Configura tus herramientas',
-        items: [
-            <>Excel, Google Sheets o LibreOffice para cálculos rápidos.</>,
-            <>
-                R o Python (Jupyter) para análisis reproducible: <code>read.csv()</code> o <code>pandas.read_csv()</code>.
-            </>,
-            <>Plantilla de cuaderno clínico para documentar hallazgos.</>
+        title: 'Modelo instruccional híbrido',
+        subtitle: "Gagné + Merrill",
+        points: [
+            'Secuencias previsibles de atención, práctica y evaluación.',
+            'Retroalimentación inmediata y guiada en cada paso.',
+            'Activación de conocimientos previos para anclar conceptos nuevos.'
         ]
     },
     {
-        title: '3. Establece tus reglas de decisión',
-        items: [
-            <>Define umbrales clínicos relevantes (ej. reducción ≥5&nbsp;mmHg).</>,
-            <>Determina el alfa que usarás (recomendado 0.05) y justifica tu elección.</>,
-            <>Lista posibles confusores a controlar (edad, comorbilidades).</>
-        ]
-    },
-    {
-        title: '4. Prepara tus entregables',
-        items: [
-            <>Planifica un resumen ejecutivo de una página por módulo.</>,
-            <>Configura una carpeta compartida para gráficas y tablas.</>,
-            <>Reserva 15 minutos finales para reflexión y discusión clínica.</>
+        title: 'Currículo modular',
+        subtitle: 'Microlecciones reutilizables',
+        points: [
+            'Módulos autoconclusivos que caben en una sesión clínica.',
+            'Estructura estable: objetivos, caso, guía, práctica, evaluación.',
+            'Escalamiento gradual de la complejidad estadística.'
         ]
     }
 ] as const;
 
-const microSimulations = [
+const moduleRoadmap = [
     {
-        title: 'Exploración inicial',
-        steps: [
-            <>
-                <strong>Filtra</strong> pacientes ≥65 años y calcula la media de presión arterial sistólica.
-            </>,
-            <>
-                <strong>Cuenta</strong> cuántos provienen de zonas rurales vs. urbanas.
-            </>,
-            <>
-                <strong>Resultado esperado:</strong> media ≈148&nbsp;mmHg; proporción rural 60%.
-            </>
-        ]
+        title: '1. Fundamentos: formular la pregunta',
+        question: '¿Cómo convertir una incertidumbre clínica en un problema investigable?',
+        objectives: [
+            'Construir preguntas PICO claras.',
+            'Reconocer variables dependientes e independientes.',
+            'Clasificar tipos de datos y escalas de medición.'
+        ],
+        concepts: 'PICO, roles de variables, niveles de medición',
+        activity: 'Constructor interactivo de preguntas clínicas.',
+        assessment: 'Escenarios cortos para identificar variables y objetivos.'
     },
     {
-        title: 'Comparación de intervenciones',
-        steps: [
-            <>
-                <strong>Selecciona</strong> pacientes que recibieron tratamiento antihipertensivo.
-            </>,
-            <>
-                <strong>Aplica</strong> una t de muestras independientes vs. el grupo sin tratamiento.
-            </>,
-            <>
-                <strong>Resultado esperado:</strong> diferencia media -6.2&nbsp;mmHg (IC95% -9.4, -3.0), p = 0.001.
-            </>
-        ]
+        title: '2. Describir la historia que cuentan los datos',
+        question: '¿Qué resúmenes y visualizaciones iluminan mejor el problema?',
+        objectives: [
+            'Elegir medidas de tendencia central y dispersión según la distribución.',
+            'Seleccionar visualizaciones que respeten el tipo de dato.',
+            'Interpretar los cambios producidos por valores atípicos.'
+        ],
+        concepts: 'Estadísticos descriptivos, distribución, visualización',
+        activity: 'Gráficas dinámicas que responden a filtros y outliers.',
+        assessment: 'Interpretar narrativas visuales en minicasos.'
     },
     {
-        title: 'Pronóstico y riesgo',
-        steps: [
-            <>
-                <strong>Modela</strong> la probabilidad de reingreso con regresión logística (riesgo alto vs. bajo).
-            </>,
-            <>
-                <strong>Incluye</strong> edad, zona y diabetes como predictores.
-            </>,
-            <>
-                <strong>Resultado esperado:</strong> OR diabetes 2.8 (IC95% 1.2-6.5); edad por década OR 1.4.
-            </>
-        ]
+        title: '3. Comparar grupos: señal vs. ruido',
+        question: '¿El contraste observado es real o fruto del azar?',
+        objectives: [
+            'Elegir entre t de Student y Chi-cuadrado con base en la estructura de datos.',
+            'Formular hipótesis nula y alternativa pertinentes.',
+            'Explicar p-valores, intervalos de confianza y relevancia clínica.'
+        ],
+        concepts: 'Inferencia, hipótesis, significancia',
+        activity: 'Árbol de decisiones para seleccionar pruebas.',
+        assessment: 'Interpretar salidas estadísticas y redactar conclusiones.'
+    },
+    {
+        title: '4. Explorar relaciones y predicciones',
+        question: '¿Cómo describimos y anticipamos comportamientos entre variables?',
+        objectives: [
+            'Interpretar la fuerza y dirección de correlaciones.',
+            'Distinguir correlación de causalidad.',
+            'Leer coeficientes de regresión y su significado clínico.'
+        ],
+        concepts: 'Correlación, regresión lineal, confusión',
+        activity: 'Laboratorio para trazar líneas de tendencia y comparar modelos.',
+        assessment: 'Casos clínicos con outputs de regresión reales.'
     }
 ] as const;
 
-const moduleThemes = {
-    teal: {
-        container: 'border-teal-100 shadow-teal-100/40',
-        heading: 'text-teal-700',
-        panel: 'border-teal-100 bg-teal-50/60',
-        accent: 'text-teal-600',
-        link: 'text-teal-700 underline decoration-teal-400 underline-offset-4'
+const engagementLayers = [
+    {
+        title: 'Visualizaciones vivas',
+        description:
+            'Gráficas interactivas creadas con tecnologías modernas convierten cada dataset en un espacio explorable.',
+        details: ['Filtros por subgrupos.', 'Exploración punto a punto.', 'Paletas accesibles y contrastadas.']
     },
-    amber: {
-        container: 'border-amber-100 shadow-amber-100/40',
-        heading: 'text-amber-700',
-        panel: 'border-amber-100 bg-amber-50/60',
-        accent: 'text-amber-600',
-        link: 'text-amber-700 underline decoration-amber-400 underline-offset-4'
+    {
+        title: 'Virtual Data Lab',
+        description:
+            'Un microsimulador que replica el flujo analítico completo: explorar, elegir la prueba, ejecutar, interpretar.',
+        details: [
+            'Casos clínicos guían la navegación de datos.',
+            'Retroalimentación guiada en cada decisión.',
+            'Resultados inmediatos listos para discusión en equipo.'
+        ]
     },
-    rose: {
-        container: 'border-rose-100 shadow-rose-100/40',
-        heading: 'text-rose-700',
-        panel: 'border-rose-100 bg-rose-50/60',
-        accent: 'text-rose-600',
-        link: 'text-rose-700 underline decoration-rose-400 underline-offset-4'
-    },
-    indigo: {
-        container: 'border-indigo-100 shadow-indigo-100/40',
-        heading: 'text-indigo-700',
-        panel: 'border-indigo-100 bg-indigo-50/60',
-        accent: 'text-indigo-600',
-        link: 'text-indigo-700 underline decoration-indigo-400 underline-offset-4'
+    {
+        title: 'Tutoría impulsada por IA',
+        description:
+            'Un asistente socrático que cuestiona, sugiere y refuerza la comprensión sin revelar la respuesta completa.',
+        details: ['Dialoga sobre la elección de métodos.', 'Detecta malinterpretaciones frecuentes.', 'Sugiere recursos de refuerzo.']
     }
+] as const;
+
+const accessibilityFocus = {
+    principles: [
+        'Diseño claro, tipografía legible y ritmo visual que reduce carga cognitiva.',
+        'Experiencia totalmente adaptable de escritorio a móvil para jornadas clínicas intensas.',
+        'Auditorías WCAG 2.1 AA con foco en contraste, navegación por teclado y equivalentes textuales.'
+    ],
+    checklist: [
+        'Alt text narrativo para imágenes y gráficos.',
+        'Controles y simulaciones accesibles con teclado y lector de pantalla.',
+        'Capacidades multimedia subtituladas y descriptivas.'
+    ]
 } as const;
 
-type ModuleThemeKey = keyof typeof moduleThemes;
-
-const modules = [
+const implementationPhases = [
     {
-        id: 'modulo1',
-        theme: 'teal' as ModuleThemeKey,
-        title: 'Módulo 1 · Formular la pregunta clínica correcta',
-        description:
-            'Conviertes la incertidumbre clínica en una hipótesis comprobable con la estructura PICO. Diferencias variable independiente, dependiente y tipo de dato para anticipar el análisis.',
-        highlights: [
-            <>
-                <strong>Lectura guiada:</strong> caso de hipertensión rural.
-            </>,
-            <>
-                <strong>Actividad:</strong> completa la plantilla PICO con datos reales del dataset.
-            </>,
-            <>
-                <strong>Apoyo visual:</strong> tabla de clasificación de variables con ejemplos.
-            </>
-        ],
-        deliverable: 'Documento PICO + lista de variables con tipo y rol.',
-        verification: '¿Cada elemento del PICO responde a la historia clínica y evita ambigüedades?',
-        resources: [
-            { label: 'Plantilla PICO', href: '#plantillas' },
-            { label: 'Metadata módulos', href: './metadata.json' }
-        ]
+        phase: 'Fase 1 · Fundamentos',
+        duration: '1-2 meses',
+        focus: 'Definición curricular detallada, wireframes de alta fidelidad y prototipo del módulo Fundamentos con PICO Builder.'
     },
     {
-        id: 'modulo2',
-        theme: 'amber' as ModuleThemeKey,
-        title: 'Módulo 2 · Describir la cohorte y visualizar la historia',
-        description:
-            'Elaboras tablas de frecuencias, medidas de tendencia central y dispersión adaptadas a la distribución. Construyes visualizaciones que resalten patrones clínicamente relevantes.',
-        highlights: [
-            <>
-                <strong>Ejemplo resuelto:</strong> mediana e IQR frente a outliers.
-            </>,
-            <>
-                <strong>Actividad:</strong> histograma y boxplot por zona geográfica.
-            </>,
-            <>
-                <strong>Tip clínico:</strong> traduce estadísticas a lenguaje para junta médica.
-            </>
-        ],
-        deliverable: 'Dashboard de una página con tabla descriptiva y dos gráficos.',
-        verification: '¿Las medidas corresponden al tipo de distribución? ¿Los gráficos son accesibles?',
-        resources: [
-            { label: 'Laboratorio: exploración inicial', href: '#laboratorio' },
-            { label: 'Plantilla de dashboard', href: '#plantillas' }
-        ]
+        phase: 'Fase 2 · Núcleo interactivo',
+        duration: '3-4 meses',
+        focus: 'Desarrollo de módulos 2-4, primeras versiones de visualizaciones y lanzamiento beta del Virtual Data Lab.'
     },
     {
-        id: 'modulo3',
-        theme: 'rose' as ModuleThemeKey,
-        title: 'Módulo 3 · Comparar grupos y diferenciar azar de señal',
-        description:
-            'Seleccionas y ejecutas la prueba adecuada (t de Student, U de Mann-Whitney, χ²). Interpretas p-valores e intervalos de confianza desde la relevancia clínica.',
-        highlights: [
-            <>
-                <strong>Guía de decisión:</strong> árbol para elegir la prueba correcta.
-            </>,
-            <>
-                <strong>Ejemplo:</strong> reducción de presión arterial según tratamiento.
-            </>,
-            <>
-                <strong>Actividad:</strong> redacta un párrafo de resultados para comité de ética.
-            </>
-        ],
-        deliverable: 'Tabla con estadísticos clave + interpretación narrativa (≤120 palabras).',
-        verification: '¿Se distingue significancia estadística y clínica? ¿Se reporta tamaño del efecto?',
-        resources: [
-            { label: 'Laboratorio: comparación de intervenciones', href: '#laboratorio' },
-            { label: 'Tabla de pruebas', href: '#plantillas' }
-        ]
-    },
-    {
-        id: 'modulo4',
-        theme: 'indigo' as ModuleThemeKey,
-        title: 'Módulo 4 · Explorar relaciones y anticipar desenlaces',
-        description:
-            'Construyes modelos de correlación y regresión. Interpretas coeficientes, evalúas supuestos y comunicas implicaciones clínicas sin exagerar causalidad.',
-        highlights: [
-            <>
-                <strong>Ejemplo guiado:</strong> regresión lineal para estimar presión arterial.
-            </>,
-            <>
-                <strong>Actividad:</strong> correlaciones entre edad, IMC y riesgo cardiovascular.
-            </>,
-            <>
-                <strong>Checklist:</strong> supuestos de normalidad, homocedasticidad y multicolinealidad.
-            </>
-        ],
-        deliverable: 'Informe con coeficientes clave, gráficos de residuos y discusión clínica.',
-        verification: '¿Se interpretan correctamente β y R²? ¿Se mencionan limitaciones y confusores?',
-        resources: [
-            { label: 'Laboratorio: pronóstico y riesgo', href: '#laboratorio' },
-            { label: 'Plantilla de informe', href: '#plantillas' }
-        ]
+        phase: 'Fase 3 · Lanzamiento y expansión',
+        duration: '2-3 meses',
+        focus: 'Iteraciones guiadas por usuarios, ampliación del laboratorio con nuevos casos y auditoría de accesibilidad previa al despliegue público.'
     }
 ] as const;
 
 const resourceLibrary = [
     {
-        title: 'Base de datos Chimborazo (CSV)',
+        title: 'Recorre el blueprint completo',
         description:
-            'Archivo anonimizado para uso formativo. Incluye variables demográficas, comorbilidades y desenlaces clínicos.',
-        href: './muestra-base-datos-anonimizada-chimborazo.csv',
-        cta: 'Descargar CSV'
+            'Utiliza el menú de navegación superior para saltar entre la visión estratégica, la pedagogía, el currículo y la implementación.',
+        href: '#vision',
+        cta: 'Iniciar recorrido'
     },
     {
-        title: 'Hoja publicada para visualización rápida',
-        description: 'Explora y filtra en línea sin necesidad de instalar software adicional.',
+        title: 'Hoja publicada del caso Chimborazo',
+        description:
+            'Abre la versión en línea de la muestra anonimizada para explorarla sin salir del navegador y compartirla con tu equipo.',
         href: './muestra-base-datos-anonimizada-chimborazo.html',
         cta: 'Abrir hoja',
         external: true
     },
     {
-        title: 'Cuaderno clínico y plantilla PICO',
-        description: 'Documento editable para registrar preguntas, variables, decisiones y hallazgos.',
-        href: './plantillas/pico-planificacion.txt',
-        cta: 'Descargar TXT'
+        title: 'Dataset anonimizado (CSV)',
+        description:
+            'Descarga el archivo en formato CSV para trabajar localmente con tus herramientas estadísticas preferidas.',
+        href: './muestra-base-datos-anonimizada-chimborazo.csv',
+        cta: 'Descargar CSV'
     },
     {
-        title: 'Metadata estructurada',
-        description: 'JSON con descripciones de módulos, autores y resultados de aprendizaje para integraciones.',
+        title: 'Metadata del proyecto',
+        description:
+            'Consulta el archivo JSON con información estructurada sobre los módulos, autores y la taxonomía del blueprint.',
         href: './metadata.json',
         cta: 'Ver metadata'
+    },
+    {
+        title: 'Plantilla PICO y cuaderno clínico',
+        description:
+            'Descarga el formato editable para documentar preguntas, variables y hallazgos durante todo el laboratorio.',
+        href: './plantillas/pico-planificacion.txt',
+        cta: 'Descargar plantilla'
     }
-] as const;
-
-const progressChecks = [
-    <>
-        <strong>Autoevaluación:</strong> escala de confianza 1-5 en selección de pruebas, interpretación y comunicación.
-    </>,
-    <>
-        <strong>Indicadores rápidos:</strong> número de decisiones clínicas respaldadas con evidencia cuantitativa.
-    </>,
-    <>
-        <strong>Plan futuro:</strong> incorporar modelos multivariables, análisis de supervivencia y validación externa.
-    </>
 ] as const;
 
 const App: React.FC = () => {
     return (
-        <div className="bg-slate-50 text-slate-800">
-            <Header checklist={checklistSteps} />
-            <main className="container mx-auto space-y-20 px-4 py-16 sm:px-6 lg:px-12">
+        <div className="bg-slate-100 min-h-screen text-slate-800">
+            <Header />
+            <main className="container mx-auto px-4 sm:px-6 lg:px-12 py-16 space-y-20">
                 <Introduction />
+                <ResourceCenter resources={resourceLibrary} />
 
-                <section id="preparacion" className="rounded-3xl border border-emerald-100 bg-white px-8 py-12 shadow-xl shadow-emerald-100/40">
-                    <div className="mx-auto max-w-4xl space-y-8">
-                        <div className="space-y-3 text-center">
-                            <p className="text-sm uppercase tracking-[0.35em] text-emerald-500">Preparación</p>
-                            <h2 className="text-3xl font-bold text-slate-900">Antes de analizar: configura tu estación de trabajo</h2>
-                            <p className="text-base text-slate-600">
-                                Sigue estos pasos para replicar los ejemplos y abordar las tareas. Todas las herramientas sugeridas son gratuitas y multiplataforma.
-                            </p>
-                        </div>
-                        <div className="grid gap-6 md:grid-cols-2">
-                            {preparationSteps.map((step) => (
-                                <article key={step.title} className="flex h-full flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6">
-                                    <h3 className="text-lg font-semibold text-emerald-700">{step.title}</h3>
-                                    <ul className="space-y-2 text-sm text-emerald-900">
-                                        {step.items.map((item, index) => (
-                                            <li key={index}>{item}</li>
-                                        ))}
-                                    </ul>
-                                </article>
-                            ))}
-                        </div>
+                <section id="vision" className="space-y-8">
+                    <div className="mx-auto max-w-3xl text-center">
+                        <p className="text-sm uppercase tracking-[0.3em] text-teal-600">Identidad estratégica</p>
+                        <h2 className="mt-4 text-4xl font-extrabold text-slate-900">
+                            Un recurso premium para descifrar la semiótica de los datos clínicos
+                        </h2>
+                        <p className="mt-4 text-lg text-slate-600">
+                            La página se reorganiza para contar una historia coherente: quién aprende aquí, qué dominará y
+                            por qué cada paso importa para la práctica clínica basada en evidencia.
+                        </p>
+                    </div>
+                    <div className="grid gap-6 md:grid-cols-3">
+                        {visionPillars.map((pillar) => (
+                            <div
+                                key={pillar.title}
+                                className="rounded-3xl border border-teal-100 bg-white/90 p-8 shadow-lg shadow-teal-100/40 backdrop-blur-sm"
+                            >
+                                <h3 className="text-xl font-semibold text-teal-700">{pillar.title}</h3>
+                                <p className="mt-3 text-base leading-relaxed text-slate-600">{pillar.description}</p>
+                            </div>
+                        ))}
                     </div>
                 </section>
 
-                <section id="laboratorio" className="space-y-8">
-                    <div className="mx-auto max-w-4xl text-center">
-                        <p className="text-sm uppercase tracking-[0.35em] text-indigo-500">Laboratorio de datos</p>
-                        <h2 className="mt-4 text-3xl font-bold text-slate-900">Micro-simulaciones guiadas con la base Chimborazo</h2>
-                        <p className="mt-4 text-base text-slate-600">
-                            Practica antes, durante o después de cada módulo. Ejecuta los pasos con la hoja publicada o en tu entorno de análisis preferido; los resultados esperados sirven como referencia inmediata.
-                        </p>
+                <section id="pedagogia" className="space-y-10">
+                    <div className="mx-auto max-w-2xl text-center">
+                        <p className="text-sm uppercase tracking-[0.3em] text-indigo-500">Arquitectura pedagógica</p>
+                        <h2 className="mt-4 text-3xl font-bold text-slate-900">Cómo guiamos el descubrimiento</h2>
                     </div>
-                    <div className="grid gap-6 lg:grid-cols-3">
-                        {microSimulations.map((simulation) => (
-                            <article key={simulation.title} className="flex h-full flex-col gap-4 rounded-3xl border border-indigo-100 bg-white p-8 shadow-lg shadow-indigo-100/40">
-                                <h3 className="text-lg font-semibold text-indigo-700">{simulation.title}</h3>
-                                <ol className="space-y-3 text-sm text-slate-600">
-                                    {simulation.steps.map((step, index) => (
-                                        <li key={index}>{step}</li>
+                    <div className="grid gap-8 lg:grid-cols-3">
+                        {pedagogyHighlights.map((item) => (
+                            <article
+                                key={item.title}
+                                className="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-indigo-600/10 via-white to-white p-8 shadow-xl"
+                            >
+                                <div>
+                                    <p className="text-xs font-semibold uppercase tracking-widest text-indigo-500">{item.subtitle}</p>
+                                    <h3 className="mt-2 text-2xl font-semibold text-slate-900">{item.title}</h3>
+                                </div>
+                                <ul className="mt-2 space-y-3 text-sm leading-relaxed text-slate-600">
+                                    {item.points.map((point) => (
+                                        <li key={point} className="flex items-start gap-3">
+                                            <span className="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>
+                                            <span>{point}</span>
+                                        </li>
                                     ))}
-                                </ol>
+                                </ul>
                             </article>
                         ))}
                     </div>
                 </section>
 
-                <section id="modulo1" className="space-y-16">
+                <section id="curriculo" className="space-y-12">
                     <div className="mx-auto max-w-3xl text-center">
-                        <p className="text-sm uppercase tracking-[0.35em] text-teal-600">Ruta de aprendizaje</p>
-                        <h2 className="mt-4 text-3xl font-bold text-slate-900">Cuatro módulos con entregables clínicos concretos</h2>
-                        <p className="mt-4 text-base text-slate-600">
-                            Cada módulo sigue la secuencia problema → análisis → interpretación → aplicación. Usa los cuadros de "Entrega" y "Verificación" para asegurar tu progreso.
+                        <p className="text-sm uppercase tracking-[0.3em] text-amber-500">Mapa curricular</p>
+                        <h2 className="mt-4 text-4xl font-bold text-slate-900">Secuencia que construye maestría clínica</h2>
+                        <p className="mt-4 text-lg text-slate-600">
+                            Cada módulo incrementa la complejidad de forma deliberada. Desde formular preguntas precisas hasta
+                            interpretar modelos predictivos, la narrativa guía el viaje.
                         </p>
+                    </div>
+                    <div className="space-y-8">
+                        {moduleRoadmap.map((module) => (
+                            <div
+                                key={module.title}
+                                className="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50"
+                            >
+                                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                                    <div className="max-w-2xl space-y-4">
+                                        <h3 className="text-2xl font-semibold text-amber-600">{module.title}</h3>
+                                        <p className="text-lg font-medium text-slate-800">{module.question}</p>
+                                        <ul className="space-y-2 text-sm text-slate-600">
+                                            {module.objectives.map((objective) => (
+                                                <li key={objective} className="flex items-start gap-3">
+                                                    <span className="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-amber-400"></span>
+                                                    <span>{objective}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    <div className="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
+                                        <dl className="space-y-3">
+                                            <div>
+                                                <dt className="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
+                                                <dd className="mt-1">{module.concepts}</dd>
+                                            </div>
+                                            <div>
+                                                <dt className="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
+                                                <dd className="mt-1">{module.activity}</dd>
+                                            </div>
+                                            <div>
+                                                <dt className="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
+                                                <dd className="mt-1">{module.assessment}</dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                     {modules.map((module) => {
                         const theme = moduleThemes[module.theme];
@@ -377,132 +347,108 @@ const App: React.FC = () => {
                     })}
                 </section>
 
-                <section id="plantillas" className="space-y-10">
-                    <div className="mx-auto max-w-3xl text-center">
-                        <p className="text-sm uppercase tracking-[0.35em] text-purple-500">Plantillas y ayudas visuales</p>
-                        <h2 className="mt-4 text-3xl font-bold text-slate-900">Descarga herramientas listas para usar</h2>
-                        <p className="mt-4 text-base text-slate-600">
-                            Copia estas plantillas directamente desde el sitio o descárgalas para trabajar en tu herramienta favorita.
-                        </p>
+                <section id="experiencia" className="space-y-10">
+                    <div className="mx-auto max-w-2xl text-center">
+                        <p className="text-sm uppercase tracking-[0.3em] text-rose-500">Engagement profundo</p>
+                        <h2 className="mt-4 text-3xl font-bold text-slate-900">Interacciones que despiertan el pensamiento clínico</h2>
                     </div>
-                    <div className="grid gap-6 lg:grid-cols-2">
-                        <article className="flex h-full flex-col justify-between gap-4 rounded-3xl border border-purple-100 bg-white p-8 shadow-lg shadow-purple-100/50">
-                            <div className="space-y-3">
-                                <h3 className="text-xl font-semibold text-purple-700">Plantilla PICO y planificación de análisis</h3>
-                                <p className="text-sm text-slate-600">Incluye tabla para variables, objetivos de análisis y notas clínicas.</p>
-                                <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-4 text-left text-sm text-slate-700">
-                                    <p className="font-semibold text-purple-700">Contenido</p>
-                                    <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-xs">
-Población (P):
-Intervención (I):
-Comparador (C):
-Outcome (O):
-
-Variables clave:
-- Edad (numérica, independiente)
-- Zona (categoría, modificadora)
-- Presión sistólica (numérica, dependiente)
-
-Notas clínicas iniciales:
--
--
-                                    </pre>
-                                </div>
-                            </div>
-                            <div className="flex flex-wrap gap-3">
-                                <button
-                                    className="inline-flex items-center justify-center rounded-full bg-purple-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-purple-400"
-                                    type="button"
-                                    onClick={() => {
-                                        const content =
-                                            'Población (P):\nIntervención (I):\nComparador (C):\nOutcome (O):\n\nVariables clave:\n- Edad (numérica, independiente)\n- Zona (categoría, modificadora)\n- Presión sistólica (numérica, dependiente)\n\nNotas clínicas iniciales:\n-\n-';
-                                        if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-                                            navigator.clipboard.writeText(content);
-                                        }
-                                    }}
-                                >
-                                    Copiar al portapapeles
-                                </button>
-                                <a
-                                    className="inline-flex items-center justify-center rounded-full border border-purple-500 px-6 py-3 text-sm font-semibold text-purple-600 transition hover:bg-purple-50"
-                                    href="./plantillas/pico-planificacion.txt"
-                                    download
-                                >
-                                    Descargar TXT
-                                </a>
-                            </div>
-                        </article>
-                        <article className="flex h-full flex-col justify-between gap-4 rounded-3xl border border-purple-100 bg-white p-8 shadow-lg shadow-purple-100/50">
-                            <div className="space-y-3">
-                                <h3 className="text-xl font-semibold text-purple-700">Dashboard descriptivo en Sheets</h3>
-                                <p className="text-sm text-slate-600">Panel editable con fórmulas para medias, medianas, IQR y gráficos vinculados a la base Chimborazo.</p>
-                                <div className="rounded-2xl border border-purple-100 bg-purple-50/50 p-4 text-left text-sm text-slate-700">
-                                    <p className="font-semibold text-purple-700">Estructura sugerida</p>
-                                    <pre className="mt-3 overflow-x-auto whitespace-pre-wrap text-xs">
-Hoja 1 · Resumen cohortes
-| Métrica | Zona Rural | Zona Urbana |
-|---------|------------|-------------|
-| N       |            |             |
-| Promedio PAS |      |             |
-| Mediana PAS  |      |             |
-| IQR PAS      |      |             |
-
-Hoja 2 · Visualizaciones
-- Histograma PAS (bins=10)
-- Boxplot PAS por zona
-- Barras apiladas por factor de riesgo
-                                    </pre>
-                                </div>
-                            </div>
-                            <a
-                                className="inline-flex items-center justify-center rounded-full bg-purple-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-purple-400"
-                                href="./plantillas/dashboard-descriptivo.csv"
-                                download
+                    <div className="grid gap-8 lg:grid-cols-3">
+                        {engagementLayers.map((layer) => (
+                            <article
+                                key={layer.title}
+                                className="flex h-full flex-col justify-between gap-4 rounded-3xl bg-white p-8 shadow-xl shadow-rose-100/60"
                             >
-                                Descargar CSV
-                            </a>
-                        </article>
+                                <div>
+                                    <h3 className="text-2xl font-semibold text-rose-600">{layer.title}</h3>
+                                    <p className="mt-3 text-base text-slate-600">{layer.description}</p>
+                                </div>
+                                <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                                    {layer.details.map((detail) => (
+                                        <li key={detail} className="flex items-start gap-3">
+                                            <span className="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-rose-400"></span>
+                                            <span>{detail}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </article>
+                        ))}
                     </div>
                 </section>
 
-                <ResourceCenter resources={resourceLibrary} />
+                <section id="accesibilidad" className="grid gap-10 lg:grid-cols-2">
+                    <div className="rounded-3xl bg-slate-900 p-8 text-slate-100 shadow-2xl">
+                        <p className="text-xs uppercase tracking-[0.4em] text-teal-300">Experiencia universal</p>
+                        <h2 className="mt-4 text-3xl font-semibold">Principios de diseño</h2>
+                        <ul className="mt-6 space-y-4 text-sm leading-relaxed text-slate-200">
+                            {accessibilityFocus.principles.map((principle) => (
+                                <li key={principle} className="flex items-start gap-3">
+                                    <span className="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-teal-400"></span>
+                                    <span>{principle}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="rounded-3xl border border-slate-300 bg-white p-8 shadow-xl">
+                        <p className="text-xs uppercase tracking-[0.4em] text-slate-500">Checklist WCAG 2.1 AA</p>
+                        <h2 className="mt-4 text-2xl font-semibold text-slate-900">Implementación práctica</h2>
+                        <ul className="mt-6 space-y-3 text-sm text-slate-600">
+                            {accessibilityFocus.checklist.map((item) => (
+                                <li key={item} className="flex items-start gap-3">
+                                    <span className="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-slate-500"></span>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
 
-                <section className="rounded-3xl border border-slate-200 bg-white px-8 py-12 shadow-xl">
-                    <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-                        <div className="space-y-4">
-                            <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Seguimiento y mejora continua</p>
-                            <h2 className="text-3xl font-bold text-slate-900">Cómo evaluar tu progreso y planear siguientes pasos</h2>
-                            <p className="text-base text-slate-600">
-                                Completa el registro de aprendizaje después de cada módulo, recopila preguntas emergentes y programa sesiones de discusión con tu equipo clínico.
+                <section id="implementacion" className="space-y-10">
+                    <div className="mx-auto max-w-2xl text-center">
+                        <p className="text-sm uppercase tracking-[0.3em] text-sky-500">Hoja de ruta</p>
+                        <h2 className="mt-4 text-3xl font-bold text-slate-900">Del concepto al lanzamiento</h2>
+                        <p className="mt-4 text-base text-slate-600">
+                            Un plan escalonado para transformar la visión en un recurso vivo que evoluciona con la comunidad
+                            médica.
+                        </p>
+                    </div>
+                    <div className="grid gap-6 lg:grid-cols-3">
+                        {implementationPhases.map((phase) => (
+                            <article
+                                key={phase.phase}
+                                className="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-sky-600/10 via-white to-white p-8 shadow-xl"
+                            >
+                                <div>
+                                    <p className="text-xs font-semibold uppercase tracking-widest text-sky-500">{phase.duration}</p>
+                                    <h3 className="mt-2 text-2xl font-semibold text-slate-900">{phase.phase}</h3>
+                                </div>
+                                <p className="text-sm leading-relaxed text-slate-600">{phase.focus}</p>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+
+                <section className="rounded-3xl bg-gradient-to-r from-teal-500 via-indigo-500 to-sky-600 p-10 text-slate-50 shadow-2xl">
+                    <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                        <div className="max-w-2xl space-y-4">
+                            <h2 className="text-3xl font-bold">Próximo paso: construir el prototipo vivo</h2>
+                            <p className="text-base text-slate-100/90">
+                                Este blueprint reorganiza el contenido para que cualquier colaborador comprenda de un vistazo la
+                                identidad, la pedagogía y el camino de implementación. Actúa como brújula para diseñadores,
+                                desarrolladores e instructores.
                             </p>
                         </div>
-                        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-                            <ul className="space-y-3 text-sm text-slate-600">
-                                {progressChecks.map((item, index) => (
-                                    <li key={index}>{item}</li>
-                                ))}
-                            </ul>
-                        </div>
+                        <a
+                            className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-slate-900 shadow-lg transition-transform duration-300 hover:-translate-y-0.5"
+                            href="#vision"
+                        >
+                            Revisar los pilares clave
+                        </a>
                     </div>
                 </section>
             </main>
-            <footer className="border-t border-slate-200 bg-slate-900 py-10 text-slate-200">
-                <div className="container mx-auto flex flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12">
-                    <p className="text-sm">© {new Date().getFullYear()} Powersemiotics · Estadísticos Descubiertos. Aprende a leer los datos como símbolos clínicos.</p>
-                    <nav className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.25em] text-slate-400">
-                        <a className="hover:text-white" href="#introduccion">
-                            Introducción
-                        </a>
-                        <a className="hover:text-white" href="#laboratorio">
-                            Laboratorio
-                        </a>
-                        <a className="hover:text-white" href="#modulo1">
-                            Módulos
-                        </a>
-                        <a className="hover:text-white" href="#recursos">
-                            Recursos
-                        </a>
-                    </nav>
+            <footer className="border-t border-slate-200 bg-white/60 py-6">
+                <div className="container mx-auto px-4 text-center text-sm text-slate-500">
+                    © {new Date().getFullYear()} Powersemiotics · Estadísticos Descubiertos
                 </div>
             </footer>
         </div>
