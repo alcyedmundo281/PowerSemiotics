@@ -1,5 +1,47 @@
 import React from 'react';
 
+const overviewCards = [
+    {
+        title: 'Audiencia principal',
+        description:
+            'Estudiantes de medicina, residentes, investigadores clínicos y equipos asistenciales que necesitan reforzar su alfabetización estadística.'
+    },
+    {
+        title: 'Resultados esperados',
+        description:
+            'Seleccionar pruebas adecuadas, interpretar salidas en contexto clínico y detectar sesgos frecuentes en literatura biomédica.'
+    },
+    {
+        title: 'Duración sugerida',
+        description: '4 sesiones de 60 minutos con práctica opcional adicional en el laboratorio de datos.'
+    }
+] as const;
+
+const kitItems = [
+    {
+        badge: 'CSV',
+        label: 'Descargar dataset anonimizado',
+        href: './muestra-base-datos-anonimizada-chimborazo.csv'
+    },
+    {
+        badge: 'Hoja',
+        label: 'Abrir versión online',
+        href: './muestra-base-datos-anonimizada-chimborazo.html',
+        external: true
+    },
+    {
+        badge: 'PICO',
+        label: 'Plantilla de cuaderno clínico',
+        href: './plantillas/pico-planificacion.txt',
+        download: true
+    },
+    {
+        badge: 'JSON',
+        label: 'Metadata del proyecto',
+        href: './metadata.json'
+    }
+] as const;
+
 const Introduction: React.FC = () => {
     return (
         <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-16 text-slate-100 shadow-2xl">

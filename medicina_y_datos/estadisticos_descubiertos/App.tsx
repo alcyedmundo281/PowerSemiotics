@@ -305,6 +305,46 @@ const App: React.FC = () => {
                             </div>
                         ))}
                     </div>
+                    {modules.map((module) => {
+                        const theme = moduleThemes[module.theme];
+                        return (
+                            <article key={module.id} id={module.id} className={`space-y-6 rounded-3xl border bg-white p-10 shadow-xl ${theme.container}`}>
+                                <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                                    <div className="max-w-2xl space-y-3">
+                                        <h3 className={`text-2xl font-semibold ${theme.heading}`}>{module.title}</h3>
+                                        <p className="text-base text-slate-600">{module.description}</p>
+                                        <ul className="list-disc space-y-2 pl-5 text-sm text-slate-600">
+                                            {module.highlights.map((highlight, index) => (
+                                                <li key={index}>{highlight}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                    <div className={`flex flex-col gap-4 rounded-2xl border ${theme.panel} p-6 text-sm text-slate-700`}>
+                                        <div>
+                                            <h4 className={`text-sm font-semibold uppercase tracking-[0.25em] ${theme.accent}`}>Entrega</h4>
+                                            <p>{module.deliverable}</p>
+                                        </div>
+                                        <div>
+                                            <h4 className={`text-sm font-semibold uppercase tracking-[0.25em] ${theme.accent}`}>Verificación</h4>
+                                            <p>{module.verification}</p>
+                                        </div>
+                                        <div>
+                                            <h4 className={`text-sm font-semibold uppercase tracking-[0.25em] ${theme.accent}`}>Recursos</h4>
+                                            <ul className="list-disc pl-4">
+                                                {module.resources.map((resource) => (
+                                                    <li key={resource.href}>
+                                                        <a className={theme.link} href={resource.href}>
+                                                            {resource.label}
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        );
+                    })}
                 </section>
 
                 <section id="experiencia" className="space-y-10">
