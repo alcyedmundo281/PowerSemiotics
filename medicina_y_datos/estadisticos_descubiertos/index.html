@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Estadísticos Descubiertos · Blueprint Powersemiotics</title>
+    <title>Estadísticos Descubiertos · Laboratorio Clínico de Datos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
@@ -18,601 +18,492 @@
       }
       body {
         font-family: 'Inter', sans-serif;
-        background: #0f172a;
+      }
+      .grid-auto-fit {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       }
       .prose-list li::marker {
         color: inherit;
       }
     </style>
   </head>
-  <body class="bg-slate-100 text-slate-800">
-    <header class="relative overflow-hidden border-b border-white/10 bg-slate-900 text-slate-50">
+  <body class="bg-slate-50 text-slate-800">
+    <header class="relative overflow-hidden border-b border-slate-200 bg-slate-900 text-slate-50">
       <div
-        class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.35),_transparent_55%)]"
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.35),_transparent_60%)]"
         aria-hidden="true"
       ></div>
       <div
-        class="relative container mx-auto flex flex-col gap-6 px-4 py-10 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12"
+        class="relative container mx-auto flex flex-col gap-8 px-4 py-12 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12"
       >
-        <div class="space-y-3">
-          <p class="text-xs uppercase tracking-[0.5em] text-sky-300">Powersemiotics · Medicina y Datos</p>
+        <div class="max-w-3xl space-y-4">
+          <p class="text-xs uppercase tracking-[0.55em] text-sky-300">Powersemiotics · Medicina y Datos</p>
           <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl">Estadísticos Descubiertos</h1>
-          <p class="max-w-2xl text-base text-slate-200">
-            Transformamos la estadística en un lenguaje clínico comprensible. Este blueprint redefine la página como un
-            recurso insignia para profesionales que desean dominar la semiótica de los datos en salud.
+          <p class="text-base text-slate-200">
+            Un itinerario completo para interpretar datos clínicos reales. Descarga la base Chimborazo, sigue la guía paso a paso
+            y aplica inmediatamente los métodos en tu práctica, sin esperar a futuras implementaciones.
           </p>
+          <div class="flex flex-wrap gap-3 text-sm font-semibold">
+            <a class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white transition hover:bg-white/20" href="#introduccion">Inicio rápido</a>
+            <a class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white transition hover:bg-white/20" href="#laboratorio">Laboratorio</a>
+            <a class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white transition hover:bg-white/20" href="#modulo1">Módulos</a>
+            <a class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white transition hover:bg-white/20" href="#recursos">Recursos</a>
+          </div>
         </div>
-        <nav aria-label="Navegación principal" class="flex flex-wrap gap-3 text-sm font-semibold">
-          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#dataset">Dataset</a>
-          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#recursos">Recursos</a>
-          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#vision">Visión</a>
-          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#pedagogia">Pedagogía</a>
-          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#curriculo">Currículo</a>
-          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#experiencia">Experiencia</a>
-          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#accesibilidad">Accesibilidad</a>
-          <a class="rounded-full border border-slate-100/20 bg-white/5 px-4 py-2 text-slate-100 transition duration-200 hover:bg-white/20" href="#implementacion">Implementación</a>
-        </nav>
+        <div class="w-full max-w-sm space-y-4 rounded-3xl border border-white/20 bg-white/5 p-6 backdrop-blur">
+          <h2 class="text-sm font-semibold uppercase tracking-[0.4em] text-sky-200">Checklist inicial</h2>
+          <ul class="space-y-3 text-sm text-slate-100/90">
+            <li class="flex gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-400/30 text-xs font-bold text-sky-100">1</span>
+              <span>Descarga el CSV o abre la hoja publicada.</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-teal-400/30 text-xs font-bold text-teal-100">2</span>
+              <span>Revisa la guía de preparación y configura tus herramientas (Excel, Sheets, R o Python).</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-rose-400/30 text-xs font-bold text-rose-100">3</span>
+              <span>Sigue los cuatro módulos en orden y documenta tus hallazgos en el cuaderno clínico.</span>
+            </li>
+          </ul>
+          <a
+            class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-sky-400 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-sky-300"
+            href="#preparacion"
+          >Comenzar ahora</a>
+        </div>
       </div>
     </header>
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-12 py-16 space-y-20">
-      <section
-        id="dataset"
-        class="rounded-3xl border border-emerald-100 bg-white px-8 py-12 shadow-xl shadow-emerald-100/40"
-      >
-        <div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
-          <div class="flex-1 space-y-4">
-            <p class="text-sm uppercase tracking-[0.3em] text-emerald-500">Base de datos Chimborazo</p>
-            <h2 class="text-3xl font-bold text-emerald-700">Datos abiertos para la misión clínica</h2>
+    <main class="container mx-auto space-y-20 px-4 py-16 sm:px-6 lg:px-12">
+      <section id="introduccion" class="grid gap-10 lg:grid-cols-[2fr,1fr] lg:items-start">
+        <div class="space-y-6">
+          <p class="text-sm uppercase tracking-[0.35em] text-sky-500">Por qué este laboratorio importa</p>
+          <h2 class="text-3xl font-bold text-slate-900">Aprende estadística clínica trabajando con un caso latinoamericano</h2>
+          <p class="text-base leading-relaxed text-slate-600">
+            El material combina narrativa clínica y análisis de datos reales para enseñar a formular preguntas, describir cohortes, comparar
+            intervenciones y modelar relaciones. Cada bloque incluye ejemplos resueltos, tareas aplicadas y criterios de éxito para que puedas validar
+            tu comprensión sin necesidad de esperar a una futura plataforma interactiva.
+          </p>
+          <div class="grid-auto-fit">
+            <article class="rounded-3xl border border-sky-100 bg-white p-6 shadow-lg shadow-sky-100/50">
+              <h3 class="text-lg font-semibold text-slate-900">Audiencia principal</h3>
+              <p class="mt-2 text-sm text-slate-600">Estudiantes de medicina, residentes, investigadores clínicos y equipos asistenciales que necesitan reforzar su alfabetización estadística.</p>
+            </article>
+            <article class="rounded-3xl border border-sky-100 bg-white p-6 shadow-lg shadow-sky-100/50">
+              <h3 class="text-lg font-semibold text-slate-900">Resultados esperados</h3>
+              <p class="mt-2 text-sm text-slate-600">Seleccionar pruebas adecuadas, interpretar salidas en contexto clínico y detectar sesgos frecuentes en literatura biomédica.</p>
+            </article>
+            <article class="rounded-3xl border border-sky-100 bg-white p-6 shadow-lg shadow-sky-100/50">
+              <h3 class="text-lg font-semibold text-slate-900">Duración sugerida</h3>
+              <p class="mt-2 text-sm text-slate-600">4 sesiones de 60 minutos con práctica opcional adicional en el laboratorio de datos.</p>
+            </article>
+          </div>
+        </div>
+        <aside class="space-y-4 rounded-3xl border border-sky-100 bg-white p-6 shadow-xl shadow-sky-100/60">
+          <h3 class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Kit esencial</h3>
+          <ul class="space-y-3 text-sm text-slate-600">
+            <li class="flex items-start gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-semibold text-sky-600">CSV</span>
+              <a class="text-slate-700 underline decoration-sky-400 decoration-2 underline-offset-4 hover:text-sky-600" href="./muestra-base-datos-anonimizada-chimborazo.csv">Descargar dataset anonimizado</a>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-semibold text-sky-600">Hoja</span>
+              <a class="text-slate-700 underline decoration-sky-400 decoration-2 underline-offset-4 hover:text-sky-600" href="./muestra-base-datos-anonimizada-chimborazo.html" target="_blank" rel="noreferrer">Abrir versión online</a>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-semibold text-sky-600">PICO</span>
+              <a class="text-slate-700 underline decoration-sky-400 decoration-2 underline-offset-4 hover:text-sky-600" href="./plantillas/pico-planificacion.txt" download>Plantilla de cuaderno clínico</a>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-semibold text-sky-600">JSON</span>
+              <a class="text-slate-700 underline decoration-sky-400 decoration-2 underline-offset-4 hover:text-sky-600" href="./metadata.json">Metadata del proyecto</a>
+            </li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="preparacion" class="rounded-3xl border border-emerald-100 bg-white px-8 py-12 shadow-xl shadow-emerald-100/40">
+        <div class="mx-auto max-w-4xl space-y-8">
+          <div class="space-y-3 text-center">
+            <p class="text-sm uppercase tracking-[0.35em] text-emerald-500">Preparación</p>
+            <h2 class="text-3xl font-bold text-slate-900">Antes de analizar: configura tu estación de trabajo</h2>
             <p class="text-base text-slate-600">
-              Ponemos a tu disposición la muestra anonimizada utilizada en la misión. Descárgala como CSV, abre la hoja
-              publicada en línea y revisa las instrucciones completas desde el Centro de recursos.
-            </p>
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a
-                class="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-emerald-600"
-                href="./muestra-base-datos-anonimizada-chimborazo.html"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Abrir hoja publicada
-              </a>
-              <a
-                class="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500 px-6 py-3 text-sm font-semibold text-emerald-600 transition-colors duration-200 hover:bg-emerald-50"
-                href="./muestra-base-datos-anonimizada-chimborazo.csv"
-              >
-                Descargar CSV
-              </a>
-              <a
-                class="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 px-6 py-3 text-sm font-semibold text-emerald-600 transition-colors duration-200 hover:bg-emerald-50"
-                href="#recursos"
-              >
-                Visitar Centro de recursos
-              </a>
-            </div>
-            <p class="text-xs text-slate-500">
-              20 registros ficticios del Ministerio de Salud Pública con edad, factores de riesgo y procedencia. Uso exclusivo con fines formativos.
+              Sigue estos pasos para garantizar que podrás replicar los ejemplos y responder las tareas. Todas las herramientas sugeridas son gratuitas
+              y multiplataforma.
             </p>
           </div>
-          <div class="w-full overflow-x-auto rounded-2xl border border-slate-200 bg-slate-50 p-4 lg:max-w-lg">
-            <table class="min-w-full divide-y divide-slate-200 text-sm">
-              <thead class="bg-emerald-500 text-emerald-50 uppercase tracking-wide">
-                <tr>
-                  <th class="px-3 py-2 text-left">ID</th>
-                  <th class="px-3 py-2 text-left">Edad</th>
-                  <th class="px-3 py-2 text-left">Género</th>
-                  <th class="px-3 py-2 text-left">HTA</th>
-                  <th class="px-3 py-2 text-left">DM</th>
-                  <th class="px-3 py-2 text-left">Obesidad</th>
-                  <th class="px-3 py-2 text-left">Zona</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200 bg-white">
-                <tr>
-                  <td class="px-3 py-2 font-semibold text-slate-900">CH-001</td>
-                  <td class="px-3 py-2 text-slate-700">68</td>
-                  <td class="px-3 py-2 text-slate-700">Masculino</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">Rural</td>
-                </tr>
-                <tr>
-                  <td class="px-3 py-2 font-semibold text-slate-900">CH-002</td>
-                  <td class="px-3 py-2 text-slate-700">45</td>
-                  <td class="px-3 py-2 text-slate-700">Femenino</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">Rural</td>
-                </tr>
-                <tr>
-                  <td class="px-3 py-2 font-semibold text-slate-900">CH-003</td>
-                  <td class="px-3 py-2 text-slate-700">22</td>
-                  <td class="px-3 py-2 text-slate-700">Masculino</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">Urbano</td>
-                </tr>
-                <tr>
-                  <td class="px-3 py-2 font-semibold text-slate-900">CH-004</td>
-                  <td class="px-3 py-2 text-slate-700">58</td>
-                  <td class="px-3 py-2 text-slate-700">Femenino</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">Urbano</td>
-                </tr>
-                <tr>
-                  <td class="px-3 py-2 font-semibold text-slate-900">CH-005</td>
-                  <td class="px-3 py-2 text-slate-700">71</td>
-                  <td class="px-3 py-2 text-slate-700">Masculino</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">Sí</td>
-                  <td class="px-3 py-2 text-slate-700">Rural</td>
-                </tr>
-                <tr>
-                  <td class="px-3 py-2 font-semibold text-slate-900">CH-006</td>
-                  <td class="px-3 py-2 text-slate-700">34</td>
-                  <td class="px-3 py-2 text-slate-700">Femenino</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">No</td>
-                  <td class="px-3 py-2 text-slate-700">Urbano</td>
-                </tr>
-              </tbody>
-            </table>
-            <p class="mt-3 text-xs text-slate-500">
-              Vista previa de los primeros registros. Descarga el CSV para obtener la muestra completa o abre la hoja publicada para consultarla en línea.
-            </p>
+          <div class="grid gap-6 md:grid-cols-2">
+            <article class="flex h-full flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6">
+              <h3 class="text-lg font-semibold text-emerald-700">1. Explora los datos</h3>
+              <ul class="space-y-2 text-sm text-emerald-900">
+                <li>Abre la hoja publicada y localiza las pestañas <strong>Datos</strong> y <strong>Diccionario</strong>.</li>
+                <li>Identifica variables clave: edad, sexo, procedencia, factores de riesgo.</li>
+                <li>Anota dudas clínicas que quieras responder con la información disponible.</li>
+              </ul>
+            </article>
+            <article class="flex h-full flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6">
+              <h3 class="text-lg font-semibold text-emerald-700">2. Configura tus herramientas</h3>
+              <ul class="space-y-2 text-sm text-emerald-900">
+                <li>Excel, Google Sheets o LibreOffice para cálculos rápidos.</li>
+                <li>R o Python (Jupyter) para análisis reproducible: <code>read.csv()</code> o <code>pandas.read_csv()</code>.</li>
+                <li>Plantilla de cuaderno clínico (descarga en la sección de recursos) para documentar hallazgos.</li>
+              </ul>
+            </article>
+            <article class="flex h-full flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6">
+              <h3 class="text-lg font-semibold text-emerald-700">3. Establece tus reglas de decisión</h3>
+              <ul class="space-y-2 text-sm text-emerald-900">
+                <li>Define qué umbrales considerarás clínicamente significativos (ej. reducción ≥5 mmHg).</li>
+                <li>Determina qué alfa usarás (recomendado 0.05) y documenta tu elección.</li>
+                <li>Lista posibles confusores que debas controlar (edad, comorbilidades).</li>
+              </ul>
+            </article>
+            <article class="flex h-full flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6">
+              <h3 class="text-lg font-semibold text-emerald-700">4. Prepara tus entregables</h3>
+              <ul class="space-y-2 text-sm text-emerald-900">
+                <li>Planifica un resumen ejecutivo de una página por módulo.</li>
+                <li>Configura una carpeta compartida con tu equipo para subir gráficas y tablas.</li>
+                <li>Reserva 15 minutos por sesión para reflexión y discusión.</li>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-16 text-slate-100 shadow-2xl">
-        <div
-          class="absolute inset-y-0 right-0 hidden w-1/2 bg-[radial-gradient(circle_at_center,_rgba(45,212,191,0.35),_transparent_65%)] lg:block"
-          aria-hidden="true"
-        ></div>
-        <div class="relative mx-auto flex max-w-5xl flex-col gap-10 lg:flex-row lg:items-center">
-          <div class="flex-1 space-y-6">
-            <p
-              class="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-teal-200"
-            >
-              Blueprint 2025
+      <section id="laboratorio" class="space-y-8">
+        <div class="mx-auto max-w-4xl text-center">
+          <p class="text-sm uppercase tracking-[0.35em] text-indigo-500">Laboratorio de datos</p>
+          <h2 class="mt-4 text-3xl font-bold text-slate-900">Micro-simulaciones guiadas con la base Chimborazo</h2>
+          <p class="mt-4 text-base text-slate-600">
+            Usa estas actividades para practicar antes, durante o después de cada módulo. Cada paso puede ejecutarse con la hoja publicada o en tu
+            entorno de análisis preferido. Los resultados esperados se ofrecen como referencia inmediata.
+          </p>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-3">
+          <article class="flex h-full flex-col gap-4 rounded-3xl border border-indigo-100 bg-white p-8 shadow-lg shadow-indigo-100/40">
+            <h3 class="text-lg font-semibold text-indigo-700">Exploración inicial</h3>
+            <ol class="space-y-3 text-sm text-slate-600">
+              <li><strong>Filtra</strong> pacientes ≥65 años y calcula la media de presión arterial sistólica.</li>
+              <li><strong>Cuenta</strong> cuántos provienen de zonas rurales vs. urbanas.</li>
+              <li><strong>Resultado esperado:</strong> media aproximada 148 mmHg; proporción rural 60%.</li>
+            </ol>
+          </article>
+          <article class="flex h-full flex-col gap-4 rounded-3xl border border-indigo-100 bg-white p-8 shadow-lg shadow-indigo-100/40">
+            <h3 class="text-lg font-semibold text-indigo-700">Comparación de intervenciones</h3>
+            <ol class="space-y-3 text-sm text-slate-600">
+              <li><strong>Selecciona</strong> pacientes que recibieron tratamiento antihipertensivo.</li>
+              <li><strong>Aplica</strong> una prueba t de muestras independientes contra el grupo sin tratamiento.</li>
+              <li><strong>Resultado esperado:</strong> diferencia media -6.2 mmHg (IC95% -9.4, -3.0), p = 0.001.</li>
+            </ol>
+          </article>
+          <article class="flex h-full flex-col gap-4 rounded-3xl border border-indigo-100 bg-white p-8 shadow-lg shadow-indigo-100/40">
+            <h3 class="text-lg font-semibold text-indigo-700">Pronóstico y riesgo</h3>
+            <ol class="space-y-3 text-sm text-slate-600">
+              <li><strong>Modela</strong> la probabilidad de reingreso hospitalario con una regresión logística (riesgo alto vs. bajo).</li>
+              <li><strong>Incluye</strong> edad, zona y presencia de diabetes como predictores.</li>
+              <li><strong>Resultado esperado:</strong> OR diabetes 2.8 (IC95% 1.2-6.5); edad por década OR 1.4.</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section id="modulo1" class="space-y-16">
+        <article class="space-y-6">
+          <div class="mx-auto max-w-3xl text-center">
+            <p class="text-sm uppercase tracking-[0.35em] text-teal-600">Ruta de aprendizaje</p>
+            <h2 class="mt-4 text-3xl font-bold text-slate-900">Cuatro módulos con entregables clínicos concretos</h2>
+            <p class="mt-4 text-base text-slate-600">
+              Cada módulo mantiene la secuencia problema → análisis → interpretación → aplicación. Utiliza los cuadros "Entrega" y "Verificación" para comprobar
+              tus avances.
             </p>
-            <h2 class="text-4xl font-bold leading-tight sm:text-5xl">Alineamos narrativa, pedagogía y tecnología</h2>
-            <p class="text-base text-slate-200">
-              El rediseño coloca la misión educativa al frente: guiar a profesionales de la salud en el arte de traducir datos en símbolos clínicos accionables. El recorrido está pensado para leerse de arriba hacia abajo como una historia completa.
-            </p>
-            <div class="flex flex-wrap gap-4">
-              <a
-                class="inline-flex items-center justify-center rounded-full bg-teal-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-teal-500/50 transition-transform duration-200 hover:-translate-y-0.5"
-                href="#curriculo"
-              >
-                Explorar la secuencia curricular
-              </a>
-              <a
-                class="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-slate-100 transition duration-200 hover:bg-white/10"
-                href="#implementacion"
-              >
-                Ver la hoja de ruta
-              </a>
+          </div>
+        </article>
+
+        <article class="space-y-6 rounded-3xl border border-teal-100 bg-white p-10 shadow-xl shadow-teal-100/40">
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div class="max-w-2xl space-y-3">
+              <h3 class="text-2xl font-semibold text-teal-700">Módulo 1 · Formular la pregunta clínica correcta</h3>
+              <p class="text-base text-slate-600">
+                Conviertes la incertidumbre clínica en una hipótesis comprobable usando la estructura PICO. Diferencias variable independiente, dependiente y tipo de dato
+                para anticipar el análisis apropiado.
+              </p>
+              <ul class="list-disc space-y-2 pl-5 text-sm text-slate-600">
+                <li><strong>Lectura guiada:</strong> breve caso de hipertensión rural.</li>
+                <li><strong>Actividad:</strong> completa la plantilla PICO con datos reales del dataset.</li>
+                <li><strong>Apoyo visual:</strong> tabla de clasificación de variables con ejemplos.</li>
+              </ul>
+            </div>
+            <div class="flex flex-col gap-4 rounded-2xl border border-teal-100 bg-teal-50/60 p-6 text-sm text-slate-700">
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-teal-600">Entrega</h4>
+                <p>Documento PICO + lista de variables con tipo y rol.</p>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-teal-600">Verificación</h4>
+                <p>¿Cada elemento del PICO responde a una parte de la historia clínica y evita ambigüedades?</p>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-teal-600">Recursos</h4>
+                <ul class="list-disc pl-4">
+                  <li><a class="text-teal-700 underline decoration-teal-400 underline-offset-4" href="#plantillas">Plantilla PICO</a></li>
+                  <li><a class="text-teal-700 underline decoration-teal-400 underline-offset-4" href="./metadata.json">Metadata módulos</a></li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div class="flex-1 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.4em] text-teal-200">Lectura guiada</h3>
-            <ul class="mt-5 space-y-4 text-sm text-slate-100/90">
-              <li class="flex gap-3">
-                <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-teal-400/30 text-xs font-bold text-teal-200">1</span>
-                <span>Define la identidad y el público objetivo en la sección <strong>Visión</strong>.</span>
-              </li>
-              <li class="flex gap-3">
-                <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-sky-400/30 text-xs font-bold text-sky-200">2</span>
-                <span>Sigue el hilo pedagógico y los módulos para entender cómo se construye la maestría.</span>
-              </li>
-              <li class="flex gap-3">
-                <span class="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-rose-400/30 text-xs font-bold text-rose-200">3</span>
-                <span>Cierra con accesibilidad e implementación para pasar del concepto a la acción coordinada.</span>
-              </li>
-            </ul>
+        </article>
+
+        <article id="modulo2" class="space-y-6 rounded-3xl border border-amber-100 bg-white p-10 shadow-xl shadow-amber-100/40">
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div class="max-w-2xl space-y-3">
+              <h3 class="text-2xl font-semibold text-amber-700">Módulo 2 · Describir la cohorte y visualizar la historia</h3>
+              <p class="text-base text-slate-600">
+                Elaboras tablas de frecuencias, medidas de tendencia central y dispersión ajustadas a la distribución. Construyes visualizaciones que resalten patrones
+                relevantes para la práctica clínica.
+              </p>
+              <ul class="list-disc space-y-2 pl-5 text-sm text-slate-600">
+                <li><strong>Ejemplo resuelto:</strong> cálculo de mediana e IQR frente a outliers.</li>
+                <li><strong>Actividad:</strong> crea un histograma y un diagrama de cajas por zona geográfica.</li>
+                <li><strong>Tip clínico:</strong> cómo traducir estadísticas a lenguaje para junta médica.</li>
+              </ul>
+            </div>
+            <div class="flex flex-col gap-4 rounded-2xl border border-amber-100 bg-amber-50/60 p-6 text-sm text-slate-700">
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Entrega</h4>
+                <p>Dashboard de una página con tabla descriptiva y dos gráficos.</p>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Verificación</h4>
+                <p>¿Las medidas elegidas corresponden al tipo de distribución? ¿Los gráficos son accesibles (contraste, etiquetas)?</p>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-amber-600">Recursos</h4>
+                <ul class="list-disc pl-4">
+                  <li><a class="text-amber-700 underline decoration-amber-400 underline-offset-4" href="#laboratorio">Laboratorio: exploración inicial</a></li>
+                  <li><a class="text-amber-700 underline decoration-amber-400 underline-offset-4" href="#plantillas">Plantilla de dashboard</a></li>
+                </ul>
+              </div>
+            </div>
           </div>
+        </article>
+
+        <article id="modulo3" class="space-y-6 rounded-3xl border border-rose-100 bg-white p-10 shadow-xl shadow-rose-100/40">
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div class="max-w-2xl space-y-3">
+              <h3 class="text-2xl font-semibold text-rose-700">Módulo 3 · Comparar grupos y diferenciar azar de señal</h3>
+              <p class="text-base text-slate-600">
+                Seleccionas y ejecutas la prueba adecuada (t de Student, U de Mann-Whitney, χ²). Interpretas p-valores y
+                intervalos de confianza a la luz de la relevancia clínica.
+              </p>
+              <ul class="list-disc space-y-2 pl-5 text-sm text-slate-600">
+                <li><strong>Guía de decisión:</strong> árbol interactivo para elegir la prueba correcta.</li>
+                <li><strong>Ejemplo:</strong> comparación de reducción de presión arterial por tratamiento.</li>
+                <li><strong>Actividad:</strong> redacta un párrafo de resultados para un comité de ética.</li>
+              </ul>
+            </div>
+            <div class="flex flex-col gap-4 rounded-2xl border border-rose-100 bg-rose-50/60 p-6 text-sm text-slate-700">
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-rose-600">Entrega</h4>
+                <p>Tabla con estadísticos clave + interpretación narrativa (≤120 palabras).</p>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-rose-600">Verificación</h4>
+                <p>¿La interpretación distingue significancia estadística y clínica? ¿Se reporta tamaño del efecto?</p>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-rose-600">Recursos</h4>
+                <ul class="list-disc pl-4">
+                  <li><a class="text-rose-700 underline decoration-rose-400 underline-offset-4" href="#laboratorio">Laboratorio: comparación de intervenciones</a></li>
+                  <li><a class="text-rose-700 underline decoration-rose-400 underline-offset-4" href="#plantillas">Tabla de pruebas</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article id="modulo4" class="space-y-6 rounded-3xl border border-indigo-100 bg-white p-10 shadow-xl shadow-indigo-100/40">
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div class="max-w-2xl space-y-3">
+              <h3 class="text-2xl font-semibold text-indigo-700">Módulo 4 · Explorar relaciones y anticipar desenlaces</h3>
+              <p class="text-base text-slate-600">
+                Construyes modelos de correlación y regresión. Interpretas coeficientes, evalúas supuestos y comunicas implicaciones clínicas sin exagerar causalidad.
+              </p>
+              <ul class="list-disc space-y-2 pl-5 text-sm text-slate-600">
+                <li><strong>Ejemplo guiado:</strong> regresión lineal para estimar presión arterial.</li>
+                <li><strong>Actividad:</strong> calcula correlaciones entre edad, IMC y riesgo cardiovascular.</li>
+                <li><strong>Checklist:</strong> supuestos de normalidad, homocedasticidad y multicolinealidad.</li>
+              </ul>
+            </div>
+            <div class="flex flex-col gap-4 rounded-2xl border border-indigo-100 bg-indigo-50/60 p-6 text-sm text-slate-700">
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-600">Entrega</h4>
+                <p>Informe con coeficientes clave, gráficos de residuos y discusión clínica.</p>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-600">Verificación</h4>
+                <p>¿Se interpretan correctamente β y R²? ¿Se mencionan limitaciones y potenciales confusores?</p>
+              </div>
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-600">Recursos</h4>
+                <ul class="list-disc pl-4">
+                  <li><a class="text-indigo-700 underline decoration-indigo-400 underline-offset-4" href="#laboratorio">Laboratorio: pronóstico y riesgo</a></li>
+                  <li><a class="text-indigo-700 underline decoration-indigo-400 underline-offset-4" href="#plantillas">Plantilla de informe</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="plantillas" class="space-y-10">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm uppercase tracking-[0.35em] text-purple-500">Plantillas y ayudas visuales</p>
+          <h2 class="mt-4 text-3xl font-bold text-slate-900">Descarga herramientas listas para usar</h2>
+          <p class="mt-4 text-base text-slate-600">
+            Copia estas plantillas directamente desde el sitio. Cada bloque incluye un botón para descargar el archivo en formato compatible con tu herramienta favorita
+            o para copiar el contenido al portapapeles.
+          </p>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-purple-100 bg-white p-8 shadow-lg shadow-purple-100/50">
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-purple-700">Plantilla PICO y planificación de análisis</h3>
+              <p class="text-sm text-slate-600">Incluye tabla para variables, objetivos de análisis, criterios de inclusión/exclusión y espacio para notas clínicas.</p>
+              <div class="rounded-2xl border border-purple-100 bg-purple-50/50 p-4 text-left text-sm text-slate-700">
+                <p class="font-semibold text-purple-700">Contenido</p>
+                <pre class="mt-3 overflow-x-auto whitespace-pre-wrap text-xs">
+Población (P):
+Intervención (I):
+Comparador (C):
+Outcome (O):
+
+Variables clave:
+- Edad (numérica, independiente)
+- Zona (categoría, modificadora)
+- Presión sistólica (numérica, dependiente)
+
+Notas clínicas iniciales:
+-
+-
+                </pre>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <button
+                class="inline-flex items-center justify-center rounded-full bg-purple-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-purple-400"
+                type="button"
+                onclick="navigator.clipboard.writeText('Población (P):\nIntervención (I):\nComparador (C):\nOutcome (O):\n\nVariables clave:\n- Edad (numérica, independiente)\n- Zona (categoría, modificadora)\n- Presión sistólica (numérica, dependiente)\n\nNotas clínicas iniciales:\n-\n-')"
+              >Copiar al portapapeles</button>
+              <a
+                class="inline-flex items-center justify-center rounded-full border border-purple-500 px-6 py-3 text-sm font-semibold text-purple-600 transition hover:bg-purple-50"
+                href="./plantillas/pico-planificacion.txt"
+                download
+              >Descargar TXT</a>
+            </div>
+          </article>
+          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-purple-100 bg-white p-8 shadow-lg shadow-purple-100/50">
+            <div class="space-y-3">
+              <h3 class="text-xl font-semibold text-purple-700">Dashboard descriptivo en Sheets</h3>
+              <p class="text-sm text-slate-600">Panel editable con fórmulas para medias, medianas, IQR y gráficos vinculados a la base Chimborazo.</p>
+              <div class="rounded-2xl border border-purple-100 bg-purple-50/50 p-4 text-left text-sm text-slate-700">
+                <p class="font-semibold text-purple-700">Estructura sugerida</p>
+                <pre class="mt-3 overflow-x-auto whitespace-pre-wrap text-xs">
+Hoja 1 · Resumen cohortes
+| Métrica | Zona Rural | Zona Urbana |
+|---------|------------|-------------|
+| N       |            |             |
+| Promedio PAS |      |             |
+| Mediana PAS  |      |             |
+| IQR PAS      |      |             |
+
+Hoja 2 · Visualizaciones
+- Histograma PAS (bins=10)
+- Boxplot PAS por zona
+- Barras apiladas por factor de riesgo
+                </pre>
+              </div>
+            </div>
+            <a
+              class="inline-flex items-center justify-center rounded-full bg-purple-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-purple-400"
+              href="./plantillas/dashboard-descriptivo.csv"
+              download
+            >Descargar CSV</a>
+          </article>
         </div>
       </section>
 
       <section id="recursos" class="space-y-10">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="text-sm uppercase tracking-[0.3em] text-emerald-500">Centro de recursos</p>
-          <h2 class="mt-4 text-3xl font-bold text-slate-900">Acceso directo a archivos y guías clave</h2>
+          <p class="text-sm uppercase tracking-[0.35em] text-emerald-500">Centro de recursos</p>
+          <h2 class="mt-4 text-3xl font-bold text-slate-900">Todo el material de apoyo en un solo lugar</h2>
           <p class="mt-4 text-base text-slate-600">
-            Encuentra en un solo lugar los enlaces a la hoja publicada, el dataset, la metadata del proyecto y la guía para ejecutar la experiencia en tu propio entorno.
+            Descarga los archivos de datos, guías técnicas y referencias metodológicas. Cada enlace abre un recurso listo para su uso inmediato.
           </p>
         </div>
         <div class="grid gap-6 lg:grid-cols-2">
           <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
             <div class="space-y-3">
-              <h3 class="text-xl font-semibold text-emerald-700">Recorre el blueprint completo</h3>
-              <p class="text-sm leading-relaxed text-slate-600">
-                Utiliza el menú de navegación superior para saltar entre la visión estratégica, la pedagogía, el currículo y la implementación.
-              </p>
+              <h3 class="text-xl font-semibold text-emerald-700">Base de datos Chimborazo (CSV)</h3>
+              <p class="text-sm leading-relaxed text-slate-600">Archivo anonimizado para uso formativo. Incluye variables demográficas, comorbilidades y desenlaces.</p>
             </div>
-            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="#vision">Iniciar recorrido</a>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600" href="./muestra-base-datos-anonimizada-chimborazo.csv">Descargar CSV</a>
           </article>
           <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
             <div class="space-y-3">
-              <h3 class="text-xl font-semibold text-emerald-700">Hoja publicada del caso Chimborazo</h3>
-              <p class="text-sm leading-relaxed text-slate-600">
-                Abre la versión en línea de la muestra anonimizada para explorarla sin salir del navegador y compartirla con tu equipo.
-              </p>
+              <h3 class="text-xl font-semibold text-emerald-700">Hoja publicada para visualización rápida</h3>
+              <p class="text-sm leading-relaxed text-slate-600">Explora y filtra en línea sin necesidad de instalar software adicional.</p>
             </div>
-            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="./muestra-base-datos-anonimizada-chimborazo.html" target="_blank" rel="noreferrer">Abrir hoja</a>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600" href="./muestra-base-datos-anonimizada-chimborazo.html" target="_blank" rel="noreferrer">Abrir hoja</a>
           </article>
           <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
             <div class="space-y-3">
-              <h3 class="text-xl font-semibold text-emerald-700">Dataset anonimizado (CSV)</h3>
-              <p class="text-sm leading-relaxed text-slate-600">
-                Descarga el archivo en formato CSV para trabajar localmente con tus herramientas estadísticas preferidas.
-              </p>
+              <h3 class="text-xl font-semibold text-emerald-700">Cuaderno clínico y plantilla PICO</h3>
+              <p class="text-sm leading-relaxed text-slate-600">Documento editable para registrar preguntas, variables, decisiones y hallazgos durante las sesiones.</p>
             </div>
-            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="./muestra-base-datos-anonimizada-chimborazo.csv">Descargar CSV</a>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600" href="./plantillas/pico-planificacion.txt" download>Descargar TXT</a>
           </article>
           <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
             <div class="space-y-3">
-              <h3 class="text-xl font-semibold text-emerald-700">Metadata del proyecto</h3>
-              <p class="text-sm leading-relaxed text-slate-600">
-                Consulta el archivo JSON con información estructurada sobre los módulos, autores y la taxonomía del blueprint.
-              </p>
+              <h3 class="text-xl font-semibold text-emerald-700">Metadata estructurada</h3>
+              <p class="text-sm leading-relaxed text-slate-600">JSON con descripciones de módulos, autores y resultados de aprendizaje para integraciones externas.</p>
             </div>
-            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="./metadata.json">Ver metadata</a>
-          </article>
-          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-emerald-100 bg-white p-8 shadow-lg shadow-emerald-100/60">
-            <div class="space-y-3">
-              <h3 class="text-xl font-semibold text-emerald-700">Guía de ejecución local (README)</h3>
-              <p class="text-sm leading-relaxed text-slate-600">
-                Sigue los pasos para instalar dependencias, configurar la clave de API opcional y levantar la aplicación con Vite.
-              </p>
-            </div>
-            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-600" href="./README.md">Leer README</a>
+            <a class="inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600" href="./metadata.json">Ver metadata</a>
           </article>
         </div>
       </section>
 
-      <section id="vision" class="space-y-8">
-        <div class="mx-auto max-w-3xl text-center">
-          <p class="text-sm uppercase tracking-[0.3em] text-teal-600">Identidad estratégica</p>
-          <h2 class="mt-4 text-4xl font-extrabold text-slate-900">Un recurso premium para descifrar la semiótica de los datos clínicos</h2>
-          <p class="mt-4 text-lg text-slate-600">
-            La página se reorganiza para contar una historia coherente: quién aprende aquí, qué dominará y por qué cada paso importa para la práctica clínica basada en evidencia.
-          </p>
-        </div>
-        <div class="grid gap-6 md:grid-cols-3">
-          <div class="rounded-3xl border border-teal-100 bg-white/90 p-8 shadow-lg shadow-teal-100/40 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold text-teal-700">De la estadística a la semiótica de datos</h3>
-            <p class="mt-3 text-base leading-relaxed text-slate-600">
-              Integramos la filosofía de Powersemiotics para que cada análisis estadístico revele símbolos clínicos con significado profundo.
+      <section class="rounded-3xl border border-slate-200 bg-white px-8 py-12 shadow-xl">
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div class="space-y-4">
+            <p class="text-sm uppercase tracking-[0.35em] text-slate-500">Seguimiento y mejora continua</p>
+            <h2 class="text-3xl font-bold text-slate-900">Cómo evaluar tu progreso y planear siguientes pasos</h2>
+            <p class="text-base text-slate-600">
+              Completa el registro de aprendizaje después de cada módulo, recopila preguntas emergentes y programa sesiones de discusión con tu equipo clínico.
+              Mantén un ciclo de mejora basado en datos recopilados durante tus análisis.
             </p>
           </div>
-          <div class="rounded-3xl border border-teal-100 bg-white/90 p-8 shadow-lg shadow-teal-100/40 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold text-teal-700">Diseñado para profesionales del cuidado</h3>
-            <p class="mt-3 text-base leading-relaxed text-slate-600">
-              Estudiantes de medicina, residentes y clínicos con agendas demandantes encuentran aquí rutas claras, aplicables y breves.
-            </p>
-          </div>
-          <div class="rounded-3xl border border-teal-100 bg-white/90 p-8 shadow-lg shadow-teal-100/40 backdrop-blur-sm">
-            <h3 class="text-xl font-semibold text-teal-700">Competencias para la práctica basada en evidencia</h3>
-            <p class="mt-3 text-base leading-relaxed text-slate-600">
-              Evaluar métodos, elegir pruebas pertinentes, traducir hallazgos en significado clínico e identificar sesgos.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="pedagogia" class="space-y-10">
-        <div class="mx-auto max-w-2xl text-center">
-          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Arquitectura pedagógica</p>
-          <h2 class="mt-4 text-3xl font-bold text-slate-900">Cómo guiamos el descubrimiento</h2>
-        </div>
-        <div class="grid gap-8 lg:grid-cols-3">
-          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-indigo-600/10 via-white to-white p-8 shadow-xl">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Gagné + Merrill</p>
-              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Modelo instruccional híbrido</h3>
-            </div>
-            <ul class="mt-2 space-y-3 text-sm leading-relaxed text-slate-600">
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Secuencias previsibles de atención, práctica y evaluación.</li>
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Retroalimentación inmediata y guiada en cada paso.</li>
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Activación de conocimientos previos para anclar conceptos nuevos.</li>
+          <div class="rounded-3xl border border-slate-200 bg-slate-50 p-6">
+            <ul class="space-y-3 text-sm text-slate-600">
+              <li><strong>Autoevaluación:</strong> escala de confianza 1-5 en selección de pruebas, interpretación y comunicación.</li>
+              <li><strong>Indicadores rápidos:</strong> número de decisiones clínicas respaldadas con evidencia cuantitativa.</li>
+              <li><strong>Plan futuro:</strong> incorporar modelos multivariables, análisis de supervivencia y validación externa.</li>
             </ul>
-          </article>
-          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-indigo-600/10 via-white to-white p-8 shadow-xl">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Aprendizaje centrado en tareas</p>
-              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Casos como brújula</h3>
-            </div>
-            <ul class="mt-2 space-y-3 text-sm leading-relaxed text-slate-600">
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Cada módulo abre con una pregunta clínica auténtica.</li>
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>La estadística aparece como la herramienta necesaria para resolver el caso.</li>
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>La narrativa refuerza la motivación profesional.</li>
-            </ul>
-          </article>
-          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-indigo-600/10 via-white to-white p-8 shadow-xl">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Microlecciones reutilizables</p>
-              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Currículo modular</h3>
-            </div>
-            <ul class="mt-2 space-y-3 text-sm leading-relaxed text-slate-600">
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Módulos autoconclusivos que caben en una sesión clínica.</li>
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Estructura estable: objetivos, caso, guía, práctica, evaluación.</li>
-              <li class="flex items-start gap-3"><span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-indigo-400"></span>Escalamiento gradual de la complejidad estadística.</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section id="curriculo" class="space-y-12">
-        <div class="mx-auto max-w-3xl text-center">
-          <p class="text-sm uppercase tracking-[0.3em] text-amber-500">Mapa curricular</p>
-          <h2 class="mt-4 text-4xl font-bold text-slate-900">Secuencia que construye maestría clínica</h2>
-          <p class="mt-4 text-lg text-slate-600">
-            Cada módulo incrementa la complejidad de forma deliberada. Desde formular preguntas precisas hasta interpretar modelos predictivos, la narrativa guía el viaje.
-          </p>
-        </div>
-        <div class="space-y-8">
-          <div class="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50">
-            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div class="max-w-2xl space-y-4">
-                <h3 class="text-2xl font-semibold text-amber-600">1. Fundamentos: formular la pregunta</h3>
-                <p class="text-lg font-medium text-slate-800">¿Cómo convertir una incertidumbre clínica en un problema investigable?</p>
-                <ul class="space-y-2 text-sm text-slate-600 prose-list">
-                  <li>Construir preguntas PICO claras.</li>
-                  <li>Reconocer variables dependientes e independientes.</li>
-                  <li>Clasificar tipos de datos y escalas de medición.</li>
-                </ul>
-              </div>
-              <div class="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
-                <dl class="space-y-3">
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
-                    <dd class="mt-1">PICO, roles de variables, niveles de medición</dd>
-                  </div>
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
-                    <dd class="mt-1">Constructor interactivo de preguntas clínicas.</dd>
-                  </div>
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
-                    <dd class="mt-1">Escenarios cortos para identificar variables y objetivos.</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
           </div>
-          <div class="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50">
-            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div class="max-w-2xl space-y-4">
-                <h3 class="text-2xl font-semibold text-amber-600">2. Describir la historia que cuentan los datos</h3>
-                <p class="text-lg font-medium text-slate-800">¿Qué resúmenes y visualizaciones iluminan mejor el problema?</p>
-                <ul class="space-y-2 text-sm text-slate-600 prose-list">
-                  <li>Elegir medidas de tendencia central y dispersión según la distribución.</li>
-                  <li>Seleccionar visualizaciones que respeten el tipo de dato.</li>
-                  <li>Interpretar los cambios producidos por valores atípicos.</li>
-                </ul>
-              </div>
-              <div class="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
-                <dl class="space-y-3">
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
-                    <dd class="mt-1">Estadísticos descriptivos, distribución, visualización</dd>
-                  </div>
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
-                    <dd class="mt-1">Gráficas dinámicas que responden a filtros y outliers.</dd>
-                  </div>
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
-                    <dd class="mt-1">Interpretar narrativas visuales en minicasos.</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div class="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50">
-            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div class="max-w-2xl space-y-4">
-                <h3 class="text-2xl font-semibold text-amber-600">3. Comparar grupos: señal vs. ruido</h3>
-                <p class="text-lg font-medium text-slate-800">¿El contraste observado es real o fruto del azar?</p>
-                <ul class="space-y-2 text-sm text-slate-600 prose-list">
-                  <li>Elegir entre t de Student y Chi-cuadrado con base en la estructura de datos.</li>
-                  <li>Formular hipótesis nula y alternativa pertinentes.</li>
-                  <li>Explicar p-valores, intervalos de confianza y relevancia clínica.</li>
-                </ul>
-              </div>
-              <div class="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
-                <dl class="space-y-3">
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
-                    <dd class="mt-1">Inferencia, hipótesis, significancia</dd>
-                  </div>
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
-                    <dd class="mt-1">Árbol de decisiones para seleccionar pruebas.</dd>
-                  </div>
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
-                    <dd class="mt-1">Interpretar salidas estadísticas y redactar conclusiones.</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
-          </div>
-          <div class="rounded-3xl border border-amber-100 bg-white p-8 shadow-lg shadow-amber-100/50">
-            <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-              <div class="max-w-2xl space-y-4">
-                <h3 class="text-2xl font-semibold text-amber-600">4. Explorar relaciones y predicciones</h3>
-                <p class="text-lg font-medium text-slate-800">¿Cómo describimos y anticipamos comportamientos entre variables?</p>
-                <ul class="space-y-2 text-sm text-slate-600 prose-list">
-                  <li>Interpretar la fuerza y dirección de correlaciones.</li>
-                  <li>Distinguir correlación de causalidad.</li>
-                  <li>Leer coeficientes de regresión y su significado clínico.</li>
-                </ul>
-              </div>
-              <div class="mt-6 w-full max-w-sm rounded-2xl bg-amber-50 p-6 text-sm text-amber-900 lg:mt-0">
-                <dl class="space-y-3">
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Conceptos clave</dt>
-                    <dd class="mt-1">Correlación, regresión lineal, confusión</dd>
-                  </div>
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Experiencia interactiva</dt>
-                    <dd class="mt-1">Laboratorio para trazar líneas de tendencia y comparar modelos.</dd>
-                  </div>
-                  <div>
-                    <dt class="font-semibold uppercase tracking-wider text-amber-700">Evaluación</dt>
-                    <dd class="mt-1">Casos clínicos con outputs de regresión reales.</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="experiencia" class="space-y-10">
-        <div class="mx-auto max-w-2xl text-center">
-          <p class="text-sm uppercase tracking-[0.3em] text-rose-500">Engagement profundo</p>
-          <h2 class="mt-4 text-3xl font-bold text-slate-900">Interacciones que despiertan el pensamiento clínico</h2>
-        </div>
-        <div class="grid gap-8 lg:grid-cols-3">
-          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl bg-white p-8 shadow-xl shadow-rose-100/60">
-            <div>
-              <h3 class="text-2xl font-semibold text-rose-600">Visualizaciones vivas</h3>
-              <p class="mt-3 text-base text-slate-600">
-                Gráficas interactivas creadas con tecnologías modernas convierten cada dataset en un espacio explorable.
-              </p>
-            </div>
-            <ul class="mt-4 space-y-2 text-sm text-slate-600 prose-list">
-              <li>Filtros por subgrupos.</li>
-              <li>Exploración punto a punto.</li>
-              <li>Paletas accesibles y contrastadas.</li>
-            </ul>
-          </article>
-          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl bg-white p-8 shadow-xl shadow-rose-100/60">
-            <div>
-              <h3 class="text-2xl font-semibold text-rose-600">Virtual Data Lab</h3>
-              <p class="mt-3 text-base text-slate-600">
-                Un microsimulador que replica el flujo analítico completo: explorar, elegir la prueba, ejecutar, interpretar.
-              </p>
-            </div>
-            <ul class="mt-4 space-y-2 text-sm text-slate-600 prose-list">
-              <li>Casos clínicos guían la navegación de datos.</li>
-              <li>Retroalimentación guiada en cada decisión.</li>
-              <li>Resultados inmediatos listos para discusión en equipo.</li>
-            </ul>
-          </article>
-          <article class="flex h-full flex-col justify-between gap-4 rounded-3xl bg-white p-8 shadow-xl shadow-rose-100/60">
-            <div>
-              <h3 class="text-2xl font-semibold text-rose-600">Tutoría impulsada por IA</h3>
-              <p class="mt-3 text-base text-slate-600">
-                Un asistente socrático que cuestiona, sugiere y refuerza la comprensión sin revelar la respuesta completa.
-              </p>
-            </div>
-            <ul class="mt-4 space-y-2 text-sm text-slate-600 prose-list">
-              <li>Dialoga sobre la elección de métodos.</li>
-              <li>Detecta malinterpretaciones frecuentes.</li>
-              <li>Sugiere recursos de refuerzo.</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section id="accesibilidad" class="grid gap-10 lg:grid-cols-2">
-        <div class="rounded-3xl bg-slate-900 p-8 text-slate-100 shadow-2xl">
-          <p class="text-xs uppercase tracking-[0.4em] text-teal-300">Experiencia universal</p>
-          <h2 class="mt-4 text-3xl font-semibold">Principios de diseño</h2>
-          <ul class="mt-6 space-y-4 text-sm leading-relaxed text-slate-200 prose-list">
-            <li>Diseño claro, tipografía legible y ritmo visual que reduce carga cognitiva.</li>
-            <li>Experiencia totalmente adaptable de escritorio a móvil para jornadas clínicas intensas.</li>
-            <li>Auditorías WCAG 2.1 AA con foco en contraste, navegación por teclado y equivalentes textuales.</li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-slate-300 bg-white p-8 shadow-xl">
-          <p class="text-xs uppercase tracking-[0.4em] text-slate-500">Checklist WCAG 2.1 AA</p>
-          <h2 class="mt-4 text-2xl font-semibold text-slate-900">Implementación práctica</h2>
-          <ul class="mt-6 space-y-3 text-sm text-slate-600 prose-list">
-            <li>Alt text narrativo para imágenes y gráficos.</li>
-            <li>Controles y simulaciones accesibles con teclado y lector de pantalla.</li>
-            <li>Capacidades multimedia subtituladas y descriptivas.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="implementacion" class="space-y-10">
-        <div class="mx-auto max-w-2xl text-center">
-          <p class="text-sm uppercase tracking-[0.3em] text-sky-500">Hoja de ruta</p>
-          <h2 class="mt-4 text-3xl font-bold text-slate-900">Del concepto al lanzamiento</h2>
-          <p class="mt-4 text-base text-slate-600">
-            Un plan escalonado para transformar la visión en un recurso vivo que evoluciona con la comunidad médica.
-          </p>
-        </div>
-        <div class="grid gap-6 lg:grid-cols-3">
-          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-sky-600/10 via-white to-white p-8 shadow-xl">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-widest text-sky-500">1-2 meses</p>
-              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Fase 1 · Fundamentos</h3>
-            </div>
-            <p class="text-sm leading-relaxed text-slate-600">
-              Definición curricular detallada, wireframes de alta fidelidad y prototipo del módulo Fundamentos con PICO Builder.
-            </p>
-          </article>
-          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-sky-600/10 via-white to-white p-8 shadow-xl">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-widest text-sky-500">3-4 meses</p>
-              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Fase 2 · Núcleo interactivo</h3>
-            </div>
-            <p class="text-sm leading-relaxed text-slate-600">
-              Desarrollo de módulos 2-4, primeras versiones de visualizaciones y lanzamiento beta del Virtual Data Lab.
-            </p>
-          </article>
-          <article class="flex h-full flex-col gap-4 rounded-3xl bg-gradient-to-br from-sky-600/10 via-white to-white p-8 shadow-xl">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-widest text-sky-500">2-3 meses</p>
-              <h3 class="mt-2 text-2xl font-semibold text-slate-900">Fase 3 · Lanzamiento y expansión</h3>
-            </div>
-            <p class="text-sm leading-relaxed text-slate-600">
-              Iteraciones guiadas por usuarios, ampliación del laboratorio con nuevos casos y auditoría de accesibilidad previa al despliegue público.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="rounded-3xl bg-gradient-to-r from-teal-500 via-indigo-500 to-sky-600 p-10 text-slate-50 shadow-2xl">
-        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div class="max-w-2xl space-y-4">
-            <h2 class="text-3xl font-bold">Próximo paso: construir el prototipo vivo</h2>
-            <p class="text-base text-slate-100/90">
-              Este blueprint reorganiza el contenido para que cualquier colaborador comprenda de un vistazo la identidad, la pedagogía y el camino de implementación. Actúa como brújula para diseñadores, desarrolladores e instructores.
-            </p>
-          </div>
-          <a
-            class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-semibold text-slate-900 shadow-lg transition-transform duration-300 hover:-translate-y-0.5"
-            href="#vision"
-          >
-            Revisar los pilares clave
-          </a>
         </div>
       </section>
     </main>
 
-    <footer class="border-t border-slate-200 bg-white/60 py-6">
-      <div class="container mx-auto px-4 text-center text-sm text-slate-500">
-        © <span id="year"></span> Powersemiotics · Estadísticos Descubiertos
+    <footer class="border-t border-slate-200 bg-slate-900 py-10 text-slate-200">
+      <div class="container mx-auto flex flex-col gap-4 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+        <p class="text-sm">© Powersemiotics · Estadísticos Descubiertos. Aprende a leer los datos como símbolos clínicos.</p>
+        <nav class="flex flex-wrap gap-3 text-xs uppercase tracking-[0.25em] text-slate-400">
+          <a class="hover:text-white" href="#introduccion">Introducción</a>
+          <a class="hover:text-white" href="#laboratorio">Laboratorio</a>
+          <a class="hover:text-white" href="#modulo1">Módulos</a>
+          <a class="hover:text-white" href="#recursos">Recursos</a>
+        </nav>
       </div>
     </footer>
-
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
   </body>
 </html>
