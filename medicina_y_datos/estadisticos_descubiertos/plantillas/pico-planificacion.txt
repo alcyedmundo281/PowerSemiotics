@@ -1,0 +1,13 @@
+Población (P):
+Intervención (I):
+Comparador (C):
+Outcome (O):
+
+Variables clave:
+- Edad (numérica, independiente)
+- Zona (categoría, modificadora)
+- Presión sistólica (numérica, dependiente)
+
+Notas clínicas iniciales:
+-
+-
