@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { chimborazoDataset, chimborazoDatasetAssets } from '../data/chimborazoDataset';
 import { chimborazoDataset } from '../data/chimborazoDataset';
 
 interface ModalProps {
@@ -7,6 +8,8 @@ interface ModalProps {
 }
 
 const GoogleSheetModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+    const googleSheetEmbedUrl = chimborazoDatasetAssets.html();
+    const googleSheetDownloadUrl = chimborazoDatasetAssets.csv();
     const googleSheetEmbedUrl = `${import.meta.env.BASE_URL}muestra-base-datos-anonimizada-chimborazo.html`;
     const googleSheetDownloadUrl = `${import.meta.env.BASE_URL}muestra-base-datos-anonimizada-chimborazo.csv`;
 

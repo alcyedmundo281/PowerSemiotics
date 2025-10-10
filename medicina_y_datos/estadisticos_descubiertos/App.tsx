@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Header from './components/Header';
 import Introduction from './components/Introduction';
 import DatasetAccessSection from './components/DatasetAccessSection';
@@ -21,6 +21,14 @@ const App: React.FC = () => {
 
     const closeModal = useCallback(() => {
         setActiveModal(null);
+    }, []);
+
+    useEffect(() => {
+        const fallbackSection = document.getElementById('dataset-fallback');
+
+        if (fallbackSection) {
+            fallbackSection.remove();
+        }
     }, []);
 
     return (

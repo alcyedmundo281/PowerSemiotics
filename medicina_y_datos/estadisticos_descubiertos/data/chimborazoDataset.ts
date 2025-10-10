@@ -8,6 +8,24 @@ export type Registro = {
     zona: 'Rural' | 'Urbano';
 };
 
+const chimborazoDatasetAssetFilenames = {
+    html: 'muestra-base-datos-anonimizada-chimborazo.html',
+    csv: 'muestra-base-datos-anonimizada-chimborazo.csv',
+} as const;
+
+const resolveDatasetAssetUrl = (filename: string) => {
+    if (typeof window === 'undefined') {
+        return `./${filename}`;
+    }
+
+    return new URL(filename, window.location.href).toString();
+};
+
+export const chimborazoDatasetAssets = {
+    html: () => resolveDatasetAssetUrl(chimborazoDatasetAssetFilenames.html),
+    csv: () => resolveDatasetAssetUrl(chimborazoDatasetAssetFilenames.csv),
+};
+
 export const chimborazoDataset: Registro[] = [
     { id: 'CH-001', edad: 68, genero: 'Masculino', hipertension: 'Sí', diabetes: 'No', obesidad: 'No', zona: 'Rural' },
     { id: 'CH-002', edad: 45, genero: 'Femenino', hipertension: 'No', diabetes: 'Sí', obesidad: 'Sí', zona: 'Rural' },

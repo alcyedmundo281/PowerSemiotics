@@ -1,4 +1,9 @@
 import React from 'react';
+import { chimborazoDataset, chimborazoDatasetAssets } from '../data/chimborazoDataset';
+
+const DatasetAccessSection: React.FC = () => {
+    const googleSheetEmbedUrl = chimborazoDatasetAssets.html();
+    const googleSheetDownloadUrl = chimborazoDatasetAssets.csv();
 import { chimborazoDataset } from '../data/chimborazoDataset';
 
 const DatasetAccessSection: React.FC = () => {
