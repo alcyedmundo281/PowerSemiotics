@@ -6,6 +6,7 @@ const port = process.env.PORT || 8080;
 const baseDir = path.resolve(__dirname);
 
 const server = http.createServer((req, res) => {
+  console.log(`Request for ${req.url}`);
   let requestedPath = req.url;
   if (requestedPath === '/') {
     requestedPath = '/index.html';
