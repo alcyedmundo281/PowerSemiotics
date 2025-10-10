@@ -1,14 +1,16 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Header from './components/Header';
 import Introduction from './components/Introduction';
+import DatasetAccessSection from './components/DatasetAccessSection';
 import TaskCard from './components/TaskCard';
 import MisionModal from './components/MisionModal';
 import CalculadoraModal from './components/CalculadoraModal';
 import SesgoModal from './components/SesgoModal';
 import RecursosModal from './components/RecursosModal';
+import GoogleSheetModal from './components/GoogleSheetModal';
 
-type ModalType = 'mision' | 'calculadora' | 'sesgo' | 'recursos' | null;
+type ModalType = 'mision' | 'calculadora' | 'sesgo' | 'recursos' | 'googleSheet' | null;
 
 const App: React.FC = () => {
     const [activeModal, setActiveModal] = useState<ModalType>(null);
@@ -21,11 +23,20 @@ const App: React.FC = () => {
         setActiveModal(null);
     }, []);
 
+    useEffect(() => {
+        const fallbackSection = document.getElementById('dataset-fallback');
+
+        if (fallbackSection) {
+            fallbackSection.remove();
+        }
+    }, []);
+
     return (
         <>
             <Header />
             <main className="container mx-auto px-6 py-8">
                 <Introduction />
+                <DatasetAccessSection />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <TaskCard
                         icon="🎯"
@@ -34,6 +45,14 @@ const App: React.FC = () => {
                         buttonText="Iniciar Misión"
                         colorTheme="teal"
                         onButtonClick={() => openModal('mision')}
+                    />
+                    <TaskCard
+                        icon="📊"
+                        title="Base de Datos: Chimborazo"
+                        description="Consulta, descarga y explora la hoja de cálculo con la muestra de registros anonimizados utilizada en la misión."
+                        buttonText="Abrir Base de Datos"
+                        colorTheme="emerald"
+                        onButtonClick={() => openModal('googleSheet')}
                     />
                     <TaskCard
                         icon="💡"
@@ -63,6 +82,7 @@ const App: React.FC = () => {
             </main>
 
             <MisionModal isOpen={activeModal === 'mision'} onClose={closeModal} />
+            <GoogleSheetModal isOpen={activeModal === 'googleSheet'} onClose={closeModal} />
             <CalculadoraModal isOpen={activeModal === 'calculadora'} onClose={closeModal} />
             <SesgoModal isOpen={activeModal === 'sesgo'} onClose={closeModal} />
             <RecursosModal isOpen={activeModal === 'recursos'} onClose={closeModal} />
