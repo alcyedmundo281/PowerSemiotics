@@ -4,6 +4,11 @@ import { chimborazoDataset, chimborazoDatasetAssets } from '../data/chimborazoDa
 const DatasetAccessSection: React.FC = () => {
     const googleSheetEmbedUrl = chimborazoDatasetAssets.html();
     const googleSheetDownloadUrl = chimborazoDatasetAssets.csv();
+import { chimborazoDataset } from '../data/chimborazoDataset';
+
+const DatasetAccessSection: React.FC = () => {
+    const googleSheetEmbedUrl = `${import.meta.env.BASE_URL}muestra-base-datos-anonimizada-chimborazo.html`;
+    const googleSheetDownloadUrl = `${import.meta.env.BASE_URL}muestra-base-datos-anonimizada-chimborazo.csv`;
 
     return (
         <section className="bg-white rounded-2xl shadow-xl border border-emerald-100 px-8 py-10 mb-12" id="base-datos-chimborazo">
