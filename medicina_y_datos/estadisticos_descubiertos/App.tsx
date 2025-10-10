@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from './components/Header';
 import Introduction from './components/Introduction';
-import ResourceCenter from './components/ResourceCenter';
 
 const visionPillars = [
     {
@@ -155,45 +154,6 @@ const implementationPhases = [
         phase: 'Fase 3 · Lanzamiento y expansión',
         duration: '2-3 meses',
         focus: 'Iteraciones guiadas por usuarios, ampliación del laboratorio con nuevos casos y auditoría de accesibilidad previa al despliegue público.'
-    }
-] as const;
-
-const resourceLibrary = [
-    {
-        title: 'Recorre el blueprint completo',
-        description:
-            'Utiliza el menú de navegación superior para saltar entre la visión estratégica, la pedagogía, el currículo y la implementación.',
-        href: '#vision',
-        cta: 'Iniciar recorrido'
-    },
-    {
-        title: 'Hoja publicada del caso Chimborazo',
-        description:
-            'Abre la versión en línea de la muestra anonimizada para explorarla sin salir del navegador y compartirla con tu equipo.',
-        href: './muestra-base-datos-anonimizada-chimborazo.html',
-        cta: 'Abrir hoja',
-        external: true
-    },
-    {
-        title: 'Dataset anonimizado (CSV)',
-        description:
-            'Descarga el archivo en formato CSV para trabajar localmente con tus herramientas estadísticas preferidas.',
-        href: './muestra-base-datos-anonimizada-chimborazo.csv',
-        cta: 'Descargar CSV'
-    },
-    {
-        title: 'Metadata del proyecto',
-        description:
-            'Consulta el archivo JSON con información estructurada sobre los módulos, autores y la taxonomía del blueprint.',
-        href: './metadata.json',
-        cta: 'Ver metadata'
-    },
-    {
-        title: 'Guía de ejecución local (README)',
-        description:
-            'Sigue los pasos para instalar dependencias, configurar la clave de API opcional y levantar la aplicación con Vite.',
-        href: './README.md',
-        cta: 'Leer README'
     }
 ] as const;
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const navigation = [
-    { label: 'Recursos', href: '#recursos' },
     { label: 'Visión', href: '#vision' },
     { label: 'Pedagogía', href: '#pedagogia' },
     { label: 'Currículo', href: '#curriculo' },
