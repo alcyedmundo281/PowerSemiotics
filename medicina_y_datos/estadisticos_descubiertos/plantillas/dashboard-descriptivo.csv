@@ -1,0 +1,10 @@
+Hoja,Elemento,Detalle
+Resumen,"N",""
+Resumen,"Promedio PAS",""
+Resumen,"Mediana PAS",""
+Resumen,"IQR PAS",""
+Resumen,"Zona Rural - Factores de riesgo",""
+Resumen,"Zona Urbana - Factores de riesgo",""
+Visualizaciones,"Histograma PAS","bins=10"
+Visualizaciones,"Boxplot PAS por zona",""
+Visualizaciones,"Barras apiladas por factor de riesgo",""
