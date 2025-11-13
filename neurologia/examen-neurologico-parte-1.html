@@ -21,6 +21,105 @@
         color: white;
         box-shadow: 0 10px 25px -15px rgba(79, 70, 229, 0.8);
       }
+      .cranial-map {
+        position: relative;
+        border-radius: 1.75rem;
+        border: 1px solid rgba(79, 70, 229, 0.25);
+        background: radial-gradient(circle at 25% 20%, rgba(129, 140, 248, 0.35), transparent 55%),
+          radial-gradient(circle at 75% 85%, rgba(14, 165, 233, 0.25), transparent 60%),
+          linear-gradient(160deg, rgba(15, 23, 42, 0.92), rgba(30, 64, 175, 0.85));
+        min-height: 520px;
+        padding: 3rem 2rem;
+        overflow: hidden;
+        box-shadow: 0 25px 60px -35px rgba(15, 23, 42, 0.7);
+      }
+      .cranial-map::before {
+        content: "";
+        position: absolute;
+        inset: 12% 35% 12% 35%;
+        background: radial-gradient(circle at 30% 25%, rgba(203, 213, 225, 0.9), rgba(148, 163, 184, 0.3));
+        border-radius: 60% 50% 45% 55% / 70% 70% 30% 30%;
+        filter: blur(0.5px);
+        opacity: 0.6;
+      }
+      .nerve-node {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        text-align: left;
+        max-width: 220px;
+      }
+      .nerve-pin {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.25rem;
+        height: 3.25rem;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: linear-gradient(160deg, rgba(99, 102, 241, 0.9), rgba(6, 182, 212, 0.9));
+        color: white;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        box-shadow: 0 15px 35px -20px rgba(14, 165, 233, 0.9);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .nerve-node:hover .nerve-pin,
+      .nerve-node:focus-within .nerve-pin {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 25px 45px -25px rgba(14, 165, 233, 0.9);
+      }
+      .nerve-tooltip {
+        position: relative;
+        border-radius: 1.25rem;
+        background: rgba(15, 23, 42, 0.9);
+        padding: 1.1rem 1.2rem;
+        color: #f8fafc;
+        font-size: 0.85rem;
+        line-height: 1.45;
+        box-shadow: 0 18px 40px -32px rgba(148, 163, 184, 0.7);
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        pointer-events: none;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+      }
+      .nerve-tooltip h4 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 0.45rem;
+      }
+      .nerve-tooltip p + p {
+        margin-top: 0.35rem;
+      }
+      .nerve-node:hover .nerve-tooltip,
+      .nerve-node:focus-within .nerve-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      @media (max-width: 768px) {
+        .cranial-map {
+          padding: 2.5rem 1.5rem 12rem;
+        }
+        .cranial-map::before {
+          inset: 30% 30% 20% 30%;
+        }
+        .nerve-node {
+          position: static;
+          max-width: none;
+          align-items: flex-start;
+          margin-bottom: 1.5rem;
+        }
+        .nerve-tooltip {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
+          width: 100%;
+        }
+      }
     </style>
   </head>
   <body class="bg-slate-100 text-slate-800 font-sans">
@@ -71,10 +170,40 @@
                   Algoritmo de aproximación
                 </span>
               </a>
+              <a href="#puntos-clave" class="nav-link">
+                <span class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50">
+                  <i class="fas fa-star-of-life text-indigo-500"></i>
+                  Puntos clave
+                </span>
+              </a>
               <a href="#componentes" class="nav-link">
                 <span class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50">
                   <i class="fas fa-stethoscope text-indigo-500"></i>
                   Componentes esenciales
+                </span>
+              </a>
+              <a href="#mapa-nervios" class="nav-link">
+                <span class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50">
+                  <i class="fas fa-diagram-project text-indigo-500"></i>
+                  Mapa de nervios craneales
+                </span>
+              </a>
+              <a href="#checklist" class="nav-link">
+                <span class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50">
+                  <i class="fas fa-clipboard-list text-indigo-500"></i>
+                  Guía de práctica
+                </span>
+              </a>
+              <a href="#rubrica" class="nav-link">
+                <span class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50">
+                  <i class="fas fa-ranking-star text-indigo-500"></i>
+                  Rúbrica formativa
+                </span>
+              </a>
+              <a href="#guia-estudio" class="nav-link">
+                <span class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50">
+                  <i class="fas fa-book-open text-indigo-500"></i>
+                  Guía de estudio
                 </span>
               </a>
               <a href="#perlas" class="nav-link">
@@ -218,6 +347,271 @@
             </div>
           </section>
 
+          <section id="puntos-clave" class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-12">
+            <div class="lg:flex lg:items-start lg:justify-between gap-10">
+              <div class="lg:w-2/3 space-y-4">
+                <p class="text-sm font-semibold uppercase tracking-[0.4em] text-indigo-500">Puntos clave</p>
+                <h2 class="text-3xl font-bold text-slate-900 leading-tight">
+                  Organización funcional, estado mental y pares craneales I-VI.
+                </h2>
+                <p class="text-base text-slate-600 leading-relaxed">
+                  Esta síntesis condensa los elementos imprescindibles para ubicar una lesión y comunicar hallazgos siguiendo las recomendaciones de UpToDate y guías docentes actuales.
+                </p>
+              </div>
+              <div class="lg:w-1/3 bg-gradient-to-br from-indigo-500 via-sky-500 to-cyan-500 text-white rounded-3xl p-6 shadow-lg">
+                <h3 class="text-lg font-semibold">Resumen de la semana</h3>
+                <ul class="mt-4 space-y-3 text-sm text-white/90">
+                  <li class="flex gap-3"><i class="fas fa-brain mt-1"></i><span>Relaciona dominios cognitivos con vías neuroanatómicas.</span></li>
+                  <li class="flex gap-3"><i class="fas fa-eye mt-1"></i><span>Integra AV, campos, pupilas y fondo de ojo para localizar lesiones pre y postquiasmáticas.</span></li>
+                  <li class="flex gap-3"><i class="fas fa-user-nurse mt-1"></i><span>Practica checklist secuencial en voluntario o simulador con retroalimentación inmediata.</span></li>
+                </ul>
+                <div class="mt-5 border-t border-white/30 pt-4 text-sm text-white/80">
+                  <h4 class="text-xs uppercase tracking-[0.3em] text-white/70">Próximos pasos</h4>
+                  <p class="mt-2">Registrar hallazgos con terminología precisa, preparar casos para discusión y avanzar a Parte 2 (motor y cerebelo).</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+              <article class="border border-slate-200 rounded-3xl p-6 bg-slate-50 space-y-4">
+                <header class="flex items-center gap-3">
+                  <i class="fas fa-network-wired text-indigo-500"></i>
+                  <h3 class="text-lg font-semibold text-slate-900">Organización funcional del SN</h3>
+                </header>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                  Utilice el siguiente esquema para ubicar rápidamente la posible localización anatómica antes de profundizar en exploraciones específicas.
+                </p>
+                <div class="bg-white border border-indigo-100 rounded-2xl p-4">
+                  <svg viewBox="0 0 320 180" class="w-full" role="img" aria-label="Diagrama simple del sistema nervioso central y periférico">
+                    <defs>
+                      <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#6366f1" />
+                        <stop offset="100%" stop-color="#0ea5e9" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="10" y="20" width="140" height="140" rx="16" fill="url(#brainGradient)" opacity="0.85"></rect>
+                    <text x="80" y="45" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="600">SNC</text>
+                    <text x="80" y="70" text-anchor="middle" fill="#e0f2fe" font-size="12">Corteza</text>
+                    <text x="80" y="90" text-anchor="middle" fill="#e0f2fe" font-size="12">Tronco</text>
+                    <text x="80" y="110" text-anchor="middle" fill="#e0f2fe" font-size="12">Cerebelo</text>
+                    <text x="80" y="130" text-anchor="middle" fill="#e0f2fe" font-size="12">Médula</text>
+                    <rect x="170" y="40" width="140" height="100" rx="16" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2"></rect>
+                    <text x="240" y="65" text-anchor="middle" fill="#0369a1" font-size="14" font-weight="600">SNP</text>
+                    <text x="240" y="85" text-anchor="middle" fill="#0f172a" font-size="12">Nervios craneales</text>
+                    <text x="240" y="105" text-anchor="middle" fill="#0f172a" font-size="12">Pares espinales</text>
+                    <text x="240" y="125" text-anchor="middle" fill="#0f172a" font-size="12">Ganglios</text>
+                    <line x1="150" y1="60" x2="170" y2="60" stroke="#0ea5e9" stroke-width="3" stroke-dasharray="6 4" />
+                    <line x1="150" y1="120" x2="170" y2="120" stroke="#0ea5e9" stroke-width="3" stroke-dasharray="6 4" />
+                  </svg>
+                  <p class="mt-4 text-xs text-slate-500 leading-relaxed">
+                    Recuerde que el SNC incluye estructuras supratentoriales e infratentoriales; el SNP integra nervios craneales, plexos y nervios periféricos. Relacionar síntomas con estos bloques acelera la localización.
+                  </p>
+                </div>
+              </article>
+
+              <article class="border border-slate-200 rounded-3xl p-6 bg-white space-y-5">
+                <header class="flex items-center gap-3">
+                  <i class="fas fa-clipboard-check text-indigo-500"></i>
+                  <h3 class="text-lg font-semibold text-slate-900">Estado mental: secuencia recomendada</h3>
+                </header>
+                <div class="text-sm text-slate-600 space-y-4">
+                  <div>
+                    <h4 class="text-sm font-semibold text-slate-900">Componentes clave (UpToDate)</h4>
+                    <ul class="mt-2 space-y-2 list-disc list-inside">
+                      <li>Nivel de conciencia y alerta.</li>
+                      <li>Atención y concentración.</li>
+                      <li>Lenguaje (fluidez, comprensión, repetición, nominación).</li>
+                      <li>Memoria inmediata, reciente y remota.</li>
+                      <li>Funciones ejecutivas y visuoespaciales básicas.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-slate-900">Importancia del orden</h4>
+                    <p>Verifique primero alerta y atención antes de juzgar memoria o lenguaje; un déficit atencional puede simular amnesia o afasia.</p>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-slate-900">Evaluación práctica sugerida</h4>
+                    <ul class="mt-2 space-y-2 list-disc list-inside">
+                      <li>Orientación TPP (tiempo, persona, lugar).</li>
+                      <li>Atención: dígitos directos/inversos, meses al revés.</li>
+                      <li>Memoria: registro y recuerdo de tres palabras.</li>
+                      <li>Lenguaje: nominación de objetos, repetición de frase, comprensión de comando complejo.</li>
+                      <li>Comando motor de varios pasos para integración.</li>
+                    </ul>
+                  </div>
+                  <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50">
+                    <h4 class="text-sm font-semibold text-slate-900">Terminología clave</h4>
+                    <dl class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600">
+                      <div>
+                        <dt class="font-semibold text-slate-800">Confusión</dt>
+                        <dd>Alteración fluctuante de atención y orientación.</dd>
+                      </div>
+                      <div>
+                        <dt class="font-semibold text-slate-800">Delirio</dt>
+                        <dd>Síndrome agudo con alteración de conciencia, atención y percepción.</dd>
+                      </div>
+                      <div>
+                        <dt class="font-semibold text-slate-800">Demencia</dt>
+                        <dd>Declive crónico progresivo de múltiples dominios cognitivos.</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </article>
+
+              <article class="border border-indigo-200 rounded-3xl p-6 bg-indigo-50 space-y-4">
+                <header class="flex items-center gap-3 text-indigo-900">
+                  <i class="fas fa-comments text-indigo-500"></i>
+                  <h3 class="text-lg font-semibold">Introducción a pares craneales</h3>
+                </header>
+                <p class="text-sm text-indigo-900/80 leading-relaxed">
+                  Realice una inspección general antes de pruebas específicas, compare siempre ambos lados y documente hallazgos positivos y negativos relevantes.
+                </p>
+                <ul class="space-y-3 text-sm text-indigo-900/80">
+                  <li class="flex gap-3"><i class="fas fa-nose"></i><span><strong>NC I</strong>: evaluar solo si hay queja de olfato, trauma o enfermedad neurodegenerativa; usar esencias no irritantes.</span></li>
+                  <li class="flex gap-3"><i class="fas fa-eye"></i><span><strong>NC II</strong>: medir agudeza visual con Snellen/Rosenbaum y campos por confrontación en cuatro cuadrantes.</span></li>
+                  <li class="flex gap-3"><i class="fas fa-person-rays"></i><span><strong>NC III, IV, VI</strong>: seguir patrón en H, observar ptosis, preguntar por diplopía y fatiga.</span></li>
+                  <li class="flex gap-3"><i class="fas fa-face-meh"></i><span><strong>NC V</strong>: sensibilidad comparativa en V1-V3, motor masetero y reflejo corneal (aferente V, eferente VII).</span></li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="space-y-10">
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <article class="border border-slate-200 rounded-3xl p-6 bg-white space-y-4">
+                  <header class="flex items-center gap-3">
+                    <i class="fas fa-vial text-indigo-500"></i>
+                    <h3 class="text-lg font-semibold text-slate-900">NC I: protocolo práctico</h3>
+                  </header>
+                  <ul class="text-sm text-slate-600 space-y-3">
+                    <li>Explique el procedimiento, ocluya una narina y presente la esencia con ojos cerrados.</li>
+                    <li>Evite sustancias irritantes; documente percepción vs. identificación.</li>
+                    <li>Anosmia unilateral sugiere lesión del bulbo o fractura de base; bilateral, causas metabólicas o neurodegenerativas.</li>
+                  </ul>
+                </article>
+
+                <article class="border border-slate-200 rounded-3xl p-6 bg-white space-y-5">
+                  <header class="flex items-center gap-3">
+                    <i class="fas fa-eye text-indigo-500"></i>
+                    <h3 class="text-lg font-semibold text-slate-900">NC II: agudeza y campos</h3>
+                  </header>
+                  <div class="space-y-4 text-sm text-slate-600">
+                    <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50">
+                      <h4 class="text-sm font-semibold text-slate-900">Agudeza visual</h4>
+                      <p>Use Snellen (6 m) o Rosenbaum (35 cm); registre como 20/X o 6/X. Permita corrección óptica habitual.</p>
+                    </div>
+                    <div class="border border-slate-200 rounded-2xl p-4">
+                      <h4 class="text-sm font-semibold text-slate-900">Campos visuales por confrontación</h4>
+                      <p class="mt-2">Evalúe cada ojo cubriendo el contralateral; compare detección de dedos/movimiento en cuatro cuadrantes.</p>
+                      <div class="mt-4 bg-slate-50 border border-dashed border-indigo-200 rounded-2xl p-4">
+                        <svg viewBox="0 0 220 120" class="w-full" role="img" aria-label="Diagrama de campos visuales">
+                          <circle cx="110" cy="60" r="52" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2" />
+                          <line x1="110" y1="8" x2="110" y2="112" stroke="#0f172a" stroke-dasharray="6 6" opacity="0.5" />
+                          <line x1="58" y1="60" x2="162" y2="60" stroke="#0f172a" stroke-dasharray="6 6" opacity="0.5" />
+                          <text x="110" y="25" text-anchor="middle" font-size="10" fill="#0f172a">Superior</text>
+                          <text x="110" y="103" text-anchor="middle" font-size="10" fill="#0f172a">Inferior</text>
+                          <text x="72" y="64" text-anchor="middle" font-size="10" fill="#0f172a">Nasal</text>
+                          <text x="148" y="64" text-anchor="middle" font-size="10" fill="#0f172a">Temporal</text>
+                          <text x="110" y="64" text-anchor="middle" font-size="10" fill="#0ea5e9">Fijación</text>
+                        </svg>
+                        <p class="mt-3 text-xs text-slate-500">Defectos homónimos indican lesión retroquiasmática; hemianopsia bitemporal sugiere lesión quiasmática.</p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="border border-slate-200 rounded-3xl p-6 bg-white space-y-5">
+                  <header class="flex items-center gap-3">
+                    <i class="fas fa-camera text-indigo-500"></i>
+                    <h3 class="text-lg font-semibold text-slate-900">NC II: fondo y pupilas</h3>
+                  </header>
+                  <div class="space-y-4 text-sm text-slate-600">
+                    <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50">
+                      <h4 class="text-sm font-semibold text-slate-900">Fondo de ojo (normal)</h4>
+                      <div class="mt-3 flex items-center justify-center">
+                        <div class="h-28 w-28 rounded-full bg-gradient-to-br from-amber-200 via-orange-200 to-rose-200 border-4 border-amber-300 flex items-center justify-center">
+                          <span class="text-xs font-semibold text-amber-900">Papila nítida</span>
+                        </div>
+                      </div>
+                      <p class="mt-3 text-xs">Observar bordes papilares, vasos (calibre, cruces), mácula y presencia de hemorragias o exudados. Papiledema: borramiento del borde, vasos engrosados, elevación.</p>
+                    </div>
+                    <div class="border border-slate-200 rounded-2xl p-4">
+                      <h4 class="text-sm font-semibold text-slate-900">Reflejos pupilares y DPA</h4>
+                      <p class="mt-2">Evalúe reflejo directo y consensual en ambiente tenue. Si sospecha defecto pupilar aferente (DPA), utilice el Swinging Flashlight Test.</p>
+                      <div class="mt-4 bg-slate-50 border border-dashed border-indigo-200 rounded-2xl p-4">
+                        <svg viewBox="0 0 260 120" class="w-full" role="img" aria-label="Diagrama del Swinging Flashlight Test">
+                          <circle cx="70" cy="60" r="32" fill="#0f172a" />
+                          <circle cx="70" cy="60" r="14" fill="#38bdf8" />
+                          <circle cx="190" cy="60" r="32" fill="#0f172a" />
+                          <circle cx="190" cy="60" r="12" fill="#38bdf8" />
+                          <polygon points="120,40 150,60 120,80" fill="#facc15" opacity="0.85" />
+                          <text x="70" y="110" text-anchor="middle" font-size="10" fill="#0f172a">Iluminado</text>
+                          <text x="190" y="110" text-anchor="middle" font-size="10" fill="#0f172a">Contralateral</text>
+                          <text x="135" y="30" text-anchor="middle" font-size="10" fill="#0f172a">Mantener constricción</text>
+                        </svg>
+                        <p class="mt-3 text-xs text-slate-500">Dilatarse al iluminar sugiere DPA y lesión prequiasmática (retina o nervio óptico).</p>
+                      </div>
+                      <p class="mt-3 text-xs text-slate-500">Documente anisocoria (>1 mm) en luz y oscuridad, y correlacione con ptosis/diplopía.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <article class="border border-slate-200 rounded-3xl p-6 bg-white space-y-4">
+                  <header class="flex items-center gap-3">
+                    <i class="fas fa-arrows-to-eye text-indigo-500"></i>
+                    <h3 class="text-lg font-semibold text-slate-900">NC III, IV, VI: músculos e inspección</h3>
+                  </header>
+                  <p class="text-sm text-slate-600">Relacione movimientos con la inervación para interpretar limitaciones.</p>
+                  <div class="bg-slate-50 border border-indigo-100 rounded-2xl p-4">
+                    <svg viewBox="0 0 260 140" class="w-full" role="img" aria-label="Diagrama de músculos extraoculares">
+                      <circle cx="130" cy="70" r="45" fill="#e0f2fe" stroke="#38bdf8" stroke-width="2" />
+                      <text x="130" y="40" text-anchor="middle" font-size="11" fill="#0f172a">Recto superior (III)</text>
+                      <text x="130" y="120" text-anchor="middle" font-size="11" fill="#0f172a">Recto inferior (III)</text>
+                      <text x="70" y="75" text-anchor="middle" font-size="11" fill="#0f172a">Recto medial (III)</text>
+                      <text x="190" y="75" text-anchor="middle" font-size="11" fill="#0f172a">Recto lateral (VI)</text>
+                      <text x="95" y="20" text-anchor="middle" font-size="11" fill="#0f172a">Oblicuo inferior (III)</text>
+                      <text x="165" y="20" text-anchor="middle" font-size="11" fill="#0f172a">Oblicuo superior (IV)</text>
+                    </svg>
+                    <p class="mt-3 text-xs text-slate-500">Ptosis + midriasis sugieren compromiso del III; incapacidad para abducir indica lesión del VI; diplopía vertical que mejora con inclinación contralateral sugiere compromiso del IV.</p>
+                  </div>
+                  <ul class="text-sm text-slate-600 space-y-2">
+                    <li>Inspeccione ptosis, anisocoria, posición en reposo.</li>
+                    <li>Realice seguimiento en H lento, pida reportar diplopía.</li>
+                    <li>Observe nistagmo en mirada extrema y pruebe convergencia.</li>
+                  </ul>
+                  <p class="text-xs text-slate-500">Diferencie parálisis (incapacidad completa) de paresia (limitación parcial) para documentar gravedad.</p>
+                </article>
+
+                <article class="border border-slate-200 rounded-3xl p-6 bg-white space-y-5">
+                  <header class="flex items-center gap-3">
+                    <i class="fas fa-face-smile text-indigo-500"></i>
+                    <h3 class="text-lg font-semibold text-slate-900">NC V: territorio y evaluación</h3>
+                  </header>
+                  <div class="bg-slate-50 border border-indigo-100 rounded-2xl p-4">
+                    <svg viewBox="0 0 220 140" class="w-full" role="img" aria-label="Mapa sensitivo trigeminal">
+                      <path d="M110 10 C150 20 190 70 180 110 C170 150 50 150 40 110 C30 70 70 20 110 10" fill="#ede9fe" stroke="#6366f1" stroke-width="2" />
+                      <path d="M110 12 C135 25 160 60 150 110 C140 150 80 150 70 110 C60 60 85 25 110 12" fill="#c7d2fe" opacity="0.8" />
+                      <text x="110" y="55" text-anchor="middle" font-size="11" fill="#312e81">V1</text>
+                      <text x="140" y="90" text-anchor="middle" font-size="11" fill="#312e81">V2</text>
+                      <text x="95" y="115" text-anchor="middle" font-size="11" fill="#312e81">V3</text>
+                    </svg>
+                    <p class="mt-3 text-xs text-slate-500">Evite el ángulo mandibular (C2-C3). Compare simultáneamente lados y registre alteraciones como hipoestesia o disestesia.</p>
+                  </div>
+                  <ul class="text-sm text-slate-600 space-y-3">
+                    <li>Sensibilidad: toque ligero y pin-prick si está indicado.</li>
+                    <li>Motor: maseteros y temporales al apretar dientes; resistencia a apertura y lateralización.</li>
+                    <li>Reflejo corneal: estimule lateral de la córnea; respuesta aferente V1, eferente VII.</li>
+                  </ul>
+                  <div class="border border-slate-200 rounded-2xl p-4 bg-slate-50 text-xs text-slate-500">
+                    <strong>Localización básica:</strong> DPA → lesión prequiasmática; ptosis + pupila dilatada → III; hipoestesia facial + déficit motor → lesión del tronco o ápex petroso.
+                  </div>
+                </article>
+              </div>
+            </div>
+          </section>
+
           <section id="componentes" class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-10">
             <div class="flex flex-col lg:flex-row gap-10">
               <div class="lg:w-1/3">
@@ -325,6 +719,375 @@
             </div>
           </section>
 
+          <section id="mapa-nervios" class="bg-slate-900 text-slate-100 border border-indigo-400/30 rounded-3xl shadow-lg p-8 lg:p-12 space-y-12">
+            <div class="flex flex-col lg:flex-row gap-10">
+              <div class="lg:w-2/5 space-y-5">
+                <p class="text-sm font-semibold uppercase tracking-[0.4em] text-sky-300">Nervios craneales</p>
+                <h2 class="text-3xl font-bold leading-tight">Mapa interactivo de funciones y pruebas rápidas.</h2>
+                <p class="text-base text-slate-200/80 leading-relaxed">
+                  Desplácese por cada marcador numerado para revisar qué evalúa cada par craneal y cómo comprobarlo junto a la persona paciente.
+                  En pantallas táctiles, los recuadros se muestran automáticamente para facilitar su consulta.
+                </p>
+                <ul class="space-y-3 text-sm text-slate-200/70">
+                  <li class="flex gap-3"><i class="fas fa-bolt text-amber-300 mt-1"></i><span>Priorice los pares vinculados al motivo de consulta (visión, disartria, disfonía) y documente la lateralidad.</span></li>
+                  <li class="flex gap-3"><i class="fas fa-circle-nodes text-sky-300 mt-1"></i><span>Combine pruebas motoras y sensitivas cuando el hallazgo pueda localizar lesión nuclear vs. periférica.</span></li>
+                  <li class="flex gap-3"><i class="fas fa-clipboard-check text-emerald-300 mt-1"></i><span>Integre los hallazgos con el estado mental y la marcha para definir siguientes estudios.</span></li>
+                </ul>
+              </div>
+              <div class="lg:w-3/5 w-full">
+                <div class="cranial-map">
+                  <div class="nerve-node group" style="top:6%; left:22%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-i">I</button>
+                    <div class="nerve-tooltip" id="nerve-i">
+                      <h4>I. Olfatorio</h4>
+                      <p><strong>Función:</strong> Olfacción bilateral.</p>
+                      <p><strong>Prueba:</strong> Identificar olores familiares (café, jabón) ocluyendo una fosa cada vez.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:14%; right:14%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-ii">II</button>
+                    <div class="nerve-tooltip" id="nerve-ii">
+                      <h4>II. Óptico</h4>
+                      <p><strong>Función:</strong> Agudeza y campos visuales.</p>
+                      <p><strong>Prueba:</strong> Campos por confrontación y lectura de caracteres impresos o tarjeta de Snellen.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:27%; right:10%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-iii">III</button>
+                    <div class="nerve-tooltip" id="nerve-iii">
+                      <h4>III. Oculomotor</h4>
+                      <p><strong>Función:</strong> Elevación palpebral, movimientos verticales y mediales, reflejo fotomotor.</p>
+                      <p><strong>Prueba:</strong> Evaluar tamaño y reactividad pupilar y seguimiento vertical en "H".</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:35%; left:16%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-iv">IV</button>
+                    <div class="nerve-tooltip" id="nerve-iv">
+                      <h4>IV. Troclear</h4>
+                      <p><strong>Función:</strong> Depresión ocular en aducción (oblicuo superior).</p>
+                      <p><strong>Prueba:</strong> Pida mirada hacia abajo y adentro buscando diplopía o limitación.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:42%; right:6%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-v">V</button>
+                    <div class="nerve-tooltip" id="nerve-v">
+                      <h4>V. Trigémino</h4>
+                      <p><strong>Función:</strong> Sensibilidad facial y musculatura masticatoria.</p>
+                      <p><strong>Prueba:</strong> Tocar con algodón en V1-V3 y valorar fuerza del masetero mientras muerde.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:48%; left:10%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-vi">VI</button>
+                    <div class="nerve-tooltip" id="nerve-vi">
+                      <h4>VI. Abducens</h4>
+                      <p><strong>Función:</strong> Abducción ocular (recto lateral).</p>
+                      <p><strong>Prueba:</strong> Seguimiento horizontal verificando abducción completa y ausencia de diplopía.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:58%; right:16%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-vii">VII</button>
+                    <div class="nerve-tooltip" id="nerve-vii">
+                      <h4>VII. Facial</h4>
+                      <p><strong>Función:</strong> Mímica facial, gusto 2/3 anteriores y lagrimación.</p>
+                      <p><strong>Prueba:</strong> Solicite sonrisa, elevación de cejas y cierre ocular contra resistencia.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:66%; left:18%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-viii">VIII</button>
+                    <div class="nerve-tooltip" id="nerve-viii">
+                      <h4>VIII. Vestibulococlear</h4>
+                      <p><strong>Función:</strong> Audición y equilibrio.</p>
+                      <p><strong>Prueba:</strong> Prueba de susurro y maniobras de Rinne/Weber si se sospecha hipoacusia.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:72%; right:12%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-ix">IX</button>
+                    <div class="nerve-tooltip" id="nerve-ix">
+                      <h4>IX. Glosofaríngeo</h4>
+                      <p><strong>Función:</strong> Sensibilidad faríngea y reflejo nauseoso.</p>
+                      <p><strong>Prueba:</strong> Tocar pared faríngea lateral y valorar gusto posterior si es pertinente.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:78%; left:30%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-x">X</button>
+                    <div class="nerve-tooltip" id="nerve-x">
+                      <h4>X. Vago</h4>
+                      <p><strong>Función:</strong> Elevación del paladar, voz y control laríngeo.</p>
+                      <p><strong>Prueba:</strong> Pida decir "ah" y observe elevación simétrica del paladar y timbre vocal.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:84%; right:22%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-xi">XI</button>
+                    <div class="nerve-tooltip" id="nerve-xi">
+                      <h4>XI. Accesorio</h4>
+                      <p><strong>Función:</strong> Fuerza de esternocleidomastoideo y trapecio.</p>
+                      <p><strong>Prueba:</strong> Elevar hombros y rotar cabeza contra resistencia del examinador.</p>
+                    </div>
+                  </div>
+                  <div class="nerve-node group" style="top:90%; left:46%;">
+                    <button type="button" class="nerve-pin" aria-describedby="nerve-xii">XII</button>
+                    <div class="nerve-tooltip" id="nerve-xii">
+                      <h4>XII. Hipogloso</h4>
+                      <p><strong>Función:</strong> Movilidad lingual intrínseca y extrínseca.</p>
+                      <p><strong>Prueba:</strong> Pedir protruir la lengua, observar desviación o fasciculaciones.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="checklist" class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-8">
+            <div class="flex flex-col lg:flex-row lg:items-start gap-8">
+              <div class="lg:w-1/2 space-y-3">
+                <p class="text-sm font-semibold uppercase tracking-[0.4em] text-indigo-500">Guía práctica</p>
+                <h2 class="text-3xl font-bold text-slate-900">Checklist para demostración guiada y práctica independiente</h2>
+                <p class="text-base text-slate-600 leading-relaxed">
+                  Utilice esta tabla para estructurar la enseñanza en vivo y asegurar que cada estudiante practique los pasos esenciales del estado mental y los pares craneales I-VI.
+                </p>
+              </div>
+              <div class="lg:w-1/2 bg-indigo-50 border border-indigo-200 rounded-3xl p-6 text-sm text-indigo-900/80 space-y-3">
+                <h3 class="text-lg font-semibold text-indigo-900 flex items-center gap-3"><i class="fas fa-person-chalkboard"></i>Consejos docentes</h3>
+                <p>Asigne roles (examinador, paciente, observador), cronometre cada bloque y rote hasta completar la secuencia completa.</p>
+                <p>Documente hallazgos en tiempo real en una ficha compartida para reforzar comunicación clínica.</p>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-slate-200 text-sm text-slate-700">
+                <thead class="bg-slate-50 text-slate-500 uppercase text-xs tracking-widest">
+                  <tr>
+                    <th scope="col" class="px-4 py-3 text-left">Componente</th>
+                    <th scope="col" class="px-4 py-3 text-left">Paso específico</th>
+                    <th scope="col" class="px-4 py-3 text-left">Hallazgo normal esperado</th>
+                    <th scope="col" class="px-4 py-3 text-left">Notas / Observaciones</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Estado mental</td>
+                    <td class="px-4 py-3">1. Nivel de conciencia</td>
+                    <td class="px-4 py-3">Alerta, responde coherentemente.</td>
+                    <td class="px-4 py-3">Observar durante toda la interacción.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Estado mental</td>
+                    <td class="px-4 py-3">2. Orientación (Tiempo, Persona, Lugar)</td>
+                    <td class="px-4 py-3">Responde correctamente a las 3 esferas.</td>
+                    <td class="px-4 py-3">Preguntar fecha, nombre y ubicación actual.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Estado mental</td>
+                    <td class="px-4 py-3">3. Atención (series / deletreo)</td>
+                    <td class="px-4 py-3">Completa serie 100-7 o deletrea "MUNDO" al revés sin errores significativos.</td>
+                    <td class="px-4 py-3">Valorar esfuerzo, distracciones y autocorrecciones.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Estado mental</td>
+                    <td class="px-4 py-3">4. Memoria inmediata</td>
+                    <td class="px-4 py-3">Repite 3 palabras inmediatamente.</td>
+                    <td class="px-4 py-3">Utilizar palabras no relacionadas (ej. casa, lago, perro).</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Estado mental</td>
+                    <td class="px-4 py-3">5. Memoria reciente</td>
+                    <td class="px-4 py-3">Recuerda las 3 palabras tras 3-5 minutos.</td>
+                    <td class="px-4 py-3">Preguntar al finalizar otras pruebas.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Estado mental</td>
+                    <td class="px-4 py-3">6. Lenguaje (comprensión)</td>
+                    <td class="px-4 py-3">Sigue un comando complejo de 2-3 pasos.</td>
+                    <td class="px-4 py-3">Ejemplo: "Tome este papel, dóblelo y colóquelo en el suelo".</td>
+                  </tr>
+                  <tr class="bg-slate-50">
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC I (Olfatorio)</td>
+                    <td class="px-4 py-3">1. Evaluar cada fosa con esencia no irritante</td>
+                    <td class="px-4 py-3">Detecta/identifica olor bilateralmente.</td>
+                    <td class="px-4 py-3">Usar café o menta; evitar alcohol.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC II (Óptico)</td>
+                    <td class="px-4 py-3">1. Agudeza visual (ojo por ojo)</td>
+                    <td class="px-4 py-3">Lee línea acorde a edad/corrección (20/20 aprox.).</td>
+                    <td class="px-4 py-3">Registrar con corrección habitual.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC II (Óptico)</td>
+                    <td class="px-4 py-3">2. Campos visuales por confrontación</td>
+                    <td class="px-4 py-3">Detecta estímulos en cuatro cuadrantes.</td>
+                    <td class="px-4 py-3">Paciente fija la mirada en la nariz del examinador.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC II (Óptico)</td>
+                    <td class="px-4 py-3">3. Reflejo fotomotor directo y consensual</td>
+                    <td class="px-4 py-3">Constricción rápida y simétrica.</td>
+                    <td class="px-4 py-3">Ambiente tenue; registrar anisocoria.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC II (Óptico)</td>
+                    <td class="px-4 py-3">4. Swinging flashlight test</td>
+                    <td class="px-4 py-3">Mantiene constricción al alternar luz.</td>
+                    <td class="px-4 py-3">Identificar defecto pupilar aferente.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC II (Óptico)</td>
+                    <td class="px-4 py-3">5. Fondo de ojo</td>
+                    <td class="px-4 py-3">Papila nítida, vasos normales, mácula conservada.</td>
+                    <td class="px-4 py-3">Simular si no hay oftalmoscopio real.</td>
+                  </tr>
+                  <tr class="bg-slate-50">
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC III, IV, VI</td>
+                    <td class="px-4 py-3">1. Inspección de párpados y posición</td>
+                    <td class="px-4 py-3">Sin ptosis, ojos alineados.</td>
+                    <td class="px-4 py-3">Documentar anisocoria o desviación.</td>
+                  </tr>
+                  <tr class="bg-slate-50">
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC III, IV, VI</td>
+                    <td class="px-4 py-3">2. Seguimiento en H</td>
+                    <td class="px-4 py-3">Movimientos completos sin diplopía.</td>
+                    <td class="px-4 py-3">Preguntar síntomas en cada dirección.</td>
+                  </tr>
+                  <tr class="bg-slate-50">
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC III, IV, VI</td>
+                    <td class="px-4 py-3">3. Convergencia</td>
+                    <td class="px-4 py-3">Convergencia simétrica.</td>
+                    <td class="px-4 py-3">Objeto a 5-7 cm de la nariz.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC V (Trigémino)</td>
+                    <td class="px-4 py-3">1. Sensibilidad táctil V1-V3 bilateral</td>
+                    <td class="px-4 py-3">Percibe igual ambos lados.</td>
+                    <td class="px-4 py-3">Usar algodón o dedo; comparar simultáneo.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC V (Trigémino)</td>
+                    <td class="px-4 py-3">2. Motor: maseteros/temporales</td>
+                    <td class="px-4 py-3">Contracción fuerte y simétrica.</td>
+                    <td class="px-4 py-3">Palpar durante apertura/cierre.</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">NC V (Trigémino)</td>
+                    <td class="px-4 py-3">3. Reflejo corneal</td>
+                    <td class="px-4 py-3">Parpadeo bilateral.</td>
+                    <td class="px-4 py-3">Estímulo lateral con algodón fino.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="rubrica" class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-8">
+            <div class="space-y-4">
+              <p class="text-sm font-semibold uppercase tracking-[0.4em] text-indigo-500">Evaluación formativa</p>
+              <h2 class="text-3xl font-bold text-slate-900">Rúbrica simplificada para pares craneales I-VI</h2>
+              <p class="text-base text-slate-600 leading-relaxed">Utilice la siguiente rúbrica para asignar retroalimentación cuantitativa durante la práctica supervisada. Puntúe cada criterio de 1 (necesita mejorar) a 3 (excelente).</p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-slate-200 text-sm text-slate-700">
+                <thead class="bg-slate-50 text-slate-500 uppercase text-xs tracking-widest">
+                  <tr>
+                    <th scope="col" class="px-4 py-3 text-left">Criterio</th>
+                    <th scope="col" class="px-4 py-3 text-left">Excelente (3 pts)</th>
+                    <th scope="col" class="px-4 py-3 text-left">Bueno (2 pts)</th>
+                    <th scope="col" class="px-4 py-3 text-left">Necesita mejorar (1 pt)</th>
+                    <th scope="col" class="px-4 py-3 text-left">Puntaje</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Secuencia y sistemática</td>
+                    <td class="px-4 py-3">Sigue orden lógico y completo para cada par craneal.</td>
+                    <td class="px-4 py-3">Orden mayormente lógico; omite paso menor.</td>
+                    <td class="px-4 py-3">Desorganizado; omite pasos importantes.</td>
+                    <td class="px-4 py-3 text-center text-slate-500">/3</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Técnica NC II</td>
+                    <td class="px-4 py-3">Realiza AV, campos, pupilas y DPA correctamente.</td>
+                    <td class="px-4 py-3">Mayoría correcta con errores menores.</td>
+                    <td class="px-4 py-3">Errores significativos (no cubre ojo, mala iluminación).</td>
+                    <td class="px-4 py-3 text-center text-slate-500">/3</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Técnica NC III, IV, VI</td>
+                    <td class="px-4 py-3">Inspección + movimientos suaves completos, indaga diplopía.</td>
+                    <td class="px-4 py-3">Evalúa movimientos pero puede ser rápido/incompleto.</td>
+                    <td class="px-4 py-3">Movimientos bruscos; no evalúa todas direcciones.</td>
+                    <td class="px-4 py-3 text-center text-slate-500">/3</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Técnica NC V</td>
+                    <td class="px-4 py-3">Evalúa sensibilidad comparativa y motor en detalle.</td>
+                    <td class="px-4 py-3">Evalúa sensibilidad y motor con leve falta de detalle.</td>
+                    <td class="px-4 py-3">Omite ramas o no compara lados.</td>
+                    <td class="px-4 py-3 text-center text-slate-500">/3</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-3 font-semibold text-slate-900">Comunicación con paciente</td>
+                    <td class="px-4 py-3">Instrucciones claras, lenguaje profesional y empático.</td>
+                    <td class="px-4 py-3">Instrucciones adecuadas pero mejorables.</td>
+                    <td class="px-4 py-3">Instrucciones confusas o trato inadecuado.</td>
+                    <td class="px-4 py-3 text-center text-slate-500">/3</td>
+                  </tr>
+                  <tr class="bg-slate-50">
+                    <td class="px-4 py-3 font-semibold text-slate-900">Total</td>
+                    <td class="px-4 py-3">—</td>
+                    <td class="px-4 py-3">—</td>
+                    <td class="px-4 py-3">—</td>
+                    <td class="px-4 py-3 text-center font-semibold text-indigo-600">/15</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="guia-estudio" class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-10">
+            <div class="space-y-4">
+              <p class="text-sm font-semibold uppercase tracking-[0.4em] text-indigo-500">Materiales para el estudiante</p>
+              <h2 class="text-3xl font-bold text-slate-900">Guía de estudio Semana 1: Introducción a la Neurología</h2>
+              <p class="text-base text-slate-600 leading-relaxed">Distribuya este esquema como e-book o documento editable para que la cohorte prepare y repase la evaluación de estado mental y pares craneales I-VI.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <article class="border border-slate-200 rounded-3xl p-6 bg-slate-50 space-y-4">
+                <h3 class="text-lg font-semibold text-slate-900 flex items-center gap-3"><i class="fas fa-hand-wave text-indigo-500"></i>Introducción</h3>
+                <p class="text-sm text-slate-600">Bienvenida a la asignatura, relevancia del razonamiento clínico y objetivos de aprendizaje semanales alineados con el plan de clase.</p>
+                <ul class="text-sm text-slate-600 space-y-2">
+                  <li>Historia clínica neurológica: cronología, síntomas positivos/negativos.</li>
+                  <li>Importancia del examen de tamizaje completo.</li>
+                </ul>
+              </article>
+              <article class="border border-slate-200 rounded-3xl p-6 bg-white space-y-4">
+                <h3 class="text-lg font-semibold text-slate-900 flex items-center gap-3"><i class="fas fa-brain text-indigo-500"></i>Conceptos clave</h3>
+                <p class="text-sm text-slate-600">Incluya diagramas simples de SNC/SNP, localización anatómica y relación síntoma-vía.</p>
+                <ul class="text-sm text-slate-600 space-y-2">
+                  <li>Dominio por dominio del estado mental (alerta, atención, memoria, lenguaje, funciones ejecutivas).</li>
+                  <li>Pasos prácticos para orientación, series, recuerdo y comandos.</li>
+                  <li>Importancia del orden y documentación descriptiva.</li>
+                </ul>
+              </article>
+              <article class="border border-slate-200 rounded-3xl p-6 bg-white space-y-4">
+                <h3 class="text-lg font-semibold text-slate-900 flex items-center gap-3"><i class="fas fa-eye text-indigo-500"></i>Pares craneales I-VI</h3>
+                <ul class="text-sm text-slate-600 space-y-2">
+                  <li>Tabla con número, nombre, función principal y maniobra de exploración.</li>
+                  <li>NC I: técnica y situaciones clínicas relevantes.</li>
+                  <li>NC II: agudeza visual (interpretación 20/X), campos, hemianopsias, fondo y papiledema.</li>
+                  <li>NC III-IV-VI: músculos inervados, patrón en H, hallazgos de paresia/parálisis.</li>
+                  <li>NC V: mapa sensitivo, pruebas motoras y reflejo corneal.</li>
+                </ul>
+                <p class="text-sm text-slate-600">Consejos prácticos basados en UpToDate: comparación bilateral, instrucciones claras, sistematización.</p>
+              </article>
+            </div>
+            <div class="border border-slate-200 rounded-3xl p-6 bg-gradient-to-br from-indigo-500 via-sky-500 to-cyan-400 text-white space-y-4">
+              <h3 class="text-lg font-semibold flex items-center gap-3"><i class="fas fa-route"></i>Hoja de ruta sugerida</h3>
+              <ol class="space-y-2 text-sm text-white/90 list-decimal list-inside">
+                <li>Revisar objetivos y conceptos antes de la sesión presencial.</li>
+                <li>Practicar preguntas de autoevaluación sobre localización anatómica.</li>
+                <li>Utilizar la checklist para práctica guiada y registrar dudas.</li>
+                <li>Preparar un caso breve para discusión en grupo utilizando plantilla SBAR.</li>
+              </ol>
+            </div>
+          </section>
+
           <section id="perlas" class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12">
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
               <div class="xl:col-span-2 space-y-6">
@@ -420,6 +1183,88 @@
                   </button>
                 </form>
               </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-sm text-slate-600">
+              <article class="border border-indigo-200 bg-indigo-50 rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-indigo-900 flex items-center gap-2">
+                  <i class="fas fa-person-chalkboard"></i>
+                  Demostración guiada: Estado mental y NC I-II
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-indigo-900/80">
+                  Organice una sesión con voluntario o simulador donde la persona facilitadora narre cada paso y comente hallazgos normales mientras ejecuta las maniobras.
+                </p>
+                <div class="mt-4 space-y-4">
+                  <div>
+                    <h4 class="text-sm font-semibold text-indigo-900">Secuencia sugerida</h4>
+                    <ol class="mt-2 list-decimal list-inside space-y-1">
+                      <li>Orientación TPP: persona, lugar y tiempo con preguntas abiertas.</li>
+                      <li>Atención: series de 7 descendentes y deletreo inverso de una palabra corta.</li>
+                      <li>Memoria: registro y recuerdo diferido de tres palabras neutrales.</li>
+                      <li>Comando complejo: cumplir un orden en tres pasos con cambio de plano.</li>
+                      <li>NC I: identificación bilateral de esencia aromática con fosas alternas.</li>
+                      <li>NC II: agudeza visual con tabla (o impresión), campos por confrontación y simulación de fondo de ojo.</li>
+                      <li>Reflejos pupilares directos, consensuales y evaluación de DPA con oscilación de linterna.</li>
+                    </ol>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-indigo-900">Narrativa docente</h4>
+                    <p class="mt-2 text-sm leading-relaxed text-indigo-900/80">
+                      Describa en voz alta qué espera encontrar (lucidez, respuesta focalizada, pupilas 3 mm simétricas, campos completos) y qué hallazgos ameritarían escalamiento.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-indigo-900">Materiales</h4>
+                    <ul class="mt-2 space-y-1">
+                      <li class="flex gap-2"><i class="fas fa-user text-indigo-500 mt-1"></i>Voluntario entrenado o maniquí de simulación.</li>
+                      <li class="flex gap-2"><i class="fas fa-lightbulb text-indigo-500 mt-1"></i>Linterna clínica para reflejos pupilares.</li>
+                      <li class="flex gap-2"><i class="fas fa-eye text-indigo-500 mt-1"></i>Tabla de agudeza visual o equivalente impreso.</li>
+                      <li class="flex gap-2"><i class="fas fa-flask text-indigo-500 mt-1"></i>Esencia aromática segura para prueba olfatoria.</li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+              <article class="border border-sky-200 bg-sky-50 rounded-2xl p-6">
+                <h3 class="text-lg font-semibold text-sky-900 flex items-center gap-2">
+                  <i class="fas fa-eye-dropper"></i>
+                  Demostración guiada: NC III, IV, VI y V
+                </h3>
+                <p class="mt-3 text-sm leading-relaxed text-sky-900/80">
+                  Dirija una práctica enfocada en músculos extraoculares y trigémino explicando qué buscar en cada fase para identificar limitaciones, diplopía, nistagmo o asimetrías faciales.
+                </p>
+                <div class="mt-4 space-y-4">
+                  <div>
+                    <h4 class="text-sm font-semibold text-sky-900">NC III, IV y VI</h4>
+                    <ul class="mt-2 space-y-1">
+                      <li>Inspección de ptosis, posición primaria de la mirada y alineación.</li>
+                      <li>Seguimiento en seis direcciones y figura en "H" describiendo cada vector.</li>
+                      <li>Búsqueda activa de nistagmo y prueba de convergencia cercana.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-sky-900">NC V</h4>
+                    <ul class="mt-2 space-y-1">
+                      <li>Sensibilidad comparativa con tacto ligero en frente, mejilla y mandíbula.</li>
+                      <li>Reflejo corneal: explicar y demostrar si se cuenta con hisopo estéril.</li>
+                      <li>Motor: apertura, cierre y lateralización mandibular contra resistencia.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-sky-900">Refuerzo pedagógico</h4>
+                    <p class="mt-2 text-sm leading-relaxed text-sky-900/80">
+                      Invite al grupo a verbalizar hallazgos normales (movimientos conjugados, sensibilidad íntegra, reflejo corneal presente) y a plantear qué lesiones justificarían cambios.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-sky-900">Materiales</h4>
+                    <ul class="mt-2 space-y-1">
+                      <li class="flex gap-2"><i class="fas fa-user text-sky-500 mt-1"></i>Voluntario o simulador con movilidad ocular.</li>
+                      <li class="flex gap-2"><i class="fas fa-lightbulb text-sky-500 mt-1"></i>Linterna o luz puntual para seguimiento.</li>
+                      <li class="flex gap-2"><i class="fas fa-minus text-sky-500 mt-1"></i>Objeto romo para señalar trayectorias.</li>
+                      <li class="flex gap-2"><i class="fas fa-feather text-sky-500 mt-1"></i>Hisopo estéril opcional para reflejo corneal.</li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-600">
               <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50">
