@@ -73,18 +73,23 @@
       let summary;
 
       if (ppv >= 85) {
-        summary = 'El resultado positivo casi confirma la sospecha. Actúa como si la enfermedad estuviera presente salvo contraindicación.';
+        summary =
+          'El resultado positivo casi confirma la sospecha. Actúa como si la enfermedad estuviera presente salvo contraindicación.';
       } else if (ppv >= 60) {
-        summary = 'La prueba aporta evidencia sólida. Combínala con el cuadro clínico antes de tomar decisiones definitivas.';
+        summary =
+          'La prueba aporta evidencia sólida. Combínala con el cuadro clínico antes de tomar decisiones definitivas.';
       } else if (ppv >= 30) {
-        summary = 'El resultado no es concluyente. Considera pruebas adicionales o seguimiento estrecho.';
+        summary =
+          'El resultado no es concluyente. Considera pruebas adicionales o seguimiento estrecho.';
       } else {
-        summary = 'La probabilidad posterior sigue siendo baja. Prioriza diagnósticos alternativos y comunica la incertidumbre.';
+        summary =
+          'La probabilidad posterior sigue siendo baja. Prioriza diagnósticos alternativos y comunica la incertidumbre.';
       }
 
-      const changeText = intensity < 1
-        ? 'El resultado apenas modifica la sospecha inicial.'
-        : `La probabilidad ${direction} ${formatNumber(intensity, 1)} puntos porcentuales respecto al valor previo.`;
+      const changeText =
+        intensity < 1
+          ? 'El resultado apenas modifica la sospecha inicial.'
+          : `La probabilidad ${direction} ${formatNumber(intensity, 1)} puntos porcentuales respecto al valor previo.`;
 
       return `${summary}\n\n${changeText}`;
     };
@@ -176,8 +181,20 @@
       return;
     }
 
-    const defaults = { size: 50, mean: 120, stdDev: 15, confidence: 95, nullMean: 125 };
-    const example = { size: 100, mean: 135, stdDev: 12, confidence: 95, nullMean: 140 };
+    const defaults = {
+      size: 50,
+      mean: 120,
+      stdDev: 15,
+      confidence: 95,
+      nullMean: 125,
+    };
+    const example = {
+      size: 100,
+      mean: 135,
+      stdDev: 12,
+      confidence: 95,
+      nullMean: 140,
+    };
 
     const getCriticalValue = (confidence) => {
       const map = { 90: 1.645, 95: 1.96, 99: 2.576 };
@@ -302,7 +319,14 @@
       return;
     }
 
-    const { mean, stdError, ciLower, ciUpper, confidenceLevel, nullHypothesisMean } = params;
+    const {
+      mean,
+      stdError,
+      ciLower,
+      ciUpper,
+      confidenceLevel,
+      nullHypothesisMean,
+    } = params;
 
     const width = 350;
     const height = 180;
@@ -318,7 +342,8 @@
       padding.left + ((value - minXData) / (maxXData - minXData)) * plotWidth;
 
     const maxYData = pdf(0);
-    const yToPixel = (value) => padding.top + plotHeight - (value / maxYData) * plotHeight;
+    const yToPixel = (value) =>
+      padding.top + plotHeight - (value / maxYData) * plotHeight;
     const baseY = yToPixel(0);
 
     const curvePath = (() => {
@@ -328,7 +353,9 @@
         const xData = minXData + (i / steps) * (maxXData - minXData);
         const standardized = (xData - mean) / stdError;
         const yData = pdf(standardized);
-        points.push(`${xToPixel(xData).toFixed(2)},${yToPixel(yData).toFixed(2)}`);
+        points.push(
+          `${xToPixel(xData).toFixed(2)},${yToPixel(yData).toFixed(2)}`,
+        );
       }
       return `M ${points.join(' L ')}`;
     })();
@@ -343,7 +370,9 @@
         const xData = start + (i / steps) * (end - start);
         const standardized = (xData - mean) / stdError;
         const yData = pdf(standardized);
-        points.push(`L ${xToPixel(xData).toFixed(2)},${yToPixel(yData).toFixed(2)}`);
+        points.push(
+          `L ${xToPixel(xData).toFixed(2)},${yToPixel(yData).toFixed(2)}`,
+        );
       }
       points.push(`L ${xToPixel(end).toFixed(2)},${baseY.toFixed(2)} Z`);
       return points.join(' ');
@@ -386,7 +415,10 @@
 
       const label = document.createElementNS(NS, 'text');
       label.setAttribute('x', x);
-      label.setAttribute('y', options.labelY || (options.top ? options.top - 5 : baseY + 18));
+      label.setAttribute(
+        'y',
+        options.labelY || (options.top ? options.top - 5 : baseY + 18),
+      );
       label.setAttribute('text-anchor', 'middle');
       label.setAttribute('font-size', options.fontSize || '10');
       label.setAttribute('fill', options.color || '#4338ca');
@@ -438,10 +470,16 @@
         addMarker(nullPx, `μ₀ = ${formatNumber(nullHypothesisMean, 1)}`, {
           top: padding.top,
           bottom: baseY + 5,
-          stroke: nullHypothesisMean >= ciLower && nullHypothesisMean <= ciUpper ? '#0e7490' : '#be123c',
+          stroke:
+            nullHypothesisMean >= ciLower && nullHypothesisMean <= ciUpper
+              ? '#0e7490'
+              : '#be123c',
           strokeWidth: '1.5',
           dash: '4,2',
-          color: nullHypothesisMean >= ciLower && nullHypothesisMean <= ciUpper ? '#0e7490' : '#be123c',
+          color:
+            nullHypothesisMean >= ciLower && nullHypothesisMean <= ciUpper
+              ? '#0e7490'
+              : '#be123c',
           fontWeight: 'bold',
           labelY: padding.top - 5,
         });
@@ -500,11 +538,20 @@
       }
       const cursor = point.matrixTransform(screenCTM.inverse());
       const clampedX = clamp(cursor.x, padding.left, width - padding.right);
-      const xDataValue = minXData + ((clampedX - padding.left) / plotWidth) * (maxXData - minXData);
-      const tooltipY = clamp(cursor.y - 50, padding.top + 5, height - padding.bottom - 45);
+      const xDataValue =
+        minXData +
+        ((clampedX - padding.left) / plotWidth) * (maxXData - minXData);
+      const tooltipY = clamp(
+        cursor.y - 50,
+        padding.top + 5,
+        height - padding.bottom - 45,
+      );
 
       tooltipGroup.style.display = 'block';
-      tooltipGroup.setAttribute('transform', `translate(${clampedX}, ${tooltipY})`);
+      tooltipGroup.setAttribute(
+        'transform',
+        `translate(${clampedX}, ${tooltipY})`,
+      );
       tooltipValue.textContent = `${formatNumber(xDataValue, 1)} mmHg`;
       const inside = xDataValue >= ciLower && xDataValue <= ciUpper;
       tooltipStatus.textContent = inside
@@ -528,7 +575,14 @@
     const form = document.getElementById('tutor-form');
     const input = document.getElementById('tutor-input');
 
-    if (!toggleButton || !panel || !closeButton || !messagesContainer || !form || !input) {
+    if (
+      !toggleButton ||
+      !panel ||
+      !closeButton ||
+      !messagesContainer ||
+      !form ||
+      !input
+    ) {
       return;
     }
 
@@ -581,31 +635,36 @@
         keywords: ['bayes', 'posterior', 'predictivo', 'lr', 'nomograma'],
         response:
           'Para aplicar Bayes identifica tres piezas: probabilidad previa, sensibilidad y especificidad. Convierte cada porcentaje a proporciones, calcula verdaderos y falsos positivos y comunica el nuevo riesgo como “de cada 100 pacientes con este resultado, X realmente tienen la enfermedad”.',
-        followUp: '¿Quieres que repasemos cómo cambia el valor predictivo si la prevalencia inicial es distinta?',
+        followUp:
+          '¿Quieres que repasemos cómo cambia el valor predictivo si la prevalencia inicial es distinta?',
       },
       {
         keywords: ['sensibilidad', 'especificidad', 'falsos', 'verdaderos'],
         response:
           'La sensibilidad responde “¿a cuántos enfermos detecto?” y la especificidad “¿a cuántos sanos dejo tranquilos?”. Úsalas juntas: sensibilidad alta minimiza falsos negativos, especificidad alta reduce falsos positivos. Evalúa siempre qué error sería más costoso para tu paciente.',
-        followUp: 'Piensa en un ejemplo propio: ¿cuándo priorizarías sensibilidad sobre especificidad?',
+        followUp:
+          'Piensa en un ejemplo propio: ¿cuándo priorizarías sensibilidad sobre especificidad?',
       },
       {
         keywords: ['intervalo', 'confianza', 'margen', 'error estándar'],
         response:
           'El intervalo de confianza combina la media muestral con la incertidumbre del muestreo. Error estándar = s/√n, margen = valor crítico × error estándar. Si el valor hipotético queda fuera del intervalo, hay evidencia de diferencia clínica.',
-        followUp: '¿Quieres que te explique cómo interpretar el valor crítico que aparece en la calculadora?',
+        followUp:
+          '¿Quieres que te explique cómo interpretar el valor crítico que aparece en la calculadora?',
       },
       {
         keywords: ['probabilidad previa', 'pretest', 'pre test', 'pre-test'],
         response:
           'La probabilidad previa integra prevalencia local, mecanismo fisiopatológico y datos individuales. Antes de ordenar pruebas, anota un rango (“entre 20 y 30%”). Así podrás juzgar después si el resultado realmente movió la aguja.',
-        followUp: 'Una buena práctica es documentar tu estimación previa en la historia clínica. ¿Lo has intentado?',
+        followUp:
+          'Una buena práctica es documentar tu estimación previa en la historia clínica. ¿Lo has intentado?',
       },
       {
         keywords: ['dolor', 'torácico', 'urgencia', 'troponina'],
         response:
           'En dolor torácico combina probabilidad clínica (escala de riesgo) con la cinética de troponina. Un resultado negativo temprano baja la probabilidad pero requiere repetición a las 3 horas antes de decidir el alta.',
-        followUp: '¿Quieres que repasemos los pasos del mini caso para asegurarte de no omitir nada?',
+        followUp:
+          '¿Quieres que repasemos los pasos del mini caso para asegurarte de no omitir nada?',
       },
     ];
 
@@ -635,7 +694,8 @@
         return `${bestMatch.response}\n\n${bestMatch.followUp}`;
       }
 
-      const fallback = generalResponses[Math.floor(Math.random() * generalResponses.length)];
+      const fallback =
+        generalResponses[Math.floor(Math.random() * generalResponses.length)];
       return `Puedo ayudarte a conectar los cálculos con decisiones clínicas. ${fallback}`;
     };
 
@@ -643,8 +703,14 @@
       panel.classList.remove('tutor-hidden');
       toggleButton.classList.add('tutor-hidden');
       if (!initialized) {
-        appendMessage('model', '¡Hola! Soy tu tutor digital. Pregúntame sobre probabilidad, Bayes o intervalos de confianza y te responderé con ejemplos clínicos.');
-        appendMessage('model', 'Consejo: cambia los valores de las calculadoras y dime qué observas; puedo ayudarte a interpretarlo.');
+        appendMessage(
+          'model',
+          '¡Hola! Soy tu tutor digital. Pregúntame sobre probabilidad, Bayes o intervalos de confianza y te responderé con ejemplos clínicos.',
+        );
+        appendMessage(
+          'model',
+          'Consejo: cambia los valores de las calculadoras y dime qué observas; puedo ayudarte a interpretarlo.',
+        );
         initialized = true;
       }
       requestAnimationFrame(() => {
