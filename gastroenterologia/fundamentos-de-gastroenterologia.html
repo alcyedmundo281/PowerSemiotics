@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fundamentos de Gastroenterología</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../assets/gastro-layout.css" />
+    <script src="../assets/gastro-layout.js" defer></script>
+  </head>
+  <body>
+    <div class="main-container">
+      <h1 class="main-title">Fundamentos de Gastroenterología</h1>
+      <p class="intro-text">
+        Bases para la escuela de medicina interna de la universidad central del ecuador.
+      </p>
+
+      <div id="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header">Syllabus</div>
+          <div class="accordion-content">
+            <div class="content-section">
+              <h2>Anatomía y fisiología básica del TGI</h2>
+              <ul>
+                <li>Motilidad</li>
+                <li>Secreción</li>
+                <li>Digestión</li>
+                <li>Absorción</li>
+              </ul>
+              <h2>Microbiota</h2>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Clase interactiva</div>
+          <div class="accordion-content">
+            <div class="content-section">
+              <h2>Discusión inicial</h2>
+              <h2>Revisión autónoma material previo</h2>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Evaluación</div>
+          <div class="accordion-content">
+            <div class="content-section">
+              <h2>Participación activa</h2>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Referencias</div>
+          <div class="accordion-content">
+            <div class="content-section">
+              <h2>Syllabus</h2>
+              <ul>
+                <li>Cap. Introductorios (Sleisenger, Yamada, Harrison)</li>
+                <li>Plataforma UCE</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="text-center mt-8 mb-8">
+        <a href="../gastroenterologia.html" class="text-blue-600 hover:underline"
+          >← Volver al Hub de Gastroenterología</a
+        >
+      </footer>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach((item) => {
+          const header = item.querySelector('.accordion-header');
+          header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            accordionItems.forEach((i) => {
+              i.classList.remove('active');
+              i.querySelector('.accordion-content').style.maxHeight = null;
+            });
+            if (!isActive) {
+              item.classList.add('active');
+              const content = item.querySelector('.accordion-content');
+              content.style.maxHeight = content.scrollHeight + 'px';
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
