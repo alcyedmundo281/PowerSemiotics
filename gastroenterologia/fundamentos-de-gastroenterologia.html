@@ -8,6 +8,171 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/gastro-layout.css" />
+    <script src="../assets/gastro-layout.js" defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .content-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .content-card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1E40AF; /* Azul oscuro */
+            margin-bottom: 0.5rem;
+        }
+        .content-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1D4ED8; /* Azul medio */
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .content-card p, .content-card li {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #374151; /* Gris oscuro */
+        }
+        .content-card ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+        }
+        .badge-portal { background-color: #E0E7FF; color: #3730A3; }
+        .badge-anatomy { background-color: #D1FAE5; color: #065F46; }
+        .badge-chemistry { background-color: #FEF3C7; color: #92400E; }
+        .badge-eco { background-color: #E0F2FE; color: #0C4A6E; }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Misión de Gastroenterología</h1>
+            <p class="text-xl text-slate-700 mt-2">El Desafío del TGI</p>
+            <p class="text-md text-slate-500 mt-1">Una experiencia de aprendizaje gamificada para la Facultad de Medicina de la UCE.</p>
+        </header>
+
+        <!-- Territorio 1: El Portal -->
+        <div class="content-card">
+            <h2><span class="badge badge-portal">Territorio 1</span> El Portal: Introducción y Syllabus</h2>
+            <p class="mb-4">Tu misión comienza aquí. Revisa el archivo del caso del "Paciente Cero" y entiende las reglas de la misión.</p>
+
+            <h3>Bienvenido, Doctor en formación.</h3>
+            <p>Tu primera misión concierne al "Paciente Cero", el Sr. X, quien se presenta con un cuadro complejo de dolor abdominal crónico, malabsorción y una posible disbiosis. Tu misión esta semana es dominar los fundamentos del TGI para descifrar qué está fallando.</p>
+
+            <h3 class="mt-4">Informe de Misión: Paciente Cero</h3>
+            <ul>
+                <li><strong>Paciente:</strong> Sr. X, 35 años, masculino.</li>
+                <li><strong>Motivo de Consulta:</strong> Dolor epigástrico urente que mejora con la comida, hinchazón frecuente y fatiga general.</li>
+                <li><strong>Antecedentes:</strong> Trabajo de alto estrés, uso frecuente de AINEs (Ibuprofeno) por cefaleas tensionales.</li>
+            </ul>
+
+            <h3 class="mt-4">Reglas de la Misión (Syllabus)</h3>
+            <ul>
+                <li><strong>Objetivo:</strong> Dominar los fundamentos de la anatomía, fisiología y microbiota gastrointestinal.</li>
+                <li><strong>Progresión:</strong> Completa los desafíos de cada territorio para desbloquear el siguiente.</li>
+                <li><strong>Evaluación:</strong> Se proporciona autoevaluación formativa en cada etapa. Tu objetivo es la comprensión, no solo la finalización.</li>
+                <li><strong>Recursos:</strong> Las "Guías Rápidas" están disponibles para descargar (simulado). Se basan en Harrison's y Sleisenger.</li>
+            </ul>
+        </div>
+
+        <!-- Territorio 2: Laboratorio Anatómico -->
+        <div class="content-card">
+            <h2><span class="badge badge-anatomy">Territorio 2</span> El Laboratorio Anatómico: Misión 1 (Estructura)</h2>
+            <p class="mb-4">Explora el plano del tracto gastrointestinal. Identifica estructuras clave y comprende sus relaciones espaciales.</p>
+
+            <h3>Actividad 1: Identificación de Estructuras</h3>
+            <p>Identifica las estructuras clave del tracto gastrointestinal superior. La precisión es fundamental.</p>
+            <p class="text-sm text-slate-500 mt-2">Preguntas de la actividad (del código):</p>
+            <ul>
+                <li>Haz clic en el: Hígado</li>
+                <li>Haz clic en la: Vesícula Biliar</li>
+                <li>Haz clic en el: Páncreas</li>
+                <li>Haz clic en el: Estómago</li>
+                <li>Haz clic en el: Duodeno (primera parte del intestino delgado)</li>
+            </ul>
+
+            <h3 class="mt-4">Actividad 2: Reconstruye el TGI</h3>
+            <p>Comprende las relaciones espaciales colocando cada órgano en su posición anatómica correcta.</p>
+            <p class="text-sm text-slate-500 mt-2">Elementos de la actividad (del código):</p>
+            <ul>
+                <li><strong>Órganos a arrastrar:</strong> Estómago, Hígado, Páncreas, Intestino Grueso.</li>
+                <li><strong>Zonas donde soltar:</strong> Área del Hígado, Área del Estómago, Área del Páncreas, Área del Intestino Grueso.</li>
+            </ul>
+
+            <p class="mt-4 font-semibold text-green-700">Al completar: ¡Ganas la insignia de "Explorador Anatómico"!</p>
+        </div>
+
+        <!-- Territorio 3: Fábrica Química -->
+        <div class="content-card">
+            <h2><span class="badge badge-chemistry">Territorio 3</span> La Fábrica Química: Misión 2 (Función)</h2>
+            <p class="mb-4">Sumérgete en los procesos dinámicos de la digestión y absorción. Domina los roles de las enzimas y hormonas.</p>
+
+            <h3>Actividad: Simulación de Fisiología</h3>
+            <p>Observa cómo se desarrollan los procesos de motilidad, secreción y absorción y responde preguntas en momentos clave para probar tu comprensión.</p>
+            <p class="text-sm text-slate-500 mt-2">Preguntas de la simulación (del código):</p>
+            <ul>
+                <li>La capa que se contrae detrás del bolo alimenticio es el músculo circular. ¿Verdadero o Falso?</li>
+                <li>¿Qué hormona estimula la secreción de HCl en el estómago?</li>
+                <li>¿En qué vasos de las vellosidades se absorben principalmente las grasas?</li>
+            </ul>
+
+            <p class="mt-4 font-semibold text-green-700">Al completar: ¡Ganas la insignia de "Maestro Enzimático"!</p>
+        </div>
+
+        <!-- Territorio 4: Ecosistema Oculto -->
+        <div class="content-card">
+            <h2><span class="badge badge-eco">Territorio 4</span> El Ecosistema Oculto: Misión 3 (Microbiota)</h2>
+            <p class="mb-4">Viaja al complejo mundo de la microbiota intestinal. Aprende cómo este "órgano olvidado" influye en la salud y la enfermedad.</p>
+
+            <h3>Actividad: Elige tu Propia Aventura (El Destino de tu Microbioma)</h3>
+            <p>Tus decisiones afectarán el equilibrio del microbioma de tu huésped.</p>
+
+            <div class="mt-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <p class="font-semibold italic">"Eres el Guardián de un bioma intestinal saludable. Tu huésped está estresado por los exámenes. Para la cena, está considerando sus opciones. ¿Qué le aconsejas?"</p>
+                <ul class="mt-2">
+                    <li><strong>Opción 1:</strong> Pizza y un refresco azucarado.
+                        <ul class="pl-4"><li><strong>Consecuencia:</strong> ¡Una sobredosis de azúcar! Las bacterias Firmicutes (amantes del azúcar) proliferan... La diversidad de tu bioma ha caído.</li></ul>
+                    </li>
+                    <li class="mt-2"><strong>Opción 2:</strong> Una comida balanceada con vegetales y yogur.
+                        <ul class="pl-4"><li><strong>Consecuencia:</strong> ¡Un festín de prebióticos y probióticos! Los Bacteroidetes (amantes de la fibra) florecen... ¡La diversidad de tu bioma está ahora más alta!</li></ul>
+                    </li>
+                </ul>
+
+                <p class="font-semibold italic mt-4">"¡Desastre! Tu huésped tiene una infección de garganta bacteriana y el médico le receta un antibiótico de amplio espectro por 7 días. ¿Cómo procede tu huésped?"</p>
+                <ul class="mt-2">
+                    <li><strong>Opción 1:</strong> Tomar el tratamiento completo como se prescribió.
+                        <ul class="pl-4"><li><strong>Consecuencia:</strong> ¡Catástrofe Ecológica! El antibiótico eliminó la infección pero aniquiló a tus aliados. La diversidad se desploma... Un patógeno oportunista, C. difficile, comienza a proliferar.</li></ul>
+                    </li>
+                    <li class="mt-2"><strong>Opción 2:</strong> Dejar de tomarlo después de 3 días al sentirse mejor.
+                        <ul class="pl-4"><li><strong>Consecuencia:</strong> ¡Un peligro mayor! La infección de garganta persiste, y las bacterias supervivientes... están desarrollando resistencia. El bioma está dañado.</li></ul>
+                    </li>
+                </ul>
+
+                <p class="font-semibold italic mt-4">Nodos finales:</p>
+                <ul>
+                    <li><strong>Final 1:</strong> "Lección aprendida: Los antibióticos son herramientas poderosas pero indiscriminadas..."</li>
+                    <li><strong>Final 2:</strong> "Lección aprendida: Los tratamientos antibióticos incompletos son un motor principal de la resistencia a los antimicrobianos..."</li>
+                </ul>
+            </div>
+
+            <p class="mt-4 font-semibold text-green-700">Al completar: ¡Ganas la insignia de "Guardián del Bioma"!</p>
+        </div>
     <link rel="stylesheet" href="../assets/gastro-layout.css" />
     <script src="../assets/gastro-layout.js" defer></script>
   </head>
