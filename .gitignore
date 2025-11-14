@@ -18,3 +18,7 @@ vite.log
 # Build artifacts
 dist
 dist-ssr
+
+# Allow checked-in build for the neurologia interactive module
+!neurologia/examen-neurologico/dist
+!neurologia/examen-neurologico/dist/**
