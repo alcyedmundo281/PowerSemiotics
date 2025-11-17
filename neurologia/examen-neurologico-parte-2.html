@@ -382,6 +382,17 @@
               Avanza por retos prácticos, desbloquea insignias clínicas y pon a
               prueba tus habilidades diagnósticas en tiempo real.
             </p>
+            <div class="flex flex-wrap gap-4 text-sm text-white">
+              <span
+                class="px-4 py-2 rounded-full bg-white/90 text-slate-900 border border-white/80 font-semibold shadow-sm"
+                >Pares craneales VII-XII</span
+              >
+              <span
+                class="px-4 py-2 rounded-full bg-white/90 text-slate-900 border border-white/80 font-semibold shadow-sm"
+                >Sistema motor</span
+              >
+              <span
+                class="px-4 py-2 rounded-full bg-white/90 text-slate-900 border border-white/80 font-semibold shadow-sm"
             <div class="flex flex-wrap gap-4 text-sm text-slate-200">
               <span
                 class="px-4 py-2 rounded-full bg-white/10 border border-white/20"
@@ -398,6 +409,15 @@
             </div>
           </div>
           <div
+            class="bg-white/95 text-slate-900 backdrop-blur-xl rounded-3xl border border-slate-100/80 shadow-2xl p-6 flex flex-col gap-6"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-slate-600">Puntaje acumulado</p>
+                <p class="text-4xl font-black" data-xp-display>0</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm text-slate-600">Racha clínica</p>
             class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/15 p-6 flex flex-col gap-6"
           >
             <div class="flex items-center justify-between">
@@ -411,6 +431,10 @@
               </div>
             </div>
             <div>
+              <p class="text-xs uppercase tracking-[0.4em] text-slate-600">
+                Progreso del módulo
+              </p>
+              <div class="mt-3 h-3 bg-slate-200 rounded-full overflow-hidden">
               <p class="text-xs uppercase tracking-[0.4em] text-slate-300">
                 Progreso del módulo
               </p>
@@ -421,6 +445,22 @@
                   data-progress-bar
                 ></div>
               </div>
+              <p class="mt-2 text-sm text-slate-700" data-progress-text>
+                0% completado
+              </p>
+            </div>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <p class="text-xs uppercase tracking-[0.3em] text-slate-500">
+                  Modalidad
+                </p>
+                <p class="mt-1 font-semibold text-slate-900">Aprendizaje activo</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <p class="text-xs uppercase tracking-[0.3em] text-slate-500">
+                  Nivel
+                </p>
+                <p class="mt-1 font-semibold text-slate-900">Clínico intermedio</p>
               <p class="mt-2 text-sm" data-progress-text>0% completado</p>
             </div>
             <div class="grid grid-cols-2 gap-3 text-sm">
