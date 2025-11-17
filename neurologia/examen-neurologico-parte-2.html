@@ -2,38 +2,53 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Examen Neurológico - Parte 2 | Powersemiotics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Examen neurológico parte 2 | Powersemiotics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
-    <link href="../assets/tailwind.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/tailwind.css" />
     <style>
+      :root {
+        color-scheme: light;
+        --shell: rgba(255, 255, 255, 0.92);
+        --ink: #0f172a;
+        --muted: #475569;
+        --outline: rgba(148, 163, 184, 0.4);
+        --indigo: #4f46e5;
+        --cyan: #0ea5e9;
+        --emerald: #10b981;
+      }
+      * {
+        box-sizing: border-box;
+      }
       body {
-        font-family: 'Inter', 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont,
+        margin: 0;
+        font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
           'Segoe UI', sans-serif;
-        background:
-          radial-gradient(circle at 10% 20%, rgba(15, 118, 255, 0.12), transparent 35%),
-          radial-gradient(circle at 90% 10%, rgba(14, 165, 233, 0.12), transparent 40%),
-          linear-gradient(180deg, #f8fbff 0%, #eef2ff 45%, #e0f2fe 100%);
-        color: #0f172a;
+        color: var(--ink);
+        background: radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.08), transparent 45%),
+          radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.12), transparent 50%),
+          linear-gradient(180deg, #f5f7ff 0%, #eef2ff 45%, #e0f7ff 100%);
+        min-height: 100vh;
       }
       body::before {
         content: '';
         position: fixed;
         inset: 0;
-        background-image: linear-gradient(
-            120deg,
-            rgba(14, 165, 233, 0.08) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            300deg,
-            rgba(99, 102, 241, 0.08) 1px,
-            transparent 1px
-          );
-        background-size: 120px 120px, 200px 200px;
+        background-image: linear-gradient(120deg, rgba(79, 70, 229, 0.08) 1px, transparent 1px),
+          linear-gradient(300deg, rgba(14, 165, 233, 0.08) 1px, transparent 1px);
+        background-size: 160px 160px, 220px 220px;
         opacity: 0.45;
         pointer-events: none;
         z-index: -1;
@@ -44,316 +59,285 @@
       html {
         scroll-behavior: smooth;
       }
-      section {
-        scroll-margin-top: 120px;
+      section[data-module-section] {
+        scroll-margin-top: 140px;
+      }
+      .page-shell {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem 5rem;
+        position: relative;
       }
       .learning-shell {
         position: relative;
-        border-radius: 2.5rem;
-        background: rgba(255, 255, 255, 0.88);
-        box-shadow: 0 40px 90px -45px rgba(15, 23, 42, 0.55);
-        backdrop-filter: blur(12px);
-      }
-      #module-nav .nav-link.active span {
-        background: linear-gradient(135deg, #6366f1, #0ea5e9);
-        color: white;
-        box-shadow: 0 10px 25px -15px rgba(79, 70, 229, 0.8);
-      }
-      #module-nav .nav-link span {
-        border: 1px solid transparent;
-        transition: all 0.25s ease;
-      }
-      #module-nav .nav-link:not(.active) span {
-        border-color: rgba(148, 163, 184, 0.4);
-        background: rgba(248, 250, 252, 0.85);
-      }
-      .module-panel {
-        position: relative;
-        border-radius: 2rem;
-        background: white;
-        border: 1px solid rgba(226, 232, 240, 0.9);
-        box-shadow: 0 25px 70px -40px rgba(15, 23, 42, 0.65);
+        border-radius: 40px;
+        padding: 3rem clamp(1rem, 4vw, 3.5rem);
+        background: var(--shell);
+        box-shadow: 0 45px 120px -60px rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(226, 232, 240, 0.8);
         overflow: hidden;
       }
-      .module-panel::after {
+      .learning-shell::after {
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at top right, rgba(129, 140, 248, 0.18), transparent 55%);
+        background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15), transparent 55%),
+          radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.15), transparent 60%);
+        opacity: 0.6;
         pointer-events: none;
       }
-      .module-panel > * {
+      .learning-shell > * {
         position: relative;
-        z-index: 1;
+        z-index: 2;
       }
-      .panel-overlay {
-        display: none;
+      .hero-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        align-items: stretch;
       }
-      @media (max-width: 1023px) {
-        .module-panel {
-          display: none;
-        }
-        .module-panel.is-open {
-          display: block;
-          position: fixed;
-          inset: 6% 1.5rem auto;
-          max-height: 80vh;
-          overflow-y: auto;
-          z-index: 40;
-          animation: panel-in 0.3s ease;
-        }
-        .panel-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(15, 23, 42, 0.55);
-          backdrop-filter: blur(4px);
-          opacity: 0;
-          transition: opacity 0.25s ease;
-          z-index: 30;
-          display: block;
-          pointer-events: none;
-        }
-        .panel-overlay.active {
-          opacity: 1;
-          pointer-events: auto;
-        }
-        @keyframes panel-in {
-          from {
-            transform: translateY(20px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
+      .hero-card,
+      .score-card {
+        border-radius: 28px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 25px 60px -35px rgba(15, 23, 42, 0.5);
       }
-      .cranial-map {
-        position: relative;
-        border-radius: 1.75rem;
-        border: 1px solid rgba(79, 70, 229, 0.25);
-        background:
-          radial-gradient(
-            circle at 25% 20%,
-            rgba(129, 140, 248, 0.35),
-            transparent 55%
-          ),
-          radial-gradient(
-            circle at 75% 85%,
-            rgba(14, 165, 233, 0.25),
-            transparent 60%
-          ),
-          linear-gradient(
-            160deg,
-            rgba(15, 23, 42, 0.92),
-            rgba(30, 64, 175, 0.85)
-          );
-        min-height: 520px;
-        padding: 3rem 2rem;
+      .hero-card h1 {
+        font-size: clamp(2.25rem, 5vw, 3.4rem);
+        line-height: 1.1;
+        margin: 0;
+      }
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin: 1rem 0 1.5rem;
+      }
+      .chip {
+        padding: 0.45rem 1.1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(248, 250, 252, 0.9);
+      }
+      .score-card {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(76, 29, 149, 0.85));
+        color: white;
+        border: none;
+        box-shadow: 0 30px 70px -40px rgba(15, 23, 42, 0.9);
+      }
+      .score-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .score-tile {
+        border-radius: 18px;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .score-tile span {
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
+      .score-tile strong {
+        display: block;
+        font-size: 1.8rem;
+        margin-top: 0.4rem;
+      }
+      .progress-track {
+        height: 0.9rem;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
         overflow: hidden;
-        box-shadow: 0 25px 60px -35px rgba(15, 23, 42, 0.7);
+        margin: 1rem 0;
       }
-      .cranial-map::before {
-        content: '';
-        position: absolute;
-        inset: 12% 35% 12% 35%;
-        background: radial-gradient(
-          circle at 30% 25%,
-          rgba(203, 213, 225, 0.9),
-          rgba(148, 163, 184, 0.3)
-        );
-        border-radius: 60% 50% 45% 55% / 70% 70% 30% 30%;
-        filter: blur(0.5px);
-        opacity: 0.6;
+      .progress-track div {
+        height: 100%;
+        width: 0;
+        border-radius: inherit;
+        background: linear-gradient(120deg, #fbbf24, #34d399, #38bdf8);
+        transition: width 0.3s ease;
       }
-      .nerve-node {
-        position: absolute;
+      .grid-layout {
+        display: grid;
+        gap: 2rem;
+        margin-top: 3rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+      .nav-panel {
+        position: relative;
+        border-radius: 24px;
+        border: 1px solid var(--outline);
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 25px 70px -40px rgba(15, 23, 42, 0.35);
+        padding: 1.75rem;
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
-        align-items: center;
-        text-align: left;
-        max-width: 220px;
+        gap: 1.5rem;
       }
-      .nerve-pin {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 3.25rem;
-        height: 3.25rem;
-        border-radius: 9999px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        background: linear-gradient(
-          160deg,
-          rgba(99, 102, 241, 0.9),
-          rgba(6, 182, 212, 0.9)
-        );
-        color: white;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        box-shadow: 0 15px 35px -20px rgba(14, 165, 233, 0.9);
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
+      .nav-panel nav a {
+        display: block;
+        padding: 0.9rem 1.1rem;
+        border-radius: 14px;
+        color: var(--muted);
+        font-weight: 600;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        margin-bottom: 0.4rem;
       }
-      .nerve-node:hover .nerve-pin,
-      .nerve-node:focus-within .nerve-pin {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 25px 45px -25px rgba(14, 165, 233, 0.9);
+      .nav-panel nav a.active {
+        background: linear-gradient(120deg, rgba(79, 70, 229, 0.15), rgba(14, 165, 233, 0.15));
+        border-color: rgba(79, 70, 229, 0.35);
+        color: var(--ink);
+        box-shadow: 0 15px 30px -25px rgba(14, 165, 233, 0.6);
       }
-      .nerve-tooltip {
-        position: relative;
-        border-radius: 1.25rem;
-        background: rgba(15, 23, 42, 0.9);
-        padding: 1.1rem 1.2rem;
-        color: #f8fafc;
-        font-size: 0.85rem;
-        line-height: 1.45;
-        box-shadow: 0 18px 40px -32px rgba(148, 163, 184, 0.7);
-        opacity: 0;
-        transform: translateY(10px);
-        transition:
-          opacity 0.25s ease,
-          transform 0.25s ease;
-        pointer-events: none;
-        border: 1px solid rgba(148, 163, 184, 0.4);
-      }
-      .nerve-tooltip h4 {
-        font-size: 0.95rem;
-        font-weight: 700;
-        margin-bottom: 0.45rem;
-      }
-      .nerve-tooltip p + p {
-        margin-top: 0.35rem;
-      }
-      .nerve-node:hover .nerve-tooltip,
-      .nerve-node:focus-within .nerve-tooltip {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
-      .mission-item,
+      .mission-list button,
       .challenge,
       .case-button {
         width: 100%;
-        border: 1px solid rgba(148, 163, 184, 0.5);
+        border-radius: 18px;
+        border: 1px solid var(--outline);
         background: white;
-        border-radius: 1.5rem;
-        padding: 1rem 1.1rem;
+        padding: 0.9rem 1.1rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
-        text-align: left;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: #1f2937;
-        transition: all 0.2s ease;
-        cursor: pointer;
-      }
-      .panel-trigger {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        gap: 0.75rem;
-        border-radius: 999px;
-        padding: 0.85rem 1.5rem;
+        font-size: 0.95rem;
         font-weight: 600;
-        letter-spacing: 0.05em;
-        background: linear-gradient(120deg, #4f46e5, #0ea5e9);
-        color: white;
-        box-shadow: 0 20px 40px -25px rgba(37, 99, 235, 0.9);
+        color: var(--ink);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       }
-      .panel-trigger i {
-        font-size: 1rem;
-      }
-      .mission-item:hover,
+      .mission-list button:hover,
       .challenge:hover,
       .case-button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 15px 30px -20px rgba(15, 23, 42, 0.4);
-        border-color: rgba(79, 70, 229, 0.4);
+        border-color: rgba(79, 70, 229, 0.45);
+        box-shadow: 0 20px 35px -30px rgba(15, 23, 42, 0.4);
       }
-      .mission-item.completed,
+      .mission-list button.completed,
       .challenge.completed {
-        background: linear-gradient(120deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
-        border-color: rgba(16, 185, 129, 0.6);
+        background: linear-gradient(120deg, rgba(16, 185, 129, 0.12), rgba(59, 130, 246, 0.12));
+        border-color: rgba(16, 185, 129, 0.5);
       }
-      .mission-item i,
-      .challenge i {
-        color: #6366f1;
+      .drawer-overlay {
+        display: none;
       }
-      .case-button {
-        justify-content: center;
-        font-weight: 600;
-        background: linear-gradient(135deg, #4c1d95, #2563eb);
+      .drawer-trigger {
+        margin: 2rem auto 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.9rem 1.4rem;
+        border-radius: 999px;
+        background: linear-gradient(120deg, var(--indigo), var(--cyan));
+        border: none;
         color: white;
-        border-color: transparent;
+        font-weight: 600;
+        box-shadow: 0 20px 45px -30px rgba(79, 70, 229, 0.9);
       }
-      .case-button i {
-        margin-right: 0.5rem;
+      .module-section {
+        border-radius: 32px;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        background: rgba(255, 255, 255, 0.9);
+        padding: clamp(2rem, 4vw, 3.5rem);
+        box-shadow: 0 35px 80px -50px rgba(15, 23, 42, 0.45);
+      }
+      .flash-grid,
+      .lab-grid,
+      .sensory-grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .flash-grid,
+        .lab-grid,
+        .sensory-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
       }
       .flip-card {
         position: relative;
-        width: 100%;
+        border-radius: 22px;
         border: none;
         padding: 0;
+        width: 100%;
         background: transparent;
         perspective: 1200px;
+        cursor: pointer;
       }
       .flip-card-inner {
-        position: relative;
-        width: 100%;
-        min-height: 180px;
-        border-radius: 1.5rem;
-        transform-style: preserve-3d;
-        transition: transform 0.6s ease;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(76, 29, 149, 0.9));
+        border-radius: 22px;
+        padding: 1.7rem;
+        background: linear-gradient(135deg, #0f172a, #312e81);
         color: white;
-        padding: 1.5rem;
+        min-height: 190px;
+        transition: transform 0.6s ease;
+        transform-style: preserve-3d;
       }
       .flip-card.is-flipped .flip-card-inner {
         transform: rotateY(180deg);
       }
-      .flip-card-front,
-      .flip-card-back {
+      .flip-face {
+        position: relative;
+        backface-visibility: hidden;
+      }
+      .flip-back {
         position: absolute;
         inset: 0;
-        backface-visibility: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      .flip-card-back {
         transform: rotateY(180deg);
-        color: #e2e8f0;
-        font-size: 0.9rem;
+        padding: 1.7rem;
+      }
+      .lab-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
       }
       .lab-button {
-        border: 1px solid rgba(148, 163, 184, 0.6);
+        padding: 0.55rem 1.4rem;
         border-radius: 999px;
-        padding: 0.5rem 1.5rem;
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #475569;
+        border: 1px solid var(--outline);
         background: white;
+        font-weight: 600;
+        color: var(--muted);
         display: inline-flex;
-        align-items: center;
         gap: 0.5rem;
-        transition: all 0.2s ease;
+        align-items: center;
+        cursor: pointer;
       }
       .lab-button.active {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(14, 165, 233, 0.15));
-        border-color: rgba(79, 70, 229, 0.5);
-        color: #1f2937;
+        background: linear-gradient(120deg, rgba(79, 70, 229, 0.12), rgba(14, 165, 233, 0.12));
+        border-color: rgba(79, 70, 229, 0.45);
+        color: var(--ink);
       }
       .lab-panel {
         display: none;
-        animation: fadeIn 0.3s ease;
+        animation: fade 0.4s ease;
       }
       .lab-panel.active {
         display: block;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       .timeline {
         border-left: 3px solid rgba(148, 163, 184, 0.5);
@@ -361,834 +345,568 @@
         display: grid;
         gap: 1.5rem;
       }
-      .timeline-label {
-        font-size: 0.85rem;
+      .timeline small {
+        letter-spacing: 0.25em;
         text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: #94a3b8;
+        color: var(--muted);
+        font-size: 0.75rem;
       }
       .teaching-note {
-        border: 1px solid rgba(148, 163, 184, 0.5);
-        border-radius: 1.25rem;
-        padding: 1rem 1.2rem;
-        background: #f8fafc;
-      }
-      .teaching-note summary {
-        cursor: pointer;
-        list-style: none;
-      }
-      .teaching-note summary::-webkit-details-marker {
-        display: none;
+        border-radius: 20px;
+        border: 1px dashed rgba(79, 70, 229, 0.4);
+        padding: 1.25rem 1.5rem;
+        background: rgba(99, 102, 241, 0.08);
       }
       .quiz {
-        border: 1px solid rgba(148, 163, 184, 0.5);
-        border-radius: 1.5rem;
+        border-radius: 26px;
+        border: 1px solid rgba(226, 232, 240, 0.9);
         padding: 2rem;
-        background: #f8fafc;
+        background: rgba(248, 250, 252, 0.9);
         display: grid;
         gap: 2rem;
       }
-      .quiz-options {
-        display: grid;
-        gap: 0.75rem;
-      }
-      .quiz-options button {
+      .quiz button {
         width: 100%;
-        border-radius: 999px;
-        padding: 0.65rem 1.2rem;
-        border: 1px solid rgba(148, 163, 184, 0.7);
-        background: white;
         text-align: left;
-        transition: all 0.2s ease;
+        border-radius: 999px;
+        border: 1px solid var(--outline);
+        padding: 0.75rem 1.2rem;
+        background: white;
+        cursor: pointer;
       }
-      .quiz-options button.selected {
+      .quiz button.selected {
         border-color: rgba(79, 70, 229, 0.7);
-        background: rgba(99, 102, 241, 0.08);
+        background: rgba(79, 70, 229, 0.08);
       }
-      .quiz-options button.correct {
+      .quiz button.correct {
         border-color: rgba(16, 185, 129, 0.8);
         background: rgba(16, 185, 129, 0.15);
       }
-      .quiz-options button.incorrect {
+      .quiz button.incorrect {
         border-color: rgba(239, 68, 68, 0.8);
-        background: rgba(239, 68, 68, 0.15);
+        background: rgba(239, 68, 68, 0.1);
       }
-      .reference-card {
-        border: 1px solid rgba(148, 163, 184, 0.5);
-        border-radius: 1.25rem;
-        padding: 1.25rem;
-        background: #f8fafc;
-      }
-      .reference-card h3 {
-        font-weight: 700;
-        color: #1f2937;
-      }
-      .reference-card span {
-        font-size: 0.85rem;
-        color: #94a3b8;
-      }
-      @keyframes fadeIn {
-        from {
+      @media (max-width: 1023px) {
+        .layout-grid {
+          display: block;
+        }
+        .drawer-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(15, 23, 42, 0.6);
+          backdrop-filter: blur(3px);
           opacity: 0;
-          transform: translateY(8px);
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          z-index: 20;
+          display: block;
         }
-        to {
+        .drawer-overlay.active {
           opacity: 1;
-          transform: translateY(0);
+          pointer-events: auto;
         }
-      }
-      @media (max-width: 768px) {
-        .cranial-map {
-          padding: 2.5rem 1.5rem 12rem;
+        .nav-panel {
+          position: fixed;
+          inset: 4% 1.25rem auto;
+          max-height: 90vh;
+          overflow-y: auto;
+          z-index: 30;
+          transform: translateY(20px);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .cranial-map::before {
-          inset: 30% 30% 20% 30%;
-        }
-        .nerve-node {
-          position: static;
-          max-width: none;
-          align-items: flex-start;
-          margin-bottom: 1.5rem;
-        }
-        .nerve-tooltip {
+        .nav-panel.is-open {
           opacity: 1;
           transform: translateY(0);
           pointer-events: auto;
-          width: 100%;
         }
       }
     </style>
   </head>
-  <body class="bg-slate-100 text-slate-800 font-sans">
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
-      <div
-        class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
-      >
-        <a href="../neurologia.html" class="flex items-center space-x-3">
-          <div
-            class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-sky-500 flex items-center justify-center text-white"
-          >
-            <i class="fas fa-brain text-xl"></i>
-          </div>
-          <div>
-            <p class="text-xs uppercase tracking-[0.3em] text-slate-500">
-              Neurología
+  <body>
+    <div class="page-shell">
+      <div class="learning-shell">
+        <header class="hero-grid">
+          <article class="hero-card">
+            <p class="chip">Segunda parte del examen neurológico</p>
+            <h1>Mapa interactivo del examen</h1>
+            <p style="color: var(--muted); font-size: 1.05rem; margin-top: 1rem">
+              Domina los pares craneales VII-XII, el sistema motor y sensitivo con retos gamificados,
+              laboratorios guiados y un panel lateral que nunca pierde de vista tu progreso.
             </p>
-            <h1 class="text-lg font-semibold text-slate-800">
-              Examen Neurológico: Parte 2
-            </h1>
-          </div>
-        </a>
-        <a
-          href="../index.html"
-          class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-indigo-600"
-        >
-          <i class="fas fa-arrow-left"></i>
-          Volver al inicio
-        </a>
-      </div>
-    </header>
-
-    <main class="learning-shell max-w-7xl mx-auto px-6 py-12 space-y-12">
-      <section
-        class="bg-gradient-to-br from-slate-900 via-indigo-900/90 to-sky-800 text-white rounded-3xl p-8 lg:p-12 shadow-2xl relative overflow-hidden"
-      >
-        <div class="relative z-10 grid gap-8 lg:grid-cols-[2fr_1.2fr]">
-          <div class="space-y-6">
-            <p class="text-sm uppercase tracking-[0.45em] text-slate-300">
-              Misión inmersiva
-            </p>
-            <h2 class="text-4xl lg:text-5xl font-bold leading-tight">
-              Domina la segunda parte del examen neurológico con una experiencia
-              pedagógica, interactiva y gamificada
-            </h2>
-            <p class="text-lg text-slate-200">
-              Avanza por retos prácticos, desbloquea insignias clínicas y pon a
-              prueba tus habilidades diagnósticas en tiempo real.
-            </p>
-            <div class="flex flex-wrap gap-4 text-sm text-white">
-              <span
-                class="px-4 py-2 rounded-full bg-white/90 text-slate-900 border border-white/80 font-semibold shadow-sm"
-                >Pares craneales VII-XII</span
-              >
-              <span
-                class="px-4 py-2 rounded-full bg-white/90 text-slate-900 border border-white/80 font-semibold shadow-sm"
-                >Sistema motor</span
-              >
-              <span
-                class="px-4 py-2 rounded-full bg-white/90 text-slate-900 border border-white/80 font-semibold shadow-sm"
-                >Sistema sensitivo</span
-              >
+            <div class="chip-row">
+              <span class="chip">Pares craneales</span>
+              <span class="chip">Sistema motor</span>
+              <span class="chip">Sensibilidad</span>
             </div>
-          </div>
-          <div
-            class="bg-white/95 text-slate-900 backdrop-blur-xl rounded-3xl border border-slate-100/80 shadow-2xl p-6 flex flex-col gap-6"
-          >
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm text-slate-600">Puntaje acumulado</p>
-                <p class="text-4xl font-black" data-xp-display>0</p>
-              </div>
-              <div class="text-right">
-                <p class="text-sm text-slate-600">Racha clínica</p>
-                <p class="text-3xl font-black" data-streak>0</p>
-              </div>
-            </div>
+          </article>
+          <article class="score-card">
             <div>
-              <p class="text-xs uppercase tracking-[0.4em] text-slate-600">
-                Progreso del módulo
-              </p>
-              <div class="mt-3 h-3 bg-slate-200 rounded-full overflow-hidden">
-                <div
-                  class="h-full bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-400"
-                  style="width: 0%"
-                  data-progress-bar
-                ></div>
+              <p class="text-sm uppercase tracking-[0.4em] opacity-80">Panel de logros</p>
+              <div class="progress-track" aria-label="Progreso del módulo">
+                <div data-progress-bar></div>
               </div>
-              <p class="mt-2 text-sm text-slate-700" data-progress-text>
-                0% completado
-              </p>
+              <p data-progress-text class="text-sm">0% completado</p>
             </div>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <p class="text-xs uppercase tracking-[0.3em] text-slate-500">
-                  Modalidad
-                </p>
-                <p class="mt-1 font-semibold text-slate-900">Aprendizaje activo</p>
+            <div class="score-grid">
+              <div class="score-tile">
+                <span>XP</span>
+                <strong data-xp-display>0</strong>
               </div>
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <p class="text-xs uppercase tracking-[0.3em] text-slate-500">
-                  Nivel
-                </p>
-                <p class="mt-1 font-semibold text-slate-900">Clínico intermedio</p>
+              <div class="score-tile">
+                <span>Racha</span>
+                <strong data-streak>0</strong>
+              </div>
+              <div class="score-tile">
+                <span>Modo</span>
+                <strong style="font-size: 1rem">Aprendizaje activo</strong>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.25),transparent_60%)]"
-        ></div>
-      </section>
+          </article>
+        </header>
 
-      <div class="lg:hidden space-y-3 mt-10">
-        <button type="button" class="panel-trigger" data-panel-toggle>
-          <i class="fas fa-compass"></i>
-          Abrir mapa interactivo del módulo
+        <button class="drawer-trigger lg:hidden" type="button" data-drawer-open>
+          <i class="fa-solid fa-compass"></i>
+          Abrir panel lateral
         </button>
-        <p class="text-center text-sm text-slate-600">
-          Usa el mapa para saltar entre pares craneales, sistema motor, sensitivo y la evaluación formativa.
-        </p>
-      </div>
-      <div class="panel-overlay" data-panel-overlay></div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-10">
-        <aside class="lg:sticky lg:top-28 space-y-6">
-          <div class="module-panel p-6" data-panel>
-            <h2
-              class="text-sm font-bold uppercase tracking-widest text-slate-400"
-            >
-              Mapa del módulo
-            </h2>
-            <nav class="mt-4 space-y-1" id="module-nav">
-              <a href="#pares-craneales" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-brain text-indigo-500"></i>
-                  Pares craneales (VII-XII)
-                </span>
-              </a>
-              <a href="#sistema-motor" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-running text-indigo-500"></i>
-                  Sistema motor
-                </span>
-              </a>
-              <a href="#sistema-sensitivo" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-hand-paper text-indigo-500"></i>
-                  Sistema sensitivo
-                </span>
-              </a>
-              <a href="#demostracion-practica" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-chalkboard-teacher text-indigo-500"></i>
-                  Demostración y práctica
-                </span>
-              </a>
-              <a href="#evaluacion-formativa" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-tasks text-indigo-500"></i>
-                  Evaluación formativa
-                </span>
-              </a>
-              <a href="#bibliografia" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-book text-indigo-500"></i>
-                  Bibliografía
-                </span>
-              </a>
+        <div class="drawer-overlay" data-drawer-overlay></div>
+
+        <div class="grid gap-8 mt-10 lg:grid-cols-[300px_minmax(0,1fr)]">
+          <aside class="nav-panel lg:sticky lg:top-24" data-drawer>
+            <div class="flex items-center justify-between">
+              <h2 class="text-sm font-semibold tracking-[0.4em] text-slate-500 uppercase">
+                Panel del módulo
+              </h2>
+              <button class="lg:hidden text-slate-500" type="button" data-drawer-close>
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <nav id="module-nav">
+              <a href="#pares-craneales">Pares craneales VII-XII</a>
+              <a href="#sistema-motor">Sistema motor</a>
+              <a href="#sistema-sensitivo">Sistema sensitivo</a>
+              <a href="#demostracion-practica">Demostración y práctica</a>
+              <a href="#evaluacion-formativa">Evaluación formativa</a>
+              <a href="#bibliografia">Bibliografía</a>
             </nav>
-          </div>
-
-          <div
-            class="bg-gradient-to-br from-indigo-500 via-sky-500 to-cyan-400 text-white rounded-2xl p-6 shadow-lg"
-          >
-            <h3 class="text-sm font-semibold uppercase tracking-[0.3em]">
-              Objetivo
-            </h3>
-            <p class="mt-3 text-base leading-relaxed">
-              Dominar la segunda parte del examen neurológico, centrándose en la evaluación de los pares craneales VII al XII, el sistema motor y el sistema sensitivo.
-            </p>
-            <div class="mt-4 text-sm space-y-2">
-              <p class="flex items-center gap-2">
-                <i class="fas fa-clock text-white"></i>
-                Tiempo estimado: 35 minutos
+            <div>
+              <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Misiones del día</p>
+              <div class="mission-list mt-3 space-y-3">
+                <button type="button" data-mission data-xp="25">
+                  <span>Describe dos maniobras para pares VII y IX.</span>
+                  <i class="fa-solid fa-check"></i>
+                </button>
+                <button type="button" data-mission data-xp="20">
+                  <span>Evalúa fuerza proximal y distal en dos grupos.</span>
+                  <i class="fa-solid fa-check"></i>
+                </button>
+                <button type="button" data-mission data-xp="20">
+                  <span>Integra sensibilidad superficial y profunda.</span>
+                  <i class="fa-solid fa-check"></i>
+                </button>
+                <button type="button" data-mission data-xp="15">
+                  <span>Redacta un plan con hallazgos prioritarios.</span>
+                  <i class="fa-solid fa-check"></i>
+                </button>
+              </div>
+            </div>
+            <div class="bg-slate-900 text-white rounded-2xl p-4">
+              <p class="text-xs uppercase tracking-[0.3em] text-white/80">Tip del tutor</p>
+              <p class="mt-2 text-sm text-white/90">
+                Anota siempre el lado que comparas. El panel actualiza la racha solo cuando marcas ambas fases.
               </p>
-              <p class="flex items-center gap-2">
-                <i class="fas fa-user-md text-white"></i>
-                Perfil: Médico general / Internado rotativo
-              </p>
             </div>
-          </div>
+          </aside>
 
-          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
-              Misiones del día
-            </h3>
-            <p class="mt-2 text-sm text-slate-500">
-              Marca cada reto cuando lo domines y observa cómo sube tu progreso.
-            </p>
-            <div class="mt-4 space-y-3">
-              <button type="button"
-                class="mission-item"
-                data-mission
-                data-xp="25"
-              >
-                <span>
-                  <strong>Explora</strong> los pares craneales VII-XII y describe dos maniobras clave.
-                </span>
-                <i class="fas fa-check"></i>
-              </button>
-              <button type="button" class="mission-item" data-mission data-xp="20">
-                <span>
-                  <strong>Ejecuta</strong> la evaluación de fuerza y tono en al menos tres grupos musculares.
-                </span>
-                <i class="fas fa-check"></i>
-              </button>
-              <button type="button" class="mission-item" data-mission data-xp="20">
-                <span>
-                  <strong>Integra</strong> pruebas de sensibilidad superficial y profunda.
-                </span>
-                <i class="fas fa-check"></i>
-              </button>
-              <button type="button" class="mission-item" data-mission data-xp="15">
-                <span>
-                  <strong>Comparte</strong> tus hallazgos con un compañero para recibir retroalimentación.
-                </span>
-                <i class="fas fa-check"></i>
-              </button>
-            </div>
-          </div>
-        </aside>
-
-        <section class="space-y-16">
-          <section
-            id="pares-craneales"
-            data-module-section
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-10"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Pares craneales (VII-XII)</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Evalúa la simetría facial, los reflejos bulbares, la fonación, la deglución y la movilidad lingual con una ruta guiada.
-            </p>
-            <div class="grid gap-10 lg:grid-cols-2">
-              <div class="space-y-6">
-                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50">
-                  <h3 class="font-semibold text-slate-800">Secuencia sugerida</h3>
-                  <ol class="mt-4 space-y-3 text-slate-600">
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">1.</span>
-                      Inspecciona mímica facial, eleva las cejas y realiza la prueba de arrugar la frente (VII).
-                    </li>
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">2.</span>
-                      Evalúa audición con frote digital y equilibrio con prueba de Romberg (VIII).
-                    </li>
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">3.</span>
-                      Observa úvula y reflejo nauseoso, pide pronunciar "kaa" y "goo" (IX-X).
-                    </li>
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">4.</span>
-                      Explora elevación del trapecio y rotación cefálica contra resistencia (XI).
-                    </li>
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">5.</span>
-                      Analiza protrusión lingual, movimientos laterales y fasciculaciones (XII).
-                    </li>
-                  </ol>
-                </div>
-                <div class="space-y-4">
-                  <h3 class="font-semibold text-slate-800">Flashcards interactivas</h3>
-                  <div class="grid gap-4 md:grid-cols-2" data-flashcards>
-                    <button type="button" class="flip-card" data-flip-card>
-                      <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Reto</p>
-                          <p class="text-lg font-semibold mt-2">Explora el signo de Bell</p>
-                        </div>
-                        <div class="flip-card-back">
-                          <p class="text-slate-100">
-                            Observa incapacidad para cerrar completamente los párpados en parálisis facial periférica (VII).
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                    <button type="button" class="flip-card" data-flip-card>
-                      <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Reto</p>
-                          <p class="text-lg font-semibold mt-2">Test de Weber</p>
-                        </div>
-                        <div class="flip-card-back">
-                          <p class="text-slate-100">
-                            Lateraliza la vibración al oído afectado en hipoacusia conductiva y al sano en neurosensorial (VIII).
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                    <button type="button" class="flip-card" data-flip-card>
-                      <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Reto</p>
-                          <p class="text-lg font-semibold mt-2">Reflejo nauseoso</p>
-                        </div>
-                        <div class="flip-card-back">
-                          <p class="text-slate-100">
-                            Respuesta aferente IX y eferente X; ausencia unilateral orienta a lesión bulbar.
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                    <button type="button" class="flip-card" data-flip-card>
-                      <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Reto</p>
-                          <p class="text-lg font-semibold mt-2">Lengua en sable</p>
-                        </div>
-                        <div class="flip-card-back">
-                          <p class="text-slate-100">
-                            La desviación hacia el lado lesionado indica hipogloso ipsilateral afectado.
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="cranial-map">
-                <div class="nerve-node" style="top: 12%; left: 12%">
-                  <button type="button" class="nerve-pin">VII</button>
-                  <div class="nerve-tooltip">
-                    <h4>Facial</h4>
-                    <p>Simetría facial, gusto 2/3 anteriores, reflejo corneal.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="top: 18%; right: 15%">
-                  <button type="button" class="nerve-pin">VIII</button>
-                  <div class="nerve-tooltip">
-                    <h4>Vestibulococlear</h4>
-                    <p>Audición, equilibrio, pruebas de Weber y Rinne.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="top: 45%; left: 20%">
-                  <button type="button" class="nerve-pin">IX</button>
-                  <div class="nerve-tooltip">
-                    <h4>Glosofaríngeo</h4>
-                    <p>Gusto posterior, reflejo nauseoso, elevación del paladar.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="top: 50%; right: 25%">
-                  <button type="button" class="nerve-pin">X</button>
-                  <div class="nerve-tooltip">
-                    <h4>Vago</h4>
-                    <p>Fonación, deglución, función parasimpática.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="bottom: 25%; left: 28%">
-                  <button type="button" class="nerve-pin">XI</button>
-                  <div class="nerve-tooltip">
-                    <h4>Accesorio</h4>
-                    <p>Trapecio y esternocleidomastoideo: fuerza y resistencia.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="bottom: 18%; right: 18%">
-                  <button type="button" class="nerve-pin">XII</button>
-                  <div class="nerve-tooltip">
-                    <h4>Hipogloso</h4>
-                    <p>Movimientos linguales, atrofia y fasciculaciones.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section
-            id="sistema-motor"
-            data-module-section
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-10"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Sistema motor</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Alterna entre fuerza, tono, reflejos y coordinación mediante el laboratorio interactivo; suma puntos adicionales si completas el simulador de caso.
-            </p>
-            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
-              <div class="flex flex-wrap gap-3" role="tablist">
-                <button type="button" class="lab-button active" data-lab-button="fuerza">
-                  <i class="fas fa-dumbbell"></i> Fuerza
-                </button>
-                <button type="button" class="lab-button" data-lab-button="tono">
-                  <i class="fas fa-wave-square"></i> Tono
-                </button>
-                <button type="button" class="lab-button" data-lab-button="reflejos">
-                  <i class="fas fa-bolt"></i> Reflejos
-                </button>
-                <button type="button" class="lab-button" data-lab-button="coordinacion">
-                  <i class="fas fa-project-diagram"></i> Coordinación
-                </button>
-              </div>
-              <div class="mt-6" data-lab-panels>
-                <article class="lab-panel active" data-lab-panel="fuerza">
-                  <p>
-                    Explora grupos musculares proximales y distales, compara lados y documenta en la escala MRC (0-5).
+          <div class="space-y-12">
+            <section id="pares-craneales" class="module-section" data-module-section>
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Bloque 01</p>
+                  <h2 class="text-3xl font-bold">Pares craneales VII-XII</h2>
+                  <p class="mt-2 text-lg text-slate-600">
+                    Emplea la secuencia guiada y las tarjetas reversibles para recordar pruebas clave mientras observas
+                    simetría facial, bulbar y lingual.
                   </p>
-                  <ul class="mt-4 space-y-2 text-slate-600 list-disc list-inside">
-                    <li>Deltoides, bíceps, interóseos, extensores de cadera, tibial anterior.</li>
-                    <li>Busca fatigabilidad y pruebas funcionales (sentadillas, pinza fina).</li>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-slate-500">Tiempo recomendado</p>
+                  <p class="text-2xl font-bold">10 min</p>
+                </div>
+              </div>
+              <div class="flash-grid mt-8">
+                <article class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                  <h3 class="font-semibold text-slate-900">Secuencia sugerida</h3>
+                  <ol class="mt-4 space-y-3 text-slate-600">
+                    <li><strong>VII:</strong> arruga la frente, sopla y busca signo de Bell.</li>
+                    <li><strong>VIII:</strong> prueba frote digital, Romberg sensibilizado.</li>
+                    <li><strong>IX-X:</strong> observa elevación del paladar, prueba nauseosa.</li>
+                    <li><strong>XI:</strong> resistencia al trapecio y ECM.</li>
+                    <li><strong>XII:</strong> protrusión lingual, lateralidad y fasciculaciones.</li>
+                  </ol>
+                </article>
+                <article>
+                  <p class="font-semibold text-slate-900 mb-3">Tarjetas interactivas</p>
+                  <div class="flash-grid" data-flashcards>
+                    <button type="button" class="flip-card" data-flip-card>
+                      <div class="flip-card-inner">
+                        <div class="flip-face">
+                          <p class="text-xs uppercase tracking-[0.35em] text-white/70">Reto</p>
+                          <h4 class="text-xl mt-2">¿Qué es el signo de Bell?</h4>
+                        </div>
+                        <div class="flip-face flip-back">
+                          <p>Al cerrar los ojos, se eleva el globo ocular. Aparece en parálisis facial periférica.</p>
+                        </div>
+                      </div>
+                    </button>
+                    <button type="button" class="flip-card" data-flip-card>
+                      <div class="flip-card-inner">
+                        <div class="flip-face">
+                          <p class="text-xs uppercase tracking-[0.35em] text-white/70">Caso</p>
+                          <h4 class="text-xl mt-2">Disfonía post-ACV</h4>
+                        </div>
+                        <div class="flip-face flip-back">
+                          <p>Explora IX-X: evalúa reflejo nauseoso y elevación palatina, ausculta la voz nasal.</p>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </article>
+              </div>
+              <div class="sensory-grid mt-8">
+                <article class="p-6 rounded-2xl border border-slate-200 bg-white">
+                  <h3 class="font-semibold text-slate-900">Mapa rápido</h3>
+                  <p class="text-sm text-slate-500">
+                    Usa el recordatorio para no omitir la fase motora y sensitiva de cada par.
+                  </p>
+                  <ul class="mt-4 text-slate-600 space-y-2 list-disc list-inside">
+                    <li><strong>VII:</strong> movilidad facial, sabor en 2/3 anteriores.</li>
+                    <li><strong>VIII:</strong> audiometría bedside, nistagmo.</li>
+                    <li><strong>IX-X:</strong> fonación, disfagia, reflejos.</li>
+                    <li><strong>XI:</strong> trofismo trapecio/ECM.</li>
+                    <li><strong>XII:</strong> fuerza lingual contra mejilla.</li>
                   </ul>
                 </article>
-                <article class="lab-panel" data-lab-panel="tono">
-                  <p>
-                    Realiza movimientos pasivos rápidos y lentos. Identifica espasticidad (liberación piramidal) versus rigidez (parkinsonismo).
-                  </p>
-                  <p class="mt-4 text-slate-600">
-                    Utiliza la maniobra del "rueda dentada" y el "clasp knife" como elementos clave.
-                  </p>
-                </article>
-                <article class="lab-panel" data-lab-panel="reflejos">
-                  <p>
-                    Usa el martillo neurológico y compara respuesta con la escala 0-4+. Identifica signos de Babinski y Hoffman.
-                  </p>
-                  <p class="mt-4 text-slate-600">
-                    Añade maniobras de refuerzo (Jendrassik) para potenciar reflejos perezosos.
-                  </p>
-                </article>
-                <article class="lab-panel" data-lab-panel="coordinacion">
-                  <p>
-                    Emplea pruebas dedo-nariz, talón-rodilla y diadococinesia para localizar lesiones cerebelosas.
-                  </p>
-                  <p class="mt-4 text-slate-600">
-                    Observa ataxia troncal, temblor intencional y dismetría como pistas clave.
-                  </p>
+                <article class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                  <h3 class="font-semibold text-slate-900">Checklist express</h3>
+                  <div class="mt-4 space-y-2 text-slate-600">
+                    <p>☑️ Observa simetría facial y movimientos voluntarios.</p>
+                    <p>☑️ Registra audición comparativa y equilibrio.</p>
+                    <p>☑️ Documenta elevación uvular y reflejo nauseoso.</p>
+                    <p>☑️ Evalúa fuerza del trapecio y ECM.</p>
+                    <p>☑️ Describe protrusión lingual y fasciculaciones.</p>
+                  </div>
                 </article>
               </div>
-            </div>
-            <div class="grid gap-8 lg:grid-cols-2">
-              <div class="border border-slate-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-slate-800">Reto motor cronometrado</h3>
-                <p class="mt-2 text-sm text-slate-500">
-                  Marca cada acción cuando la ejecutes para obtener una insignia adicional.
-                </p>
-                <div class="mt-4 space-y-3">
-                  <button type="button" class="challenge" data-challenge data-xp="10">
-                    <span>Evalúa movimientos en contra de la gravedad.</span>
-                    <i class="fas fa-stopwatch"></i>
-                  </button>
-                  <button type="button" class="challenge" data-challenge data-xp="10">
-                    <span>Describe dos signos piramidales presentes.</span>
-                    <i class="fas fa-stopwatch"></i>
-                  </button>
-                  <button type="button" class="challenge" data-challenge data-xp="10">
-                    <span>Documenta un hallazgo extrapiramidal.</span>
-                    <i class="fas fa-stopwatch"></i>
-                  </button>
+            </section>
+
+            <section id="sistema-motor" class="module-section" data-module-section>
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Bloque 02</p>
+                  <h2 class="text-3xl font-bold">Sistema motor</h2>
+                  <p class="mt-2 text-lg text-slate-600">
+                    Alterna entre fuerza, tono, reflejos y coordinación con el laboratorio dinámico. Completa el reto
+                    cronometrado y genera un caso clínico al azar.
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-slate-500">Tiempo recomendado</p>
+                  <p class="text-2xl font-bold">12 min</p>
                 </div>
               </div>
-              <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50">
-                <h3 class="font-semibold text-slate-800">Simulador de caso</h3>
-                <p class="mt-2 text-sm text-slate-500">
-                  Presiona "Generar caso" para recibir un paciente y decide qué maniobras priorizar.
-                </p>
-                <button type="button" class="case-button" data-case-button>
-                  <i class="fas fa-dice"></i> Generar caso
+              <div class="lab-grid mt-8">
+                <article class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                  <div class="lab-tabs">
+                    <button type="button" class="lab-button active" data-lab-button="fuerza">
+                      <i class="fa-solid fa-dumbbell"></i>
+                      Fuerza
+                    </button>
+                    <button type="button" class="lab-button" data-lab-button="tono">
+                      <i class="fa-solid fa-wave-square"></i>
+                      Tono
+                    </button>
+                    <button type="button" class="lab-button" data-lab-button="reflejos">
+                      <i class="fa-solid fa-bolt"></i>
+                      Reflejos
+                    </button>
+                    <button type="button" class="lab-button" data-lab-button="coordinacion">
+                      <i class="fa-solid fa-shuffle"></i>
+                      Coordinación
+                    </button>
+                  </div>
+                  <div data-lab-panels>
+                    <article class="lab-panel active" data-lab-panel="fuerza">
+                      <p>Evalúa músculos proximales y distales con la escala MRC (0-5) y compara lado a lado.</p>
+                      <ul class="mt-4 list-disc list-inside text-slate-600 space-y-1">
+                        <li>Deltoides, bíceps, interóseos, glúteo medio y tibial anterior.</li>
+                        <li>Pruebas funcionales: sentadilla, pinza fina, subir escalón.</li>
+                      </ul>
+                    </article>
+                    <article class="lab-panel" data-lab-panel="tono">
+                      <p>Realiza movimientos pasivos rápidos y lentos. Distingue espasticidad (lesión piramidal) de rigidez (extrapiramidal).</p>
+                      <p class="mt-4 text-slate-600">Observa "clasp-knife" y rueda dentada cuando el paciente está relajado.</p>
+                    </article>
+                    <article class="lab-panel" data-lab-panel="reflejos">
+                      <p>Usa la escala 0-4+, añade maniobras de Jendrassik y documenta signos de Babinski y Hoffman.</p>
+                      <p class="mt-4 text-slate-600">Compara bíceps, triceps, rotuliano y aquíleo.</p>
+                    </article>
+                    <article class="lab-panel" data-lab-panel="coordinacion">
+                      <p>Pruebas dedo-nariz, talón-rodilla y diadococinesia para localizar lesiones cerebelosas.</p>
+                      <p class="mt-4 text-slate-600">Observa dismetría, temblor intencional y disdiadococinesia.</p>
+                    </article>
+                  </div>
+                </article>
+                <article class="p-6 rounded-2xl border border-slate-200 bg-white">
+                  <h3 class="font-semibold text-slate-900">Reto motor cronometrado</h3>
+                  <p class="text-sm text-slate-500">Marca los retos para sumar XP extra.</p>
+                  <div class="mt-4 space-y-3">
+                    <button type="button" class="challenge" data-challenge data-xp="10">
+                      <span>Describe al menos dos signos piramidales.</span>
+                      <i class="fa-solid fa-stopwatch"></i>
+                    </button>
+                    <button type="button" class="challenge" data-challenge data-xp="10">
+                      <span>Evalúa movimientos contra resistencia en miembros superiores.</span>
+                      <i class="fa-solid fa-stopwatch"></i>
+                    </button>
+                    <button type="button" class="challenge" data-challenge data-xp="10">
+                      <span>Documenta un hallazgo extrapiramidal.</span>
+                      <i class="fa-solid fa-stopwatch"></i>
+                    </button>
+                  </div>
+                  <div class="mt-6 border border-dashed border-slate-200 rounded-2xl p-4 bg-slate-50">
+                    <p class="text-sm text-slate-500">Simulador de caso</p>
+                    <button type="button" class="case-button mt-3" data-case-button>
+                      <i class="fa-solid fa-dice"></i>
+                      Generar caso
+                    </button>
+                    <p class="mt-3 text-slate-700" data-case-output>Aún no hay caso.</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section id="sistema-sensitivo" class="module-section" data-module-section>
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Bloque 03</p>
+                  <h2 class="text-3xl font-bold">Sistema sensitivo</h2>
+                  <p class="mt-2 text-lg text-slate-600">
+                    Ajusta el umbral sugerido, completa las tareas de sensibilidad cortical y genera patrones topográficos
+                    para correlacionar hallazgos.
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-slate-500">Tiempo recomendado</p>
+                  <p class="text-2xl font-bold">8 min</p>
+                </div>
+              </div>
+              <div class="sensory-grid mt-8">
+                <article class="p-6 rounded-2xl border border-slate-200 bg-white">
+                  <h3 class="font-semibold text-slate-900">Control de umbral</h3>
+                  <p class="text-sm text-slate-500">Mueve el control para recibir sugerencias automáticas.</p>
+                  <input type="range" min="0" max="100" value="40" class="w-full mt-4" data-threshold />
+                  <div class="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200" data-threshold-output>
+                    Umbral sugerido: <strong>40%</strong>. Prioriza pruebas táctiles ligeras.
+                  </div>
+                </article>
+                <article class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+                  <h3 class="font-semibold text-slate-900">Sensibilidad cortical</h3>
+                  <p class="text-sm text-slate-500">Completa las tres tareas.</p>
+                  <div class="mt-4 space-y-3">
+                    <button type="button" class="challenge" data-challenge data-xp="8">
+                      <span>Estereognosia con dos objetos distintos.</span>
+                      <i class="fa-solid fa-braille"></i>
+                    </button>
+                    <button type="button" class="challenge" data-challenge data-xp="8">
+                      <span>Graphesthesia en ambas manos.</span>
+                      <i class="fa-solid fa-braille"></i>
+                    </button>
+                    <button type="button" class="challenge" data-challenge data-xp="8">
+                      <span>Discriminación de dos puntos (&lt;5 mm en pulpejos).</span>
+                      <i class="fa-solid fa-braille"></i>
+                    </button>
+                  </div>
+                </article>
+              </div>
+              <div class="mt-8 border border-slate-200 rounded-2xl p-6 bg-white">
+                <h3 class="font-semibold text-slate-900">Generador de patrones sensitivos</h3>
+                <p class="text-sm text-slate-500">Relaciona hallazgos con topografía medular o periférica.</p>
+                <button type="button" class="case-button mt-4" data-pattern-button>
+                  <i class="fa-solid fa-random"></i>
+                  Crear patrón
                 </button>
-                <p class="mt-4 text-slate-700" data-case-output>
-                  Aún no se ha generado un caso.
+                <p class="mt-3 text-slate-700" data-pattern-output>Sin patrón seleccionado.</p>
+              </div>
+            </section>
+
+            <section id="demostracion-practica" class="module-section" data-module-section>
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Bloque 04</p>
+                  <h2 class="text-3xl font-bold">Demostración y práctica</h2>
+                  <p class="mt-2 text-lg text-slate-600">
+                    Sigue la línea de tiempo para estructurar tu práctica supervisada y documenta hallazgos con un lenguaje
+                    clínico claro.
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-slate-500">Tiempo recomendado</p>
+                  <p class="text-2xl font-bold">5 min</p>
+                </div>
+              </div>
+              <div class="timeline mt-8">
+                <div>
+                  <small>00:00 - 05:00</small>
+                  <h3 class="text-xl font-semibold mt-1">Anclaje visual</h3>
+                  <p class="text-slate-600">Observa postura, fasciculaciones, marcha y tono global. Registra con fotos o notas rápidas.</p>
+                </div>
+                <div>
+                  <small>05:00 - 15:00</small>
+                  <h3 class="text-xl font-semibold mt-1">Maniobras guiadas</h3>
+                  <p class="text-slate-600">Combina exámenes motores y sensitivos, repite instrucciones y valida comprensión del paciente.</p>
+                </div>
+                <div>
+                  <small>15:00 - 25:00</small>
+                  <h3 class="text-xl font-semibold mt-1">Retroalimentación</h3>
+                  <p class="text-slate-600">Contrasta hallazgos con colegas, identifica sesgos, refuerza maniobras difíciles.</p>
+                </div>
+              </div>
+              <div class="teaching-note mt-6">
+                <strong>Consejo del tutor:</strong>
+                <p class="mt-2 text-slate-700">
+                  Describe hallazgos en voz alta ("disminución vibratoria en maléolo derecho") para reforzar memoria auditiva y
+                  estandarizar tu reporte.
                 </p>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <section
-            id="sistema-sensitivo"
-            data-module-section
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-10"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Sistema sensitivo</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Integra sensibilidad superficial, profunda y cortical con herramientas visuales que te ayudan a priorizar dermatomos y columnas sensitivas.
-            </p>
-            <div class="grid gap-8 lg:grid-cols-2">
-              <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50">
-                <h3 class="font-semibold text-slate-800">Control deslizante de umbral</h3>
-                <p class="text-sm text-slate-500">
-                  Ajusta el rango y recibe recomendaciones automáticas.
+            <section id="evaluacion-formativa" class="module-section" data-module-section>
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Bloque 05</p>
+                  <h2 class="text-3xl font-bold">Evaluación formativa</h2>
+                  <p class="mt-2 text-lg text-slate-600">
+                    Contesta el cuestionario para obtener retroalimentación inmediata. Cada respuesta correcta suma XP y
+                    alimenta tu racha clínica.
+                  </p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-slate-500">Tiempo recomendado</p>
+                  <p class="text-2xl font-bold">5 min</p>
+                </div>
+              </div>
+              <div class="quiz mt-6" data-quiz>
+                <div>
+                  <h3 class="font-semibold text-slate-900">1. Parálisis facial periférica</h3>
+                  <p class="text-sm text-slate-500">Selecciona el hallazgo esperado.</p>
+                  <div class="quiz-options">
+                    <button type="button" data-answer="incorrect">Solo cae el tercio inferior.</button>
+                    <button type="button" data-answer="correct">No puede cerrar el ojo ipsilateral.</button>
+                    <button type="button" data-answer="incorrect">Hipoacusia contralateral aislada.</button>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-slate-900">2. Lesión de cordones posteriores</h3>
+                  <p class="text-sm text-slate-500">¿Qué prueba priorizas?</p>
+                  <div class="quiz-options">
+                    <button type="button" data-answer="correct">Sensibilidad vibratoria con diapasón.</button>
+                    <button type="button" data-answer="incorrect">Prueba de temperatura.</button>
+                    <button type="button" data-answer="incorrect">Reflejo cutáneo abdominal.</button>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-slate-900">3. Sospecha de lesión bulbar</h3>
+                  <p class="text-sm text-slate-500">Elige la maniobra más útil.</p>
+                  <div class="quiz-options">
+                    <button type="button" data-answer="incorrect">Maniobra de Hoover.</button>
+                    <button type="button" data-answer="correct">Elevar simétricamente el paladar blando.</button>
+                    <button type="button" data-answer="incorrect">Romberg sensibilizado.</button>
+                  </div>
+                </div>
+                <button type="button" class="case-button" data-quiz-submit>
+                  <i class="fa-solid fa-star"></i>
+                  Verificar respuestas
+                </button>
+                <p class="text-sm text-slate-600" data-quiz-feedback>
+                  Selecciona una respuesta por pregunta antes de verificar.
                 </p>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value="40"
-                  class="w-full mt-4"
-                  data-threshold
-                />
-                <div class="mt-4 p-4 rounded-2xl bg-white border border-slate-200" data-threshold-output>
-                  Umbral sugerido: <strong>40%</strong>. Prioriza pruebas táctiles ligeras.
-                </div>
               </div>
-              <div class="border border-slate-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-slate-800">Tablero de sensibilidad cortical</h3>
-                <p class="text-sm text-slate-500">
-                  Completa las tres tareas para consolidar el mapa sensitivo.
-                </p>
-                <div class="mt-4 space-y-3">
-                  <button type="button" class="challenge" data-challenge data-xp="8">
-                    <span>Estereognosia con dos objetos distintos.</span>
-                    <i class="fas fa-braille"></i>
-                  </button>
-                  <button type="button" class="challenge" data-challenge data-xp="8">
-                    <span>Graphesthesia en ambas manos.</span>
-                    <i class="fas fa-braille"></i>
-                  </button>
-                  <button type="button" class="challenge" data-challenge data-xp="8">
-                    <span>Discriminación de dos puntos (&lt;5 mm en pulpejos).</span>
-                    <i class="fas fa-braille"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="border border-slate-200 rounded-2xl p-6">
-              <h3 class="font-semibold text-slate-800">Generador de patrones sensitivos</h3>
-              <p class="text-sm text-slate-500">
-                Ideal para relacionar hallazgos con topografía medular o periférica.
-              </p>
-              <button type="button" class="case-button" data-pattern-button>
-                <i class="fas fa-random"></i> Crear patrón
-              </button>
-              <p class="mt-4 text-slate-700" data-pattern-output>
-                Sin patrón seleccionado.
-              </p>
-            </div>
-          </section>
+            </section>
 
-          <section
-            id="demostracion-practica"
-            data-module-section
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-8"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Demostración y práctica supervisada</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Sigue la ruta pedagógica y registra tus observaciones; comparte tus clips o notas para obtener retroalimentación inmediata.
-            </p>
-            <div class="timeline">
-              <div>
-                <p class="timeline-label">00:00 - 05:00</p>
-                <h3>Anclaje visual</h3>
-                <p>Observa postura, fasciculaciones, tropismos y tono global. Documenta con fotografías o bosquejos.</p>
+            <section id="bibliografia" class="module-section" data-module-section>
+              <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Bloque 06</p>
+              <h2 class="text-3xl font-bold">Bibliografía esencial</h2>
+              <div class="mt-6 grid gap-4 md:grid-cols-2">
+                <article class="p-5 rounded-2xl border border-slate-200 bg-white">
+                  <h3 class="font-semibold text-slate-900">DeJong's The Neurologic Examination</h3>
+                  <p class="text-sm text-slate-500">Capítulos 12-16. Enfoque sistemático de pares craneales y sistema motor.</p>
+                </article>
+                <article class="p-5 rounded-2xl border border-slate-200 bg-white">
+                  <h3 class="font-semibold text-slate-900">Adams & Victor's Principles of Neurology</h3>
+                  <p class="text-sm text-slate-500">Secciones de síndrome bulbar y médula espinal para correlaciones clínicas.</p>
+                </article>
+                <article class="p-5 rounded-2xl border border-slate-200 bg-white">
+                  <h3 class="font-semibold text-slate-900">UpToDate</h3>
+                  <p class="text-sm text-slate-500">"Approach to the patient with weakness" y "Sensory testing".</p>
+                </article>
+                <article class="p-5 rounded-2xl border border-slate-200 bg-white">
+                  <h3 class="font-semibold text-slate-900">Guías latinoamericanas de neurología clínica</h3>
+                  <p class="text-sm text-slate-500">Resumen de maniobras esenciales para atención primaria.</p>
+                </article>
               </div>
-              <div>
-                <p class="timeline-label">05:00 - 15:00</p>
-                <h3>Maniobras guiadas</h3>
-                <p>Combina evaluaciones motoras y sensitivas con comandos verbales claros. Invita al paciente a repetir instrucciones.</p>
-              </div>
-              <div>
-                <p class="timeline-label">15:00 - 25:00</p>
-                <h3>Retroalimentación</h3>
-                <p>Contrasta hallazgos con tu equipo, identifica sesgos, refuerza maniobras difíciles.</p>
-              </div>
-            </div>
-            <details class="teaching-note">
-              <summary class="font-semibold text-slate-800">Consejo del tutor</summary>
-              <p class="mt-2 text-slate-600">
-                Utiliza frases gatillo como "siento resistencia al movimiento" o "la vibración se pierde en metatarso" para describir hallazgos en voz alta y fomentar memoria auditiva.
-              </p>
-            </details>
-          </section>
-
-          <section
-            id="evaluacion-formativa"
-            data-module-section
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-8"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Evaluación formativa</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Completa el cuestionario y revisa la rúbrica en tiempo real. Cada respuesta correcta suma puntos y potencia tu racha clínica.
-            </p>
-            <div class="quiz" data-quiz>
-              <div class="space-y-4">
-                <h3 class="font-semibold text-slate-800">1. Paciente con parálisis facial periférica</h3>
-                <p class="text-sm text-slate-500">¿Cuál hallazgo esperas?</p>
-                <div class="quiz-options">
-                  <button type="button" data-answer="incorrect">Parálisis exclusiva del tercio inferior de la cara.</button>
-                  <button type="button" data-answer="correct">Incapacidad de cerrar el ojo ipsilateral.</button>
-                  <button type="button" data-answer="incorrect">Hiperacusia contralateral.</button>
-                </div>
-              </div>
-              <div class="space-y-4">
-                <h3 class="font-semibold text-slate-800">2. Lesión de cordones posteriores</h3>
-                <p class="text-sm text-slate-500">¿Qué prueba priorizas?</p>
-                <div class="quiz-options">
-                  <button type="button" data-answer="correct">Sensibilidad vibratoria con diapasón.</button>
-                  <button type="button" data-answer="incorrect">Prueba de temperatura.</button>
-                  <button type="button" data-answer="incorrect">Reflejo cutáneo abdominal.</button>
-                </div>
-              </div>
-              <div class="space-y-4">
-                <h3 class="font-semibold text-slate-800">3. Sospecha de lesión bulbar</h3>
-                <p class="text-sm text-slate-500">Selecciona la maniobra más útil.</p>
-                <div class="quiz-options">
-                  <button type="button" data-answer="incorrect">Maniobra de Hoover.</button>
-                  <button type="button" data-answer="correct">Observa elevación simétrica del paladar blando.</button>
-                  <button type="button" data-answer="incorrect">Prueba de Romberg sensibilizada.</button>
-                </div>
-              </div>
-              <button type="button" class="case-button" data-quiz-submit>
-                <i class="fas fa-star"></i> Verificar respuestas
-              </button>
-              <p class="text-sm text-slate-600" data-quiz-feedback>
-                Selecciona una respuesta por pregunta para obtener tu puntuación.
-              </p>
-            </div>
-            <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50">
-              <h3 class="font-semibold text-slate-800">Rúbrica breve</h3>
-              <ul class="mt-4 space-y-3 text-slate-600">
-                <li><strong>Observación</strong>: postura, marcha, trofismo.</li>
-                <li><strong>Técnica</strong>: instrucciones claras, seguridad del paciente.</li>
-                <li><strong>Interpretación</strong>: correlación neuroanatómica.</li>
-                <li><strong>Comunicación</strong>: feedback y resumen estructurado.</li>
-              </ul>
-            </div>
-          </section>
-
-          <section
-            id="bibliografia"
-            data-module-section
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-6"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Bibliografía</h2>
-            <div class="grid gap-4 md:grid-cols-2">
-              <article class="reference-card">
-                <h3>Blumenfeld, H.</h3>
-                <p>Neuroanatomy through Clinical Cases.</p>
-                <span>Sinauer Associates.</span>
-              </article>
-              <article class="reference-card">
-                <h3>Adams & Victor</h3>
-                <p>Principles of Neurology.</p>
-                <span>McGraw-Hill Education.</span>
-              </article>
-              <article class="reference-card">
-                <h3>Mayo Clinic</h3>
-                <p>Videos de examen neurológico.</p>
-                <span>Repositorio audiovisual.</span>
-              </article>
-              <article class="reference-card">
-                <h3>J. DeMyer</h3>
-                <p>Technique of the Neurologic Examination.</p>
-                <span>McGraw-Hill.</span>
-              </article>
-            </div>
-          </section>
-        </section>
+            </section>
+          </div>
+        </div>
       </div>
-    </main>
-
-    <footer class="bg-white border-t border-slate-200 mt-20">
-      <div
-        class="max-w-7xl mx-auto px-6 py-8 text-center text-sm text-slate-500"
-      >
-        &copy; 2025 Powersemiotics. Diseñado para el aprendizaje clínico
-        continuo.
-      </div>
-    </footer>
+    </div>
 
     <script>
-      const navLinks = document.querySelectorAll('#module-nav .nav-link');
-      const sections = Array.from(
-        document.querySelectorAll('[data-module-section]'),
-      );
-      const panelToggle = document.querySelector('[data-panel-toggle]');
-      const modulePanel = document.querySelector('[data-panel]');
-      const panelOverlay = document.querySelector('[data-panel-overlay]');
-
-      const closePanel = () => {
-        modulePanel?.classList.remove('is-open');
-        panelOverlay?.classList.remove('active');
-        document.body.classList.remove('panel-open');
+      const body = document.body;
+      const drawer = document.querySelector('[data-drawer]');
+      const drawerOverlay = document.querySelector('[data-drawer-overlay]');
+      const openDrawer = () => {
+        drawer?.classList.add('is-open');
+        drawerOverlay?.classList.add('active');
+        body.classList.add('panel-open');
       };
+      const closeDrawer = () => {
+        drawer?.classList.remove('is-open');
+        drawerOverlay?.classList.remove('active');
+        body.classList.remove('panel-open');
+      };
+      document.querySelector('[data-drawer-open]')?.addEventListener('click', openDrawer);
+      document.querySelector('[data-drawer-close]')?.addEventListener('click', closeDrawer);
+      drawerOverlay?.addEventListener('click', closeDrawer);
 
-      panelToggle?.addEventListener('click', () => {
-        const isOpen = modulePanel?.classList.contains('is-open');
-        const nextState = !isOpen;
-        modulePanel?.classList.toggle('is-open', nextState);
-        panelOverlay?.classList.toggle('active', nextState);
-        document.body.classList.toggle('panel-open', nextState);
-      });
-
-      panelOverlay?.addEventListener('click', closePanel);
+      const navLinks = document.querySelectorAll('#module-nav a');
+      const sections = document.querySelectorAll('[data-module-section]');
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               navLinks.forEach((link) => link.classList.remove('active'));
-              const activeLink = document.querySelector(
-                `#module-nav a[href="#${entry.target.id}"]`,
-              );
-              activeLink?.classList.add('active');
+              const active = document.querySelector(`#module-nav a[href="#${entry.target.id}"]`);
+              active?.classList.add('active');
             }
           });
         },
-        {
-          threshold: 0.3,
-          rootMargin: '-100px 0px -40% 0px',
-        },
+        { threshold: 0.35, rootMargin: '-100px 0px -40% 0px' },
       );
-
       sections.forEach((section) => observer.observe(section));
-
       navLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
           event.preventDefault();
           const targetId = link.getAttribute('href');
           if (targetId) {
-            const target = document.querySelector(targetId);
-            target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelector(targetId)?.scrollIntoView({ behavior: 'smooth' });
             history.replaceState(null, '', targetId);
           }
-          navLinks.forEach((l) => l.classList.remove('active'));
+          navLinks.forEach((item) => item.classList.remove('active'));
           link.classList.add('active');
-          closePanel();
+          closeDrawer();
         });
       });
 
@@ -1212,8 +930,7 @@
       const updateProgress = () => {
         if (!progressBar || !progressText) return;
         const total = missions.length;
-        const completed = document.querySelectorAll('[data-mission].completed')
-          .length;
+        const completed = document.querySelectorAll('[data-mission].completed').length;
         const percent = total ? Math.round((completed / total) * 100) : 0;
         progressBar.style.width = `${percent}%`;
         progressText.textContent = `${percent}% completado`;
@@ -1238,24 +955,17 @@
 
       updateProgress();
 
-      document
-        .querySelectorAll('[data-flip-card]')
-        .forEach((card) =>
-          card.addEventListener('click', () =>
-            card.classList.toggle('is-flipped'),
-          ),
-        );
+      document.querySelectorAll('[data-flip-card]').forEach((card) => {
+        card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+      });
 
       const labButtons = document.querySelectorAll('[data-lab-button]');
       const labPanels = document.querySelectorAll('[data-lab-panel]');
-
       labButtons.forEach((button) => {
         button.addEventListener('click', () => {
           const target = button.dataset.labButton;
           labButtons.forEach((btn) => btn.classList.remove('active'));
-          labPanels.forEach((panel) =>
-            panel.classList.toggle('active', panel.dataset.labPanel === target),
-          );
+          labPanels.forEach((panel) => panel.classList.toggle('active', panel.dataset.labPanel === target));
           button.classList.add('active');
         });
       });
@@ -1268,17 +978,13 @@
         'Mujer de 45 años con temblor de reposo y rigidez en rueda dentada.',
         'Varón deportista con arreflexia aquílea y fasciculaciones distales.',
       ];
-
       caseButton?.addEventListener('click', () => {
-        const scenario = cases[Math.floor(Math.random() * cases.length)];
-        if (caseOutput) {
-          caseOutput.textContent = scenario;
-        }
+        if (!caseOutput) return;
+        caseOutput.textContent = cases[Math.floor(Math.random() * cases.length)];
       });
 
       const thresholdInput = document.querySelector('[data-threshold]');
       const thresholdOutput = document.querySelector('[data-threshold-output]');
-
       thresholdInput?.addEventListener('input', (event) => {
         if (!thresholdOutput) return;
         const value = Number(event.target.value);
@@ -1299,53 +1005,37 @@
         'Anestesia facial en V2-V3 con reflejo corneal disminuido.',
         'Pérdida vibratoria en MMII con marcha atáxica: cordones posteriores.',
       ];
-
       patternButton?.addEventListener('click', () => {
-        const pattern = patterns[Math.floor(Math.random() * patterns.length)];
-        if (patternOutput) {
-          patternOutput.textContent = pattern;
-        }
+        if (!patternOutput) return;
+        patternOutput.textContent = patterns[Math.floor(Math.random() * patterns.length)];
       });
 
       const quiz = document.querySelector('[data-quiz]');
       const quizSubmit = document.querySelector('[data-quiz-submit]');
       const quizFeedback = document.querySelector('[data-quiz-feedback]');
       let lastQuizScore = 0;
-
       quiz?.querySelectorAll('.quiz-options').forEach((group) => {
         group.addEventListener('click', (event) => {
-          const target = event.target.closest('button');
-          if (!target) return;
-          group.querySelectorAll('button').forEach((btn) => {
-            btn.classList.remove('selected');
-          });
-          target.classList.add('selected');
+          const button = event.target.closest('button');
+          if (!button) return;
+          group.querySelectorAll('button').forEach((btn) => btn.classList.remove('selected'));
+          button.classList.add('selected');
         });
       });
-
       quizSubmit?.addEventListener('click', () => {
         if (!quiz) return;
         const groups = quiz.querySelectorAll('.quiz-options');
         let unanswered = false;
         groups.forEach((group) => {
-          const selected = group.querySelector('button.selected');
-          if (!selected) {
-            unanswered = true;
-          }
+          if (!group.querySelector('button.selected')) unanswered = true;
         });
         if (unanswered) {
-          quizFeedback &&
-            (quizFeedback.textContent =
-              'Selecciona una respuesta en cada pregunta antes de verificar.');
+          if (quizFeedback) quizFeedback.textContent = 'Selecciona una respuesta en cada pregunta antes de verificar.';
           return;
         }
-
         groups.forEach((group) => {
-          group.querySelectorAll('button').forEach((btn) => {
-            btn.classList.remove('correct', 'incorrect');
-          });
+          group.querySelectorAll('button').forEach((btn) => btn.classList.remove('correct', 'incorrect'));
         });
-
         let correctAnswers = 0;
         groups.forEach((group) => {
           const selected = group.querySelector('button.selected');
@@ -1355,18 +1045,16 @@
             correctAnswers += 1;
           } else {
             selected.classList.add('incorrect');
-            group.querySelector('[data-answer="correct"]')?.classList.add(
-              'correct',
-            );
+            group.querySelector('[data-answer="correct"]')?.classList.add('correct');
           }
         });
-
         const xpDelta = (correctAnswers - lastQuizScore) * 15;
         const streakDelta = correctAnswers - lastQuizScore;
         updateScore(xpDelta, streakDelta);
         lastQuizScore = correctAnswers;
-        quizFeedback &&
-          (quizFeedback.textContent = `Respuestas correctas: ${correctAnswers}/${groups.length}. ¡Sigue entrenando!`);
+        if (quizFeedback) {
+          quizFeedback.textContent = `Respuestas correctas: ${correctAnswers}/${groups.length}. ¡Sigue entrenando!`;
+        }
       });
     </script>
   </body>
