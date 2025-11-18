@@ -335,8 +335,8 @@
       }
     </style>
   </head>
-  <body class="bg-slate-100 text-slate-800 font-sans">
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+  <body class="bg-slate-50 text-slate-800 font-sans">
+    <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-40">
       <div
         class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
       >
@@ -367,24 +367,26 @@
 
     <main class="max-w-7xl mx-auto px-6 py-12 space-y-12">
       <section
-        class="bg-gradient-to-br from-slate-900 via-indigo-900/90 to-sky-800 text-white rounded-3xl p-8 lg:p-12 shadow-2xl relative overflow-hidden"
+        class="bg-white rounded-3xl p-8 lg:p-12 shadow-lg relative overflow-hidden"
       >
         <div class="relative z-10 grid gap-8 lg:grid-cols-[2fr_1.2fr]">
           <div class="space-y-6">
-            <p class="text-sm uppercase tracking-[0.45em] text-slate-300">
+            <p
+              class="text-sm uppercase tracking-[0.45em] text-indigo-600 font-semibold"
+            >
               Misión inmersiva
             </p>
-            <h2 class="text-4xl lg:text-5xl font-bold leading-tight">
+            <h2 class="text-4xl lg:text-5xl font-bold leading-tight text-slate-900">
               Domina la segunda parte del examen neurológico con una experiencia
               pedagógica, interactiva y gamificada
             </h2>
-            <p class="text-lg text-slate-200">
+            <p class="text-lg text-slate-600">
               Avanza por retos prácticos, desbloquea insignias clínicas y pon a
               prueba tus habilidades diagnósticas en tiempo real.
             </p>
-            <div class="flex flex-wrap gap-4 text-sm text-white">
+            <div class="flex flex-wrap gap-4 text-sm">
               <span
-                class="px-4 py-2 rounded-full bg-white/90 text-slate-900 border border-white/80 font-semibold shadow-sm"
+                class="px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-semibold"
                 >Pares craneales VII-XII</span
               >
               <span
@@ -445,9 +447,6 @@
             </div>
           </div>
         </div>
-        <div
-          class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.25),transparent_60%)]"
-        ></div>
       </section>
 
       <div class="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-10">
@@ -576,7 +575,7 @@
         <section class="space-y-12">
           <section
             id="pares-craneales"
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-10"
+            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-10"
           >
             <h2 class="text-3xl font-bold text-slate-900">Pares craneales (VII-XII)</h2>
             <p class="mt-4 text-lg text-slate-600">
@@ -716,7 +715,7 @@
 
           <section
             id="sistema-motor"
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-10"
+            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-10"
           >
             <h2 class="text-3xl font-bold text-slate-900">Sistema motor</h2>
             <p class="mt-4 text-lg text-slate-600">
@@ -811,7 +810,7 @@
 
           <section
             id="sistema-sensitivo"
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-10"
+            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-10"
           >
             <h2 class="text-3xl font-bold text-slate-900">Sistema sensitivo</h2>
             <p class="mt-4 text-lg text-slate-600">
@@ -872,7 +871,7 @@
 
           <section
             id="demostracion-practica"
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-8"
+            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-8"
           >
             <h2 class="text-3xl font-bold text-slate-900">Demostración y práctica supervisada</h2>
             <p class="mt-4 text-lg text-slate-600">
@@ -905,7 +904,7 @@
 
           <section
             id="evaluacion-formativa"
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-8"
+            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-8"
           >
             <h2 class="text-3xl font-bold text-slate-900">Evaluación formativa</h2>
             <p class="mt-4 text-lg text-slate-600">
@@ -959,7 +958,7 @@
 
           <section
             id="bibliografia"
-            class="bg-white border border-slate-200 rounded-3xl shadow-sm p-8 lg:p-12 space-y-6"
+            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-6"
           >
             <h2 class="text-3xl font-bold text-slate-900">Bibliografía</h2>
             <div class="grid gap-4 md:grid-cols-2">
