@@ -161,7 +161,7 @@
         overflow: hidden;
         margin: 1rem 0;
       }
-      .progress-track div {
+      .progress-track [data-progress-bar] {
         height: 100%;
         width: 0;
         border-radius: inherit;
@@ -422,6 +422,18 @@
           pointer-events: auto;
         }
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
     </style>
   </head>
   <body>
@@ -444,19 +456,27 @@
           <article class="score-card">
             <div>
               <p class="text-sm uppercase tracking-[0.4em] opacity-80">Panel de logros</p>
-              <div class="progress-track" aria-label="Progreso del módulo">
-                <div data-progress-bar></div>
+              <p id="progress-label" data-progress-text class="text-sm" aria-live="polite">0% completado</p>
+              <div class="progress-track">
+                <div
+                  data-progress-bar
+                  role="progressbar"
+                  aria-labelledby="progress-label"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="0"
+                  aria-valuetext="0% completado"
+                ></div>
               </div>
-              <p data-progress-text class="text-sm">0% completado</p>
             </div>
             <div class="score-grid">
               <div class="score-tile">
                 <span>XP</span>
-                <strong data-xp-display>0</strong>
+                <strong data-xp-display aria-live="polite" aria-label="Experiencia acumulada">0</strong>
               </div>
               <div class="score-tile">
                 <span>Racha</span>
-                <strong data-streak>0</strong>
+                <strong data-streak aria-live="polite" aria-label="Racha activa">0</strong>
               </div>
               <div class="score-tile">
                 <span>Modo</span>
@@ -466,7 +486,14 @@
           </article>
         </header>
 
-        <button class="drawer-trigger lg:hidden" type="button" data-drawer-open>
+        <button
+          class="drawer-trigger lg:hidden"
+          type="button"
+          data-drawer-open
+          aria-controls="module-nav"
+          aria-expanded="false"
+          aria-label="Abrir panel del módulo"
+        >
           <i class="fa-solid fa-compass"></i>
           Abrir panel lateral
         </button>
@@ -479,7 +506,7 @@
               <h2 class="text-sm font-semibold tracking-[0.4em] text-slate-500 uppercase">
                 Panel del módulo
               </h2>
-              <button class="lg:hidden text-slate-500" type="button" data-drawer-close>
+              <button class="lg:hidden text-slate-500" type="button" data-drawer-close aria-label="Cerrar panel">
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
@@ -682,7 +709,9 @@
                       <i class="fa-solid fa-dice"></i>
                       Generar caso
                     </button>
-                    <p class="mt-3 text-slate-700" data-case-output>Aún no hay caso.</p>
+                    <p class="mt-3 text-slate-700" data-case-output role="status" aria-live="polite">
+                      Aún no hay caso.
+                    </p>
                   </div>
                 </article>
               </div>
@@ -708,7 +737,12 @@
                   <h3 class="font-semibold text-slate-900">Control de umbral</h3>
                   <p class="text-sm text-slate-500">Mueve el control para recibir sugerencias automáticas.</p>
                   <input type="range" min="0" max="100" value="40" class="w-full mt-4" data-threshold />
-                  <div class="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200" data-threshold-output>
+                  <div
+                    class="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200"
+                    data-threshold-output
+                    role="status"
+                    aria-live="polite"
+                  >
                     Umbral sugerido: <strong>40%</strong>. Prioriza pruebas táctiles ligeras.
                   </div>
                 </article>
@@ -738,7 +772,9 @@
                   <i class="fa-solid fa-random"></i>
                   Crear patrón
                 </button>
-                <p class="mt-3 text-slate-700" data-pattern-output>Sin patrón seleccionado.</p>
+                <p class="mt-3 text-slate-700" data-pattern-output role="status" aria-live="polite">
+                  Sin patrón seleccionado.
+                </p>
               </div>
             </section>
 
@@ -830,7 +866,7 @@
                   <i class="fa-solid fa-star"></i>
                   Verificar respuestas
                 </button>
-                <p class="text-sm text-slate-600" data-quiz-feedback>
+                <p class="text-sm text-slate-600" data-quiz-feedback role="status" aria-live="polite">
                   Selecciona una respuesta por pregunta antes de verificar.
                 </p>
               </div>
@@ -867,19 +903,36 @@
       const body = document.body;
       const drawer = document.querySelector('[data-drawer]');
       const drawerOverlay = document.querySelector('[data-drawer-overlay]');
-      const openDrawer = () => {
-        drawer?.classList.add('is-open');
-        drawerOverlay?.classList.add('active');
-        body.classList.add('panel-open');
+      const drawerTrigger = document.querySelector('[data-drawer-open]');
+      const drawerCloseButton = document.querySelector('[data-drawer-close]');
+
+      const setDrawerState = (isOpen) => {
+        drawer?.classList.toggle('is-open', isOpen);
+        drawerOverlay?.classList.toggle('active', isOpen);
+        body.classList.toggle('panel-open', isOpen);
+        drawerTrigger?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       };
-      const closeDrawer = () => {
-        drawer?.classList.remove('is-open');
-        drawerOverlay?.classList.remove('active');
-        body.classList.remove('panel-open');
+
+      const openDrawer = () => setDrawerState(true);
+      const closeDrawer = ({ returnFocus = true } = {}) => {
+        setDrawerState(false);
+        if (returnFocus) {
+          drawerTrigger?.focus();
+        }
       };
-      document.querySelector('[data-drawer-open]')?.addEventListener('click', openDrawer);
-      document.querySelector('[data-drawer-close]')?.addEventListener('click', closeDrawer);
-      drawerOverlay?.addEventListener('click', closeDrawer);
+
+      drawerTrigger?.addEventListener('click', openDrawer);
+      drawerCloseButton?.addEventListener('click', () => closeDrawer());
+      drawerOverlay?.addEventListener('click', () => closeDrawer());
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && drawer?.classList.contains('is-open')) {
+          closeDrawer();
+        }
+      });
+
+      document.querySelectorAll('i[class*="fa-"]').forEach((icon) => {
+        icon.setAttribute('aria-hidden', 'true');
+      });
 
       const navLinks = document.querySelectorAll('#module-nav a');
       const sections = document.querySelectorAll('[data-module-section]');
@@ -906,7 +959,7 @@
           }
           navLinks.forEach((item) => item.classList.remove('active'));
           link.classList.add('active');
-          closeDrawer();
+          closeDrawer({ returnFocus: false });
         });
       });
 
@@ -925,6 +978,8 @@
         streak = Math.max(0, streak + streakDelta);
         xpDisplay.textContent = xp;
         streakDisplay.textContent = streak;
+        xpDisplay.setAttribute('aria-label', `Experiencia acumulada: ${xp} puntos`);
+        streakDisplay.setAttribute('aria-label', `Racha activa: ${streak} días`);
       };
 
       const updateProgress = () => {
@@ -933,6 +988,8 @@
         const completed = document.querySelectorAll('[data-mission].completed').length;
         const percent = total ? Math.round((completed / total) * 100) : 0;
         progressBar.style.width = `${percent}%`;
+        progressBar.setAttribute('aria-valuenow', `${percent}`);
+        progressBar.setAttribute('aria-valuetext', `${percent}% completado`);
         progressText.textContent = `${percent}% completado`;
       };
 
