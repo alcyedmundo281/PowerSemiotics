@@ -57,3 +57,6 @@ This keeps URLs consistent and easy to read.
 
 ## Merge guidance for neurologia exam page
 To avoid manual merge decisions when syncing changes to `neurologia/examen-neurologico-parte-2.html` and its supporting package manifests, the repository now ships with a `.gitattributes` file that forces Git to keep the version from the feature branch. If you intentionally need the other side of the merge, run `git checkout --theirs` (or `--ours`) manually before committing.
+
+### ¿Qué opción elegir en GitHub?
+Si GitHub vuelve a mostrar un mensaje de conflicto con botones como **Accept current change**, **Accept incoming change** o **Accept both changes**, selecciona siempre **Accept incoming change**. Esa opción conserva la versión del feature branch, que es la misma que protege `.gitattributes`, y garantiza que no tengas que revisar código para decidir.
