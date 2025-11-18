@@ -73,6 +73,70 @@
         grid-template-columns: minmax(0, 1fr);
         gap: 2rem;
       }
+      .sidebar-static {
+        position: sticky;
+        top: 2rem;
+        align-self: flex-start;
+        padding: 2.25rem 1.75rem;
+        border-radius: 32px;
+        background: rgba(9, 9, 20, 0.95);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 35px 80px -60px rgba(15, 23, 42, 1);
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .sidebar-static h2 {
+        margin: 0;
+        font-size: 1.35rem;
+      }
+      .sidebar-static p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .sidebar-static nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+      .sidebar-static a {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        padding: 0.35rem 0.4rem;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 600;
+      }
+      .sidebar-static a span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .sidebar-static a.active {
+        background: rgba(79, 70, 229, 0.35);
+      }
+      .sidebar-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        font-size: 0.95rem;
+      }
+      .sidebar-list li {
+        display: flex;
+        gap: 0.5rem;
+        align-items: flex-start;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .sidebar-list li span {
+        font-weight: 700;
+        color: rgba(129, 140, 248, 1);
+      }
       .main-card {
         background: var(--shell);
         border-radius: 40px;
@@ -732,41 +796,15 @@
         .cranial-map {
           padding: 2.5rem 1.5rem 12rem;
         }
+        .sidebar-static {
+          display: none;
+        }
+      }
+      @media (min-width: 769px) {
         .drawer,
         .drawer-overlay,
         .drawer-toggle {
           display: none;
-        }
-        .sidebar-static {
-          position: sticky;
-          top: 2rem;
-          align-self: start;
-          padding: 2rem 1.25rem;
-          border-radius: 28px;
-          background: rgba(15, 23, 42, 0.92);
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          box-shadow: 0 35px 80px -60px rgba(15, 23, 42, 1);
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-        .sidebar-static nav {
-          display: flex;
-          flex-direction: column;
-          gap: 0.45rem;
-        }
-        .sidebar-static a {
-          color: rgba(255, 255, 255, 0.85);
-          text-decoration: none;
-          padding: 0.35rem 0.4rem;
-          border-radius: 10px;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-        }
-        .sidebar-static a.active {
-          background: rgba(79, 70, 229, 0.35);
         }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -791,21 +829,71 @@
   </head>
   <body class="bg-slate-50 text-slate-800 font-sans">
     <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-40">
-      <div
-        class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
-      >
-        <a href="../neurologia.html" class="flex items-center space-x-3">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="../neurologia.html" class="flex items-center space-x-3 font-semibold text-slate-700">
           <div
             class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-sky-500 flex items-center justify-center text-white"
           >
-            <i class="fas fa-brain text-xl"></i>
+            <i class="fas fa-brain text-xl" aria-hidden="true"></i>
+          </div>
+          Neurología
+        </a>
+        <div class="text-right">
+          <p class="text-xs uppercase tracking-[0.35em] text-slate-400 m-0">Examen neurológico</p>
+          <p class="text-base font-semibold text-slate-700 m-0">Parte 2 · Ruta interactiva</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="drawer-overlay" aria-hidden="true"></div>
+    <aside class="drawer" aria-label="Navegación del módulo" aria-hidden="true">
+      <header>
+        <div>
+          <p style="margin: 0; font-size: 0.8rem; letter-spacing: 0.35em; text-transform: uppercase; opacity: 0.7">
+            Guía móvil
+          </p>
+          <strong style="display: block; margin-top: 0.35rem">Examen neurológico II</strong>
+        </div>
+        <button class="drawer-close" type="button">Cerrar</button>
+      </header>
+      <p style="margin: 0; opacity: 0.8">
+        Divide tu repaso en bloques cortos: navega cada sistema y marca los retos que completes.
+      </p>
+      <nav class="drawer-links"></nav>
+      <div>
+        <p style="margin: 0 0 0.35rem; font-weight: 600">Checklist exprés</p>
+        <ul class="sidebar-list">
+          <li><span>1</span> Verifica pares craneales inferiores con dos maniobras.</li>
+          <li><span>2</span> Documenta fuerza y tono usando la escala MRC.</li>
+          <li><span>3</span> Contrasta sensibilidad superficial y profunda.</li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="page-shell">
+      <button class="drawer-toggle" type="button">
+        <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+        Abrir mapa de estudio
+      </button>
+      <div class="learning-shell">
+        <aside class="sidebar-static" aria-label="Mapa del módulo para estudiantes">
+          <div>
+            <p style="margin: 0 0 0.35rem; text-transform: uppercase; letter-spacing: 0.35em; font-size: 0.75rem">
+              Ruta guiada
+            </p>
+            <h2>Mapa del módulo</h2>
+            <p>
+              Avanza en cuatro bloques: pares craneales, sistema motor, sistema sensitivo e integración final.
+            </p>
           </div>
           <nav class="sidebar-links"></nav>
           <div>
-            <p style="margin: 0 0 0.35rem; font-size: 0.85rem; opacity: 0.8">Tip</p>
-            <p style="margin: 0; font-size: 0.95rem">
-              Cada módulo usa plantillas dinámicas. Edita el texto en un solo lugar y evitarás conflictos.
-            </p>
+            <p style="margin: 0 0 0.35rem; font-weight: 600">Recordatorios</p>
+            <ul class="sidebar-list">
+              <li><span>·</span> Lleva un diagrama corporal para marcar hallazgos sensitivos.</li>
+              <li><span>·</span> Cronometra cada estación en 5 minutos para simular OSCE.</li>
+              <li><span>·</span> Resume tus hallazgos usando el lenguaje de localización.</li>
+            </ul>
           </div>
         </aside>
         <main class="main-card">
