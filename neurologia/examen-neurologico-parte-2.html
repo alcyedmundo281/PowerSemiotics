@@ -253,6 +253,11 @@
         box-shadow: 0 30px 90px -70px rgba(15, 23, 42, 0.8);
         position: relative;
       }
+      .module-card.module-completed {
+        border-color: rgba(16, 185, 129, 0.8);
+        background: rgba(240, 253, 244, 0.95);
+        box-shadow: 0 35px 90px -60px rgba(16, 185, 129, 0.6);
+      }
       .module-header {
         display: flex;
         flex-direction: column;
@@ -1213,159 +1218,25 @@
         return wrapper;
       }
 
-    <main class="max-w-7xl mx-auto px-6 py-12 space-y-12">
-      <section
-        class="bg-white rounded-3xl p-8 lg:p-12 shadow-lg relative overflow-hidden"
-      >
-        <div class="relative z-10 grid gap-8 lg:grid-cols-[2fr_1.2fr]">
-          <div class="space-y-6">
-            <p
-              class="text-sm uppercase tracking-[0.45em] text-indigo-600 font-semibold"
-            >
-              Misión inmersiva
-            </p>
-            <h2 class="text-4xl lg:text-5xl font-bold leading-tight text-slate-900">
-              Domina la segunda parte del examen neurológico con una experiencia
-              pedagógica, interactiva y gamificada
-            </h2>
-            <p class="text-lg text-slate-600">
-              Avanza por retos prácticos, desbloquea insignias clínicas y pon a
-              prueba tus habilidades diagnósticas en tiempo real.
-            </p>
-            <div class="flex flex-wrap gap-4 text-sm">
-              <span
-                class="px-4 py-2 rounded-full bg-indigo-100 text-indigo-800 font-semibold"
-                >Pares craneales VII-XII</span
-              >
-              <span
-                class="px-4 py-2 rounded-full bg-white/10 border border-white/20"
-                >Sistema motor</span
-              >
-              <span
-                class="px-4 py-2 rounded-full bg-white/10 border border-white/20"
-                >Sistema sensitivo</span
-              >
-            </div>
-          </div>
-          <div
-            class="bg-slate-900/20 backdrop-blur-xl rounded-3xl border border-slate-100/20 p-6 flex flex-col gap-6 text-white"
-          >
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm text-slate-300">Puntaje acumulado</p>
-                <p class="text-4xl font-black" data-xp-display>0</p>
-              </div>
-              <div class="text-right">
-                <p class="text-sm text-slate-300">Racha clínica</p>
-                <p class="text-3xl font-black" data-streak>0</p>
-              </div>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-[0.4em] text-slate-300">
-                Progreso del módulo
-              </p>
-              <div class="mt-3 h-3 bg-white/10 rounded-full overflow-hidden">
-                <div
-                  class="h-full bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-400"
-                  style="width: 0%"
-                  data-progress-bar
-                ></div>
-              </div>
-              <p class="mt-2 text-sm text-slate-200" data-progress-text>
-                0% completado
-              </p>
-            </div>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              <div
-                class="p-4 rounded-2xl bg-slate-900/25 border border-slate-100/20"
-              >
-                <p class="text-xs uppercase tracking-[0.3em] text-slate-300">
-                  Modalidad
-                </p>
-                <p class="mt-1 font-semibold">Aprendizaje activo</p>
-              </div>
-              <div
-                class="p-4 rounded-2xl bg-slate-900/25 border border-slate-100/20"
-              >
-                <p class="text-xs uppercase tracking-[0.3em] text-slate-300">
-                  Nivel
-                </p>
-                <p class="mt-1 font-semibold">Clínico intermedio</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <div class="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)] gap-10">
-        <aside class="lg:sticky lg:top-28 space-y-6">
-          <div
-            class="bg-white/80 border border-slate-200 rounded-2xl shadow-sm p-6 backdrop-blur-lg"
-          >
-            <h2
-              class="text-sm font-bold uppercase tracking-widest text-slate-400"
-            >
-              Mapa del módulo
-            </h2>
-            <nav class="mt-4 space-y-1" id="module-nav">
-              <a href="#pares-craneales" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-brain text-indigo-500"></i>
-                  Pares craneales (VII-XII)
-                </span>
-              </a>
-              <a href="#sistema-motor" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-running text-indigo-500"></i>
-                  Sistema motor
-                </span>
-              </a>
-              <a href="#sistema-sensitivo" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-hand-paper text-indigo-500"></i>
-                  Sistema sensitivo
-                </span>
-              </a>
-              <a href="#demostracion-practica" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-chalkboard-teacher text-indigo-500"></i>
-                  Demostración y práctica
-                </span>
-              </a>
-              <a href="#evaluacion-formativa" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-tasks text-indigo-500"></i>
-                  Evaluación formativa
-                </span>
-              </a>
-              <a href="#bibliografia" class="nav-link">
-                <span
-                  class="flex items-center gap-3 py-2 px-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-indigo-50"
-                >
-                  <i class="fas fa-book text-indigo-500"></i>
-                  Bibliografía
-                </span>
-              </a>
-            </nav>
-          </div>
-          <input type="range" id="${sliderId}" min="${slider.min}" max="${slider.max}" value="${slider.value}" aria-describedby="${descriptionId}" />
-          <p id="${descriptionId}">${slider.description}</p>
-          <ul style="margin: 0; padding-left: 1.2rem; color: var(--muted)">
-            ${checklist.map((item) => `<li>${item}</li>`).join('')}
-          </ul>
-        `;
+      function renderSlider(module) {
+        const sliderId = `${module.id}-slider`;
+        const descriptionId = `${module.id}-slider-description`;
+        const block = createElement(
+          `<div>
+            <label class="module-label" for="${sliderId}">${module.slider.label}</label>
+            <div class="status-pill" aria-live="polite">
+              Valor actual: <strong id="${sliderId}-value">${module.slider.value}</strong>
+            </div>
+            <input type="range" id="${sliderId}" min="${module.slider.min}" max="${module.slider.max}" value="${module.slider.value}" aria-describedby="${descriptionId}" />
+            <p id="${descriptionId}">${module.slider.description}</p>
+            <ul class="sidebar-list" style="color: var(--ink)">
+              ${module.checklist.map((item) => `<li><span>·</span>${item}</li>`).join('')}
+            </ul>
+          </div>`
+        );
         const sliderInput = block.querySelector('input');
-        const sliderValue = block.querySelector('output');
+        const sliderValue = block.querySelector(`#${sliderId}-value`);
         sliderInput.addEventListener('input', () => {
           sliderValue.textContent = sliderInput.value;
         });
@@ -1373,16 +1244,20 @@
       }
 
       function renderGenerator(data) {
-        const panel = document.createElement('div');
-        panel.className = 'generator-panel';
-        panel.innerHTML = `
-          <div class="generator-output" id="caseOutput" role="status" aria-live="polite">Pulsa «Nuevo caso».</div>
-          <div class="module-actions">
-            <button class="btn btn-primary" type="button" data-action="case"><i class="fa-solid fa-shuffle" aria-hidden="true"></i> Nuevo caso</button>
-            <button class="btn btn-secondary" type="button" data-action="pattern"><i class="fa-solid fa-wave-square" aria-hidden="true"></i> Patrón electrodiagnóstico</button>
-          </div>
-        `;
-        const output = panel.querySelector('#caseOutput');
+        const panel = createElement(
+          `<div class="module-body">
+            <div class="status-pill" role="status" aria-live="polite" id="${data.id || 'generator'}-output">Pulsa «Nuevo caso».</div>
+            <div class="module-actions">
+              <button class="btn btn-primary" type="button" data-action="case">
+                <i class="fa-solid fa-shuffle" aria-hidden="true"></i> Nuevo caso
+              </button>
+              <button class="btn btn-secondary" type="button" data-action="pattern">
+                <i class="fa-solid fa-wave-square" aria-hidden="true"></i> Patrón electrodiagnóstico
+              </button>
+            </div>
+          </div>`
+        );
+        const output = panel.querySelector('.status-pill');
         panel.querySelectorAll('button').forEach((button) => {
           button.addEventListener('click', () => {
             const pool = button.dataset.action === 'case' ? data.cases : data.patterns;
@@ -1395,19 +1270,19 @@
       }
 
       function renderDemo(module) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'module-body';
-        wrapper.innerHTML = `
-          <div style="position: relative; padding-top: 56.25%; border-radius: 20px; overflow: hidden; border: 1px solid var(--outline)">
-            <iframe src="${module.video}" title="Demostración" allowfullscreen style="position:absolute; inset:0; width:100%; height:100%; border:0"></iframe>
-          </div>
-          <div>
-            <h4>Rúbrica rápida</h4>
-            <ul style="margin: 0; padding-left: 1.2rem; color: var(--muted)">
-              ${module.rubric.map((item) => `<li>${item}</li>`).join('')}
-            </ul>
-          </div>
-        `;
+        const wrapper = createElement(
+          `<div class="module-body">
+            <div style="position: relative; padding-top: 56.25%; border-radius: 20px; overflow: hidden; border: 1px solid var(--outline)">
+              <iframe src="${module.video}" title="Demostración" allowfullscreen loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0"></iframe>
+            </div>
+            <div>
+              <h4>Rúbrica rápida</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; color: var(--muted)">
+                ${module.rubric.map((item) => `<li>${item}</li>`).join('')}
+              </ul>
+            </div>
+          </div>`
+        );
         return wrapper;
       }
 
@@ -1422,7 +1297,7 @@
               <div class="quiz-options">
                 ${question.options
                   .map(
-                    (option, optionIndex) => `
+                    (option) => `
                       <label>
                         <input type="radio" name="quiz-${index}" value="${option}" />
                         <span>${option}</span>
@@ -1437,17 +1312,18 @@
         });
         const actions = createElement(
           `<div class="module-actions">
-            <button class="btn btn-primary" type="button" id="submitQuiz">
+            <button class="btn btn-primary" type="button">
               <i class="fa-solid fa-check" aria-hidden="true"></i>
               Calificar
             </button>
-            <div class="status-pill" aria-live="polite" id="quizStatus">
+            <div class="status-pill" aria-live="polite">
               <i class="fa-solid fa-star" aria-hidden="true"></i>
               Listo para responder
             </div>
           </div>`
         );
-        actions.querySelector('#submitQuiz').addEventListener('click', () => {
+        const status = actions.querySelector('.status-pill');
+        actions.querySelector('button').addEventListener('click', () => {
           let score = 0;
           module.questions.forEach((question, index) => {
             const selected = grid.querySelector(`input[name="quiz-${index}"]:checked`);
@@ -1455,7 +1331,6 @@
               score += 1;
             }
           });
-          const status = actions.querySelector('#quizStatus');
           status.textContent = `Aciertos: ${score}/${module.questions.length}`;
           if (score > 0) {
             updateXP(score * 150);
@@ -1469,704 +1344,257 @@
       }
 
       function renderGuide(module) {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'module-body';
-        wrapper.innerHTML = `
-          <div class="status-pill" aria-live="polite" id="guideStatus">
-            <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
-            Cargando guía…
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">
-              Misiones del día
-            </h3>
-            <p class="mt-2 text-sm text-slate-500">
-              Marca cada reto cuando lo domines y observa cómo sube tu progreso.
-            </p>
-            <div class="mt-4 space-y-3">
-              <button type="button"
-                class="mission-item"
-                data-mission
-                data-xp="25"
-              >
-                <span>
-                  <strong>Explora</strong> los pares craneales VII-XII y describe dos maniobras clave.
-                </span>
-                <i class="fas fa-check"></i>
+        const wrapper = createElement(
+          `<div class="module-body">
+            <div class="status-pill" aria-live="polite">Guía embebida desde Google Apps Script.</div>
+            <div class="module-actions">
+              <button class="btn btn-secondary" type="button">
+                <i class="fa-solid fa-arrow-rotate-right" aria-hidden="true"></i>
+                Refrescar guía
               </button>
-              <button type="button" class="mission-item" data-mission data-xp="20">
-                <span>
-                  <strong>Ejecuta</strong> la evaluación de fuerza y tono en al menos tres grupos musculares.
-                </span>
-                <i class="fas fa-check"></i>
-              </button>
-              <button type="button" class="mission-item" data-mission data-xp="20">
-                <span>
-                  <strong>Integra</strong> pruebas de sensibilidad superficial y profunda.
-                </span>
-                <i class="fas fa-check"></i>
-              </button>
-              <button type="button" class="mission-item" data-mission data-xp="15">
-                <span>
-                  <strong>Comparte</strong> tus hallazgos con un compañero para recibir retroalimentación.
-                </span>
-                <i class="fas fa-check"></i>
-              </button>
+              <a class="btn btn-primary" href="${module.url}" target="_blank" rel="noopener">
+                <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                Abrir en una nueva pestaña
+              </a>
             </div>
-          </div>
-        </aside>
+            <div style="border: 1px solid var(--outline); border-radius: 20px; overflow: hidden; min-height: 360px; background: rgba(15, 23, 42, 0.02)">
+              <iframe src="${module.url}" title="Guía interactiva" loading="lazy" style="width: 100%; height: 360px; border: 0"></iframe>
+            </div>
+          </div>`
+        );
+        const iframe = wrapper.querySelector('iframe');
+        wrapper.querySelector('button').addEventListener('click', () => {
+          iframe.src = module.url;
+        });
+        return wrapper;
+      }
 
-        <section class="space-y-12">
-          <section
-            id="pares-craneales"
-            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-10"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Pares craneales (VII-XII)</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Evalúa la simetría facial, los reflejos bulbares, la fonación, la deglución y la movilidad lingual con una ruta guiada.
-            </p>
-            <div class="grid gap-10 lg:grid-cols-2">
-              <div class="space-y-6">
-                <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50">
-                  <h3 class="font-semibold text-slate-800">Secuencia sugerida</h3>
-                  <ol class="mt-4 space-y-3 text-slate-600">
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">1.</span>
-                      Inspecciona mímica facial, eleva las cejas y realiza la prueba de arrugar la frente (VII).
-                    </li>
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">2.</span>
-                      Evalúa audición con frote digital y equilibrio con prueba de Romberg (VIII).
-                    </li>
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">3.</span>
-                      Observa úvula y reflejo nauseoso, pide pronunciar "kaa" y "goo" (IX-X).
-                    </li>
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">4.</span>
-                      Explora elevación del trapecio y rotación cefálica contra resistencia (XI).
-                    </li>
-                    <li class="flex gap-3">
-                      <span class="font-bold text-indigo-500">5.</span>
-                      Analiza protrusión lingual, movimientos laterales y fasciculaciones (XII).
-                    </li>
-                  </ol>
-                </div>
-                <div class="space-y-4">
-                  <h3 class="font-semibold text-slate-800">Flashcards interactivas</h3>
-                  <div class="grid gap-4 md:grid-cols-2" data-flashcards>
-                    <button type="button" class="flip-card" data-flip-card>
-                      <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Reto</p>
-                          <p class="text-lg font-semibold mt-2">Explora el signo de Bell</p>
-                        </div>
-                        <div class="flip-card-back">
-                          <p class="text-slate-100">
-                            Observa incapacidad para cerrar completamente los párpados en parálisis facial periférica (VII).
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                    <button type="button" class="flip-card" data-flip-card>
-                      <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Reto</p>
-                          <p class="text-lg font-semibold mt-2">Test de Weber</p>
-                        </div>
-                        <div class="flip-card-back">
-                          <p class="text-slate-100">
-                            Lateraliza la vibración al oído afectado en hipoacusia conductiva y al sano en neurosensorial (VIII).
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                    <button type="button" class="flip-card" data-flip-card>
-                      <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Reto</p>
-                          <p class="text-lg font-semibold mt-2">Reflejo nauseoso</p>
-                        </div>
-                        <div class="flip-card-back">
-                          <p class="text-slate-100">
-                            Respuesta aferente IX y eferente X; ausencia unilateral orienta a lesión bulbar.
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                    <button type="button" class="flip-card" data-flip-card>
-                      <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                          <p class="text-sm uppercase tracking-[0.3em] text-indigo-500">Reto</p>
-                          <p class="text-lg font-semibold mt-2">Lengua en sable</p>
-                        </div>
-                        <div class="flip-card-back">
-                          <p class="text-slate-100">
-                            La desviación hacia el lado lesionado indica hipogloso ipsilateral afectado.
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="cranial-map">
-                <div class="nerve-node" style="top: 12%; left: 12%">
-                  <button type="button" class="nerve-pin">VII</button>
-                  <div class="nerve-tooltip">
-                    <h4>Facial</h4>
-                    <p>Simetría facial, gusto 2/3 anteriores, reflejo corneal.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="top: 18%; right: 15%">
-                  <button type="button" class="nerve-pin">VIII</button>
-                  <div class="nerve-tooltip">
-                    <h4>Vestibulococlear</h4>
-                    <p>Audición, equilibrio, pruebas de Weber y Rinne.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="top: 45%; left: 20%">
-                  <button type="button" class="nerve-pin">IX</button>
-                  <div class="nerve-tooltip">
-                    <h4>Glosofaríngeo</h4>
-                    <p>Gusto posterior, reflejo nauseoso, elevación del paladar.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="top: 50%; right: 25%">
-                  <button type="button" class="nerve-pin">X</button>
-                  <div class="nerve-tooltip">
-                    <h4>Vago</h4>
-                    <p>Fonación, deglución, función parasimpática.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="bottom: 25%; left: 28%">
-                  <button type="button" class="nerve-pin">XI</button>
-                  <div class="nerve-tooltip">
-                    <h4>Accesorio</h4>
-                    <p>Trapecio y esternocleidomastoideo: fuerza y resistencia.</p>
-                  </div>
-                </div>
-                <div class="nerve-node" style="bottom: 18%; right: 18%">
-                  <button type="button" class="nerve-pin">XII</button>
-                  <div class="nerve-tooltip">
-                    <h4>Hipogloso</h4>
-                    <p>Movimientos linguales, atrofia y fasciculaciones.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+      function renderList(resources) {
+        return createElement(
+          `<div class="module-body">
+            <ul style="margin: 0; padding-left: 1.2rem; color: var(--muted)">
+              ${resources.map((item) => `<li>${item}</li>`).join('')}
+            </ul>
+          </div>`
+        );
+      }
 
-          <section
-            id="sistema-motor"
-            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-10"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Sistema motor</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Alterna entre fuerza, tono, reflejos y coordinación mediante el laboratorio interactivo; suma puntos adicionales si completas el simulador de caso.
-            </p>
-            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
-              <div class="flex flex-wrap gap-3" role="tablist">
-                <button type="button" class="lab-button active" data-lab-button="fuerza">
-                  <i class="fas fa-dumbbell"></i> Fuerza
-                </button>
-                <button type="button" class="lab-button" data-lab-button="tono">
-                  <i class="fas fa-wave-square"></i> Tono
-                </button>
-                <button type="button" class="lab-button" data-lab-button="reflejos">
-                  <i class="fas fa-bolt"></i> Reflejos
-                </button>
-                <button type="button" class="lab-button" data-lab-button="coordinacion">
-                  <i class="fas fa-project-diagram"></i> Coordinación
-                </button>
-              </div>
-              <div class="mt-6" data-lab-panels>
-                <article class="lab-panel active" data-lab-panel="fuerza">
-                  <p>
-                    Explora grupos musculares proximales y distales, compara lados y documenta en la escala MRC (0-5).
-                  </p>
-                  <ul class="mt-4 space-y-2 text-slate-600 list-disc list-inside">
-                    <li>Deltoides, bíceps, interóseos, extensores de cadera, tibial anterior.</li>
-                    <li>Busca fatigabilidad y pruebas funcionales (sentadillas, pinza fina).</li>
-                  </ul>
-                </article>
-                <article class="lab-panel" data-lab-panel="tono">
-                  <p>
-                    Realiza movimientos pasivos rápidos y lentos. Identifica espasticidad (liberación piramidal) versus rigidez (parkinsonismo).
-                  </p>
-                  <p class="mt-4 text-slate-600">
-                    Utiliza la maniobra del "rueda dentada" y el "clasp knife" como elementos clave.
-                  </p>
-                </article>
-                <article class="lab-panel" data-lab-panel="reflejos">
-                  <p>
-                    Usa el martillo neurológico y compara respuesta con la escala 0-4+. Identifica signos de Babinski y Hoffman.
-                  </p>
-                  <p class="mt-4 text-slate-600">
-                    Añade maniobras de refuerzo (Jendrassik) para potenciar reflejos perezosos.
-                  </p>
-                </article>
-                <article class="lab-panel" data-lab-panel="coordinacion">
-                  <p>
-                    Emplea pruebas dedo-nariz, talón-rodilla y diadococinesia para localizar lesiones cerebelosas.
-                  </p>
-                  <p class="mt-4 text-slate-600">
-                    Observa ataxia troncal, temblor intencional y dismetría como pistas clave.
-                  </p>
-                </article>
-              </div>
-            </div>
-            <div class="grid gap-8 lg:grid-cols-2">
-              <div class="border border-slate-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-slate-800">Reto motor cronometrado</h3>
-                <p class="mt-2 text-sm text-slate-500">
-                  Marca cada acción cuando la ejecutes para obtener una insignia adicional.
-                </p>
-                <div class="mt-4 space-y-3">
-                  <button type="button" class="challenge" data-challenge data-xp="10">
-                    <span>Evalúa movimientos en contra de la gravedad.</span>
-                    <i class="fas fa-stopwatch"></i>
-                  </button>
-                  <button type="button" class="challenge" data-challenge data-xp="10">
-                    <span>Describe dos signos piramidales presentes.</span>
-                    <i class="fas fa-stopwatch"></i>
-                  </button>
-                  <button type="button" class="challenge" data-challenge data-xp="10">
-                    <span>Documenta un hallazgo extrapiramidal.</span>
-                    <i class="fas fa-stopwatch"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50">
-                <h3 class="font-semibold text-slate-800">Simulador de caso</h3>
-                <p class="mt-2 text-sm text-slate-500">
-                  Presiona "Generar caso" para recibir un paciente y decide qué maniobras priorizar.
-                </p>
-                <button type="button" class="case-button" data-case-button>
-                  <i class="fas fa-dice"></i> Generar caso
-                </button>
-                <p class="mt-4 text-slate-700" data-case-output>
-                  Aún no se ha generado un caso.
-                </p>
-              </div>
-            </div>
-          </section>
+      const xpCounter = document.getElementById('xpCounter');
+      const streakCounter = document.getElementById('streakCounter');
+      const missionCount = document.getElementById('missionCount');
+      const cardDisplay = document.getElementById('cardCount');
+      const challengeDisplay = document.getElementById('challengeCount');
+      const progressTrack = document.getElementById('progressTrack');
+      const missionTotal = modules.length;
+      let missionCompleted = 0;
+      let xpTotal = 0;
+      let streak = 0;
+      let challengeScore = 0;
+      let flashcardTotal = 0;
 
-          <section
-            id="sistema-sensitivo"
-            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-10"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Sistema sensitivo</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Integra sensibilidad superficial, profunda y cortical con herramientas visuales que te ayudan a priorizar dermatomos y columnas sensitivas.
-            </p>
-            <div class="grid gap-8 lg:grid-cols-2">
-              <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50">
-                <h3 class="font-semibold text-slate-800">Control deslizante de umbral</h3>
-                <p class="text-sm text-slate-500">
-                  Ajusta el rango y recibe recomendaciones automáticas.
-                </p>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value="40"
-                  class="w-full mt-4"
-                  data-threshold
-                />
-                <div class="mt-4 p-4 rounded-2xl bg-white border border-slate-200" data-threshold-output>
-                  Umbral sugerido: <strong>40%</strong>. Prioriza pruebas táctiles ligeras.
-                </div>
-              </div>
-              <div class="border border-slate-200 rounded-2xl p-6">
-                <h3 class="font-semibold text-slate-800">Tablero de sensibilidad cortical</h3>
-                <p class="text-sm text-slate-500">
-                  Completa las tres tareas para consolidar el mapa sensitivo.
-                </p>
-                <div class="mt-4 space-y-3">
-                  <button type="button" class="challenge" data-challenge data-xp="8">
-                    <span>Estereognosia con dos objetos distintos.</span>
-                    <i class="fas fa-braille"></i>
-                  </button>
-                  <button type="button" class="challenge" data-challenge data-xp="8">
-                    <span>Graphesthesia en ambas manos.</span>
-                    <i class="fas fa-braille"></i>
-                  </button>
-                  <button type="button" class="challenge" data-challenge data-xp="8">
-                    <span>Discriminación de dos puntos (&lt;5 mm en pulpejos).</span>
-                    <i class="fas fa-braille"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="border border-slate-200 rounded-2xl p-6">
-              <h3 class="font-semibold text-slate-800">Generador de patrones sensitivos</h3>
-              <p class="text-sm text-slate-500">
-                Ideal para relacionar hallazgos con topografía medular o periférica.
-              </p>
-              <button type="button" class="case-button" data-pattern-button>
-                <i class="fas fa-random"></i> Crear patrón
-              </button>
-              <p class="mt-4 text-slate-700" data-pattern-output>
-                Sin patrón seleccionado.
-              </p>
-            </div>
-          </section>
+      function updateMissionDisplay() {
+        if (!missionCount || !progressTrack) return;
+        missionCount.textContent = `${missionCompleted}/${missionTotal}`;
+        const percent = missionTotal === 0 ? 0 : Math.round((missionCompleted / missionTotal) * 100);
+        progressTrack.style.width = `${percent}%`;
+        progressTrack.parentElement?.setAttribute('aria-valuenow', `${percent}`);
+      }
 
-          <section
-            id="demostracion-practica"
-            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-8"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Demostración y práctica supervisada</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Sigue la ruta pedagógica y registra tus observaciones; comparte tus clips o notas para obtener retroalimentación inmediata.
-            </p>
-            <div class="timeline">
-              <div>
-                <p class="timeline-label">00:00 - 05:00</p>
-                <h3>Anclaje visual</h3>
-                <p>Observa postura, fasciculaciones, tropismos y tono global. Documenta con fotografías o bosquejos.</p>
-              </div>
-              <div>
-                <p class="timeline-label">05:00 - 15:00</p>
-                <h3>Maniobras guiadas</h3>
-                <p>Combina evaluaciones motoras y sensitivas con comandos verbales claros. Invita al paciente a repetir instrucciones.</p>
-              </div>
-              <div>
-                <p class="timeline-label">15:00 - 25:00</p>
-                <h3>Retroalimentación</h3>
-                <p>Contrasta hallazgos con tu equipo, identifica sesgos, refuerza maniobras difíciles.</p>
-              </div>
-            </div>
-            <details class="teaching-note">
-              <summary class="font-semibold text-slate-800">Consejo del tutor</summary>
-              <p class="mt-2 text-slate-600">
-                Utiliza frases gatillo como "siento resistencia al movimiento" o "la vibración se pierde en metatarso" para describir hallazgos en voz alta y fomentar memoria auditiva.
-              </p>
-            </details>
-          </section>
+      function updateXP(amount) {
+        if (!xpCounter || !streakCounter) return;
+        xpTotal = Math.max(0, xpTotal + amount);
+        xpCounter.textContent = `${xpTotal} XP`;
+        if (amount > 0) {
+          streak += 1;
+        } else if (amount < 0 && streak > 0) {
+          streak -= 1;
+        }
+        streakCounter.textContent = `x${Math.max(0, streak)}`;
+      }
 
-          <section
-            id="evaluacion-formativa"
-            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-8"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Evaluación formativa</h2>
-            <p class="mt-4 text-lg text-slate-600">
-              Completa el cuestionario y revisa la rúbrica en tiempo real. Cada respuesta correcta suma puntos y potencia tu racha clínica.
-            </p>
-            <div class="quiz" data-quiz>
-              <div class="space-y-4">
-                <h3 class="font-semibold text-slate-800">1. Paciente con parálisis facial periférica</h3>
-                <p class="text-sm text-slate-500">¿Cuál hallazgo esperas?</p>
-                <div class="quiz-options">
-                  <button type="button" data-answer="incorrect">Parálisis exclusiva del tercio inferior de la cara.</button>
-                  <button type="button" data-answer="correct">Incapacidad de cerrar el ojo ipsilateral.</button>
-                  <button type="button" data-answer="incorrect">Hiperacusia contralateral.</button>
-                </div>
-              </div>
-              <div class="space-y-4">
-                <h3 class="font-semibold text-slate-800">2. Lesión de cordones posteriores</h3>
-                <p class="text-sm text-slate-500">¿Qué prueba priorizas?</p>
-                <div class="quiz-options">
-                  <button type="button" data-answer="correct">Sensibilidad vibratoria con diapasón.</button>
-                  <button type="button" data-answer="incorrect">Prueba de temperatura.</button>
-                  <button type="button" data-answer="incorrect">Reflejo cutáneo abdominal.</button>
-                </div>
-              </div>
-              <div class="space-y-4">
-                <h3 class="font-semibold text-slate-800">3. Sospecha de lesión bulbar</h3>
-                <p class="text-sm text-slate-500">Selecciona la maniobra más útil.</p>
-                <div class="quiz-options">
-                  <button type="button" data-answer="incorrect">Maniobra de Hoover.</button>
-                  <button type="button" data-answer="correct">Observa elevación simétrica del paladar blando.</button>
-                  <button type="button" data-answer="incorrect">Prueba de Romberg sensibilizada.</button>
-                </div>
-              </div>
-              <button type="button" class="case-button" data-quiz-submit>
-                <i class="fas fa-star"></i> Verificar respuestas
-              </button>
-              <p class="text-sm text-slate-600" data-quiz-feedback>
-                Selecciona una respuesta por pregunta para obtener tu puntuación.
-              </p>
-            </div>
-            <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50">
-              <h3 class="font-semibold text-slate-800">Rúbrica breve</h3>
-              <ul class="mt-4 space-y-3 text-slate-600">
-                <li><strong>Observación</strong>: postura, marcha, trofismo.</li>
-                <li><strong>Técnica</strong>: instrucciones claras, seguridad del paciente.</li>
-                <li><strong>Interpretación</strong>: correlación neuroanatómica.</li>
-                <li><strong>Comunicación</strong>: feedback y resumen estructurado.</li>
-              </ul>
-            </div>
-          </section>
+      function updateChallenges(delta) {
+        if (!challengeDisplay) return;
+        challengeScore = Math.max(0, challengeScore + delta);
+        challengeDisplay.textContent = `${challengeScore}`;
+      }
 
-          <section
-            id="bibliografia"
-            class="bg-white border border-slate-200 rounded-3xl shadow-lg p-8 lg:p-12 space-y-6"
-          >
-            <h2 class="text-3xl font-bold text-slate-900">Bibliografía</h2>
-            <div class="grid gap-4 md:grid-cols-2">
-              <article class="reference-card">
-                <h3>Blumenfeld, H.</h3>
-                <p>Neuroanatomy through Clinical Cases.</p>
-                <span>Sinauer Associates.</span>
-              </article>
-              <article class="reference-card">
-                <h3>Adams & Victor</h3>
-                <p>Principles of Neurology.</p>
-                <span>McGraw-Hill Education.</span>
-              </article>
-              <article class="reference-card">
-                <h3>Mayo Clinic</h3>
-                <p>Videos de examen neurológico.</p>
-                <span>Repositorio audiovisual.</span>
-              </article>
-              <article class="reference-card">
-                <h3>J. DeMyer</h3>
-                <p>Technique of the Neurologic Examination.</p>
-                <span>McGraw-Hill.</span>
-              </article>
+      function createCompletionButton(section) {
+        const controls = createElement(
+          `<div class="module-actions">
+            <button class="btn btn-secondary" type="button">
+              <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i>
+              Marcar como completado
+            </button>
+          </div>`
+        );
+        const button = controls.querySelector('button');
+        button.addEventListener('click', () => {
+          const completed = section.classList.toggle('module-completed');
+          missionCompleted += completed ? 1 : -1;
+          missionCompleted = Math.max(0, Math.min(missionCompleted, missionTotal));
+          updateMissionDisplay();
+          button.innerHTML = completed
+            ? '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Misión completada'
+            : '<i class="fa-solid fa-flag-checkered" aria-hidden="true"></i> Marcar como completado';
+        });
+        return controls;
+      }
+
+      function renderModule(module) {
+        const card = createElement(
+          `<section class="module-card" id="${module.id}" data-module="${module.id}">
+            <div class="module-header">
+              <span class="module-label">${module.number} · ${module.title}</span>
+              <h2 class="module-title">${module.title}</h2>
+              <p>${module.intro}</p>
             </div>
-          </section>
-        </section>
-      </div>
-    </main>
+          </section>`
+        );
+        const body = document.createElement('div');
+        body.className = 'module-body';
+        let content;
+
+        switch (module.type) {
+          case 'flashcards':
+            content = renderFlashcards(module.cards);
+            flashcardTotal += module.cards.length;
+            break;
+          case 'lab':
+            content = renderLab(module.steps);
+            break;
+          case 'slider':
+            content = renderSlider(module);
+            break;
+          case 'generator':
+            content = renderGenerator(module);
+            break;
+          case 'demo':
+            content = renderDemo(module);
+            break;
+          case 'quiz':
+            content = renderQuiz(module);
+            break;
+          case 'guide':
+            content = renderGuide(module);
+            break;
+          case 'list':
+            content = renderList(module.resources);
+            break;
+          default:
+            content = createElement('<p>Contenido en preparación.</p>');
+        }
+
+        if (content) {
+          body.appendChild(content);
+        }
+
+        card.appendChild(body);
+        card.appendChild(createCompletionButton(card));
+        return card;
+      }
+
+      function renderModules() {
+        if (!modulesContainer) return;
+        modulesContainer.innerHTML = '';
+        flashcardTotal = 0;
+        modules.forEach((module) => {
+          modulesContainer.appendChild(renderModule(module));
+        });
+        if (cardDisplay) {
+          cardDisplay.textContent = `${flashcardTotal}`;
+        }
+      }
+
+      function initDrawer() {
+        const drawer = document.querySelector('.drawer');
+        const overlay = document.querySelector('.drawer-overlay');
+        const drawerToggle = document.querySelector('.drawer-toggle');
+        const drawerClose = document.querySelector('.drawer-close');
+        if (!drawer || !overlay || !drawerToggle || !drawerClose) {
+          return () => {};
+        }
+
+        const openDrawer = () => {
+          drawer.classList.add('open');
+          overlay.classList.add('visible');
+          drawer.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('drawer-open');
+        };
+
+        const closeDrawer = () => {
+          drawer.classList.remove('open');
+          overlay.classList.remove('visible');
+          drawer.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('drawer-open');
+        };
+
+        drawerToggle.addEventListener('click', openDrawer);
+        drawerClose.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+        window.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            closeDrawer();
+          }
+        });
+
+        return closeDrawer;
+      }
+
+      function setupNavHighlight(onNavigate = () => {}) {
+        const sections = document.querySelectorAll('.module-card');
+        if (!sections.length) return;
+        const navLinks = document.querySelectorAll('.sidebar-links a, .drawer-links a');
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const id = entry.target.getAttribute('id');
+              navLinks.forEach((link) => {
+                if (link.getAttribute('href') === `#${id}`) {
+                  link.classList.toggle('active', entry.isIntersecting);
+                }
+              });
+            });
+          },
+          { rootMargin: '-40% 0px -40% 0px' }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            navLinks.forEach((item) => item.classList.remove('active'));
+            link.classList.add('active');
+            onNavigate();
+          });
+        });
+      }
+
+      function initializeStats() {
+        if (xpCounter) {
+          xpCounter.textContent = '0 XP';
+        }
+        if (streakCounter) {
+          streakCounter.textContent = 'x0';
+        }
+        if (challengeDisplay) {
+          challengeDisplay.textContent = '0';
+        }
+        if (cardDisplay) {
+          cardDisplay.textContent = '0';
+        }
+        missionCompleted = 0;
+        updateMissionDisplay();
+      }
 
       renderNav(sidebarLinks);
       renderNav(drawerLinks);
+      initializeStats();
       renderModules();
+      updateMissionDisplay();
+      const closeDrawer = initDrawer();
+      setupNavHighlight(closeDrawer);
 
-      const drawer = document.querySelector('.drawer');
-      const overlay = document.querySelector('.drawer-overlay');
-      const drawerToggle = document.querySelector('.drawer-toggle');
-      const drawerClose = document.querySelector('.drawer-close');
-
-      function openDrawer() {
-        drawer.classList.add('open');
-        overlay.classList.add('visible');
-        drawer.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('drawer-open');
-      }
-
-      function closeDrawer() {
-        drawer.classList.remove('open');
-        overlay.classList.remove('visible');
-        drawer.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('drawer-open');
-      }
-
-      drawerToggle.addEventListener('click', openDrawer);
-      drawerClose.addEventListener('click', closeDrawer);
-      overlay.addEventListener('click', closeDrawer);
-      window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          closeDrawer();
-        }
-      });
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            const id = entry.target.getAttribute('id');
-            const selector = `a[href="#${id}"]`;
-            document.querySelectorAll(selector).forEach((link) => {
-              if (entry.isIntersecting) {
-                link.classList.add('active');
-              } else {
-                link.classList.remove('active');
-              }
-            });
-          });
-        },
-        { rootMargin: '-40% 0px -50% 0px' }
-      );
-
-      sections.forEach((section) => observer.observe(section));
-
-      navLinks.forEach((link) => {
-        link.addEventListener('click', () => {
-          navLinks.forEach((l) => l.classList.remove('active'));
-          link.classList.add('active');
-        });
-      });
-
-      const missions = document.querySelectorAll('[data-mission]');
-      const challenges = document.querySelectorAll('[data-challenge]');
-      const progressBar = document.querySelector('[data-progress-bar]');
-      const progressText = document.querySelector('[data-progress-text]');
-      const xpDisplay = document.querySelector('[data-xp-display]');
-      const streakDisplay = document.querySelector('[data-streak]');
-      let xp = Number(xpDisplay?.textContent ?? 0);
-      let streak = Number(streakDisplay?.textContent ?? 0);
-
-      const updateScore = (xpDelta = 0, streakDelta = 0) => {
-        if (!xpDisplay || !streakDisplay) return;
-        xp = Math.max(0, xp + xpDelta);
-        streak = Math.max(0, streak + streakDelta);
-        xpDisplay.textContent = xp;
-        streakDisplay.textContent = streak;
-      };
-
-      const updateProgress = () => {
-        if (!progressBar || !progressText) return;
-        const total = missions.length;
-        const completed = document.querySelectorAll('[data-mission].completed')
-          .length;
-        const percent = total ? Math.round((completed / total) * 100) : 0;
-        progressBar.style.width = `${percent}%`;
-        progressText.textContent = `${percent}% completado`;
-      };
-
-      missions.forEach((mission) => {
-        mission.addEventListener('click', () => {
-          const xpValue = Number(mission.dataset.xp || 0);
-          const completed = mission.classList.toggle('completed');
-          updateScore(completed ? xpValue : -xpValue, completed ? 1 : -1);
-          updateProgress();
-        });
-      });
-
-      challenges.forEach((challenge) => {
-        challenge.addEventListener('click', () => {
-          const xpValue = Number(challenge.dataset.xp || 0);
-          const completed = challenge.classList.toggle('completed');
-          updateScore(completed ? xpValue : -xpValue, completed ? 1 : -1);
-        });
-      });
-
-      updateProgress();
-
-      document
-        .querySelectorAll('[data-flip-card]')
-        .forEach((card) =>
-          card.addEventListener('click', () =>
-            card.classList.toggle('is-flipped'),
-          ),
-        );
-
-      const labButtons = document.querySelectorAll('[data-lab-button]');
-      const labPanels = document.querySelectorAll('[data-lab-panel]');
-
-      labButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const target = button.dataset.labButton;
-          labButtons.forEach((btn) => btn.classList.remove('active'));
-          labPanels.forEach((panel) =>
-            panel.classList.toggle('active', panel.dataset.labPanel === target),
-          );
-          button.classList.add('active');
-        });
-      });
-
-      const caseButton = document.querySelector('[data-case-button]');
-      const caseOutput = document.querySelector('[data-case-output]');
-      const cases = [
-        'Paciente de 68 años con hemiparesia derecha y Babinski positivo.',
-        'Adolescente con debilidad proximal progresiva y reflejos hipoactivos.',
-        'Mujer de 45 años con temblor de reposo y rigidez en rueda dentada.',
-        'Varón deportista con arreflexia aquílea y fasciculaciones distales.',
-      ];
-
-      caseButton?.addEventListener('click', () => {
-        const scenario = cases[Math.floor(Math.random() * cases.length)];
-        if (caseOutput) {
-          caseOutput.textContent = scenario;
-        }
-      });
-
-      const thresholdInput = document.querySelector('[data-threshold]');
-      const thresholdOutput = document.querySelector('[data-threshold-output]');
-
-      thresholdInput?.addEventListener('input', (event) => {
-        if (!thresholdOutput) return;
-        const value = Number(event.target.value);
-        let focus = 'Prioriza pruebas táctiles ligeras.';
-        if (value >= 70) {
-          focus = 'Intensifica vibración y propiocepción en miembros inferiores.';
-        } else if (value >= 40) {
-          focus = 'Combina temperatura y dolor para delimitar dermatomos.';
-        }
-        thresholdOutput.innerHTML = `Umbral sugerido: <strong>${value}%</strong>. ${focus}`;
-      });
-
-      const patternButton = document.querySelector('[data-pattern-button]');
-      const patternOutput = document.querySelector('[data-pattern-output]');
-      const patterns = [
-        'Hipoestesia en guante: neuropatía periférica distal.',
-        'Nivel sensitivo en T6 con preservación sacra: síndrome medular central.',
-        'Anestesia facial en V2-V3 con reflejo corneal disminuido.',
-        'Pérdida vibratoria en MMII con marcha atáxica: cordones posteriores.',
-      ];
-
-      patternButton?.addEventListener('click', () => {
-        const pattern = patterns[Math.floor(Math.random() * patterns.length)];
-        if (patternOutput) {
-          patternOutput.textContent = pattern;
-        }
-      });
-
-      const quiz = document.querySelector('[data-quiz]');
-      const quizSubmit = document.querySelector('[data-quiz-submit]');
-      const quizFeedback = document.querySelector('[data-quiz-feedback]');
-      let lastQuizScore = 0;
-
-      quiz?.querySelectorAll('.quiz-options').forEach((group) => {
-        group.addEventListener('click', (event) => {
-          const target = event.target.closest('button');
-          if (!target) return;
-          group.querySelectorAll('button').forEach((btn) => {
-            btn.classList.remove('selected');
-          });
-          target.classList.add('selected');
-        });
-      });
-
-      quizSubmit?.addEventListener('click', () => {
-        if (!quiz) return;
-        const groups = quiz.querySelectorAll('.quiz-options');
-        let unanswered = false;
-        groups.forEach((group) => {
-          const selected = group.querySelector('button.selected');
-          if (!selected) {
-            unanswered = true;
-          }
-        });
-        if (unanswered) {
-          quizFeedback &&
-            (quizFeedback.textContent =
-              'Selecciona una respuesta en cada pregunta antes de verificar.');
-          return;
-        }
-
-        groups.forEach((group) => {
-          group.querySelectorAll('button').forEach((btn) => {
-            btn.classList.remove('correct', 'incorrect');
-          });
-        });
-
-        let correctAnswers = 0;
-        groups.forEach((group) => {
-          const selected = group.querySelector('button.selected');
-          if (!selected) return;
-          if (selected.dataset.answer === 'correct') {
-            selected.classList.add('correct');
-            correctAnswers += 1;
-          } else {
-            selected.classList.add('incorrect');
-            group.querySelector('[data-answer="correct"]')?.classList.add(
-              'correct',
-            );
-          }
-        });
-
-        const xpDelta = (correctAnswers - lastQuizScore) * 15;
-        const streakDelta = correctAnswers - lastQuizScore;
-        updateScore(xpDelta, streakDelta);
-        lastQuizScore = correctAnswers;
-        quizFeedback &&
-          (quizFeedback.textContent = `Respuestas correctas: ${correctAnswers}/${groups.length}. ¡Sigue entrenando!`);
-      });
     </script>
   </body>
 </html>
