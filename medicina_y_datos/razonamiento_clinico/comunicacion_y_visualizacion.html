@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Semana 4: Comunicación Efectiva y Visualización de Datos - Powersemiotics
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link href="../../assets/tailwind.css" rel="stylesheet" />
+  </head>
+  <body class="font-sans bg-gray-50 text-gray-800">
+    <!-- Encabezado -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="../../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+        </a>
+        <div class="flex items-center space-x-4">
+          <a
+            href="../../medicina_y_datos.html"
+            class="text-indigo-600 font-semibold hover:underline"
+            >Medicina y Datos</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <div
+      class="container mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-4 gap-8 px-4 py-10"
+    >
+      <!-- Table of Contents (Sticky) -->
+      <aside class="lg:col-span-1 lg:sticky top-24 self-start">
+        <div class="p-6 bg-white rounded-lg shadow-md">
+          <h3 class="text-lg font-bold mb-4">Índice de Contenidos</h3>
+          <nav id="toc" class="flex flex-col space-y-2 text-sm">
+            <div class="font-semibold text-gray-500 uppercase mt-2">
+              I. Para el Profesor
+            </div>
+            <a href="#plan-clase" class="text-gray-600 hover:text-blue-600 pl-2"
+              >1. Plan de Clase</a
+            >
+            <a
+              href="#materiales-clase"
+              class="text-gray-600 hover:text-blue-600 pl-2"
+              >2. Materiales (Diapositivas)</a
+            >
+            <a
+              href="#actividad-interactiva"
+              class="text-gray-600 hover:text-blue-600 pl-2"
+              >3. Actividad Interactiva</a
+            >
+            <a
+              href="#evaluacion-formativa"
+              class="text-gray-600 hover:text-blue-600 pl-2"
+              >4. Evaluación Formativa</a
+            >
+
+            <div class="font-semibold text-gray-500 uppercase mt-4">
+              II. Para Estudiantes
+            </div>
+            <a
+              href="#resumen-conceptos"
+              class="text-gray-600 hover:text-blue-600 pl-2"
+              >1. Resumen de Conceptos</a
+            >
+            <a
+              href="#ejercicio-practico"
+              class="text-gray-600 hover:text-blue-600 pl-2"
+              >2. Ejercicio (Tableau)</a
+            >
+            <a
+              href="#cuestionario"
+              class="text-gray-600 hover:text-blue-600 pl-2"
+              >3. Cuestionario</a
+            >
+            <a href="#guia-estudio" class="text-gray-600 hover:text-blue-600 pl-2"
+              >4. Guía de Estudio</a
+            >
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="lg:col-span-3">
+        <article class="prose-custom bg-white p-8 md:p-12 rounded-lg shadow-md">
+          <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">
+              Semana 4: Comunicación Efectiva y Visualización de Datos
+            </h1>
+            <p class="text-xl text-gray-500">
+              Medicina y Ciencia (Razonamiento Clínico)
+            </p>
+          </header>
+
+          <!-- SECCIÓN I: PARA EL PROFESOR -->
+          <div class="border-b pb-4 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-700">
+              I. Para el Profesor
+            </h2>
+          </div>
+
+          <section id="plan-clase" class="mb-10">
+            <h3 class="text-xl font-bold mb-4">
+              1. Plan de Clase Detallado (Sesión de 2 horas académicas)
+            </h3>
+
+            <div class="bg-gray-50 p-6 rounded-lg mb-6">
+              <h4 class="font-semibold mb-2">Objetivos de Aprendizaje:</h4>
+              <ul class="list-disc list-inside space-y-1">
+                <li>
+                  Identificar los componentes clave de la comunicación efectiva
+                  (verbal y no verbal) en el entorno clínico.
+                </li>
+                <li>
+                  Aplicar principios de la toma de decisiones compartida en
+                  escenarios clínicos simulados.
+                </li>
+                <li>
+                  Interpretar y crear visualizaciones de datos básicas (gráficos
+                  de barras, dispersión, histogramas) relevantes para la
+                  práctica médica.
+                </li>
+                <li>
+                  Comunicar información sobre riesgos y beneficios de
+                  tratamientos a pacientes y colegas utilizando visualizaciones
+                  de datos sencillas.
+                </li>
+                <li>
+                  Utilizar Tableau Public para la creación básica de gráficos.
+                </li>
+              </ul>
+            </div>
+
+            <h4 class="font-semibold mb-2">Cronograma Sugerido:</h4>
+            <div class="space-y-4">
+              <div>
+                <p class="font-bold text-gray-700">
+                  (0-15 min) Introducción y Dinámica Rompehielos:
+                </p>
+                <ul class="list-disc list-inside ml-4">
+                  <li>Breve repaso de la semana anterior.</li>
+                  <li>
+                    <strong>Actividad "Comunicación en Una Palabra":</strong>
+                    Preguntar a los estudiantes qué palabra asocian con
+                    "comunicación efectiva en medicina" y por qué. Anotar en
+                    pizarra/digital.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p class="font-bold text-gray-700">
+                  (15-45 min) Comunicación Efectiva y Toma de Decisiones
+                  Compartida (Exposición interactiva):
+                </p>
+                <ul class="list-disc list-inside ml-4">
+                  <li>Principios de comunicación verbal y no verbal.</li>
+                  <li>Escucha activa.</li>
+                  <li>Barreras de la comunicación.</li>
+                  <li>
+                    Modelo de toma de decisiones compartida (ej. Modelo de los 3
+                    Pasos: Choice Talk, Option Talk, Decision Talk).
+                  </li>
+                  <li>
+                    Discusión con ejemplos aportados por los estudiantes sobre
+                    experiencias (positivas/negativas).
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p class="font-bold text-gray-700">
+                  (45-75 min) Visualización de Datos en Medicina (Exposición
+                  interactiva y demostración):
+                </p>
+                <ul class="list-disc list-inside ml-4">
+                  <li>
+                    Importancia de la visualización de datos para comunicar
+                    información compleja.
+                  </li>
+                  <li>
+                    Tipos de gráficos (barras, dispersión, histogramas): cuándo
+                    y cómo usarlos.
+                  </li>
+                  <li>
+                    Principios para una buena visualización (claridad,
+                    simplicidad, honestidad).
+                  </li>
+                  <li>
+                    <strong>Breve demostración guiada de Tableau Public:</strong>
+                    Cargar un dataset sencillo y crear un gráfico de barras
+                    comparativo.
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p class="font-bold text-gray-700">
+                  (75-110 min) Actividad Interactiva Principal: "Consulta
+                  Informada"
+                </p>
+                <p class="ml-4 text-sm text-gray-600">(Ver detalle abajo)</p>
+              </div>
+              <div>
+                <p class="font-bold text-gray-700">
+                  (110-120 min) Conclusiones y Evaluación Formativa Rápida:
+                </p>
+                <ul class="list-disc list-inside ml-4">
+                  <li>Resumen de puntos clave.</li>
+                  <li>Sesión de preguntas y respuestas.</li>
+                  <li>Aplicación de herramienta de evaluación formativa.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="font-semibold mb-2">Metodología:</h4>
+                <ul class="list-disc list-inside text-sm">
+                  <li>
+                    Clase invertida (lectura previa de artículos sobre
+                    comunicación efectiva).
+                  </li>
+                  <li>Exposición dialogada con uso de diapositivas.</li>
+                  <li>Discusión grupal.</li>
+                  <li>Demostración de software (Tableau Public).</li>
+                  <li>Aprendizaje basado en problemas/casos.</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Recursos:</h4>
+                <ul class="list-disc list-inside text-sm">
+                  <li>Proyector multimedia.</li>
+                  <li>Acceso a internet para Tableau Public.</li>
+                  <li>Pizarra o rotafolio.</li>
+                  <li>Materiales impresos para la actividad.</li>
+                  <li>Dataset sencillo para demostración y actividad.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section id="materiales-clase" class="mb-10">
+            <h3 class="text-xl font-bold mb-4">
+              2. Materiales de Clase (Esquema de Diapositivas)
+            </h3>
+            <p class="mb-2">
+              <strong>Número Aproximado de Diapositivas:</strong> 20-25
+            </p>
+            <div class="overflow-x-auto">
+              <table class="min-w-full bg-white border border-gray-200">
+                <thead class="bg-gray-100">
+                  <tr>
+                    <th class="py-2 px-4 border-b text-left">Diapositiva(s)</th>
+                    <th class="py-2 px-4 border-b text-left">Contenido Esencial</th>
+                    <th class="py-2 px-4 border-b text-left">Visual Sugerido</th>
+                  </tr>
+                </thead>
+                <tbody class="text-sm">
+                  <tr>
+                    <td class="py-2 px-4 border-b">1-3</td>
+                    <td class="py-2 px-4 border-b">
+                      Título, Objetivos, ¿Por qué es crucial la comunicación?
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                      Imagen interacción positiva
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 border-b">4-6</td>
+                    <td class="py-2 px-4 border-b">
+                      Comunicación Verbal Efectiva (Claridad, preguntas
+                      abiertas, resumen)
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                      Iconos de principios
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 border-b">7-8</td>
+                    <td class="py-2 px-4 border-b">
+                      Comunicación No Verbal (Contacto visual, postura,
+                      congruencia)
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                      Ejemplos de posturas
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 border-b">9-10</td>
+                    <td class="py-2 px-4 border-b">
+                      Escucha Activa y Barreras de Comunicación
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                      Diagrama de ciclo, esquema de barreras
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 border-b">11-12</td>
+                    <td class="py-2 px-4 border-b">
+                      Toma de Decisiones Compartida (TDC): Pasos y beneficios
+                    </td>
+                    <td class="py-2 px-4 border-b">Flujograma de TDC</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 border-b">13-17</td>
+                    <td class="py-2 px-4 border-b">
+                      Visualización de Datos: Por qué, Tipos (Barras,
+                      Histograma, Dispersión), Principios
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                      Tabla vs Gráfico, Ejemplos de cada tipo
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 border-b">18</td>
+                    <td class="py-2 px-4 border-b">
+                      Comunicando Datos a Pacientes (Riesgos, Icon Arrays)
+                    </td>
+                    <td class="py-2 px-4 border-b">Ejemplo Icon Array</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 border-b">19-20</td>
+                    <td class="py-2 px-4 border-b">
+                      Introducción a Tableau Public y Caso de Estudio
+                    </td>
+                    <td class="py-2 px-4 border-b">Interfaz Tableau</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4 border-b">21-23</td>
+                    <td class="py-2 px-4 border-b">
+                      Conclusiones, Preguntas, Referencias
+                    </td>
+                    <td class="py-2 px-4 border-b">-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="actividad-interactiva" class="mb-10">
+            <h3 class="text-xl font-bold mb-4">
+              3. Actividad Interactiva: "Consulta Informada"
+            </h3>
+            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+              <h4 class="font-bold text-blue-800 mb-2">Contexto</h4>
+              <p class="text-sm text-blue-900">
+                Basada en el caso de estudio de la Semana 4: "Cómo presentar
+                información sobre riesgos y beneficios de un tratamiento al
+                paciente, utilizando visualizaciones de datos sencillas".
+              </p>
+            </div>
+
+            <div class="mt-6 space-y-4">
+              <h4 class="font-semibold">Materiales (Ficha del Caso Clínico):</h4>
+              <ul class="list-disc list-inside text-sm ml-2">
+                <li>
+                  <strong>Paciente:</strong> Sr. Juan Pérez, 62 años,
+                  diagnosticado con Fibrilación Auricular no valvular.
+                  CHA₂DS₂-VASc = 3.
+                </li>
+                <li>
+                  <strong>Tarea:</strong> Discutir anticoagulación oral.
+                </li>
+                <li>
+                  <strong>Opciones:</strong> ACOD (ej. Rivaroxabán), Warfarina,
+                  o No anticoagulación.
+                </li>
+                <li>
+                  <strong>Datos Simplificados:</strong>
+                  <ul class="list-disc list-inside ml-6 mt-1 text-gray-600">
+                    <li>Riesgo ACV anual sin tto: ~3.2%</li>
+                    <li>Riesgo ACV con ACOD: ~1.0% (RRR ~68%)</li>
+                    <li>Riesgo ACV con Warfarina: ~1.2% (RRR ~62%)</li>
+                    <li>Riesgo Sangrado Mayor ACOD: ~2.5%</li>
+                    <li>Riesgo Sangrado Mayor Warfarina: ~3.0%</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4 class="font-semibold">Instrucciones para Estudiantes:</h4>
+              <ol class="list-decimal list-inside text-sm ml-2">
+                <li>
+                  <strong>Grupos (10 min):</strong> 3-4 personas (Médico,
+                  Paciente, Observador).
+                </li>
+                <li>
+                  <strong>Preparación (15 min):</strong> Planificar y estudiar
+                  roles.
+                </li>
+                <li>
+                  <strong>Simulación (10 min):</strong> Conducir la consulta.
+                </li>
+                <li>
+                  <strong>Retroalimentación (10 min):</strong> Compartir
+                  impresiones.
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="evaluacion-formativa" class="mb-10">
+            <h3 class="text-xl font-bold mb-4">
+              4. Herramientas de Evaluación Formativa
+            </h3>
+            <div class="p-4 border border-gray-200 rounded-lg">
+              <h4 class="font-bold mb-2">
+                "Minuto de Papel" Modificado (al final de la clase):
+              </h4>
+              <p class="text-sm mb-2">
+                Pedir a los estudiantes que escriban en un papel (o formulario
+                digital):
+              </p>
+              <ul class="list-disc list-inside text-sm italic text-gray-600">
+                <li>
+                  "El concepto más importante que aprendí hoy sobre comunicación
+                  efectiva es..."
+                </li>
+                <li>
+                  "Una forma en que usaré la visualización de datos para
+                  explicar riesgos a un paciente es..."
+                </li>
+                <li>
+                  "¿Qué tipo de gráfico usarías para mostrar la frecuencia de
+                  diferentes grupos sanguíneos y por qué?"
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- SECCIÓN II: PARA ESTUDIANTES -->
+          <div class="border-b pb-4 mb-8 mt-12">
+            <h2 class="text-2xl font-bold text-green-700">
+              II. Para Estudiantes
+            </h2>
+          </div>
+
+          <section id="resumen-conceptos" class="mb-10">
+            <h3 class="text-xl font-bold mb-4">
+              1. Resumen de Conceptos Clave
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-white p-4 border rounded shadow-sm">
+                <h4 class="font-bold text-gray-800 mb-2 border-b pb-1">
+                  Comunicación Efectiva
+                </h4>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                  <li>
+                    <strong>Claridad y Concisión:</strong> Mensaje fácil, sin
+                    jerga, al grano.
+                  </li>
+                  <li>
+                    <strong>Empatía:</strong> Validar emociones del paciente.
+                  </li>
+                  <li>
+                    <strong>Escucha Activa:</strong> Atención total,
+                    parafraseo, preguntas.
+                  </li>
+                  <li>
+                    <strong>No Verbal:</strong> Contacto visual, gestos
+                    congruentes.
+                  </li>
+                </ul>
+              </div>
+              <div class="bg-white p-4 border rounded shadow-sm">
+                <h4 class="font-bold text-gray-800 mb-2 border-b pb-1">
+                  Toma de Decisiones Compartida
+                </h4>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                  <li><strong>Definición:</strong> Proceso colaborativo.</li>
+                  <li>
+                    <strong>Pasos:</strong> Invitar, presentar opciones
+                    (riesgos/beneficios), explorar preferencias, decidir.
+                  </li>
+                  <li>
+                    <strong>Beneficios:</strong> Satisfacción, adherencia,
+                    resultados.
+                  </li>
+                </ul>
+              </div>
+              <div class="bg-white p-4 border rounded shadow-sm md:col-span-2">
+                <h4 class="font-bold text-gray-800 mb-2 border-b pb-1">
+                  Visualización de Datos
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <strong>Gráfico de Barras:</strong> Compara cantidades entre
+                    categorías.
+                  </div>
+                  <div>
+                    <strong>Histograma:</strong> Muestra distribución de
+                    variable numérica.
+                  </div>
+                  <div>
+                    <strong>Gráfico de Dispersión:</strong> Relación entre dos
+                    variables numéricas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="ejercicio-practico" class="mb-10">
+            <h3 class="text-xl font-bold mb-4">
+              2. Ejercicio Práctico: Visualizando Datos con Tableau Public
+            </h3>
+            <p class="mb-4">
+              <strong>Objetivo:</strong> Familiarizarse con Tableau Public y
+              crear visualizaciones simples utilizando el dataset
+              proporcionado.
+            </p>
+
+            <h4 class="font-bold mb-2 text-lg">Dataset: Datos de Pacientes (Ficticios)</h4>
+            <p class="text-sm mb-4">
+              Copia la siguiente tabla y pégala en una Hoja de Google Sheets o
+              Excel para importarla a Tableau.
+            </p>
+
+            <div class="overflow-x-auto mb-6 border border-gray-300 rounded max-h-96">
+              <table class="min-w-full bg-white text-xs">
+                <thead class="bg-gray-200 sticky top-0">
+                  <tr>
+                    <th class="py-2 px-2 border whitespace-nowrap">ID_Paciente</th>
+                    <th class="py-2 px-2 border whitespace-nowrap">Edad</th>
+                    <th class="py-2 px-2 border whitespace-nowrap">Sexo</th>
+                    <th class="py-2 px-2 border whitespace-nowrap">PAS_Inicial</th>
+                    <th class="py-2 px-2 border whitespace-nowrap">PAD_Inicial</th>
+                    <th class="py-2 px-2 border whitespace-nowrap">Comorbilidades</th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      Opcion_Tratamiento_Sugerida
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      Opcion_Tratamiento_Elegida
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      Comunicacion_Riesgos_Clara
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      PAS_Seguimiento_3M
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      PAD_Seguimiento_3M
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      Efectos_Secundarios
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      Adherencia_Tratamiento
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      Provincia_Residencia
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      Nivel_Socioeconomico
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Datos Ficticios -->
+                  <tr><td>PAC001</td><td>65</td><td>Masculino</td><td>155</td><td>95</td><td>Dislipidemia</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>140</td><td>85</td><td>No</td><td>Buena</td><td>Pichincha</td><td>Medio</td></tr>
+                  <tr><td>PAC002</td><td>58</td><td>Femenino</td><td>160</td><td>100</td><td>Ninguna</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>145</td><td>90</td><td>Sí (mareos)</td><td>Regular</td><td>Guayas</td><td>Bajo</td></tr>
+                  <tr><td>PAC003</td><td>72</td><td>Masculino</td><td>148</td><td>92</td><td>Diabetes Tipo 2</td><td>Fármaco A + CEV</td><td>Solo CEV</td><td>No</td><td>150</td><td>94</td><td>No</td><td>Mala</td><td>Azuay</td><td>Alto</td></tr>
+                  <tr><td>PAC004</td><td>49</td><td>Femenino</td><td>152</td><td>98</td><td>Ninguna</td><td>Solo CEV</td><td>Solo CEV</td><td>Sí</td><td>142</td><td>90</td><td>No</td><td>Buena</td><td>Manabí</td><td>Medio</td></tr>
+                  <tr><td>PAC005</td><td>61</td><td>Masculino</td><td>165</td><td>102</td><td>Obesidad</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>150</td><td>92</td><td>Sí (tos seca)</td><td>Buena</td><td>Pichincha</td><td>Medio</td></tr>
+                  <tr><td>PAC006</td><td>55</td><td>Femenino</td><td>150</td><td>90</td><td>Dislipidemia</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>No</td><td>145</td><td>88</td><td>No</td><td>Regular</td><td>Imbabura</td><td>Bajo</td></tr>
+                  <tr><td>PAC007</td><td>68</td><td>Masculino</td><td>158</td><td>96</td><td>Ninguna</td><td>Fármaco B + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>142</td><td>86</td><td>No</td><td>Buena</td><td>Loja</td><td>Alto</td></tr>
+                  <tr><td>PAC008</td><td>75</td><td>Femenino</td><td>162</td><td>99</td><td>Artrosis</td><td>Solo CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>148</td><td>90</td><td>Sí (edema)</td><td>Buena</td><td>Tungurahua</td><td>Medio</td></tr>
+                  <tr><td>PAC009</td><td>53</td><td>Masculino</td><td>145</td><td>93</td><td>Ninguna</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>135</td><td>82</td><td>No</td><td>Buena</td><td>Pichincha</td><td>Alto</td></tr>
+                  <tr><td>PAC010</td><td>60</td><td>Femenino</td><td>155</td><td>97</td><td>Diabetes Tipo 2</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>No</td><td>150</td><td>95</td><td>Sí (cefalea)</td><td>Mala</td><td>Guayas</td><td>Bajo</td></tr>
+                  <tr><td>PAC011</td><td>66</td><td>Masculino</td><td>163</td><td>101</td><td>Ninguna</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>145</td><td>88</td><td>No</td><td>Buena</td><td>Azuay</td><td>Medio</td></tr>
+                  <tr><td>PAC012</td><td>50</td><td>Femenino</td><td>149</td><td>91</td><td>Dislipidemia</td><td>Solo CEV</td><td>Solo CEV</td><td>Sí</td><td>140</td><td>85</td><td>No</td><td>Buena</td><td>Manabí</td><td>Alto</td></tr>
+                  <tr><td>PAC013</td><td>70</td><td>Masculino</td><td>157</td><td>94</td><td>Obesidad</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>146</td><td>89</td><td>Sí (fatiga)</td><td>Regular</td><td>Pichincha</td><td>Bajo</td></tr>
+                  <tr><td>PAC014</td><td>57</td><td>Femenino</td><td>153</td><td>99</td><td>Ninguna</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>No</td><td>148</td><td>92</td><td>No</td><td>Regular</td><td>Imbabura</td><td>Medio</td></tr>
+                  <tr><td>PAC015</td><td>63</td><td>Masculino</td><td>161</td><td>98</td><td>Diabetes Tipo 2</td><td>Fármaco B + CEV</td><td>Solo CEV</td><td>Sí</td><td>155</td><td>96</td><td>No</td><td>Mala</td><td>Loja</td><td>Medio</td></tr>
+                  <tr><td>PAC016</td><td>73</td><td>Femenino</td><td>150</td><td>92</td><td>Artrosis</td><td>Solo CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>140</td><td>85</td><td>Sí (náuseas)</td><td>Buena</td><td>Tungurahua</td><td>Alto</td></tr>
+                  <tr><td>PAC017</td><td>51</td><td>Masculino</td><td>156</td><td>95</td><td>Ninguna</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>141</td><td>84</td><td>No</td><td>Buena</td><td>Pichincha</td><td>Bajo</td></tr>
+                  <tr><td>PAC018</td><td>69</td><td>Femenino</td><td>159</td><td>100</td><td>Dislipidemia</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>No</td><td>152</td><td>93</td><td>Sí (calambres)</td><td>Regular</td><td>Guayas</td><td>Medio</td></tr>
+                  <tr><td>PAC019</td><td>62</td><td>Masculino</td><td>147</td><td>90</td><td>Ninguna</td><td>Solo CEV</td><td>Solo CEV</td><td>Sí</td><td>138</td><td>83</td><td>No</td><td>Buena</td><td>Azuay</td><td>Alto</td></tr>
+                  <tr><td>PAC020</td><td>56</td><td>Femenino</td><td>164</td><td>103</td><td>Obesidad</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>149</td><td>91</td><td>Sí (palpitaciones)</td><td>Buena</td><td>Manabí</td><td>Bajo</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 class="font-bold mb-2">Instrucciones de Visualización:</h4>
+            <ol class="list-decimal list-inside space-y-2 text-sm">
+              <li>
+                <strong>Gráfico de Barras:</strong> Número de pacientes por
+                Sexo, Provincia o Adherencia.
+              </li>
+              <li>
+                <strong>Histograma:</strong> Distribución de Edad o PAS_Inicial.
+              </li>
+              <li>
+                <strong>Dispersión (Opcional):</strong> PAS_Inicial vs
+                PAD_Inicial.
+              </li>
+              <li>
+                <strong>Reto:</strong> Crea una visualización específica para el
+                PAC001 que muestre su reducción de presión arterial.
+              </li>
+            </ol>
+          </section>
+
+          <section id="cuestionario" class="mb-10">
+            <h3 class="text-xl font-bold mb-4">
+              3. Cuestionario de Autoevaluación
+            </h3>
+            <div class="space-y-4">
+              <details class="bg-gray-50 p-4 rounded cursor-pointer">
+                <summary class="font-semibold text-indigo-700">
+                  Ver Preguntas y Respuestas
+                </summary>
+                <div class="mt-4 space-y-6">
+                  <!-- Pregunta 1 -->
+                  <div>
+                    <p class="font-bold">1. ¿Cuál de los siguientes NO es un componente principal de la escucha activa?</p>
+                    <ul class="ml-4 list-none space-y-1 text-sm">
+                      <li>a) Mantener contacto visual.</li>
+                      <li class="text-red-600 font-bold">b) Interrumpir frecuentemente para dar tu opinión. (Correcta)</li>
+                      <li>c) Parafrasear lo que dijo el paciente.</li>
+                      <li>d) Asentir para mostrar comprensión.</li>
+                    </ul>
+                  </div>
+                   <!-- Pregunta 2 -->
+                   <div>
+                    <p class="font-bold">2. La Toma de Decisiones Compartida implica que el médico toma la decisión final tras informar al paciente.</p>
+                    <ul class="ml-4 list-none space-y-1 text-sm">
+                      <li>Verdadero</li>
+                      <li class="text-red-600 font-bold">Falso (Correcta)</li>
+                    </ul>
+                  </div>
+                  <!-- Pregunta 3 -->
+                  <div>
+                    <p class="font-bold">3. Un gráfico de barras es más útil para:</p>
+                    <ul class="ml-4 list-none space-y-1 text-sm">
+                      <li class="text-green-600 font-bold">b) Comparar cantidades entre diferentes categorías. (Correcta)</li>
+                    </ul>
+                  </div>
+                   <!-- Pregunta 4 -->
+                   <div>
+                    <p class="font-bold">4. Al comunicar un riesgo del 5% a un paciente usando "Icon Arrays":</p>
+                    <ul class="ml-4 list-none space-y-1 text-sm">
+                      <li class="text-green-600 font-bold">b) Mostrar 1 icono coloreado de un total de 20. (Correcta)</li>
+                    </ul>
+                  </div>
+                   <!-- Pregunta 6 -->
+                   <div>
+                    <p class="font-bold">6. ¿Qué gráfico usarías para distribución de glucosa (variable continua)?</p>
+                    <ul class="ml-4 list-none space-y-1 text-sm">
+                      <li class="text-green-600 font-bold">c) Histograma. (Correcta)</li>
+                    </ul>
+                  </div>
+                   <!-- Pregunta 9 -->
+                   <div>
+                    <p class="font-bold">9. En la Toma de Decisiones Compartida, es fundamental:</p>
+                    <ul class="ml-4 list-none space-y-1 text-sm">
+                      <li class="text-green-600 font-bold">b) Explorar los valores, preferencias y contexto del paciente. (Correcta)</li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
+
+          <section id="guia-estudio">
+            <h3 class="text-xl font-bold mb-4">4. Guía de Estudio</h3>
+            <div class="bg-indigo-50 p-6 rounded-lg">
+              <h4 class="font-bold text-indigo-800 mb-2">
+                Preguntas para Reflexionar
+              </h4>
+              <ul class="list-disc list-inside space-y-2 text-sm text-indigo-900">
+                <li>
+                  ¿Cómo pueden mis propios sesgos afectar mi comunicación con un
+                  paciente?
+                </li>
+                <li>
+                  ¿Cómo puedo verificar si un paciente realmente ha entendido la
+                  información sobre riesgos y beneficios?
+                </li>
+                <li>
+                  ¿Cuáles son los desafíos para la comunicación efectiva en el
+                  sistema de salud ecuatoriano?
+                </li>
+              </ul>
+            </div>
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      // Script for active link highlighting in ToC
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('#toc a');
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              navLinks.forEach((link) => {
+                link.classList.remove('text-blue-600', 'font-bold');
+                if (
+                  link.getAttribute('href').substring(1) === entry.target.id
+                ) {
+                  link.classList.add('text-blue-600', 'font-bold');
+                }
+              });
+            }
+          });
+        },
+        { rootMargin: '-20% 0px -70% 0px' },
+      );
+
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>
