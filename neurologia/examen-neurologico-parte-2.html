@@ -34,11 +34,26 @@
       }
       body {
         margin: 0;
-        font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
-          'Segoe UI', sans-serif;
+        font-family:
+          'Space Grotesk',
+          'Inter',
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
         color: var(--ink);
-        background: radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.08), transparent 45%),
-          radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.12), transparent 50%),
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(79, 70, 229, 0.08),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 80% 0%,
+            rgba(14, 165, 233, 0.12),
+            transparent 50%
+          ),
           linear-gradient(180deg, #f5f7ff 0%, #eef2ff 45%, #e0f7ff 100%);
         min-height: 100vh;
       }
@@ -46,9 +61,12 @@
         content: '';
         position: fixed;
         inset: 0;
-        background-image: linear-gradient(120deg, rgba(79, 70, 229, 0.08) 1px, transparent 1px),
+        background-image:
+          linear-gradient(120deg, rgba(79, 70, 229, 0.08) 1px, transparent 1px),
           linear-gradient(300deg, rgba(14, 165, 233, 0.08) 1px, transparent 1px);
-        background-size: 160px 160px, 220px 220px;
+        background-size:
+          160px 160px,
+          220px 220px;
         opacity: 0.45;
         pointer-events: none;
         z-index: -1;
@@ -150,8 +168,17 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.12), transparent 55%),
-          radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.12), transparent 60%);
+        background:
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(59, 130, 246, 0.12),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 10% 90%,
+            rgba(16, 185, 129, 0.12),
+            transparent 60%
+          );
         opacity: 0.7;
         pointer-events: none;
       }
@@ -198,7 +225,11 @@
         background: rgba(15, 23, 42, 0.04);
       }
       .score-card {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(76, 29, 149, 0.85));
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.95),
+          rgba(76, 29, 149, 0.85)
+        );
         color: white;
         border: none;
         box-shadow: 0 35px 80px -50px rgba(15, 23, 42, 1);
@@ -291,7 +322,9 @@
         padding: 1rem;
         background: rgba(15, 23, 42, 0.02);
         cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
       }
       .flashcard.is-flipped {
         background: var(--accent);
@@ -319,7 +352,11 @@
         border-radius: 24px;
         padding: 1rem 1.25rem;
         border: 1px solid rgba(79, 70, 229, 0.25);
-        background: linear-gradient(120deg, rgba(79, 70, 229, 0.15), rgba(14, 165, 233, 0.08));
+        background: linear-gradient(
+          120deg,
+          rgba(79, 70, 229, 0.15),
+          rgba(14, 165, 233, 0.08)
+        );
         box-shadow: 0 20px 50px -35px rgba(79, 70, 229, 0.8);
       }
       .lab-progress-header {
@@ -371,7 +408,9 @@
         border: 1px solid rgba(15, 23, 42, 0.08);
         background: white;
         box-shadow: 0 20px 45px -35px rgba(15, 23, 42, 0.8);
-        transition: border-color 0.3s ease, transform 0.3s ease;
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
       }
       .lab-step label {
         display: flex;
@@ -388,7 +427,9 @@
         border: 2px solid rgba(15, 23, 42, 0.25);
         display: grid;
         place-items: center;
-        transition: background 0.2s ease, border-color 0.2s ease;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease;
       }
       .lab-step input[type='checkbox']::after {
         content: '\2713';
@@ -637,7 +678,11 @@
       }
       .mission-item.completed,
       .challenge.completed {
-        background: linear-gradient(120deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
+        background: linear-gradient(
+          120deg,
+          rgba(16, 185, 129, 0.15),
+          rgba(59, 130, 246, 0.15)
+        );
         border-color: rgba(16, 185, 129, 0.6);
       }
       .mission-item i,
@@ -669,7 +714,11 @@
         border-radius: 1.5rem;
         transform-style: preserve-3d;
         transition: transform 0.6s ease;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(76, 29, 149, 0.9));
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.95),
+          rgba(76, 29, 149, 0.9)
+        );
         color: white;
         padding: 1.5rem;
       }
@@ -704,7 +753,11 @@
         transition: all 0.2s ease;
       }
       .lab-button.active {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(14, 165, 233, 0.15));
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.15),
+          rgba(14, 165, 233, 0.15)
+        );
         border-color: rgba(79, 70, 229, 0.5);
         color: #1f2937;
       }
@@ -833,9 +886,16 @@
     </style>
   </head>
   <body class="bg-slate-50 text-slate-800 font-sans">
-    <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-40">
-      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="../neurologia.html" class="flex items-center space-x-3 font-semibold text-slate-700">
+    <header
+      class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-40"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
+      >
+        <a
+          href="../neurologia.html"
+          class="flex items-center space-x-3 font-semibold text-slate-700"
+        >
           <div
             class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-sky-500 flex items-center justify-center text-white"
           >
@@ -844,8 +904,12 @@
           Neurología
         </a>
         <div class="text-right">
-          <p class="text-xs uppercase tracking-[0.35em] text-slate-400 m-0">Examen neurológico</p>
-          <p class="text-base font-semibold text-slate-700 m-0">Parte 2 · Ruta interactiva</p>
+          <p class="text-xs uppercase tracking-[0.35em] text-slate-400 m-0">
+            Examen neurológico
+          </p>
+          <p class="text-base font-semibold text-slate-700 m-0">
+            Parte 2 · Ruta interactiva
+          </p>
         </div>
       </div>
     </header>
@@ -854,21 +918,35 @@
     <aside class="drawer" aria-label="Navegación del módulo" aria-hidden="true">
       <header>
         <div>
-          <p style="margin: 0; font-size: 0.8rem; letter-spacing: 0.35em; text-transform: uppercase; opacity: 0.7">
+          <p
+            style="
+              margin: 0;
+              font-size: 0.8rem;
+              letter-spacing: 0.35em;
+              text-transform: uppercase;
+              opacity: 0.7;
+            "
+          >
             Guía móvil
           </p>
-          <strong style="display: block; margin-top: 0.35rem">Examen neurológico II</strong>
+          <strong style="display: block; margin-top: 0.35rem"
+            >Examen neurológico II</strong
+          >
         </div>
         <button class="drawer-close" type="button">Cerrar</button>
       </header>
       <p style="margin: 0; opacity: 0.8">
-        Divide tu repaso en bloques cortos: navega cada sistema y marca los retos que completes.
+        Divide tu repaso en bloques cortos: navega cada sistema y marca los
+        retos que completes.
       </p>
       <nav class="drawer-links"></nav>
       <div>
         <p style="margin: 0 0 0.35rem; font-weight: 600">Checklist exprés</p>
         <ul class="sidebar-list">
-          <li><span>1</span> Verifica pares craneales inferiores con dos maniobras.</li>
+          <li>
+            <span>1</span> Verifica pares craneales inferiores con dos
+            maniobras.
+          </li>
           <li><span>2</span> Documenta fuerza y tono usando la escala MRC.</li>
           <li><span>3</span> Contrasta sensibilidad superficial y profunda.</li>
         </ul>
@@ -881,23 +959,43 @@
         Abrir mapa de estudio
       </button>
       <div class="learning-shell">
-        <aside class="sidebar-static" aria-label="Mapa del módulo para estudiantes">
+        <aside
+          class="sidebar-static"
+          aria-label="Mapa del módulo para estudiantes"
+        >
           <div>
-            <p style="margin: 0 0 0.35rem; text-transform: uppercase; letter-spacing: 0.35em; font-size: 0.75rem">
+            <p
+              style="
+                margin: 0 0 0.35rem;
+                text-transform: uppercase;
+                letter-spacing: 0.35em;
+                font-size: 0.75rem;
+              "
+            >
               Ruta guiada
             </p>
             <h2>Mapa del módulo</h2>
             <p>
-              Avanza en cuatro bloques: pares craneales, sistema motor, sistema sensitivo e integración final.
+              Avanza en cuatro bloques: pares craneales, sistema motor, sistema
+              sensitivo e integración final.
             </p>
           </div>
           <nav class="sidebar-links"></nav>
           <div>
             <p style="margin: 0 0 0.35rem; font-weight: 600">Recordatorios</p>
             <ul class="sidebar-list">
-              <li><span>·</span> Lleva un diagrama corporal para marcar hallazgos sensitivos.</li>
-              <li><span>·</span> Cronometra cada estación en 5 minutos para simular OSCE.</li>
-              <li><span>·</span> Resume tus hallazgos usando el lenguaje de localización.</li>
+              <li>
+                <span>·</span> Lleva un diagrama corporal para marcar hallazgos
+                sensitivos.
+              </li>
+              <li>
+                <span>·</span> Cronometra cada estación en 5 minutos para
+                simular OSCE.
+              </li>
+              <li>
+                <span>·</span> Resume tus hallazgos usando el lenguaje de
+                localización.
+              </li>
             </ul>
           </div>
         </aside>
@@ -907,8 +1005,9 @@
               <p class="chip">Examen neurológico · parte 2</p>
               <h1>Entrenamiento gamificado</h1>
               <p>
-                Explora cada sistema neurológico mediante tarjetas, laboratorios, generadores de casos y un
-                quiz que calcula tu XP automáticamente.
+                Explora cada sistema neurológico mediante tarjetas,
+                laboratorios, generadores de casos y un quiz que calcula tu XP
+                automáticamente.
               </p>
               <div class="chip-row">
                 <span class="chip">Pares craneales</span>
@@ -918,17 +1017,35 @@
               </div>
             </article>
             <article class="score-card" aria-live="polite">
-              <div style="display: flex; align-items: center; justify-content: space-between">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                "
+              >
                 <div>
-                  <p style="margin: 0; letter-spacing: 0.3em; font-size: 0.75rem">Tablero</p>
-                  <strong style="font-size: 2.4rem" id="xpCounter">1200 XP</strong>
+                  <p
+                    style="margin: 0; letter-spacing: 0.3em; font-size: 0.75rem"
+                  >
+                    Tablero
+                  </p>
+                  <strong style="font-size: 2.4rem" id="xpCounter"
+                    >1200 XP</strong
+                  >
                 </div>
                 <div>
                   <p style="margin: 0; opacity: 0.8">Racha</p>
                   <strong id="streakCounter">x3</strong>
                 </div>
               </div>
-              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40">
+              <div
+                class="progress-track"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="40"
+              >
                 <span id="progressTrack"></span>
               </div>
               <div class="score-grid">
@@ -962,19 +1079,47 @@
             'Memoriza las funciones y pruebas rápidas con tarjetas volteables. Cada click revela maniobras clave.',
           type: 'flashcards',
           cards: [
-            { title: 'I · Olfatorio', description: 'Identificar olores con cada fosa nasal por separado.' },
-            { title: 'II · Óptico', description: 'Evaluar agudeza, campos visuales y fondo de ojo.' },
+            {
+              title: 'I · Olfatorio',
+              description:
+                'Identificar olores con cada fosa nasal por separado.',
+            },
+            {
+              title: 'II · Óptico',
+              description: 'Evaluar agudeza, campos visuales y fondo de ojo.',
+            },
             {
               title: 'III, IV, VI',
-              description: 'Motilidad ocular extrínseca, reflejo fotomotor y seguimiento suave.'
+              description:
+                'Motilidad ocular extrínseca, reflejo fotomotor y seguimiento suave.',
             },
-            { title: 'V · Trigémino', description: 'Tono masetero, reflejo corneal y sensibilidad facial.' },
-            { title: 'VII · Facial', description: 'Mímica facial simétrica, gusto en 2/3 anteriores.' },
-            { title: 'VIII · Vestibulococlear', description: 'Pruebas de Rinne y Weber, equilibrio.' },
-            { title: 'IX, X · Glosofaríngeo/Vago', description: 'Reflejo nauseoso y elevación del paladar.' },
-            { title: 'XI · Accesorio', description: 'Fuerza del esternocleidomastoideo y trapecio.' },
-            { title: 'XII · Hipogloso', description: 'Movimientos linguales, fasciculaciones y desviaciones.' }
-          ]
+            {
+              title: 'V · Trigémino',
+              description:
+                'Tono masetero, reflejo corneal y sensibilidad facial.',
+            },
+            {
+              title: 'VII · Facial',
+              description: 'Mímica facial simétrica, gusto en 2/3 anteriores.',
+            },
+            {
+              title: 'VIII · Vestibulococlear',
+              description: 'Pruebas de Rinne y Weber, equilibrio.',
+            },
+            {
+              title: 'IX, X · Glosofaríngeo/Vago',
+              description: 'Reflejo nauseoso y elevación del paladar.',
+            },
+            {
+              title: 'XI · Accesorio',
+              description: 'Fuerza del esternocleidomastoideo y trapecio.',
+            },
+            {
+              title: 'XII · Hipogloso',
+              description:
+                'Movimientos linguales, fasciculaciones y desviaciones.',
+            },
+          ],
         },
         {
           id: 'sistema-motor',
@@ -987,22 +1132,25 @@
           steps: [
             {
               title: 'Inspección',
-              detail: 'Busca atrofias, fasciculaciones y postura antálgica desde la entrada del paciente.'
+              detail:
+                'Busca atrofias, fasciculaciones y postura antálgica desde la entrada del paciente.',
             },
             {
               title: 'Tono y fuerza',
               detail:
-                'Palpa la resistencia pasiva y califica la fuerza (0-5) en flexión/extensión de hombro, codo y muñeca.'
+                'Palpa la resistencia pasiva y califica la fuerza (0-5) en flexión/extensión de hombro, codo y muñeca.',
             },
             {
               title: 'Reflejos',
-              detail: 'Rotuliano, aquíleo, bicipital y tricipital, registrando hiporreflexia o clonus.'
+              detail:
+                'Rotuliano, aquíleo, bicipital y tricipital, registrando hiporreflexia o clonus.',
             },
             {
               title: 'Pruebas superiores',
-              detail: 'Índice-nariz, talón-rodilla y maniobras de pronador para vías piramidales.'
-            }
-          ]
+              detail:
+                'Índice-nariz, talón-rodilla y maniobras de pronador para vías piramidales.',
+            },
+          ],
         },
         {
           id: 'sistema-sensitivo',
@@ -1017,14 +1165,15 @@
             max: 10,
             value: 5,
             label: 'Umbral percibido',
-            description: 'Desliza según la respuesta del paciente para estimar la intensidad mínima percibida.'
+            description:
+              'Desliza según la respuesta del paciente para estimar la intensidad mínima percibida.',
           },
           checklist: [
             'Dolor (estímulo punzante vs. romo)',
             'Tacto ligero con torundas',
             'Vibración con diapasón 128 Hz',
-            'Propiocepción en articulaciones distales'
-          ]
+            'Propiocepción en articulaciones distales',
+          ],
         },
         {
           id: 'integracion',
@@ -1039,15 +1188,15 @@
             'Temblor de reposo, bradicinesia y rigidez en rueda dentada',
             'Parestesias en guante y media con antecedente metabólico',
             'Debilidad proximal con CK elevada y reflejos conservados',
-            'Ataxia aguda tras cuadro viral en pediatría'
+            'Ataxia aguda tras cuadro viral en pediatría',
           ],
           patterns: [
             'EMG con descargas repetitivas y patrón miopático',
             'Velocidades de conducción disminuidas difusamente',
             'Resonancia con lesiones periventriculares',
             'Potenciales evocados visuales prolongados',
-            'LCR con disociación albúmino-citológica'
-          ]
+            'LCR con disociación albúmino-citológica',
+          ],
         },
         {
           id: 'demostracion',
@@ -1062,8 +1211,8 @@
             'Presentación y explicación del procedimiento',
             'Secuencia lógica: inspección, palpación, maniobras',
             'Comunicación clara con el paciente simulado',
-            'Registro completo de hallazgos positivos y negativos'
-          ]
+            'Registro completo de hallazgos positivos y negativos',
+          ],
         },
         {
           id: 'auto-evaluacion',
@@ -1077,19 +1226,24 @@
             {
               prompt: '¿Qué par craneal controla el reflejo corneal aferente?',
               options: ['VII', 'V', 'III'],
-              answer: 'V'
+              answer: 'V',
             },
             {
-              prompt: 'Una hipotonía generalizada con hiporreflexia orienta a un patrón…',
+              prompt:
+                'Una hipotonía generalizada con hiporreflexia orienta a un patrón…',
               options: ['Central', 'Periférico', 'Funcional'],
-              answer: 'Periférico'
+              answer: 'Periférico',
             },
             {
               prompt: 'El signo de Romberg positivo se documenta dentro de…',
-              options: ['Sensibilidad profunda', 'Sistema motor', 'Integración cortical'],
-              answer: 'Sensibilidad profunda'
-            }
-          ]
+              options: [
+                'Sensibilidad profunda',
+                'Sistema motor',
+                'Integración cortical',
+              ],
+              answer: 'Sensibilidad profunda',
+            },
+          ],
         },
         {
           id: 'guia-interactiva',
@@ -1099,7 +1253,7 @@
           intro:
             'Consulta la guía desplegable con checklists imprimibles. Puedes refrescarla sin salir de la página.',
           type: 'guide',
-          url: 'https://script.google.com/macros/s/AKfycbycyUCZNCgbrKE9tGdKOsvfDnYFkxSJbE0811P7bXwVoRwktwTdUr4Uarw4f-Eg9sbhtQ/exec'
+          url: 'https://script.google.com/macros/s/AKfycbycyUCZNCgbrKE9tGdKOsvfDnYFkxSJbE0811P7bXwVoRwktwTdUr4Uarw4f-Eg9sbhtQ/exec',
         },
         {
           id: 'bibliografia',
@@ -1113,9 +1267,9 @@
             'DeMyer W. Técnica del examen neurológico',
             'Preston & Shapiro. Electromiografía y conducción nerviosa',
             'Adams y Victor. Principios de neurología',
-            'AAN Practice Parameters para EMG y NCV'
-          ]
-        }
+            'AAN Practice Parameters para EMG y NCV',
+          ],
+        },
       ];
 
       const modulesContainer = document.getElementById('modules');
@@ -1132,7 +1286,7 @@
         linkContainer.innerHTML = '';
         modules.forEach((module) => {
           const link = createElement(
-            `<a href="#${module.id}"><i class="fa-solid ${module.icon}" aria-hidden="true"></i><span>${module.number}. ${module.title}</span></a>`
+            `<a href="#${module.id}"><i class="fa-solid ${module.icon}" aria-hidden="true"></i><span>${module.number}. ${module.title}</span></a>`,
           );
           linkContainer.appendChild(link);
         });
@@ -1146,9 +1300,11 @@
             `<article class="flashcard" tabindex="0" aria-label="${card.title}">
               <strong>${card.title}</strong>
               <p>${card.description}</p>
-            </article>`
+            </article>`,
           );
-          flashcard.addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
+          flashcard.addEventListener('click', () =>
+            flashcard.classList.toggle('is-flipped'),
+          );
           flashcard.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
               flashcard.classList.toggle('is-flipped');
@@ -1174,7 +1330,7 @@
             <div class="lab-progress-track" aria-hidden="true">
               <span></span>
             </div>
-          </div>`
+          </div>`,
         );
         const list = document.createElement('ol');
         list.className = 'lab-steps';
@@ -1202,7 +1358,7 @@
                   </div>
                 </div>
               </label>
-            </li>`
+            </li>`,
           );
           const checkbox = item.querySelector('input');
           checkbox.addEventListener('change', () => {
@@ -1218,7 +1374,6 @@
         return wrapper;
       }
 
-
       function renderSlider(module) {
         const sliderId = `${module.id}-slider`;
         const descriptionId = `${module.id}-slider-description`;
@@ -1233,7 +1388,7 @@
             <ul class="sidebar-list" style="color: var(--ink)">
               ${module.checklist.map((item) => `<li><span>·</span>${item}</li>`).join('')}
             </ul>
-          </div>`
+          </div>`,
         );
         const sliderInput = block.querySelector('input');
         const sliderValue = block.querySelector(`#${sliderId}-value`);
@@ -1255,12 +1410,13 @@
                 <i class="fa-solid fa-wave-square" aria-hidden="true"></i> Patrón electrodiagnóstico
               </button>
             </div>
-          </div>`
+          </div>`,
         );
         const output = panel.querySelector('.status-pill');
         panel.querySelectorAll('button').forEach((button) => {
           button.addEventListener('click', () => {
-            const pool = button.dataset.action === 'case' ? data.cases : data.patterns;
+            const pool =
+              button.dataset.action === 'case' ? data.cases : data.patterns;
             const choice = pool[Math.floor(Math.random() * pool.length)];
             output.textContent = choice;
             updateChallenges(40);
@@ -1281,7 +1437,7 @@
                 ${module.rubric.map((item) => `<li>${item}</li>`).join('')}
               </ul>
             </div>
-          </div>`
+          </div>`,
         );
         return wrapper;
       }
@@ -1302,11 +1458,11 @@
                         <input type="radio" name="quiz-${index}" value="${option}" />
                         <span>${option}</span>
                       </label>
-                    `
+                    `,
                   )
                   .join('')}
               </div>
-            </article>`
+            </article>`,
           );
           grid.appendChild(card);
         });
@@ -1320,13 +1476,15 @@
               <i class="fa-solid fa-star" aria-hidden="true"></i>
               Listo para responder
             </div>
-          </div>`
+          </div>`,
         );
         const status = actions.querySelector('.status-pill');
         actions.querySelector('button').addEventListener('click', () => {
           let score = 0;
           module.questions.forEach((question, index) => {
-            const selected = grid.querySelector(`input[name="quiz-${index}"]:checked`);
+            const selected = grid.querySelector(
+              `input[name="quiz-${index}"]:checked`,
+            );
             if (selected && selected.value === question.answer) {
               score += 1;
             }
@@ -1360,7 +1518,7 @@
             <div style="border: 1px solid var(--outline); border-radius: 20px; overflow: hidden; min-height: 360px; background: rgba(15, 23, 42, 0.02)">
               <iframe src="${module.url}" title="Guía interactiva" loading="lazy" style="width: 100%; height: 360px; border: 0"></iframe>
             </div>
-          </div>`
+          </div>`,
         );
         const iframe = wrapper.querySelector('iframe');
         wrapper.querySelector('button').addEventListener('click', () => {
@@ -1375,7 +1533,7 @@
             <ul style="margin: 0; padding-left: 1.2rem; color: var(--muted)">
               ${resources.map((item) => `<li>${item}</li>`).join('')}
             </ul>
-          </div>`
+          </div>`,
         );
       }
 
@@ -1395,9 +1553,15 @@
       function updateMissionDisplay() {
         if (!missionCount || !progressTrack) return;
         missionCount.textContent = `${missionCompleted}/${missionTotal}`;
-        const percent = missionTotal === 0 ? 0 : Math.round((missionCompleted / missionTotal) * 100);
+        const percent =
+          missionTotal === 0
+            ? 0
+            : Math.round((missionCompleted / missionTotal) * 100);
         progressTrack.style.width = `${percent}%`;
-        progressTrack.parentElement?.setAttribute('aria-valuenow', `${percent}`);
+        progressTrack.parentElement?.setAttribute(
+          'aria-valuenow',
+          `${percent}`,
+        );
       }
 
       function updateXP(amount) {
@@ -1425,13 +1589,16 @@
               <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i>
               Marcar como completado
             </button>
-          </div>`
+          </div>`,
         );
         const button = controls.querySelector('button');
         button.addEventListener('click', () => {
           const completed = section.classList.toggle('module-completed');
           missionCompleted += completed ? 1 : -1;
-          missionCompleted = Math.max(0, Math.min(missionCompleted, missionTotal));
+          missionCompleted = Math.max(
+            0,
+            Math.min(missionCompleted, missionTotal),
+          );
           updateMissionDisplay();
           button.innerHTML = completed
             ? '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Misión completada'
@@ -1448,7 +1615,7 @@
               <h2 class="module-title">${module.title}</h2>
               <p>${module.intro}</p>
             </div>
-          </section>`
+          </section>`,
         );
         const body = document.createElement('div');
         body.className = 'module-body';
@@ -1543,7 +1710,9 @@
       function setupNavHighlight(onNavigate = () => {}) {
         const sections = document.querySelectorAll('.module-card');
         if (!sections.length) return;
-        const navLinks = document.querySelectorAll('.sidebar-links a, .drawer-links a');
+        const navLinks = document.querySelectorAll(
+          '.sidebar-links a, .drawer-links a',
+        );
 
         const observer = new IntersectionObserver(
           (entries) => {
@@ -1556,7 +1725,7 @@
               });
             });
           },
-          { rootMargin: '-40% 0px -40% 0px' }
+          { rootMargin: '-40% 0px -40% 0px' },
         );
 
         sections.forEach((section) => observer.observe(section));
@@ -1594,7 +1763,6 @@
       updateMissionDisplay();
       const closeDrawer = initDrawer();
       setupNavHighlight(closeDrawer);
-
     </script>
   </body>
 </html>
