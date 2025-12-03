@@ -80,7 +80,9 @@
               class="text-gray-600 hover:text-blue-600 pl-2"
               >3. Cuestionario</a
             >
-            <a href="#guia-estudio" class="text-gray-600 hover:text-blue-600 pl-2"
+            <a
+              href="#guia-estudio"
+              class="text-gray-600 hover:text-blue-600 pl-2"
               >4. Guía de Estudio</a
             >
           </nav>
@@ -192,7 +194,9 @@
                     simplicidad, honestidad).
                   </li>
                   <li>
-                    <strong>Breve demostración guiada de Tableau Public:</strong>
+                    <strong
+                      >Breve demostración guiada de Tableau Public:</strong
+                    >
                     Cargar un dataset sencillo y crear un gráfico de barras
                     comparativo.
                   </li>
@@ -256,8 +260,12 @@
                 <thead class="bg-gray-100">
                   <tr>
                     <th class="py-2 px-4 border-b text-left">Diapositiva(s)</th>
-                    <th class="py-2 px-4 border-b text-left">Contenido Esencial</th>
-                    <th class="py-2 px-4 border-b text-left">Visual Sugerido</th>
+                    <th class="py-2 px-4 border-b text-left">
+                      Contenido Esencial
+                    </th>
+                    <th class="py-2 px-4 border-b text-left">
+                      Visual Sugerido
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="text-sm">
@@ -276,9 +284,7 @@
                       Comunicación Verbal Efectiva (Claridad, preguntas
                       abiertas, resumen)
                     </td>
-                    <td class="py-2 px-4 border-b">
-                      Iconos de principios
-                    </td>
+                    <td class="py-2 px-4 border-b">Iconos de principios</td>
                   </tr>
                   <tr>
                     <td class="py-2 px-4 border-b">7-8</td>
@@ -286,9 +292,7 @@
                       Comunicación No Verbal (Contacto visual, postura,
                       congruencia)
                     </td>
-                    <td class="py-2 px-4 border-b">
-                      Ejemplos de posturas
-                    </td>
+                    <td class="py-2 px-4 border-b">Ejemplos de posturas</td>
                   </tr>
                   <tr>
                     <td class="py-2 px-4 border-b">9-10</td>
@@ -356,16 +360,16 @@
             </div>
 
             <div class="mt-6 space-y-4">
-              <h4 class="font-semibold">Materiales (Ficha del Caso Clínico):</h4>
+              <h4 class="font-semibold">
+                Materiales (Ficha del Caso Clínico):
+              </h4>
               <ul class="list-disc list-inside text-sm ml-2">
                 <li>
                   <strong>Paciente:</strong> Sr. Juan Pérez, 62 años,
                   diagnosticado con Fibrilación Auricular no valvular.
                   CHA₂DS₂-VASc = 3.
                 </li>
-                <li>
-                  <strong>Tarea:</strong> Discutir anticoagulación oral.
-                </li>
+                <li><strong>Tarea:</strong> Discutir anticoagulación oral.</li>
                 <li>
                   <strong>Opciones:</strong> ACOD (ej. Rivaroxabán), Warfarina,
                   o No anticoagulación.
@@ -457,8 +461,8 @@
                     <strong>Empatía:</strong> Validar emociones del paciente.
                   </li>
                   <li>
-                    <strong>Escucha Activa:</strong> Atención total,
-                    parafraseo, preguntas.
+                    <strong>Escucha Activa:</strong> Atención total, parafraseo,
+                    preguntas.
                   </li>
                   <li>
                     <strong>No Verbal:</strong> Contacto visual, gestos
@@ -510,26 +514,37 @@
             </h3>
             <p class="mb-4">
               <strong>Objetivo:</strong> Familiarizarse con Tableau Public y
-              crear visualizaciones simples utilizando el dataset
-              proporcionado.
+              crear visualizaciones simples utilizando el dataset proporcionado.
             </p>
 
-            <h4 class="font-bold mb-2 text-lg">Dataset: Datos de Pacientes (Ficticios)</h4>
+            <h4 class="font-bold mb-2 text-lg">
+              Dataset: Datos de Pacientes (Ficticios)
+            </h4>
             <p class="text-sm mb-4">
               Copia la siguiente tabla y pégala en una Hoja de Google Sheets o
               Excel para importarla a Tableau.
             </p>
 
-            <div class="overflow-x-auto mb-6 border border-gray-300 rounded max-h-96">
+            <div
+              class="overflow-x-auto mb-6 border border-gray-300 rounded max-h-96"
+            >
               <table class="min-w-full bg-white text-xs">
                 <thead class="bg-gray-200 sticky top-0">
                   <tr>
-                    <th class="py-2 px-2 border whitespace-nowrap">ID_Paciente</th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      ID_Paciente
+                    </th>
                     <th class="py-2 px-2 border whitespace-nowrap">Edad</th>
                     <th class="py-2 px-2 border whitespace-nowrap">Sexo</th>
-                    <th class="py-2 px-2 border whitespace-nowrap">PAS_Inicial</th>
-                    <th class="py-2 px-2 border whitespace-nowrap">PAD_Inicial</th>
-                    <th class="py-2 px-2 border whitespace-nowrap">Comorbilidades</th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      PAS_Inicial
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      PAD_Inicial
+                    </th>
+                    <th class="py-2 px-2 border whitespace-nowrap">
+                      Comorbilidades
+                    </th>
                     <th class="py-2 px-2 border whitespace-nowrap">
                       Opcion_Tratamiento_Sugerida
                     </th>
@@ -561,26 +576,346 @@
                 </thead>
                 <tbody>
                   <!-- Datos Ficticios -->
-                  <tr><td>PAC001</td><td>65</td><td>Masculino</td><td>155</td><td>95</td><td>Dislipidemia</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>140</td><td>85</td><td>No</td><td>Buena</td><td>Pichincha</td><td>Medio</td></tr>
-                  <tr><td>PAC002</td><td>58</td><td>Femenino</td><td>160</td><td>100</td><td>Ninguna</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>145</td><td>90</td><td>Sí (mareos)</td><td>Regular</td><td>Guayas</td><td>Bajo</td></tr>
-                  <tr><td>PAC003</td><td>72</td><td>Masculino</td><td>148</td><td>92</td><td>Diabetes Tipo 2</td><td>Fármaco A + CEV</td><td>Solo CEV</td><td>No</td><td>150</td><td>94</td><td>No</td><td>Mala</td><td>Azuay</td><td>Alto</td></tr>
-                  <tr><td>PAC004</td><td>49</td><td>Femenino</td><td>152</td><td>98</td><td>Ninguna</td><td>Solo CEV</td><td>Solo CEV</td><td>Sí</td><td>142</td><td>90</td><td>No</td><td>Buena</td><td>Manabí</td><td>Medio</td></tr>
-                  <tr><td>PAC005</td><td>61</td><td>Masculino</td><td>165</td><td>102</td><td>Obesidad</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>150</td><td>92</td><td>Sí (tos seca)</td><td>Buena</td><td>Pichincha</td><td>Medio</td></tr>
-                  <tr><td>PAC006</td><td>55</td><td>Femenino</td><td>150</td><td>90</td><td>Dislipidemia</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>No</td><td>145</td><td>88</td><td>No</td><td>Regular</td><td>Imbabura</td><td>Bajo</td></tr>
-                  <tr><td>PAC007</td><td>68</td><td>Masculino</td><td>158</td><td>96</td><td>Ninguna</td><td>Fármaco B + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>142</td><td>86</td><td>No</td><td>Buena</td><td>Loja</td><td>Alto</td></tr>
-                  <tr><td>PAC008</td><td>75</td><td>Femenino</td><td>162</td><td>99</td><td>Artrosis</td><td>Solo CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>148</td><td>90</td><td>Sí (edema)</td><td>Buena</td><td>Tungurahua</td><td>Medio</td></tr>
-                  <tr><td>PAC009</td><td>53</td><td>Masculino</td><td>145</td><td>93</td><td>Ninguna</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>135</td><td>82</td><td>No</td><td>Buena</td><td>Pichincha</td><td>Alto</td></tr>
-                  <tr><td>PAC010</td><td>60</td><td>Femenino</td><td>155</td><td>97</td><td>Diabetes Tipo 2</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>No</td><td>150</td><td>95</td><td>Sí (cefalea)</td><td>Mala</td><td>Guayas</td><td>Bajo</td></tr>
-                  <tr><td>PAC011</td><td>66</td><td>Masculino</td><td>163</td><td>101</td><td>Ninguna</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>145</td><td>88</td><td>No</td><td>Buena</td><td>Azuay</td><td>Medio</td></tr>
-                  <tr><td>PAC012</td><td>50</td><td>Femenino</td><td>149</td><td>91</td><td>Dislipidemia</td><td>Solo CEV</td><td>Solo CEV</td><td>Sí</td><td>140</td><td>85</td><td>No</td><td>Buena</td><td>Manabí</td><td>Alto</td></tr>
-                  <tr><td>PAC013</td><td>70</td><td>Masculino</td><td>157</td><td>94</td><td>Obesidad</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>146</td><td>89</td><td>Sí (fatiga)</td><td>Regular</td><td>Pichincha</td><td>Bajo</td></tr>
-                  <tr><td>PAC014</td><td>57</td><td>Femenino</td><td>153</td><td>99</td><td>Ninguna</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>No</td><td>148</td><td>92</td><td>No</td><td>Regular</td><td>Imbabura</td><td>Medio</td></tr>
-                  <tr><td>PAC015</td><td>63</td><td>Masculino</td><td>161</td><td>98</td><td>Diabetes Tipo 2</td><td>Fármaco B + CEV</td><td>Solo CEV</td><td>Sí</td><td>155</td><td>96</td><td>No</td><td>Mala</td><td>Loja</td><td>Medio</td></tr>
-                  <tr><td>PAC016</td><td>73</td><td>Femenino</td><td>150</td><td>92</td><td>Artrosis</td><td>Solo CEV</td><td>Fármaco B + CEV</td><td>Sí</td><td>140</td><td>85</td><td>Sí (náuseas)</td><td>Buena</td><td>Tungurahua</td><td>Alto</td></tr>
-                  <tr><td>PAC017</td><td>51</td><td>Masculino</td><td>156</td><td>95</td><td>Ninguna</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>141</td><td>84</td><td>No</td><td>Buena</td><td>Pichincha</td><td>Bajo</td></tr>
-                  <tr><td>PAC018</td><td>69</td><td>Femenino</td><td>159</td><td>100</td><td>Dislipidemia</td><td>Fármaco B + CEV</td><td>Fármaco B + CEV</td><td>No</td><td>152</td><td>93</td><td>Sí (calambres)</td><td>Regular</td><td>Guayas</td><td>Medio</td></tr>
-                  <tr><td>PAC019</td><td>62</td><td>Masculino</td><td>147</td><td>90</td><td>Ninguna</td><td>Solo CEV</td><td>Solo CEV</td><td>Sí</td><td>138</td><td>83</td><td>No</td><td>Buena</td><td>Azuay</td><td>Alto</td></tr>
-                  <tr><td>PAC020</td><td>56</td><td>Femenino</td><td>164</td><td>103</td><td>Obesidad</td><td>Fármaco A + CEV</td><td>Fármaco A + CEV</td><td>Sí</td><td>149</td><td>91</td><td>Sí (palpitaciones)</td><td>Buena</td><td>Manabí</td><td>Bajo</td></tr>
+                  <tr>
+                    <td>PAC001</td>
+                    <td>65</td>
+                    <td>Masculino</td>
+                    <td>155</td>
+                    <td>95</td>
+                    <td>Dislipidemia</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Sí</td>
+                    <td>140</td>
+                    <td>85</td>
+                    <td>No</td>
+                    <td>Buena</td>
+                    <td>Pichincha</td>
+                    <td>Medio</td>
+                  </tr>
+                  <tr>
+                    <td>PAC002</td>
+                    <td>58</td>
+                    <td>Femenino</td>
+                    <td>160</td>
+                    <td>100</td>
+                    <td>Ninguna</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Sí</td>
+                    <td>145</td>
+                    <td>90</td>
+                    <td>Sí (mareos)</td>
+                    <td>Regular</td>
+                    <td>Guayas</td>
+                    <td>Bajo</td>
+                  </tr>
+                  <tr>
+                    <td>PAC003</td>
+                    <td>72</td>
+                    <td>Masculino</td>
+                    <td>148</td>
+                    <td>92</td>
+                    <td>Diabetes Tipo 2</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Solo CEV</td>
+                    <td>No</td>
+                    <td>150</td>
+                    <td>94</td>
+                    <td>No</td>
+                    <td>Mala</td>
+                    <td>Azuay</td>
+                    <td>Alto</td>
+                  </tr>
+                  <tr>
+                    <td>PAC004</td>
+                    <td>49</td>
+                    <td>Femenino</td>
+                    <td>152</td>
+                    <td>98</td>
+                    <td>Ninguna</td>
+                    <td>Solo CEV</td>
+                    <td>Solo CEV</td>
+                    <td>Sí</td>
+                    <td>142</td>
+                    <td>90</td>
+                    <td>No</td>
+                    <td>Buena</td>
+                    <td>Manabí</td>
+                    <td>Medio</td>
+                  </tr>
+                  <tr>
+                    <td>PAC005</td>
+                    <td>61</td>
+                    <td>Masculino</td>
+                    <td>165</td>
+                    <td>102</td>
+                    <td>Obesidad</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Sí</td>
+                    <td>150</td>
+                    <td>92</td>
+                    <td>Sí (tos seca)</td>
+                    <td>Buena</td>
+                    <td>Pichincha</td>
+                    <td>Medio</td>
+                  </tr>
+                  <tr>
+                    <td>PAC006</td>
+                    <td>55</td>
+                    <td>Femenino</td>
+                    <td>150</td>
+                    <td>90</td>
+                    <td>Dislipidemia</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>No</td>
+                    <td>145</td>
+                    <td>88</td>
+                    <td>No</td>
+                    <td>Regular</td>
+                    <td>Imbabura</td>
+                    <td>Bajo</td>
+                  </tr>
+                  <tr>
+                    <td>PAC007</td>
+                    <td>68</td>
+                    <td>Masculino</td>
+                    <td>158</td>
+                    <td>96</td>
+                    <td>Ninguna</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Sí</td>
+                    <td>142</td>
+                    <td>86</td>
+                    <td>No</td>
+                    <td>Buena</td>
+                    <td>Loja</td>
+                    <td>Alto</td>
+                  </tr>
+                  <tr>
+                    <td>PAC008</td>
+                    <td>75</td>
+                    <td>Femenino</td>
+                    <td>162</td>
+                    <td>99</td>
+                    <td>Artrosis</td>
+                    <td>Solo CEV</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Sí</td>
+                    <td>148</td>
+                    <td>90</td>
+                    <td>Sí (edema)</td>
+                    <td>Buena</td>
+                    <td>Tungurahua</td>
+                    <td>Medio</td>
+                  </tr>
+                  <tr>
+                    <td>PAC009</td>
+                    <td>53</td>
+                    <td>Masculino</td>
+                    <td>145</td>
+                    <td>93</td>
+                    <td>Ninguna</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Sí</td>
+                    <td>135</td>
+                    <td>82</td>
+                    <td>No</td>
+                    <td>Buena</td>
+                    <td>Pichincha</td>
+                    <td>Alto</td>
+                  </tr>
+                  <tr>
+                    <td>PAC010</td>
+                    <td>60</td>
+                    <td>Femenino</td>
+                    <td>155</td>
+                    <td>97</td>
+                    <td>Diabetes Tipo 2</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>No</td>
+                    <td>150</td>
+                    <td>95</td>
+                    <td>Sí (cefalea)</td>
+                    <td>Mala</td>
+                    <td>Guayas</td>
+                    <td>Bajo</td>
+                  </tr>
+                  <tr>
+                    <td>PAC011</td>
+                    <td>66</td>
+                    <td>Masculino</td>
+                    <td>163</td>
+                    <td>101</td>
+                    <td>Ninguna</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Sí</td>
+                    <td>145</td>
+                    <td>88</td>
+                    <td>No</td>
+                    <td>Buena</td>
+                    <td>Azuay</td>
+                    <td>Medio</td>
+                  </tr>
+                  <tr>
+                    <td>PAC012</td>
+                    <td>50</td>
+                    <td>Femenino</td>
+                    <td>149</td>
+                    <td>91</td>
+                    <td>Dislipidemia</td>
+                    <td>Solo CEV</td>
+                    <td>Solo CEV</td>
+                    <td>Sí</td>
+                    <td>140</td>
+                    <td>85</td>
+                    <td>No</td>
+                    <td>Buena</td>
+                    <td>Manabí</td>
+                    <td>Alto</td>
+                  </tr>
+                  <tr>
+                    <td>PAC013</td>
+                    <td>70</td>
+                    <td>Masculino</td>
+                    <td>157</td>
+                    <td>94</td>
+                    <td>Obesidad</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Sí</td>
+                    <td>146</td>
+                    <td>89</td>
+                    <td>Sí (fatiga)</td>
+                    <td>Regular</td>
+                    <td>Pichincha</td>
+                    <td>Bajo</td>
+                  </tr>
+                  <tr>
+                    <td>PAC014</td>
+                    <td>57</td>
+                    <td>Femenino</td>
+                    <td>153</td>
+                    <td>99</td>
+                    <td>Ninguna</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>No</td>
+                    <td>148</td>
+                    <td>92</td>
+                    <td>No</td>
+                    <td>Regular</td>
+                    <td>Imbabura</td>
+                    <td>Medio</td>
+                  </tr>
+                  <tr>
+                    <td>PAC015</td>
+                    <td>63</td>
+                    <td>Masculino</td>
+                    <td>161</td>
+                    <td>98</td>
+                    <td>Diabetes Tipo 2</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Solo CEV</td>
+                    <td>Sí</td>
+                    <td>155</td>
+                    <td>96</td>
+                    <td>No</td>
+                    <td>Mala</td>
+                    <td>Loja</td>
+                    <td>Medio</td>
+                  </tr>
+                  <tr>
+                    <td>PAC016</td>
+                    <td>73</td>
+                    <td>Femenino</td>
+                    <td>150</td>
+                    <td>92</td>
+                    <td>Artrosis</td>
+                    <td>Solo CEV</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Sí</td>
+                    <td>140</td>
+                    <td>85</td>
+                    <td>Sí (náuseas)</td>
+                    <td>Buena</td>
+                    <td>Tungurahua</td>
+                    <td>Alto</td>
+                  </tr>
+                  <tr>
+                    <td>PAC017</td>
+                    <td>51</td>
+                    <td>Masculino</td>
+                    <td>156</td>
+                    <td>95</td>
+                    <td>Ninguna</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Sí</td>
+                    <td>141</td>
+                    <td>84</td>
+                    <td>No</td>
+                    <td>Buena</td>
+                    <td>Pichincha</td>
+                    <td>Bajo</td>
+                  </tr>
+                  <tr>
+                    <td>PAC018</td>
+                    <td>69</td>
+                    <td>Femenino</td>
+                    <td>159</td>
+                    <td>100</td>
+                    <td>Dislipidemia</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>Fármaco B + CEV</td>
+                    <td>No</td>
+                    <td>152</td>
+                    <td>93</td>
+                    <td>Sí (calambres)</td>
+                    <td>Regular</td>
+                    <td>Guayas</td>
+                    <td>Medio</td>
+                  </tr>
+                  <tr>
+                    <td>PAC019</td>
+                    <td>62</td>
+                    <td>Masculino</td>
+                    <td>147</td>
+                    <td>90</td>
+                    <td>Ninguna</td>
+                    <td>Solo CEV</td>
+                    <td>Solo CEV</td>
+                    <td>Sí</td>
+                    <td>138</td>
+                    <td>83</td>
+                    <td>No</td>
+                    <td>Buena</td>
+                    <td>Azuay</td>
+                    <td>Alto</td>
+                  </tr>
+                  <tr>
+                    <td>PAC020</td>
+                    <td>56</td>
+                    <td>Femenino</td>
+                    <td>164</td>
+                    <td>103</td>
+                    <td>Obesidad</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Fármaco A + CEV</td>
+                    <td>Sí</td>
+                    <td>149</td>
+                    <td>91</td>
+                    <td>Sí (palpitaciones)</td>
+                    <td>Buena</td>
+                    <td>Manabí</td>
+                    <td>Bajo</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -617,17 +952,26 @@
                 <div class="mt-4 space-y-6">
                   <!-- Pregunta 1 -->
                   <div>
-                    <p class="font-bold">1. ¿Cuál de los siguientes NO es un componente principal de la escucha activa?</p>
+                    <p class="font-bold">
+                      1. ¿Cuál de los siguientes NO es un componente principal
+                      de la escucha activa?
+                    </p>
                     <ul class="ml-4 list-none space-y-1 text-sm">
                       <li>a) Mantener contacto visual.</li>
-                      <li class="text-red-600 font-bold">b) Interrumpir frecuentemente para dar tu opinión. (Correcta)</li>
+                      <li class="text-red-600 font-bold">
+                        b) Interrumpir frecuentemente para dar tu opinión.
+                        (Correcta)
+                      </li>
                       <li>c) Parafrasear lo que dijo el paciente.</li>
                       <li>d) Asentir para mostrar comprensión.</li>
                     </ul>
                   </div>
-                   <!-- Pregunta 2 -->
-                   <div>
-                    <p class="font-bold">2. La Toma de Decisiones Compartida implica que el médico toma la decisión final tras informar al paciente.</p>
+                  <!-- Pregunta 2 -->
+                  <div>
+                    <p class="font-bold">
+                      2. La Toma de Decisiones Compartida implica que el médico
+                      toma la decisión final tras informar al paciente.
+                    </p>
                     <ul class="ml-4 list-none space-y-1 text-sm">
                       <li>Verdadero</li>
                       <li class="text-red-600 font-bold">Falso (Correcta)</li>
@@ -635,30 +979,51 @@
                   </div>
                   <!-- Pregunta 3 -->
                   <div>
-                    <p class="font-bold">3. Un gráfico de barras es más útil para:</p>
+                    <p class="font-bold">
+                      3. Un gráfico de barras es más útil para:
+                    </p>
                     <ul class="ml-4 list-none space-y-1 text-sm">
-                      <li class="text-green-600 font-bold">b) Comparar cantidades entre diferentes categorías. (Correcta)</li>
+                      <li class="text-green-600 font-bold">
+                        b) Comparar cantidades entre diferentes categorías.
+                        (Correcta)
+                      </li>
                     </ul>
                   </div>
-                   <!-- Pregunta 4 -->
-                   <div>
-                    <p class="font-bold">4. Al comunicar un riesgo del 5% a un paciente usando "Icon Arrays":</p>
+                  <!-- Pregunta 4 -->
+                  <div>
+                    <p class="font-bold">
+                      4. Al comunicar un riesgo del 5% a un paciente usando
+                      "Icon Arrays":
+                    </p>
                     <ul class="ml-4 list-none space-y-1 text-sm">
-                      <li class="text-green-600 font-bold">b) Mostrar 1 icono coloreado de un total de 20. (Correcta)</li>
+                      <li class="text-green-600 font-bold">
+                        b) Mostrar 1 icono coloreado de un total de 20.
+                        (Correcta)
+                      </li>
                     </ul>
                   </div>
-                   <!-- Pregunta 6 -->
-                   <div>
-                    <p class="font-bold">6. ¿Qué gráfico usarías para distribución de glucosa (variable continua)?</p>
+                  <!-- Pregunta 6 -->
+                  <div>
+                    <p class="font-bold">
+                      6. ¿Qué gráfico usarías para distribución de glucosa
+                      (variable continua)?
+                    </p>
                     <ul class="ml-4 list-none space-y-1 text-sm">
-                      <li class="text-green-600 font-bold">c) Histograma. (Correcta)</li>
+                      <li class="text-green-600 font-bold">
+                        c) Histograma. (Correcta)
+                      </li>
                     </ul>
                   </div>
-                   <!-- Pregunta 9 -->
-                   <div>
-                    <p class="font-bold">9. En la Toma de Decisiones Compartida, es fundamental:</p>
+                  <!-- Pregunta 9 -->
+                  <div>
+                    <p class="font-bold">
+                      9. En la Toma de Decisiones Compartida, es fundamental:
+                    </p>
                     <ul class="ml-4 list-none space-y-1 text-sm">
-                      <li class="text-green-600 font-bold">b) Explorar los valores, preferencias y contexto del paciente. (Correcta)</li>
+                      <li class="text-green-600 font-bold">
+                        b) Explorar los valores, preferencias y contexto del
+                        paciente. (Correcta)
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -672,7 +1037,9 @@
               <h4 class="font-bold text-indigo-800 mb-2">
                 Preguntas para Reflexionar
               </h4>
-              <ul class="list-disc list-inside space-y-2 text-sm text-indigo-900">
+              <ul
+                class="list-disc list-inside space-y-2 text-sm text-indigo-900"
+              >
                 <li>
                   ¿Cómo pueden mis propios sesgos afectar mi comunicación con un
                   paciente?
