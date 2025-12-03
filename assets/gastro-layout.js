@@ -31,7 +31,11 @@ window.addEventListener('load', () => {
   app.append(sideNav, contentArea, aiPanel);
   body.appendChild(app);
 
-  const headings = wrapper.querySelectorAll('h2');
+  let headings = wrapper.querySelectorAll('.content-section h2');
+  if (headings.length === 0) {
+    headings = wrapper.querySelectorAll('h2');
+  }
+
   headings.forEach((h) => {
     if (!h.id) {
       h.id = h.textContent
