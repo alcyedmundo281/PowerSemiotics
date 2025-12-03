@@ -2,8 +2,12 @@ window.addEventListener('load', () => {
   if (document.getElementById('app-container')) return;
 
   const body = document.body;
-  const originalChildren = Array.from(body.childNodes);
-  body.innerHTML = '';
+  const wrapper = document.createElement('div');
+  wrapper.id = 'content-wrapper';
+
+  while (body.firstChild) {
+    wrapper.appendChild(body.firstChild);
+  }
 
   const app = document.createElement('div');
   app.id = 'app-container';
@@ -17,9 +21,6 @@ window.addEventListener('load', () => {
 
   const contentArea = document.createElement('main');
   contentArea.id = 'content-area';
-  const wrapper = document.createElement('div');
-  wrapper.id = 'content-wrapper';
-  originalChildren.forEach((child) => wrapper.appendChild(child));
   contentArea.appendChild(wrapper);
 
   const aiPanel = document.createElement('aside');
@@ -31,7 +32,11 @@ window.addEventListener('load', () => {
   app.append(sideNav, contentArea, aiPanel);
   body.appendChild(app);
 
-  const headings = wrapper.querySelectorAll('h2');
+  let headings = wrapper.querySelectorAll('.content-section h2');
+  if (headings.length === 0) {
+    headings = wrapper.querySelectorAll('h2');
+  }
+
   headings.forEach((h) => {
     if (!h.id) {
       h.id = h.textContent
@@ -43,6 +48,29 @@ window.addEventListener('load', () => {
     const a = document.createElement('a');
     a.href = `#${h.id}`;
     a.textContent = h.textContent;
+
+    a.addEventListener('click', (e) => {
+      const targetId = a.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        const accordionContent = targetElement.closest('.accordion-content');
+        if (accordionContent) {
+          const accordionItem = accordionContent.closest('.accordion-item');
+          if (accordionItem) {
+            const header = accordionItem.querySelector('.accordion-header');
+            if (header && !accordionItem.classList.contains('active')) {
+              header.click();
+            }
+            // Ensure content is fully expanded before scrolling
+            setTimeout(() => {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+          }
+        }
+      }
+    });
+
     li.appendChild(a);
     navList.appendChild(li);
   });
