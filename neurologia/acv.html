@@ -543,10 +543,19 @@
         async function initSupabaseSession() {
             if (!supabaseClient) return;
             const { data: { session } } = await supabaseClient.auth.getSession();
+            const saveBtn = document.getElementById('btn-save-nihss');
+
             if (session) {
                 currentUser = session.user;
                 document.getElementById('user-display').innerText = currentUser.email.split('@')[0];
                 console.log("Sesión activa Supabase:", currentUser.id);
+                saveBtn.disabled = false;
+                saveBtn.title = "Guardar evaluación en tu perfil";
+            } else {
+                saveBtn.disabled = true;
+                saveBtn.classList.add('grayscale');
+                saveBtn.title = "Debes iniciar sesión para guardar tu progreso";
+                console.warn("No hay sesión activa de Supabase.");
             }
         }
 
@@ -729,9 +738,16 @@
             button.disabled = true;
             button.innerText = "SINCRONIZANDO...";
 
+            if (!currentUser) {
+                alert("ERROR: Debes iniciar sesión para guardar esta evaluación y recibir puntos.");
+                button.disabled = true;
+                button.innerText = "BLOQUEADO (SIN SESIÓN)";
+                return;
+            }
+
             try {
                 const evaluationData = {
-                    user_id: currentUser ? currentUser.id : 'anonymous',
+                    user_id: currentUser.id,
                     case_id: CLINICAL_CASES[currentTerritory].id,
                     nihss_score: evaluationScore,
                     hits: studentStats.hits,
@@ -754,7 +770,7 @@
                     const itemsData = NIHSS_ITEMS.map(item => {
                         const sel = document.querySelector(`input[name="${item.id}"]:checked`);
                         return {
-                            user_id: currentUser ? currentUser.id : 'anonymous',
+                            user_id: currentUser.id,
                             case_id: CLINICAL_CASES[currentTerritory].id,
                             item_id: item.id,
                             selected_value: sel ? parseInt(sel.value) : -1
