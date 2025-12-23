@@ -75,7 +75,7 @@
                 <div class="hidden md:flex space-x-8 items-center">
                     <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors"
                         href="ai_dashboard.html">AI Dashboard</a>
-                    <button id="auth-btn" onclick="toggleAuthModal()"
+                    <button id="auth-btn" onclick="signInWithGoogle()"
                         class="px-5 py-2.5 rounded-full bg-primary hover:bg-opacity-90 text-white font-medium transition-all shadow-md hover:shadow-lg">
                         Iniciar Sesión
                     </button>
@@ -83,7 +83,7 @@
                         class="hidden text-sm font-medium text-gray-600 dark:text-gray-400 italic"></span>
                 </div>
                 <div class="md:hidden flex items-center gap-2">
-                    <button id="auth-btn-mobile" onclick="toggleAuthModal()"
+                    <button id="auth-btn-mobile" onclick="signInWithGoogle()"
                         class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-full">
                         Login
                     </button>
@@ -431,7 +431,7 @@
                 </button>
             </div>
             <div id="auth-options" class="space-y-4">
-                <button type="button" onclick="handleGoogleLogin()"
+                <button type="button" onclick="signInWithGoogle()"
                     class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-bold py-3 rounded-xl shadow-sm hover:bg-gray-50 transition-all">
                     <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5">
                     CONTINUAR CON GOOGLE
@@ -504,8 +504,15 @@
             }
         }
 
-        async function handleGoogleLogin() {
+        async function signInWithGoogle() {
             if (!window.supabaseClient) return;
+
+            // Check if running via file:// protocol
+            if (window.location.protocol === 'file:') {
+                alert("El login con Google requiere un servidor web. Por favor, usa la versión publicada o ejecuta 'npm start'.");
+                return;
+            }
+
             const { error } = await window.supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
@@ -515,9 +522,13 @@
 
             if (error) {
                 const statusEl = document.getElementById('auth-status');
-                statusEl.innerText = "Error Google: " + error.message;
-                statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
-                statusEl.classList.remove('hidden');
+                if (statusEl) {
+                    statusEl.innerText = "Error Google: " + error.message;
+                    statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
+                    statusEl.classList.remove('hidden');
+                } else {
+                    alert("Error Google: " + error.message);
+                }
             }
         }
 

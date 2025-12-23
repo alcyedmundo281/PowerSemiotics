@@ -38,7 +38,7 @@
       </a>
       <div class="flex items-center gap-4">
         <a href="neurologia.html" class="text-indigo-800 font-semibold">Neurología</a>
-        <button id="auth-btn" type="button" onclick="toggleAuthModal()"
+        <button id="auth-btn" type="button" onclick="signInWithGoogle()"
           class="px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary-hover transition-all">
           Iniciar Sesión
         </button>
@@ -58,7 +58,7 @@
         </button>
       </div>
       <div id="auth-options" class="space-y-4">
-        <button type="button" onclick="handleGoogleLogin()"
+        <button type="button" onclick="signInWithGoogle()"
           class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-bold py-3 rounded-xl shadow-sm hover:bg-gray-50 transition-all">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5">
           CONTINUAR CON GOOGLE
@@ -330,8 +330,13 @@
       window.location.reload();
     }
 
-    async function handleGoogleLogin() {
+    async function signInWithGoogle() {
       if (!window.supabaseClient) return;
+
+      if (window.location.protocol === 'file:') {
+        alert("El login con Google requiere un servidor web. Por favor, ejecuta 'npm start' o usa la versión online.");
+        return;
+      }
 
       const { error } = await window.supabaseClient.auth.signInWithOAuth({
         provider: 'google',
@@ -342,9 +347,13 @@
 
       if (error) {
         const statusEl = document.getElementById('auth-status');
-        statusEl.innerText = "Error Google: " + error.message;
-        statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
-        statusEl.classList.remove('hidden');
+        if (statusEl) {
+          statusEl.innerText = "Error Google: " + error.message;
+          statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
+          statusEl.classList.remove('hidden');
+        } else {
+          alert("Error Google: " + error.message);
+        }
       }
     }
 
