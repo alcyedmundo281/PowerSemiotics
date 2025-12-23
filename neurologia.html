@@ -333,8 +333,10 @@
     async function signInWithGoogle() {
       if (!window.supabaseClient) return;
 
+      console.log("Iniciando Google OAuth. Redirección esperada: https://powersemiotics.com/neurologia.html");
+
       if (window.location.protocol === 'file:') {
-        alert("El login con Google requiere un servidor web. Por favor, ejecuta 'npm start' o usa la versión online.");
+        alert("El login con Google requiere un servidor web. Por favor, usa la versión online en powersemiotics.com");
         return;
       }
 
