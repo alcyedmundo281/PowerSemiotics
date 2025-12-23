@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stroke Simulator</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#196ee6",
+                        "danger": "#e11d48",
+                        "warning": "#f59e0b",
+                        "success": "#10b981",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111821",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1a2430",
+                        "text-primary-light": "#111418",
+                        "text-primary-dark": "#ffffff",
+                        "text-secondary-light": "#637288",
+                        "text-secondary-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 bg-card-light dark:bg-card-dark border-b border-gray-200 dark:border-gray-800 shadow-sm">
+<div class="px-4 md:px-10 py-3 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">neurology</span>
+</div>
+<div>
+<h2 class="text-lg font-bold leading-tight">Stroke Simulator</h2>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark">Guías AHA/ASA 2024</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3 items-center ml-auto">
+<div class="flex items-center gap-2 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 px-4 py-2 rounded-lg border border-red-100 dark:border-red-900/30 shadow-sm animate-pulse">
+<span class="material-symbols-outlined filled text-xl">timer</span>
+<div class="flex flex-col items-end">
+<span class="text-xs font-semibold uppercase tracking-wider">Tiempo es Cerebro</span>
+<span class="text-lg font-bold font-mono leading-none" id="timer-display">00:00:00</span>
+</div>
+</div>
+<button class="flex items-center justify-center gap-2 h-10 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-text-primary-light dark:text-text-primary-dark text-sm font-bold rounded-lg transition-colors" id="btn-restart-case">
+<span class="material-symbols-outlined text-lg">restart_alt</span>
+<span class="hidden sm:inline">Reiniciar Caso</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 px-4 md:px-10 py-8 flex flex-col lg:flex-row gap-8 max-w-[1440px] mx-auto w-full">
+<div class="flex flex-col gap-6 lg:w-1/3">
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2 bg-gray-50 dark:bg-gray-800/50 p-1 rounded-lg">
+<button class="size-8 flex items-center justify-center rounded-md hover:bg-white dark:hover:bg-gray-700 shadow-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent" id="btn-prev-case">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<span class="text-primary text-xs font-bold px-2 uppercase tracking-wide select-none" id="case-tag">Caso #124</span>
+<button class="size-8 flex items-center justify-center rounded-md hover:bg-white dark:hover:bg-gray-700 shadow-sm transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent" id="btn-next-case">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-xs font-mono" id="case-display-id">ID: 882910</span>
+</div>
+<h1 class="text-2xl font-bold mb-3" id="patient-title">Paciente Masculino, 68 años</h1>
+<p class="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed mb-6" id="case-desc">
+                    Presenta inicio súbito de <strong class="text-text-primary-light dark:text-text-primary-dark">hemiparesia derecha</strong> (Fuerza 2/5) y <strong class="text-text-primary-light dark:text-text-primary-dark">afasia global</strong>. Familiares reportan que los síntomas iniciaron mientras desayunaba.
+                </p>
+<div class="grid grid-cols-1 gap-4 text-sm">
+<div class="flex flex-col border-t border-gray-100 dark:border-gray-800 pt-3">
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-xs uppercase font-semibold">Hora de Inicio (LKW)</span>
+<span class="font-medium" id="val-lkw">14:30 hrs (hace ~45 min)</span>
+</div>
+<div class="flex flex-col border-t border-gray-100 dark:border-gray-800 pt-3">
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-xs uppercase font-semibold">Antecedentes</span>
+<span class="font-medium" id="val-history">Hipertensión Arterial (HTA), Fibrilación Auricular (FA) no anticoagulada.</span>
+</div>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+<h3 class="text-sm font-bold uppercase text-text-secondary-light dark:text-text-secondary-dark mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">vital_signs</span>
+                    Signos Vitales Iniciales
+                </h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-background-light dark:bg-background-dark p-3 rounded-lg flex flex-col items-center justify-center border border-gray-200 dark:border-gray-700">
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-xs font-bold">PA (mmHg)</span>
+<span class="text-2xl font-bold text-danger" id="vital-bp">185/110</span>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-3 rounded-lg flex flex-col items-center justify-center border border-gray-200 dark:border-gray-700">
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-xs font-bold">FC (lpm)</span>
+<span class="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark" id="vital-hr">110</span>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-3 rounded-lg flex flex-col items-center justify-center border border-gray-200 dark:border-gray-700">
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-xs font-bold">SatO2 (%)</span>
+<span class="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark" id="vital-sat">94</span>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-3 rounded-lg flex flex-col items-center justify-center border border-gray-200 dark:border-gray-700">
+<span class="text-text-secondary-light dark:text-text-secondary-dark text-xs font-bold">Glucosa (mg/dL)</span>
+<span class="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark" id="vital-gluc">108</span>
+</div>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 flex-1">
+<h3 class="text-sm font-bold uppercase text-text-secondary-light dark:text-text-secondary-dark mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">history</span>
+                    Historial de Acciones
+                </h3>
+<ul class="space-y-3 relative before:absolute before:inset-0 before:ml-2.5 before:w-0.5 before:bg-gray-200 dark:before:bg-gray-700">
+<li class="relative pl-8 flex flex-col">
+<div class="absolute left-0 top-1 size-5 rounded-full border-2 border-primary bg-card-light dark:bg-card-dark z-10"></div>
+<span class="text-xs text-text-secondary-light dark:text-text-secondary-dark">Hace 2 min</span>
+<span class="text-sm font-medium">Paciente ingresado a urgencias</span>
+</li>
+<li class="relative pl-8 flex flex-col opacity-50">
+<div class="absolute left-0 top-1 size-5 rounded-full border-2 border-gray-300 dark:border-gray-600 bg-card-light dark:bg-card-dark z-10"></div>
+<span class="text-xs text-text-secondary-light dark:text-text-secondary-dark">--:--</span>
+<span class="text-sm font-medium">Esperando siguiente acción...</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="flex flex-col gap-6 lg:w-2/3">
+<div class="hidden bg-red-50 dark:bg-red-900/10 border-l-4 border-danger p-4 rounded-r-lg shadow-sm flex items-start gap-4 transition-all duration-300" id="error-banner">
+<div class="text-danger mt-1">
+<span class="material-symbols-outlined text-3xl">gpp_maybe</span>
+</div>
+<div>
+<h4 class="text-danger font-bold text-lg">Error Crítico Detectado</h4>
+<p class="text-sm text-gray-800 dark:text-gray-200 mt-1" id="error-msg">
+                        Error Crítico: Excluir hemorragia y controlar PA primero.
+                    </p>
+<p class="text-xs text-danger font-semibold mt-2 uppercase tracking-wide">Protocolo de seguridad activado</p>
+</div>
+<button class="ml-auto text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white" id="btn-close-error">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold leading-tight flex items-center gap-2">
+<span class="material-symbols-outlined">bolt</span>
+                        Acciones Inmediatas
+                     </h3>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-text-secondary-light dark:text-text-secondary-dark">Fase: Hiperaguda</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
+<button class="group relative flex flex-col justify-between p-6 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-left" id="btn-ct">
+<div class="size-12 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">radiology</span>
+</div>
+<div>
+<span class="block text-lg font-bold text-text-primary-light dark:text-text-primary-dark group-hover:text-primary transition-colors">Realizar TC Simple</span>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 block">Descartar hemorragia intracraneal.</span>
+</div>
+</button>
+<button class="group relative flex flex-col justify-between p-6 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-left" id="btn-bp">
+<div class="size-12 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg flex items-center justify-center text-indigo-600 mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">blood_pressure</span>
+</div>
+<div>
+<span class="block text-lg font-bold text-text-primary-light dark:text-text-primary-dark group-hover:text-indigo-600 transition-colors">Controlar PA</span>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 block">Labetalol / Nicardipino si &gt;185/110.</span>
+</div>
+</button>
+<button class="group relative flex flex-col justify-between p-6 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-left">
+<div class="size-12 bg-teal-50 dark:bg-teal-900/20 rounded-lg flex items-center justify-center text-teal-600 mb-4 group-hover:bg-teal-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">fact_check</span>
+</div>
+<div>
+<span class="block text-lg font-bold text-text-primary-light dark:text-text-primary-dark group-hover:text-teal-600 transition-colors">Aplicar NIHSS</span>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 block">Evaluar severidad del déficit.</span>
+</div>
+</button>
+<button class="group relative flex flex-col justify-between p-6 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-left col-span-1 sm:col-span-2 lg:col-span-2" id="btn-tx">
+<div class="absolute top-4 right-4 flex gap-2">
+<span class="bg-gray-100 dark:bg-gray-700 text-xs px-2 py-1 rounded text-text-secondary-light dark:text-text-secondary-dark">Ventana: 4.5h</span>
+</div>
+<div class="size-12 bg-purple-50 dark:bg-purple-900/20 rounded-lg flex items-center justify-center text-purple-600 mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">medication_liquid</span>
+</div>
+<div>
+<span class="block text-lg font-bold text-text-primary-light dark:text-text-primary-dark group-hover:text-purple-600 transition-colors">Administrar Tenecteplase</span>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 block">0.25 mg/kg bolo IV (Max 25mg). Solo tras TC normal y PA &lt; 185/110.</span>
+</div>
+</button>
+<button class="group relative flex flex-col justify-between p-6 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-left">
+<div class="size-12 bg-orange-50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center text-orange-600 mb-4 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">neurology</span>
+</div>
+<div>
+<span class="block text-lg font-bold text-text-primary-light dark:text-text-primary-dark group-hover:text-orange-600 transition-colors">Intervencionismo</span>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark mt-1 block">Llamar a equipo de Trombectomía.</span>
+</div>
+</button>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 mt-auto">
+<h3 class="text-sm font-bold uppercase text-text-secondary-light dark:text-text-secondary-dark mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">image</span>
+                    Resultados de Imagen
+                </h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer border border-transparent hover:border-primary transition-colors">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 grayscale group-hover:grayscale-0 transition-all" data-alt="Abstract brain scan medical imaging background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD9bjMum4XZKf8VMrD3cbwCB_CiY8V5UsLkq3aZ5EC7rwacECt0ZICfxSzuqd5xR_yEZTOsP9YY0ptWgzu7r-BZdv-0hK62X0QKjFixERvGIa26Vu2UPgdz1g1uMus3lKU4SYpFTTnTfOwupJ85vj41En6Y6keNkaxg3ZsR4gabZbM0OBqx3XsdOMPDsyvf2yq0YZgjm2UvkubnLGjuuwMcWwq6lgJgvSTPPSNBlz3Yehan3_6cL-h8cHO06Rfa-lnM5MpMCAirYyI");'></div>
+<div class="z-10 bg-white/90 dark:bg-black/60 backdrop-blur-sm p-2 rounded-full mb-2" id="ct-icon-container">
+<span class="material-symbols-outlined text-gray-500 dark:text-gray-300" id="ct-lock-icon">lock</span>
+</div>
+<span class="z-10 text-xs font-bold text-text-secondary-light dark:text-text-secondary-dark">TC Simple</span>
+<span class="z-10 text-[10px] text-gray-400" id="ct-status">Pendiente</span>
+</div>
+<div class="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer opacity-50">
+<div class="z-10 bg-white/50 dark:bg-black/20 p-2 rounded-full mb-2">
+<span class="material-symbols-outlined text-gray-400">lock</span>
+</div>
+<span class="z-10 text-xs font-bold text-gray-400">Angio TC</span>
+</div>
+<div class="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group cursor-pointer opacity-50">
+<div class="z-10 bg-white/50 dark:bg-black/20 p-2 rounded-full mb-2">
+<span class="material-symbols-outlined text-gray-400">lock</span>
+</div>
+<span class="z-10 text-xs font-bold text-gray-400">Perfusión</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+    const cases = [
+        {
+            id: 124,
+            displayId: "882910",
+            title: "Paciente Masculino, 68 años",
+            description: "Presenta inicio súbito de <strong class=\"text-text-primary-light dark:text-text-primary-dark\">hemiparesia derecha</strong> (Fuerza 2/5) y <strong class=\"text-text-primary-light dark:text-text-primary-dark\">afasia global</strong>. Familiares reportan que los síntomas iniciaron mientras desayunaba.",
+            lkw: "14:30 hrs (hace ~45 min)",
+            history: "Hipertensión Arterial (HTA), Fibrilación Auricular (FA) no anticoagulada.",
+            vitals: { bp: "185/110", hr: "110", sat: "94", gluc: "108" },
+            errorMsg: "Error Crítico: Excluir hemorragia y controlar PA primero."
+        },
+        {
+            id: 125,
+            displayId: "882915",
+            title: "Paciente Femenina, 72 años",
+            description: "Traída por servicio de emergencias con <strong class=\"text-text-primary-light dark:text-text-primary-dark\">asimetría facial</strong> y <strong class=\"text-text-primary-light dark:text-text-primary-dark\">disartria severa</strong>. NIHSS inicial de 14 puntos. Antecedentes de tabaquismo pesado.",
+            lkw: "15:15 hrs (hace ~30 min)",
+            history: "Diabetes Mellitus Tipo 2, Tabaquismo activo (1 cajetilla/día).",
+            vitals: { bp: "165/90", hr: "88", sat: "96", gluc: "145" },
+            errorMsg: "Error Crítico: Confirmar tiempo de evolución y glucosa antes de proceder."
+        },
+        {
+            id: 126,
+            displayId: "882922",
+            title: "Paciente Masculino, 55 años",
+            description: "Ingresa por cuadro de <strong class=\"text-text-primary-light dark:text-text-primary-dark\">vértigo súbito</strong>, vómitos y <strong class=\"text-text-primary-light dark:text-text-primary-dark\">ataxia troncal</strong>. Imposibilidad para la bipedestación. Sospecha de ACV de fosa posterior.",
+            lkw: "13:00 hrs (hace ~2h 15m)",
+            history: "Dislipidemia, Sedentarismo. Sin medicación habitual.",
+            vitals: { bp: "195/115", hr: "92", sat: "98", gluc: "95" },
+            errorMsg: "Error Crítico: PA Crítica. Requiere control agresivo antes de trombólisis."
+        }
+    ];
+    let currentCaseIndex = 0;
+    let state = {
+        ctDone: false,
+        bpControlled: false
+    };
+    // Timer Logic
+    let timerInterval;
+    let secondsElapsed = 0;
+    function formatTime(totalSeconds) {
+        const h = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+        const m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+        const s = (totalSeconds % 60).toString().padStart(2, '0');
+        return `${h}:${m}:${s}`;
+    }
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        secondsElapsed = 0;
+        const timerEl = document.getElementById('timer-display');
+        if (timerEl) {
+            timerEl.innerText = formatTime(secondsElapsed);
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                timerEl.innerText = formatTime(secondsElapsed);
+            }, 1000);
+        }
+    }
+    function resetUI() {
+        // Reset State
+        state.ctDone = false;
+        state.bpControlled = false;
+        // Reset BP Button
+        const btnBp = document.getElementById('btn-bp');
+        btnBp.classList.remove('border-success', 'bg-green-50', 'dark:bg-green-900/10');
+        // Reset BP Value Display
+        const bpEl = document.getElementById('vital-bp');
+        bpEl.classList.remove('text-success');
+        bpEl.classList.add('text-danger');
+        // Reset CT Button
+        const btnCt = document.getElementById('btn-ct');
+        btnCt.classList.remove('border-primary', 'bg-blue-50', 'dark:bg-blue-900/10');
+        // Reset Image Section
+        const ctStatus = document.getElementById('ct-status');
+        ctStatus.innerText = "Pendiente";
+        ctStatus.classList.remove('text-success');
+        ctStatus.classList.add('text-gray-400');
+        const lockIcon = document.getElementById('ct-lock-icon');
+        lockIcon.innerText = "lock";
+        lockIcon.classList.remove('text-success');
+        lockIcon.classList.add('text-gray-500', 'dark:text-gray-300');
+        hideError();
+    }
+    function loadCase(index) {
+        if (index < 0 || index >= cases.length) return;
+        currentCaseIndex = index;
+        const currentCase = cases[currentCaseIndex];
+        resetUI();
+        // Reset Timer
+        startTimer();
+        // Load Data
+        document.getElementById('case-tag').innerText = `Caso #${currentCase.id}`;
+        document.getElementById('case-display-id').innerText = `ID: ${currentCase.displayId}`;
+        document.getElementById('patient-title').innerText = currentCase.title;
+        document.getElementById('case-desc').innerHTML = currentCase.description;
+        document.getElementById('val-lkw').innerText = currentCase.lkw;
+        document.getElementById('val-history').innerText = currentCase.history;
+        // Vitals
+        document.getElementById('vital-bp').innerText = currentCase.vitals.bp;
+        document.getElementById('vital-hr').innerText = currentCase.vitals.hr;
+        document.getElementById('vital-sat').innerText = currentCase.vitals.sat;
+        document.getElementById('vital-gluc').innerText = currentCase.vitals.gluc;
+        // Update Nav Buttons
+        document.getElementById('btn-prev-case').disabled = currentCaseIndex === 0;
+        document.getElementById('btn-next-case').disabled = currentCaseIndex === cases.length - 1;
+    }
+    function hideError() {
+        document.getElementById('error-banner').classList.add('hidden');
+    }
+    function showError() {
+        document.getElementById('error-msg').innerText = cases[currentCaseIndex].errorMsg;
+        document.getElementById('error-banner').classList.remove('hidden');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        loadCase(0);
+        // Navigation Logic
+        document.getElementById('btn-prev-case').addEventListener('click', () => {
+            if (currentCaseIndex > 0) loadCase(currentCaseIndex - 1);
+        });
+        document.getElementById('btn-next-case').addEventListener('click', () => {
+            if (currentCaseIndex < cases.length - 1) loadCase(currentCaseIndex + 1);
+        });
+        // Restart Case Logic
+        document.getElementById('btn-restart-case').addEventListener('click', () => {
+            loadCase(currentCaseIndex);
+        });
+        // Control PA Logic
+        document.getElementById('btn-bp').addEventListener('click', function() {
+            state.bpControlled = true;
+            const bpEl = document.getElementById('vital-bp');
+            bpEl.innerText = "145/85"; // Simulated Controlled BP
+            bpEl.classList.remove('text-danger');
+            bpEl.classList.add('text-success');
+            // Visual feedback on button
+            this.classList.add('border-success', 'bg-green-50', 'dark:bg-green-900/10');
+            hideError();
+        });
+        // CT Logic
+        document.getElementById('btn-ct').addEventListener('click', function() {
+            state.ctDone = true;
+            // Visual feedback on button
+            this.classList.add('border-primary', 'bg-blue-50', 'dark:bg-blue-900/10');
+            // Update Image section
+            const ctStatus = document.getElementById('ct-status');
+            ctStatus.innerText = "Sin Hemorragia";
+            ctStatus.classList.remove('text-gray-400');
+            ctStatus.classList.add('text-success');
+            const lockIcon = document.getElementById('ct-lock-icon');
+            lockIcon.innerText = "check_circle";
+            lockIcon.classList.remove('text-gray-500', 'dark:text-gray-300');
+            lockIcon.classList.add('text-success');
+            hideError();
+        });
+        // Tenecteplase Logic
+        document.getElementById('btn-tx').addEventListener('click', function() {
+            if (state.ctDone && state.bpControlled) {
+                alert("Tenecteplase administrado exitosamente. Caso resuelto.");
+                hideError();
+            } else {
+                showError();
+            }
+        });
+        // Close Error
+        document.getElementById('btn-close-error').addEventListener('click', hideError);
+    });
+</script>
+</body></html>
