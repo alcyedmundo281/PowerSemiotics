@@ -17,11 +17,48 @@
         <img src="assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8" />
         <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
       </a>
-      <div>
+      <div class="flex items-center gap-4">
         <a href="neurologia.html" class="text-indigo-800 font-semibold">Neurología</a>
+        <button id="auth-btn" onclick="toggleAuthModal()"
+          class="px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary-hover transition-all">
+          Iniciar Sesión
+        </button>
+        <span id="user-email" class="hidden text-sm font-medium text-gray-600 italic"></span>
       </div>
     </nav>
   </header>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal"
+    class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 transform transition-all">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-2xl font-bold text-gray-900">Acceso Estudiantes</h3>
+        <button onclick="toggleAuthModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Correo Electrónico</label>
+          <input type="email" id="login-email" required
+            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+            placeholder="estudiante@ejemplo.com">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Contraseña</label>
+          <input type="password" id="login-password" required
+            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+            placeholder="••••••••">
+        </div>
+        <button type="submit"
+          class="w-full bg-primary text-white font-bold py-3 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+          ENTRAR AL PORTAL
+        </button>
+      </form>
+      <p id="auth-error" class="hidden mt-4 text-center text-sm font-bold text-red-500"></p>
+    </div>
+  </div>
 
   <main class="container mx-auto px-6 py-16">
     <div class="text-center mb-16">
@@ -171,9 +208,13 @@
         <p class="text-gray-600 text-md mt-2">
           Simulador interactivo de diagnóstico territorial, manejo agudo (TNK) y escala NIHSS.
         </p>
-        <div id="acv-lock-msg" class="mt-4 text-xs font-bold text-red-500 flex items-center gap-2">
-          <i class="fas fa-lock"></i>
-          Inicia sesión para acceder y calificar
+        <div id="acv-lock-msg" class="mt-4 text-xs font-bold text-red-500 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-lock"></i>
+            Inicia sesión para acceder y calificar
+          </div>
+          <button onclick="event.preventDefault(); toggleAuthModal()" class="text-primary hover:underline">Entrar aquí
+            &rarr;</button>
         </div>
       </a>
     </div>
@@ -190,23 +231,66 @@
   <script>
     const SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
+    let supabase = null;
+
+    function toggleAuthModal() {
+      const modal = document.getElementById('auth-modal');
+      modal.classList.toggle('hidden');
+    }
 
     async function checkSession() {
       if (SUPABASE_URL.includes("your-project")) return;
+      if (!supabase) supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       const { data: { session } } = await supabase.auth.getSession();
+      updateUI(session);
+    }
+
+    function updateUI(session) {
+      const acvCard = document.getElementById('card-acv');
+      const lockMsg = document.getElementById('acv-lock-msg');
+      const authBtn = document.getElementById('auth-btn');
+      const userEmail = document.getElementById('user-email');
 
       if (session) {
-        const acvCard = document.getElementById('card-acv');
-        const lockMsg = document.getElementById('acv-lock-msg');
-
         acvCard.classList.remove('opacity-50', 'pointer-events-none');
         if (lockMsg) {
-          lockMsg.innerHTML = '<i class="fas fa-check-circle text-success"></i> <span class="text-success">Sesión activa: Listo para calificar</span>';
+          lockMsg.innerHTML = '<i class="fas fa-check-circle text-success"></i> <span class="text-success">Sesión activa: Módulo desbloqueado</span>';
         }
+        authBtn.innerText = "Cerrar Sesión";
+        authBtn.onclick = handleLogout;
+        userEmail.innerText = session.user.email;
+        userEmail.classList.remove('hidden');
+      } else {
+        acvCard.classList.add('opacity-50', 'pointer-events-none');
+        authBtn.innerText = "Iniciar Sesión";
+        authBtn.onclick = toggleAuthModal;
+        userEmail.classList.add('hidden');
       }
     }
+
+    async function handleLogout() {
+      await supabase.auth.signOut();
+      window.location.reload();
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const errorEl = document.getElementById('auth-error');
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        errorEl.innerText = "Error: " + error.message;
+        errorEl.classList.remove('hidden');
+      } else {
+        toggleAuthModal();
+        updateUI(data.session);
+        alert("¡Bienvenido! El módulo ACV ha sido desbloqueado.");
+      }
+    });
 
     document.addEventListener('DOMContentLoaded', checkSession);
   </script>
