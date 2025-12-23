@@ -10,6 +10,29 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <link href="assets/tailwind.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        window.SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
+        window.SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
+        window.supabaseClient = null;
+
+        function toggleAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            if (modal) modal.classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        async function handleLogout() {
+            if (window.supabaseClient) {
+                await window.supabaseClient.auth.signOut();
+                window.location.reload();
+            }
+        }
+    </script>
     <style>
         .gradient-text {
             background: linear-gradient(135deg, #8B3DFF 0%, #FF4081 100%);
@@ -59,12 +82,25 @@
                     <span id="user-email-display"
                         class="hidden text-sm font-medium text-gray-600 dark:text-gray-400 italic"></span>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <button class="text-gray-500 hover:text-primary focus:outline-none" type="button">
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="auth-btn-mobile" onclick="toggleAuthModal()"
+                        class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-full">
+                        Login
+                    </button>
+                    <button class="text-gray-500 hover:text-primary focus:outline-none" type="button"
+                        onclick="toggleMobileMenu()">
                         <span class="material-icons-outlined text-3xl">menu</span>
                     </button>
                 </div>
             </div>
+        </div>
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white dark:bg-card-dark border-b border-gray-100 dark:border-gray-800 p-4 space-y-4">
+            <a class="block text-gray-600 dark:text-gray-300 font-medium" href="ai_dashboard.html">AI Dashboard</a>
+            <hr class="border-gray-100 dark:border-gray-800">
+            <button onclick="handleLogout()" id="logout-btn-mobile" class="hidden text-red-500 font-bold">Cerrar
+                Sesión</button>
         </div>
     </nav>
     <section class="relative overflow-hidden pt-20 pb-24 lg:pt-32 lg:pb-40">
@@ -428,40 +464,50 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
-        let supabase = null;
-
-        function toggleAuthModal() {
-            document.getElementById('auth-modal').classList.toggle('hidden');
-        }
-
-        async function checkSession() {
-            if (!supabase) supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            const { data: { session } } = await supabase.auth.getSession();
-            updateUI(session);
+        async function initAuth() {
+            try {
+                if (!window.supabase) return;
+                window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+                const { data: { session } } = await window.supabaseClient.auth.getSession();
+                updateUI(session);
+            } catch (e) {
+                console.error("Auth Init Error:", e);
+            }
         }
 
         function updateUI(session) {
             const authBtn = document.getElementById('auth-btn');
+            const authBtnMobile = document.getElementById('auth-btn-mobile');
+            const logoutBtnMobile = document.getElementById('logout-btn-mobile');
             const userEmail = document.getElementById('user-email-display');
-            if (session) {
-                authBtn.innerText = "Cerrar Sesión";
-                authBtn.onclick = handleLogout;
-                userEmail.innerText = session.user.email;
-                userEmail.classList.remove('hidden');
-            } else {
-                authBtn.innerText = "Iniciar Sesión";
-                authBtn.onclick = toggleAuthModal;
-                userEmail.classList.add('hidden');
-            }
-        }
 
-        async function handleLogout() {
-            await supabase.auth.signOut();
-            window.location.reload();
+            if (session) {
+                if (authBtn) {
+                    authBtn.innerText = "Cerrar Sesión";
+                    authBtn.onclick = handleLogout;
+                }
+                if (authBtnMobile) {
+                    authBtnMobile.innerText = "Cerrar";
+                    authBtnMobile.onclick = handleLogout;
+                }
+                if (logoutBtnMobile) logoutBtnMobile.classList.remove('hidden');
+                if (userEmail) {
+                    userEmail.innerText = session.user.email;
+                    userEmail.classList.remove('hidden');
+                }
+            } else {
+                if (authBtn) {
+                    authBtn.innerText = "Iniciar Sesión";
+                    authBtn.onclick = toggleAuthModal;
+                }
+                if (authBtnMobile) {
+                    authBtnMobile.innerText = "Login";
+                    authBtnMobile.onclick = toggleAuthModal;
+                }
+                if (logoutBtnMobile) logoutBtnMobile.classList.add('hidden');
+                if (userEmail) userEmail.classList.add('hidden');
+            }
         }
 
         document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -470,6 +516,7 @@
             const password = document.getElementById('login-password').value;
             const statusEl = document.getElementById('auth-status');
 
+            if (!window.supabaseClient) return;
             if (!password) {
                 statusEl.innerText = "Ingresa tu contraseña o usa enlace por email.";
                 statusEl.className = "mt-4 text-center text-sm font-bold text-orange-500";
@@ -477,7 +524,7 @@
                 return;
             }
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            const { data, error } = await window.supabaseClient.auth.signInWithPassword({ email, password });
             if (error) {
                 statusEl.innerText = "Error: " + error.message;
                 statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
@@ -490,14 +537,14 @@
         async function handleMagicLink() {
             const email = document.getElementById('login-email').value;
             const statusEl = document.getElementById('auth-status');
-            if (!email) {
+            if (!window.supabaseClient || !email) {
                 statusEl.innerText = "Ingresa tu correo primero.";
                 statusEl.className = "mt-4 text-center text-sm font-bold text-orange-500";
                 statusEl.classList.remove('hidden');
                 return;
             }
 
-            const { error } = await supabase.auth.signInWithOtp({
+            const { error } = await window.supabaseClient.auth.signInWithOtp({
                 email,
                 options: { emailRedirectTo: window.location.href }
             });
@@ -512,7 +559,7 @@
             statusEl.classList.remove('hidden');
         }
 
-        document.addEventListener('DOMContentLoaded', checkSession);
+        document.addEventListener('DOMContentLoaded', initAuth);
     </script>
 </body>
 
