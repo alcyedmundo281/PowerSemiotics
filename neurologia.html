@@ -46,17 +46,29 @@
             placeholder="estudiante@ejemplo.com">
         </div>
         <div>
-          <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Contraseña</label>
-          <input type="password" id="login-password" required
+          <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Contraseña (Opcional para enlace
+            mágico)</label>
+          <input type="password" id="login-password"
             class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
             placeholder="••••••••">
         </div>
-        <button type="submit"
-          class="w-full bg-primary text-white font-bold py-3 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
-          ENTRAR AL PORTAL
-        </button>
+        <div class="grid grid-cols-1 gap-3">
+          <button type="submit" id="btn-password-login"
+            class="w-full bg-primary text-white font-bold py-3 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+            ENTRAR CON CONTRASEÑA
+          </button>
+          <div class="relative flex items-center py-2">
+            <div class="flex-grow border-t border-gray-200"></div>
+            <span class="flex-shrink mx-4 text-gray-400 text-xs font-bold uppercase">ó</span>
+            <div class="flex-grow border-t border-gray-200"></div>
+          </div>
+          <button type="button" id="btn-magic-link" onclick="handleMagicLink()"
+            class="w-full bg-white text-primary border-2 border-primary font-bold py-3 rounded-xl hover:bg-primary/5 transition-all">
+            RECIBIR ENLACE POR EMAIL
+          </button>
+        </div>
       </form>
-      <p id="auth-error" class="hidden mt-4 text-center text-sm font-bold text-red-500"></p>
+      <p id="auth-status" class="hidden mt-4 text-center text-sm font-bold"></p>
     </div>
   </div>
 
@@ -278,19 +290,61 @@
       e.preventDefault();
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
-      const errorEl = document.getElementById('auth-error');
+      const statusEl = document.getElementById('auth-status');
+
+      if (!password) {
+        statusEl.innerText = "Por favor ingrese su contraseña o use 'Enlace por Email'.";
+        statusEl.className = "mt-4 text-center text-sm font-bold text-orange-500";
+        statusEl.classList.remove('hidden');
+        return;
+      }
 
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
-        errorEl.innerText = "Error: " + error.message;
-        errorEl.classList.remove('hidden');
+        statusEl.innerText = "Error: " + error.message;
+        statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
+        statusEl.classList.remove('hidden');
       } else {
         toggleAuthModal();
         updateUI(data.session);
         alert("¡Bienvenido! El módulo ACV ha sido desbloqueado.");
       }
     });
+
+    async function handleMagicLink() {
+      const email = document.getElementById('login-email').value;
+      const statusEl = document.getElementById('auth-status');
+
+      if (!email) {
+        statusEl.innerText = "Por favor, ingrese su correo electrónico primero.";
+        statusEl.className = "mt-4 text-center text-sm font-bold text-orange-500";
+        statusEl.classList.remove('hidden');
+        return;
+      }
+
+      const btnMagic = document.getElementById('btn-magic-link');
+      btnMagic.disabled = true;
+      btnMagic.innerText = "Enviando...";
+
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: window.location.href
+        }
+      });
+
+      if (error) {
+        statusEl.innerText = "Error: " + error.message;
+        statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
+      } else {
+        statusEl.innerText = "¡Enlace enviado! Revisa tu bandeja de entrada o spam.";
+        statusEl.className = "mt-4 text-center text-sm font-bold text-success";
+      }
+      statusEl.classList.remove('hidden');
+      btnMagic.disabled = false;
+      btnMagic.innerText = "RECIBIR ENLACE POR EMAIL";
+    }
 
     document.addEventListener('DOMContentLoaded', checkSession);
   </script>
