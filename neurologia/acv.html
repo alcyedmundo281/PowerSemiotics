@@ -552,10 +552,9 @@
                 saveBtn.disabled = false;
                 saveBtn.title = "Guardar evaluación en tu perfil";
             } else {
-                saveBtn.disabled = true;
-                saveBtn.classList.add('grayscale');
-                saveBtn.title = "Debes iniciar sesión para guardar tu progreso";
-                console.warn("No hay sesión activa de Supabase.");
+                console.warn("Acceso denegado: No hay sesión activa.");
+                alert("Debes iniciar sesión en el portal para acceder al simulador de ACV.");
+                window.location.href = "../neurologia.html"; // Redirigir al login
             }
         }
 
@@ -748,6 +747,7 @@
             try {
                 const evaluationData = {
                     user_id: currentUser.id,
+                    student_email: currentUser.email, // Añadido campo de email
                     case_id: CLINICAL_CASES[currentTerritory].id,
                     nihss_score: evaluationScore,
                     hits: studentStats.hits,
@@ -771,6 +771,7 @@
                         const sel = document.querySelector(`input[name="${item.id}"]:checked`);
                         return {
                             user_id: currentUser.id,
+                            student_email: currentUser.email, // Añadido campo de email
                             case_id: CLINICAL_CASES[currentTerritory].id,
                             item_id: item.id,
                             selected_value: sel ? parseInt(sel.value) : -1
