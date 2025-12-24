@@ -328,7 +328,8 @@
                 <p><strong>Análisis:</strong> Síntomas típicos (pirosis + regurgitación). Factores de riesgo: Obesidad,
                   Tabaco. <br><strong>Signos de alarma:</strong> NO tiene (Niega disfagia/anemia).
                   <br><strong>Plan:</strong> No requiere endoscopia inicial. Se indica <strong>Prueba Terapéutica con
-                    IBP</strong>.</p>
+                    IBP</strong>.
+                </p>
               </div>
             </div>
           </div>
@@ -540,6 +541,35 @@
         supabaseClient = window.supabase.createClient(SUPABASE_URL_VAL, SUPABASE_KEY_VAL);
       }
     } catch (e) { console.error("Error init Supabase", e); }
+
+    // ---------------------------------------------------------
+    // 1.1 AUTH CHECK & SESSION HANDLING
+    // ---------------------------------------------------------
+    async function checkSession() {
+      if (!supabaseClient) return;
+      const { data: { session } } = await supabaseClient.auth.getSession();
+
+      // Redirect if no session
+      if (!session) {
+        window.location.href = '../gastroenterologia.html';
+        return;
+      }
+
+      // Auto-fill email
+      const emailInput = document.getElementById('studentEmail');
+      if (emailInput && session.user.email) {
+        emailInput.value = session.user.email;
+        emailInput.readOnly = true;
+        emailInput.classList.add('bg-gray-100', 'cursor-not-allowed', 'text-gray-500');
+
+        // Visual indicator
+        const label = emailInput.previousElementSibling;
+        if (label) label.innerHTML += ' <i class="fa-solid fa-lock text-xs text-gray-400 ml-1" title="Sesión validada"></i>';
+      }
+    }
+
+    // Run check immediately
+    checkSession();
 
     // ---------------------------------------------------------
     // 2. NAVEGACIÓN (TABS) - Asignados a window para visibilidad global
