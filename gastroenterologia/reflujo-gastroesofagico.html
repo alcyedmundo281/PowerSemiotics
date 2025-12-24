@@ -85,8 +85,14 @@
             <span class="text-xs text-blue-600 font-medium">Gastroenterología</span>
           </div>
         </div>
-        <div class="hidden md:flex space-x-8">
-          <span class="text-sm text-gray-500">Módulo: Enf. por Reflujo Gastroesofágico</span>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="../gastroenterologia.html" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">
+            Hub Gastroenterología
+          </a>
+          <button id="header-auth-btn" onclick="handleSignOut()"
+            class="px-4 py-2 rounded-full bg-gray-800 text-white font-medium hover:bg-gray-900 transition-all text-sm shadow-md">
+            Cerrar Sesión
+          </button>
         </div>
       </div>
     </div>
@@ -547,6 +553,12 @@
     // ---------------------------------------------------------
     // 1.1 AUTH CHECK & SESSION HANDLING
     // ---------------------------------------------------------
+    async function handleSignOut() {
+      if (!supabaseClient) return;
+      await supabaseClient.auth.signOut();
+      window.location.href = '../gastroenterologia.html';
+    }
+
     async function checkSession() {
       if (!supabaseClient) return;
       const { data: { session } } = await supabaseClient.auth.getSession();
