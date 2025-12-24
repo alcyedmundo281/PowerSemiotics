@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <link href="assets/tailwind.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/upload-service.js"></script>
     <script>
         window.SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
         window.SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
@@ -367,6 +368,54 @@
             </div>
         </div>
     </section>
+    <section class="py-20 bg-purple-50 dark:bg-purple-900/10 border-t border-purple-100 dark:border-purple-900/30">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-display font-bold text-gray-900 dark:text-white mb-4">
+                Prueba la Subida de Fotos
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-8">
+                Selecciona una foto para subirla a nuestro almacenamiento en la nube. Esta es una funcionalidad de
+                prueba.
+            </p>
+
+            <div
+                class="max-w-md mx-auto bg-white dark:bg-card-dark p-8 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800">
+                <div id="upload-preview" class="hidden mb-6">
+                    <img id="preview-img" src="" class="w-full h-48 object-cover rounded-xl shadow-md">
+                </div>
+
+                <div id="upload-area"
+                    class="border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl p-8 transition-colors hover:border-primary">
+                    <input type="file" id="photo-input" class="hidden" accept="image/*"
+                        onchange="handleFileSelect(event)">
+                    <label for="photo-input" class="cursor-pointer flex flex-col items-center">
+                        <span class="material-icons-outlined text-5xl text-gray-400 mb-2">add_a_photo</span>
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Haz clic para elegir una
+                            foto</span>
+                    </label>
+                </div>
+
+                <div id="upload-status-container" class="mt-6 hidden">
+                    <div id="upload-status" class="text-sm font-bold text-primary mb-2">Subiendo...</div>
+                    <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-2 overflow-hidden">
+                        <div id="upload-progress-bar" class="bg-primary h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <button id="upload-btn" onclick="uploadPhoto()" disabled
+                    class="w-full mt-6 py-3 rounded-xl bg-primary text-white font-bold opacity-50 cursor-not-allowed transform transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    SUBIR FOTO
+                </button>
+            </div>
+
+            <div id="upload-result" class="hidden mt-8">
+                <p class="text-green-500 font-bold mb-2">¡Foto subida con éxito!</p>
+                <a id="result-link" href="#" target="_blank" class="text-primary hover:underline text-sm break-all">Ver
+                    imagen subida</a>
+            </div>
+        </div>
+    </section>
+
     <footer class="bg-card-dark dark:bg-black text-white pt-16 pb-8 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center mb-12">
@@ -557,6 +606,70 @@
                 statusEl.className = "mt-4 text-center text-sm font-bold text-green-500";
             }
             statusEl.classList.remove('hidden');
+        }
+
+        // Lógica de Subida de Fotos
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const preview = document.getElementById('preview-img');
+                    const previewContainer = document.getElementById('upload-preview');
+                    const uploadArea = document.getElementById('upload-area');
+                    const uploadBtn = document.getElementById('upload-btn');
+
+                    preview.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                    uploadArea.classList.add('hidden');
+                    uploadBtn.disabled = false;
+                    uploadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function uploadPhoto() {
+            const fileInput = document.getElementById('photo-input');
+            const file = fileInput.files[0];
+            const statusContainer = document.getElementById('upload-status-container');
+            const statusText = document.getElementById('upload-status');
+            const progressBar = document.getElementById('upload-progress-bar');
+            const uploadBtn = document.getElementById('upload-btn');
+            const resultArea = document.getElementById('upload-result');
+
+            if (!file) return;
+
+            try {
+                uploadBtn.disabled = true;
+                uploadBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                statusContainer.classList.remove('hidden');
+                progressBar.style.width = '0%';
+
+                // Animación de carga artificial para el progreso (Supabase upload no da progreso nativo fácil sin helpers extras)
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += 5;
+                    if (progress <= 90) progressBar.style.width = progress + '%';
+                }, 100);
+
+                const publicUrl = await window.UploadService.uploadFile(file);
+
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                statusText.innerText = "¡Subida terminada!";
+                statusText.className = "text-sm font-bold text-green-500 mb-2";
+
+                document.getElementById('result-link').href = publicUrl;
+                resultArea.classList.remove('hidden');
+
+            } catch (error) {
+                console.error("Error al subir:", error);
+                statusText.innerText = "Error: " + (error.message || "No se pudo subir la imagen");
+                statusText.className = "text-sm font-bold text-red-500 mb-2";
+                uploadBtn.disabled = false;
+                uploadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', initAuth);
