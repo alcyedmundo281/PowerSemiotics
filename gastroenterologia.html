@@ -20,7 +20,11 @@
         <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
       </a>
       <div>
-        <a href="gastroenterologia.html" class="text-red-800 font-semibold">Gastroenterología</a>
+        <a href="gastroenterologia.html" class="text-red-800 font-semibold mr-4">Gastroenterología</a>
+        <button id="header-auth-btn" onclick="toggleAuthModal()"
+          class="px-4 py-2 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all text-sm shadow-md">
+          Login
+        </button>
       </div>
     </nav>
   </header>
@@ -280,6 +284,29 @@
     modal.classList.toggle('hidden');
   }
 
+  async function handleSignOut() {
+    if (!supabaseClient) return;
+    await supabaseClient.auth.signOut();
+    window.location.reload();
+  }
+
+  function updateAuthUI(session) {
+    const btn = document.getElementById('header-auth-btn');
+    if (!btn) return;
+
+    if (session) {
+      btn.innerText = "Cerrar Sesión";
+      btn.onclick = handleSignOut;
+      btn.classList.replace('bg-blue-600', 'bg-gray-800');
+      btn.classList.replace('hover:bg-blue-700', 'hover:bg-gray-900');
+    } else {
+      btn.innerText = "Login";
+      btn.onclick = toggleAuthModal;
+      btn.classList.replace('bg-gray-800', 'bg-blue-600');
+      btn.classList.replace('hover:bg-gray-900', 'hover:bg-blue-700');
+    }
+  }
+
   async function handleModuleClick(targetUrl) {
     if (!supabaseClient) return;
 
@@ -346,8 +373,16 @@
   // Listener to handle redirects coming back from Auth
   document.addEventListener('DOMContentLoaded', async () => {
     if (!supabaseClient) return;
-    // Check if we just came back from a login flow
+
+    // Check initial session
     const { data: { session } } = await supabaseClient.auth.getSession();
+    updateAuthUI(session);
+
+    // Listen for auth changes
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      updateAuthUI(session);
+    });
+
     if (session) {
       const pendingRedirect = sessionStorage.getItem('redirectAfterLogin');
       if (pendingRedirect) {
