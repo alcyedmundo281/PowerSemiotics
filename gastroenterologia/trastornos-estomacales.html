@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>GastroMaster: Trastornos Estomacales | Power Semiotics</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Lucide Icons React -->
+    <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.js"></script>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Tailwind Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8B3DFF",
+                        "secondary": "#FF4081",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a242d",
+                        "border-light": "#e2e8f0",
+                        "border-dark": "#2d3748",
+                    },
+                    fontFamily: {
+                        "sans": ["Lexend", "sans-serif"],
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #8B3DFF 0%, #FF4081 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200 min-h-screen">
+
+    <!-- Top Navigation -->
+    <header
+        class="sticky top-0 z-50 flex items-center justify-between border-b border-border-light dark:border-border-dark bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md px-6 py-4 shadow-sm">
+        <div class="flex items-center gap-4">
+            <a href="../index.html" class="flex items-center gap-3">
+                <div
+                    class="size-10 bg-primary flex items-center justify-center text-white font-bold text-xl rounded-lg">
+                    P</div>
+                <h2 class="text-xl font-bold leading-tight tracking-tight gradient-text">Powersemiotics</h2>
+            </a>
+            <div class="hidden md:block h-6 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+            <span
+                class="hidden md:block text-xs font-bold text-primary uppercase tracking-widest">Gastroenterología</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="../gastroenterologia.html"
+                class="hidden md:flex text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">Hub</a>
+            <button id="header-auth-btn" onclick="handleSignOut()"
+                class="px-4 py-2 rounded-full bg-slate-900 dark:bg-slate-700 text-white text-sm font-bold shadow-md hover:bg-primary transition-all">
+                Cerrar Sesión
+            </button>
+            <button
+                class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-background-light dark:bg-border-dark text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors"
+                onclick="document.documentElement.classList.toggle('dark')">
+                <span class="material-symbols-outlined text-xl">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const {
+            BookOpen, Activity, Search, AlertCircle, Play,
+            CheckCircle, XCircle, ChevronRight, ChevronDown,
+            Pill, Stethoscope, Sandwich
+        } = lucideReact;
+
+        // --- Components ---
+
+        const Navigation = ({ activeTab, setActiveTab }) => {
+            const tabs = [
+                { id: 'learn', label: 'Study Notes', icon: BookOpen },
+                { id: 'microscope', label: 'Microscope Lab', icon: Search },
+                { id: 'simulator', label: 'Pain Simulator', icon: Activity },
+                { id: 'clinic', label: 'The Clinic', icon: Stethoscope },
+            ];
+
+            return (
+                <nav className="bg-slate-900 text-white p-4 shadow-lg sticky top-[73px] z-40">
+                    <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center">
+                        <div class="flex items-center space-x-2 mb-2 md:mb-0">
+                            <div class="bg-red-500 p-2 rounded-lg">
+                                <Activity size={24} class="text-white" />
+                            </div>
+                            <span class="text-xl font-bold tracking-tight">GastroMaster <span class="text-red-400 text-sm font-normal">Stomach Disorders</span></span>
+                        </div>
+                        <div class="flex space-x-1 md:space-x-4 overflow-x-auto">
+                            {tabs.map((tab) => (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all text-sm md:text-base whitespace-nowrap ${activeTab === tab.id
+                                            ? 'bg-red-600 text-white shadow-md'
+                                            : 'hover:bg-slate-800 text-slate-300'
+                                        }`}
+                                >
+                                    <tab.icon size={16} />
+                                    <span>{tab.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        const StudyNotes = () => {
+            const [openSection, setOpenSection] = useState('gastritis');
+
+            const sections = [
+                {
+                    id: 'gastritis',
+                    title: 'Gastritis vs. Peptic Ulcer Disease (PUD)',
+                    content: (
+                        <div className="space-y-4">
+                            <p className="text-slate-600 dark:text-slate-400">Gastritis and PUD share similar pathophysiology but differ in depth and severity.</p>
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div className="bg-orange-50 dark:bg-orange-900/10 p-4 rounded-lg border border-orange-100 dark:border-orange-900/20">
+                                    <h4 className="font-bold text-orange-800 dark:text-orange-400 mb-2">Gastritis</h4>
+                                    <ul className="list-disc list-inside text-sm space-y-1 text-slate-700 dark:text-slate-300">
+                                        <li><strong>Location:</strong> Commonly in the Antrum.</li>
+                                        <li><strong>Inflammation:</strong> Generalized mucosal inflammation.</li>
+                                        <li><strong>Depth:</strong> Shallow erosions. <span className="text-red-600 font-semibold">NEVER</span> crosses muscularis mucosae.</li>
+                                        <li><strong>Microscopic:</strong> Thin mucus layer, shallow erosions.</li>
+                                        <li><strong>Pain:</strong> Epigastric. No specific relation to food.</li>
+                                    </ul>
+                                </div>
+                                <div className="bg-red-50 dark:bg-red-900/10 p-4 rounded-lg border border-red-100 dark:border-red-900/20">
+                                    <h4 className="font-bold text-red-800 dark:text-red-400 mb-2">Peptic Ulcer Disease (PUD)</h4>
+                                    <ul className="list-disc list-inside text-sm space-y-1 text-slate-700 dark:text-slate-300">
+                                        <li><strong>Location:</strong> Duodenum (most common) or Stomach (Antrum).</li>
+                                        <li><strong>Depth:</strong> Deep ulcers. Extends into <span className="text-red-600 font-semibold">Submucosa</span> and beyond.</li>
+                                        <li><strong>Pain:</strong> Epigastric. <span className="font-bold">Specific relation to food.</span></li>
+                                        <li><strong>Risk:</strong> High risk of bleeding and perforation.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 'etiology',
+                    title: 'Etiology & Pathophysiology',
+                    content: (
+                        <div className="space-y-4">
+                            <h4 className="font-bold text-slate-800 dark:text-slate-200">The "Big 4" Causes:</h4>
+                            <ul className="space-y-3">
+                                <li className="flex items-start">
+                                    <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400 px-2 py-1 rounded text-xs font-bold mr-2 mt-1">NSAIDs & Alcohol</span>
+                                    <span className="text-sm text-slate-700 dark:text-slate-300">Inhibit COX enzyme → Decreased Prostaglandins → Increased HCl & Decreased Protective Mucus.</span>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-400 px-2 py-1 rounded text-xs font-bold mr-2 mt-1">H. Pylori</span>
+                                    <div className="text-sm text-slate-700 dark:text-slate-300">
+                                        <p>1. Increases Gastrin → Increases HCl.</p>
+                                        <p>2. <strong>Urease Enzyme:</strong> Converts Urea → Ammonia (alkaline) → Allows bacteria survival & cytotoxicity.</p>
+                                    </div>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 px-2 py-1 rounded text-xs font-bold mr-2 mt-1">Stress Ulcers</span>
+                                    <div className="text-sm text-slate-700 dark:text-slate-300">
+                                        <p><strong>Curling (Burns):</strong> Hypovolemia → Mucosal Ischemia.</p>
+                                        <p><strong>Cushing (Brain):</strong> High ICP → Vagal Stimulation → Ach release → High HCl.</p>
+                                    </div>
+                                </li>
+                                <li className="flex items-start">
+                                    <span className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 px-2 py-1 rounded text-xs font-bold mr-2 mt-1">Gastrinoma</span>
+                                    <span className="text-sm text-slate-700 dark:text-slate-300">Zollinger-Ellison Syndrome. Tumor secretes massive Gastrin. Think: Refractory Ulcers.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    )
+                },
+                {
+                    id: 'complications',
+                    title: 'Complications & Emergencies',
+                    content: (
+                        <div className="grid md:grid-cols-3 gap-4 text-sm">
+                            <div className="p-3 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">
+                                <h5 className="font-bold mb-2">GI Bleed</h5>
+                                <p>Erosion into arteries (Lesser/Greater Curvature).</p>
+                                <p className="mt-2 text-red-600 font-semibold">Signs: Hematemesis, Melena.</p>
+                            </div>
+                            <div className="p-3 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">
+                                <h5 className="font-bold mb-2">Perforation</h5>
+                                <p>Erosion through Serosa. Contents leak into peritoneum.</p>
+                                <p className="mt-2 text-red-600 font-semibold">Signs: Pneumoperitoneum (Air under diaphragm), Rigid Abdomen.</p>
+                            </div>
+                            <div className="p-3 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">
+                                <h5 className="font-bold mb-2">Gastric Outlet Obstruction</h5>
+                                <p>Edema/Fibrosis blocks pylorus.</p>
+                                <p className="mt-2 text-red-600 font-semibold">Signs: Succussion Splash, Projectile Vomiting.</p>
+                            </div>
+                        </div>
+                    )
+                }
+            ];
+
+            return (
+                <div className="max-w-4xl mx-auto p-6 fade-in">
+                    <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 font-display">Lecture Notes</h2>
+                    <div className="space-y-4">
+                        {sections.map((section) => (
+                            <div key={section.id} className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm bg-white dark:bg-surface-dark">
+                                <button
+                                    onClick={() => setOpenSection(openSection === section.id ? null : section.id)}
+                                    className="w-full flex justify-between items-center p-4 bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                                >
+                                    <span className="font-semibold text-slate-700 dark:text-slate-200">{section.title}</span>
+                                    {openSection === section.id ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+                                </button>
+                                {openSection === section.id && (
+                                    <div className="p-6 border-t border-slate-100 dark:border-slate-700 bg-white dark:bg-surface-dark animate-fadeIn">
+                                        {section.content}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const MicroscopeLab = () => {
+            const [zoomLevel, setZoomLevel] = useState('healthy');
+
+            return (
+                <div className="max-w-4xl mx-auto p-6 fade-in">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 font-display">Histology Lab</h2>
+                        <div className="flex space-x-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                            {['healthy', 'gastritis', 'ulcer'].map((mode) => (
+                                <button
+                                    key={mode}
+                                    onClick={() => setZoomLevel(mode)}
+                                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${zoomLevel === mode ? 'bg-white dark:bg-surface-dark text-blue-600 dark:text-blue-400 shadow' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'
+                                        }`}
+                                >
+                                    {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="bg-white dark:bg-surface-dark p-8 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 relative overflow-hidden h-96">
+                        <div className="flex flex-col h-full relative">
+                            <div className="absolute top-4 right-4 bg-black/70 text-white text-xs p-2 rounded z-10">
+                                Current View: <span className="font-bold text-yellow-300">{zoomLevel.toUpperCase()}</span>
+                            </div>
+
+                            <div className="flex-1 bg-pink-300 relative border-b-2 border-pink-400 flex items-center justify-center transition-all duration-500">
+                                <span className="absolute right-2 bottom-2 text-pink-700 text-xs font-bold opacity-50">Mucosa</span>
+
+                                <div
+                                    className={`absolute top-0 w-32 h-16 bg-red-500/80 rounded-b-full blur-sm transition-all duration-700 ${zoomLevel === 'healthy' ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'
+                                        }`}
+                                ></div>
+
+                                <div
+                                    className={`absolute top-0 w-48 bg-red-800 shadow-inner rounded-b-full transition-all duration-700 ${zoomLevel === 'ulcer' ? 'h-full translate-y-0 opacity-100' : 'h-0 opacity-0'
+                                        }`}
+                                ></div>
+
+                                <div className={`absolute top-0 left-0 right-0 bg-blue-200/50 backdrop-blur-sm transition-all duration-500 ${zoomLevel === 'healthy' ? 'h-8' : 'h-2'
+                                    }`}>
+                                    <span className="absolute left-2 top-1 text-blue-800 text-[10px] font-bold">
+                                        {zoomLevel === 'healthy' ? 'Thick Alkaline Mucus Layer' : 'Thin Mucus Layer'}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="h-24 bg-blue-100 relative border-b-2 border-blue-200 flex items-center justify-center transition-all">
+                                <span className="absolute right-2 bottom-2 text-blue-400 text-xs font-bold opacity-50">Submucosa</span>
+                                <div className="w-full h-2 bg-red-400/30 absolute top-1/2 transform -translate-y-1/2"></div>
+
+                                <div
+                                    className={`absolute top-0 w-40 bg-red-800 shadow-inner rounded-b-full transition-all duration-700 z-10 ${zoomLevel === 'ulcer' ? 'h-16 opacity-100' : 'h-0 opacity-0'
+                                        }`}
+                                ></div>
+                            </div>
+
+                            <div className="h-32 bg-red-400 relative flex items-center justify-center border-b-2 border-red-500">
+                                <span className="absolute right-2 bottom-2 text-red-900 text-xs font-bold opacity-50">Muscularis Externa</span>
+                                <div className="w-full h-full bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-10"></div>
+                            </div>
+
+                            <div className="h-4 bg-yellow-100">
+                                <span className="absolute right-2 top-0 text-yellow-600 text-[10px] font-bold opacity-50">Serosa</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-6 bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg border border-blue-100 dark:border-blue-900/20">
+                        <h3 className="font-bold text-blue-800 dark:text-blue-400 flex items-center"><AlertCircle size={18} className="mr-2" /> Diagnostic Key</h3>
+                        <p className="text-sm text-blue-900 dark:text-blue-300 mt-1">
+                            {zoomLevel === 'healthy' && "Normal stomach lining consists of a thick mucus barrier protecting the epithelium."}
+                            {zoomLevel === 'gastritis' && "Gastritis involves inflammation and shallow erosions. Note that the erosion DOES NOT pass the Muscularis Mucosae (the bottom of the pink layer)."}
+                            {zoomLevel === 'ulcer' && "Peptic Ulcer Disease involves deep excavation. The lesion penetrates through the Mucosa and into the Submucosa (blue layer) or deeper."}
+                        </p>
+                    </div>
+                </div>
+            );
+        };
+
+        const PainSimulator = () => {
+            const [diagnosis, setDiagnosis] = useState(null);
+            const [feedback, setFeedback] = useState(null);
+
+            const handleDiagnose = (type) => {
+                if (type === 'gastric') {
+                    setFeedback({ correct: true, text: "Correct! Gastric ulcers cause pain WHILE eating (Acid increases immediately)." });
+                } else {
+                    setFeedback({ correct: false, text: "Incorrect. Look at the curve again. Does pain go UP or DOWN when food enters?" });
+                }
+            };
+
+            const handleDiagnoseDuodenal = (type) => {
+                if (type === 'duodenal') {
+                    setFeedback({ correct: true, text: "Correct! Duodenal ulcers feel BETTER with food (Pyloric sphincter closes, acid stays in stomach), but hurt later." });
+                } else {
+                    setFeedback({ correct: false, text: "Incorrect. The pain DECREASED when they ate. Which type does that?" });
+                }
+            }
+
+            return (
+                <div className="max-w-4xl mx-auto p-6 fade-in">
+                    <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2 font-display">Pain Pattern Simulator</h2>
+                    <p className="text-slate-600 dark:text-slate-400 mb-6">Differentiate the ulcer based on the "Food vs. Pain" relationship.</p>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div className="bg-white dark:bg-surface-dark p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                            <h3 className="font-bold text-lg mb-4 text-slate-700 dark:text-slate-200">Patient A</h3>
+                            <div className="h-40 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg relative flex items-end justify-between px-4 pb-2 mb-4 overflow-hidden">
+                                <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+                                    <path d="M0,100 C50,100 100,20 150,20 L300,20" stroke="red" strokeWidth="3" fill="none" strokeDasharray="5,5" />
+                                    <text x="10" y="90" fontSize="12" fill="gray">Pain Lvl</text>
+                                </svg>
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span class="bg-white/80 dark:bg-black/60 p-2 rounded text-red-600 font-bold animate-pulse">Pain Increases w/ Food</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onClick={() => handleDiagnose('gastric')} class="flex-1 bg-slate-800 dark:bg-slate-700 text-white py-2 rounded hover:bg-slate-700 text-sm">Gastric Ulcer</button>
+                                <button onClick={() => handleDiagnose('duodenal')} class="flex-1 bg-slate-800 dark:bg-slate-700 text-white py-2 rounded hover:bg-slate-700 text-sm">Duodenal Ulcer</button>
+                            </div>
+                        </div>
+
+                        <div className="bg-white dark:bg-surface-dark p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700">
+                            <h3 className="font-bold text-lg mb-4 text-slate-700 dark:text-slate-200">Patient B</h3>
+                            <div className="h-40 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg relative flex items-end justify-between px-4 pb-2 mb-4 overflow-hidden">
+                                <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+                                    <path d="M0,20 C50,20 100,120 150,120 C200,120 250,50 300,20" stroke="blue" strokeWidth="3" fill="none" strokeDasharray="5,5" />
+                                    <text x="10" y="30" fontSize="12" fill="gray">Pain Lvl</text>
+                                </svg>
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span class="bg-white/80 dark:bg-black/60 p-2 rounded text-blue-600 font-bold animate-pulse">Pain Decreases w/ Food</span>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onClick={() => handleDiagnoseDuodenal('gastric')} class="flex-1 bg-slate-800 dark:bg-slate-700 text-white py-2 rounded hover:bg-slate-700 text-sm">Gastric Ulcer</button>
+                                <button onClick={() => handleDiagnoseDuodenal('duodenal')} class="flex-1 bg-slate-800 dark:bg-slate-700 text-white py-2 rounded hover:bg-slate-700 text-sm">Duodenal Ulcer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {feedback && (
+                        <div className={`mt-6 p-4 rounded-lg flex items-start ${feedback.correct ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400' : 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-400'}`}>
+                            {feedback.correct ? <CheckCircle className="mr-2 flex-shrink-0" /> : <XCircle className="mr-2 flex-shrink-0" />}
+                            <div>
+                                <p className="font-bold">{feedback.correct ? 'Correct!' : 'Try Again'}</p>
+                                <p>{feedback.text}</p>
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="mt-8 bg-yellow-50 dark:bg-yellow-900/10 p-4 rounded border-l-4 border-yellow-400">
+                        <h4 className="font-bold text-yellow-800 dark:text-yellow-400">Mnemonics</h4>
+                        <ul className="mt-2 text-sm text-yellow-900 dark:text-yellow-300 space-y-2">
+                            <li><strong>Gastric</strong> = <strong>Greater</strong> pain with food.</li>
+                            <li><strong>Duodenal</strong> = <strong>Decreases</strong> pain with food.</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        };
+
+        const TheClinic = () => {
+            const cases = [
+                {
+                    id: 1,
+                    patient: "45yo Male, Hx of PUD",
+                    symptoms: "Sudden onset severe abdominal pain, rigid 'board-like' abdomen.",
+                    vitals: "HR 110, BP 90/60, Temp 38.5°C",
+                    imaging: "X-Ray shows air under the diaphragm.",
+                    question: "What is the diagnosis?",
+                    options: ["Gastric Outlet Obstruction", "Perforation", "GI Bleed", "Zollinger-Ellison"],
+                    answer: "Perforation",
+                    explanation: "Air under the diaphragm (Pneumoperitoneum) + Rigid Abdomen + Signs of Sepsis = Perforation. This is a surgical emergency."
+                },
+                {
+                    id: 2,
+                    patient: "60yo Female, NSAID user",
+                    symptoms: "Vomiting undigested food, early satiety, weight loss.",
+                    vitals: "Stable",
+                    exam: "Audible 'sloshing' sound in epigastrium when shaking patient (Succussion Splash).",
+                    question: "What complication is this?",
+                    options: ["Gastric Outlet Obstruction", "Perforation", "Gastritis", "MALT Lymphoma"],
+                    answer: "Gastric Outlet Obstruction",
+                    explanation: "Edema and fibrosis near the pylorus block gastric emptying. The 'Succussion Splash' is the classic sign of fluid trapped in the stomach."
+                },
+                {
+                    id: 3,
+                    patient: "35yo Male, Refractory Ulcers",
+                    symptoms: "Multiple ulcers in duodenum and jejunum. Not responding to standard PPI therapy.",
+                    labs: "Serum Gastrin > 1000 pg/mL",
+                    test: "Secretin stimulation test: Gastrin levels remain high.",
+                    question: "What is the underlying cause?",
+                    options: ["H. Pylori", "NSAID abuse", "Zollinger-Ellison Syndrome", "Autoimmune Gastritis"],
+                    answer: "Zollinger-Ellison Syndrome",
+                    explanation: "Refractory ulcers + Massive Gastrin levels = Gastrinoma (Zollinger-Ellison). The tumor secretes uncontrolled gastrin."
+                }
+            ];
+
+            const [currentCase, setCurrentCase] = useState(0);
+            const [selectedOption, setSelectedOption] = useState(null);
+            const [showExplanation, setShowExplanation] = useState(false);
+
+            const handleSelect = (option) => {
+                setSelectedOption(option);
+                setShowExplanation(true);
+            };
+
+            const nextCase = () => {
+                setCurrentCase((prev) => (prev + 1) % cases.length);
+                setSelectedOption(null);
+                setShowExplanation(false);
+            };
+
+            const activeCase = cases[currentCase];
+
+            return (
+                <div className="max-w-3xl mx-auto p-6 fade-in">
+                    <div className="bg-white dark:bg-surface-dark rounded-xl shadow-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                        <div className="bg-slate-800 dark:bg-slate-900 text-white p-4 flex justify-between items-center">
+                            <h2 className="text-xl font-bold flex items-center"><Stethoscope className="mr-2" /> Case File #{activeCase.id}</h2>
+                            <span className="text-slate-400 text-sm">Round {currentCase + 1} of {cases.length}</span>
+                        </div>
+
+                        <div class="p-6">
+                            <div class="mb-6 space-y-3 text-slate-700 dark:text-slate-300">
+                                <div class="flex border-b border-slate-100 dark:border-slate-800 pb-2">
+                                    <span class="w-24 font-bold text-slate-500">Patient:</span>
+                                    <span>{activeCase.patient}</span>
+                                </div>
+                                <div class="flex border-b border-slate-100 dark:border-slate-800 pb-2">
+                                    <span class="w-24 font-bold text-slate-500">Symptoms:</span>
+                                    <span>{activeCase.symptoms}</span>
+                                </div>
+                                {activeCase.vitals && (
+                                    <div class="flex border-b border-slate-100 dark:border-slate-800 pb-2">
+                                        <span class="w-24 font-bold text-slate-500">Vitals:</span>
+                                        <span class="text-red-600 dark:text-red-400 font-mono">{activeCase.vitals}</span>
+                                    </div>
+                                )}
+                                {activeCase.exam && (
+                                    <div class="flex border-b border-slate-100 dark:border-slate-800 pb-2">
+                                        <span class="w-24 font-bold text-slate-500">Exam:</span>
+                                        <span>{activeCase.exam}</span>
+                                    </div>
+                                )}
+                                {activeCase.imaging && (
+                                    <div class="flex border-b border-slate-100 dark:border-slate-800 pb-2">
+                                        <span class="w-24 font-bold text-slate-500">Imaging:</span>
+                                        <span>{activeCase.imaging}</span>
+                                    </div>
+                                )}
+                                {activeCase.labs && (
+                                    <div class="flex border-b border-slate-100 dark:border-slate-800 pb-2">
+                                        <span class="w-24 font-bold text-slate-500">Labs:</span>
+                                        <span>{activeCase.labs}</span>
+                                    </div>
+                                )}
+                                {activeCase.test && (
+                                    <div class="flex border-b border-slate-100 dark:border-slate-800 pb-2">
+                                        <span class="w-24 font-bold text-slate-500">Tests:</span>
+                                        <span>{activeCase.test}</span>
+                                    </div>
+                                )}
+                            </div>
+
+                            <h3 className="font-bold text-lg mb-4 text-slate-900 dark:text-white uppercase tracking-tight">{activeCase.question}</h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                                {activeCase.options.map((option) => (
+                                    <button
+                                        key={option}
+                                        onClick={() => handleSelect(option)}
+                                        disabled={showExplanation}
+                                        className={`p-3 rounded-lg border text-left transition-all ${showExplanation
+                                                ? option === activeCase.answer
+                                                    ? 'bg-green-100 dark:bg-green-900/20 border-green-500 text-green-800 dark:text-green-400'
+                                                    : option === selectedOption
+                                                        ? 'bg-red-100 dark:bg-red-900/20 border-red-500 text-red-800 dark:text-red-400'
+                                                        : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-50'
+                                                : 'hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-700 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                                            }`}
+                                    >
+                                        {option}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {showExplanation && (
+                                <div className="animate-fadeIn bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 p-4 rounded-lg mb-4">
+                                    <h4 className="font-bold text-blue-800 dark:text-blue-400 mb-1">Analysis:</h4>
+                                    <p className="text-blue-900 dark:text-blue-300">{activeCase.explanation}</p>
+                                    <div className="mt-4 flex justify-end">
+                                        <button
+                                            onClick={nextCase}
+                                            className="bg-primary hover:bg-secondary text-white px-6 py-2 rounded-lg transition-all font-semibold"
+                                        >
+                                            Next Case
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('learn');
+
+            return (
+                <div className="min-h-screen bg-slate-50 dark:bg-background-dark font-sans text-slate-900 dark:text-slate-100">
+                    <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+
+                    <main class="container mx-auto py-8 px-4">
+                        {activeTab === 'learn' && <StudyNotes />}
+                        {activeTab === 'microscope' && <MicroscopeLab />}
+                        {activeTab === 'simulator' && <PainSimulator />}
+                        {activeTab === 'clinic' && <TheClinic />}
+                    </main>
+
+                    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-sm mt-12 border-t border-slate-800">
+                        <p>Educational Artifact based on "Stomach Disorders" by Ninja Nerd.</p>
+                        <p class="mt-2">Disclaimer: For educational purposes only. Not medical advice.</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+
+    <script>
+        var supabaseClient = null;
+        var SUPABASE_URL_VAL = 'https://dyfjawopnbkjrjsnhbyn.supabase.co';
+        var SUPABASE_KEY_VAL = 'sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa';
+
+        try {
+            if (typeof window.supabase !== 'undefined') {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL_VAL, SUPABASE_KEY_VAL);
+            }
+        } catch (e) {
+            console.error("Error init Supabase", e);
+        }
+
+        async function handleSignOut() {
+            if (!supabaseClient) return;
+            await supabaseClient.auth.signOut();
+            window.location.href = '../gastroenterologia.html';
+        }
+
+        async function checkSession() {
+            if (!supabaseClient) return;
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                window.location.href = '../gastroenterologia.html';
+                return;
+            }
+        }
+        checkSession();
+    </script>
+</body>
+
+</html>
