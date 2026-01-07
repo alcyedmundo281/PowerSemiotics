@@ -21,6 +21,7 @@
     <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script>window.react = React;</script>
 
     <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -127,6 +128,9 @@
     <div id="root"></div>
 
     <script type="text/babel">
+        // Alias React to react for Lucide UMD compatibility
+        window.react = React;
+
         const { useState, useEffect } = React;
         const {
             BookOpen, Activity, Search, AlertCircle, Play,
