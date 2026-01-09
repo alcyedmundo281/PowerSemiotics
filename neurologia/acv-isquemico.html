@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
 
@@ -53,11 +53,7 @@
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
-        const {
-            Brain, Activity, ShieldAlert, BookOpen, Stethoscope,
-            Clock, ChevronRight, AlertTriangle, CheckCircle, XCircle,
-            Thermometer, Syringe, FileText, Heart, Zap
-        } = LucideReact;
+        const Icon = ({ name, className = "" }) => <i className={`fas ${name} ${className}`}></i>;
 
         // --- CONTENT DATA (Based on Ninja Nerd & Uploaded Files) ---
 
@@ -65,7 +61,7 @@
             {
                 id: 'etiology',
                 title: 'Etiología: Las Raíces del Infarto',
-                icon: <Activity className="w-6 h-6 text-blue-400" />,
+                icon: <Icon name="fa-heart-pulse" className="w-6 h-6 text-blue-400" />,
                 sections: [
                     {
                         title: 'Hipoperfusión Global',
@@ -98,7 +94,7 @@
             {
                 id: 'pathophys',
                 title: 'Fisiopatología: Tiempo es Cerebro',
-                icon: <Zap className="w-6 h-6 text-yellow-400" />,
+                icon: <Icon name="fa-bolt" className="w-6 h-6 text-yellow-400" />,
                 sections: [
                     {
                         title: 'La Cascada Isquémica',
@@ -119,7 +115,7 @@
             {
                 id: 'clinical',
                 title: 'Clínica y Diagnóstico',
-                icon: <Stethoscope className="w-6 h-6 text-green-400" />,
+                icon: <Icon name="fa-stethoscope" className="w-6 h-6 text-green-400" />,
                 sections: [
                     {
                         title: 'Síndromes Vasculares',
@@ -266,7 +262,7 @@
                 <div className="flex flex-col items-center justify-center min-h-screen text-center px-4 space-y-8 max-w-4xl mx-auto">
                     <div className="relative">
                         <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full blur opacity-75 animate-pulse"></div>
-                        <Brain className="relative w-24 h-24 text-white mb-4" />
+                        <Icon name="fa-brain" className="relative w-24 h-24 text-white mb-4" />
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
@@ -280,7 +276,7 @@
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-8">
                         <button onClick={() => setView('academy')} className="group relative p-1 rounded-xl bg-gradient-to-b from-slate-700 to-slate-800 hover:from-blue-600 hover:to-blue-800 transition-all duration-300">
                             <div className="bg-slate-900 h-full w-full rounded-lg p-6 flex flex-col items-center group-hover:bg-opacity-80 transition">
-                                <BookOpen className="w-10 h-10 mb-4 text-blue-400 group-hover:scale-110 transition-transform" />
+                                <Icon name="fa-book-open" className="w-10 h-10 mb-4 text-blue-400 group-hover:scale-110 transition-transform" />
                                 <h3 className="text-xl font-bold">La Academia</h3>
                                 <p className="text-sm text-slate-400 mt-2">Etiología, Fisiopatología y Diagnóstico.</p>
                             </div>
@@ -288,7 +284,7 @@
 
                         <button onClick={startSimulation} className="group relative p-1 rounded-xl bg-gradient-to-b from-slate-700 to-slate-800 hover:from-red-600 hover:to-red-800 transition-all duration-300">
                             <div className="bg-slate-900 h-full w-full rounded-lg p-6 flex flex-col items-center group-hover:bg-opacity-80 transition">
-                                <Activity className="w-10 h-10 mb-4 text-red-400 group-hover:scale-110 transition-transform animate-pulse" />
+                                <Icon name="fa-heart-pulse" className="w-10 h-10 mb-4 text-red-400 group-hover:scale-110 transition-transform animate-pulse" />
                                 <h3 className="text-xl font-bold">Simulación</h3>
                                 <p className="text-sm text-slate-400 mt-2">Código Ictus: Salva al paciente virtual.</p>
                             </div>
@@ -296,7 +292,7 @@
 
                         <button onClick={() => setView('reference')} className="group relative p-1 rounded-xl bg-gradient-to-b from-slate-700 to-slate-800 hover:from-green-600 hover:to-green-800 transition-all duration-300">
                             <div className="bg-slate-900 h-full w-full rounded-lg p-6 flex flex-col items-center group-hover:bg-opacity-80 transition">
-                                <FileText className="w-10 h-10 mb-4 text-green-400 group-hover:scale-110 transition-transform" />
+                                <Icon name="fa-file-lines" className="w-10 h-10 mb-4 text-green-400 group-hover:scale-110 transition-transform" />
                                 <h3 className="text-xl font-bold">Data Bank</h3>
                                 <p className="text-sm text-slate-400 mt-2">Dosis, Escalas NIHSS y Guías Rápidas.</p>
                             </div>
@@ -308,11 +304,11 @@
             const renderAcademy = () => (
                 <div className="max-w-6xl mx-auto p-4 pt-20">
                     <button onClick={() => setView('home')} className="mb-6 flex items-center text-slate-400 hover:text-white transition">
-                        <ChevronRight className="w-4 h-4 rotate-180 mr-1" /> Volver al Inicio
+                        <Icon name="fa-chevron-right" className="w-4 h-4 rotate-180 mr-1" /> Volver al Inicio
                     </button>
 
                     <h2 className="text-3xl font-bold mb-8 flex items-center">
-                        <BookOpen className="mr-3 text-blue-400" /> Academia de Neurología
+                        <Icon name="fa-book-open" className="mr-3 text-blue-400" /> Academia de Neurología
                     </h2>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -351,7 +347,7 @@
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center h-full text-slate-500 border-2 border-dashed border-slate-700 rounded-xl p-12">
-                                    <Brain className="w-16 h-16 mb-4 opacity-50" />
+                                    <Icon name="fa-brain" className="w-16 h-16 mb-4 opacity-50" />
                                     <p className="text-xl">Selecciona un módulo para comenzar el estudio.</p>
                                 </div>
                             )}
@@ -401,12 +397,12 @@
                         <div className="flex justify-between items-center mb-6 bg-slate-900/80 p-4 rounded-xl backdrop-blur sticky top-4 z-10 border border-slate-700">
                             <div className="flex items-center space-x-4">
                                 <div className="flex items-center text-red-400">
-                                    <Heart className="w-5 h-5 mr-2 animate-pulse" />
+                                    <Icon name="fa-heart" className="w-5 h-5 mr-2 animate-pulse" />
                                     <span className="font-mono">{scenario.vitals.BP} | {scenario.vitals.HR} bpm</span>
                                 </div>
                                 <div className="h-6 w-px bg-slate-700"></div>
                                 <div className="flex items-center text-blue-400">
-                                    <Activity className="w-5 h-5 mr-2" />
+                                    <Icon name="fa-heart-pulse" className="w-5 h-5 mr-2" />
                                     <span className="font-mono">NIHSS: Severo</span>
                                 </div>
                             </div>
@@ -417,7 +413,7 @@
                                         <div className={`h-full rounded-full transition-all duration-500 ${simState.score > 50 ? 'bg-green-500' : 'bg-red-500'}`} style={{ width: `${simState.score}%` }}></div>
                                     </div>
                                 </div>
-                                <Brain className={`w-8 h-8 ${simState.score < 50 ? 'text-red-500 animate-pulse' : 'text-green-500'}`} />
+                                <Icon name="fa-brain" className={`w-8 h-8 ${simState.score < 50 ? 'text-red-500 animate-pulse' : 'text-green-500'}`} />
                             </div>
                         </div>
 
@@ -426,7 +422,7 @@
                             !simState.feedback && simState.step === 0 && (
                                 <div className="bg-slate-800 p-6 rounded-xl border border-blue-500/30 mb-8 animate-in fade-in slide-in-from-top-4">
                                     <div className="flex items-start">
-                                        <AlertTriangle className="w-10 h-10 text-yellow-500 mr-4 flex-shrink-0" />
+                                        <Icon name="fa-triangle-exclamation" className="w-10 h-10 text-yellow-500 mr-4 flex-shrink-0" />
                                         <div>
                                             <h3 className="text-xl font-bold text-white mb-2">{scenario.title}</h3>
                                             <p className="text-slate-300 mb-2">{scenario.brief}</p>
@@ -466,9 +462,9 @@
                                     <div className={`p-6 rounded-xl border-2 ${simState.feedback.isCorrect ? 'bg-green-900/20 border-green-500/50' : 'bg-red-900/20 border-red-500/50'} animate-in zoom-in-95 duration-300`}>
                                         <div className="flex items-center mb-4">
                                             {simState.feedback.isCorrect ? (
-                                                <CheckCircle className="w-8 h-8 text-green-400 mr-3" />
+                                                <Icon name="fa-circle-check" className="w-8 h-8 text-green-400 mr-3" />
                                             ) : (
-                                                <XCircle className="w-8 h-8 text-red-400 mr-3" />
+                                                <Icon name="fa-circle-xmark" className="w-8 h-8 text-red-400 mr-3" />
                                             )}
                                             <h4 className={`text-xl font-bold ${simState.feedback.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
                                                 {simState.feedback.isCorrect ? "Decisión Correcta" : "Decisión Incorrecta"}
@@ -481,7 +477,7 @@
                                             onClick={nextSimStep}
                                             className="px-6 py-3 bg-slate-100 text-slate-900 rounded-lg font-bold hover:bg-white transition flex items-center"
                                         >
-                                            {simState.step + 1 < scenario.steps.length ? 'Siguiente Paso' : 'Ver Resultados'} <ChevronRight className="ml-2 w-4 h-4" />
+                                            {simState.step + 1 < scenario.steps.length ? 'Siguiente Paso' : 'Ver Resultados'} <Icon name="fa-chevron-right" className="ml-2 w-4 h-4" />
                                         </button>
                                     </div>
                                 )}
@@ -494,15 +490,15 @@
             const renderReference = () => (
                 <div className="max-w-4xl mx-auto p-4 pt-20">
                     <button onClick={() => setView('home')} className="mb-6 flex items-center text-slate-400 hover:text-white transition">
-                        <ChevronRight className="w-4 h-4 rotate-180 mr-1" /> Volver al Inicio
+                        <Icon name="fa-chevron-right" className="w-4 h-4 rotate-180 mr-1" /> Volver al Inicio
                     </button>
                     <h2 className="text-3xl font-bold mb-8 flex items-center text-green-400">
-                        <FileText className="mr-3" /> Data Bank & Guías Rápidas
+                        <Icon name="fa-file-lines" className="mr-3" /> Data Bank & Guías Rápidas
                     </h2>
 
                     <div className="grid md:grid-cols-2 gap-6">
                         <Card>
-                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Syringe className="mr-2 text-pink-400" /> Trombolisis (tPA/Alteplase)</h3>
+                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Icon name="fa-syringe" className="mr-2 text-pink-400" /> Trombolisis (tPA/Alteplase)</h3>
                             <ul className="space-y-3 text-slate-300 text-sm">
                                 <li className="flex justify-between border-b border-slate-700 pb-2">
                                     <span>Dosis Total</span>
@@ -517,14 +513,14 @@
                                     <span className="font-mono text-white">&lt; 3 hrs (Estándar) / 3-4.5 hrs (Selectos)</span>
                                 </li>
                                 <li className="bg-red-900/30 p-2 rounded border border-red-500/30 text-red-200 mt-2">
-                                    <AlertTriangle className="w-4 h-4 inline mr-1" />
+                                    <Icon name="fa-triangle-exclamation" className="w-4 h-4 inline mr-1" />
                                     PA debe ser &lt; 185/110 mmHg ANTES del bolo.
                                 </li>
                             </ul>
                         </Card>
 
                         <Card>
-                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Thermometer className="mr-2 text-blue-400" /> Manejo de Presión Arterial</h3>
+                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Icon name="fa-thermometer-half" className="mr-2 text-blue-400" /> Manejo de Presión Arterial</h3>
                             <div className="space-y-4">
                                 <div>
                                     <h4 className="font-bold text-blue-300 text-sm mb-1">Candidatos a tPA</h4>
@@ -543,7 +539,7 @@
                         </Card>
 
                         <Card className="md:col-span-2">
-                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Activity className="mr-2 text-purple-400" /> Escala NIHSS (Resumen)</h3>
+                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Icon name="fa-heart-pulse" className="mr-2 text-purple-400" /> Escala NIHSS (Resumen)</h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-slate-300">
                                 <div className="bg-slate-800 p-3 rounded">1a-c. Conciencia</div>
                                 <div className="bg-slate-800 p-3 rounded">2. Mirada (Ojos)</div>
@@ -569,12 +565,12 @@
                     <nav className="relative z-10 border-b border-slate-800 bg-slate-900/50 backdrop-blur-md">
                         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
                             <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setView('home')}>
-                                <Brain className="text-blue-500 w-6 h-6" />
+                                <Icon name="fa-brain" className="text-blue-500 w-6 h-6" />
                                 <span className="font-bold text-lg tracking-tight">Neuro<span className="text-blue-400">Quest</span></span>
                             </div>
                             <div className="hidden md:flex space-x-6 text-sm font-medium text-slate-400">
                                 <a href="../neurologia.html" className="hover:text-white transition flex items-center">
-                                    <ChevronRight className="w-4 h-4 rotate-180 mr-1" /> Volver al Hub
+                                    <Icon name="fa-chevron-right" className="w-4 h-4 rotate-180 mr-1" /> Volver al Hub
                                 </a>
                                 <button onClick={() => setView('academy')} className={`hover:text-blue-400 transition ${view === 'academy' ? 'text-blue-400' : ''}`}>Academia</button>
                                 <button onClick={startSimulation} className={`hover:text-red-400 transition ${view === 'simulation' ? 'text-red-400' : ''}`}>Simulación</button>
