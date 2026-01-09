@@ -218,17 +218,17 @@
         </p>
       </a>
 
-      <!-- Módulo ACV -->
+      <!-- Módulo ACV Unified Dashboard -->
       <a href="neurologia/acv.html" id="card-acv"
         class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect opacity-50 pointer-events-none">
         <div class="flex justify-between items-start mb-4">
           <i class="fas fa-brain text-4xl gradient-text"></i>
           <span
-            class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-indigo-200">Nuevo:
-            Interactivo</span>
+            class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-indigo-200">Mapeo
+            & Simulador</span>
         </div>
         <h2 class="text-2xl font-bold text-gray-800">
-          Enfermedad Cerebrovascular (ACV)
+          ACV Unified Dashboard
         </h2>
         <p class="text-gray-600 text-md mt-2">
           Simulador interactivo de diagnóstico territorial, manejo agudo (TNK) y escala NIHSS.
@@ -236,7 +236,33 @@
         <div id="acv-lock-msg" class="mt-4 text-xs font-bold text-red-500 flex items-center justify-between gap-2">
           <div class="flex items-center gap-2">
             <i class="fas fa-lock"></i>
-            Inicia sesión para acceder y calificar
+            Inicia sesión para acceder
+          </div>
+          <button onclick="event.preventDefault(); toggleAuthModal()" class="text-primary hover:underline">Entrar aquí
+            &rarr;</button>
+        </div>
+      </a>
+
+      <!-- Módulo NeuroQuest ACV -->
+      <a href="neurologia/acv-isquemico.html" id="card-acv-isquemico"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect opacity-50 pointer-events-none">
+        <div class="flex justify-between items-start mb-4">
+          <i class="fas fa-graduation-cap text-4xl gradient-text"></i>
+          <span
+            class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-blue-200">Nuevo:
+            NeuroQuest</span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Protocolo ACV Isquémico
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Academia interactiva y simulación clínica de código ictus basada en guías 2025.
+        </p>
+        <div id="acv-isquemico-lock-msg"
+          class="mt-4 text-xs font-bold text-red-500 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-lock"></i>
+            Inicia sesión para acceder
           </div>
           <button onclick="event.preventDefault(); toggleAuthModal()" class="text-primary hover:underline">Entrar aquí
             &rarr;</button>
@@ -289,8 +315,11 @@
     }
 
     function updateUI(session) {
-      const acvCard = document.getElementById('card-acv');
-      const lockMsg = document.getElementById('acv-lock-msg');
+      const lockedCards = [
+        { card: 'card-acv', msg: 'acv-lock-msg' },
+        { card: 'card-acv-isquemico', msg: 'acv-isquemico-lock-msg' }
+      ];
+
       const authBtn = document.getElementById('auth-btn');
       const userEmail = document.getElementById('user-email');
 
@@ -300,10 +329,15 @@
       }
 
       if (session) {
-        if (acvCard) acvCard.classList.remove('opacity-50', 'pointer-events-none');
-        if (lockMsg) {
-          lockMsg.innerHTML = '<i class="fas fa-check-circle text-success"></i> <span class="text-success">Sesión activa: Módulo desbloqueado</span>';
-        }
+        lockedCards.forEach(item => {
+          const card = document.getElementById(item.card);
+          const msg = document.getElementById(item.msg);
+          if (card) card.classList.remove('opacity-50', 'pointer-events-none');
+          if (msg) {
+            msg.innerHTML = '<i class="fas fa-check-circle text-success"></i> <span class="text-success">Sesión activa: Módulo desbloqueado</span>';
+          }
+        });
+
         authBtn.innerText = "Cerrar Sesión";
         authBtn.onclick = handleLogout;
         if (userEmail) {
@@ -312,7 +346,12 @@
         }
         console.log("UI updated: User logged in.");
       } else {
-        if (acvCard) acvCard.classList.add('opacity-50', 'pointer-events-none');
+        lockedCards.forEach(item => {
+          const card = document.getElementById(item.card);
+          if (card) card.classList.add('opacity-50', 'pointer-events-none');
+          // No es necesario resetear el mensaje de lock ya que por defecto está bloqueado
+        });
+
         authBtn.innerText = "Iniciar Sesión";
         authBtn.onclick = toggleAuthModal;
         if (userEmail) userEmail.classList.add('hidden');

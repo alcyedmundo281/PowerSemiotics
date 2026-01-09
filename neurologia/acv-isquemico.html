@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroQuest: Protocolo ACV Isquémico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Animations */
+        @keyframes pulse-red {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+        }
+
+        .animate-pulse-red {
+            animation: pulse-red 2s infinite;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const {
+            Brain, Activity, ShieldAlert, BookOpen, Stethoscope,
+            Clock, ChevronRight, AlertTriangle, CheckCircle, XCircle,
+            Thermometer, Syringe, FileText, Heart, Zap
+        } = lucide;
+
+        // --- CONTENT DATA (Based on Ninja Nerd & Uploaded Files) ---
+
+        const ACADEMY_CONTENT = [
+            {
+                id: 'etiology',
+                title: 'Etiología: Las Raíces del Infarto',
+                icon: <Activity className="w-6 h-6 text-blue-400" />,
+                sections: [
+                    {
+                        title: 'Hipoperfusión Global',
+                        content: 'Falla de bomba o hipotensión severa que lleva a infartos en zonas limítrofes ("Watershed Infarcts").',
+                        details: [
+                            'Causas: Paro cardíaco, Shock (cardiogénico, séptico), Falla respiratoria aguda (hipoxia).',
+                            'Factor agravante: Estenosis carotídea crítica (>70%) + Hipotensión abrupta (iatrogenia).'
+                        ]
+                    },
+                    {
+                        title: 'Trombosis (Grandes y Pequeños Vasos)',
+                        content: 'Formación de coágulos in situ sobre placas ateroscleróticas rotas.',
+                        details: [
+                            'Grandes Vasos: ACI (intra/extracraneal), ACM (segmento M1), Vertebrales/Basilar.',
+                            'Pequeños Vasos: Arterias Lenticuloestriadas (Ganglios Basales), ramas pontinas.',
+                            'Mecanismo: Placa se rompe -> Adhesión plaquetaria -> Malla de fibrina -> Oclusión.'
+                        ]
+                    },
+                    {
+                        title: 'Embolia (La Causa #1)',
+                        content: 'Un coágulo viaja desde una fuente distante y se aloja en el cerebro.',
+                        details: [
+                            'Cardioembólico: Fibrilación Auricular (Estasis en orejuela AI), Trombo VI (post-IAM), Valvulopatías.',
+                            'Arteria-Arteria: Placa de ACI se rompe y viaja distalmente.',
+                            'Paradójico: TVP pasa a circulación arterial vía Foramen Oval Permeable (PFO).'
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'pathophys',
+                title: 'Fisiopatología: Tiempo es Cerebro',
+                icon: <Zap className="w-6 h-6 text-yellow-400" />,
+                sections: [
+                    {
+                        title: 'La Cascada Isquémica',
+                        content: 'Falla de energía -> Falla bombas iónicas -> Excitotoxicidad (Glutamato) -> Entrada masiva de Ca++ -> Muerte celular.',
+                        details: ['El objetivo es detener esta cascada antes de que la penumbra se convierta en core (infarto irreversible).']
+                    },
+                    {
+                        title: 'Core vs. Penumbra',
+                        content: 'Concepto clave para la trombectomía mecánica.',
+                        details: [
+                            'Core: Tejido ya infartado (irreversible).',
+                            'Penumbra: Tejido isquémico pero viable si se reperfunde rápido.',
+                            'Ventanas: tPA (<4.5h), Trombectomía (6-24h con imagen de perfusión).'
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'clinical',
+                title: 'Clínica y Diagnóstico',
+                icon: <Stethoscope className="w-6 h-6 text-green-400" />,
+                sections: [
+                    {
+                        title: 'Síndromes Vasculares',
+                        content: 'La clínica depende del territorio afectado.',
+                        details: [
+                            'ACA: Hemiparesia predomino crural (pierna).',
+                            'ACM: Hemiparesia faciobraquial, Afasia (Dominante/Izq), Negligencia (No dominante/Der).',
+                            'ACP: Hemianopsia homónima.',
+                            'Vertebrobasilar: Las 4 Ds (Diplopía, Disfagia, Disartria, "Dizziness"/Vértigo).'
+                        ]
+                    },
+                    {
+                        title: 'Imagenología Crítica',
+                        content: 'Protocolo "Stroke Code".',
+                        details: [
+                            'TC Simple (STAT): DESCARTAR Hemorragia (ICH/HSA). Buscar signo de la cuerda (ACM hiperdensa).',
+                            'CTA (AngioTC): Localizar oclusión de gran vaso (LVO).',
+                            'RMN: DWI (Brilla en isquemia aguda) vs ADC (Oscuro). El Gold Standard diagnóstico.'
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // --- GAME DATA ---
+
+        const SCENARIOS = [
+            {
+                id: 1,
+                title: "El Caso del Sr. Ramírez",
+                brief: "Masculino de 68 años. Antecedentes de HTA y DM2. Traído por EMS.",
+                description: "La familia reporta que hace 90 minutos estaba desayunando y repentinamente dejó de hablar y se le cayó la taza de café de la mano derecha.",
+                vitals: { BP: "195/105", HR: "92 (Irregular)", O2: "96%", Glucose: "98 mg/dL" },
+                initialExam: "Alerta. Afasia global. Desviación de la mirada a la izquierda. Hemiplejia derecha severa.",
+                steps: [
+                    {
+                        question: "¿Cuál es tu primera acción prioritaria inmediata?",
+                        options: [
+                            { text: "Administrar Aspirina 300mg", correct: false, feedback: "¡Peligro! No has descartado hemorragia. La aspirina está contraindicada hasta ver la TC." },
+                            { text: "Activar Código Ictus y TAC Simple STAT", correct: true, feedback: "Correcto. Necesitamos descartar sangre y confirmar que estamos en ventana terapéutica (<4.5h)." },
+                            { text: "Controlar la PA con Labetalol inmediatamente", correct: false, feedback: "Cuidado. La hipertensión permisiva es aceptable hasta 220/120 si no se usa tPA. Primero diagnostica." }
+                        ]
+                    },
+                    {
+                        question: "La TAC Simple muestra: Sin hemorragia. Signo de ACM hiperdensa izquierda. ASPECTS 10. ¿Cuál es el siguiente paso crítico antes de tratar?",
+                        options: [
+                            { text: "Revisar criterios de exclusión para tPA/TNK", correct: true, feedback: "Esencial. Chequear anticoagulantes previos, cirugías recientes, plaquetas, INR." },
+                            { text: "Esperar resultados de Troponinas", correct: false, feedback: "No retrases la reperfusión por laboratorios que no cambian el manejo agudo (a menos que sospeches disección aórtica etc)." },
+                            { text: "Realizar RMN completa", correct: false, feedback: "Demasiado lento. Estás en ventana de 90 minutos. La TC es suficiente para iniciar trombolisis." }
+                        ]
+                    },
+                    {
+                        question: "El paciente es candidato para Trombolisis IV. Su PA es 195/105. ¿Qué haces?",
+                        options: [
+                            { text: "Administrar tPA inmediatamente", correct: false, feedback: "Contraindicado. Para tPA la PA debe ser <185/110 para reducir riesgo de conversión hemorrágica." },
+                            { text: "Administrar Labetalol o Nicardipina para bajar PA <185/110", correct: true, feedback: "Excelente. Bajas la presión a rango seguro y luego administras el bolo." },
+                            { text: "Cancelar tPA por hipertensión", correct: false, feedback: "No. La PA es tratable. No niegues la cura por un signo vital manejable." }
+                        ]
+                    },
+                    {
+                        question: "Post-Trombolisis, el paciente deteriora. Cefalea intensa y vómito. ¿Sospecha?",
+                        options: [
+                            { text: "Conversión Hemorrágica", correct: true, feedback: "La complicación más temida. Detener infusión, TAC urgente, preparar crioprecipitados/TXA." },
+                            { text: "Reacción alérgica (Angioedema)", correct: false, feedback: "El angioedema causa hinchazón de lengua/labios (signo de Shrek), no típicamente cefalea/vómito súbito neurológico." },
+                            { text: "Nuevo infarto", correct: false, feedback: "Posible, pero la cefalea y vómito sugieren hipertensión intracraneal aguda por sangre." }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // --- COMPONENTS ---
+
+        const ProgressBar = ({ current, total }) => (
+            <div className="w-full bg-slate-700 h-2 rounded-full overflow-hidden mt-2">
+                <div
+                    className="bg-blue-500 h-full transition-all duration-500"
+                    style={{ width: `${(current / total) * 100}%` }}
+                ></div>
+            </div>
+        );
+
+        const Card = ({ children, className = "" }) => (
+            <div className={`glass-panel p-6 rounded-xl shadow-lg hover:shadow-blue-500/10 transition-all ${className}`}>
+                {children}
+            </div>
+        );
+
+        // --- MAIN APP COMPONENT ---
+
+        const App = () => {
+            const [view, setView] = useState('home'); // home, academy, simulation, reference
+            const [activeModule, setActiveModule] = useState(null);
+
+            // Simulation State
+            const [simState, setSimState] = useState({
+                activeScenario: 0,
+                step: 0,
+                score: 100, // Brain Health
+                feedback: null,
+                completed: false
+            });
+
+            const startSimulation = () => {
+                setSimState({
+                    activeScenario: 0,
+                    step: 0,
+                    score: 100,
+                    feedback: null,
+                    completed: false
+                });
+                setView('simulation');
+            };
+
+            const handleSimChoice = (option) => {
+                const isCorrect = option.correct;
+                const newScore = isCorrect ? simState.score : Math.max(0, simState.score - 20);
+
+                setSimState(prev => ({
+                    ...prev,
+                    score: newScore,
+                    feedback: {
+                        isCorrect,
+                        text: option.feedback
+                    }
+                }));
+            };
+
+            const nextSimStep = () => {
+                const currentScenario = SCENARIOS[simState.activeScenario];
+                if (simState.step + 1 < currentScenario.steps.length) {
+                    setSimState(prev => ({
+                        ...prev,
+                        step: prev.step + 1,
+                        feedback: null
+                    }));
+                } else {
+                    setSimState(prev => ({ ...prev, completed: true }));
+                }
+            };
+
+            // Views
+            const renderHome = () => (
+                <div className="flex flex-col items-center justify-center min-h-screen text-center px-4 space-y-8 max-w-4xl mx-auto">
+                    <div className="relative">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full blur opacity-75 animate-pulse"></div>
+                        <Brain className="relative w-24 h-24 text-white mb-4" />
+                    </div>
+
+                    <h1 className="text-5xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+                        NEURO QUEST
+                    </h1>
+                    <p className="text-xl text-slate-300 max-w-2xl">
+                        Protocolo Educativo Interactivo de Enfermedad Cerebrovascular Aguda.
+                        Basado en Ninja Nerd & Guías 2025.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-8">
+                        <button onClick={() => setView('academy')} className="group relative p-1 rounded-xl bg-gradient-to-b from-slate-700 to-slate-800 hover:from-blue-600 hover:to-blue-800 transition-all duration-300">
+                            <div className="bg-slate-900 h-full w-full rounded-lg p-6 flex flex-col items-center group-hover:bg-opacity-80 transition">
+                                <BookOpen className="w-10 h-10 mb-4 text-blue-400 group-hover:scale-110 transition-transform" />
+                                <h3 className="text-xl font-bold">La Academia</h3>
+                                <p className="text-sm text-slate-400 mt-2">Etiología, Fisiopatología y Diagnóstico.</p>
+                            </div>
+                        </button>
+
+                        <button onClick={startSimulation} className="group relative p-1 rounded-xl bg-gradient-to-b from-slate-700 to-slate-800 hover:from-red-600 hover:to-red-800 transition-all duration-300">
+                            <div className="bg-slate-900 h-full w-full rounded-lg p-6 flex flex-col items-center group-hover:bg-opacity-80 transition">
+                                <Activity className="w-10 h-10 mb-4 text-red-400 group-hover:scale-110 transition-transform animate-pulse" />
+                                <h3 className="text-xl font-bold">Simulación</h3>
+                                <p className="text-sm text-slate-400 mt-2">Código Ictus: Salva al paciente virtual.</p>
+                            </div>
+                        </button>
+
+                        <button onClick={() => setView('reference')} className="group relative p-1 rounded-xl bg-gradient-to-b from-slate-700 to-slate-800 hover:from-green-600 hover:to-green-800 transition-all duration-300">
+                            <div className="bg-slate-900 h-full w-full rounded-lg p-6 flex flex-col items-center group-hover:bg-opacity-80 transition">
+                                <FileText className="w-10 h-10 mb-4 text-green-400 group-hover:scale-110 transition-transform" />
+                                <h3 className="text-xl font-bold">Data Bank</h3>
+                                <p className="text-sm text-slate-400 mt-2">Dosis, Escalas NIHSS y Guías Rápidas.</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            );
+
+            const renderAcademy = () => (
+                <div className="max-w-6xl mx-auto p-4 pt-20">
+                    <button onClick={() => setView('home')} className="mb-6 flex items-center text-slate-400 hover:text-white transition">
+                        <ChevronRight className="w-4 h-4 rotate-180 mr-1" /> Volver al Inicio
+                    </button>
+
+                    <h2 className="text-3xl font-bold mb-8 flex items-center">
+                        <BookOpen className="mr-3 text-blue-400" /> Academia de Neurología
+                    </h2>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        {/* Sidebar Menu */}
+                        <div className="lg:col-span-3 space-y-2">
+                            {ACADEMY_CONTENT.map(module => (
+                                <button
+                                    key={module.id}
+                                    onClick={() => setActiveModule(module.id)}
+                                    className={`w-full text-left p-4 rounded-lg flex items-center transition-all ${activeModule === module.id ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'}`}
+                                >
+                                    <div className="mr-3">{module.icon}</div>
+                                    <span className="font-semibold">{module.title.split(':')[0]}</span>
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Content Area */}
+                        <div className="lg:col-span-9 min-h-[500px]">
+                            {activeModule ? (
+                                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    {ACADEMY_CONTENT.find(m => m.id === activeModule).sections.map((section, idx) => (
+                                        <Card key={idx}>
+                                            <h3 className="text-xl font-bold text-cyan-400 mb-3">{section.title}</h3>
+                                            <p className="text-lg mb-4 text-slate-200">{section.content}</p>
+                                            <ul className="space-y-2">
+                                                {section.details.map((detail, dIdx) => (
+                                                    <li key={dIdx} className="flex items-start text-slate-400 text-sm">
+                                                        <div className="min-w-[6px] h-[6px] rounded-full bg-blue-500 mt-2 mr-3"></div>
+                                                        {detail}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </Card>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="flex flex-col items-center justify-center h-full text-slate-500 border-2 border-dashed border-slate-700 rounded-xl p-12">
+                                    <Brain className="w-16 h-16 mb-4 opacity-50" />
+                                    <p className="text-xl">Selecciona un módulo para comenzar el estudio.</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderSimulation = () => {
+                const scenario = SCENARIOS[simState.activeScenario];
+                const currentStep = scenario.steps[simState.step];
+
+                if (simState.completed) {
+                    return (
+                        <div className="flex flex-col items-center justify-center min-h-screen p-4 max-w-2xl mx-auto text-center">
+                            <div className="mb-8 p-8 bg-slate-800 rounded-2xl shadow-2xl border border-green-500/30">
+                                <h2 className="text-4xl font-bold text-green-400 mb-4">¡Caso Completado!</h2>
+                                <p className="text-xl text-slate-300 mb-6">Resultados de la perfusión cerebral:</p>
+
+                                <div className="w-full h-8 bg-slate-900 rounded-full mb-6 overflow-hidden relative">
+                                    <div
+                                        className={`h-full transition-all duration-1000 ${simState.score > 70 ? 'bg-green-500' : simState.score > 40 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                                        style={{ width: `${simState.score}%` }}
+                                    ></div>
+                                    <div className="absolute inset-0 flex items-center justify-center font-bold text-shadow">
+                                        {simState.score}% Tejido Salvado
+                                    </div>
+                                </div>
+
+                                <p className="text-slate-400 mb-8">
+                                    {simState.score > 80 ? "¡Excelente trabajo, Doctor! Has salvado la penumbra isquémica." :
+                                        simState.score > 50 ? "Buen intento, pero hubo retrasos en el manejo. Repasa el protocolo." :
+                                            "El paciente sufrió daño significativo. Necesitas estudiar la academia."}
+                                </p>
+
+                                <button onClick={() => setView('home')} className="px-8 py-3 bg-blue-600 hover:bg-blue-500 rounded-full font-bold transition">
+                                    Volver al Lobby
+                                </button>
+                            </div>
+                        </div>
+                    );
+                }
+
+                return (
+                    <div className="max-w-4xl mx-auto p-4 pt-10 min-h-screen flex flex-col">
+                        {/* Header Stats */}
+                        <div className="flex justify-between items-center mb-6 bg-slate-900/80 p-4 rounded-xl backdrop-blur sticky top-4 z-10 border border-slate-700">
+                            <div className="flex items-center space-x-4">
+                                <div className="flex items-center text-red-400">
+                                    <Heart className="w-5 h-5 mr-2 animate-pulse" />
+                                    <span className="font-mono">{scenario.vitals.BP} | {scenario.vitals.HR} bpm</span>
+                                </div>
+                                <div className="h-6 w-px bg-slate-700"></div>
+                                <div className="flex items-center text-blue-400">
+                                    <Activity className="w-5 h-5 mr-2" />
+                                    <span className="font-mono">NIHSS: Severo</span>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="mr-3 text-right">
+                                    <p className="text-xs text-slate-400 uppercase tracking-wider">Viabilidad Cerebral</p>
+                                    <div className="w-32 bg-slate-800 h-2 rounded-full mt-1">
+                                        <div className={`h-full rounded-full transition-all duration-500 ${simState.score > 50 ? 'bg-green-500' : 'bg-red-500'}`} style={{ width: `${simState.score}%` }}></div>
+                                    </div>
+                                </div>
+                                <Brain className={`w-8 h-8 ${simState.score < 50 ? 'text-red-500 animate-pulse' : 'text-green-500'}`} />
+                            </div>
+                        </div>
+
+                        {/* Scenario Brief */}
+                        {!simState.feedback && simState.step === 0 && (
+                            <div className="bg-slate-800 p-6 rounded-xl border border-blue-500/30 mb-8 animate-in fade-in slide-in-from-top-4">
+                                <div className="flex items-start">
+                                    <AlertTriangle className="w-10 h-10 text-yellow-500 mr-4 flex-shrink-0" />
+                                    <div>
+                                        <h3 className="text-xl font-bold text-white mb-2">{scenario.title}</h3>
+                                        <p className="text-slate-300 mb-2">{scenario.brief}</p>
+                                        <p className="text-slate-400 italic">"{scenario.description}"</p>
+                                        <div className="mt-4 p-3 bg-black/30 rounded border-l-4 border-yellow-500">
+                                            <p className="text-sm font-mono text-yellow-200">Examen: {scenario.initialExam}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Question Area */}
+                        <div className="flex-1">
+                            <div className="mb-6">
+                                <h3 className="text-2xl font-bold text-white mb-6 leading-tight">
+                                    {currentStep.question}
+                                </h3>
+
+                                {!simState.feedback ? (
+                                    <div className="grid gap-4">
+                                        {currentStep.options.map((option, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => handleSimChoice(option)}
+                                                className="text-left p-5 rounded-xl bg-slate-800 border border-slate-700 hover:border-blue-500 hover:bg-slate-750 transition-all duration-200 flex items-center group"
+                                            >
+                                                <div className="w-8 h-8 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center mr-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                                    {String.fromCharCode(65 + idx)}
+                                                </div>
+                                                <span className="text-lg text-slate-200 group-hover:text-white">{option.text}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className={`p-6 rounded-xl border-2 ${simState.feedback.isCorrect ? 'bg-green-900/20 border-green-500/50' : 'bg-red-900/20 border-red-500/50'} animate-in zoom-in-95 duration-300`}>
+                                        <div className="flex items-center mb-4">
+                                            {simState.feedback.isCorrect ? (
+                                                <CheckCircle className="w-8 h-8 text-green-400 mr-3" />
+                                            ) : (
+                                                <XCircle className="w-8 h-8 text-red-400 mr-3" />
+                                            )}
+                                            <h4 className={`text-xl font-bold ${simState.feedback.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+                                                {simState.feedback.isCorrect ? "Decisión Correcta" : "Decisión Incorrecta"}
+                                            </h4>
+                                        </div>
+                                        <p className="text-lg text-slate-200 mb-6 leading-relaxed">
+                                            {simState.feedback.text}
+                                        </p>
+                                        <button
+                                            onClick={nextSimStep}
+                                            className="px-6 py-3 bg-slate-100 text-slate-900 rounded-lg font-bold hover:bg-white transition flex items-center"
+                                        >
+                                            {simState.step + 1 < scenario.steps.length ? 'Siguiente Paso' : 'Ver Resultados'} <ChevronRight className="ml-2 w-4 h-4" />
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderReference = () => (
+                <div className="max-w-4xl mx-auto p-4 pt-20">
+                    <button onClick={() => setView('home')} className="mb-6 flex items-center text-slate-400 hover:text-white transition">
+                        <ChevronRight className="w-4 h-4 rotate-180 mr-1" /> Volver al Inicio
+                    </button>
+                    <h2 className="text-3xl font-bold mb-8 flex items-center text-green-400">
+                        <FileText className="mr-3" /> Data Bank & Guías Rápidas
+                    </h2>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Card>
+                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Syringe className="mr-2 text-pink-400" /> Trombolisis (tPA/Alteplase)</h3>
+                            <ul className="space-y-3 text-slate-300 text-sm">
+                                <li className="flex justify-between border-b border-slate-700 pb-2">
+                                    <span>Dosis Total</span>
+                                    <span className="font-mono text-white">0.9 mg/kg (Max 90mg)</span>
+                                </li>
+                                <li className="flex justify-between border-b border-slate-700 pb-2">
+                                    <span>Administración</span>
+                                    <span className="font-mono text-white">10% Bolo (1 min), 90% Infusión (1 hr)</span>
+                                </li>
+                                <li className="flex justify-between border-b border-slate-700 pb-2">
+                                    <span>Ventana</span>
+                                    <span className="font-mono text-white">&lt; 3 hrs (Estándar) / 3-4.5 hrs (Selectos)</span>
+                                </li>
+                                <li className="bg-red-900/30 p-2 rounded border border-red-500/30 text-red-200 mt-2">
+                                    <AlertTriangle className="w-4 h-4 inline mr-1" />
+                                    PA debe ser &lt; 185/110 mmHg ANTES del bolo.
+                                </li>
+                            </ul>
+                        </Card>
+
+                        <Card>
+                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Thermometer className="mr-2 text-blue-400" /> Manejo de Presión Arterial</h3>
+                            <div className="space-y-4">
+                                <div>
+                                    <h4 className="font-bold text-blue-300 text-sm mb-1">Candidatos a tPA</h4>
+                                    <p className="text-slate-400 text-sm">Pre-tratamiento: &lt; 185/110</p>
+                                    <p className="text-slate-400 text-sm">Post-tratamiento (24h): &lt; 180/105</p>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-yellow-300 text-sm mb-1">NO Candidatos a tPA</h4>
+                                    <p className="text-slate-400 text-sm">Hipertensión Permisiva hasta 220/120.</p>
+                                    <p className="text-xs text-slate-500">Solo tratar si &gt;220/120 o daño a órgano diana (IAM, Aorta, Eclampsia).</p>
+                                </div>
+                                <div className="pt-2 border-t border-slate-700">
+                                    <p className="text-xs text-slate-400">Fármacos: Labetalol 10-20mg IV, Nicardipina 5mg/h IV.</p>
+                                </div>
+                            </div>
+                        </Card>
+
+                        <Card className="md:col-span-2">
+                            <h3 className="text-xl font-bold text-white mb-4 flex items-center"><Activity className="mr-2 text-purple-400" /> Escala NIHSS (Resumen)</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-slate-300">
+                                <div className="bg-slate-800 p-3 rounded">1a-c. Conciencia</div>
+                                <div className="bg-slate-800 p-3 rounded">2. Mirada (Ojos)</div>
+                                <div className="bg-slate-800 p-3 rounded">3. Campos Visuales</div>
+                                <div className="bg-slate-800 p-3 rounded">4. Parálisis Facial</div>
+                                <div className="bg-slate-800 p-3 rounded">5-6. Motor (Brazos/Piernas)</div>
+                                <div className="bg-slate-800 p-3 rounded">7. Ataxia</div>
+                                <div className="bg-slate-800 p-3 rounded">8. Sensibilidad</div>
+                                <div className="bg-slate-800 p-3 rounded">9. Lenguaje (Afasia)</div>
+                            </div>
+                            <p className="mt-4 text-xs text-slate-500 text-center">Puntaje &gt; 25: Infarto muy severo (Precaución con tPA por riesgo hemorrágico).</p>
+                        </Card>
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className="bg-[#0f172a] min-h-screen text-slate-200 font-sans selection:bg-blue-500 selection:text-white pb-10">
+                    {/* Background Grid */}
+                    <div className="fixed inset-0 z-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(30, 58, 138, 0.15) 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+
+                    {/* Navigation */}
+                    <nav className="relative z-10 border-b border-slate-800 bg-slate-900/50 backdrop-blur-md">
+                        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+                            <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setView('home')}>
+                                <Brain className="text-blue-500 w-6 h-6" />
+                                <span className="font-bold text-lg tracking-tight">Neuro<span className="text-blue-400">Quest</span></span>
+                            </div>
+                            <div className="hidden md:flex space-x-6 text-sm font-medium text-slate-400">
+                                <a href="../neurologia.html" className="hover:text-white transition flex items-center">
+                                    <ChevronRight className="w-4 h-4 rotate-180 mr-1" /> Volver al Hub
+                                </a>
+                                <button onClick={() => setView('academy')} className={`hover:text-blue-400 transition ${view === 'academy' ? 'text-blue-400' : ''}`}>Academia</button>
+                                <button onClick={startSimulation} className={`hover:text-red-400 transition ${view === 'simulation' ? 'text-red-400' : ''}`}>Simulación</button>
+                                <button onClick={() => setView('reference')} className={`hover:text-green-400 transition ${view === 'reference' ? 'text-green-400' : ''}`}>Guías</button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Dynamic View */}
+                    <main className="relative z-10">
+                        {view === 'home' && renderHome()}
+                        {view === 'academy' && renderAcademy()}
+                        {view === 'simulation' && renderSimulation()}
+                        {view === 'reference' && renderReference()}
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
