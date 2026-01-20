@@ -1,358 +1,325 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Autoevaluación: Neurología - Epilepsia II</title>
+  <title>Autoevaluación: Epilepsia II - Power Semiotics</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap"
     rel="stylesheet">
-  <link href="../../assets/tailwind.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* Scrollbar Premium */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+    /* Animaciones */
+    .slide-container {
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    ::-webkit-scrollbar-track {
-      background: #020617;
+    /* Estilos para Feedback */
+    .feedback-enter {
+      animation: fadeIn 0.4s ease-out forwards;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: #1e293b;
-      border-radius: 4px;
-      border: 1px solid #0f172a;
-    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: #334155;
-    }
-
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { slate: { 950: '#020617' } }
+        }
+      }
+    }
+  </script>
 </head>
 
 <body
-  class="bg-slate-950 text-slate-200 font-sans antialiased selection:bg-cyan-500 selection:text-white overflow-hidden">
-  <div class="relative w-full h-screen flex flex-col">
-    <!-- Background Gradients -->
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-      <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-900/10 rounded-full blur-[120px]"></div>
-      <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-900/10 rounded-full blur-[120px]"></div>
+  class="bg-slate-950 text-slate-200 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white overflow-hidden">
+
+  <div class="fixed top-0 left-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html"
+        class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Salir
+      </a>
+      <div class="text-xs font-mono text-cyan-400 tracking-widest uppercase">Evaluación Clínica</div>
     </div>
-    <!-- Contenedor del Slider -->
-    <div id="slider-container" class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar">
-      <!-- Slide 0: Pantalla de Inicio -->
-      <div id="slide-0" class="slide w-full h-full flex items-center justify-center p-8">
-        <div
-          class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 p-8 md:p-12 rounded-3xl shadow-2xl text-center max-w-2xl relative overflow-hidden group">
-          <div
-            class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
-          </div>
-          <h1 class="text-4xl font-extrabold text-white mb-2 tracking-tight">
-            Autoevaluación Formativa
-          </h1>
-          <p class="text-xl text-cyan-400 font-semibold mb-6">
-            Neurología - Módulo Epilepsia II
-          </p>
-          <p class="mb-8 text-lg text-slate-400 leading-relaxed">
-            Evalúa tu conocimiento sobre el manejo del estado epiléptico y el
-            tratamiento crónico de la epilepsia.
-          </p>
-          <button onclick="scrollToSlide(1)"
-            class="w-full bg-cyan-600 text-white font-extrabold py-4 px-8 rounded-2xl shadow-lg shadow-cyan-500/20 hover:bg-cyan-500 hover:shadow-cyan-500/40 transition-all transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3 group">
-            Comenzar Evaluación
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-          </button>
-          <a href="index.html"
-            class="mt-6 block text-slate-500 hover:text-cyan-400 transition-colors text-sm font-medium">← Volver al menú
-            del módulo</a>
-        </div>
-      </div>
-
-      <!-- Slides de Preguntas se generarán con JS -->
-
-      <!-- Slide Final: Resultados -->
-      <div id="slide-results" class="slide w-full h-full flex items-center justify-center p-8">
-        <div
-          class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 p-8 md:p-12 rounded-3xl shadow-2xl text-center max-w-2xl">
-          <h1 class="text-4xl font-extrabold text-white mb-8 tracking-tight">
-            Evaluación Completada
-          </h1>
-          <div id="score-circle"
-            class="w-40 h-40 rounded-full mx-auto flex flex-col items-center justify-center text-5xl font-black text-white mb-8 bg-slate-800 border-4 border-slate-700 shadow-[0_0_50px_rgba(0,0,0,0.5)] transition-all duration-1000">
-          </div>
-          <p id="score-text" class="text-xl text-slate-200 font-bold mb-2"></p>
-          <p id="result-message" class="text-lg text-slate-400 mb-10 leading-relaxed"></p>
-          <button onclick="restartQuiz()"
-            class="w-full bg-slate-800 border border-slate-700 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:border-cyan-500 transition-all text-lg">
-            Intentar de Nuevo
-          </button>
-          <a href="index.html"
-            class="mt-6 block text-slate-500 hover:text-cyan-400 transition-colors text-sm font-medium">← Volver al menú
-            del módulo</a>
-        </div>
-      </div>
+    <div class="w-full h-1 bg-slate-800">
+      <div id="global-progress" class="h-full bg-cyan-500 transition-all duration-500" style="width: 0%"></div>
     </div>
   </div>
+
+  <main class="flex-1 w-full max-w-3xl mx-auto flex flex-col justify-center px-4 py-20 relative">
+
+    <div class="overflow-hidden w-full relative">
+      <div id="slides-wrapper" class="flex w-full slide-container">
+
+        <div class="min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center text-center">
+          <div
+            class="bg-slate-900 border border-slate-800 p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden max-w-lg w-full">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-500 to-blue-600"></div>
+
+            <div
+              class="w-20 h-20 bg-cyan-900/20 rounded-2xl flex items-center justify-center mx-auto mb-8 text-cyan-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+              Test de Certificación
+            </h1>
+            <p class="text-lg text-slate-400 mb-8">
+              Neurología Módulo 6: <br />
+              <span class="text-white font-semibold">Manejo Avanzado de Epilepsia</span>
+            </p>
+
+            <div
+              class="space-y-4 text-left bg-slate-950/50 p-6 rounded-xl border border-slate-800 mb-8 text-sm text-slate-400">
+              <div class="flex gap-3"><span class="text-cyan-500 font-bold">5</span> Preguntas de selección múltiple.
+              </div>
+              <div class="flex gap-3"><span class="text-cyan-500 font-bold">80%</span> Mínimo para aprobar.</div>
+              <div class="flex gap-3"><span class="text-cyan-500 font-bold">Feedback</span> Inmediato tras cada
+                respuesta.</div>
+            </div>
+
+            <button onclick="startQuiz()"
+              class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-cyan-900/20 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+              Comenzar Evaluación
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
 
   <script>
     const quizData = [
       {
-        question:
-          'Un hombre de 40 años es traído a emergencias con una crisis tónico-clónica que ha durado 10 minutos. El equipo logra canalizar una vía IV. ¿Cuál es la intervención farmacológica de primera línea más apropiada en este momento?',
+        question: "Paciente masculino de 40 años en Estado Epiléptico (10 min de duración). Ya tiene vía IV. ¿Cuál es el fármaco de PRIMERA LÍNEA?",
         options: [
-          'Dosis de carga de Fenitoína IV.',
-          'Infusión continua de Propofol.',
-          'Inyección de Lorazepam IV.',
-          'Inyección de Levetiracetam IM.',
+          "Fenitoína IV (Carga)",
+          "Propofol en infusión",
+          "Lorazepam o Diazepam IV",
+          "Levetiracetam IM"
         ],
-        correctAnswerIndex: 2,
-        explanations: [
-          '<b>Incorrecto.</b> La Fenitoína es un fármaco de segunda línea, que se utiliza si las benzodiacepinas (primera línea) no logran detener la crisis.',
-          '<b>Incorrecto.</b> El Propofol es un anestésico general reservado para el estado epiléptico refractario (tercera línea), que requiere manejo en UCI e intubación.',
-          '<b>Correcto.</b> Las benzodiacepinas intravenosas, como el Lorazepam o el Diazepam, son el tratamiento de emergencia de primera elección para yugular una crisis en un estado epiléptico establecido (definido a los 5 min).',
-          '<b>Incorrecto.</b> Aunque el Levetiracetam es un FAE de segunda línea IV, la vía intramuscular (IM) no es la de elección en este escenario. El Midazolam IM es una alternativa si no se logra un acceso IV.',
-        ],
+        correct: 2,
+        explanation: "Las benzodiacepinas IV (Lorazepam/Diazepam) son el tratamiento estándar (Fase 1/2) para yugular la crisis. La Fenitoína es segunda línea."
       },
       {
-        question:
-          'Una mujer de 22 años es diagnosticada con Epilepsia Mioclónica Juvenil (EMJ). ¿Cuál de los siguientes fármacos antiepilépticos es la opción de tratamiento más adecuada y específica para su síndrome?',
+        question: "Mujer de 22 años con Epilepsia Mioclónica Juvenil (EMJ). ¿Qué fármaco es el más adecuado (Gold Standard)?",
         options: [
-          'Carbamazepina.',
-          'Etosuximida.',
-          'Ácido Valproico.',
-          'Gabapentina.',
+          "Carbamazepina",
+          "Etosuximida",
+          "Ácido Valproico",
+          "Gabapentina"
         ],
-        correctAnswerIndex: 2,
-        explanations: [
-          '<b>Incorrecto.</b> La Carbamazepina es un fármaco excelente para crisis focales, pero es conocido por empeorar las crisis mioclónicas, por lo que está contraindicado en la EMJ.',
-          '<b>Incorrecto.</b> La Etosuximida es el fármaco de elección para las crisis de ausencia puras, pero no es eficaz para las crisis mioclónicas o tónico-clónicas que también ocurren en la EMJ.',
-          '<b>Correcto.</b> El Ácido Valproico es el fármaco de primera línea para la EMJ porque es de amplio espectro y muy eficaz contra los tres tipos de crisis de este síndrome: mioclónicas, tónico-clónicas y ausencias.',
-          '<b>Incorrecto.</b> La Gabapentina se usa principalmente para el dolor neuropático y como coadyuvante en crisis focales, pero no es un tratamiento de primera línea para síndromes generalizados como la EMJ.',
-        ],
+        correct: 2,
+        explanation: "El Ácido Valproico es de amplio espectro y cubre mioclonías, ausencias y tónico-clónicas. La Carbamazepina EMPEORA las mioclonías."
       },
       {
-        question:
-          'Un paciente en tratamiento por un estado epiléptico recibió dos dosis de diazepam sin éxito. Se decide administrar una dosis de carga de Fenitoína IV. ¿Qué parámetro se debe monitorizar de forma estricta durante la infusión?',
+        question: "Al administrar una carga de Fenitoína IV, ¿qué parámetros vitales requieren monitorización estricta?",
         options: [
-          'Niveles de glucosa sérica.',
-          'Presión arterial y electrocardiograma (ECG).',
-          'Conteo de plaquetas.',
-          'Función hepática.',
+          "Glucosa capilar",
+          "Presión Arterial y ECG",
+          "Plaquetas",
+          "Enzimas hepáticas"
         ],
-        correctAnswerIndex: 1,
-        explanations: [
-          '<b>Incorrecto.</b> La glucosa se mide al inicio para descartar hipoglicemia como causa de la crisis, pero no es el parámetro principal a monitorizar durante la infusión de Fenitoína.',
-          '<b>Correcto.</b> La Fenitoína puede causar efectos cardiovasculares adversos, como hipotensión severa y arritmias cardíacas (ej. bradicardia), especialmente si se administra rápidamente. Por ello, la monitorización continua de la presión arterial y el ECG es mandatoria.',
-          '<b>Incorrecto.</b> Aunque algunos FAE pueden afectar las plaquetas a largo plazo, no es una monitorización crítica durante una infusión de carga de emergencia.',
-          '<b>Incorrecto.</b> La toxicidad hepática es una preocupación con algunos FAE a largo plazo (como el Ácido Valproico), pero no es el riesgo agudo principal durante la infusión de Fenitoína.',
-        ],
+        correct: 1,
+        explanation: "La Fenitoína IV rápida puede causar hipotensión severa y arritmias (bradicardia/bloqueo AV). Requiere monitorización cardíaca."
       },
       {
-        question:
-          'Un paciente con epilepsia focal bien controlada con Carbamazepina presenta un episodio de sacudidas mioclónicas generalizadas. Un neurólogo decide cambiar el tratamiento. ¿Cuál es la razón más probable para este cambio?',
+        question: "Paciente con epilepsia focal inicia Carbamazepina y desarrolla mioclonías súbitas. ¿Cuál es la causa probable?",
         options: [
-          'La Carbamazepina es muy costosa.',
-          'La Carbamazepina puede empeorar las crisis mioclónicas.',
-          'La Carbamazepina no tiene efecto en el cerebro.',
-          'El paciente desarrolló una alergia súbita.',
+          "Efecto adverso idiosincrático",
+          "La Carbamazepina exacerba mioclonías",
+          "Dosis insuficiente",
+          "Reacción alérgica"
         ],
-        correctAnswerIndex: 1,
-        explanations: [
-          '<b>Incorrecto.</b> El costo no es la razón clínica principal para el cambio en este escenario específico.',
-          '<b>Correcto.</b> Es un principio farmacológico clave que ciertos FAE, especialmente los bloqueadores de canales de sodio como la Carbamazepina y la Lamotrigina, pueden paradójicamente exacerbar o provocar ciertos tipos de crisis generalizadas, como las mioclonías.',
-          '<b>Incorrecto.</b> La Carbamazepina es muy efectiva, pero su mecanismo de acción la hace específica para ciertos tipos de crisis (focales) e inadecuada para otros.',
-          '<b>Incorrecto.</b> Aunque una alergia es una razón para cambiar un fármaco, la aparición de un nuevo tipo de crisis específico (mioclonías) apunta a una razón farmacodinámica, no a una reacción alérgica.',
-        ],
+        correct: 1,
+        explanation: "Los bloqueadores de canales de sodio (Carbamazepina, Oxcarbazepina) pueden empeorar o desenmascarar crisis mioclónicas."
       },
       {
-        question:
-          'Según la definición operacional del estado epiléptico, ¿a partir de qué duración de una crisis convulsiva tónico-clónica se debe iniciar el tratamiento farmacológico de emergencia (tiempo T1)?',
-        options: ['1 minuto.', '5 minutos.', '15 minutos.', '30 minutos.'],
-        correctAnswerIndex: 1,
-        explanations: [
-          '<b>Incorrecto.</b> Un minuto es muy poco tiempo; la mayoría de las crisis tónico-clónicas duran entre 1 y 3 minutos y se autolimitan.',
-          '<b>Correcto.</b> El tiempo T1 es el punto en el que se considera que los mecanismos intrínsecos de terminación de la crisis han fallado y se requiere intervención farmacológica inmediata para prevenir que se perpetúe. Para las crisis tónico-clónicas, este umbral es de 5 minutos.',
-          '<b>Incorrecto.</b> Esperar 15 minutos retrasa peligrosamente el tratamiento y aumenta el riesgo de que el estado epiléptico se vuelva refractario.',
-          '<b>Incorrecto.</b> Este es el tiempo T2, el punto a partir del cual se considera que existe un riesgo inminente de daño neuronal a largo plazo, no el punto de inicio del tratamiento.',
+        question: "¿Cuál es el tiempo T1 (inicio de tratamiento) definido para un Estado Epiléptico Convulsivo?",
+        options: [
+          "1 minuto",
+          "5 minutos",
+          "15 minutos",
+          "30 minutos"
         ],
-      },
+        correct: 1,
+        explanation: "A los 5 minutos (T1) fallan los mecanismos inhibitorios y la crisis raramente para sola. Se debe tratar inmediatamente."
+      }
     ];
 
-    const sliderContainer = document.getElementById('slider-container');
-    const totalQuestions = quizData.length;
+    const wrapper = document.getElementById('slides-wrapper');
+    const progressBar = document.getElementById('global-progress');
+    let currentSlide = 0;
     let score = 0;
 
-    function buildQuiz() {
-      const resultsSlide = document.getElementById('slide-results');
-      quizData.forEach((q, index) => {
+    function startQuiz() {
+      buildQuizDOM();
+      goToSlide(1);
+    }
+
+    function buildQuizDOM() {
+      // Generar slides de preguntas
+      quizData.forEach((q, idx) => {
         const slide = document.createElement('div');
-        slide.id = `slide-${index + 1}`;
-        slide.className =
-          'slide w-full h-full flex items-center justify-center p-4 md:p-8';
+        slide.className = 'min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center';
         slide.innerHTML = `
-                    <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 p-8 rounded-3xl shadow-2xl w-full max-w-2xl relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-30"></div>
-                        <div class="mb-8">
-                            <span class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4">Pregunta ${index + 1} / ${totalQuestions}</span>
-                            <h2 class="text-2xl font-bold text-white mt-2 leading-tight tracking-tight">${q.question}</h2>
+                    <div class="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-10 shadow-xl">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-cyan-500 font-bold text-sm tracking-widest uppercase">Pregunta ${idx + 1} / ${quizData.length}</span>
                         </div>
-                        <div id="options-container-${index}" class="space-y-3">
-                            ${q.options
-            .map(
-              (option, i) => `
-                                <button onclick="selectAnswer(${index}, ${i})" class="option-button w-full text-left p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500 hover:pl-6 transition-all group flex items-start gap-4">
-                                    <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center text-cyan-500 font-bold group-hover:bg-cyan-500 group-hover:text-white transition-colors">${String.fromCharCode(65 + i)}</span>
-                                    <span class="text-slate-300 group-hover:text-white transition-colors text-base font-medium pt-1">${option}</span>
+                        
+                        <h2 class="text-xl md:text-2xl font-bold text-white mb-8 leading-relaxed">
+                            ${q.question}
+                        </h2>
+
+                        <div class="space-y-3" id="options-${idx}">
+                            ${q.options.map((opt, optIdx) => `
+                                <button onclick="handleAnswer(${idx}, ${optIdx})" class="w-full text-left p-5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 hover:border-cyan-500 transition-all group flex items-start gap-4">
+                                    <span class="flex-shrink-0 w-8 h-8 rounded-full border border-slate-600 flex items-center justify-center text-slate-400 group-hover:border-cyan-500 group-hover:text-cyan-500 text-sm font-bold transition-colors">
+                                        ${String.fromCharCode(65 + optIdx)}
+                                    </span>
+                                    <span class="text-slate-300 group-hover:text-white pt-1">${opt}</span>
                                 </button>
-                            `,
-            )
-            .join('')}
+                            `).join('')}
                         </div>
-                        <div id="feedback-container-${index}" class="mt-6 space-y-2 hidden">
-                           ${q.explanations
-            .map(
-              (exp, i) => `
-                                <div id="feedback-${index}-${i}" class="feedback-box p-3 rounded-lg text-base">
-                                     <span class="font-bold mr-2">${String.fromCharCode(65 + i)}.</span> <span class="feedback-content">${exp}</span>
-                                </div>
-                           `,
-            )
-            .join('')}
+
+                        <div id="feedback-${idx}" class="hidden mt-6 p-5 rounded-xl bg-slate-800 border animate-fade-in">
+                            </div>
+
+                        <div id="nav-${idx}" class="hidden mt-6 flex justify-end">
+                            <button onclick="goToSlide(${idx + 2})" class="bg-white text-slate-900 hover:bg-slate-200 font-bold py-3 px-8 rounded-lg shadow-lg transition-colors">
+                                ${idx === quizData.length - 1 ? 'Ver Resultados' : 'Siguiente Pregunta →'}
+                            </button>
                         </div>
                     </div>
                 `;
-        sliderContainer.insertBefore(slide, resultsSlide);
+        wrapper.appendChild(slide);
       });
+
+      // Generar Slide de Resultados
+      const resultSlide = document.createElement('div');
+      resultSlide.id = 'result-slide';
+      resultSlide.className = 'min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center';
+      wrapper.appendChild(resultSlide);
     }
 
-    function selectAnswer(questionIndex, selectedIndex) {
-      const question = quizData[questionIndex];
-      const optionsContainer = document.getElementById(
-        `options-container-${questionIndex}`,
-      );
-      const feedbackContainer = document.getElementById(
-        `feedback-container-${questionIndex}`,
-      );
-      const isCorrect = selectedIndex === question.correctAnswerIndex;
+    function handleAnswer(qIdx, optIdx) {
+      const btns = document.getElementById(`options-${qIdx}`).children;
+      const feedbackEl = document.getElementById(`feedback-${qIdx}`);
+      const navEl = document.getElementById(`nav-${qIdx}`);
+      const question = quizData[qIdx];
+      const isCorrect = optIdx === question.correct;
 
-      if (optionsContainer.dataset.answered) return;
-      optionsContainer.dataset.answered = 'true';
+      // Bloquear botones
+      for (let btn of btns) {
+        btn.disabled = true;
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
 
+      // Resaltar selección
       if (isCorrect) {
+        btns[optIdx].classList.remove('opacity-50', 'bg-slate-800', 'border-slate-700');
+        btns[optIdx].classList.add('bg-green-900/30', 'border-green-500', 'ring-1', 'ring-green-500');
         score++;
+
+        feedbackEl.className = "mt-6 p-5 rounded-xl bg-green-900/20 border border-green-500/30 feedback-enter block";
+        feedbackEl.innerHTML = `<div class="text-green-400 font-bold mb-1 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> ¡Correcto!</div><p class="text-slate-300 text-sm">${question.explanation}</p>`;
+      } else {
+        btns[optIdx].classList.remove('opacity-50', 'bg-slate-800', 'border-slate-700');
+        btns[optIdx].classList.add('bg-red-900/30', 'border-red-500');
+
+        // Mostrar la correcta también
+        btns[question.correct].classList.remove('opacity-50', 'bg-slate-800', 'border-slate-700');
+        btns[question.correct].classList.add('bg-green-900/30', 'border-green-500');
+
+        feedbackEl.className = "mt-6 p-5 rounded-xl bg-red-900/20 border border-red-500/30 feedback-enter block";
+        feedbackEl.innerHTML = `<div class="text-red-400 font-bold mb-1 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Incorrecto</div><p class="text-slate-300 text-sm">${question.explanation}</p>`;
       }
 
-      Array.from(optionsContainer.children).forEach((button, index) => {
-        const feedbackBox = document.getElementById(
-          `feedback-${questionIndex}-${index}`,
-        );
-        if (index === question.correctAnswerIndex) {
-          button.className =
-            'option-button w-full text-left p-4 rounded-xl border-2 text-base flex items-start gap-4 transition-all bg-green-500/10 border-green-500 text-green-300';
-          feedbackBox.className =
-            'feedback-box p-4 rounded-xl text-sm bg-green-500/5 text-green-400/80 border border-green-500/20';
-        } else if (index === selectedIndex) {
-          button.className =
-            'option-button w-full text-left p-4 rounded-xl border-2 text-base flex items-start gap-4 transition-all bg-red-500/10 border-red-500 text-red-300';
-          feedbackBox.className =
-            'feedback-box p-4 rounded-xl text-sm bg-red-500/5 text-red-400/80 border border-red-500/20';
-        } else {
-          button.className =
-            'option-button w-full text-left p-4 rounded-xl border border-slate-800 text-slate-600 opacity-40 flex items-start gap-4';
-          feedbackBox.className =
-            'feedback-box p-4 rounded-xl text-sm text-slate-700 grayscale';
-        }
-      });
-
-      feedbackContainer.classList.remove('hidden');
-
-      if (areAllQuestionsAnswered()) {
-        setTimeout(() => scrollToSlide(totalQuestions + 1), 3000);
-      }
+      navEl.classList.remove('hidden');
     }
 
-    function areAllQuestionsAnswered() {
-      for (let i = 0; i < totalQuestions; i++) {
-        if (
-          !document.getElementById(`options-container-${i}`).dataset.answered
-        ) {
-          return false;
-        }
+    function goToSlide(index) {
+      currentSlide = index;
+      const percent = index * -100;
+      wrapper.style.transform = `translateX(${percent}%)`;
+
+      // Actualizar barra de progreso
+      const progress = ((index - 1) / quizData.length) * 100;
+      if (index > 0) progressBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
+
+      if (index > quizData.length) {
+        showResults();
       }
-      showResults();
-      return true;
     }
 
     function showResults() {
-      const scoreCircle = document.getElementById('score-circle');
-      const scoreText = document.getElementById('score-text');
-      const resultMessage = document.getElementById('result-message');
-      const scorePercentage = Math.round((score / totalQuestions) * 100);
+      const resultSlide = document.getElementById('result-slide');
+      const percentage = Math.round((score / quizData.length) * 100);
+      let color = percentage >= 80 ? 'text-green-400' : (percentage >= 60 ? 'text-yellow-400' : 'text-red-400');
+      let message = percentage >= 80 ? '¡Excelente Trabajo!' : 'Sigue Repasando';
 
-      scoreCircle.textContent = `${scorePercentage}%`;
-      scoreText.textContent = `Tu calificación: ${score} de ${totalQuestions} correctas.`;
+      resultSlide.innerHTML = `
+                <div class="bg-slate-900 border border-slate-800 p-12 rounded-3xl shadow-2xl text-center max-w-lg w-full">
+                    <h2 class="text-3xl font-bold text-white mb-2">Evaluación Finalizada</h2>
+                    <p class="text-slate-400 mb-8">Resumen de rendimiento</p>
+                    
+                    <div class="w-32 h-32 rounded-full border-4 border-slate-800 flex items-center justify-center mx-auto mb-6 bg-slate-950 shadow-inner relative">
+                         <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#1e293b" stroke-width="8" />
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="8" stroke-dasharray="283" stroke-dashoffset="${283 - (283 * percentage / 100)}" class="${percentage >= 80 ? 'text-green-500' : (percentage >= 60 ? 'text-yellow-500' : 'text-red-500')} transition-all duration-1000" />
+                        </svg>
+                        <span class="text-3xl font-black ${color}">${percentage}%</span>
+                    </div>
 
-      if (scorePercentage === 100) {
-        scoreCircle.className =
-          'w-40 h-40 rounded-full mx-auto flex flex-col items-center justify-center text-5xl font-black text-white mb-8 bg-green-500 shadow-[0_0_50px_rgba(34,197,94,0.3)] ring-4 ring-green-500/20';
-        resultMessage.textContent =
-          '¡Excelente! Dominas el manejo de emergencias en epilepsia.';
-      } else if (scorePercentage >= 60) {
-        scoreCircle.className =
-          'w-40 h-40 rounded-full mx-auto flex flex-col items-center justify-center text-5xl font-black text-white mb-8 bg-yellow-500 shadow-[0_0_50px_rgba(234,179,8,0.3)] ring-4 ring-yellow-500/20';
-        resultMessage.textContent =
-          '¡Muy bien! Tienes una base sólida. Revisa las explicaciones para perfeccionar los detalles.';
-      } else {
-        scoreCircle.className =
-          'w-40 h-40 rounded-full mx-auto flex flex-col items-center justify-center text-5xl font-black text-white mb-8 bg-red-500 shadow-[0_0_50px_rgba(239,68,68,0.3)] ring-4 ring-red-500/20';
-        resultMessage.textContent =
-          'Sigue estudiando. Es crucial dominar estos protocolos. Revisa con atención las explicaciones.';
-      }
+                    <h3 class="text-2xl font-bold text-white mb-2">${message}</h3>
+                    <p class="text-slate-400 mb-8">Has respondido correctamente ${score} de ${quizData.length} preguntas.</p>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="location.reload()" class="p-4 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 transition-colors font-bold">
+                            Intentar de Nuevo
+                        </button>
+                        <a href="index.html" class="p-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white transition-colors font-bold flex items-center justify-center">
+                            Volver al Menú
+                        </a>
+                    </div>
+                </div>
+            `;
     }
-
-    function restartQuiz() {
-      score = 0;
-      for (let i = 0; i < totalQuestions; i++) {
-        const optionsCont = document.getElementById(`options-container-${i}`);
-        const feedbackCont = document.getElementById(
-          `feedback-container-${i}`,
-        );
-        delete optionsCont.dataset.answered;
-        feedbackCont.classList.add('hidden');
-        Array.from(optionsCont.children).forEach((button) => {
-          button.className =
-            'option-button w-full text-left p-4 bg-slate-800/50 border border-slate-700 rounded-xl hover:border-cyan-500 hover:pl-6 transition-all group flex items-start gap-4';
-        });
-      }
-      scrollToSlide(0);
-    }
-
-    function scrollToSlide(slideIndex) {
-      const slideWidth = sliderContainer.clientWidth;
-      sliderContainer.scrollTo({
-        left: slideIndex * slideWidth,
-        behavior: 'smooth',
-      });
-    }
-
-    buildQuiz();
   </script>
 </body>
 
