@@ -1,163 +1,201 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Actividad Interactiva: Caso Clínico de EE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap"
+  <title>Simulación Clínica: Status Epiléptico - Power Semiotics</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
     rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link href="../../assets/tailwind.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { slate: { 950: '#020617' } },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
+    /* Animaciones suaves para la entrada de eventos */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
 
-    .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    /* Scrollbar Premium */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #020617;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #1e293b;
-      border-radius: 4px;
-      border: 1px solid #0f172a;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #334155;
-    }
-
-    @keyframes pulse-red {
-
-      0%,
-      100% {
+      to {
         opacity: 1;
-      }
-
-      50% {
-        opacity: 0.5;
+        transform: translateX(0);
       }
     }
 
-    .animate-pulse-red {
-      animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    .timeline-item {
+      animation: slideIn 0.3s ease-out forwards;
+    }
+
+    /* Scrollbar oscura y delgada */
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
     }
   </style>
 </head>
 
-<body
-  class="bg-slate-950 text-slate-200 font-sans antialiased selection:bg-cyan-500 selection:text-white overflow-x-hidden">
-  <!-- Background Gradients -->
-  <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-    <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-900/10 rounded-full blur-[120px]"></div>
-    <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-900/10 rounded-full blur-[120px]"></div>
-  </div>
-  <div class="container mx-auto p-4 md:p-8 relative min-h-screen">
-    <header class="text-center mb-12">
-      <h1 class="text-4xl font-extrabold text-white">
-        Actividad Interactiva: Manejo del Estado Epiléptico
-      </h1>
-      <p class="text-lg text-gray-400 mt-2">
-        Toma decisiones críticas en una simulación de caso clínico.
-      </p>
-    </header>
+<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white">
 
-    <main class="grid lg:grid-cols-3 gap-8">
-      <div class="lg:col-span-1 space-y-6">
-        <div
-          class="bg-black border-4 border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden group hover:border-slate-700 transition-colors">
-          <div
-            class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50 animate-pulse">
-          </div>
+  <header class="fixed top-0 left-0 w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="index.html"
+        class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Salir
+      </a>
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+        <span class="text-xs font-mono text-red-400 uppercase tracking-widest font-bold">Simulación en Curso</span>
+      </div>
+    </div>
+  </header>
 
-          <div class="flex justify-between items-start mb-6">
+  <main
+    class="flex-1 max-w-7xl mx-auto w-full pt-20 pb-12 px-4 md:px-6 grid lg:grid-cols-12 gap-6 md:gap-8 h-auto lg:h-screen lg:overflow-hidden">
+
+    <aside class="lg:col-span-4 h-fit lg:h-full lg:overflow-y-auto custom-scroll space-y-4 lg:pb-20">
+
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl relative">
+        <div class="bg-black p-3 flex justify-between items-center border-b border-slate-800">
+          <span class="text-[10px] text-slate-500 font-mono uppercase">ID: 3920-X • UCI-NEURO</span>
+          <span class="text-[10px] text-slate-500 font-mono uppercase animate-pulse text-green-500">● Live</span>
+        </div>
+
+        <div class="p-6">
+          <div class="flex justify-between items-end mb-6">
             <div>
-              <h2 class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Estado Vital</h2>
-              <div id="status" class="text-xl font-bold text-red-500 animate-pulse-red font-mono">CONVULSIONANDO</div>
+              <div class="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-1">Tiempo de Crisis</div>
+              <div id="timer"
+                class="text-5xl font-mono font-black text-red-500 tabular-nums tracking-tight drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]">
+                00:00</div>
             </div>
             <div class="text-right">
-              <div class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Tiempo Elapsado</div>
-              <div id="timer" class="text-3xl font-mono font-black text-white tracking-tighter">00:00</div>
+              <div class="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-1">Estado</div>
+              <div id="status"
+                class="text-sm font-bold text-white bg-red-600/20 px-3 py-1 rounded border border-red-500/50 animate-pulse inline-block">
+                CONVULSIONANDO
+              </div>
             </div>
           </div>
 
-          <div class="grid grid-cols-3 gap-2 border-y border-slate-800 py-6 my-6 font-mono">
-            <div class="text-center">
-              <span class="block text-[10px] text-slate-500 uppercase mb-1">FC</span>
-              <span id="fc-val" class="text-2xl text-green-400 font-bold">135</span>
-              <span class="text-[8px] text-slate-600 block">BPM</span>
+          <div class="space-y-3 border-t border-slate-800 pt-4">
+            <div class="flex justify-between items-center border-b border-slate-800/50 pb-2">
+              <span class="text-xs text-slate-400 uppercase tracking-wide">Paciente</span>
+              <span class="text-sm font-bold text-white">Masc. 30 años</span>
             </div>
-            <div class="text-center border-x border-slate-800">
-              <span class="block text-[10px] text-slate-500 uppercase mb-1">PA</span>
-              <span id="pa-val" class="text-2xl text-yellow-500 font-bold leading-none">150/90</span>
-              <span class="text-[8px] text-slate-600 block">mmHg</span>
+            <div class="flex justify-between items-center border-b border-slate-800/50 pb-2">
+              <span class="text-xs text-slate-400 uppercase tracking-wide">Peso</span>
+              <span class="text-sm font-bold text-white">70 kg</span>
             </div>
-            <div class="text-center">
-              <span class="block text-[10px] text-slate-500 uppercase mb-1">SpO2</span>
-              <span id="spo2-val" class="text-2xl text-blue-400 font-bold">92</span>
-              <span class="text-[8px] text-slate-600 block">%</span>
-            </div>
-          </div>
-
-          <div id="patient-info" class="space-y-3 text-xs">
-            <div class="flex justify-between border-b border-slate-900 pb-2">
-              <span class="text-slate-500 uppercase font-mono tracking-tighter">Paciente:</span>
-              <span class="text-slate-300 font-bold uppercase">Varón, 30 años</span>
-            </div>
-            <div class="flex justify-between border-b border-slate-900 pb-2">
-              <span class="text-slate-500 uppercase font-mono tracking-tighter">Motivo:</span>
-              <span class="text-slate-300 font-bold uppercase">Crisis Convulsiva</span>
+            <div class="flex justify-between items-center pb-2">
+              <span class="text-xs text-slate-400 uppercase tracking-wide">Historia</span>
+              <span class="text-sm font-bold text-white">Epilepsia focal</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="lg:col-span-2 space-y-8">
-        <div id="actions-container"
-          class="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-8 shadow-xl">
-          <div class="flex items-center gap-3 mb-6">
-            <span
-              class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">Protocolo
-              UCI</span>
-            <h3 id="action-title" class="text-xl font-bold text-white tracking-tight">
-              Paso 1: Estabilización Inicial
-            </h3>
+      <div
+        class="bg-black border-4 border-slate-800 rounded-2xl p-4 grid grid-cols-2 gap-4 font-mono shadow-xl relative overflow-hidden">
+        <div
+          class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-500/50 to-transparent opacity-20 animate-pulse pointer-events-none">
+        </div>
+
+        <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/50">
+          <span class="text-[10px] text-green-500 block mb-1">FC (lpm)</span>
+          <span class="text-3xl text-green-400 font-bold tracking-tighter">135</span>
+        </div>
+        <div class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/50">
+          <span class="text-[10px] text-blue-500 block mb-1">SatO2 (%)</span>
+          <span class="text-3xl text-blue-400 font-bold tracking-tighter">92</span>
+        </div>
+        <div
+          class="bg-slate-900/40 p-3 rounded-lg border border-slate-800/50 col-span-2 flex justify-between items-end">
+          <div>
+            <span class="text-[10px] text-yellow-500 block mb-1">PA (mmHg)</span>
+            <span class="text-3xl text-yellow-400 font-bold tracking-tighter">150/95</span>
           </div>
-          <div id="action-buttons" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Botones se generan con JS -->
+          <span class="text-[10px] text-slate-600">MAP: 113</span>
+        </div>
+      </div>
+
+    </aside>
+
+    <div class="lg:col-span-8 flex flex-col h-full space-y-6 lg:pb-20">
+
+      <div id="actions-panel"
+        class="bg-slate-900 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-xl flex-shrink-0">
+        <div class="flex items-center gap-4 mb-6 pb-4 border-b border-slate-800">
+          <div
+            class="p-3 bg-cyan-500/10 rounded-xl text-cyan-400 border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-1">Protocolo Activo</span>
+            <h2 id="action-title" class="text-xl md:text-2xl font-bold text-white leading-tight">Fase 1: Estabilización
+            </h2>
           </div>
         </div>
 
-        <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-8 shadow-xl">
-          <h3 class="text-xl font-bold text-white mb-6 tracking-tight flex items-center gap-2">
-            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div id="action-buttons" class="grid md:grid-cols-2 gap-4">
+        </div>
+      </div>
+
+      <div
+        class="flex-1 bg-slate-900/50 border border-slate-800 rounded-2xl p-0 shadow-inner flex flex-col overflow-hidden relative">
+        <div class="p-4 bg-slate-900 border-b border-slate-800 flex justify-between items-center z-10">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            Registro de Intervenciones
+            Registro Clínico
           </h3>
-          <ol id="timeline" class="relative border-l-2 border-slate-800 space-y-6 ml-3">
-            <!-- Eventos se generan con JS -->
-          </ol>
+        </div>
+
+        <div class="flex-1 overflow-y-auto custom-scroll p-6 relative" id="timeline-container">
+          <div class="absolute left-[29px] top-6 bottom-6 w-0.5 bg-slate-800 -z-0"></div>
+
+          <ul id="timeline" class="space-y-6 relative z-10">
+          </ul>
         </div>
       </div>
-    </main>
 
-    <footer class="text-center mt-12 pt-6 border-t border-gray-700">
-      <a href="index.html" class="text-blue-500 hover:underline">← Volver al Menú del Módulo</a>
-    </footer>
-  </div>
+    </div>
+
+  </main>
 
   <script>
     const patientStatusEl = document.getElementById('status');
@@ -165,6 +203,7 @@
     const actionTitleEl = document.getElementById('action-title');
     const actionButtonsEl = document.getElementById('action-buttons');
     const timelineEl = document.getElementById('timeline');
+    const timelineContainer = document.getElementById('timeline-container');
 
     let gameTime = 0;
     let gameInterval;
@@ -173,96 +212,97 @@
 
     const steps = [
       {
-        title: 'Paso 1: Estabilización Inicial (0-5 min)',
+        title: 'Fase 1: Estabilización Inicial (0-5 min)',
         actions: [
           {
-            text: 'Asegurar vía aérea (ABC)',
+            text: 'Asegurar Vía Aérea (ABC)',
             correct: true,
-            feedback:
-              'Vía aérea permeable. Paciente posicionado para evitar aspiración.',
+            feedback: 'Vía aérea permeable. Paciente posicionado y oxigenado.',
+            icon: '💨'
           },
           {
-            text: 'Administrar Benzodiacepinas IV',
+            text: 'Administrar Benzos IV',
             correct: false,
-            feedback:
-              'Error crítico: Aún no has monitorizado ni obtenido acceso IV. Primero, estabiliza y evalúa.',
+            feedback: '¡Error Crítico! No tienes acceso IV ni monitorización aún. Sigue el orden.',
+            icon: '❌'
           },
           {
-            text: 'Monitorizar signos vitales',
+            text: 'Monitorizar Signos Vitales',
             correct: true,
             feedback: 'Monitor conectado. FC: 130, TA: 150/95, SatO2: 92%.',
+            icon: '📈'
           },
           {
-            text: 'Obtener acceso IV y tomar muestras',
+            text: 'Acceso IV + Labs',
             correct: true,
-            feedback:
-              'Acceso IV periférico logrado. Muestras enviadas para labs y glucemia.',
+            feedback: 'Vías permeables. Muestras tomadas. Glucemia: 95 mg/dL.',
+            icon: '💉'
           },
         ],
         required: 3,
       },
       {
-        title: 'Paso 2: Tratamiento de Primera Línea (5-20 min)',
+        title: 'Fase 2: Primera Línea (5-20 min)',
         actions: [
           {
-            text: 'Administrar Lorazepam IV',
+            text: 'Lorazepam 4mg IV',
             correct: true,
-            feedback:
-              'Dosis de 4mg de Lorazepam IV administrada. Monitorizando respuesta.',
+            feedback: 'Administrando Lorazepam... Esperando respuesta clínica.',
+            icon: '💊'
           },
           {
-            text: 'Administrar Fenitoína IV',
+            text: 'Fenitoína IV',
             correct: false,
-            feedback:
-              'Error: La Fenitoína es de segunda línea. Debes usar una benzodiacepina primero.',
+            feedback: 'Incorrecto. La Fenitoína es 2da línea. Usa Benzos primero.',
+            icon: '⚠️'
           },
           {
-            text: 'Administrar Midazolam IM',
+            text: 'Midazolam IM',
             correct: false,
-            feedback:
-              'Incorrecto: Ya tienes un acceso IV funcional. Se prefiere la vía IV.',
+            feedback: 'Innecesario. Ya tienes vía IV establecida. Usa IV.',
+            icon: '⚠️'
           },
         ],
         required: 1,
       },
       {
-        title: 'Paso 3: Tratamiento de Segunda Línea (20-40 min)',
+        title: 'Fase 3: Segunda Línea (20-40 min)',
         actions: [
           {
-            text: 'Repetir dosis de Lorazepam',
+            text: 'Repetir Lorazepam',
             correct: false,
-            feedback:
-              'Error: No se recomienda repetir las benzodiacepinas. Se debe proceder a un FAE de segunda línea.',
+            feedback: 'No recomendado. Pasar a Fármacos Antiepilépticos (FAE) de carga.',
+            icon: '⚠️'
           },
           {
-            text: 'Cargar Fenitoína IV',
+            text: 'Carga Fenitoína 20mg/kg',
             correct: true,
-            feedback:
-              'Iniciando carga de Fenitoína 20mg/kg. Monitorizando TA y ECG de cerca.',
+            feedback: 'Iniciando infusión lenta. Monitorizando ECG y Presión Arterial.',
+            icon: '💧'
           },
           {
-            text: 'Preparar para intubación',
+            text: 'Intubar Paciente',
             correct: false,
-            feedback:
-              'Aún no. La intubación se reserva para la fase 4 si los FAE de segunda línea fallan.',
+            feedback: 'Prematuro. Reservar para fallo de 2da línea (Fase 4).',
+            icon: '🛑'
           },
         ],
         required: 1,
       },
       {
-        title: 'Paso 4: Manejo en UCI (>40 min)',
+        title: 'Fase 4: UCI / Refractario (>40 min)',
         actions: [
           {
-            text: 'Llamar a UCI y preparar para traslado',
+            text: 'Interconsulta a UCI',
             correct: true,
-            feedback:
-              'Equipo de UCI notificado. Se preparan para recibir al paciente.',
+            feedback: 'Cama solicitada. Equipo de UCI en camino.',
+            icon: '📞'
           },
           {
-            text: 'Iniciar infusión de Propofol',
+            text: 'Anestesia General (Propofol)',
             correct: true,
-            feedback:
-              'Paciente en UCI. Iniciando anestesia general con Propofol bajo monitorización EEG continua.',
+            feedback: 'Inducción anestésica iniciada. EEG continuo conectado.',
+            icon: '😴'
           },
         ],
         required: 2,
@@ -275,43 +315,21 @@
       hasIVAccess = false;
       timelineEl.innerHTML = '';
       patientStatusEl.textContent = 'CONVULSIONANDO';
-      patientStatusEl.classList.remove('text-green-500');
-      patientStatusEl.classList.add('text-red-500', 'animate-pulse-red');
+      patientStatusEl.className = 'text-sm font-bold text-white bg-red-600/20 px-3 py-1 rounded border border-red-500/50 animate-pulse inline-block';
 
       clearInterval(gameInterval);
       gameInterval = setInterval(() => {
         gameTime++;
-        const minutes = Math.floor(gameTime / 60)
-          .toString()
-          .padStart(2, '0');
+        const minutes = Math.floor(gameTime / 60).toString().padStart(2, '0');
         const seconds = (gameTime % 60).toString().padStart(2, '0');
         timerEl.textContent = `${minutes}:${seconds}`;
 
-        if (gameTime === 5 * 60)
-          addTimelineEvent(
-            '5 min',
-            'Umbral T1 alcanzado. Riesgo de autoperpetuación.',
-            'text-yellow-400',
-          );
-        if (gameTime === 20 * 60)
-          addTimelineEvent(
-            '20 min',
-            'EE establecido. Riesgo de farmacorresistencia.',
-            'text-orange-400',
-          );
-        if (gameTime === 30 * 60)
-          addTimelineEvent(
-            '30 min',
-            'Umbral T2 alcanzado. Riesgo de daño neuronal.',
-            'text-red-500',
-          );
-        if (gameTime === 40 * 60)
-          addTimelineEvent(
-            '40 min',
-            'EE refractario establecido.',
-            'text-red-700',
-          );
-      }, 1000 / 60); // Acelerado para la simulación (1 segundo real = 1 minuto de juego)
+        // Eventos automáticos del tiempo
+        if (gameTime === 5 * 60) addTimelineEvent('05:00', '⚠️ Umbral T1 superado (Fase 1 fallida)', 'border-yellow-500 text-yellow-400');
+        if (gameTime === 20 * 60) addTimelineEvent('20:00', '⚠️ EE Establecido (Resistencia)', 'border-orange-500 text-orange-400');
+        if (gameTime === 30 * 60) addTimelineEvent('30:00', '🚨 Umbral T2 (Daño Neuronal)', 'border-red-500 text-red-500 animate-pulse');
+
+      }, 1000 / 60); // 1 seg real = 1 min simulado (60x velocidad)
 
       loadStep(0);
     }
@@ -325,54 +343,38 @@
 
       step.actions.forEach((action) => {
         const button = document.createElement('button');
-        button.textContent = action.text;
-        button.className =
-          'p-4 bg-slate-800/50 border border-slate-700 text-slate-300 rounded-xl hover:border-cyan-500 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:text-white transition-all text-left text-sm font-medium';
+        button.className = 'group flex items-center justify-between p-4 bg-slate-800 border border-slate-700 rounded-xl hover:bg-slate-700 hover:border-cyan-500 transition-all shadow-md text-left';
+        button.innerHTML = `
+            <span class="font-bold text-slate-200 group-hover:text-white">${action.text}</span>
+            <span class="text-xl opacity-50 group-hover:opacity-100 transition-opacity">${action.icon}</span>
+          `;
+
         button.onclick = () => {
           button.disabled = true;
-          button.classList.add('opacity-40', 'cursor-not-allowed');
+          button.classList.add('opacity-50', 'cursor-not-allowed');
 
           if (action.correct) {
-            button.classList.remove('border-slate-700');
-            button.classList.add('border-green-500', 'bg-green-500/10', 'text-green-400');
-            addTimelineEvent(
-              timerEl.textContent,
-              action.feedback,
-              'text-green-400 font-mono text-xs',
-            );
+            button.classList.remove('bg-slate-800', 'border-slate-700');
+            button.classList.add('bg-green-900/40', 'border-green-500');
+            addTimelineEvent(timerEl.textContent, action.feedback, 'border-green-500 text-green-400');
             correctActionsTaken++;
-            if (action.text.includes('acceso IV')) hasIVAccess = true;
+            if (action.text.includes('Acceso IV')) hasIVAccess = true;
 
-            // Stop seizure checks
-            if (currentStep === 1) {
-              // 1st line treatment
-              patientStatusEl.textContent = 'ESTABILIZADO';
-              patientStatusEl.classList.remove('text-red-500', 'animate-pulse-red');
-              patientStatusEl.classList.add('text-green-500');
-              clearInterval(gameInterval);
-              endGame(true);
-            } else if (currentStep === 2) {
-              // 2nd line
-              patientStatusEl.textContent = 'ESTABILIZADO';
-              patientStatusEl.classList.remove('text-red-500', 'animate-pulse-red');
-              patientStatusEl.classList.add('text-green-500');
-              clearInterval(gameInterval);
-              endGame(true);
+            // Check victoria
+            if ((currentStep === 1 || currentStep === 2) && action.correct) {
+              winGame();
+              return;
             }
           } else {
-            button.classList.remove('border-slate-700');
-            button.classList.add('border-red-500', 'bg-red-500/10', 'text-red-400');
-            addTimelineEvent(
-              timerEl.textContent,
-              action.feedback,
-              'text-red-400 font-mono text-xs',
-            );
+            button.classList.remove('bg-slate-800', 'border-slate-700');
+            button.classList.add('bg-red-900/40', 'border-red-500');
+            addTimelineEvent(timerEl.textContent, action.feedback, 'border-red-500 text-red-400');
           }
 
           if (correctActionsTaken >= step.required) {
             currentStep++;
             if (currentStep < steps.length) {
-              setTimeout(() => loadStep(currentStep), 1500);
+              setTimeout(() => loadStep(currentStep), 1000);
             }
           }
         };
@@ -382,23 +384,39 @@
 
     function addTimelineEvent(time, text, colorClass) {
       const li = document.createElement('li');
-      li.className = `ml-5 p-4 bg-slate-900 border border-slate-800 rounded-xl relative ${colorClass}`;
+      li.className = `timeline-item pl-8 relative`;
       li.innerHTML = `
-                <span class="absolute flex items-center justify-center w-2 h-2 bg-slate-700 rounded-full -left-[25px] top-6 ring-4 ring-slate-950"></span>
-                <time class="block mb-1 text-[10px] font-mono leading-none text-slate-500 uppercase tracking-widest">${time} MARK</time>
-                <p class="text-xs font-medium leading-relaxed">${text}</p>`;
+            <div class="absolute left-0 top-1.5 w-5 h-5 bg-slate-900 rounded-full border-2 ${colorClass.split(' ')[0]} z-10"></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg border border-slate-800">
+                <span class="text-xs font-mono text-slate-500 block mb-1">${time}</span>
+                <p class="text-sm font-medium ${colorClass.split(' ').slice(1).join(' ')}">${text}</p>
+            </div>
+        `;
       timelineEl.prepend(li);
-      // Highlight the new step
-      setTimeout(() => li.classList.add('border-slate-600'), 100);
+      timelineContainer.scrollTop = 0; // Auto-scroll to top (newest)
     }
 
-    function endGame(success) {
-      actionTitleEl.textContent = success
-        ? '¡Caso Resuelto con Éxito!'
-        : 'Fin de la Simulación';
-      actionButtonsEl.innerHTML = `<button onclick="startGame()" class="p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors w-full md:col-span-2">Reiniciar Simulación</button>`;
+    function winGame() {
+      clearInterval(gameInterval);
+      patientStatusEl.textContent = 'CRISIS CONTROLADA';
+      patientStatusEl.className = 'text-sm font-bold text-white bg-green-600/20 px-3 py-1 rounded border border-green-500/50 inline-block';
+
+      actionTitleEl.textContent = "¡Caso Resuelto!";
+      actionButtonsEl.innerHTML = `
+            <div class="col-span-2 text-center py-8">
+                <div class="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500 border border-green-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Excelente Manejo Clínico</h3>
+                <p class="text-slate-400 mb-6">El paciente se encuentra estable y en recuperación.</p>
+                <button onclick="startGame()" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-cyan-500/20 transition-all">
+                    Reiniciar Simulación
+                </button>
+            </div>
+        `;
     }
 
+    // Iniciar al cargar
     startGame();
   </script>
 </body>
