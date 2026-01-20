@@ -21,7 +21,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: auto !important;
     }
 
     .main-card {
@@ -81,7 +81,10 @@
         </svg>
         Salir
       </a>
-      <div class="text-xs font-mono text-cyan-400 tracking-widest uppercase">Evaluación Clínica</div>
+      <div class="text-xs font-mono text-cyan-400 tracking-widest uppercase flex items-center gap-3">
+        <span class="opacity-30">v1.0.4</span>
+        Evaluación Clínica
+      </div>
     </div>
     <div class="w-full h-1 bg-slate-800">
       <div id="global-progress" class="h-full bg-cyan-500 transition-all duration-500" style="width: 0%"></div>
