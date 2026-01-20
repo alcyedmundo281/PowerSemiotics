@@ -11,8 +11,27 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+    /* CSS ROBUSTO PARA EVITAR FONDO BLANCO */
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #020617 !important;
+      /* Slate 950 */
+      color: #e2e8f0 !important;
+      /* Slate 200 */
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .main-card {
+      background-color: #0f172a !important;
+      /* Slate 900 */
+      border: 1px solid #1e293b !important;
+      /* Slate 800 */
+    }
+
+    .question-text {
+      color: #ffffff !important;
     }
 
     /* Animaciones */
@@ -20,7 +39,6 @@
       transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* Estilos para Feedback */
     .feedback-enter {
       animation: fadeIn 0.4s ease-out forwards;
     }
@@ -52,7 +70,8 @@
 <body
   class="bg-slate-950 text-slate-200 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white overflow-hidden">
 
-  <div class="fixed top-0 left-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+  <!-- Header / Progreso -->
+  <div class="fixed top-0 left-0 w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
     <div class="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
       <a href="index.html"
         class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold">
@@ -74,9 +93,9 @@
     <div class="overflow-hidden w-full relative">
       <div id="slides-wrapper" class="flex w-full slide-container">
 
+        <!-- Slide de Inicio -->
         <div class="min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center text-center">
-          <div
-            class="bg-slate-900 border border-slate-800 p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden max-w-lg w-full">
+          <div class="main-card p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden max-w-lg w-full">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-500 to-blue-600"></div>
 
             <div
@@ -125,59 +144,59 @@
   <script>
     const quizData = [
       {
-        question: "Paciente masculino de 40 años en Estado Epiléptico (10 min de duración). Ya tiene vía IV. ¿Cuál es el fármaco de PRIMERA LÍNEA?",
+        question: "Un hombre de 40 años es traído a emergencias con una crisis tónico-clónica que ha durado 10 minutos. El equipo logra canalizar una vía IV. ¿Cuál es la intervención farmacológica de primera línea más apropiada en este momento?",
         options: [
-          "Fenitoína IV (Carga)",
-          "Propofol en infusión",
-          "Lorazepam o Diazepam IV",
-          "Levetiracetam IM"
+          "Dosis de carga de Fenitoína IV.",
+          "Infusión continua de Propofol.",
+          "Inyección de Lorazepam IV.",
+          "Inyección de Levetiracetam IM."
         ],
         correct: 2,
-        explanation: "Las benzodiacepinas IV (Lorazepam/Diazepam) son el tratamiento estándar (Fase 1/2) para yugular la crisis. La Fenitoína es segunda línea."
+        explanation: "Las benzodiacepinas intravenosas (Lorazepam/Diazepam) son el tratamiento de emergencia de primera elección para yugular una crisis en un estado epiléptico establecido."
       },
       {
-        question: "Mujer de 22 años con Epilepsia Mioclónica Juvenil (EMJ). ¿Qué fármaco es el más adecuado (Gold Standard)?",
+        question: "Una mujer de 22 años es diagnosticada con Epilepsia Mioclónica Juvenil (EMJ). ¿Cuál de los siguientes fármacos antiepilépticos es la opción de tratamiento más adecuada y específica para su síndrome?",
         options: [
-          "Carbamazepina",
-          "Etosuximida",
-          "Ácido Valproico",
-          "Gabapentina"
+          "Carbamazepina.",
+          "Etosuximida.",
+          "Ácido Valproico.",
+          "Gabapentina."
         ],
         correct: 2,
-        explanation: "El Ácido Valproico es de amplio espectro y cubre mioclonías, ausencias y tónico-clónicas. La Carbamazepina EMPEORA las mioclonías."
+        explanation: "El Ácido Valproico es el fármaco de primera línea para la EMJ porque es de amplio espectro y muy eficaz contra los tres tipos de crisis de este síndrome."
       },
       {
-        question: "Al administrar una carga de Fenitoína IV, ¿qué parámetros vitales requieren monitorización estricta?",
+        question: "Un paciente en tratamiento por un estado epiléptico recibió dos dosis de diazepam sin éxito. Se decide administrar una dosis de carga de Fenitoína IV. ¿Qué parámetro se debe monitorizar de forma estricta durante la infusión?",
         options: [
-          "Glucosa capilar",
-          "Presión Arterial y ECG",
-          "Plaquetas",
-          "Enzimas hepáticas"
+          "Niveles de glucosa sérica.",
+          "Presión arterial y electrocardiograma (ECG).",
+          "Conteo de plaquetas.",
+          "Función hepática."
         ],
         correct: 1,
-        explanation: "La Fenitoína IV rápida puede causar hipotensión severa y arritmias (bradicardia/bloqueo AV). Requiere monitorización cardíaca."
+        explanation: "La Fenitoína puede causar efectos cardiovasculares adversos (hipotensión severa y arritmias). La monitorización continua de PA y ECG es mandatoria."
       },
       {
-        question: "Paciente con epilepsia focal inicia Carbamazepina y desarrolla mioclonías súbitas. ¿Cuál es la causa probable?",
+        question: "Un paciente con epilepsia focal bien controlada con Carbamazepina presenta un episodio de sacudidas mioclónicas generalizadas. ¿Cuál es la razón más probable para que el neurólogo decida cambiar el tratamiento?",
         options: [
-          "Efecto adverso idiosincrático",
-          "La Carbamazepina exacerba mioclonías",
-          "Dosis insuficiente",
-          "Reacción alérgica"
+          "La Carbamazepina es muy costosa.",
+          "La Carbamazepina puede empeorar las crisis mioclónicas.",
+          "La Carbamazepina no tiene efecto en el cerebro.",
+          "El paciente desarrolló una alergia súbita."
         ],
         correct: 1,
-        explanation: "Los bloqueadores de canales de sodio (Carbamazepina, Oxcarbazepina) pueden empeorar o desenmascarar crisis mioclónicas."
+        explanation: "Ciertos FAE (ej. Carbamazepina) pueden paradójicamente exacerbar o provocar ciertos tipos de crisis generalizadas, como las mioclonías."
       },
       {
-        question: "¿Cuál es el tiempo T1 (inicio de tratamiento) definido para un Estado Epiléptico Convulsivo?",
+        question: "Según la definición operacional del estado epiléptico, ¿a partir de qué duración de una crisis convulsiva tónico-clónica se debe iniciar el tratamiento farmacológico de emergencia (tiempo T1)?",
         options: [
-          "1 minuto",
-          "5 minutos",
-          "15 minutos",
-          "30 minutos"
+          "1 minuto.",
+          "5 minutos.",
+          "15 minutos.",
+          "30 minutos."
         ],
         correct: 1,
-        explanation: "A los 5 minutos (T1) fallan los mecanismos inhibitorios y la crisis raramente para sola. Se debe tratar inmediatamente."
+        explanation: "Para las crisis tónico-clónicas, el umbral T1 es de 5 minutos, punto en el que se requiere intervención farmacológica inmediata."
       }
     ];
 
@@ -192,17 +211,16 @@
     }
 
     function buildQuizDOM() {
-      // Generar slides de preguntas
       quizData.forEach((q, idx) => {
         const slide = document.createElement('div');
         slide.className = 'min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center';
         slide.innerHTML = `
-                    <div class="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-10 shadow-xl">
+                    <div class="w-full max-w-2xl main-card rounded-3xl p-6 md:p-10 shadow-xl">
                         <div class="flex justify-between items-center mb-6">
                             <span class="text-cyan-500 font-bold text-sm tracking-widest uppercase">Pregunta ${idx + 1} / ${quizData.length}</span>
                         </div>
                         
-                        <h2 class="text-xl md:text-2xl font-bold text-white mb-8 leading-relaxed">
+                        <h2 class="text-xl md:text-2xl font-bold question-text mb-8 leading-relaxed">
                             ${q.question}
                         </h2>
 
@@ -230,7 +248,7 @@
         wrapper.appendChild(slide);
       });
 
-      // Generar Slide de Resultados
+      // Slide de Resultados
       const resultSlide = document.createElement('div');
       resultSlide.id = 'result-slide';
       resultSlide.className = 'min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center';
@@ -244,32 +262,27 @@
       const question = quizData[qIdx];
       const isCorrect = optIdx === question.correct;
 
-      // Bloquear botones
       for (let btn of btns) {
         btn.disabled = true;
         btn.classList.add('opacity-50', 'cursor-not-allowed');
       }
 
-      // Resaltar selección
       if (isCorrect) {
         btns[optIdx].classList.remove('opacity-50', 'bg-slate-800', 'border-slate-700');
         btns[optIdx].classList.add('bg-green-900/30', 'border-green-500', 'ring-1', 'ring-green-500');
         score++;
 
-        feedbackEl.className = "mt-6 p-5 rounded-xl bg-green-900/20 border border-green-500/30 feedback-enter block";
+        feedbackEl.className = "mt-6 p-5 rounded-xl bg-green-900/30 border border-green-500/30 feedback-enter block";
         feedbackEl.innerHTML = `<div class="text-green-400 font-bold mb-1 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> ¡Correcto!</div><p class="text-slate-300 text-sm">${question.explanation}</p>`;
       } else {
         btns[optIdx].classList.remove('opacity-50', 'bg-slate-800', 'border-slate-700');
         btns[optIdx].classList.add('bg-red-900/30', 'border-red-500');
-
-        // Mostrar la correcta también
         btns[question.correct].classList.remove('opacity-50', 'bg-slate-800', 'border-slate-700');
         btns[question.correct].classList.add('bg-green-900/30', 'border-green-500');
 
-        feedbackEl.className = "mt-6 p-5 rounded-xl bg-red-900/20 border border-red-500/30 feedback-enter block";
+        feedbackEl.className = "mt-6 p-5 rounded-xl bg-red-900/30 border border-red-500/30 feedback-enter block";
         feedbackEl.innerHTML = `<div class="text-red-400 font-bold mb-1 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Incorrecto</div><p class="text-slate-300 text-sm">${question.explanation}</p>`;
       }
-
       navEl.classList.remove('hidden');
     }
 
@@ -278,7 +291,6 @@
       const percent = index * -100;
       wrapper.style.transform = `translateX(${percent}%)`;
 
-      // Actualizar barra de progreso
       const progress = ((index - 1) / quizData.length) * 100;
       if (index > 0) progressBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
 
@@ -294,7 +306,7 @@
       let message = percentage >= 80 ? '¡Excelente Trabajo!' : 'Sigue Repasando';
 
       resultSlide.innerHTML = `
-                <div class="bg-slate-900 border border-slate-800 p-12 rounded-3xl shadow-2xl text-center max-w-lg w-full">
+                <div class="main-card p-12 rounded-3xl shadow-2xl text-center max-w-lg w-full">
                     <h2 class="text-3xl font-bold text-white mb-2">Evaluación Finalizada</h2>
                     <p class="text-slate-400 mb-8">Resumen de rendimiento</p>
                     
@@ -311,10 +323,10 @@
 
                     <div class="grid grid-cols-2 gap-4">
                         <button onclick="location.reload()" class="p-4 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 transition-colors font-bold">
-                            Intentar de Nuevo
+                            Volver a Intentar
                         </button>
                         <a href="index.html" class="p-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white transition-colors font-bold flex items-center justify-center">
-                            Volver al Menú
+                            Menú del Módulo
                         </a>
                     </div>
                 </div>
