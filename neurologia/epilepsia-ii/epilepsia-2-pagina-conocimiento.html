@@ -1,169 +1,257 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guía de Conocimiento: Epilepsia II</title>
-    <link href="../../assets/tailwind.css" rel="stylesheet" />
-  </head>
-  <body class="font-sans bg-gray-900 text-gray-300">
-    <div class="container mx-auto p-4 md:p-8">
-      <header class="text-center mb-12">
-        <h1 class="text-4xl font-extrabold text-white">
-          Guía Rápida de Conocimiento: Epilepsia II
-        </h1>
-        <p class="text-lg text-gray-400 mt-2">
-          Algoritmos y tablas de referencia para el manejo del Estado
-          Epiléptico.
-        </p>
-      </header>
 
-      <main class="space-y-12">
-        <!-- Algoritmo de Manejo -->
-        <section
-          class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg"
-        >
-          <h2 class="text-2xl font-bold text-white mb-4">
-            Algoritmo de Manejo del Estado Epiléptico Convulsivo
-          </h2>
-          <div class="space-y-4">
-            <!-- Fase 1 -->
-            <div class="p-4 rounded-lg bg-gray-700">
-              <p class="font-bold text-sky-400">
-                FASE 1 (0-5 min): Estabilización
-              </p>
-              <ul class="list-disc list-inside mt-2 ml-4 text-gray-300">
-                <li>Asegurar vía aérea (ABC), administrar oxígeno.</li>
-                <li>Monitorizar signos vitales (TA, FC, SatO2, Temp).</li>
-                <li>
-                  Obtener acceso IV y tomar muestras (glucemia, electrolitos,
-                  tóxicos, FAEs).
-                </li>
-                <li>
-                  Si hay hipoglucemia, administrar Tiamina y luego Glucosa.
-                </li>
-              </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía de Conocimiento: Epilepsias</title>
+  <link href="../../assets/tailwind.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-300 min-h-screen selection:bg-cyan-500 selection:text-white">
+  <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+    <header class="text-center mb-16 relative">
+      <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-64 h-64 bg-cyan-500/10 blur-[100px] rounded-full"></div>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        Guía Rápida de <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Conocimiento</span>
+      </h1>
+      <p class="text-lg text-slate-400 mt-4 max-w-2xl mx-auto">
+        Algoritmos y tablas de referencia de alta fidelidad para el manejo del Estado Epiléptico y Síndromes Clave.
+      </p>
+    </header>
+
+    <main class="space-y-12">
+      <!-- Algoritmo de Manejo -->
+      <section class="glass-panel rounded-3xl p-8 shadow-2xl overflow-hidden relative">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl"></div>
+
+        <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </span>
+          Algoritmo de Manejo: Estado Epiléptico
+        </h2>
+
+        <div class="grid gap-6">
+          <!-- Fase 1 -->
+          <div
+            class="group p-6 rounded-2xl bg-slate-800/40 border border-slate-700/50 hover:border-cyan-500/30 transition-all">
+            <p class="text-xs font-bold text-cyan-500 uppercase tracking-widest mb-2">Fase 1 (0-5 min)</p>
+            <h3 class="text-xl font-bold text-white mb-3">Estabilización y Soporte Vital</h3>
+            <ul class="space-y-2 text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-cyan-500 mt-1">•</span>
+                Asegurar vía aérea (ABC), administrar oxígeno suplementario.
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-cyan-500 mt-1">•</span>
+                Monitorización hemodinámica continua (TA, FC, SatO2, Temp).
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-cyan-500 mt-1">•</span>
+                Acceso venoso periférico (x2) y analítica completa (glucemia, electrolitos, FAEs).
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-cyan-500 mt-1">•</span>
+                Protocolo de hipoglucemia: <span class="text-slate-300">Tiamina 100mg + Glucosa 50%</span>.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Fase 2 -->
+          <div
+            class="group p-6 rounded-2xl bg-slate-800/40 border border-slate-700/50 hover:border-yellow-500/30 transition-all">
+            <p class="text-xs font-bold text-yellow-500 uppercase tracking-widest mb-2">Fase 2 (5-20 min)</p>
+            <h3 class="text-xl font-bold text-white mb-3">Terapia Inicial (Rescate)</h3>
+            <div class="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-xl mb-4">
+              <p class="text-yellow-200 text-sm font-medium">Elección: Benzodiacepinas IV de acción rápida.</p>
             </div>
-            <!-- Fase 2 -->
-            <div class="p-4 rounded-lg bg-gray-700">
-              <p class="font-bold text-yellow-400">
-                FASE 2 (5-20 min): Terapia de Primera Línea
-              </p>
-              <p class="mt-2 text-gray-300">
-                <strong class="text-white">Fármaco de elección:</strong>
-                Benzodiacepinas IV.
-              </p>
-              <ul class="list-disc list-inside mt-1 ml-4 text-gray-300">
-                <li>
-                  <strong>Lorazepam IV:</strong> 0.1 mg/kg (máx. 4 mg por
-                  dosis).
-                </li>
-                <li>
-                  <strong>Diazepam IV:</strong> 0.15-0.2 mg/kg (máx. 10 mg por
-                  dosis).
-                </li>
-                <li><em>Alternativa sin IV:</em> Midazolam IM 10 mg.</li>
-              </ul>
+            <ul class="grid md:grid-cols-2 gap-4 text-slate-400">
+              <li class="p-4 bg-slate-900/50 rounded-lg">
+                <strong class="text-white block mb-1">Lorazepam IV</strong>
+                0.1 mg/kg (máx 4 mg). Repetir una vez si persiste.
+              </li>
+              <li class="p-4 bg-slate-900/50 rounded-lg">
+                <strong class="text-white block mb-1">Diazepam IV</strong>
+                0.15-0.2 mg/kg (máx 10 mg).
+              </li>
+            </ul>
+            <p class="mt-4 text-slate-500 text-sm italic">Sin acceso IV: Midazolam IM 10 mg (>40kg) o 5 mg (13-40kg).
+            </p>
+          </div>
+
+          <!-- Fase 3 -->
+          <div
+            class="group p-6 rounded-2xl bg-slate-800/40 border border-slate-700/50 hover:border-orange-500/30 transition-all">
+            <p class="text-xs font-bold text-orange-500 uppercase tracking-widest mb-2">Fase 3 (20-40 min)</p>
+            <h3 class="text-xl font-bold text-white mb-3">Terapia de Control (Segunda Línea)</h3>
+            <p class="text-slate-400 mb-4">Si las crisis persisten tras benzodiacepinas, administrar un fármaco
+              antiepiléptico (FAE) IV:</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50">
+                <span class="text-orange-400 font-bold block">Ácido Valproico</span>
+                <span class="text-lg text-white">40 mg/kg</span>
+              </div>
+              <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50">
+                <span class="text-orange-400 font-bold block">Levetiracetam</span>
+                <span class="text-lg text-white">60 mg/kg</span>
+              </div>
+              <div class="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50">
+                <span class="text-orange-400 font-bold block">Fenitoína</span>
+                <span class="text-lg text-white">20 mg/kg</span>
+              </div>
             </div>
-            <!-- Fase 3 -->
-            <div class="p-4 rounded-lg bg-gray-700">
-              <p class="font-bold text-orange-400">
-                FASE 3 (20-40 min): Terapia de Segunda Línea
-              </p>
-              <p class="mt-2 text-gray-300">
-                <strong class="text-white"
-                  >Si no hay respuesta, elegir UNO de los siguientes FAE
-                  IV:</strong
-                >
-              </p>
-              <ul class="list-disc list-inside mt-1 ml-4 text-gray-300">
-                <li><strong>Ácido Valproico:</strong> 20-40 mg/kg.</li>
-                <li>
-                  <strong>Levetiracetam:</strong> 60 mg/kg (máx. 4500 mg).
-                </li>
-                <li>
-                  <strong>Fenitoína/Fosfenitoína:</strong> 20 mg/kg
-                  (¡Monitorizar TA y ECG!).
-                </li>
-              </ul>
-            </div>
-            <!-- Fase 4 -->
-            <div class="p-4 rounded-lg bg-red-800/50 border border-red-500">
-              <p class="font-bold text-red-400">
-                FASE 4 (>40 min): Estado Epiléptico Refractario
-              </p>
-              <p class="mt-2 text-gray-300">
-                Considerar manejo en UCI con anestesia general (infusiones de
-                Midazolam, Propofol o Pentobarbital) y monitorización EEG
-                continua.
+          </div>
+
+          <!-- Fase 4 -->
+          <div class="p-6 rounded-2xl bg-red-950/20 border border-red-500/30">
+            <p class="text-xs font-bold text-red-500 uppercase tracking-widest mb-2">Fase 4 (>40 min)</p>
+            <h3 class="text-xl font-bold text-white mb-3">Estado Epiléptico Refractario</h3>
+            <div class="flex items-start gap-4 p-4 bg-red-500/5 rounded-xl border border-red-500/10">
+              <div class="min-w-[40px] h-10 rounded-full bg-red-500/20 flex items-center justify-center text-red-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <p class="text-slate-300">
+                Emergencia neurológica crítica. Traslado inmediato a <span class="text-red-400 font-bold">UCI</span>.
+                Iniciar anestesia general (Propofol, Midazolam o Pentobarbital) y monitorización <span
+                  class="text-red-400 font-bold">EEG continua</span>.
               </p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Tabla de Síndromes -->
-        <section
-          class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg"
-        >
-          <h2 class="text-2xl font-bold text-white mb-4">
-            Síndromes Epilépticos Clave
-          </h2>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left">
-              <thead class="bg-gray-700 text-gray-300">
-                <tr>
-                  <th class="p-3">Síndrome</th>
-                  <th class="p-3">Características Clave</th>
-                  <th class="p-3">Tratamiento de Primera Línea</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="border-b border-gray-700">
-                  <td class="p-3 font-semibold">
-                    Epilepsia Mioclónica Juvenil (EMJ)
-                  </td>
-                  <td class="p-3">
-                    Adolescencia, mioclonías matutinas, crisis tónico-clónicas
-                    generalizadas.
-                  </td>
-                  <td class="p-3 text-green-400">Ácido Valproico.</td>
-                </tr>
-                <tr class="border-b border-gray-700">
-                  <td class="p-3 font-semibold">
-                    Síndrome de Lennox-Gastaut (LGS)
-                  </td>
-                  <td class="p-3">
-                    Infancia, múltiples tipos de crisis (tónicas, atónicas),
-                    deterioro cognitivo.
-                  </td>
-                  <td class="p-3 text-green-400">
-                    Valproato, Clobazam, Lamotrigina.
-                  </td>
-                </tr>
-                <tr class="border-b border-gray-700">
-                  <td class="p-3 font-semibold">
-                    Epilepsia de Ausencias Infantil
-                  </td>
-                  <td class="p-3">
-                    Niños 4-10 años, ausencias típicas (breves, inicio/fin
-                    súbito), EEG con punta-onda a 3Hz.
-                  </td>
-                  <td class="p-3 text-green-400">
-                    Etosuximida, Ácido Valproico.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </main>
+      <!-- Tabla de Síndromes -->
+      <section class="glass-panel rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/5 blur-[100px]"></div>
 
-      <footer class="text-center mt-12 pt-6 border-t border-gray-700">
-        <a href="index.html" class="text-blue-500 hover:underline"
-          >← Volver al Menú del Módulo</a
-        >
-      </footer>
-    </div>
-    <script src="/assets/ask-ai.js"></script>
-  </body>
+        <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </span>
+          Síndromes Epilépticos de Relevancia Clínica
+        </h2>
+
+        <div class="overflow-hidden rounded-2xl border border-slate-800">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-800/50 text-slate-300">
+                <th class="p-5 font-bold uppercase text-xs tracking-wider border-b border-slate-700">Síndrome</th>
+                <th class="p-5 font-bold uppercase text-xs tracking-wider border-b border-slate-700">Fenotipo y Clínica
+                </th>
+                <th class="p-5 font-bold uppercase text-xs tracking-wider border-b border-slate-700">Tratamiento 1ª
+                  Línea</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr class="hover:bg-slate-800/30 transition-colors group">
+                <td class="p-5">
+                  <span class="text-white font-bold block group-hover:text-cyan-400 transition-colors">Epilepsia
+                    Mioclónica Juvenil (EMJ)</span>
+                  <span class="text-xs text-slate-500 mt-1">Síndrome de Janz</span>
+                </td>
+                <td class="p-5 text-slate-400 text-sm leading-relaxed">
+                  Adolescencia. Mioclonías matutinas características ("se les caen las cosas"). Crisis GTC al despertar.
+                </td>
+                <td class="p-5">
+                  <span
+                    class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold border border-cyan-500/20">Ácido
+                    Valproico</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-800/30 transition-colors group">
+                <td class="p-5">
+                  <span class="text-white font-bold block group-hover:text-cyan-400 transition-colors">Lennox-Gastaut
+                    (LGS)</span>
+                  <span class="text-xs text-slate-500 mt-1">Tríada clásica</span>
+                </td>
+                <td class="p-5 text-slate-400 text-sm leading-relaxed">
+                  Infancia. Diversos tipos de crisis (tónicas, atónicas, ausencias). Retraso intelectual. Punta-onda
+                  lenta.
+                </td>
+                <td class="p-5">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 rounded-full bg-slate-700 text-slate-300 text-xs font-bold">Valproato</span>
+                    <span
+                      class="px-3 py-1 rounded-full bg-slate-700 text-slate-300 text-xs font-bold">Lamotrigina</span>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-800/30 transition-colors group">
+                <td class="p-5">
+                  <span class="text-white font-bold block group-hover:text-cyan-400 transition-colors">Ausencias
+                    Infantiles</span>
+                  <span class="text-xs text-slate-500 mt-1">"Petit Mal"</span>
+                </td>
+                <td class="p-5 text-slate-400 text-sm leading-relaxed">
+                  4-10 años. Mirada perdida breve sin confusión postictal. EEG: Punta-onda a 3Hz simétrica.
+                </td>
+                <td class="p-5">
+                  <span
+                    class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold border border-cyan-500/20">Etosuximida</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-center mt-20 pt-10 border-t border-slate-800/60 pb-10">
+      <a href="index.html"
+        class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-all group px-6 py-3 rounded-full bg-slate-900 border border-slate-800">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:-translate-x-1"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Volver al Menú Central
+      </a>
+    </footer>
+  </div>
+  <script src="/assets/ask-ai.js"></script>
+</body>
+
 </html>
