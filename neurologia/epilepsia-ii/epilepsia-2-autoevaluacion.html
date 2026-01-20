@@ -11,24 +11,29 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* CSS ROBUSTO PARA EVITAR FONDO BLANCO */
+    /* CSS TOTALMENTE ABIERTO PARA PERMITIR SCROLL */
+    html {
+      background-color: #020617 !important;
+      overflow-y: auto !important;
+      height: auto !important;
+    }
+
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #020617 !important;
-      /* Slate 950 */
       color: #e2e8f0 !important;
-      /* Slate 200 */
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       overflow-y: auto !important;
+      height: auto !important;
     }
 
     .main-card {
       background-color: #0f172a !important;
-      /* Slate 900 */
       border: 1px solid #1e293b !important;
-      /* Slate 800 */
     }
 
     .question-text {
@@ -55,6 +60,11 @@
         transform: translateY(0);
       }
     }
+
+    /* Ocultar scrollbar horizontal pero dejar la vertical */
+    .no-scrollbar-x::-webkit-scrollbar {
+      display: none;
+    }
   </style>
 
   <script>
@@ -68,10 +78,10 @@
   </script>
 </head>
 
-<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white">
+<body class="bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-white">
 
   <!-- Header / Progreso -->
-  <div class="fixed top-0 left-0 w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+  <div class="fixed top-0 left-0 w-full z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
     <div class="max-w-3xl mx-auto px-4 py-4 flex justify-between items-center">
       <a href="index.html"
         class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-bold">
@@ -82,7 +92,7 @@
         Salir
       </a>
       <div class="text-xs font-mono text-cyan-400 tracking-widest uppercase flex items-center gap-3">
-        <span class="opacity-30">v1.0.4</span>
+        <span class="bg-cyan-500/20 px-2 py-0.5 rounded text-[9px] border border-cyan-500/30">v1.0.5</span>
         Evaluación Clínica
       </div>
     </div>
@@ -91,13 +101,14 @@
     </div>
   </div>
 
-  <main class="flex-1 w-full max-w-3xl mx-auto flex flex-col px-4 py-24 relative">
+  <!-- Contenedor Principal con Scroll Permitido -->
+  <main class="flex-1 w-full max-w-3xl mx-auto flex flex-col px-4 pt-24 pb-32 relative">
 
-    <div class="overflow-hidden w-full relative">
+    <div class="w-full relative overflow-x-hidden">
       <div id="slides-wrapper" class="flex w-full slide-container">
 
         <!-- Slide de Inicio -->
-        <div class="min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center text-center">
+        <div class="min-w-full flex-shrink-0 p-4 flex flex-col items-center">
           <div class="main-card p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden max-w-lg w-full">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-500 to-blue-600"></div>
 
@@ -110,10 +121,10 @@
               </svg>
             </div>
 
-            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4 text-center">
               Test de Certificación
             </h1>
-            <p class="text-lg text-slate-400 mb-8">
+            <p class="text-lg text-slate-400 mb-8 text-center">
               Neurología Módulo 6: <br />
               <span class="text-white font-semibold">Manejo Avanzado de Epilepsia</span>
             </p>
@@ -216,7 +227,7 @@
     function buildQuizDOM() {
       quizData.forEach((q, idx) => {
         const slide = document.createElement('div');
-        slide.className = 'min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center';
+        slide.className = 'min-w-full flex-shrink-0 p-4 flex flex-col items-center';
         slide.innerHTML = `
                     <div class="w-full max-w-2xl main-card rounded-3xl p-6 md:p-10 shadow-xl">
                         <div class="flex justify-between items-center mb-6">
@@ -233,7 +244,7 @@
                                     <span class="flex-shrink-0 w-8 h-8 rounded-full border border-slate-600 flex items-center justify-center text-slate-400 group-hover:border-cyan-500 group-hover:text-cyan-500 text-sm font-bold transition-colors">
                                         ${String.fromCharCode(65 + optIdx)}
                                     </span>
-                                    <span class="text-slate-300 group-hover:text-white pt-1">${opt}</span>
+                                    <span class="text-slate-300 group-hover:text-white pt-1 font-medium">${opt}</span>
                                 </button>
                             `).join('')}
                         </div>
@@ -254,7 +265,7 @@
       // Slide de Resultados
       const resultSlide = document.createElement('div');
       resultSlide.id = 'result-slide';
-      resultSlide.className = 'min-w-full flex-shrink-0 p-4 flex flex-col items-center justify-center';
+      resultSlide.className = 'min-w-full flex-shrink-0 p-4 flex flex-col items-center';
       wrapper.appendChild(resultSlide);
     }
 
@@ -287,6 +298,11 @@
         feedbackEl.innerHTML = `<div class="text-red-400 font-bold mb-1 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Incorrecto</div><p class="text-slate-300 text-sm">${question.explanation}</p>`;
       }
       navEl.classList.remove('hidden');
+
+      // Scroll suave hacia abajo para mostrar el feedback y el botón
+      setTimeout(() => {
+        window.scrollBy({ top: 300, behavior: 'smooth' });
+      }, 100);
     }
 
     function goToSlide(index) {
@@ -300,6 +316,9 @@
       if (index > quizData.length) {
         showResults();
       }
+
+      // Volver al inicio del scroll al cambiar de slide
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function showResults() {
