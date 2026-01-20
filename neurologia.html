@@ -150,16 +150,29 @@
         </p>
       </a>
 
-      <a href="neurologia/epilepsia-ii/index.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
+      <!-- Módulo: Epilepsias -->
+      <a href="neurologia/epilepsia-ii/index.html" id="card-epilepsia"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect opacity-50 pointer-events-none">
+        <div class="flex justify-between items-start mb-4">
           <i class="fas fa-bolt text-4xl gradient-text"></i>
+          <span
+            class="bg-cyan-100 text-cyan-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-cyan-200">Ninja
+            Nerd</span>
         </div>
-        <h2 class="text-2xl font-bold text-gray-800">Módulo: Epilepsia II</h2>
+        <h2 class="text-2xl font-bold text-gray-800">Módulo: Epilepsias</h2>
         <p class="text-gray-600 text-md mt-2">
-          Análisis avanzado sobre el tratamiento, la farmacoresistencia y las
-          nuevas terapias en epilepsia.
+          Análisis integral que abarca desde la etiología (VITAMIN) y fisiopatología hasta el manejo del status
+          epiléptico y farmacología avanzada. Incluye Masterclass gamificada.
         </p>
+        <div id="epilepsia-lock-msg"
+          class="mt-4 text-xs font-bold text-red-500 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-lock"></i>
+            Inicia sesión para acceder
+          </div>
+          <button onclick="event.preventDefault(); toggleAuthModal()" class="text-primary hover:underline">Entrar aquí
+            &rarr;</button>
+        </div>
       </a>
 
       <a href="neurologia/trastornos-movimiento-1.html"
@@ -317,7 +330,8 @@
     function updateUI(session) {
       const lockedCards = [
         { card: 'card-acv', msg: 'acv-lock-msg' },
-        { card: 'card-acv-isquemico', msg: 'acv-isquemico-lock-msg' }
+        { card: 'card-acv-isquemico', msg: 'acv-isquemico-lock-msg' },
+        { card: 'card-epilepsia', msg: 'epilepsia-lock-msg' }
       ];
 
       const authBtn = document.getElementById('auth-btn');
