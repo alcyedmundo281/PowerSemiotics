@@ -1,38 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Presentación: Epilepsia II - Manejo Avanzado</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentación: Epilepsia II - Power Semiotics</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap"
     rel="stylesheet">
-  <link href="../../assets/tailwind.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* Scrollbar Premium */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #020617;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #1e293b;
-      border-radius: 4px;
-      border: 1px solid #0f172a;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #334155;
-    }
-
+    /* Ocultar scrollbar pero mantener funcionalidad si fuera necesario */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -41,489 +24,454 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* Animaciones suaves */
+    .slide-track {
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
   </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { slate: { 950: '#020617' } }
+        }
+      }
+    }
+  </script>
 </head>
 
 <body
-  class="bg-slate-950 text-slate-200 font-sans antialiased selection:bg-cyan-500 selection:text-white overflow-hidden">
-  <div class="relative w-full h-screen flex flex-col p-4 md:p-8">
-    <!-- Background Gradients -->
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-      <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-cyan-900/10 rounded-full blur-[120px]"></div>
-      <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-900/10 rounded-full blur-[120px]"></div>
-    </div>
+  class="bg-slate-950 text-slate-200 h-screen w-screen overflow-hidden flex flex-col items-center justify-center selection:bg-cyan-500 selection:text-white relative">
 
-    <div id="slider-container"
-      class="slider-container flex w-full h-full overflow-x-auto no-scrollbar rounded-2xl border border-slate-800 bg-slate-900 shadow-2xl shadow-black/50">
-      <!-- Slide 1: Título -->
-      <div id="slide-1" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-900 text-white">
-        <div class="text-center max-w-4xl">
-          <p class="text-xl md:text-2xl text-red-300">
-            Neurología - Semana 6
-          </p>
-          <h1 class="text-4xl md:text-5xl font-extrabold my-4">
-            Epilepsia II: Estado Epiléptico, Síndromes y Tratamiento
+  <div class="fixed inset-0 pointer-events-none -z-10">
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyan-900/10 rounded-full blur-[100px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[100px]"></div>
+  </div>
+
+  <a href="index.html"
+    class="absolute top-6 left-6 z-50 flex items-center gap-2 text-slate-400 hover:text-white transition-colors bg-slate-900/50 px-4 py-2 rounded-full backdrop-blur-sm border border-slate-700 hover:border-cyan-500">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m15 18-6-6 6-6" />
+    </svg>
+    <span class="text-sm font-bold">Salir</span>
+  </a>
+
+  <div
+    class="relative w-full max-w-6xl aspect-video bg-slate-900 border border-slate-800 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-white/5 mx-4">
+
+    <div id="slider-track" class="slide-track flex w-full h-full">
+
+      <div
+        class="w-full h-full flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-950 p-12">
+        <div class="text-center max-w-3xl">
+          <span
+            class="inline-block py-1 px-3 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold tracking-widest uppercase mb-6 border border-cyan-500/20">Neurología
+            • Semana 6</span>
+          <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+            Epilepsia II: <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Manejo
+              Avanzado</span>
           </h1>
-          <svg class="mt-8 mx-auto w-full max-w-sm" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M100,20 C50,20 20,50 20,100 C20,150 50,180 100,180 C150,180 180,150 180,100 C180,50 150,20 100,20 Z"
-              fill="#1f2937" stroke="#dc2626" stroke-width="4" />
-            <circle cx="100" cy="100" r="70" fill="none" stroke="#fecaca" stroke-width="2" stroke-dasharray="4" />
-            <path d="M100 50 V 100 H 135" fill="none" stroke="#ef4444" stroke-width="6" stroke-linecap="round" />
-            <path d="M80 80 l-10-15 l-5 20 M120 120 l-10-15 l-5 20" fill="none" stroke="#f87171" stroke-width="3" />
-            <text x="100" y="150" text-anchor="middle" font-weight="bold" font-size="20" fill="white">
-              Tiempo es Cerebro
-            </text>
-          </svg>
+          <p class="text-xl text-slate-400 font-light mb-12">Estado Epiléptico, Síndromes y Farmacología.</p>
+
+          <div class="w-48 h-48 mx-auto relative opacity-80">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
+              class="w-full h-full drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+              <circle cx="100" cy="100" r="80" fill="#0f172a" stroke="#0ea5e9" stroke-width="4" />
+              <path d="M100 30 V 100 L 140 140" stroke="#f43f5e" stroke-width="6" stroke-linecap="round" />
+              <circle cx="100" cy="100" r="4" fill="#fff" />
+            </svg>
+            <div
+              class="absolute bottom-[-40px] w-full text-center font-mono text-cyan-400 text-sm font-bold tracking-widest">
+              TIEMPO = CEREBRO</div>
+          </div>
         </div>
       </div>
 
-      <!-- Slide 2: Objetivos de Aprendizaje -->
-      <div id="slide-2" class="slide w-full h-full flex items-center justify-center p-8 bg-white">
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12">
         <div class="max-w-4xl w-full">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-            Objetivos de Aprendizaje
-          </h2>
-          <ul class="space-y-4 text-lg md:text-xl">
-            <li class="flex items-start">
-              <span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Reconocer y definir el estado epiléptico (EE) y
-                sus
+          <h2 class="text-4xl font-bold text-white mb-10 border-l-4 border-cyan-500 pl-6">Objetivos de Aprendizaje</h2>
+          <div class="grid gap-4">
+            <div class="flex items-center p-4 bg-slate-800 rounded-xl border border-slate-700">
+              <div
+                class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mr-4 font-bold">
+                1</div>
+              <span class="text-lg text-slate-300">Reconocer y definir el <strong>Estado Epiléptico (EE)</strong> y sus
                 tipos.</span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Aplicar el protocolo de manejo secuencial del
-                EE
-                convulsivo.</span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Identificar síndromes epilépticos comunes
-                (Lennox-Gastaut,
-                EMJ).</span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Describir los mecanismos de acción de las
-                principales
-                familias de FAE.</span>
-            </li>
-            <li class="flex items-start">
-              <span class="text-blue-500 mr-3 mt-1">&#10003;</span><span>Seleccionar un FAE de primera línea apropiado
-                según el
-                caso.</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Slide 3: Definición EE -->
-      <div id="slide-3" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50">
-        <div class="max-w-4xl w-full text-center">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Estado Epiléptico (EE): Una Emergencia
-          </h2>
-          <p class="text-xl text-gray-600 mb-8">
-            Falla de los mecanismos que terminan una crisis, haciendo que se
-            autoperpetúe.
-          </p>
-          <svg class="w-full max-w-2xl mx-auto" viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
-            <line x1="20" y1="60" x2="480" y2="60" stroke="#9ca3af" stroke-width="4" />
-            <circle cx="20" cy="60" r="5" fill="black" />
-            <text x="20" y="85" text-anchor="middle">Inicio</text>
-            <circle cx="150" cy="60" r="10" fill="#f59e0b" stroke="white" stroke-width="2" />
-            <text x="150" y="95" text-anchor="middle" font-weight="bold" fill="#f59e0b">
-              T1 (5 min)
-            </text>
-            <text x="150" y="30" text-anchor="middle" class="text-sm">
-              Iniciar Tratamiento
-            </text>
-            <circle cx="400" cy="60" r="10" fill="#dc2626" stroke="white" stroke-width="2" />
-            <text x="400" y="95" text-anchor="middle" font-weight="bold" fill="#dc2626">
-              T2 (30 min)
-            </text>
-            <text x="400" y="30" text-anchor="middle" class="text-sm">
-              Riesgo de Daño Neuronal
-            </text>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Slide 4: Tipos de EE -->
-      <div id="slide-4" class="slide w-full h-full flex items-center justify-center p-8 bg-white">
-        <div class="max-w-4xl w-full">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center">
-            Tipos de Estado Epiléptico
-          </h2>
-          <div class="grid md:grid-cols-2 gap-8 mt-8">
-            <div class="bg-red-50 p-6 rounded-lg border-2 border-red-200">
-              <h3 class="font-bold text-2xl text-red-800 mb-2">
-                EE Convulsivo
-              </h3>
-              <p>
-                El más evidente y dramático. Cursa con actividad motora
-                prominente (tónico-clónica, mioclónica). Es una emergencia
-                clara.
-              </p>
             </div>
-            <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
-              <h3 class="font-bold text-2xl text-blue-800 mb-2">
-                EE No Convulsivo
-              </h3>
-              <p>
-                Más sutil y peligroso por subdiagnóstico. Se presenta como
-                estado confusional, coma o cambios de comportamiento. Requiere
-                EEG para confirmar.
-              </p>
+            <div class="flex items-center p-4 bg-slate-800 rounded-xl border border-slate-700">
+              <div
+                class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mr-4 font-bold">
+                2</div>
+              <span class="text-lg text-slate-300">Aplicar el protocolo de <strong>manejo secuencial</strong> (Fases
+                1-4).</span>
+            </div>
+            <div class="flex items-center p-4 bg-slate-800 rounded-xl border border-slate-700">
+              <div
+                class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mr-4 font-bold">
+                3</div>
+              <span class="text-lg text-slate-300">Identificar síndromes clave (Lennox-Gastaut, EMJ).</span>
+            </div>
+            <div class="flex items-center p-4 bg-slate-800 rounded-xl border border-slate-700">
+              <div
+                class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center mr-4 font-bold">
+                4</div>
+              <span class="text-lg text-slate-300">Seleccionar el <strong>FAE de primera línea</strong> correcto.</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 5: Manejo Fase 1 -->
-      <div id="slide-5" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50">
-        <div class="max-w-4xl w-full">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center">
-            Manejo del EE: Fase 1 (0-5 min)
-          </h2>
-          <p class="text-center text-xl text-gray-600 mb-8">
-            Estabilización y evaluación inicial.
-          </p>
-          <svg class="w-full max-w-xl mx-auto" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
-            <g text-anchor="middle" font-family="Inter" font-weight="bold" font-size="20">
-              <rect x="100" y="0" width="100" height="40" rx="10" fill="#3b82f6" />
-              <text x="150" y="25" fill="white">ABC</text>
-              <path d="M150,40 V 60" stroke="#9ca3af" stroke-width="2" />
-              <rect x="50" y="60" width="200" height="40" rx="10" fill="#10b981" />
-              <text x="150" y="85" fill="white">Monitorización</text>
-              <path d="M150,100 V 120" stroke="#9ca3af" stroke-width="2" />
-              <rect x="0" y="120" width="300" height="40" rx="10" fill="#f59e0b" />
-              <text x="150" y="145" fill="white">Glucemia + Labs</text>
-            </g>
-          </svg>
-        </div>
-      </div>
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12">
+        <div class="max-w-5xl w-full text-center">
+          <h2 class="text-4xl font-bold text-white mb-6">Estado Epiléptico (EE): La Emergencia</h2>
+          <p class="text-2xl text-slate-400 mb-12 font-light">"Falla de los mecanismos que terminan una crisis, haciendo
+            que se autoperpetúe".</p>
 
-      <!-- Slide 6: Manejo Fase 2 -->
-      <div id="slide-6" class="slide w-full h-full flex items-center justify-center p-8 bg-white">
-        <div class="max-w-4xl w-full">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-            Fase 2 (5-20 min): Primera Línea Terapéutica
-          </h2>
-          <div class="text-center p-6 bg-green-100 rounded-lg">
-            <p class="text-2xl font-bold text-green-800">
-              Fármaco de Elección: BENZODIACEPINAS IV
-            </p>
-          </div>
-          <div class="grid md:grid-cols-2 gap-4 mt-6 text-center">
-            <div class="p-4 bg-gray-50 rounded-lg">
-              <p class="font-bold">Lorazepam IV</p>
-              <p>0.1 mg/kg (máx. 4 mg)</p>
-            </div>
-            <div class="p-4 bg-gray-50 rounded-lg">
-              <p class="font-bold">Diazepam IV</p>
-              <p>0.15-0.2 mg/kg (máx. 10 mg)</p>
-            </div>
-          </div>
-          <p class="text-center mt-4 font-semibold text-red-600">
-            Alternativa sin acceso IV: Midazolam Intramuscular (IM).
-          </p>
-        </div>
-      </div>
+          <div class="relative mt-20 pt-10">
+            <div class="absolute top-0 left-0 w-full h-1 bg-slate-700 top-1/2 -translate-y-1/2"></div>
 
-      <!-- Slide 7: Manejo Fase 3 -->
-      <div id="slide-7" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50">
-        <div class="max-w-4xl w-full">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-            Fase 3 (20-40 min): EE Refractario - Segunda Línea
-          </h2>
-          <p class="text-xl text-center text-gray-600 mb-8">
-            Si las benzodiacepinas fallan, cargar uno de estos FAE IV.
-          </p>
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="p-4 bg-white rounded-lg shadow text-center border-t-4 border-blue-500">
-              <h3 class="font-bold text-lg">Fenitoína IV</h3>
-              <p>20 mg/kg</p>
-              <p class="text-xs text-red-500 mt-2">¡Vigilar TA y ECG!</p>
-            </div>
-            <div class="p-4 bg-white rounded-lg shadow text-center border-t-4 border-purple-500">
-              <h3 class="font-bold text-lg">Ácido Valproico IV</h3>
-              <p>20-40 mg/kg</p>
-            </div>
-            <div class="p-4 bg-white rounded-lg shadow text-center border-t-4 border-green-500">
-              <h3 class="font-bold text-lg">Levetiracetam IV</h3>
-              <p>60 mg/kg</p>
+            <div class="relative flex justify-between items-center z-10">
+              <div class="text-center">
+                <div class="w-6 h-6 bg-slate-500 rounded-full mx-auto mb-4 ring-4 ring-slate-900"></div>
+                <span class="text-slate-500 font-mono text-sm">Inicio</span>
+              </div>
+
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 bg-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center text-slate-900 font-bold ring-8 ring-slate-900">
+                  T1</div>
+                <span class="text-yellow-400 font-bold block text-lg">5 min</span>
+                <span class="text-slate-400 text-sm">Iniciar Tratamiento</span>
+              </div>
+
+              <div class="text-center">
+                <div
+                  class="w-12 h-12 bg-red-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold ring-8 ring-slate-900 animate-pulse">
+                  T2</div>
+                <span class="text-red-500 font-bold block text-lg">30 min</span>
+                <span class="text-slate-400 text-sm">Daño Neuronal</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 8: Manejo Fase 4 -->
-      <div id="slide-8" class="slide w-full h-full flex items-center justify-center p-8 bg-red-700 text-white">
-        <div class="max-w-4xl w-full text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">
-            Fase 4 (>40 min): EE Refractario Establecido
-          </h2>
-          <p class="text-xl mb-6">El paciente requiere manejo en UCI.</p>
-          <div class="p-6 bg-black bg-opacity-20 rounded-lg">
-            <p class="text-2xl font-bold">Intubación + Anestesia General</p>
-            <p class="mt-2">
-              Infusiones continuas de Midazolam, Propofol o Pentobarbital con
-              monitorización EEG.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 9: Síndromes -->
-      <div id="slide-9" class="slide w-full h-full flex items-center justify-center p-8 bg-white">
-        <div class="max-w-4xl w-full text-center">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            ¿Qué son los Síndromes Epilépticos?
-          </h2>
-          <p class="text-xl text-gray-600">
-            Son "constelaciones" de características que agrupan tipo de
-            crisis, hallazgos en EEG y pronóstico.
-          </p>
-          <p class="text-xl text-gray-600 mt-4">
-            Identificar el síndrome es clave para un tratamiento preciso.
-          </p>
-          <p class="mt-8 font-bold text-2xl">
-            No es lo mismo tratar una "crisis focal" que tratar un "Síndrome
-            de Lennox-Gastaut".
-          </p>
-        </div>
-      </div>
-
-      <!-- Slide 10: Síndromes Clave -->
-      <div id="slide-10" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50">
-        <div class="max-w-4xl w-full">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center">
-            Síndromes Epilépticos Clave
-          </h2>
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12">
+        <div class="max-w-5xl w-full">
+          <h2 class="text-3xl font-bold text-white mb-10 text-center">Clasificación Clínica del EE</h2>
           <div class="grid md:grid-cols-2 gap-8">
-            <div class="text-center">
-              <svg class="w-32 h-32 mx-auto" viewBox="0 0 100 100">
-                <g transform="translate(50,50)">
-                  <circle r="45" fill="#dbeafe" />
-                  <path d="M -20 -10 a 10 10 0 0 1 20 0 a 10 10 0 0 1 20 0" fill="none" stroke="#60a5fa"
-                    stroke-width="3" />
-                  <circle cx="-15" cy="5" r="3" fill="black" />
-                  <circle cx="15" cy="5" r="3" fill="black" />
-                  <path d="M 0 20 a 10 10 0 0 0 0 10" stroke="black" stroke-width="2" stroke-linecap="round" />
-                  <text y="-25" font-size="12">Zzz</text>
-                </g>
-              </svg>
-              <h3 class="font-bold text-2xl mt-2">
-                Epilepsia Mioclónica Juvenil
-              </h3>
-              <p class="text-gray-600">
-                Inicio en adolescencia. Mioclonías matutinas. Buena respuesta
-                a Ácido Valproico.
+            <div class="bg-red-900/10 border border-red-500/30 p-8 rounded-2xl hover:bg-red-900/20 transition-all">
+              <div class="flex items-center mb-4">
+                <span class="bg-red-500 text-white p-2 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18.6 15.6a9 9 0 1 0-13.2 0" />
+                    <path d="m12 12 4.5-4.5" />
+                    <path d="m12 12-4.5-4.5" />
+                  </svg></span>
+                <h3 class="font-bold text-2xl text-red-400">EE Convulsivo</h3>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                El más evidente y dramático. Cursa con actividad motora prominente (tónico-clónica).
+                <br /><br /><strong class="text-white">Acción:</strong> Tratamiento inmediato.
               </p>
             </div>
-            <div class="text-center">
-              <svg class="w-32 h-32 mx-auto" viewBox="0 0 100 100">
-                <g transform="translate(50,50)">
-                  <circle r="45" fill="#fee2e2" />
-                  <path d="M-25 10 C-10 25 10 25 25 10" fill="none" stroke="black" stroke-width="2" />
-                  <circle cx="-15" cy="-5" r="3" fill="black" />
-                  <circle cx="15" cy="-5" r="3" fill="black" />
-                  <path
-                    d="M-30,-30 h60 a10,10 0 0 1 10,10 v20 a10,10 0 0 1 -10,10 h-60 a10,10 0 0 1 -10,-10 v-20 a10,10 0 0 1 10,-10 Z"
-                    fill="#fca5a5" stroke="black" />
-                </g>
-              </svg>
-              <h3 class="font-bold text-2xl mt-2">
-                Síndrome de Lennox-Gastaut
-              </h3>
-              <p class="text-gray-600">
-                Infancia. Múltiples tipos de crisis. Difícil control y
-                asociado a deterioro cognitivo.
+            <div class="bg-blue-900/10 border border-blue-500/30 p-8 rounded-2xl hover:bg-blue-900/20 transition-all">
+              <div class="flex items-center mb-4">
+                <span class="bg-blue-500 text-white p-2 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 12h2" />
+                    <path d="M6 12h2" />
+                    <path d="M10 12h2" />
+                    <path d="M14 12h2" />
+                    <path d="M18 12h2" />
+                    <path d="M22 12h2" />
+                  </svg></span>
+                <h3 class="font-bold text-2xl text-blue-400">EE No Convulsivo</h3>
+              </div>
+              <p class="text-slate-300 leading-relaxed">
+                Sutil y peligroso ("Estatus Silente"). Confusión, coma o cambios conductuales sin convulsión motora.
+                <br /><br /><strong class="text-white">Acción:</strong> Requiere EEG para confirmar.
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 11: Principios FAE -->
-      <div id="slide-11" class="slide w-full h-full flex items-center justify-center p-8 bg-white">
-        <div class="max-w-4xl w-full">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-            Principios del Tratamiento Farmacológico (FAE)
-          </h2>
-          <ul class="space-y-6 text-xl">
-            <li class="p-4 bg-gray-50 rounded-lg">
-              <strong>Objetivo:</strong> Controlar crisis con mínimos efectos
-              adversos para mejorar calidad de vida.
-            </li>
-            <li class="p-4 bg-gray-50 rounded-lg">
-              <strong>Principio Fundamental:</strong> Iniciar con
-              <strong>monoterapia</strong> a dosis bajas.
-            </li>
-            <li class="p-4 bg-gray-50 rounded-lg">
-              <strong>La Elección del FAE depende de:</strong> Tipo de crisis,
-              perfil del paciente y efectos adversos.
-            </li>
-          </ul>
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12">
+        <div class="max-w-4xl w-full text-center">
+          <span class="text-cyan-500 font-mono tracking-widest text-sm uppercase mb-2 block">Protocolo de Manejo</span>
+          <h2 class="text-4xl font-bold text-white mb-12">Fase 1 (0-5 min): Estabilización</h2>
+
+          <div class="flex flex-col gap-4 max-w-xl mx-auto">
+            <div class="flex items-center bg-slate-800 p-4 rounded-xl border-l-4 border-blue-500 shadow-lg">
+              <div class="text-2xl font-black text-blue-500 mr-6 w-12">A</div>
+              <div class="text-left">
+                <div class="font-bold text-white">Airway (Vía Aérea)</div>
+                <div class="text-sm text-slate-400">Asegurar permeabilidad + Oxígeno.</div>
+              </div>
+            </div>
+            <div class="flex items-center bg-slate-800 p-4 rounded-xl border-l-4 border-green-500 shadow-lg">
+              <div class="text-2xl font-black text-green-500 mr-6 w-12">M</div>
+              <div class="text-left">
+                <div class="font-bold text-white">Monitorización</div>
+                <div class="text-sm text-slate-400">Signos vitales (ECG, PA, SatO2).</div>
+              </div>
+            </div>
+            <div class="flex items-center bg-slate-800 p-4 rounded-xl border-l-4 border-yellow-500 shadow-lg">
+              <div class="text-2xl font-black text-yellow-500 mr-6 w-12">G</div>
+              <div class="text-left">
+                <div class="font-bold text-white">Glucosa + Labs</div>
+                <div class="text-sm text-slate-400">Descartar hipoglucemia. Acceso IV.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Slide 12: Familias FAE -->
-      <div id="slide-12" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-50">
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12">
         <div class="max-w-4xl w-full text-center">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-            Principales Familias de FAE
-          </h2>
-          <svg class="w-full max-w-xl mx-auto" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50,100 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0" fill="#dbeafe" stroke="#60a5fa" />
-            <text x="100" y="100" text-anchor="middle">Neurona</text>
-            <text x="100" y="120" text-anchor="middle">Presináptica</text>
-            <path d="M250,100 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0" fill="#dcfce7" stroke="#34d399" />
-            <text x="300" y="100" text-anchor="middle">Neurona</text>
-            <text x="300" y="120" text-anchor="middle">Postsináptica</text>
-            <g font-size="12" font-weight="bold">
-              <rect x="130" y="70" width="40" height="20" fill="#fef9c3" />
-              <text x="150" y="83" text-anchor="middle">Na+</text>
-              <text x="80" y="50" fill="#ca8a04">Bloq. Canales Na+</text>
-              <rect x="230" y="70" width="40" height="20" fill="#fee2e2" />
-              <text x="250" y="83" text-anchor="middle">GABA</text>
-              <text x="320" y="50" fill="#b91c1c">Potenc. GABA</text>
-            </g>
-          </svg>
-          <p class="mt-4 text-gray-600">
-            Cada familia de fármacos actúa en un punto diferente de la
-            sinapsis para controlar la hiperexcitabilidad neuronal.
+          <h2 class="text-4xl font-bold text-white mb-6">Fase 2 (5-20 min): Primera Línea</h2>
+          <p class="text-xl text-slate-400 mb-8">El objetivo es detener la crisis eléctrica inmediatamente.</p>
+
+          <div
+            class="bg-gradient-to-r from-green-900/40 to-cyan-900/40 border border-green-500/30 p-8 rounded-2xl mb-8">
+            <div class="text-sm text-green-400 uppercase font-bold tracking-wider mb-2">Fármaco de Elección</div>
+            <div class="text-4xl font-black text-white">Benzodiacepinas IV</div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 text-left">
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+              <h3 class="text-xl font-bold text-white mb-2">Lorazepam IV</h3>
+              <div class="font-mono text-cyan-400">0.1 mg/kg (máx 4mg)</div>
+              <p class="text-sm text-slate-500 mt-2">Menor riesgo de redistribución que Diazepam.</p>
+            </div>
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+              <h3 class="text-xl font-bold text-white mb-2">Diazepam IV</h3>
+              <div class="font-mono text-cyan-400">0.15-0.2 mg/kg (máx 10mg)</div>
+              <p class="text-sm text-slate-500 mt-2">Acción rápida, pero vida media corta en cerebro.</p>
+            </div>
+          </div>
+          <div
+            class="mt-6 inline-block bg-red-900/20 text-red-400 px-4 py-2 rounded-lg text-sm border border-red-500/20">
+            ⚠ Sin acceso IV: <strong>Midazolam IM (10mg)</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12">
+        <div class="max-w-5xl w-full">
+          <h2 class="text-3xl font-bold text-white mb-8 text-center">Fase 3 (20-40 min): EE Refractario</h2>
+          <p class="text-center text-slate-400 mb-8">Si las benzodiacepinas fallan, cargar uno de estos FAE IV:</p>
+
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-slate-800 border-t-4 border-purple-500 p-6 rounded-xl shadow-lg">
+              <h3 class="font-bold text-xl text-white mb-2">Ácido Valproico</h3>
+              <div class="text-purple-400 font-mono text-lg mb-2">20-40 mg/kg</div>
+              <p class="text-xs text-slate-400">Amplio espectro. Evitar en hepatopatía o embarazo.</p>
+            </div>
+            <div class="bg-slate-800 border-t-4 border-yellow-500 p-6 rounded-xl shadow-lg relative overflow-hidden">
+              <div class="absolute top-2 right-2 text-yellow-500"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg></div>
+              <h3 class="font-bold text-xl text-white mb-2">Fenitoína</h3>
+              <div class="text-yellow-400 font-mono text-lg mb-2">20 mg/kg</div>
+              <p class="text-xs text-slate-400">¡Riesgo Cardiovascular! Monitorizar ECG y PA. Solo SSN 0.9%.</p>
+            </div>
+            <div class="bg-slate-800 border-t-4 border-blue-500 p-6 rounded-xl shadow-lg">
+              <h3 class="font-bold text-xl text-white mb-2">Levetiracetam</h3>
+              <div class="text-blue-400 font-mono text-lg mb-2">60 mg/kg</div>
+              <p class="text-xs text-slate-400">Perfil seguro. Pocas interacciones. Dosis máx 4500mg.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12">
+        <div class="max-w-4xl w-full flex flex-col md:flex-row items-center gap-12">
+          <div class="flex-1">
+            <div
+              class="w-full aspect-square bg-slate-800 rounded-full flex items-center justify-center relative border border-slate-700">
+              <div class="absolute inset-0 bg-cyan-500/10 rounded-full animate-pulse"></div>
+              <span class="text-6xl">⚡</span>
+            </div>
+          </div>
+          <div class="flex-[2]">
+            <span class="text-cyan-500 font-bold tracking-widest text-xs uppercase mb-2 block">Síndrome Clave</span>
+            <h2 class="text-4xl font-bold text-white mb-6">Epilepsia Mioclónica Juvenil (EMJ)</h2>
+            <ul class="space-y-4 text-slate-300 text-lg">
+              <li class="flex items-start"><span class="text-cyan-500 mr-2">✓</span> Inicio en adolescencia.</li>
+              <li class="flex items-start"><span class="text-cyan-500 mr-2">✓</span> <strong>Mioclonías
+                  matutinas</strong> ("se le caen las cosas del desayuno").</li>
+              <li class="flex items-start"><span class="text-cyan-500 mr-2">✓</span> Intelecto normal.</li>
+              <li class="mt-6 bg-slate-800 p-4 rounded-lg border border-slate-700">
+                <span class="block text-sm text-slate-500 mb-1">Tratamiento de Elección:</span>
+                <strong class="text-green-400 text-xl">Ácido Valproico</strong>
+                <br /><span class="text-xs text-red-400 block mt-1">¡Evitar Carbamazepina! (Empeora mioclonías)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12">
+        <div class="max-w-4xl w-full flex flex-col md:flex-row items-center gap-12">
+          <div class="flex-1 order-2 md:order-1">
+            <span class="text-red-500 font-bold tracking-widest text-xs uppercase mb-2 block">Encefalopatía
+              Epiléptica</span>
+            <h2 class="text-4xl font-bold text-white mb-6">Síndrome de Lennox-Gastaut</h2>
+            <ul class="space-y-4 text-slate-300 text-lg">
+              <li class="flex items-start"><span class="text-red-500 mr-2">⚠</span> Inicio en infancia (1-8 años).</li>
+              <li class="flex items-start"><span class="text-red-500 mr-2">⚠</span> <strong>Múltiples tipos de
+                  crisis:</strong> Tónicas, atónicas ("drop attacks"), ausencias atípicas.</li>
+              <li class="flex items-start"><span class="text-red-500 mr-2">⚠</span> Deterioro cognitivo asociado.</li>
+              <li class="flex items-start"><span class="text-red-500 mr-2">⚠</span> EEG: Punta-onda lenta (&#60; 2.5Hz).
+              </li>
+              <li class="mt-4 bg-slate-800 p-4 rounded-lg border border-slate-700">
+                <span class="block text-sm text-slate-500 mb-1">Manejo:</span>
+                <span class="text-white">Difícil control. Valproato, Lamotrigina, Clobazam, Rufinamida.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="flex-1 order-1 md:order-2">
+            <div
+              class="w-full aspect-square bg-slate-800 rounded-2xl flex items-center justify-center relative border border-slate-700 rotate-3">
+              <div class="text-center">
+                <div class="text-4xl font-mono text-slate-600 mb-2">EEG</div>
+                <svg width="100" height="40" viewBox="0 0 100 40" class="text-red-500 stroke-current fill-none"
+                  stroke-width="2">
+                  <path d="M0 20 h10 l5 -15 l5 30 l5 -15 h10 l5 -10 l5 20 l5 -10 h40" />
+                </svg>
+                <p class="text-xs text-slate-500 mt-2">Punta-Onda Lenta</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full h-full flex-shrink-0 flex items-center justify-center bg-slate-900 p-12 text-center">
+        <div class="max-w-3xl">
+          <div class="inline-block p-4 rounded-full bg-green-500/10 text-green-500 mb-8 border border-green-500/20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+          </div>
+          <h2 class="text-5xl font-bold text-white mb-6">Presentación Completada</h2>
+          <p class="text-xl text-slate-400 mb-10">
+            Ahora estás listo para poner a prueba estos conocimientos en el Simulador de Status Epiléptico.
           </p>
+          <a href="epilepsia-2-actividad-interactiva.html"
+            class="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-cyan-500/30 transition-all hover:scale-105">
+            Ir al Simulador Clínico
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
         </div>
       </div>
 
-      <!-- Slide 13: Puente a Simulación -->
-      <div id="slide-13" class="slide w-full h-full flex items-center justify-center p-8 bg-yellow-100">
-        <div class="max-w-4xl w-full text-center">
-          <h2 class="text-3xl md:text-4xl font-bold text-yellow-800 mb-6">
-            Puente a la Simulación
-          </h2>
-          <div class="p-8 bg-white rounded-lg shadow-lg">
-            <p class="text-2xl font-semibold text-gray-800">
-              Acaba de llegar a la emergencia un paciente de 30 años que ha
-              estado convulsionando por 7 minutos sin parar. Su equipo ya está
-              preparando el monitor y el acceso IV.
-            </p>
-            <p class="mt-6 text-3xl font-bold text-red-600">
-              ¿Cuál es su primera orden farmacológica y qué prepara como
-              siguiente paso?
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 14: Cierre -->
-      <div id="slide-14" class="slide w-full h-full flex items-center justify-center p-8 bg-gray-900 text-white">
-        <div class="text-center max-w-4xl">
-          <h2 class="text-4xl md:text-6xl font-bold">Preguntas y Cierre</h2>
-        </div>
-      </div>
     </div>
-
-    <!-- Navigation Controls (Floating Bar) -->
     <div
-      class="fixed bottom-12 left-1/2 -translate-x-1/2 w-[90%] max-w-3xl bg-slate-900/80 backdrop-blur-md border border-slate-700 p-4 rounded-full flex justify-between items-center shadow-2xl z-50">
-      <button id="prevBtn" class="p-2 rounded-full hover:bg-white/10 text-white transition disabled:opacity-30">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-2xl bg-slate-950/80 backdrop-blur-xl border border-slate-700 p-3 rounded-full flex justify-between items-center shadow-2xl z-20">
+      <button id="prevBtn"
+        class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 text-white transition disabled:opacity-30 disabled:cursor-not-allowed">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6" />
         </svg>
       </button>
 
-      <div class="flex flex-col items-center">
-        <div class="flex items-center gap-2 mb-1">
-          <span id="slide-counter" class="text-cyan-400 font-bold font-mono text-sm tracking-widest">01 / 14</span>
+      <div class="flex flex-col items-center w-full px-6">
+        <div class="flex justify-between w-full text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
+          <span id="slide-title">Portada</span>
+          <span id="slide-counter">1 / 10</span>
         </div>
-        <div class="w-48 h-1 bg-slate-800 rounded-full overflow-hidden">
-          <div id="progress-bar"
-            class="h-full bg-cyan-500 transition-all duration-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]"
-            style="width: 7%"></div>
+        <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+          <div id="progress-bar" class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300"
+            style="width: 10%"></div>
         </div>
       </div>
 
       <button id="nextBtn"
-        class="p-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-white shadow-lg shadow-cyan-500/30 transition disabled:opacity-30">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        class="w-10 h-10 rounded-full bg-cyan-600 hover:bg-cyan-500 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 transition disabled:opacity-30 disabled:cursor-not-allowed">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 18 6-6-6-6" />
         </svg>
       </button>
     </div>
+
   </div>
 
   <script>
-    const sliderContainer = document.getElementById('slider-container');
+    const track = document.getElementById('slider-track');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    const slideCounter = document.getElementById('slide-counter');
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-    let currentSlide = 1;
+    const counterEl = document.getElementById('slide-counter');
+    const titleEl = document.getElementById('slide-title');
+    const progressEl = document.getElementById('progress-bar');
 
-    function updateUI() {
-      if (slides.length > 0) {
-        const slideNum = currentSlide.toString().padStart(2, '0');
-        const totalNum = totalSlides.toString().padStart(2, '0');
-        slideCounter.textContent = `${slideNum} / ${totalNum}`;
-        prevBtn.disabled = currentSlide === 1;
-        nextBtn.disabled = currentSlide === totalSlides;
+    // Títulos de slides para la barra de control
+    const slideTitles = [
+      "Portada", "Objetivos", "Definición EE", "Tipos de EE",
+      "Fase 1: ABC", "Fase 2: Benzos", "Fase 3: FAEs",
+      "Síndrome: EMJ", "Síndrome: Lennox", "Fin"
+    ];
 
-        const progress = (currentSlide / totalSlides) * 100;
-        document.getElementById('progress-bar').style.width = `${progress}%`;
-      }
-    }
+    let currentIndex = 0;
+    const totalSlides = 10;
 
-    function scrollToSlide(slideNumber) {
-      if (sliderContainer.children.length > 0) {
-        const slideWidth = sliderContainer.clientWidth;
-        sliderContainer.scrollTo({
-          left: (slideNumber - 1) * slideWidth,
-          behavior: 'smooth',
-        });
-      }
+    function updateSlider() {
+      // Mover el track (translateX)
+      const percentage = -(currentIndex * 100);
+      track.style.transform = `translateX(${percentage}%)`;
+
+      // Actualizar UI Controles
+      counterEl.textContent = `${currentIndex + 1} / ${totalSlides}`;
+      titleEl.textContent = slideTitles[currentIndex] || "Diapositiva";
+      progressEl.style.width = `${((currentIndex + 1) / totalSlides) * 100}%`;
+
+      // Estados de botones
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === totalSlides - 1;
     }
 
     nextBtn.addEventListener('click', () => {
-      if (currentSlide < totalSlides) {
-        currentSlide++;
-        scrollToSlide(currentSlide);
-        updateUI();
+      if (currentIndex < totalSlides - 1) {
+        currentIndex++;
+        updateSlider();
       }
     });
 
     prevBtn.addEventListener('click', () => {
-      if (currentSlide > 1) {
-        currentSlide--;
-        scrollToSlide(currentSlide);
-        updateUI();
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlider();
       }
     });
 
-    let scrollTimeout;
-    sliderContainer.addEventListener('scroll', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        const containerWidth = sliderContainer.clientWidth;
-        let mostVisibleSlide =
-          Math.round(sliderContainer.scrollLeft / containerWidth) + 1;
-
-        if (
-          mostVisibleSlide !== currentSlide &&
-          mostVisibleSlide > 0 &&
-          mostVisibleSlide <= totalSlides
-        ) {
-          currentSlide = mostVisibleSlide;
-          updateUI();
-        }
-      }, 100);
+    // Soporte Teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextBtn.click();
+      if (e.key === 'ArrowLeft') prevBtn.click();
     });
 
-    window.addEventListener('resize', () => {
-      scrollToSlide(currentSlide);
-    });
-
-    updateUI();
+    // Inicializar
+    updateSlider();
   </script>
 </body>
 
