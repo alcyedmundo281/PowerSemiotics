@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infección por Helicobacter pylori - Gastroenterología UCE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #1d4ed8;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: #2563eb;
+        }
+
+        .card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-container {
+            padding-top: 1rem;
+        }
+
+        /* Estilos para Drag & Drop */
+        .draggable {
+            cursor: grab;
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+        }
+
+        .dropzone {
+            min-height: 100px;
+            border: 2px dashed #94a3b8;
+            background: #f1f5f9;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: background 0.3s;
+        }
+
+        .dropzone.dragover {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+
+        /* Estilos para el Juego */
+        .game-screen {
+            display: none;
+        }
+
+        .game-screen.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-blue-800 text-white p-6 shadow-lg">
+        <div class="container mx-auto">
+            <div class="flex items-center">
+                <div class="bg-white text-blue-800 p-3 rounded-md mr-4">
+                    <i class="fas fa-bug text-3xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold">Infección por <em>Helicobacter pylori</em></h1>
+                    <p class="text-lg">Gastroenterología – Módulo Educativo</p>
+                    <p class="text-sm">Basado en Guías Maastricht VI / ACG y Contexto Ecuador</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sticky-nav bg-blue-700 text-white py-3 shadow-md">
+        <div class="container mx-auto flex flex-wrap justify-center gap-x-4 gap-y-2 px-2">
+            <a href="#microbiologia" class="hover:bg-blue-600 px-3 py-1 rounded-md transition-colors">Microbiología</a>
+            <a href="#epidemiologia" class="hover:bg-blue-600 px-3 py-1 rounded-md transition-colors">Epidemiología</a>
+            <a href="#patogenia" class="hover:bg-blue-600 px-3 py-1 rounded-md transition-colors">Patogenia</a>
+            <a href="#diagnostico" class="hover:bg-blue-600 px-3 py-1 rounded-md transition-colors">Diagnóstico</a>
+            <a href="#tratamiento" class="hover:bg-blue-600 px-3 py-1 rounded-md transition-colors">Tratamiento</a>
+            <a href="#actividad"
+                class="hover:bg-blue-600 px-3 py-1 rounded-md transition-colors font-bold text-yellow-300">Actividad
+                Interactiva</a>
+            <a href="#simulador"
+                class="hover:bg-blue-600 px-3 py-1 rounded-md transition-colors font-bold text-yellow-300">Simulador
+                Clínico</a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-4 md:p-6">
+
+        <section id="microbiologia" class="section-container card">
+            <h2>El Protagonista: ¿Quién es <em>H. pylori</em>?</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    [cite_start]<p class="mb-4"><em>Helicobacter pylori</em> es un bacilo Gram negativo de forma
+                        espiralada, característica que facilita su movilidad a través del moco gástrico[cite: 14].
+                        [cite_start]Es un organismo microaerófilo [cite: 15] que ha coevolucionado con el ser humano
+                        para colonizar el ambiente hostil del estómago.</p>
+                    <h4 class="text-blue-600">Factores de Virulencia Clave:</h4>
+                    <ul class="list-disc list-inside space-y-2 ml-2">
+                        [cite_start]<li><strong>Ureasa:</strong> Enzima fundamental que neutraliza el ácido gástrico
+                            produciendo amoníaco (NH3), esencial para la colonización inicial[cite: 17].</li>
+                        [cite_start]<li><strong>Flagelos:</strong> Permiten la movilidad y penetración en la capa
+                            mucosa[cite: 18].</li>
+                        [cite_start]<li><strong>Adhesinas:</strong> Facilitan la unión firme a las células epiteliales
+                            gástricas[cite: 19].</li>
+                        [cite_start]<li><strong>CagA (Citotoxina asociada al gen A):</strong> Proteína inyectada en las
+                            células del huésped; es proinflamatoria y está asociada a un mayor riesgo de úlcera y cáncer
+                            gástrico[cite: 20].</li>
+                        [cite_start]<li><strong>VacA (Citotoxina vacuolizante A):</strong> Induce la formación de
+                            vacuolas, apoptosis y altera la función inmune local[cite: 21].</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg flex items-center justify-center">
+                    <div class="text-center">
+                        <i class="fas fa-dna text-6xl text-blue-300 mb-4"></i>
+                        <p class="text-sm text-gray-600 italic">La interacción entre los factores de virulencia y la
+                            respuesta inmune del huésped determina el resultado clínico.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="epidemiologia" class="section-container card border-l-4 border-yellow-500">
+            <h2>Impacto en Ecuador y el Mundo</h2>
+            [cite_start]<p class="mb-4">Globalmente, la infección afecta aproximadamente al 50% de la población mundial,
+                con una prevalencia mayor en países en vías de desarrollo[cite: 23].</p>
+
+            <h3 class="text-yellow-700">Realidad en Ecuador</h3>
+            <ul class="list-disc list-inside ml-4 space-y-2">
+                <li><strong>Prevalencia:</strong> Es considerada ALTA. [cite_start]Estudios sugieren tasas superiores al
+                    <strong>60-80%</strong> en ciertas poblaciones adultas[cite: 25].</li>
+                [cite_start]<li><strong>Transmisión:</strong> Ocurre principalmente de persona a persona (vía oral-oral
+                    o fecal-oral), ocurriendo la infección mayoritariamente durante la infancia[cite: 27].</li>
+                [cite_start]<li><strong>Factores de Riesgo Locales:</strong> Nivel socioeconómico bajo, hacinamiento,
+                    saneamiento deficiente y acceso limitado a agua potable[cite: 26].</li>
+            </ul>
+        </section>
+
+        <section id="patogenia" class="section-container card">
+            <h2>Patogenia y Espectro Clínico</h2>
+            [cite_start]<p class="mb-4">La infección induce una respuesta inflamatoria crónica mediada por citoquinas
+                como IL-8 y TNF-α[cite: 31]. [cite_start]Aunque muchos pacientes permanecen asintomáticos (solo con
+                gastritis histológica)[cite: 34], la evolución puede llevar a patologías graves.</p>
+
+            <div class="grid md:grid-cols-3 gap-4 mt-6">
+                <div class="bg-red-50 p-4 rounded border border-red-200">
+                    <h4 class="text-red-700 text-center"><i class="fas fa-fire"></i> Úlcera Péptica</h4>
+                    [cite_start]<p class="text-sm text-center mt-2"><em>H. pylori</em> causa el <strong>70-90%</strong>
+                        de las úlceras duodenales y el <strong>70%</strong> de las gástricas[cite: 38].</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded border border-purple-200">
+                    <h4 class="text-purple-700 text-center"><i class="fas fa-disease"></i> Cáncer Gástrico</h4>
+                    [cite_start]<p class="text-sm text-center mt-2">Carcinógeno Tipo I (OMS)[cite: 44]. [cite_start]La
+                        inflamación crónica conduce a atrofia, metaplasia intestinal, displasia y finalmente
+                        adenocarcinoma (Secuencia de Correa)[cite: 46].</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded border border-green-200">
+                    <h4 class="text-green-700 text-center"><i class="fas fa-shield-virus"></i> Linfoma MALT</h4>
+                    [cite_start]<p class="text-sm text-center mt-2">Tumor linfoide estrechamente ligado a la
+                        infección[cite: 49]. [cite_start]Su erradicación puede inducir regresión del tumor en etapas
+                        tempranas[cite: 50].</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="diagnostico" class="section-container card">
+            <h2>Estrategias Diagnósticas: Detectando al Invasor</h2>
+            <p class="mb-4">La elección del test depende de la disponibilidad clínica y la necesidad de endoscopia.</p>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+                    <thead class="bg-blue-100">
+                        <tr>
+                            <th class="py-2 px-4 border-b">Tipo</th>
+                            <th class="py-2 px-4 border-b">Método</th>
+                            <th class="py-2 px-4 border-b">Pros y Contras</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-2 px-4 border-b font-bold text-blue-800" rowspan="2">Invasivos<br><span
+                                    class="text-xs font-normal text-gray-500">(Requieren Endoscopia)</span></td>
+                            <td class="py-2 px-4 border-b"><strong>Test Rápido de Ureasa</strong></td>
+                            [cite_start]<td class="py-2 px-4 border-b">Rápido y económico[cite: 64]. [cite_start]Falsos
+                                negativos con uso reciente de IBP, antibióticos o sangrado activo[cite: 64].</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b"><strong>Histología</strong></td>
+                            <td class="py-2 px-4 border-b">"Gold Standard" visual. [cite_start]Evalúa atrofia y
+                                metaplasia (lesiones premalignas)[cite: 67].</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b font-bold text-green-800" rowspan="3">No Invasivos</td>
+                            <td class="py-2 px-4 border-b"><strong>Test de Aliento con Urea (C13/C14)</strong></td>
+                            [cite_start]<td class="py-2 px-4 border-b">Alta sensibilidad y especificidad (>95%)[cite:
+                                74]. Ideal para confirmar erradicación. Requiere suspensión de IBP.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b"><strong>Antígeno en Heces</strong></td>
+                            <td class="py-2 px-4 border-b">Detecta infección activa. [cite_start]Útil para confirmar
+                                erradicación y más económico que el test de aliento[cite: 77].</td>
+                        </tr>
+                        <tr class="bg-red-50">
+                            <td class="py-2 px-4 border-b"><strong>Serología (IgG)</strong></td>
+                            [cite_start]<td class="py-2 px-4 border-b text-red-700"><strong>¡Cuidado!</strong> No
+                                distingue infección activa de pasada[cite: 81]. [cite_start]<strong>NO</strong> sirve
+                                para confirmar la erradicación[cite: 81].</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                <p class="font-bold">Nota Clínica Importante:</p>
+                [cite_start]<p>Para pruebas que detectan actividad ureasa (Test de aliento, Test rápido) o antígenos, se
+                    debe suspender IBP al menos 2 semanas antes y antibióticos 4 semanas antes para evitar falsos
+                    negativos[cite: 129, 130].</p>
+            </div>
+        </section>
+
+        <section id="tratamiento" class="section-container card">
+            <h2>El Arsenal Terapéutico: Tratamiento en el Contexto de Ecuador</h2>
+            <div class="mb-6">
+                <h3 class="text-red-600">El Desafío: Resistencia Antibiótica</h3>
+                [cite_start]<p>En Ecuador, existe una alta resistencia a la <strong>Claritromicina</strong>
+                    (>15-20%)[cite: 103]. [cite_start]Esto CONTRAINDICA el uso de la Terapia Triple Estándar (IBP +
+                    Claritromicina + Amoxicilina) como primera línea empírica[cite: 103].</p>
+            </div>
+
+            <h3>Esquemas Recomendados (Guías Maastricht VI / ACG)</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="border border-green-300 rounded-lg p-4 bg-green-50">
+                    <h4 class="text-green-800 font-bold mt-0">Opción 1: Terapia Cuádruple con Bismuto</h4>
+                    <p class="text-sm mb-2">Ideal en zonas de alta resistencia. [cite_start]Duración: 10-14 días[cite:
+                        112].</p>
+                    <ul class="list-decimal list-inside text-sm font-semibold">
+                        <li>IBP (Dosis doble/estándar BID)</li>
+                        <li>Bismuto (Subcitrato/Subsalicilato)</li>
+                        <li>Tetraciclina (500mg QID)</li>
+                        <li>Metronidazol (500mg TID)</li>
+                    </ul>
+                </div>
+                <div class="border border-blue-300 rounded-lg p-4 bg-blue-50">
+                    <h4 class="text-blue-800 font-bold mt-0">Opción 2: Terapia Concomitante (Sin Bismuto)</h4>
+                    <p class="text-sm mb-2">Excelente opción si no hay bismuto disponible. [cite_start]Duración: 10-14
+                        días[cite: 114].</p>
+                    <ul class="list-decimal list-inside text-sm font-semibold">
+                        <li>IBP (BID)</li>
+                        <li>Amoxicilina (1g BID)</li>
+                        <li>Claritromicina (500mg BID)</li>
+                        <li>Metronidazol (500mg BID)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="mt-6">Confirmación de la Erradicación</h3>
+            <p>Es obligatorio confirmar la eliminación de la bacteria, especialmente en úlceras o linfoma.
+                [cite_start]Se debe realizar <strong>mínimo 4 semanas después</strong> de terminar los antibióticos y 2
+                semanas sin IBP[cite: 129, 130].</p>
+            <p class="font-bold text-center mt-2 text-blue-800">Prueba de elección: Test de Aliento con Urea o Antígeno
+                Fecal. [cite_start]NUNCA Serología[cite: 133, 134].</p>
+        </section>
+
+        <section id="actividad" class="section-container card border-t-4 border-indigo-500">
+            <h2><i class="fas fa-puzzle-piece"></i> Actividad Interactiva: Mecanismos de Virulencia</h2>
+            <p class="mb-4 text-gray-600">Arrastra el factor de virulencia a su función correspondiente para comprender
+                cómo <em>H. pylori</em> causa daño.</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="text-center mb-3 text-indigo-700">Factores de Virulencia</h4>
+                    <div id="draggables-container">
+                        <div class="draggable shadow-sm" draggable="true" data-id="ureasa"><i
+                                class="fas fa-flask text-yellow-500"></i> Ureasa</div>
+                        <div class="draggable shadow-sm" draggable="true" data-id="flagelos"><i
+                                class="fas fa-wind text-gray-500"></i> Flagelos</div>
+                        <div class="draggable shadow-sm" draggable="true" data-id="caga"><i
+                                class="fas fa-biohazard text-red-500"></i> CagA</div>
+                        <div class="draggable shadow-sm" draggable="true" data-id="adhesinas"><i
+                                class="fas fa-magnet text-blue-500"></i> Adhesinas</div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="dropzone" data-target="ureasa">
+                        [cite_start]<p class="text-sm text-center text-gray-500 pointer-events-none">Neutraliza el ácido
+                            gástrico (produce NH3) [cite: 17]</p>
+                    </div>
+                    <div class="dropzone" data-target="caga">
+                        [cite_start]<p class="text-sm text-center text-gray-500 pointer-events-none">Citotoxina
+                            proinflamatoria, inyectada en la célula [cite: 20]</p>
+                    </div>
+                    <div class="dropzone" data-target="flagelos">
+                        [cite_start]<p class="text-sm text-center text-gray-500 pointer-events-none">Permite movilidad
+                            en el moco espeso [cite: 18]</p>
+                    </div>
+                    <div class="dropzone" data-target="adhesinas">
+                        [cite_start]<p class="text-sm text-center text-gray-500 pointer-events-none">Unión a células
+                            epiteliales [cite: 19]</p>
+                    </div>
+                </div>
+            </div>
+            <div id="success-msg" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded text-center font-bold">
+                ¡Correcto! Has dominado la microbiología de H. pylori.</div>
+        </section>
+
+        <section id="simulador" class="section-container card bg-gray-900 text-white">
+            <h2 class="text-white"><i class="fas fa-user-md"></i> Simulador: "Misión Erradicación"</h2>
+            <p class="text-gray-300 mb-6">Toma las decisiones correctas en este escenario clínico adaptado a la realidad
+                de Ecuador.</p>
+
+            <div id="game-start" class="game-screen active text-center">
+                <i class="fas fa-hospital-user text-6xl mb-4 text-blue-400"></i>
+                <p class="text-xl mb-4">Paciente: Hombre de 45 años, de Quito.</p>
+                <p class="mb-4">Historia: Dispepsia crónica de 6 meses. Sin signos de alarma. Antecedente familiar de
+                    cáncer gástrico.</p>
+                <button onclick="nextStep(1)"
+                    class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">Iniciar
+                    Consulta</button>
+            </div>
+
+            <div id="game-step-1" class="game-screen">
+                <h4 class="text-blue-300 text-xl">Paso 1: Diagnóstico</h4>
+                <p class="mb-4">El paciente no quiere hacerse una endoscopia si no es estrictamente necesaria. ¿Qué
+                    prueba NO INVASIVA solicitas para buscar infección activa?</p>
+                <div class="grid gap-3">
+                    <button onclick="checkAnswer(1, false)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">A. Serología IgG para H.
+                        pylori</button>
+                    <button onclick="checkAnswer(1, true)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">B. Test de Aliento con Urea o
+                        Antígeno Fecal</button>
+                    <button onclick="checkAnswer(1, false)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">C. Cultivo de heces</button>
+                </div>
+            </div>
+
+            <div id="game-step-2" class="game-screen">
+                <h4 class="text-blue-300 text-xl">Paso 2: Tratamiento</h4>
+                <p class="mb-4">El test salió POSITIVO. Debes prescribir tratamiento. Recuerda que estás en Ecuador
+                    (alta resistencia a Claritromicina). ¿Cuál es el mejor esquema empírico?</p>
+                <div class="grid gap-3">
+                    <button onclick="checkAnswer(2, false)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">A. Terapia Triple Estándar (IBP +
+                        Amoxicilina + Claritromicina)</button>
+                    <button onclick="checkAnswer(2, true)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">B. Terapia Cuádruple con Bismuto o
+                        Terapia Concomitante</button>
+                    <button onclick="checkAnswer(2, false)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">C. IBP en dosis altas + Probióticos
+                        solamente</button>
+                </div>
+            </div>
+
+            <div id="game-step-3" class="game-screen">
+                <h4 class="text-blue-300 text-xl">Paso 3: Seguimiento</h4>
+                <p class="mb-4">El paciente terminó los antibióticos ayer y se siente mejor. Pregunta si ya está curado.
+                    ¿Qué haces?</p>
+                <div class="grid gap-3">
+                    <button onclick="checkAnswer(3, false)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">A. Solicitar Serología IgG
+                        inmediatamente.</button>
+                    <button onclick="checkAnswer(3, false)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">B. Solicitar Test de Aliento hoy
+                        mismo.</button>
+                    <button onclick="checkAnswer(3, true)"
+                        class="bg-gray-700 hover:bg-gray-600 p-3 rounded text-left">C. Esperar 4 semanas sin
+                        antibióticos y 2 semanas sin IBP antes de repetir el Test de Aliento.</button>
+                </div>
+            </div>
+
+            <div id="game-end" class="game-screen text-center">
+                <i class="fas fa-trophy text-6xl text-yellow-400 mb-4"></i>
+                <h3 class="text-2xl text-white mb-2">¡Misión Cumplida!</h3>
+                <p class="text-gray-300">Has manejado el caso según las guías clínicas actuales.</p>
+                <button onclick="location.reload()"
+                    class="mt-4 bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded">Jugar de
+                    nuevo</button>
+            </div>
+
+            <div id="feedback-modal" class="hidden mt-4 p-3 bg-red-900 border border-red-500 rounded text-center">
+                <p id="feedback-text" class="text-white"></p>
+                <button onclick="resetStep()" class="mt-2 text-sm underline text-red-200">Intentar de nuevo</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-8">
+        <p>&copy; 2025 Powersemiotics - Educación Médica.</p>
+    </footer>
+
+    <script>
+        // --- Lógica Drag & Drop ---
+        const draggables = document.querySelectorAll('.draggable');
+        const dropzones = document.querySelectorAll('.dropzone');
+        let matchedCount = 0;
+
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', () => {
+                draggable.classList.add('opacity-50');
+                draggable.setAttribute('data-dragging', 'true');
+            });
+            draggable.addEventListener('dragend', () => {
+                draggable.classList.remove('opacity-50');
+                draggable.removeAttribute('data-dragging');
+            });
+        });
+
+        dropzones.forEach(zone => {
+            zone.addEventListener('dragover', e => {
+                e.preventDefault();
+                zone.classList.add('dragover');
+            });
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('dragover');
+            });
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                zone.classList.remove('dragover');
+                const draggingItem = document.querySelector('[data-dragging="true"]');
+                const zoneTarget = zone.getAttribute('data-target');
+                const itemTarget = draggingItem.getAttribute('data-id');
+
+                if (zoneTarget === itemTarget) {
+                    zone.innerHTML = ''; // Limpiar texto
+                    zone.appendChild(draggingItem);
+                    zone.classList.add('bg-green-100', 'border-green-500');
+                    draggingItem.setAttribute('draggable', 'false');
+                    matchedCount++;
+                    if (matchedCount === 4) document.getElementById('success-msg').classList.remove('hidden');
+                } else {
+                    alert("Ese factor de virulencia no corresponde a esta función. Intenta de nuevo.");
+                }
+            });
+        });
+
+        // --- Lógica del Juego ---
+        let currentStep = 0;
+
+        function nextStep(step) {
+            document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(`game-step-${step}`).classList.add('active');
+            currentStep = step;
+        }
+
+        function checkAnswer(step, isCorrect) {
+            if (isCorrect) {
+                if (step === 3) {
+                    document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
+                    document.getElementById('game-end').classList.add('active');
+                } else {
+                    nextStep(step + 1);
+                }
+            } else {
+                const feedback = document.getElementById('feedback-modal');
+                const text = document.getElementById('feedback-text');
+                feedback.classList.remove('hidden');
+
+                if (step === 1) text.innerText = "Incorrecto. La serología no distingue infección activa. El cultivo es muy costoso/lento para rutina.";
+                if (step === 2) text.innerText = "Incorrecto. La resistencia a Claritromicina en Ecuador es alta (>15%), por lo que la triple estándar falla frecuentemente.";
+                if (step === 3) text.innerText = "Incorrecto. Si pruebas muy pronto, los antibióticos o IBP pueden suprimir la bacteria sin matarla, dando falsos negativos.";
+            }
+        }
+
+        function resetStep() {
+            document.getElementById('feedback-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>
