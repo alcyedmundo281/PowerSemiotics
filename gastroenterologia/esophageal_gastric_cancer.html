@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cáncer Esofágico y Gástrico - Powersemiotics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            height: 100%;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Estilos para Drag & Drop */
+        .draggable {
+            cursor: move;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropzone {
+            min-height: 150px;
+            border: 2px dashed #bdc3c7;
+            background: #ecf0f1;
+            border-radius: 10px;
+            padding: 10px;
+            transition: background 0.3s;
+        }
+
+        .dropzone.dragover {
+            background: #d5dbdb;
+            border-color: var(--primary-color);
+        }
+
+        /* Estilos para el Juego Gamificado */
+        .game-screen {
+            display: none;
+        }
+
+        .game-screen.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .choice-btn {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .choice-btn:hover {
+            transform: scale(1.02);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .nav-link-custom {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-link-custom:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4"><i class="fas fa-stethoscope"></i> Cáncer Esofágico y Gástrico</h1>
+            <p class="lead">Módulo educativo basado en la clase del Dr. Murphy (Ninja Nerd)</p>
+            <a href="../gastroenterologia.html" class="nav-link-custom"><i class="fas fa-arrow-left"></i> Volver al Hub
+                de Gastroenterología</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/ahvwhYMk3Ng" title="Esophageal and Gastric Cancer"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="content-card">
+                    <h3 class="section-title"><i class="fas fa-lungs"></i> Cáncer de Esófago</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Carcinoma de Células Escamosas:</strong>
+                            <br><em>Ubicación:</em> 2/3 superiores.
+                            <br><em>Riesgo:</em> Tabaco, Alcohol, VPH (16, 18).
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Adenocarcinoma:</strong>
+                            <br><em>Ubicación:</em> 1/3 inferior (unión GE).
+                            <br><em>Causa:</em> ERGE crónico &rarr; Esófago de Barrett (Metaplasia Intestinal).
+                        </li>
+                        <li class="list-group-item bg-light">
+                            <strong>Clínica:</strong> Disfagia progresiva (Sólidos &rarr; Líquidos), pérdida de peso.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="content-card">
+                    <h3 class="section-title"><i class="fas fa-stomach"></i> Cáncer Gástrico</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Tipo Intestinal:</strong>
+                            <br>Forma masas exofíticas/ulceradas.
+                            <br><em>Riesgo:</em> <strong>H. Pylori</strong>, gastritis autoinmune, nitritos.
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Tipo Difuso:</strong>
+                            <br>Infiltrante (Linitis Plástica). Células en "Anillo de Sello".
+                            <br><em>Genética:</em> Mutación <strong>CDH1</strong> (pérdida de E-cadherina).
+                        </li>
+                        <li class="list-group-item bg-light">
+                            <strong>Signos de Metástasis:</strong>
+                            <br>Nódulo de Virchow (Supraclavicular izq), Nódulo de la Hna. Maria José (Umbilical), Tumor
+                            de Krukenberg (Ovario bilateral).
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="content-card border-primary" style="border-top: 5px solid var(--primary-color);">
+                    <h3 class="section-title text-center">Actividad Interactiva: Clasifica la Patología</h3>
+                    <p class="text-center text-muted">Arrastra los conceptos clínicos a la caja de diagnóstico correcta.
+                    </p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <h5 class="text-center mb-3">Conceptos</h5>
+                            <div id="concepts-container">
+                                <div class="draggable" draggable="true" data-type="esofago-sq">Tabaco y Alcohol (2/3
+                                    Sup)</div>
+                                <div class="draggable" draggable="true" data-type="gastrico-dif">Células en Anillo de
+                                    Sello</div>
+                                <div class="draggable" draggable="true" data-type="esofago-ad">Esófago de Barrett</div>
+                                <div class="draggable" draggable="true" data-type="gastrico-int">H. Pylori Crónico</div>
+                                <div class="draggable" draggable="true" data-type="gastrico-dif">Linitis Plástica</div>
+                                <div class="draggable" draggable="true" data-type="esofago-sq">VPH 16/18</div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="dropzone" id="esofago-sq-zone" data-target="esofago-sq">
+                                        <h6 class="text-center text-primary">Cáncer Esofágico (Escamoso)</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="dropzone" id="esofago-ad-zone" data-target="esofago-ad">
+                                        <h6 class="text-center text-primary">Cáncer Esofágico (Adeno)</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="dropzone" id="gastrico-int-zone" data-target="gastrico-int">
+                                        <h6 class="text-center text-success">Cáncer Gástrico (Intestinal)</h6>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="dropzone" id="gastrico-dif-zone" data-target="gastrico-dif">
+                                        <h6 class="text-center text-success">Cáncer Gástrico (Difuso)</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="activity-feedback" class="alert mt-3 text-center" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="content-card bg-dark text-white">
+                    <h3 class="section-title text-white"><i class="fas fa-gamepad"></i> GastroSim: Diagnóstico Express
+                    </h3>
+
+                    <div id="game-intro" class="game-screen active text-center">
+                        <p class="lead">Eres el residente de guardia. Tienes 2 pacientes esperando. Toma las decisiones
+                            correctas.</p>
+                        <button class="btn btn-lg btn-success mt-3" onclick="startGame()">Comenzar Turno</button>
+                    </div>
+
+                    <div id="game-case-1" class="game-screen">
+                        <h4>Caso 1: Paciente de 65 años</h4>
+                        <p>Presenta historia de 3 meses de dificultad para tragar sólidos, que ahora ha progresado a
+                            líquidos. Pérdida de 5kg. Fumador crónico.</p>
+                        <p><strong>¿Cuál es tu sospecha principal y el siguiente paso?</strong></p>
+                        <button class="btn btn-outline-light choice-btn" onclick="checkAnswer(1, 'wrong')">Acalasia -
+                            Solicitar Manometría</button>
+                        <button class="btn btn-outline-light choice-btn" onclick="checkAnswer(1, 'correct')">Cáncer
+                            Esofágico - Solicitar EGD (Endoscopia) + Biopsia</button>
+                        <button class="btn btn-outline-light choice-btn" onclick="checkAnswer(1, 'wrong')">Estricción
+                            Péptica - Iniciar IBP</button>
+                    </div>
+
+                    <div id="game-case-2" class="game-screen">
+                        <h4>Caso 2: Paciente de 50 años</h4>
+                        <p>Dispepsia crónica, sensación de plenitud temprana (saciedad precoz). Al examen físico notas
+                            un nódulo firme en el área supraclavicular izquierda.</p>
+                        <p><strong>¿Qué signo es este y qué sugiere?</strong></p>
+                        <button class="btn btn-outline-light choice-btn" onclick="checkAnswer(2, 'wrong')">Nódulo de la
+                            Hna. Maria José - Cáncer de Colon</button>
+                        <button class="btn btn-outline-light choice-btn" onclick="checkAnswer(2, 'correct')">Nódulo de
+                            Virchow - Metástasis de Cáncer Gástrico</button>
+                        <button class="btn btn-outline-light choice-btn" onclick="checkAnswer(2, 'wrong')">Linfoma de
+                            Hodgkin - Enfermedad primaria</button>
+                    </div>
+
+                    <div id="game-result" class="game-screen text-center">
+                        <h2 id="final-score"></h2>
+                        <p id="final-msg"></p>
+                        <button class="btn btn-primary" onclick="location.reload()">Reiniciar Módulo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Drag and Drop Logic ---
+        const draggables = document.querySelectorAll('.draggable');
+        const dropzones = document.querySelectorAll('.dropzone');
+        let score = 0;
+
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', () => {
+                draggable.classList.add('dragging');
+            });
+            draggable.addEventListener('dragend', () => {
+                draggable.classList.remove('dragging');
+            });
+        });
+
+        dropzones.forEach(zone => {
+            zone.addEventListener('dragover', e => {
+                e.preventDefault();
+                zone.classList.add('dragover');
+            });
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('dragover');
+            });
+            zone.addEventListener('drop', e => {
+                e.preventDefault();
+                zone.classList.remove('dragover');
+                const draggable = document.querySelector('.dragging');
+                const type = draggable.getAttribute('data-type');
+                const target = zone.getAttribute('data-target');
+
+                if (type === target) {
+                    zone.appendChild(draggable);
+                    draggable.setAttribute('draggable', 'false');
+                    draggable.style.background = '#d4edda';
+                    draggable.style.borderColor = '#c3e6cb';
+                    checkActivityCompletion();
+                } else {
+                    alert("Incorrecto. Intenta de nuevo.");
+                }
+            });
+        });
+
+        function checkActivityCompletion() {
+            const remaining = document.querySelectorAll('#concepts-container .draggable').length;
+            if (remaining === 0) {
+                const feedback = document.getElementById('activity-feedback');
+                feedback.style.display = 'block';
+                feedback.className = 'alert alert-success mt-3 text-center';
+                feedback.innerHTML = '<strong>¡Excelente!</strong> Has clasificado correctamente todos los factores de riesgo y patologías.';
+            }
+        }
+
+        // --- Game Logic ---
+        let gameScore = 0;
+
+        function startGame() {
+            document.getElementById('game-intro').classList.remove('active');
+            document.getElementById('game-case-1').classList.add('active');
+        }
+
+        function checkAnswer(caseNum, result) {
+            if (result === 'correct') {
+                gameScore++;
+                alert("¡Correcto! Buen juicio clínico.");
+            } else {
+                alert("Incorrecto. Revisa los síntomas de alarma.");
+            }
+
+            document.getElementById(`game-case-${caseNum}`).classList.remove('active');
+
+            if (caseNum === 1) {
+                document.getElementById('game-case-2').classList.add('active');
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const resultScreen = document.getElementById('game-result');
+            resultScreen.classList.add('active');
+            document.getElementById('final-score').innerText = `Puntuación: ${gameScore}/2`;
+            if (gameScore === 2) {
+                document.getElementById('final-msg').innerText = "¡Nivel Experto! Estás listo para el examen.";
+            } else {
+                document.getElementById('final-msg').innerText = "Buen intento, pero repasa el video sobre los síntomas clave.";
+            }
+        }
+    </script>
+</body>
+
+</html>
