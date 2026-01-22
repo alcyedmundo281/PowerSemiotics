@@ -1,827 +1,454 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Autoevaluación de Gastroenterología - PowerSemiotics</title>
-    <link href="assets/tailwind.css" rel="stylesheet" />
-  </head>
-  <body class="font-sans bg-gray-50 text-gray-800">
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <a href="index.html" class="flex items-center space-x-2">
-          <img src="assets/images/logo.png" alt="Logo" class="h-8 w-8" />
-          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-        </a>
-        <div>
-          <a href="gastroenterologia.html" class="text-indigo-800 font-semibold"
-            >Gastroenterología</a
-          >
-        </div>
-      </nav>
-    </header>
+<!DOCTYPE html>
+<html class="light" lang="es">
 
-    <main class="container mx-auto px-6 py-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-        Autoevaluación de Gastroenterología
-      </h1>
-      <p class="mb-8 text-gray-700">
-        Selecciona la mejor respuesta para cada pregunta y haz clic en "Revisar"
-        para ver tu puntuación y las explicaciones.
-      </p>
-      <form id="quiz" class="space-y-8">
-        <!-- Pregunta 1 -->
-        <div
-          class="question"
-          data-answer="C"
-          data-explanation="La relajación transitoria del esfínter esofágico inferior permite el reflujo ácido hacia el esófago."
-        >
-          <p class="font-semibold">
-            1. ¿Cuál es el mecanismo fisiopatológico principal del reflujo
-            gastroesofágico?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q1"
-                value="A"
-                class="mr-2"
-              />Hipersecreción gástrica de gastrina.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q1"
-                value="B"
-                class="mr-2"
-              />Obstrucción pilórica funcional.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q1"
-                value="C"
-                class="mr-2"
-              />Relajaciones transitorias del esfínter esofágico
-              inferior.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q1"
-                value="D"
-                class="mr-2"
-              />Hipomotilidad colónica.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Autoevaluación: ERGE - PowerSemiotics</title>
 
-        <!-- Pregunta 2 -->
-        <div
-          class="question"
-          data-answer="B"
-          data-explanation="Helicobacter pylori incrementa la secreción ácida y produce inflamación que favorece la úlcera."
-        >
-          <p class="font-semibold">
-            2. En la úlcera péptica, ¿qué factor etiológico es más relevante en
-            su génesis?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q2" value="A" class="mr-2" />Dieta rica
-              en fibra.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q2" value="B" class="mr-2" />Infección
-              por Helicobacter pylori.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q2" value="C" class="mr-2" />Uso de
-              antiácidos.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q2" value="D" class="mr-2" />Consumo
-              moderado de alcohol.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;900&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
 
-        <!-- Pregunta 3 -->
-        <div
-          class="question"
-          data-answer="A"
-          data-explanation="La ligadura endoscópica se recomienda como tratamiento inicial en hemorragia digestiva alta por várices."
-        >
-          <p class="font-semibold">
-            3. En la hemorragia digestiva alta por várices esofágicas, ¿cuál es
-            la intervención de primera línea?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q3" value="A" class="mr-2" />Ligadura
-              endoscópica de várices.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q3"
-                value="B"
-                class="mr-2"
-              />Somatostatina en infusión sin endoscopia.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q3" value="C" class="mr-2" />Derivación
-              portosistémica inmediata.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q3" value="D" class="mr-2" />Reposición
-              de hierro oral.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-        <!-- Pregunta 4 -->
-        <div
-          class="question"
-          data-answer="D"
-          data-explanation="La elevación marcada de lipasa es característica de pancreatitis aguda."
-        >
-          <p class="font-semibold">
-            4. En un paciente con dolor epigástrico irradiado a espalda y
-            vómitos, ¿qué dato apoya el diagnóstico de pancreatitis aguda?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q4" value="A" class="mr-2" />Amilasa
-              urinaria normal.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q4"
-                value="B"
-                class="mr-2"
-              />Bilirrubina directa elevada sin dolor.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q4"
-                value="C"
-                class="mr-2"
-              />Hipocalcemia leve sin síntomas.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q4" value="D" class="mr-2" />Lipasa
-              sérica >3 veces el límite superior normal.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+  <!-- Tailwind Configuration -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#8B3DFF", // PowerSemiotics Purple
+            "secondary": "#FF4081",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101922",
+            "surface-light": "#ffffff",
+            "surface-dark": "#1a242d",
+            "border-light": "#e2e8f0",
+            "border-dark": "#2d3748",
+          },
+          fontFamily: {
+            "display": ["Lexend", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "0.75rem",
+            "xl": "1rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
 
-        <!-- Pregunta 5 -->
-        <div
-          class="question"
-          data-answer="B"
-          data-explanation="La clasificación Child-Pugh emplea bilirrubina, albúmina, INR, ascitis y encefalopatía."
-        >
-          <p class="font-semibold">
-            5. ¿Qué parámetros se consideran en la clasificación de Child-Pugh
-            para cirrosis?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q5" value="A" class="mr-2" />Edad y
-              nivel de fosfatasa alcalina.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q5"
-                value="B"
-                class="mr-2"
-              />Bilirrubina, albúmina, INR, ascitis y encefalopatía.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q5"
-                value="C"
-                class="mr-2"
-              />Creatinina, hematocrito y sodio.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q5" value="D" class="mr-2" />Ecografía
-              hepática y peso corporal.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #8B3DFF 0%, #FF4081 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        <!-- Pregunta 6 -->
-        <div
-          class="question"
-          data-answer="A"
-          data-explanation="La elevación de bilirrubina conjugada y acolia sugiere colestasis con ictericia obstructiva."
-        >
-          <p class="font-semibold">
-            6. ¿Qué hallazgo sugiere ictericia de origen obstructivo?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q6"
-                value="A"
-                class="mr-2"
-              />Bilirrubina directa elevada con heces hipocolóricas.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q6"
-                value="B"
-                class="mr-2"
-              />Bilirrubina indirecta elevada en hemólisis.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q6"
-                value="C"
-                class="mr-2"
-              />Urobilinógeno urinario aumentado.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q6"
-                value="D"
-                class="mr-2"
-              />Hipoglucemia severa.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+    /* Custom radio styling from Stitch */
+    .sr-only-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
 
-        <!-- Pregunta 7 -->
-        <div
-          class="question"
-          data-answer="D"
-          data-explanation="La presencia de anticuerpos anti-sustrato citoplasmático y pérdida de tolerancia inmunitaria se relaciona con EII."
-        >
-          <p class="font-semibold">
-            7. ¿Cuál es un componente importante en la patogénesis de la
-            enfermedad inflamatoria intestinal?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q7"
-                value="A"
-                class="mr-2"
-              />Deficiencia de vitamina C.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q7" value="B" class="mr-2" />Exceso de
-              fibra dietaria.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q7"
-                value="C"
-                class="mr-2"
-              />Hipertensión portal.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q7" value="D" class="mr-2" />Respuesta
-              inmunitaria alterada frente a la microbiota intestinal.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+    input[type="radio"]:checked+div {
+      border-color: #8B3DFF;
+      background-color: rgba(139, 61, 255, 0.05);
+    }
 
-        <!-- Pregunta 8 -->
-        <div
-          class="question"
-          data-answer="C"
-          data-explanation="La vacuna contra hepatitis B previene la infección por el virus correspondiente."
-        >
-          <p class="font-semibold">
-            8. ¿Cuál es la medida más efectiva para prevenir hepatitis B
-            crónica?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q8" value="A" class="mr-2" />Uso de
-              probióticos.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q8" value="B" class="mr-2" />Terapia
-              con lactulosa.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q8" value="C" class="mr-2" />Vacunación
-              frente al virus de hepatitis B.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q8" value="D" class="mr-2" />Uso
-              crónico de antivirales.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+    input[type="radio"]:checked+div .radio-circle {
+      border-color: #8B3DFF;
+      background-color: #8B3DFF;
+      box-shadow: 0 0 0 3px rgba(139, 61, 255, 0.2);
+    }
 
-        <!-- Pregunta 9 -->
-        <div
-          class="question"
-          data-answer="A"
-          data-explanation="Los pacientes con cirrosis y riesgo elevado deben someterse a ecografía semestral para tamizaje de CHC."
-        >
-          <p class="font-semibold">
-            9. En pacientes con cirrosis hepática, ¿cuál es la estrategia de
-            tamizaje recomendada para carcinoma hepatocelular?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q9" value="A" class="mr-2" />Ecografía
-              abdominal cada 6 meses.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q9" value="B" class="mr-2" />Resonancia
-              magnética mensual.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q9" value="C" class="mr-2" />Biopsia
-              hepática anual.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q9" value="D" class="mr-2" />Tomografía
-              diaria.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+    input[type="radio"]:checked+div .radio-dot {
+      opacity: 1;
+    }
 
-        <!-- Pregunta 10 -->
-        <div
-          class="question"
-          data-answer="B"
-          data-explanation="La malabsorción de gluten ocasiona atrofia de vellosidades y diarrea crónica en enfermedad celíaca."
-        >
-          <p class="font-semibold">
-            10. ¿Qué hallazgo es típico de la enfermedad celíaca?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q10"
-                value="A"
-                class="mr-2"
-              />Hiperplasia de criptas con aumento de vellosidades.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q10" value="B" class="mr-2" />Atrofia
-              de vellosidades intestinales con diarrea crónica.</label
-            >
-            <label class="block"
-              ><input
-                type="radio"
-                name="q10"
-                value="C"
-                class="mr-2"
-              />Sobrecrecimiento bacteriano con estreñimiento.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q10" value="D" class="mr-2" />Absorción
-              aumentada de hierro.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+    .question-card.correct {
+      border-color: #10b981;
+      background-color: rgba(16, 185, 129, 0.02);
+    }
 
-        <!-- Pregunta 11 -->
-        <div
-          class="question"
-          data-answer="D"
-          data-explanation="Las hemorroides internas suelen presentar sangrado indoloro con evacuaciones."
-        >
-          <p class="font-semibold">
-            11. ¿Cuál es una característica de las hemorroides internas
-            sintomáticas?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q11" value="A" class="mr-2" />Dolor
-              intenso perianal.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q11" value="B" class="mr-2" />Fiebre y
-              leucocitosis.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q11" value="C" class="mr-2" />Secreción
-              purulenta.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q11" value="D" class="mr-2" />Sangrado
-              rojo brillante sin dolor.</label
-            >
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+    .question-card.incorrect {
+      border-color: #ef4444;
+      background-color: rgba(239, 68, 68, 0.02);
+    }
 
-        <!-- Pregunta 12 -->
-        <div
-          class="question"
-          data-answer="A"
-          data-explanation="La insuficiencia hepática avanzada conduce a hipoalbuminemia y ascitis."
-        >
-          <p class="font-semibold">
-            12. ¿Cuál es la causa más frecuente de ascitis en el mundo
-            occidental?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q12" value="A" class="mr-2" />Cirrosis
-              hepática.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q12"
-                value="B"
-                class="mr-2"
-              />Insuficiencia cardíaca derecha.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q12" value="C" class="mr-2" />Síndrome
-              nefrótico.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q12"
-                value="D"
-                class="mr-2"
-              />Peritonitis tuberculosa.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+    .feedback-correct {
+      background-color: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
 
-        <!-- Pregunta 13 -->
-        <div
-          class="question"
-          data-answer="C"
-          data-explanation="La encefalopatía hepática se trata inicialmente con lactulosa para reducir amonio."
-        >
-          <p class="font-semibold">
-            13. ¿Cuál es el tratamiento de primera línea para encefalopatía
-            hepática?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q13"
-                value="A"
-                class="mr-2"
-              />Transfusión de plaquetas.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q13" value="B" class="mr-2" />Vitaminas
-              del complejo B.</label
-            >
-            <label class="block"
-              ><input type="radio" name="q13" value="C" class="mr-2" />Lactulosa
-              oral para reducir el amonio.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q13"
-                value="D"
-                class="mr-2"
-              />Inhibidores de bomba de protones.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+    .feedback-incorrect {
+      background-color: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+  </style>
+</head>
 
-        <!-- Pregunta 14 -->
-        <div
-          class="question"
-          data-answer="B"
-          data-explanation="La gastroenteritis bacteriana suele producir fiebre y heces con moco o sangre."
-        >
-          <p class="font-semibold">
-            14. ¿Qué hallazgo orienta hacia una gastroenteritis bacteriana
-            frente a una viral?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q14" value="A" class="mr-2" />Inicio
-              súbito de vómitos sin fiebre.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q14" value="B" class="mr-2" />Presencia
-              de sangre o moco en las heces con fiebre.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q14" value="C" class="mr-2" />Astenia
-              prolongada sin diarrea.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q14" value="D" class="mr-2" />Ausencia
-              de dolor abdominal.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+<body
+  class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-200">
 
-        <!-- Pregunta 15 -->
-        <div
-          class="question"
-          data-answer="D"
-          data-explanation="Los cálculos de colesterol formados por supersaturación biliar son causa común de colelitiasis."
-        >
-          <p class="font-semibold">
-            15. ¿Cuál es una causa frecuente de colelitiasis en adultos?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q15"
-                value="A"
-                class="mr-2"
-              />Hipersecreción pancreática.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q15"
-                value="B"
-                class="mr-2"
-              />Insuficiencia renal crónica.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q15" value="C" class="mr-2" />Ausencia
-              de vesícula biliar.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q15" value="D" class="mr-2" />Cálculos
-              de colesterol por supersaturación biliar.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+  <!-- Top Navigation -->
+  <header
+    class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark px-6 py-4 shadow-sm">
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="size-10 bg-primary flex items-center justify-center text-white font-bold text-xl rounded-lg">P</div>
+        <h2 class="text-xl font-bold leading-tight tracking-tight gradient-text">Powersemiotics</h2>
+      </a>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="gastroenterologia.html"
+        class="hidden md:flex text-sm font-semibold text-primary hover:text-secondary transition-colors">Gastroenterología</a>
+      <button
+        class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-background-light dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+        onclick="document.documentElement.classList.toggle('dark')">
+        <span class="material-symbols-outlined text-xl">dark_mode</span>
+      </button>
+    </div>
+  </header>
 
-        <!-- Pregunta 16 -->
-        <div
-          class="question"
-          data-answer="B"
-          data-explanation="La diverticulosis colónica es una causa frecuente de hemorragia digestiva baja en adultos mayores."
-        >
-          <p class="font-semibold">
-            16. ¿Cuál es una causa común de hemorragia digestiva baja en adultos
-            mayores?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q16" value="A" class="mr-2" />Gastritis
-              erosiva.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q16"
-                value="B"
-                class="mr-2"
-              />Diverticulosis colónica.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q16" value="C" class="mr-2" />Úlcera
-              gástrica perforada.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q16"
-                value="D"
-                class="mr-2"
-              />Colecistitis aguda.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
+  <div class="layout-container flex flex-col md:flex-row max-w-7xl mx-auto w-full p-4 md:p-6 lg:p-8 gap-8">
 
-        <!-- Pregunta 17 -->
-        <div
-          class="question"
-          data-answer="A"
-          data-explanation="La infiltración eosinofílica de la mucosa es característica de la esofagitis eosinofílica."
-        >
-          <p class="font-semibold">
-            17. ¿Qué hallazgo histológico caracteriza la esofagitis
-            eosinofílica?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q17"
-                value="A"
-                class="mr-2"
-              />Infiltrado eosinofílico denso en la mucosa esofágica.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q17"
-                value="B"
-                class="mr-2"
-              />Metaplasia intestinal de Barrett.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q17" value="C" class="mr-2" />Atrofia
-              de vellosidades duodenales.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q17" value="D" class="mr-2" />Necrosis
-              isquémica transmural.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
+    <!-- Main Assessment Column -->
+    <main class="flex-1 min-w-0 flex flex-col gap-8">
+      <div
+        class="bg-surface-light dark:bg-surface-dark p-8 rounded-2xl border border-border-light dark:border-border-dark shadow-sm">
+        <div class="inline-block px-3 py-1 bg-primary/10 rounded-full mb-4">
+          <span class="text-xs font-bold text-primary uppercase tracking-widest">Autoevaluación</span>
         </div>
+        <h1 class="text-3xl md:text-4xl font-black leading-tight tracking-tight mb-4">Módulo de Gastroenterología</h1>
+        <p class="text-slate-500 dark:text-slate-400 font-medium">
+          Pon a prueba tus conocimientos sobre fisiopatología y clínica digestiva. Todas las preguntas están basadas en
+          guías actuales.
+        </p>
+      </div>
 
-        <!-- Pregunta 18 -->
-        <div
-          class="question"
-          data-answer="C"
-          data-explanation="La colangitis biliar primaria es autoinmunitaria y se asocia a anticuerpos antimitochondriales."
-        >
-          <p class="font-semibold">
-            18. ¿Qué característica distingue a la colangitis biliar primaria?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q18"
-                value="A"
-                class="mr-2"
-              />Obstrucción biliar por cálculos grandes.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q18" value="B" class="mr-2" />Infección
-              bacteriana recurrente de la vía biliar.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q18" value="C" class="mr-2" />Presencia
-              de anticuerpos antimitochondriales.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q18"
-                value="D"
-                class="mr-2"
-              />Asociación con pancreatitis alcohólica.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
+      <form id="quiz" class="space-y-6">
+        <!-- Question Template Loop -->
+
+        <!-- Helper for generating question cards -->
+        <script>
+          const renderQuestion = (id, title, questionText, options, answer, explanation) => {
+            return `
+                        <div class="question question-card bg-surface-light dark:bg-surface-dark p-6 rounded-2xl border border-border-light dark:border-border-dark shadow-sm transition-all" data-answer="${answer}" data-explanation="${explanation}">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="size-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">${id}</span>
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">${title}</h4>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 mb-6">${questionText}</p>
+                            <div class="grid gap-3">
+                                ${options.map((opt, i) => `
+                                    <label class="relative cursor-pointer group">
+                                        <input class="sr-only-input" name="q${id}" type="radio" value="${['A', 'B', 'C', 'D'][i]}">
+                                        <div class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                                            <div class="flex-shrink-0 size-5 rounded-full border border-slate-300 dark:border-slate-500 radio-circle flex items-center justify-center transition-colors">
+                                                <div class="size-2 rounded-full bg-white opacity-0 radio-dot transition-opacity"></div>
+                                            </div>
+                                            <span class="font-medium text-slate-700 dark:text-slate-200">${opt}</span>
+                                        </div>
+                                    </label>
+                                `).join('')}
+                            </div>
+                            <p class="mt-4 p-4 rounded-lg text-sm hidden feedback"></p>
+                        </div>
+                        `;
+          };
+
+          const questionsData = [
+            {
+              id: 1, title: "Mecanismo del reflujo",
+              text: "¿Cuál es el mecanismo fisiopatológico principal del reflujo gastroesofágico?",
+              options: ["Hipersecreción gástrica de gastrina.", "Obstrucción pilórica funcional.", "Relajaciones transitorias del esfínter esofágico inferior.", "Hipomotilidad colónica."],
+              answer: "C", explanation: "La relajación transitoria del esfínter esofágico inferior permite el reflujo ácido hacia el esófago."
+            },
+            {
+              id: 2, title: "Génesis de la úlcera",
+              text: "En la úlcera péptica, ¿qué factor etiológico es más relevante en su génesis?",
+              options: ["Dieta rica en fibra.", "Infección por Helicobacter pylori.", "Uso de antiácidos.", "Consumo moderado de alcohol."],
+              answer: "B", explanation: "Helicobacter pylori incrementa la secreción ácida y produce inflamación que favorece la úlcera."
+            },
+            {
+              id: 3, title: "Hemorragia digestiva",
+              text: "En la hemorragia digestiva alta por várices esofágicas, ¿cuál es la intervención de primera línea?",
+              options: ["Ligadura endoscópica de várices.", "Somatostatina en infusión sin endoscopia.", "Derivación portosistémica inmediata.", "Reposición de hierro oral."],
+              answer: "A", explanation: "La ligadura endoscópica se recomienda como tratamiento inicial en hemorragia digestiva alta por várices."
+            },
+            {
+              id: 4, title: "Pancreatitis aguda",
+              text: "En un paciente con dolor epigástrico irradiado a espalda y vómitos, ¿qué dato apoya el diagnóstico de pancreatitis aguda?",
+              options: ["Amilasa urinaria normal.", "Bilirrubina directa elevada sin dolor.", "Hipocalcemia leve sin síntomas.", "Lipasa sérica >3 veces el límite superior normal."],
+              answer: "D", explanation: "La elevación marcada de lipasa es característica de pancreatitis aguda."
+            },
+            {
+              id: 5, title: "Cirrosis: Child-Pugh",
+              text: "¿Qué parámetros se consideran en la clasificación de Child-Pugh para cirrosis?",
+              options: ["Edad y nivel de fosfatasa alcalina.", "Bilirrubina, albúmina, INR, ascitis y encefalopatía.", "Creatinina, hematocrito y sodio.", "Ecografía hepática y peso corporal."],
+              answer: "B", explanation: "La clasificación Child-Pugh emplea bilirrubina, albúmina, INR, ascitis y encefalopatía."
+            },
+            {
+              id: 6, title: "Ictericia obstructiva",
+              text: "¿Qué hallazgo sugiere ictericia de origen obstructivo?",
+              options: ["Bilirrubina directa elevada con heces hipocolóricas.", "Bilirrubina indirecta elevada en hemólisis.", "Urobilinógeno urinario aumentado.", "Hipoglucemia severa."],
+              answer: "A", explanation: "La elevación de bilirrubina conjugada y acolia sugiere colestasis con ictericia obstructiva."
+            },
+            {
+              id: 7, title: "Inflamación intestinal",
+              text: "¿Cuál es un componente importante en la patogénesis de la enfermedad inflamatoria intestinal?",
+              options: ["Deficiencia de vitamina C.", "Exceso de fibra dietaria.", "Hipertensión portal.", "Respuesta inmunitaria alterada frente a la microbiota intestinal."],
+              answer: "D", explanation: "Respuesta inmunitaria alterada frente a la microbiota intestinal se relaciona con EII."
+            },
+            {
+              id: 8, title: "Hepatitis B",
+              text: "¿Cuál es la medida más efectiva para prevenir hepatitis B crónica?",
+              options: ["Uso de probióticos.", "Terapia con lactulosa.", "Vacunación frente al virus de hepatitis B.", "Uso crónico de antivirales."],
+              answer: "C", explanation: "La vacuna contra hepatitis B previene la infección por el virus correspondiente."
+            },
+            {
+              id: 9, title: "TCE Hepático",
+              text: "En pacientes con cirrosis hepática, ¿cuál es la estrategia de tamizaje recomendada para carcinoma hepatocelular?",
+              options: ["Ecografía abdominal cada 6 meses.", "Resonancia magnética mensual.", "Biopsia hepática anual.", "Tomografía diaria."],
+              answer: "A", explanation: "Los pacientes con cirrosis deben someterse a ecografía semestral para tamizaje de CHC."
+            },
+            {
+              id: 10, title: "Enfermedad celíaca",
+              text: "¿Qué hallazgo es típico de la enfermedad celíaca?",
+              options: ["Hiperplasia de criptas con aumento de vellosidades.", "Atrofia de vellosidades intestinales con diarrea crónica.", "Sobrecrecimiento bacteriano con estreñimiento.", "Absorción aumentada de hierro."],
+              answer: "B", explanation: "La malabsorción de gluten ocasiona atrofia de vellosidades en enfermedad celíaca."
+            },
+            {
+              id: 11, title: "Hemorroides",
+              text: "¿Cuál es una característica de las hemorroides internas sintomáticas?",
+              options: ["Dolor intenso perianal.", "Fiebre y leucocitosis.", "Secreción purulenta.", "Sangrado rojo brillante sin dolor."],
+              answer: "D", explanation: "Las hemorroides internas suelen presentar sangrado indoloro con evacuaciones."
+            },
+            {
+              id: 12, title: "Ascitis",
+              text: "¿Cuál es la causa más frecuente de ascitis en el mundo occidental?",
+              options: ["Cirrosis hepática.", "Insuficiencia cardíaca derecha.", "Síndrome nefrótico.", "Peritonitis tuberculosa."],
+              answer: "A", explanation: "La insuficiencia hepática avanzada conduce a hipoalbuminemia y ascitis."
+            },
+            {
+              id: 13, title: "Encefalopatía",
+              text: "¿Cuál es el tratamiento de primera línea para encefalopatía hepática?",
+              options: ["Transfusión de plaquetas.", "Vitaminas del complejo B.", "Lactulosa oral para reducir el amonio.", "Inhibidores de bomba de protones."],
+              answer: "C", explanation: "La encefalopatía hepática se trata inicialmente con lactulosa."
+            },
+            {
+              id: 14, title: "Gastroenteritis",
+              text: "¿Qué hallazgo orienta hacia una gastroenteritis bacteriana frente a una viral?",
+              options: ["Inicio súbito de vómitos sin fiebre.", "Presencia de sangre o moco en las heces con fiebre.", "Astenia prolongada sin diarrea.", "Ausencia de dolor abdominal."],
+              answer: "B", explanation: "La presencia de sangre o moco en heces sugiere origen bacteriano."
+            },
+            {
+              id: 15, title: "Colelitiasis",
+              text: "¿Cuál es una causa frecuente de colelitiasis en adultos?",
+              options: ["Hipersecreción pancreática.", "Insuficiencia renal crónica.", "Ausencia de vesícula biliar.", "Cálculos de colesterol por supersaturación biliar."],
+              answer: "D", explanation: "Causa común por desequilibrio en componentes de la bilis."
+            },
+            {
+              id: 16, title: "HDB",
+              text: "¿Cuál es una causa común de hemorragia digestiva baja en adultos mayores?",
+              options: ["Gastritis erosiva.", "Diverticulosis colónica.", "Úlcera gástrica perforada.", "Colecistitis aguda."],
+              answer: "B", explanation: "Diverticulosis es una causa prevalente en esta población."
+            },
+            {
+              id: 17, title: "Esofagitis",
+              text: "¿Qué hallazgo histológico caracteriza la esofagitis eosinofílica?",
+              options: ["Infiltrado eosinofílico denso en la mucosa esofágica.", "Metaplasia intestinal de Barrett.", "Atrofia de vellosidades duodenales.", "Necrosis isquémica transmural."],
+              answer: "A", explanation: "Infiltración eosinofílica es el marcador diagnóstico."
+            },
+            {
+              id: 18, title: "Colangitis biliar",
+              text: "¿Qué característica distingue a la colangitis biliar primaria?",
+              options: ["Obstrucción biliar por cálculos.", "Infección bacteriana recurrente.", "Presencia de anticuerpos antimitochondriales.", "Asociación con pancreatitis."],
+              answer: "C", explanation: "Enfermedad autoinmunitaria asociada a AMA."
+            },
+            {
+              id: 19, title: "Várices esofágicas",
+              text: "¿Qué terapia se utiliza para prevenir la primera hemorragia por várices esofágicas?",
+              options: ["Nitratos orales.", "Betabloqueadores no selectivos.", "Somatostatina diaria.", "Hierro intravenoso."],
+              answer: "B", explanation: "Reducen la presión portal y riesgo de sangrado."
+            },
+            {
+              id: 20, title: "Insuficiencia aguda",
+              text: "¿Qué define a la insuficiencia hepática aguda?",
+              options: ["Encefalopatía y coagulopatía sin cirrosis previa.", "Ascitis crónica en paciente cirrótico.", "Elevación aislada de FA.", "Hepatitis B crónica."],
+              answer: "A", explanation: "Falla masiva súbita en hígado previamente sano."
+            }
+          ];
+
+          document.write(questionsData.map(q => renderQuestion(q.id, q.title, q.text, q.options, q.answer, q.explanation)).join(''));
+        </script>
+
+        <!-- Action Button Mobile -->
+        <div class="lg:hidden mt-8">
+          <button type="button" onclick="checkAnswers()"
+            class="w-full bg-primary hover:bg-secondary text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+            <span>REVISAR EVALUACIÓN</span>
+            <span class="material-symbols-outlined">send</span>
+          </button>
         </div>
-
-        <!-- Pregunta 19 -->
-        <div
-          class="question"
-          data-answer="B"
-          data-explanation="El tratamiento profiláctico con betabloqueadores no selectivos reduce el riesgo de sangrado por várices esofágicas."
-        >
-          <p class="font-semibold">
-            19. ¿Qué terapia se utiliza para prevenir la primera hemorragia por
-            várices esofágicas en pacientes con cirrosis?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input type="radio" name="q19" value="A" class="mr-2" />Nitratos
-              orales.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q19"
-                value="B"
-                class="mr-2"
-              />Betabloqueadores no selectivos.
-            </label>
-            <label class="block"
-              ><input
-                type="radio"
-                name="q19"
-                value="C"
-                class="mr-2"
-              />Somatostatina subcutánea diaria.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q19" value="D" class="mr-2" />Hierro
-              intravenoso mensual.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
-
-        <!-- Pregunta 20 -->
-        <div
-          class="question"
-          data-answer="A"
-          data-explanation="La insuficiencia hepática aguda se caracteriza por encefalopatía y coagulopatía en un paciente sin cirrosis previa."
-        >
-          <p class="font-semibold">
-            20. ¿Qué define a la insuficiencia hepática aguda?
-          </p>
-          <div class="mt-2 space-y-2">
-            <label class="block"
-              ><input
-                type="radio"
-                name="q20"
-                value="A"
-                class="mr-2"
-              />Encefalopatía y coagulopatía de aparición rápida sin cirrosis
-              previa.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q20" value="B" class="mr-2" />Ascitis
-              crónica en paciente cirrótico.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q20" value="C" class="mr-2" />Elevación
-              aislada de fosfatasa alcalina.
-            </label>
-            <label class="block"
-              ><input type="radio" name="q20" value="D" class="mr-2" />Hepatitis
-              B crónica.
-            </label>
-          </div>
-          <p class="mt-2 text-sm hidden feedback"></p>
-        </div>
-
-        <button
-          type="button"
-          onclick="checkAnswers()"
-          class="px-6 py-2 bg-indigo-600 text-white rounded"
-        >
-          Revisar
-        </button>
-        <p id="result" class="mt-4 font-bold hidden"></p>
       </form>
     </main>
 
-    <footer class="bg-white mt-20">
-      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-        <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
-      </div>
-    </footer>
+    <!-- Sidebar Progress Column -->
+    <aside class="hidden lg:block w-80 flex-shrink-0">
+      <div class="sticky top-24 space-y-6">
+        <!-- Score Card -->
+        <div
+          class="bg-surface-light dark:bg-surface-dark rounded-2xl border border-border-light dark:border-border-dark shadow-lg overflow-hidden">
+          <div class="bg-slate-50 dark:bg-slate-800 p-4 border-b border-border-light dark:border-border-dark">
+            <h2 class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">analytics</span>
+              Tu Puntuación
+            </h2>
+          </div>
+          <div class="p-8 flex flex-col items-center justify-center text-center">
+            <div id="live-score"
+              class="text-7xl font-black text-slate-900 dark:text-white leading-none tracking-tighter mb-2">0</div>
+            <p class="text-slate-500 dark:text-slate-400 font-medium text-lg">de 20 aciertos</p>
+          </div>
+          <div class="px-6 pb-6">
+            <div id="score-tag"
+              class="bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-xl p-4 text-center">
+              <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Estado</span>
+              <p id="score-message" class="text-md font-bold text-blue-800 dark:text-blue-200 leading-tight mt-1">
+                Realiza el test para ver resultados</p>
+            </div>
+          </div>
+        </div>
 
-    <script>
-      function checkAnswers() {
-        const questions = document.querySelectorAll('.question');
-        let score = 0;
-        questions.forEach((q, index) => {
-          const name = 'q' + (index + 1);
-          const selected = document.querySelector(
-            `input[name="${name}"]:checked`,
-          );
-          const correct = q.dataset.answer;
-          const explanation = q.dataset.explanation;
-          const feedback = q.querySelector('.feedback');
-          if (selected && selected.value === correct) {
+        <!-- Actions Card -->
+        <div
+          class="bg-surface-light dark:bg-surface-dark rounded-2xl border border-border-light dark:border-border-dark shadow-sm p-6">
+          <button type="button" onclick="checkAnswers()"
+            class="w-full bg-primary hover:bg-secondary text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 group">
+            <span>REVISAR AHORA</span>
+            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </button>
+          <button type="button" onclick="window.location.reload()"
+            class="w-full mt-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold py-3 rounded-xl border border-border-light dark:border-border-dark transition-all flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-lg">restart_alt</span>
+            <span>Reiniciar</span>
+          </button>
+        </div>
+
+        <!-- Info Card -->
+        <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+          <div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl"></div>
+          <h3 class="font-bold mb-2 flex items-center gap-2 text-sm">
+            <span class="material-symbols-outlined text-primary text-base">verified</span>
+            Power Tip
+          </h3>
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            El aprendizaje basado en el error es la herramienta más potente. Revisa las explicaciones incluso en tus
+            aciertos.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark mt-20">
+    <div class="container mx-auto px-6 py-10 flex flex-col items-center gap-4 text-center">
+      <div class="flex items-center gap-2">
+        <div class="size-6 bg-slate-300 dark:bg-slate-700 rounded-md"></div>
+        <span class="font-bold text-slate-900 dark:text-white">Powersemiotics</span>
+      </div>
+      <p class="text-gray-500 text-sm italic">&copy; 2025 Powersemiotics. Formación Médica de Alto Nivel.</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkAnswers() {
+      const questions = document.querySelectorAll('.question');
+      const totalQuestions = questions.length;
+      let score = 0;
+
+      questions.forEach((q, index) => {
+        const qName = 'q' + (index + 1);
+        const selected = q.querySelector(`input[name="${qName}"]:checked`);
+        const correctAnswer = q.getAttribute('data-answer');
+        const explanation = q.getAttribute('data-explanation');
+        const feedback = q.querySelector('.feedback');
+
+        // Reset states
+        q.classList.remove('correct', 'incorrect');
+        feedback.className = "mt-4 p-4 rounded-lg text-sm hidden feedback";
+
+        if (selected) {
+          if (selected.value === correctAnswer) {
             score++;
-            feedback.textContent = 'Correcto. ' + explanation;
-            feedback.classList.remove('text-red-600');
-            feedback.classList.add('text-green-600');
+            q.classList.add('correct');
+            feedback.innerHTML = `<div class="flex items-start gap-2 text-green-700 font-bold"><span class="material-symbols-outlined text-lg">check_circle</span> <span>¡Correcto!</span></div><p class="mt-1 text-green-600">${explanation}</p>`;
+            feedback.classList.remove('hidden');
+            feedback.classList.add('feedback-correct');
           } else {
-            feedback.textContent = 'Incorrecto. ' + explanation;
-            feedback.classList.remove('text-green-600');
-            feedback.classList.add('text-red-600');
+            q.classList.add('incorrect');
+            feedback.innerHTML = `<div class="flex items-start gap-2 text-red-700 font-bold"><span class="material-symbols-outlined text-lg">cancel</span> <span>Incorrecto</span></div><p class="mt-1 text-red-600">La respuesta correcta es la <b>${correctAnswer}</b>. ${explanation}</p>`;
+            feedback.classList.remove('hidden');
+            feedback.classList.add('feedback-incorrect');
           }
+        } else {
+          // Not answered
+          q.classList.add('incorrect');
+          feedback.innerHTML = `<div class="flex items-start gap-2 text-amber-700 font-bold"><span class="material-symbols-outlined text-lg">warning</span> <span>Sin respuesta</span></div><p class="mt-1 text-amber-600">La respuesta correcta era la <b>${correctAnswer}</b>.</p>`;
           feedback.classList.remove('hidden');
-        });
-        const result = document.getElementById('result');
-        result.textContent = 'Puntuación: ' + score + '/' + questions.length;
-        result.classList.remove('hidden');
+          feedback.classList.add('bg-amber-50', 'text-amber-800', 'border', 'border-amber-200');
+        }
+      });
+
+      // Update Sidebar Score
+      const scoreDisplay = document.getElementById('live-score');
+      const scoreMsg = document.getElementById('score-message');
+      const scoreTag = document.getElementById('score-tag');
+
+      scoreDisplay.innerText = score;
+
+      if (score === totalQuestions) {
+        scoreMsg.innerText = "¡Excelente! Dominio total.";
+        scoreTag.className = "bg-green-50 dark:bg-green-900/30 border border-green-100 dark:border-green-800 rounded-xl p-4 text-center";
+      } else if (score >= totalQuestions * 0.8) {
+        scoreMsg.innerText = "¡Muy bien! Casi perfecto.";
+        scoreTag.className = "bg-green-50 dark:bg-green-900/30 border border-green-100 dark:border-green-800 rounded-xl p-4 text-center";
+      } else if (score >= totalQuestions / 2) {
+        scoreMsg.innerText = "Buen intento. Sigue repasando.";
+        scoreTag.className = "bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-xl p-4 text-center";
+      } else {
+        scoreMsg.innerText = "Necesitas reforzar conceptos.";
+        scoreTag.className = "bg-red-50 dark:bg-red-900/30 border border-red-100 dark:border-red-800 rounded-xl p-4 text-center";
       }
-    </script>
-  </body>
+
+      // Smooth scroll to results on mobile, or just let them see sidebar on desktop
+      if (window.innerWidth < 1024) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+
 </html>

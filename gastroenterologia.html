@@ -1,256 +1,457 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gastroenterología - Powersemiotics</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
 
-    <link href="assets/tailwind.css" rel="stylesheet" />
-  </head>
-  <body class="font-sans bg-gray-50 text-gray-800">
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <a href="index.html" class="flex items-center space-x-2">
-          <img
-            src="assets/images/logo.png"
-            alt="Logo de Powersemiotics"
-            class="h-8 w-8"
-          />
-          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-        </a>
-        <div>
-          <a href="gastroenterologia.html" class="text-red-800 font-semibold"
-            >Gastroenterología</a
-          >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gastroenterología - Powersemiotics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <link href="assets/tailwind.css" rel="stylesheet" />
+  <!-- Supabase Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="font-sans bg-gray-50 text-gray-800">
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8" />
+        <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+      </a>
+      <div>
+        <a href="gastroenterologia.html" class="text-red-800 font-semibold mr-4">Gastroenterología</a>
+        <button id="header-auth-btn" onclick="toggleAuthModal()"
+          class="px-4 py-2 rounded-full bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all text-sm shadow-md">
+          Ingresar
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container mx-auto px-6 py-16">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Módulos de Gastroenterología
+      </h1>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Explora nuestros cursos interactivos sobre el diagnóstico y manejo de
+        las principales patologías gastroenterológicas.
+      </p>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Módulo: Fundamentos de Gastroenterología -->
+      <a href="gastroenterologia/fundamentos-de-gastroenterologia.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-book-medical text-4xl gradient-text"></i>
         </div>
-      </nav>
-    </header>
-
-    <main class="container mx-auto px-6 py-16">
-      <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Módulos de Gastroenterología
-        </h1>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-          Explora nuestros cursos interactivos sobre el diagnóstico y manejo de
-          las principales patologías gastroenterológicas.
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Fundamentos de Gastroenterología
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Anatomía, fisiología, microbiota y principios básicos.
         </p>
+      </a>
+
+      <!-- Módulo: Pruebas Diagnósticas -->
+      <a href="gastroenterologia/pruebas-diagnosticas.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-microscope text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Pruebas Diagnósticas
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Selección racional de endoscopia, ecografía, TC y pruebas de
+          aliento.
+        </p>
+      </a>
+
+      <!-- Módulo: Hemorragia Digestiva -->
+      <a href="gastroenterologia/hemorragia-GI.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-droplet text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Hemorragia Digestiva
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Abordaje integral de la hemorragia digestiva, desde la
+          fisiopatología hasta el manejo de emergencias.
+        </p>
+      </a>
+
+      <!-- Módulo: Colitis Ulcerosa -->
+      <a href="gastroenterologia/colitis-ulcerosa.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-notes-medical text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Colitis Ulcerosa
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Diagnóstico y manejo de la colitis ulcerosa adaptado al contexto
+          ecuatoriano.
+        </p>
+      </a>
+
+      <!-- Módulo: Enfermedad Hepática I -->
+      <a href="gastroenterologia/enfermedad_hepatica_i/index.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-liver text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Enfermedad Hepática I
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Pruebas de función hepática y patrones de lesión en la evaluación
+          inicial.
+        </p>
+      </a>
+
+      <!-- Módulo: Enfermedad Hepática II -->
+      <a href="gastroenterologia/enfermedad_hepatica_ii/index.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-vials text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Enfermedad Hepática II
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Complicaciones y manejo avanzado de la enfermedad hepática.
+        </p>
+      </a>
+
+      <!-- Módulo: Pancreatitis Aguda -->
+      <a href="gastroenterologia/pancreatitis_aguda/index.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-fire text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Pancreatitis Aguda
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Patologías del páncreas y vías biliares con actividades
+          interactivas.
+        </p>
+      </a>
+
+      <!-- Módulo: Gastroenteropatías por AINEs -->
+      <a href="gastroenterologia/gastroenteropatias-aines.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-pills text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Gastroenteropatías por AINEs
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Prevención y manejo del daño gastrointestinal inducido por
+          antiinflamatorios.
+        </p>
+      </a>
+
+      <!-- Módulo: Manejo Multidisciplinario -->
+      <a href="gastroenterologia/manejo-multidisciplinario.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-users text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Manejo Multidisciplinario
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Enfoque colaborativo para el manejo integral del paciente.
+        </p>
+      </a>
+
+      <!-- Módulo: Diarrea Crónica -->
+      <a href="gastroenterologia/diarrea-cronica.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-bacteria text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Diarrea Crónica
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Enfoque diagnóstico y manejo de la diarrea crónica.
+        </p>
+      </a>
+
+      <!-- Módulo: Semana 1: Fundamentos de Gastroenterología -->
+      <a href="gastroenterologia/semana-1-fundamentos.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-book-open text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Semana 1: Fundamentos de Gastroenterología
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Anatomía, fisiología y microbiota del TGI.
+        </p>
+      </a>
+
+      <!-- Módulo: Enfermedad por Reflujo Gastroesofágico (ERGE) -->
+      <a href="#" onclick="handleModuleClick('gastroenterologia/reflujo-gastroesofagico.html'); return false;"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-fire-alt text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Enfermedad por Reflujo Gastroesofágico
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Fisiopatología, diagnóstico y manejo terapéutico del reflujo
+          gastroesofágico.
+        </p>
+      </a>
+
+      <!-- Módulo: Trastornos Estomacales (GastroMaster) -->
+      <a href="#" onclick="handleModuleClick('gastroenterologia/trastornos-estomacales.html'); return false;"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-bacteria text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Trastornos Estomacales (GastroMaster)
+        </h2>
+        <p class="text-gray-600 text-md mt-2">
+          Guía interactiva sobre Gastritis, EUP, H. Pylori y complicaciones con simuladores y casos.
+        </p>
+      </a>
+
+      <!-- Módulo: Cáncer Esofágico y Gástrico -->
+      <a href="gastroenterologia/esophageal_gastric_cancer.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-bacteria text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Cáncer Esofágico y Gástrico
+        </h2>
+        <div class="text-gray-600 text-md mt-2">
+          <p class="mb-2">Domina la oncología gastrointestinal con el Dr. Murphy (Ninja Nerd).</p>
+          <ul class="text-sm space-y-1 text-gray-500">
+            <li><i class="fas fa-check-circle text-green-600 mr-2"></i>Tipos Histológicos</li>
+            <li><i class="fas fa-check-circle text-green-600 mr-2"></i>Diagnóstico Diferencial</li>
+            <li><i class="fas fa-gamepad text-indigo-600 mr-2"></i>Simulador Clínico</li>
+          </ul>
+          <div class="mt-4 pt-4 border-t border-gray-100 flex items-center text-sm text-gray-400">
+            <i class="fas fa-clock mr-2"></i> 1h 14m + Actividades
+          </div>
+        </div>
+      </a>
+
+      <!-- Módulo: Infección por H. Pylori -->
+      <a href="gastroenterologia/helicobacter_pylori.html"
+        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-bug text-4xl gradient-text"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">
+          Módulo: Infección por H. Pylori
+        </h2>
+        <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full mb-2 font-semibold">Alta
+          Prevalencia Ecuador</span>
+        <div class="text-gray-600 text-md mt-2">
+          <p class="mb-2">Domina el diagnóstico y tratamiento de la infección bacteriana más común.</p>
+          <ul class="text-sm space-y-1 text-gray-500">
+            <li><i class="fas fa-check-circle text-green-600 mr-2"></i>Diagnóstico Invasivo vs No invasivo</li>
+            <li><i class="fas fa-check-circle text-green-600 mr-2"></i>Manejo de Resistencia (Claritromicina)</li>
+            <li><i class="fas fa-gamepad text-indigo-600 mr-2"></i>Simulador "Misión Erradicación"</li>
+          </ul>
+          <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-400">
+            <span><i class="fas fa-book-medical mr-1"></i> Guías Maastricht VI</span>
+            <span><i class="fas fa-clock mr-1"></i> 20 min</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="bg-white mt-20">
+    <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+      <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+
+<!-- Auth Modal -->
+<div id="auth-modal"
+  class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+  <div
+    class="bg-white rounded-xl shadow-2xl w-full max-w-md p-8 transform transition-all border border-gray-100 relative">
+    <button onclick="toggleAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+      <i class="fas fa-times text-xl"></i>
+    </button>
+
+    <div class="text-center mb-6">
+      <h3 class="text-2xl font-bold text-gray-900">Acceso Estudiantes</h3>
+      <p class="text-gray-500 text-sm mt-2">Inicia sesión para acceder al módulo y guardar tu progreso.</p>
+    </div>
+
+    <div id="auth-options" class="space-y-4">
+      <button type="button" onclick="signInWithGoogle()"
+        class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-bold py-3 rounded-xl shadow-sm hover:bg-gray-50 transition-all">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google">
+        CONTINUAR CON GOOGLE
+      </button>
+
+      <div class="relative flex items-center py-4">
+        <div class="flex-grow border-t border-gray-200"></div>
+        <span class="flex-shrink mx-4 text-gray-400 text-[10px] font-bold uppercase tracking-widest">O con email</span>
+        <div class="flex-grow border-t border-gray-200"></div>
       </div>
 
-      <div
-        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      >
-        <!-- Módulo: Fundamentos de Gastroenterología -->
-        <a
-          href="gastroenterologia/fundamentos-de-gastroenterologia.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-book-medical text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Fundamentos de Gastroenterología
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Anatomía, fisiología, microbiota y principios básicos.
-          </p>
-        </a>
-
-        <!-- Módulo: Pruebas Diagnósticas -->
-        <a
-          href="gastroenterologia/pruebas-diagnosticas.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-microscope text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Pruebas Diagnósticas
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Selección racional de endoscopia, ecografía, TC y pruebas de
-            aliento.
-          </p>
-        </a>
-
-        <!-- Módulo: Hemorragia Digestiva -->
-        <a
-          href="gastroenterologia/hemorragia-GI.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-droplet text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Hemorragia Digestiva
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Abordaje integral de la hemorragia digestiva, desde la
-            fisiopatología hasta el manejo de emergencias.
-          </p>
-        </a>
-
-        <!-- Módulo: Colitis Ulcerosa -->
-        <a
-          href="gastroenterologia/colitis-ulcerosa.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-notes-medical text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Colitis Ulcerosa
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Diagnóstico y manejo de la colitis ulcerosa adaptado al contexto
-            ecuatoriano.
-          </p>
-        </a>
-
-        <!-- Módulo: Enfermedad Hepática I -->
-        <a
-          href="gastroenterologia/enfermedad_hepatica_i/index.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-liver text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Enfermedad Hepática I
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Pruebas de función hepática y patrones de lesión en la evaluación
-            inicial.
-          </p>
-        </a>
-
-        <!-- Módulo: Enfermedad Hepática II -->
-        <a
-          href="gastroenterologia/enfermedad_hepatica_ii/index.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-vials text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Enfermedad Hepática II
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Complicaciones y manejo avanzado de la enfermedad hepática.
-          </p>
-        </a>
-
-        <!-- Módulo: Pancreatitis Aguda -->
-        <a
-          href="gastroenterologia/pancreatitis_aguda/index.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-fire text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Pancreatitis Aguda
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Patologías del páncreas y vías biliares con actividades
-            interactivas.
-          </p>
-        </a>
-
-        <!-- Módulo: Gastroenteropatías por AINEs -->
-        <a
-          href="gastroenterologia/gastroenteropatias-aines.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-pills text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Gastroenteropatías por AINEs
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Prevención y manejo del daño gastrointestinal inducido por
-            antiinflamatorios.
-          </p>
-        </a>
-
-        <!-- Módulo: Manejo Multidisciplinario -->
-        <a
-          href="gastroenterologia/manejo-multidisciplinario.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-users text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Manejo Multidisciplinario
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Enfoque colaborativo para el manejo integral del paciente.
-          </p>
-        </a>
-
-        <!-- Módulo: Diarrea Crónica -->
-        <a
-          href="gastroenterologia/diarrea-cronica.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-bacteria text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Diarrea Crónica
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Enfoque diagnóstico y manejo de la diarrea crónica.
-          </p>
-        </a>
-
-        <!-- Módulo: Semana 1: Fundamentos de Gastroenterología -->
-        <a
-          href="gastroenterologia/semana-1-fundamentos.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-book-open text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Semana 1: Fundamentos de Gastroenterología
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Anatomía, fisiología y microbiota del TGI.
-          </p>
-        </a>
-
-        <!-- Módulo: Enfermedad por Reflujo Gastroesofágico (ERGE) -->
-        <a
-          href="gastroenterologia/reflujo-gastroesofagico.html"
-          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
-        >
-          <div class="flex items-center mb-4">
-            <i class="fas fa-fire-alt text-4xl gradient-text"></i>
-          </div>
-          <h2 class="text-2xl font-bold text-gray-800">
-            Módulo: Enfermedad por Reflujo Gastroesofágico
-          </h2>
-          <p class="text-gray-600 text-md mt-2">
-            Fisiopatología, diagnóstico y manejo terapéutico del reflujo
-            gastroesofágico.
-          </p>
-        </a>
+      <div class="space-y-3">
+        <input type="email" id="login-email"
+          class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
+          placeholder="tu@email.com">
+        <button type="button" onclick="handleMagicLink()" id="btn-magic-link"
+          class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-all">
+          Enviar Enlace Mágico
+        </button>
       </div>
-    </main>
+    </div>
+    <p id="auth-status" class="hidden mt-4 text-center text-sm font-bold"></p>
+  </div>
+</div>
 
-    <footer class="bg-white mt-20">
-      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-        <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
-      </div>
-    </footer>
-  </body>
+<script>
+  // Supabase Config
+  const SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
+  let supabaseClient = null;
+
+  // Init Supabase
+  if (typeof window.supabase !== 'undefined') {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+
+  // Auth Functions
+  function toggleAuthModal() {
+    const modal = document.getElementById('auth-modal');
+    modal.classList.toggle('hidden');
+  }
+
+  async function handleSignOut() {
+    if (!supabaseClient) return;
+    await supabaseClient.auth.signOut();
+    window.location.reload();
+  }
+
+  function updateAuthUI(session) {
+    const btn = document.getElementById('header-auth-btn');
+    if (!btn) return;
+
+    if (session) {
+      btn.innerText = "Cerrar Sesión";
+      btn.onclick = handleSignOut;
+      btn.classList.replace('bg-blue-600', 'bg-gray-800');
+      btn.classList.replace('hover:bg-blue-700', 'hover:bg-gray-900');
+    } else {
+      btn.innerText = "Ingresar";
+      btn.onclick = toggleAuthModal;
+      btn.classList.replace('bg-gray-800', 'bg-blue-600');
+      btn.classList.replace('hover:bg-gray-900', 'hover:bg-blue-700');
+    }
+  }
+
+  async function handleModuleClick(targetUrl) {
+    if (!supabaseClient) return;
+
+    const { data: { session } } = await supabaseClient.auth.getSession();
+
+    if (session) {
+      // User is logged in, proceed to module
+      window.location.href = targetUrl;
+    } else {
+      // User not logged in, show modal and save intent
+      sessionStorage.setItem('redirectAfterLogin', targetUrl);
+      toggleAuthModal();
+    }
+  }
+
+  async function signInWithGoogle() {
+    if (!supabaseClient) return;
+
+    // Get redirect target or default to current page
+    const redirectTo = sessionStorage.getItem('redirectAfterLogin')
+      ? new URL(sessionStorage.getItem('redirectAfterLogin'), window.location.origin).href
+      : window.location.href;
+
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: redirectTo
+      }
+    });
+
+    if (error) showError(error.message);
+  }
+
+  async function handleMagicLink() {
+    const email = document.getElementById('login-email').value;
+    if (!email) {
+      showError("Por favor ingresa tu email", "orange");
+      return;
+    }
+
+    const redirectTo = sessionStorage.getItem('redirectAfterLogin')
+      ? new URL(sessionStorage.getItem('redirectAfterLogin'), window.location.origin).href
+      : window.location.href;
+
+    const { error } = await supabaseClient.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: redirectTo }
+    });
+
+    if (error) {
+      showError(error.message);
+    } else {
+      showError("¡Enlace enviado! Revisa tu correo.", "green");
+    }
+  }
+
+  function showError(msg, color = "red") {
+    const el = document.getElementById('auth-status');
+    el.innerText = msg;
+    el.className = `mt-4 text-center text-sm font-bold text-${color}-500`;
+    el.classList.remove('hidden');
+  }
+
+  // Listener to handle redirects coming back from Auth
+  document.addEventListener('DOMContentLoaded', async () => {
+    if (!supabaseClient) return;
+
+    // Check initial session
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    updateAuthUI(session);
+
+    // Listen for auth changes
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      updateAuthUI(session);
+    });
+
+    if (session) {
+      const pendingRedirect = sessionStorage.getItem('redirectAfterLogin');
+      if (pendingRedirect) {
+        sessionStorage.removeItem('redirectAfterLogin');
+        window.location.href = pendingRedirect;
+      }
+    }
+  });
+</script>
+
 </html>

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass: Helicobacter pylori | Powersemiotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medical: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            600: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        alert: '#ef4444',
+                        gold: '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Efecto Flip Card */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .flip-card-front {
+            background-color: white;
+            color: #075985;
+            border: 2px solid #e0f2fe;
+        }
+
+        .flip-card-back {
+            background-color: #075985;
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* Tabs Animados */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Ajuste para Sticky Header */
+        section {
+            scroll-margin-top: 140px;
+        }
+
+        /* Animaciones generales */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        .alert-pulse {
+            animation: pulse-border 2s infinite;
+        }
+
+        /* Estilos Actividad Interactiva (Mobile Friendly) */
+        .interactive-item {
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .interactive-item.selected {
+            border-color: #f59e0b;
+            background-color: #fef3c7;
+            transform: scale(1.02);
+        }
+
+        .interactive-item.correct {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+            color: #15803d;
+            pointer-events: none;
+        }
+
+        .interactive-target {
+            transition: all 0.3s;
+            border-style: dashed;
+        }
+
+        .interactive-target:hover {
+            background-color: #f0f9ff;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+    <header
+        class="bg-gradient-to-r from-medical-900 to-medical-800 text-white pt-8 pb-12 shadow-xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+            <i class="fas fa-bacterium text-9xl"></i>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <a href="../gastroenterologia.html"
+                class="inline-flex items-center text-medical-100 hover:text-white mb-4 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Volver al Hub
+            </a>
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-tight">Infección por <span
+                    class="italic text-yellow-400">Helicobacter pylori</span></h1>
+            <p class="text-xl text-medical-100 max-w-2xl">Módulo interactivo basado en Guías Maastricht VI y ACG,
+                adaptado al contexto epidemiológico de Ecuador.</p>
+
+            <div class="flex gap-4 mt-6">
+                <span class="bg-white/10 px-3 py-1 rounded-full text-sm backdrop-blur-sm"><i
+                        class="far fa-clock mr-1"></i> 25 min estudio</span>
+                <span class="bg-white/10 px-3 py-1 rounded-full text-sm backdrop-blur-sm"><i
+                        class="fas fa-certificate mr-1"></i> Nivel Clínico</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-md border-b border-gray-200">
+        <div class="container mx-auto px-4 overflow-x-auto">
+            <div class="flex whitespace-nowrap gap-2 py-3 text-sm font-medium">
+                <a href="#microbiologia"
+                    class="px-3 py-1.5 rounded-md hover:bg-medical-50 text-medical-800 transition">Microbiología</a>
+                <a href="#patogenia"
+                    class="px-3 py-1.5 rounded-md hover:bg-medical-50 text-medical-800 transition">Patogenia</a>
+                <a href="#diagnostico"
+                    class="px-3 py-1.5 rounded-md hover:bg-medical-50 text-medical-800 transition">Diagnóstico</a>
+                <a href="#tratamiento"
+                    class="px-3 py-1.5 rounded-md hover:bg-medical-50 text-medical-800 transition">Tratamiento</a>
+                <a href="#simulacion"
+                    class="ml-auto px-4 py-1.5 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 shadow-sm transition"><i
+                        class="fas fa-gamepad mr-1"></i> Simulador</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+
+        <section id="microbiologia" class="mb-16">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-medical-100 p-2 rounded-lg text-medical-600"><i class="fas fa-dna text-2xl"></i></div>
+                <h2 class="text-3xl font-bold text-gray-900">Factores de Virulencia</h2>
+            </div>
+
+            <p class="mb-6 text-lg text-gray-600">Este bacilo Gram negativo microaerófilo ha coevolucionado con
+                nosotros. Haz clic en las tarjetas para descubrir su arsenal:</p>
+
+
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-cloud text-4xl text-yellow-500 mb-2"></i>
+                            <h3 class="font-bold text-lg">Ureasa</h3>
+                            <p class="text-xs text-gray-400 mt-2">(Clic para girar)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="font-semibold text-sm">Convierte Urea &rarr; NH3 + CO2</p>
+                            <p class="text-xs mt-2">Neutraliza el ácido gástrico permitiendo la supervivencia inicial.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-wind text-4xl text-gray-400 mb-2"></i>
+                            <h3 class="font-bold text-lg">Flagelos</h3>
+                            <p class="text-xs text-gray-400 mt-2">(Clic para girar)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="font-semibold text-sm">Movilidad</p>
+                            <p class="text-xs mt-2">Permiten "nadar" a través del moco gástrico espeso para llegar al
+                                epitelio.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-syringe text-4xl text-red-500 mb-2"></i>
+                            <h3 class="font-bold text-lg">CagA</h3>
+                            <p class="text-xs text-gray-400 mt-2">(Clic para girar)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="font-semibold text-sm">Citotoxina A</p>
+                            <p class="text-xs mt-2">"Aguja hipodérmica". Inyecta proteínas proinflamatorias. Alto riesgo
+                                de Ca. Gástrico.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-skull-crossbones text-4xl text-purple-500 mb-2"></i>
+                            <h3 class="font-bold text-lg">VacA</h3>
+                            <p class="text-xs text-gray-400 mt-2">(Clic para girar)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="font-semibold text-sm">Vacuolizante</p>
+                            <p class="text-xs mt-2">Crea agujeros (vacuolas) en las células y evade el sistema inmune.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="patogenia" class="mb-16">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-yellow-400">
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Contexto Ecuador <img
+                            src="https://flagcdn.com/w20/ec.png" alt="EC" class="inline ml-1"></h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start"><i
+                                class="fas fa-exclamation-triangle text-yellow-500 mt-1 mr-2"></i> <span>Prevalencia
+                                estimada: <strong>>60-70%</strong> en adultos.</span></li>
+                        <li class="flex items-start"><i class="fas fa-child text-blue-500 mt-1 mr-2"></i>
+                            <span>Adquisición principal: En la infancia (transmisión intrafamiliar).</span></li>
+                        <li class="flex items-start"><i class="fas fa-capsules text-red-500 mt-1 mr-2"></i>
+                            <span>Resistencia a Claritromicina: <strong>ALTA (>20%)</strong>.</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">La "Secuencia de Correa"</h3>
+                    <div class="relative pl-8 border-l-2 border-gray-200 space-y-4">
+                        <div class="relative">
+                            <span
+                                class="absolute -left-[41px] bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+                            <p class="font-semibold text-green-700">Gastritis Superficial</p>
+                        </div>
+                        <div class="relative">
+                            <span
+                                class="absolute -left-[41px] bg-yellow-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+                            <p class="font-semibold text-yellow-700">Gastritis Atrófica</p>
+                        </div>
+                        <div class="relative">
+                            <span
+                                class="absolute -left-[41px] bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
+                            <p class="font-semibold text-orange-700">Metaplasia Intestinal</p>
+                        </div>
+                        <div class="relative">
+                            <span
+                                class="absolute -left-[41px] bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">4</span>
+                            <p class="font-bold text-red-700">Displasia -> Adenocarcinoma</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="diagnostico" class="mb-16">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-medical-100 p-2 rounded-lg text-medical-600"><i class="fas fa-search-plus text-2xl"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900">Algoritmo Diagnóstico</h2>
+            </div>
+
+
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                <div class="flex bg-gray-50 border-b border-gray-200">
+                    <button onclick="openTab(event, 'no-invasivo')"
+                        class="tab-btn flex-1 py-4 text-center font-semibold text-medical-800 border-b-2 border-medical-600 bg-white">
+                        <i class="fas fa-wind mr-2"></i> No Invasivo (Ambulatorio)
+                    </button>
+                    <button onclick="openTab(event, 'invasivo')"
+                        class="tab-btn flex-1 py-4 text-center font-semibold text-gray-500 hover:bg-gray-100">
+                        <i class="fas fa-microscope mr-2"></i> Invasivo (Endoscopia)
+                    </button>
+                </div>
+
+                <div class="p-6">
+                    <div id="no-invasivo" class="tab-content active">
+                        <h4 class="text-lg font-bold text-medical-800 mb-3">1. Test de Aliento con Urea (C13/C14)</h4>
+                        <p class="text-gray-600 mb-4">Es el <strong>Gold Standard no invasivo</strong>. Detecta la
+                            actividad de la ureasa in vivo.</p>
+                        <ul class="list-disc ml-5 text-sm text-gray-600 mb-6">
+                            <li><span class="text-green-600 font-bold">Pro:</span> Alta sensibilidad/especificidad
+                                (>95%). Sirve para diagnóstico y confirmación de cura.</li>
+                            <li><span class="text-red-500 font-bold">Contra:</span> Falsos negativos si usa IBP
+                                (suspender 2 sem antes) o ATB (4 sem antes).</li>
+                        </ul>
+
+                        <h4 class="text-lg font-bold text-medical-800 mb-3">2. Antígeno Fecal Monoclonal</h4>
+                        <p class="text-gray-600 text-sm">Detecta infección activa. Alternativa económica al test de
+                            aliento. Igual requiere suspensión de IBP.</p>
+
+                        <div class="bg-red-50 border border-red-200 p-3 rounded mt-4">
+                            <p class="text-red-700 text-sm font-bold"><i class="fas fa-times-circle"></i> Serología (IgG
+                                en sangre): NO RECOMENDADA para confirmar erradicación (los anticuerpos duran años).</p>
+                        </div>
+                    </div>
+
+                    <div id="invasivo" class="tab-content">
+                        <h4 class="text-lg font-bold text-medical-800 mb-3">1. Histología (Biopsia)</h4>
+                        <p class="text-gray-600 mb-4">Se toman muestras de antro y cuerpo. Permite ver la bacteria y el
+                            daño (atrofia/metaplasia).</p>
+
+                        <h4 class="text-lg font-bold text-medical-800 mb-3">2. Test Rápido de Ureasa</h4>
+                        <p class="text-gray-600 text-sm mb-4">Se coloca la biopsia en un medio con urea. Si hay
+                            bacteria, cambia de color (pH alcalino) en minutos/horas.</p>
+
+                        <div class="bg-yellow-50 border border-yellow-200 p-3 rounded">
+                            <p class="text-yellow-800 text-sm"><i class="fas fa-lightbulb"></i> Indicado en pacientes
+                                con signos de alarma (pérdida de peso, anemia, disfagia) o >50 años.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 bg-gray-900 text-white rounded-xl p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-8 opacity-10"><i class="fas fa-clipboard-check text-9xl"></i></div>
+            <h3 class="text-2xl font-bold mb-4 relative z-10">¿Debo tratar a este paciente?</h3>
+            <p class="mb-6 text-gray-300 relative z-10">Marca las condiciones que presenta tu paciente. Si aparece en
+                verde, la erradicación es OBLIGATORIA.</p>
+
+            <div class="grid md:grid-cols-2 gap-4 relative z-10 text-gray-800">
+                <label
+                    class="flex items-center space-x-3 bg-white p-3 rounded cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="indication-check form-checkbox h-5 w-5 text-blue-600"
+                        value="Úlcera Péptica (activa o pasada)">
+                    <span>Úlcera Péptica (Gástrica o Duodenal)</span>
+                </label>
+                <label
+                    class="flex items-center space-x-3 bg-white p-3 rounded cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="indication-check form-checkbox h-5 w-5 text-blue-600"
+                        value="Linfoma MALT">
+                    <span>Linfoma MALT Gástrico</span>
+                </label>
+                <label
+                    class="flex items-center space-x-3 bg-white p-3 rounded cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="indication-check form-checkbox h-5 w-5 text-blue-600"
+                        value="Dispepsia Funcional">
+                    <span>Dispepsia Funcional (Investigada)</span>
+                </label>
+                <label
+                    class="flex items-center space-x-3 bg-white p-3 rounded cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="indication-check form-checkbox h-5 w-5 text-blue-600"
+                        value="Uso Crónico AINEs">
+                    <span>Usuario crónico de AINEs / Aspirina</span>
+                </label>
+                <label
+                    class="flex items-center space-x-3 bg-white p-3 rounded cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="indication-check form-checkbox h-5 w-5 text-blue-600"
+                        value="Anemia Ferropénica inexplicable">
+                    <span>Anemia Ferropénica sin causa</span>
+                </label>
+                <label
+                    class="flex items-center space-x-3 bg-white p-3 rounded cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="indication-check form-checkbox h-5 w-5 text-blue-600" value="PTI">
+                    <span>Púrpura Trombocitopénica Idiopática</span>
+                </label>
+            </div>
+
+            <div id="indication-result"
+                class="mt-6 p-4 rounded bg-gray-800 border border-gray-600 text-center hidden relative z-10">
+            </div>
+        </section>
+
+        <section id="tratamiento" class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Tratamiento en Ecuador (Maastricht VI)</h2>
+
+            <div class="bg-red-100 border-l-4 border-red-500 p-4 mb-8">
+                <h4 class="text-red-800 font-bold">¡ALERTA DE RESISTENCIA!</h4>
+                <p class="text-red-700">En Ecuador, la resistencia a Claritromicina supera el 15%. <span
+                        class="font-bold underline">La Triple Terapia Estándar (OCA) ya NO es primera línea
+                        empírica</span> a menos que se confirme sensibilidad.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div
+                    class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-medical-600 hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-xl font-bold text-medical-800">Terapia Cuádruple con Bismuto</h4>
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-bold">Elección
+                            #1</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">Duración: 14 días</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center bg-gray-50 p-2 rounded"><span
+                                class="w-8 font-bold text-blue-600">IBP</span> Dosis doble c/12h</li>
+                        <li class="flex items-center bg-gray-50 p-2 rounded"><span
+                                class="w-8 font-bold text-gray-600">Bis</span> Bismuto 120mg c/6h</li>
+                        <li class="flex items-center bg-gray-50 p-2 rounded"><span
+                                class="w-8 font-bold text-purple-600">Tet</span> Tetraciclina 500mg c/6h</li>
+                        <li class="flex items-center bg-gray-50 p-2 rounded"><span
+                                class="w-8 font-bold text-orange-600">Met</span> Metronidazol 500mg c/8h</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500 hover:shadow-xl transition transform hover:-translate-y-1">
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-xl font-bold text-medical-800">Terapia Concomitante</h4>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-bold">Alternativa
+                            (Sin Bismuto)</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-4">Duración: 14 días</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center bg-gray-50 p-2 rounded"><span
+                                class="w-8 font-bold text-blue-600">IBP</span> Dosis doble c/12h</li>
+                        <li class="flex items-center bg-gray-50 p-2 rounded"><span
+                                class="w-8 font-bold text-green-600">Amo</span> Amoxicilina 1g c/12h</li>
+                        <li class="flex items-center bg-gray-50 p-2 rounded"><span
+                                class="w-8 font-bold text-red-600">Cla</span> Claritromicina 500mg c/12h</li>
+                        <li class="flex items-center bg-gray-50 p-2 rounded"><span
+                                class="w-8 font-bold text-orange-600">Met</span> Metronidazol 500mg c/12h</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="simulacion" class="mb-20">
+            <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-1 shadow-2xl">
+                <div class="bg-slate-900 rounded-xl p-6 md:p-12 text-center" id="game-container">
+
+                    <div id="screen-start" class="game-screen">
+                        <div class="inline-block p-4 rounded-full bg-blue-600/20 text-blue-400 mb-4 animate-bounce">
+                            <i class="fas fa-user-md text-4xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white mb-2">Simulador Clínico: "El Residente"</h2>
+                        <p class="text-slate-400 mb-8 max-w-lg mx-auto">Paciente masculino de 45 años, de Quito.
+                            Dispepsia de larga data. ¿Podrás manejarlo sin errores?</p>
+                        <button onclick="startGame()"
+                            class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-full transition shadow-lg transform hover:scale-105">
+                            Comenzar Turno
+                        </button>
+                    </div>
+
+                    <div id="screen-game" class="hidden text-left max-w-2xl mx-auto">
+                        <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                            <span class="text-slate-400 text-sm font-mono">CASO CLÍNICO 001</span>
+                            <div class="flex space-x-1" id="progress-dots">
+                                <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+                                <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+                                <div class="w-3 h-3 rounded-full bg-slate-600"></div>
+                            </div>
+                        </div>
+
+                        <h3 id="question-text" class="text-xl font-bold text-white mb-6">Pregunta...</h3>
+
+                        <div id="options-container" class="space-y-3">
+                        </div>
+
+                        <div id="feedback-area" class="mt-6 hidden p-4 rounded-lg bg-slate-800 border border-slate-600">
+                            <p id="feedback-msg" class="text-white mb-3"></p>
+                            <button onclick="nextQuestion()"
+                                class="text-sm bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded">Continuar</button>
+                        </div>
+                    </div>
+
+                    <div id="screen-end" class="hidden">
+                        <div class="text-6xl text-yellow-400 mb-4"><i class="fas fa-trophy"></i></div>
+                        <h2 class="text-3xl font-bold text-white">¡Módulo Completado!</h2>
+                        <p class="text-slate-400 mt-2 mb-6">Has demostrado competencia en el manejo de H. pylori.</p>
+                        <button onclick="location.reload()"
+                            class="bg-transparent border border-white text-white hover:bg-white hover:text-slate-900 px-6 py-2 rounded transition">Repetir
+                            Módulo</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-medical-900 text-medical-100 py-8 border-t-4 border-yellow-500">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-semibold">Powersemiotics &copy; 2025</p>
+            <p class="text-sm mt-2 opacity-75">Educación médica para estudiantes de la UCE. Desarrollado con ❤️.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- TABS LOGIC ---
+        function openTab(evt, tabName) {
+            var i, tabContent, tabBtn;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+                tabContent[i].classList.remove('active');
+            }
+            tabBtn = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabBtn.length; i++) {
+                tabBtn[i].classList.remove("border-b-2", "border-medical-600", "bg-white", "text-medical-800");
+                tabBtn[i].classList.add("text-gray-500");
+            }
+            document.getElementById(tabName).style.display = "block";
+            setTimeout(() => document.getElementById(tabName).classList.add('active'), 10);
+
+            evt.currentTarget.classList.remove("text-gray-500");
+            evt.currentTarget.classList.add("border-b-2", "border-medical-600", "bg-white", "text-medical-800");
+        }
+
+        // --- CHECKLIST APP LOGIC ---
+        const checkboxes = document.querySelectorAll('.indication-check');
+        const resultBox = document.getElementById('indication-result');
+
+        checkboxes.forEach(box => {
+            box.addEventListener('change', updateIndication);
+        });
+
+        function updateIndication() {
+            const checked = document.querySelectorAll('.indication-check:checked');
+            if (checked.length > 0) {
+                resultBox.classList.remove('hidden');
+                resultBox.innerHTML = `
+                    <p class="text-green-400 font-bold text-lg"><i class="fas fa-check-circle"></i> ¡TRATAMIENTO INDICADO!</p>
+                    <p class="text-gray-300 text-sm mt-1">El paciente tiene ${checked.length} criterio(s) absoluto(s) para erradicación.</p>
+                `;
+                resultBox.classList.add('alert-pulse');
+            } else {
+                resultBox.classList.add('hidden');
+                resultBox.classList.remove('alert-pulse');
+            }
+        }
+
+        // --- SIMULATOR LOGIC (Gamification) ---
+        const questions = [
+            {
+                q: "El paciente no desea endoscopia. ¿Qué prueba solicitas para confirmar infección activa?",
+                options: [
+                    { t: "Serología IgG en sangre", correct: false, f: "Error: La serología no distingue infección activa de pasada." },
+                    { t: "Test de Aliento con Urea C13", correct: true, f: "¡Correcto! Es el Gold Standard no invasivo." },
+                    { t: "Cultivo de Heces", correct: false, f: "Demasiado costoso y lento para la práctica rutinaria." }
+                ]
+            },
+            {
+                q: "El test es positivo. El paciente es alérgico a Penicilina. ¿Qué esquema eliges?",
+                options: [
+                    { t: "IBP + Amoxi + Claritro", correct: false, f: "Error: Es alérgico a Penicilina (Amoxicilina)." },
+                    { t: "Terapia Cuádruple con Bismuto (IBP+Bis+Tetra+Metro)", correct: true, f: "¡Exacto! Es la mejor opción en alérgicos a penicilina y zonas de alta resistencia." },
+                    { t: "Solo IBP dosis altas", correct: false, f: "El IBP solo no erradica la bacteria." }
+                ]
+            },
+            {
+                q: "Terminó el tratamiento hace 3 días. Quiere saber si se curó.",
+                options: [
+                    { t: "Hacer Test de Aliento hoy", correct: false, f: "Falso negativo probable. Debes esperar 4 semanas post-antibiótico." },
+                    { t: "Pedir Endoscopia Control", correct: false, f: "Invasivo e innecesario si no hay úlcera gástrica o síntomas de alarma." },
+                    { t: "Esperar 4 semanas y hacer Test de Aliento", correct: true, f: "Correcto. Es el tiempo necesario para evitar falsos negativos." }
+                ]
+            }
+        ];
+
+        let currentQ = 0;
+
+        function startGame() {
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-game').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQ];
+            document.getElementById('question-text').innerText = q.q;
+            document.getElementById('feedback-area').classList.add('hidden');
+
+            // Update dots
+            const dots = document.getElementById('progress-dots').children;
+            for (let i = 0; i < 3; i++) {
+                dots[i].classList.remove('bg-blue-500', 'bg-slate-600');
+                if (i === currentQ) dots[i].classList.add('bg-blue-500');
+                else dots[i].classList.add('bg-slate-600');
+            }
+
+            const cont = document.getElementById('options-container');
+            cont.innerHTML = '';
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded bg-slate-700 hover:bg-slate-600 text-gray-200 transition border border-slate-600";
+                btn.innerText = opt.t;
+                btn.onclick = () => checkAnswer(opt, btn);
+                cont.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(opt, btnElement) {
+            const feedback = document.getElementById('feedback-area');
+            const msg = document.getElementById('feedback-msg');
+
+            // Disable all buttons
+            const allBtns = document.getElementById('options-container').children;
+            for (let b of allBtns) b.disabled = true;
+
+            feedback.classList.remove('hidden');
+
+            if (opt.correct) {
+                btnElement.classList.remove('bg-slate-700');
+                btnElement.classList.add('bg-green-600', 'border-green-400');
+                msg.innerHTML = `<span class="text-green-400 font-bold">Excelente.</span> ${opt.f}`;
+            } else {
+                btnElement.classList.remove('bg-slate-700');
+                btnElement.classList.add('bg-red-600', 'border-red-400');
+                msg.innerHTML = `<span class="text-red-400 font-bold">Incorrecto.</span> ${opt.f}`;
+            }
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if (currentQ < questions.length) {
+                loadQuestion();
+            } else {
+                document.getElementById('screen-game').classList.add('hidden');
+                document.getElementById('screen-end').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

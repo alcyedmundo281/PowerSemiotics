@@ -1,1216 +1,627 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Módulo Educativo: Enfermedad por Reflujo Gastroesofágico (ERGE)
-    </title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="../assets/gastro-layout.css" />
-    <script src="../assets/gastro-layout.js" defer></script>
-    <style>
-      /* --- Estilos Generales --- */
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f8f9fa;
-        color: #212529;
-        line-height: 1.7;
-      }
-      .main-container {
-        max-width: 1200px;
-        margin: 30px auto;
-        padding: 20px;
-      }
-      h1.main-title {
-        text-align: center;
-        color: #003366;
-        border-bottom: 3px solid #0056b3;
-        padding-bottom: 15px;
-        margin-bottom: 30px;
-      }
-      .intro-text {
-        text-align: center;
-        font-size: 1.1em;
-        margin-bottom: 20px;
-        color: #495057;
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Módulo Educativo: ERGE | Power Semiotics</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;900&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+
+  <!-- Supabase Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Tailwind Configuration -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#8B3DFF",
+            "secondary": "#FF4081",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101922",
+            "surface-light": "#ffffff",
+            "surface-dark": "#1a242d",
+            "border-light": "#e2e8f0",
+            "border-dark": "#2d3748",
+          },
+          fontFamily: {
+            "display": ["Lexend", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "0.75rem",
+            "xl": "1rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #8B3DFF 0%, #FF4081 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tab-active {
+      @apply border-primary text-primary font-bold border-b-2;
+    }
+
+    .tab-inactive {
+      @apply border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 border-b-2;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
       }
 
-      /* --- Estilo del Botón de Descarga --- */
-      .download-button-container {
-        text-align: center;
-        margin-bottom: 40px;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-      .download-button {
-        display: inline-block;
-        background-color: #28a745;
-        color: white;
-        padding: 12px 25px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 1.1em;
-        transition:
-          background-color 0.3s,
-          transform 0.2s;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-      .download-button:hover {
-        background-color: #218838;
-        transform: translateY(-2px);
-      }
-      .download-button .fas {
-        margin-right: 8px;
-      }
+    }
 
-      /* --- Estilos del Acordeón --- */
-      .accordion-item {
-        margin-bottom: 15px;
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        overflow: hidden;
-        transition: box-shadow 0.3s ease;
-      }
-      .accordion-item:hover {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-      .accordion-header {
-        background-color: #0056b3;
-        color: white;
-        padding: 20px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 1.4em;
-        font-weight: 600;
-      }
-      .accordion-header::after {
-        content: '+';
-        font-size: 2em;
-        line-height: 1;
-        transition: transform 0.3s ease;
-      }
-      .accordion-item.active .accordion-header::after {
-        transform: rotate(45deg);
-      }
-      .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        transition:
-          max-height 0.5s ease-out,
-          padding 0.5s ease-out;
-        background-color: #ffffff;
-        padding: 0 30px;
-      }
-      .accordion-item.active .accordion-content {
-        padding: 30px;
-      }
+    /* Custom radio styling */
+    .sr-only-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
 
-      /* --- Estilos del Contenido Interno --- */
-      .content-section h2,
-      .content-section h3,
-      .content-section h4 {
-        color: #003366;
-      }
-      .content-section h2 {
-        font-size: 1.8em;
-        border-bottom: 2px solid #e9ecef;
-        padding-bottom: 10px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-      }
-      .content-section h3 {
-        font-size: 1.5em;
-        margin-top: 25px;
-        margin-bottom: 15px;
-      }
-      .content-section p,
-      .content-section li {
-        font-size: 1.1em;
-      }
-      .content-section ul {
-        list-style-type: disc;
-        padding-left: 25px;
-      }
+    input[type="radio"]:checked+div {
+      border-color: #8B3DFF;
+      background-color: rgba(139, 61, 255, 0.05);
+    }
 
-      /* Stats Cards */
-      .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-        text-align: center;
-        margin: 30px 0;
-      }
-      .stat-card {
-        background-color: #e9f5ff;
-        border-left: 5px solid #0056b3;
-        padding: 20px;
-        border-radius: 8px;
-      }
-      .stat-card-value {
-        font-size: 2.5em;
-        font-weight: bold;
-        color: #003366;
-      }
-      .stat-card-label {
-        font-size: 1em;
-        color: #495057;
-      }
-      .stat-card.danger {
-        background-color: #fff0f1;
-        border-left-color: #dc3545;
-      }
-      .stat-card.danger .stat-card-value {
-        color: #dc3545;
-      }
+    input[type="radio"]:checked+div .radio-circle {
+      border-color: #8B3DFF;
+      background-color: #8B3DFF;
+    }
+  </style>
+</head>
 
-      /* Chart Container */
-      .chart-container {
-        width: 100%;
-        max-width: 400px;
-        margin: 30px auto;
-        height: 300px;
-      }
+<body
+  class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-200 min-h-screen">
 
-      /* --- Estilos para la Presentación (Diapositivas) --- */
-      .presentation-container {
-        max-width: 1000px;
-        margin: 0 auto;
-        background-color: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        overflow: hidden;
-      }
-      .slide {
-        display: none;
-        padding: 40px;
-        min-height: 500px;
-        animation: fadeIn 0.5s;
-      }
-      .slide.active {
-        display: block;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      .slide h2,
-      .slide h3 {
-        color: #0056b3;
-      }
-      .slide h2 {
-        font-size: 1.8em;
-        margin-top: 30px;
-      }
-      .slide h3 {
-        font-size: 1.4em;
-      }
-      .slide p,
-      .slide li {
-        line-height: 1.6;
-        font-size: 1.1em;
-      }
-      .slide ul {
-        list-style-type: disc;
-        padding-left: 20px;
-      }
-      .slide table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 25px 0;
-      }
-      .slide th,
-      .slide td {
-        border: 1px solid #dee2e6;
-        padding: 12px;
-        text-align: left;
-      }
-      .slide th {
-        background-color: #e9ecef;
-      }
-      .navigation {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px;
-        background-color: #0056b3;
-      }
-      .nav-button {
-        background-color: #fff;
-        color: #0056b3;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1em;
-        font-weight: bold;
-        border-radius: 5px;
-        cursor: pointer;
-        transition:
-          background-color 0.3s,
-          color 0.3s;
-      }
-      .nav-button:hover {
-        background-color: #e9ecef;
-      }
-      .nav-button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-      .slide-counter {
-        color: #fff;
-        font-size: 1.2em;
-        font-weight: bold;
-        align-self: center;
-      }
-
-      /* --- Estilos para la Actividad ABP --- */
-      .interactive-container {
-        border: 2px dashed #0056b3;
-        border-radius: 8px;
-        padding: 20px;
-        background-color: #f0f2f5;
-      }
-      .abp-phase {
-        margin-bottom: 25px;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-      .abp-phase h3 {
-        color: #003366;
-        border-bottom: 2px solid #e0e0e0;
-        padding-bottom: 10px;
-      }
-      .abp-hidden {
-        display: none;
-      }
-      .abp-decision-section {
-        margin-top: 20px;
-      }
-      .abp-feedback {
-        margin-top: 15px;
-        padding: 10px;
-        border-radius: 5px;
-      }
-      .abp-feedback.correct {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-      }
-      .abp-feedback.incorrect {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-      }
-      #abp-hypothesis-board,
-      #abp-learning-objectives {
-        width: 100%;
-        min-height: 80px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
-        margin-top: 10px;
-      }
-      .abp-reveal-button {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1em;
-        margin-top: 10px;
-      }
-      .abp-reveal-button:hover {
-        background-color: #0056b3;
-      }
-      .abp-decision-section button.verify {
-        background-color: #28a745;
-        margin-left: 10px;
-      }
-      .abp-decision-section button.verify:hover {
-        background-color: #218838;
-      }
-
-      /* --- Estilos para el Quiz --- */
-      #quiz-container {
-        max-width: 800px;
-        margin: 20px auto;
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      #quiz-container h1 {
-        text-align: center;
-        color: #003366;
-      }
-      .quiz-vignette {
-        background-color: #e9ecef;
-        padding: 15px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        border-left: 5px solid #0056b3;
-      }
-      .quiz-question-text {
-        font-weight: bold;
-        font-size: 1.1em;
-        margin-bottom: 20px;
-      }
-      .quiz-options button {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        margin: 8px 0;
-        text-align: left;
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1em;
-        transition: background-color 0.3s;
-      }
-      .quiz-options button:hover:not(:disabled) {
-        background-color: #e9ecef;
-      }
-      .quiz-options button:disabled {
-        cursor: not-allowed;
-      }
-      .quiz-options button.selected {
-        background-color: #0056b3;
-        color: white;
-        border-color: #003366;
-      }
-      #quiz-navigation {
-        text-align: center;
-        margin-top: 20px;
-      }
-      #quiz-nav-button {
-        background-color: #0056b3;
-        color: white;
-        border: none;
-        padding: 12px 25px;
-        border-radius: 5px;
-        font-size: 1.1em;
-        cursor: pointer;
-      }
-      #quiz-nav-button:hover {
-        background-color: #003366;
-      }
-      #quiz-results-area {
-        display: none;
-      }
-      .quiz-result-item {
-        margin-bottom: 25px;
-        padding: 15px;
-        border-radius: 5px;
-      }
-      .quiz-result-item.correct {
-        background-color: #d4edda;
-        border-left: 5px solid #28a745;
-      }
-      .quiz-result-item.incorrect {
-        background-color: #f8d7da;
-        border-left: 5px solid #dc3545;
-      }
-      .quiz-justification {
-        margin-top: 10px;
-        padding-top: 10px;
-        border-top: 1px dashed #ccc;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="main-container">
-      <h1 class="main-title">
-        Módulo Educativo: Enfermedad por Reflujo Gastroesofágico (ERGE)
-      </h1>
-      <p class="intro-text">
-        Bienvenido al módulo de aprendizaje sobre ERGE. Explore el contenido
-        desde la fisiopatología y diagnóstico hasta el manejo terapéutico y las
-        complicaciones, con actividades interactivas.
-      </p>
-
-      <div class="download-button-container">
-        <a
-          href="#"
-          class="download-button"
-          onclick="alert('Guía PDF disponible próximamente')"
-        >
-          <i class="fas fa-download"></i> Descargar Guía en PDF
-        </a>
-      </div>
-
-      <div id="accordion">
-        <!-- Acordeón 1: Guía de Conocimiento -->
-        <div class="accordion-item">
-          <div class="accordion-header">1. Guía de Conocimiento</div>
-          <div class="accordion-content">
-            <div class="content-section">
-              <h2>Introducción y Epidemiología</h2>
-              <p>
-                La Enfermedad por Reflujo Gastroesofágico (ERGE) es una afección
-                en la que el contenido gástrico regresa al esófago, causando
-                síntomas molestos y/o complicaciones. Es una de las patologías
-                gastrointestinales más frecuentes a nivel mundial.
-              </p>
-              <div class="stats-grid">
-                <div class="stat-card">
-                  <div class="stat-card-value">15-20%</div>
-                  <div class="stat-card-label">Prevalencia global estimada</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-card-value">50%</div>
-                  <div class="stat-card-label">
-                    Pacientes sin erosiones (ERNE)
-                  </div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-card-value">40+</div>
-                  <div class="stat-card-label">Años (pico de incidencia)</div>
-                </div>
-                <div class="stat-card danger">
-                  <div class="stat-card-value">10%</div>
-                  <div class="stat-card-label">
-                    Riesgo de Esófago de Barrett en ERGE crónica
-                  </div>
-                </div>
-              </div>
-
-              <h2>Fisiopatología</h2>
-              <p>
-                La ERGE es el resultado de un desequilibrio entre los
-                <strong>factores defensivos</strong> (barrera antirreflujo,
-                aclaramiento esofágico, resistencia mucosa) y los
-                <strong>factores agresores</strong> (ácido, pepsina, bilis).
-              </p>
-              <p>
-                La falla de la <strong>Barrera Antirreflujo</strong> es el
-                mecanismo central:
-              </p>
-              <ul>
-                <li>
-                  <strong>Relajaciones Transitorias del EEI (RTEEI):</strong> El
-                  mecanismo más común. Son relajaciones no relacionadas con la
-                  deglución, a menudo desencadenadas por distensión gástrica.
-                </li>
-                <li>
-                  <strong>Hipotensión del EEI:</strong> Presión basal baja (< 10
-                  mmHg).
-                </li>
-                <li>
-                  <strong>Hernia Hiatal:</strong> Desplaza la unión
-                  esofagogástrica hacia el tórax, eliminando la ayuda del
-                  diafragma crural y alterando la válvula "flap".
-                </li>
-                <li>
-                  <strong>Alteración de la Válvula Flap:</strong> Pérdida del
-                  ángulo agudo de His.
-                </li>
-              </ul>
-              <p>
-                Otros factores contribuyentes incluyen el retraso en el
-                vaciamiento gástrico y una peristalsis esofágica ineficaz.
-              </p>
-
-              <h2>Fenotipos de la ERGE</h2>
-              <p>La ERGE no es una enfermedad única, sino un espectro:</p>
-              <ul>
-                <li>
-                  <strong>ERGE No Erosiva (ERNE):</strong> Síntomas típicos sin
-                  daño visible en la endoscopia (aprox. 50-70% de los
-                  pacientes).
-                </li>
-                <li>
-                  <strong>Esofagitis Erosiva (EE):</strong> Daño visible en la
-                  mucosa (rupturas mucosas).
-                </li>
-                <li>
-                  <strong>Hipersensibilidad al Reflujo:</strong> Síntomas que se
-                  correlacionan con episodios de reflujo (ácido o no ácido),
-                  pero con exposición ácida total normal.
-                </li>
-                <li>
-                  <strong>Pirosis Funcional:</strong> Síntomas de ardor sin
-                  evidencia de reflujo patológico ni correlación sintomática.
-                  (Técnicamente un trastorno funcional, no ERGE).
-                </li>
-              </ul>
-
-              <h2>Manifestaciones Clínicas</h2>
-              <h3>Síntomas Típicos</h3>
-              <ul>
-                <li>
-                  <strong>Pirosis:</strong> Sensación de ardor retrosternal
-                  ascendente, comúnmente postprandial.
-                </li>
-                <li>
-                  <strong>Regurgitación:</strong> Retorno pasivo de contenido
-                  gástrico a la boca.
-                </li>
-              </ul>
-
-              <h3>Síntomas Atípicos y Extraesofágicos</h3>
-              <ul>
-                <li>Dolor torácico no cardiogénico (siempre descartar IAM).</li>
-                <li>
-                  <strong>Respiratorios:</strong> Tos crónica, asma,
-                  sibilancias.
-                </li>
-                <li>
-                  <strong>Laríngeos:</strong> Disfonía, carraspeo, globus
-                  faríngeo.
-                </li>
-                <li><strong>Orales:</strong> Erosiones dentales.</li>
-              </ul>
-
-              <h3>Signos de Alarma</h3>
-              <p class="text-red-600 font-bold">
-                Requieren referencia inmediata para Endoscopia:
-              </p>
-              <ul>
-                <li>Disfagia (dificultad para tragar) u odinofagia.</li>
-                <li>Pérdida de peso no intencional.</li>
-                <li>
-                  Sangrado gastrointestinal (hematemesis, melenas) o anemia.
-                </li>
-                <li>Vómitos persistentes.</li>
-                <li>Inicio de síntomas de dispepsia > 60 años.</li>
-                <li>Antecedentes familiares de cáncer gastrointestinal.</li>
-              </ul>
-
-              <h2>Diagnóstico</h2>
-              <ul>
-                <li>
-                  <strong>Diagnóstico Clínico y Prueba Terapéutica:</strong> En
-                  pacientes jóvenes con síntomas típicos y sin signos de alarma,
-                  la respuesta a IBP apoya el diagnóstico (sensibilidad ~70%).
-                </li>
-                <li>
-                  <strong>Endoscopia Digestiva Alta (EDA):</strong>
-                  Indispensable ante signos de alarma o falta de respuesta.
-                  Permite diagnosticar:
-                  <ul>
-                    <li>
-                      <strong>Esofagitis Erosiva:</strong> Clasificada por el
-                      sistema de <em>Los Angeles</em> (Grados A, B, C, D). Los
-                      grados C y D son severos.
-                    </li>
-                    <li>
-                      <strong>Esófago de Barrett:</strong> Metaplasia intestinal
-                      (precanceroso).
-                    </li>
-                    <li><strong>Estenosis o Cáncer.</strong></li>
-                  </ul>
-                </li>
-                <li>
-                  <strong>pH-metría / Impedanciometría:</strong> El "Gold
-                  Standard" para cuantificar el reflujo. Indicada en ERNE,
-                  síntomas atípicos, o pre-quirúrgico.
-                </li>
-                <li>
-                  <strong>Manometría de Alta Resolución:</strong> Evalúa la
-                  motilidad y descarta acalasia; necesaria antes de cirugía
-                  antirreflujo.
-                </li>
-              </ul>
-
-              <h2>Tratamiento</h2>
-              <h3>Medidas Higiénico-Dietéticas (Fundamentales)</h3>
-              <ul>
-                <li>
-                  <strong>Pérdida de peso</strong> en pacientes con sobrepeso u
-                  obesidad (evidencia fuerte).
-                </li>
-                <li>
-                  <strong>Elevar la cabecera de la cama</strong> y dormir sobre
-                  el lado izquierdo (para síntomas nocturnos).
-                </li>
-                <li>
-                  Evitar comer 2-3 horas antes de acostarse ("Cena temprana").
-                </li>
-                <li>
-                  Evitar gatillantes (tabaco, alcohol, chocolate, grasas, café)
-                  según tolerancia individual.
-                </li>
-              </ul>
-
-              <h3>Tratamiento Farmacológico</h3>
-              <p>
-                Se prefiere un enfoque "Step-Up" para casos leves y "Step-Down"
-                para severos.
-              </p>
-              <ul>
-                <li>
-                  <strong>Antiácidos y Alginatos:</strong> Para alivio rápido de
-                  síntomas leves/ocasionales.
-                </li>
-                <li>
-                  <strong>Antagonistas H2 (Famotidina):</strong> Alternativa
-                  para síntomas nocturnos o leves.
-                </li>
-                <li>
-                  <strong>Inhibidores de Bomba de Protones (IBP):</strong>
-                  (Omeprazol, Esomeprazol, Pantoprazol, etc.). Piedra angular
-                  para síntomas frecuentes o esofagitis. Deben tomarse 30-60 min
-                  antes del desayuno.
-                </li>
-                <li>
-                  <strong>Vonoprazan (PCAB):</strong> Bloqueador de ácido
-                  competitivo de potasio, más potente y rápido que los IBP.
-                  Alternativa útil en esofagitis severa.
-                </li>
-              </ul>
-
-              <h3>Manejo a Largo Plazo</h3>
-              <p>
-                En pacientes con ERNE o esofagitis leve (Grado A/B), se intenta
-                retirar el medicamento o usarlo "a demanda" tras 8 semanas.
-                Pacientes con <strong>Esofagitis Severa (Grado C/D)</strong> o
-                <strong>Barrett</strong> suelen requerir terapia de
-                mantenimiento indefinida.
-              </p>
-
-              <h3>Tratamiento Quirúrgico</h3>
-              <p>
-                Funduplicatura (Nissen/Toupet) laparoscópica. Indicada en:
-                intolerancia o deseo de suspender IBP, hernia hiatal grande, o
-                regurgitación persistente a pesar de control del ácido.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Acordeón 2: Presentación Interactiva -->
-        <div class="accordion-item">
-          <div class="accordion-header">2. Presentación Interactiva</div>
-          <div class="accordion-content">
-            <div class="presentation-container">
-              <div id="slides-container">
-                <!-- Slides will be injected here by JS -->
-              </div>
-              <div class="navigation">
-                <button id="prevBtn" class="nav-button">Anterior</button>
-                <div id="slideCounter" class="slide-counter"></div>
-                <button id="nextBtn" class="nav-button">Siguiente</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Acordeón 3: Actividad ABP -->
-        <div class="accordion-item">
-          <div class="accordion-header">
-            3. Actividad de Aprendizaje Basado en Problemas (ABP)
-          </div>
-          <div class="accordion-content">
-            <div class="interactive-container">
-              <!-- Fase 1: Presentación del Problema -->
-              <div id="abp-phase-1" class="abp-phase">
-                <h3>Fase 1: Caso Clínico</h3>
-                <p>
-                  Carlos, de 45 años, con
-                  <strong>obesidad abdominal</strong> (IMC 32), acude a consulta
-                  por "ardor en el pecho" (pirosis) casi diario desde hace 6
-                  meses. Refiere que empeora después de cenas copiosas y al
-                  acostarse. También menciona regurgitación ácida frecuente. Es
-                  <strong>fumador</strong> y trabaja bajo mucho estrés. Niega
-                  disfagia, odinofagia, pérdida de peso o sangrado digestivo.
-                </p>
-              </div>
-
-              <!-- Fase 2: Formulación de Hipótesis -->
-              <div id="abp-phase-2" class="abp-phase">
-                <h3>Fase 2: Hipótesis Diagnósticas y Plan</h3>
-                <p>
-                  Identifica los <strong>factores de riesgo</strong> de Carlos.
-                  ¿Tiene <strong>signos de alarma</strong>? ¿Cuál es tu manejo
-                  inicial propuesto?
-                </p>
-                <textarea
-                  id="abp-hypothesis-board"
-                  placeholder="Escribe tus hipótesis y plan..."
-                ></textarea>
-                <button
-                  class="abp-reveal-button"
-                  onclick="revealNextPhase('abp-phase-3')"
-                >
-                  Continuar
-                </button>
-              </div>
-
-              <!-- Fase 3: Manejo Inicial -->
-              <div id="abp-phase-3" class="abp-phase abp-hidden">
-                <h3>Fase 3: Manejo Inicial</h3>
-                <p>
-                  Dado que Carlos presenta síntomas típicos (pirosis y
-                  regurgitación) sin signos de alarma, se decide iniciar una
-                  <strong>prueba terapéutica</strong>.
-                </p>
-                <div
-                  class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
-                  role="alert"
-                >
-                  <p>
-                    <strong>Decisión Clínica:</strong> Se prescribe Omeprazol
-                    20mg en ayunas por 8 semanas y se indican cambios en el
-                    estilo de vida (perder peso, cenar temprano).
-                  </p>
-                </div>
-                <button
-                  class="abp-reveal-button"
-                  onclick="revealNextPhase('abp-phase-4')"
-                >
-                  Ver Evolución
-                </button>
-              </div>
-
-              <!-- Fase 4: Toma de Decisiones -->
-              <div id="abp-phase-4" class="abp-phase abp-hidden">
-                <h3>Fase 4: Evolución y Toma de Decisiones</h3>
-                <div class="abp-decision-section">
-                  <p>
-                    Carlos regresa a las 8 semanas. Sus síntomas han mejorado en
-                    un 90%.
-                    <br />
-                    <strong>¿Cuál es el siguiente paso más adecuado?</strong>
-                  </p>
-                  <input type="radio" name="man" value="endoscopia" /> Solicitar
-                  endoscopia para confirmar curación.<br />
-                  <input type="radio" name="man" value="suspender" /> Intentar
-                  retirar el IBP gradualmente o pasar a terapia "a demanda".<br />
-                  <input type="radio" name="man" value="doble" /> Duplicar la
-                  dosis de IBP para lograr el 100% de alivio.<br />
-                  <button class="verify" onclick="checkAbpDecision('man')">
-                    Verificar
-                  </button>
-                  <div id="feedback-man" class="abp-feedback abp-hidden"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Acordeón 4: Autoevaluación -->
-        <div class="accordion-item">
-          <div class="accordion-header">4. Autoevaluación (Quiz)</div>
-          <div class="accordion-content">
-            <div id="quiz-container">
-              <h1>Autoevaluación: ERGE</h1>
-              <div id="quiz-question-area">
-                <div id="quiz-vignette-text" class="quiz-vignette"></div>
-                <p id="quiz-question-text" class="quiz-question-text"></p>
-                <div id="quiz-options-container" class="quiz-options"></div>
-              </div>
-              <div id="quiz-navigation">
-                <button id="quiz-nav-button">Siguiente Pregunta</button>
-              </div>
-              <div id="quiz-results-area" style="display: none">
-                <h2 style="text-align: center">Resultados</h2>
-                <p
-                  style="text-align: center; font-size: 1.2em"
-                  id="quiz-score"
-                ></p>
-                <div id="quiz-review-container"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="text-center mt-8 mb-8">
-        <a
-          href="../gastroenterologia.html"
-          class="text-blue-600 hover:underline"
-          >← Volver al Hub de Gastroenterología</a
-        >
-      </footer>
+  <!-- Top Navigation -->
+  <header
+    class="sticky top-0 z-50 flex items-center justify-between border-b border-border-light dark:border-border-dark bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md px-6 py-4 shadow-sm">
+    <div class="flex items-center gap-4">
+      <a href="../index.html" class="flex items-center gap-3">
+        <div class="size-10 bg-primary flex items-center justify-center text-white font-bold text-xl rounded-lg">P</div>
+        <h2 class="text-xl font-bold leading-tight tracking-tight gradient-text">Powersemiotics</h2>
+      </a>
+      <div class="hidden md:block h-6 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+      <span class="hidden md:block text-xs font-bold text-primary uppercase tracking-widest">Gastroenterología</span>
     </div>
+    <div class="flex items-center gap-6">
+      <a href="../gastroenterologia.html"
+        class="hidden md:flex text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">Hub</a>
+      <button id="header-auth-btn" onclick="handleSignOut()"
+        class="px-4 py-2 rounded-full bg-slate-900 dark:bg-slate-700 text-white text-sm font-bold shadow-md hover:bg-primary transition-all">
+        Cerrar Sesión
+      </button>
+      <button
+        class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-background-light dark:bg-border-dark text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors"
+        onclick="document.documentElement.classList.toggle('dark')">
+        <span class="material-symbols-outlined text-xl">dark_mode</span>
+      </button>
+    </div>
+  </header>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        // Accordion Logic
-        const accordionItems = document.querySelectorAll('.accordion-item');
-        accordionItems.forEach((item) => {
-          const header = item.querySelector('.accordion-header');
-          header.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            accordionItems.forEach((i) => {
-              i.classList.remove('active');
-              i.querySelector('.accordion-content').style.maxHeight = null;
-            });
-            if (!isActive) {
-              item.classList.add('active');
-              const content = item.querySelector('.accordion-content');
-              content.style.maxHeight = content.scrollHeight + 'px';
-            }
-          });
-        });
+  <!-- Navigation Tabs -->
+  <nav
+    class="bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark sticky top-[73px] z-40">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="flex space-x-8 overflow-x-auto" id="tab-nav">
+        <button onclick="switchTab('teoria')" id="btn-teoria"
+          class="tab-active py-4 px-1 whitespace-nowrap text-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg">book_2</span>
+          1. Guía de Conocimiento
+        </button>
+        <button onclick="switchTab('caso')" id="btn-caso"
+          class="tab-inactive py-4 px-1 whitespace-nowrap text-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg">clinical_notes</span>
+          2. Caso Clínico (ABP)
+        </button>
+        <button onclick="switchTab('evaluacion')" id="btn-evaluacion"
+          class="tab-inactive py-4 px-1 whitespace-nowrap text-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg">assignment_turned_in</span>
+          3. Evaluación Final
+        </button>
+      </div>
+    </div>
+  </nav>
 
-        // ABP Logic
-        window.revealNextPhase = function (phaseId) {
-          const nextPhase = document.getElementById(phaseId);
-          if (nextPhase) {
-            nextPhase.classList.remove('abp-hidden');
-            adjustAccordionHeight(nextPhase);
-          }
-        };
+  <main class="max-w-5xl mx-auto px-4 py-12 pb-24">
 
-        window.checkAbpDecision = function (decisionType) {
-          let feedbackText = '';
-          let isCorrect = false;
-          let feedbackElement;
-          const selectedValue = document.querySelector(
-            `input[name="${decisionType}"]:checked`,
-          )?.value;
-
-          if (!selectedValue) {
-            alert('Por favor, seleccione una opción.');
-            return;
-          }
-
-          switch (decisionType) {
-            case 'man':
-              feedbackElement = document.getElementById('feedback-man');
-              if (selectedValue === 'suspender') {
-                feedbackText =
-                  '<strong>Correcto.</strong> En pacientes con buena respuesta y sin ERGE complicada, se recomienda intentar discontinuar el IBP o usar la dosis mínima efectiva (a demanda) para evitar sobretratamiento.';
-                isCorrect = true;
-              } else if (selectedValue === 'endoscopia') {
-                feedbackText =
-                  '<strong>Incorrecto.</strong> La endoscopia no se indica rutinariamente para confirmar la curación de síntomas en ERGE no erosiva o leve.';
-              } else {
-                feedbackText =
-                  '<strong>Incorrecto.</strong> Duplicar la dosis no está indicado si ya hubo una respuesta satisfactoria del 90%; el objetivo es reducir la medicación a lo necesario.';
-              }
-              break;
-          }
-
-          feedbackElement.innerHTML = feedbackText;
-          feedbackElement.className = `abp-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
-          feedbackElement.classList.remove('abp-hidden');
-          adjustAccordionHeight(feedbackElement);
-        };
-
-        // Presentation Logic
-        const slidesData = [
-          {
-            title: 'Definición y Fenotipos',
-            content:
-              '<h2>Definición y Fenotipos</h2><p>La ERGE ocurre cuando el contenido gástrico regresa al esófago causando síntomas o complicaciones. Es un espectro que incluye:</p><ul><li><strong>ERNE (Enfermedad por Reflujo No Erosiva):</strong> Síntomas sin daño visible (la más común).</li><li><strong>Esofagitis Erosiva (EE):</strong> Daño mucoso visible.</li><li><strong>Hipersensibilidad al Reflujo:</strong> Síntomas por reflujo fisiológico en un esófago sensible.</li></ul>',
-          },
-          {
-            title: 'Fisiopatología: El Desbalance',
-            content:
-              '<h2>Fisiopatología</h2><p>Ocurre cuando los factores agresores superan a los defensivos. El mecanismo principal es la falla de la <strong>Barrera Antirreflujo</strong>:</p><ul><li><strong>RTEEI (Relajaciones Transitorias del EEI):</strong> Causa #1.</li><li><strong>Hernia Hiatal:</strong> Rompe la anatomía normal.</li><li><strong>Hipotensión del EEI:</strong> Esfínter débil.</li></ul>',
-          },
-          {
-            title: 'Cuadro Clínico',
-            content:
-              '<h2>Cuadro Clínico</h2><p><strong>Síntomas Típicos:</strong> Pirosis y Regurgitación.</p><p><strong>Síntomas Extraesofágicos:</strong> Tos crónica, asma, laringitis, erosiones dentales.</p><div style="background:#ffecec; padding:10px; border-left:4px solid red; margin-top:10px;"><p><strong>¡Signos de Alarma!</strong> (Indican Endoscopia): Disfagia, Odinofagia, Pérdida de Peso, Sangrado/Anemia, Vómitos persistentes.</p></div>',
-          },
-          {
-            title: 'Diagnóstico',
-            content:
-              '<h2>Estrategia Diagnóstica</h2><ul><li><strong>Clínico + Prueba IBP:</strong> En pacientes < 60 años con síntomas típicos y SIN alarmas.</li><li><strong>Endoscopia (EDA):</strong> Ante signos de alarma o falla terapéutica. Clasifica Esofagitis y detecta Barrett.</li><li><strong>pH-metría / Impedanciometría:</strong> Gold Standard para cuantificar reflujo (útil en ERNE o pre-cirugía).</li></ul>',
-          },
-          {
-            title: 'Clasificación de Los Angeles',
-            content:
-              '<h2>Clasificación de Esofagitis (Los Angeles)</h2><table><tr><th>Grado</th><th>Descripción</th></tr><tr><td><strong>A</strong></td><td>Uno o más rupturas mucosas ≤ 5mm.</td></tr><tr><td><strong>B</strong></td><td>Rupturas > 5mm sin continuidad entre pliegues.</td></tr><tr><td><strong>C</strong></td><td>Rupturas continuas entre pliegues (< 75% circunferencia).</td></tr><tr><td><strong>D</strong></td><td>Rupturas que ocupan ≥ 75% de la circunferencia.</td></tr></table><p><em>Grados C y D indican severidad y alto riesgo de recidiva.</em></p>',
-          },
-          {
-            title: 'Algoritmo de Tratamiento',
-            content:
-              '<h2>Algoritmo de Tratamiento</h2><p><strong>1. Estilo de Vida:</strong> Bajar de peso, elevar cabecera, cenar temprano (¡Para todos!).</p><p><strong>2. Farmacológico:</strong></p><ul><li><strong>Leve/Intermitente:</strong> Antiácidos/Alginatos o Anti-H2 "a demanda".</li><li><strong>Frecuente/Esofagitis:</strong> IBP (Omeprazol, etc.) dosis estándar x 8 semanas.</li><li><strong>Severo (C/D):</strong> Considerar mantenimiento a largo plazo o Vonoprazan.</li></ul>',
-          },
-        ];
-
-        let currentSlide = 0;
-        const slidesContainer = document.getElementById('slides-container');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const slideCounter = document.getElementById('slideCounter');
-
-        function renderSlides() {
-          if (!slidesContainer) return;
-          slidesContainer.innerHTML = slidesData
-            .map(
-              (slide, index) => `
-            <div class="slide ${index === 0 ? 'active' : ''}">
-                ${slide.content}
+    <!-- SECTION 1: THEORY -->
+    <section id="teoria" class="fade-in space-y-10">
+      <!-- Hero with Nano Banana Illustration -->
+      <div
+        class="bg-surface-light dark:bg-surface-dark rounded-3xl border border-border-light dark:border-border-dark shadow-xl overflow-hidden relative min-h-[400px] flex flex-col md:flex-row shadow-primary/5">
+        <div class="p-10 md:w-1/2 flex flex-col justify-center relative z-10">
+          <div class="inline-block px-3 py-1 bg-primary/10 rounded-full mb-4 self-start">
+            <span class="text-xs font-bold text-primary uppercase tracking-widest">Mecanismos</span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight mb-6">Fisiopatología de la ERGE</h1>
+          <p class="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+            La Enfermedad por Reflujo ocurre cuando el contenido gástrico regresa al esófago, causando síntomas molestos
+            o complicaciones. Es una falla sistémica de la <span class="text-primary font-bold">barrera
+              antirreflujo</span>.
+          </p>
+          <div class="grid grid-cols-2 gap-4 mt-8">
+            <div
+              class="bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-border-light dark:border-border-dark">
+              <span class="text-2xl font-black text-primary">15-20%</span>
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Prevalencia Global</p>
             </div>
-        `,
-            )
-            .join('');
-        }
+            <div
+              class="bg-background-light dark:bg-background-dark p-4 rounded-2xl border border-border-light dark:border-border-dark">
+              <span class="text-2xl font-black text-secondary">10%</span>
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Riesgo Esófago Barrett</p>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2 relative min-h-[300px] bg-slate-900 overflow-hidden">
+          <img src="../assets/erge-nano-banana.png" class="absolute inset-0 w-full h-full object-cover opacity-80"
+            alt="Reflujo Gastroesofágico Nano Banana Animation">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-surface-light dark:from-surface-dark via-transparent to-transparent md:block hidden">
+          </div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <div class="bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/10">
+              <p class="text-white text-xs leading-relaxed italic">"Visualización de la unión gastroesofágica y la
+                incompetencia del EEI."</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        function showSlide(index) {
-          const slides = slidesContainer.querySelectorAll('.slide');
-          if (slides.length === 0) return;
-          slides.forEach((slide, i) =>
-            slide.classList.toggle('active', i === index),
-          );
-          currentSlide = index;
-          updateNav();
-        }
+      <!-- Detailed content cards -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <div
+          class="bg-surface-light dark:bg-surface-dark p-8 rounded-3xl border border-border-light dark:border-border-dark shadow-sm">
+          <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+            <span
+              class="material-symbols-outlined text-primary size-10 bg-primary/10 rounded-xl flex items-center justify-center">settings_suggest</span>
+            La Barrera Rota
+          </h3>
+          <ul class="space-y-6">
+            <li class="flex gap-4">
+              <div
+                class="size-6 bg-primary/20 text-primary flex-shrink-0 rounded-full flex items-center justify-center font-bold text-xs">
+                1</div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide">RTEEI</h4>
+                <p class="text-sm text-slate-500 mt-1 leading-relaxed">Relajaciones Transitorias del Esfínter Esofágico
+                  Inferior. Mecanismo principal.</p>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <div
+                class="size-6 bg-primary/20 text-primary flex-shrink-0 rounded-full flex items-center justify-center font-bold text-xs">
+                2</div>
+              <div>
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide">Hipotensión del EEI
+                </h4>
+                <p class="text-sm text-slate-500 mt-1 leading-relaxed">Presión basal < 10 mmHg.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
 
-        function updateNav() {
-          if (slideCounter)
-            slideCounter.textContent = `${currentSlide + 1} / ${slidesData.length}`;
-          if (prevBtn) prevBtn.disabled = currentSlide === 0;
-          if (nextBtn)
-            nextBtn.disabled = currentSlide === slidesData.length - 1;
-        }
+        <div
+          class="bg-surface-light dark:bg-surface-dark p-8 rounded-3xl border border-border-light dark:border-border-dark shadow-sm">
+          <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+            <span
+              class="material-symbols-outlined text-secondary size-10 bg-secondary/10 rounded-xl flex items-center justify-center">category</span>
+            Espectro Clínico
+          </h3>
+          <div class="space-y-4">
+            <div
+              class="p-4 bg-green-500/5 dark:bg-green-500/10 rounded-2xl border border-green-500/20 group hover:border-green-500/50 transition-all">
+              <span class="text-[10px] font-black text-green-600 uppercase tracking-widest">ERNE</span>
+              <h4 class="font-bold text-slate-900 dark:text-white">Reflujo No Erosivo</h4>
+              <p class="text-xs text-slate-500 mt-1">Síntomas presentes sin daño visible en endoscopia (70%).</p>
+            </div>
+            <div
+              class="p-4 bg-red-500/5 dark:bg-red-500/10 rounded-2xl border border-red-500/20 group hover:border-red-500/50 transition-all">
+              <span class="text-[10px] font-black text-red-600 uppercase tracking-widest">Complicaciones</span>
+              <h4 class="font-bold text-slate-900 dark:text-white">Barrett y Adenocarcinoma</h4>
+              <p class="text-xs text-slate-500 mt-1">Metaplasia intestinal secundaria a injuria crónica.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        if (slidesContainer) {
-          renderSlides();
-          showSlide(0);
-          prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) showSlide(currentSlide - 1);
-          });
-          nextBtn.addEventListener('click', () => {
-            if (currentSlide < slidesData.length - 1)
-              showSlide(currentSlide + 1);
-          });
-        }
+      <div class="text-center pt-8">
+        <button onclick="switchTab('caso')"
+          class="bg-primary hover:bg-secondary text-white font-bold py-4 px-10 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-3 mx-auto group">
+          <span>IR AL CASO CLÍNICO</span>
+          <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </button>
+      </div>
+    </section>
 
-        // Quiz Logic
-        const quizData = [
-          {
-            vignette:
-              'Paciente de 55 años, sexo masculino, que refiere disfagia progresiva (dificultad para tragar sólidos) y pérdida de peso de 5kg en el último mes.',
-            question:
-              'Ante este cuadro, ¿cuál es la conducta inmediata más adecuada?',
-            options: [
-              'Duplicar la dosis de IBP y reevaluar en 4 semanas',
-              'Solicitar Manometría Esofágica para descartar Acalasia',
-              'Realizar Endoscopia Digestiva Alta (EDA) con toma de biopsias',
-              'Iniciar dieta blanda y observar',
-            ],
-            correctAnswer: 2,
-            justification:
-              'La disfagia y la pérdida de peso son <strong>Signos de Alarma</strong>. Se requiere una endoscopia urgente para descartar cáncer de esófago o estenosis péptica.',
-          },
-          {
-            vignette:
-              'En una endoscopia de control por ERGE, se reporta: "Rupturas mucosas continuas entre los pliegues, pero que ocupan menos del 75% de la circunferencia esofágica".',
-            question:
-              'Según la Clasificación de Los Angeles, ¿a qué grado corresponde?',
-            options: ['Grado A', 'Grado B', 'Grado C', 'Grado D'],
-            correctAnswer: 2,
-            justification:
-              'El <strong>Grado C</strong> se define como una o más rupturas mucosas continuas entre la cima de dos o más pliegues, pero que involucran menos del 75% de la circunferencia.',
-          },
-          {
-            vignette:
-              'Paciente femenina de 30 años con síntomas típicos de ERGE. La endoscopia es normal. Se realiza pH-metría que muestra exposición ácida normal y NO hay correlación entre los síntomas y los episodios de reflujo.',
-            question: '¿Cuál es el diagnóstico más probable?',
-            options: [
-              'ERGE No Erosiva (ERNE)',
-              'Hipersensibilidad al Reflujo',
-              'Pirosis Funcional',
-              'Esofagitis Eosinofílica',
-            ],
-            correctAnswer: 2,
-            justification:
-              'En la <strong>Pirosis Funcional</strong>, hay síntomas de ardor pero la endoscopia es normal, la exposición ácida es normal y, crucialmente, <em>no hay asociación sintomática</em> con eventos de reflujo.',
-          },
-          {
-            vignette:
-              'Respecto a la fisiopatología de la ERGE, ¿cuál se considera el mecanismo predominante en la mayoría de los pacientes?',
-            question: 'Seleccione la opción correcta:',
-            options: [
-              'Hipersecreción ácida gástrica masiva',
-              'Relajaciones Transitorias del Esfínter Esofágico Inferior (RTEEI)',
-              'Aclaramiento esofágico ausente',
-              'Infección por Helicobacter pylori',
-            ],
-            correctAnswer: 1,
-            justification:
-              'Las <strong>RTEEI</strong> son el mecanismo más frecuente (incluso en >90% de pacientes con ERGE leve), permitiendo que el contenido gástrico refluya sin que haya deglución previa.',
-          },
-          {
-            vignette:
-              'Paciente con diagnóstico de Esofagitis Grado C curada tras 8 semanas de tratamiento.',
-            question:
-              '¿Cuál es la estrategia de manejo a largo plazo recomendada?',
-            options: [
-              'Suspender el tratamiento y observar síntomas',
-              'Tratamiento "a demanda" (solo cuando tenga dolor)',
-              'Tratamiento de mantenimiento continuo con la dosis mínima efectiva de IBP',
-              'Cirugía antirreflujo obligatoria',
-            ],
-            correctAnswer: 2,
-            justification:
-              'Los pacientes con esofagitis severa previa (Grados C y D) tienen alto riesgo de recaída rápida y complicaciones. Se recomienda <strong>mantenimiento continuo</strong>.',
-          },
-        ];
-        let currentQuizQuestionIndex = 0;
-        let userAnswers = [];
+    <!-- SECTION 2: CLINICAL CASE -->
+    <section id="caso" class="hidden fade-in space-y-8">
+      <div
+        class="bg-surface-light dark:bg-surface-dark p-10 rounded-3xl border border-border-light dark:border-border-dark shadow-sm">
+        <div
+          class="flex flex-col md:flex-row items-center gap-8 border-b border-border-light dark:border-border-dark pb-10 mb-10">
+          <div
+            class="size-24 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center ring-8 ring-primary/5">
+            <span class="material-symbols-outlined text-5xl text-slate-400">person</span>
+          </div>
+          <div class="text-center md:text-left">
+            <h2 class="text-3xl font-black mb-1">Paciente: Carlos</h2>
+            <div class="flex flex-wrap justify-center md:justify-start gap-3 mt-2">
+              <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase">45
+                años</span>
+              <span
+                class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full text-[10px] font-bold uppercase">IMC
+                32 (Obesidad I)</span>
+            </div>
+          </div>
+        </div>
 
-        const quizNavButton = document.getElementById('quiz-nav-button');
-        if (quizNavButton) {
-          quizNavButton.addEventListener('click', nextQuizQuestion);
-        }
+        <div
+          class="space-y-12 relative before:absolute before:left-[19px] before:top-4 before:bottom-4 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-700">
+          <!-- Phase 1 -->
+          <div class="relative pl-12">
+            <div
+              class="absolute left-0 top-0 size-10 rounded-full bg-primary flex items-center justify-center text-white font-bold z-10 shadow-lg shadow-primary/20">
+              1</div>
+            <div
+              class="bg-background-light dark:bg-background-dark p-6 rounded-2xl border border-border-light dark:border-border-dark group hover:border-primary/50 transition-all">
+              <h3 class="font-black text-lg mb-2">Presentación Clínica</h3>
+              <p class="text-sm text-slate-500 leading-relaxed italic border-l-4 border-primary pl-4 py-1">"Ardor en el
+                pecho diario desde hace 6 meses. Empeora tras cenas copiosas y al acostarse. Tiene regurgitación ácida."
+              </p>
+            </div>
+          </div>
+          <!-- Phase 2 -->
+          <div class="relative pl-12">
+            <div
+              class="absolute left-0 top-0 size-10 rounded-full bg-secondary flex items-center justify-center text-white font-bold z-10 shadow-lg shadow-secondary/20">
+              ?</div>
+            <div class="bg-secondary/5 p-6 rounded-2xl border border-secondary/20 border-dashed">
+              <h3 class="font-black text-lg text-secondary mb-2">Rincón del Razonamiento</h3>
+              <button onclick="toggleFeedback('feedback1')"
+                class="text-xs bg-secondary hover:bg-primary text-white font-bold px-4 py-2 rounded-lg transition-all flex items-center gap-2">REVELAR
+                ANÁLISIS</button>
+              <div id="feedback1"
+                class="hidden mt-6 p-5 bg-surface-light dark:bg-surface-dark border border-secondary/20 rounded-xl text-sm fade-in">
+                <p><strong>Signos de Alarma:</strong> Ausentes. <br><strong>Manejo:</strong> Prueba Terapéutica con IBP
+                  por 8 semanas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        function displayQuizQuestion() {
-          if (currentQuizQuestionIndex >= quizData.length) {
-            showQuizResults();
-            return;
-          }
-          document.getElementById('quiz-question-area').style.display = 'block';
-          document.getElementById('quiz-navigation').style.display = 'block';
-          document.getElementById('quiz-results-area').style.display = 'none';
+      <div class="text-center pt-8">
+        <button onclick="switchTab('evaluacion')"
+          class="bg-primary hover:bg-secondary text-white font-bold py-4 px-10 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3 mx-auto">
+          <span>FINALIZAR EVALUACIÓN</span>
+          <span class="material-symbols-outlined">send</span>
+        </button>
+      </div>
+    </section>
 
-          const q = quizData[currentQuizQuestionIndex];
-          document.getElementById('quiz-vignette-text').textContent =
-            q.vignette;
-          document.getElementById('quiz-question-text').textContent =
-            q.question;
-          const optionsContainer = document.getElementById(
-            'quiz-options-container',
-          );
-          optionsContainer.innerHTML = '';
-          q.options.forEach((option, index) => {
-            const button = document.createElement('button');
-            button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
-            button.onclick = () => selectQuizOption(index, button);
-            optionsContainer.appendChild(button);
-          });
-          quizNavButton.textContent =
-            currentQuizQuestionIndex === quizData.length - 1
-              ? 'Finalizar y Ver Resultados'
-              : 'Siguiente Pregunta';
-        }
+    <!-- SECTION 3: EVALUATION -->
+    <section id="evaluacion" class="hidden fade-in max-w-3xl mx-auto space-y-8">
+      <div
+        class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-[2.5rem] shadow-2xl overflow-hidden">
+        <div class="bg-gradient-to-r from-primary to-secondary p-10 text-white text-center">
+          <h2 class="text-3xl font-black mb-2">Evaluación Final USMLE Style</h2>
+          <p class="text-white/70 text-sm font-medium">Responde las 5 preguntas estandarizadas.</p>
+        </div>
 
-        function selectQuizOption(index, button) {
-          const options = document.querySelectorAll(
-            '#quiz-options-container button',
-          );
-          options.forEach((btn) => btn.classList.remove('selected'));
-          button.classList.add('selected');
-          userAnswers[currentQuizQuestionIndex] = index;
-        }
+        <form id="quizForm" class="p-10 space-y-10">
+          <div
+            class="grid gap-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-border-light dark:border-border-dark">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">Nombre
+                  Completo</label>
+                <input type="text" id="studentName" required
+                  class="w-full bg-white dark:bg-surface-dark border-border-light dark:border-border-dark rounded-xl px-4 py-3 text-sm outline-none"
+                  placeholder="Tu nombre">
+              </div>
+              <div>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">Email
+                  Institucional</label>
+                <input type="email" id="studentEmail" required
+                  class="w-full bg-white dark:bg-surface-dark border-border-light dark:border-border-dark rounded-xl px-4 py-3 text-sm outline-none"
+                  placeholder="correo@universidad.edu">
+              </div>
+            </div>
+          </div>
 
-        function nextQuizQuestion() {
-          if (userAnswers[currentQuizQuestionIndex] === undefined) {
-            alert('Por favor, seleccione una opción.');
-            return;
-          }
-          currentQuizQuestionIndex++;
-          displayQuizQuestion();
-        }
+          <div id="quiz-container" class="space-y-10">
+            <!-- Q1 -->
+            <div class="quiz-item">
+              <p class="font-bold text-lg mb-6 leading-tight flex gap-3"><span
+                  class="size-6 bg-primary/10 text-primary flex items-center justify-center rounded-full text-xs flex-shrink-0 mt-1">1</span>1.
+                Hombre de 45 años, obeso, con ardor retroesternal postprandial que empeora al acostarse. ¿Cuál es el
+                mecanismo fisiopatológico primario?</p>
+              <div class="grid gap-3">
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q1" type="radio"
+                    value="A">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">A) Hipersecreción de ácido por gastrinoma.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q1" type="radio"
+                    value="B">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">B) Infección por H. pylori.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q1" type="radio"
+                    value="C">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">C) Relajaciones transitorias del EEI (RTEEI).</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q1" type="radio"
+                    value="D">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">D) Acalasia.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
 
-        function showQuizResults() {
-          document.getElementById('quiz-question-area').style.display = 'none';
-          document.getElementById('quiz-navigation').style.display = 'none';
-          const resultsArea = document.getElementById('quiz-results-area');
-          resultsArea.style.display = 'block';
+            <!-- Q2 -->
+            <div class="quiz-item">
+              <p class="font-bold text-lg mb-6 leading-tight flex gap-3"><span
+                  class="size-6 bg-primary/10 text-primary flex items-center justify-center rounded-full text-xs flex-shrink-0 mt-1">2</span>2.
+                Mujer de 52 años, hipertensa y diabética, con dolor retroesternal urente hace 2 horas. ¿Cuál es el paso
+                inicial MÁS apropiado?</p>
+              <div class="grid gap-3">
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q2" type="radio"
+                    value="A">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">A) Endoscopia digestiva alta inmediata.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q2" type="radio"
+                    value="B">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">B) Prueba terapéutica con Omeprazol.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q2" type="radio"
+                    value="C">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">C) Realizar un Electrocardiograma (ECG).</span>
+                  </div>
+                </label>
+              </div>
+            </div>
 
-          let score = 0;
-          userAnswers.forEach((answer, index) => {
-            if (answer === quizData[index].correctAnswer) {
-              score++;
-            }
-          });
+            <!-- Q3 -->
+            <div class="quiz-item">
+              <p class="font-bold text-lg mb-6 leading-tight flex gap-3"><span
+                  class="size-6 bg-primary/10 text-primary flex items-center justify-center rounded-full text-xs flex-shrink-0 mt-1">3</span>3.
+                En un paciente con ERGE crónica, ¿qué hallazgo histológico confirma el diagnóstico de Esófago de
+                Barrett?</p>
+              <div class="grid gap-3">
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q3" type="radio"
+                    value="A">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">A) Epitelio escamoso estratificado con eosinófilos.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q3" type="radio"
+                    value="B">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">B) Metaplasia intestinal con epitelio columnar y células caliciformes.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q3" type="radio"
+                    value="C">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">C) Hiperplasia de células basales.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
 
-          document.getElementById('quiz-score').textContent =
-            `Su puntaje: ${score} de ${quizData.length} (${((score / quizData.length) * 100).toFixed(0)}%)`;
+            <!-- Q4 -->
+            <div class="quiz-item">
+              <p class="font-bold text-lg mb-6 leading-tight flex gap-3"><span
+                  class="size-6 bg-primary/10 text-primary flex items-center justify-center rounded-full text-xs flex-shrink-0 mt-1">4</span>4.
+                Paciente de 68 años con pirosis crónica presenta disfagia y pérdida de peso de 5kg. ¿Conducta a seguir?
+              </p>
+              <div class="grid gap-3">
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q4" type="radio"
+                    value="A">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">A) Duplicar dosis de IBP.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q4" type="radio"
+                    value="B">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">B) Referir urgentemente para Endoscopia Digestiva Alta (EDA).</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q4" type="radio"
+                    value="C">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">C) Manometría esofágica.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
 
-          const reviewContainer = document.getElementById(
-            'quiz-review-container',
-          );
-          reviewContainer.innerHTML = '';
-          quizData.forEach((q, i) => {
-            const isCorrect = userAnswers[i] === q.correctAnswer;
-            const resultItem = document.createElement('div');
-            resultItem.className = `quiz-result-item ${isCorrect ? 'correct' : 'incorrect'}`;
-            let reviewHTML = `
-                <p class="font-bold">${i + 1}. ${q.question}</p>
-                <p><strong>Su respuesta:</strong> ${q.options[userAnswers[i]]}</p>
-                ${!isCorrect ? `<p><strong>Respuesta correcta:</strong> ${q.options[q.correctAnswer]}</p>` : ''}
-                <div class="quiz-justification">
-                    <p><strong>Justificación:</strong> ${q.justification}</p>
-                </div>`;
-            resultItem.innerHTML = reviewHTML;
-            reviewContainer.appendChild(resultItem);
-          });
-          adjustAccordionHeight(reviewContainer);
-        }
+            <!-- Q5 -->
+            <div class="quiz-item">
+              <p class="font-bold text-lg mb-6 leading-tight flex gap-3"><span
+                  class="size-6 bg-primary/10 text-primary flex items-center justify-center rounded-full text-xs flex-shrink-0 mt-1">5</span>5.
+                Paciente con síntomas típicos refractarios a IBP y endoscopia normal. ¿Gold Standard para confirmar
+                reflujo?</p>
+              <div class="grid gap-3">
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q5" type="radio"
+                    value="A">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">A) Trago de bario.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q5" type="radio"
+                    value="B">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">B) pH-metría ambulatoria con impedanciometría.</span>
+                  </div>
+                </label>
+                <label class="relative cursor-pointer group"><input class="sr-only-input" name="q5" type="radio"
+                    value="C">
+                  <div
+                    class="flex items-center gap-4 p-4 rounded-xl border border-border-light dark:border-border-dark bg-slate-50 dark:bg-slate-800/50 group-hover:border-primary/50 transition-all">
+                    <div class="size-5 rounded-full border-2 border-slate-300 radio-circle"></div><span
+                      class="text-sm">C) TC de tórax.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
 
-        const quizAccordionHeader = document.querySelector(
-          '.accordion-item:nth-child(4)',
-        );
-        if (quizAccordionHeader) {
-          quizAccordionHeader
-            .querySelector('.accordion-header')
-            .addEventListener('click', () => {
-              if (quizAccordionHeader.classList.contains('active')) {
-                if (
-                  currentQuizQuestionIndex === 0 &&
-                  userAnswers.length === 0
-                ) {
-                  displayQuizQuestion();
-                }
-              }
-            });
-        }
+            <div id="resultMessage" class="hidden p-6 rounded-2xl text-center font-bold fade-in"></div>
 
-        function adjustAccordionHeight(element) {
-          const accordionContent = element.closest('.accordion-content');
-          if (accordionContent && accordionContent.style.maxHeight !== '0px') {
-            accordionContent.style.maxHeight =
-              accordionContent.scrollHeight + 'px';
-          }
-        }
+            <button type="submit" id="submitBtn"
+              class="w-full bg-slate-900 dark:bg-primary hover:bg-primary dark:hover:bg-secondary text-white font-black py-4 rounded-2xl shadow-xl transition-all flex justify-center items-center gap-3 group">
+              <span>ENVIAR EVALUACIÓN</span>
+              <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">send</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    var supabaseClient = null;
+    var SUPABASE_URL_VAL = 'https://dyfjawopnbkjrjsnhbyn.supabase.co';
+    var SUPABASE_KEY_VAL = 'sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa';
+
+    try { if (typeof window.supabase !== 'undefined') { supabaseClient = window.supabase.createClient(SUPABASE_URL_VAL, SUPABASE_KEY_VAL); } } catch (e) { console.error("Error init Supabase", e); }
+
+    async function handleSignOut() { if (!supabaseClient) return; await supabaseClient.auth.signOut(); window.location.href = '../gastroenterologia.html'; }
+    async function checkSession() {
+      if (!supabaseClient) return;
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (!session) { window.location.href = '../gastroenterologia.html'; return; }
+      const emailInput = document.getElementById('studentEmail');
+      if (emailInput && session.user.email) {
+        emailInput.value = session.user.email;
+        emailInput.readOnly = true;
+        emailInput.classList.add('bg-slate-100', 'dark:bg-slate-800', 'cursor-not-allowed', 'text-slate-400');
+      }
+    }
+    checkSession();
+
+    window.switchTab = function (tabId) {
+      document.getElementById('teoria').classList.add('hidden');
+      document.getElementById('caso').classList.add('hidden');
+      document.getElementById('evaluacion').classList.add('hidden');
+      document.getElementById(tabId).classList.remove('hidden');
+      ['teoria', 'caso', 'evaluacion'].forEach(id => {
+        const btn = document.getElementById('btn-' + id);
+        if (btn) btn.className = (id === tabId) ? 'tab-active py-4 px-1 whitespace-nowrap text-sm flex items-center gap-2' : 'tab-inactive py-4 px-1 whitespace-nowrap text-sm flex items-center gap-2';
       });
-    </script>
-    <script>
-      // Dynamically add an "Ask AI" link to allow questions about the article
-      document.addEventListener('DOMContentLoaded', () => {
-        const targetContainer = document.querySelector(
-          '.download-button-container',
-        );
-        if (!targetContainer) return;
-        const contentElement = document.querySelector('.content-section');
-        if (!contentElement) return;
-        const askAiLink = document.createElement('a');
-        askAiLink.href = '#';
-        askAiLink.textContent =
-          '¿Tiene preguntas sobre este artículo? Haga clic aquí para preguntar a la IA.';
-        Object.assign(askAiLink.style, {
-          display: 'block',
-          textAlign: 'center',
-          margin: '1.5rem 0',
-          fontSize: '1.1em',
-          fontWeight: 'bold',
-          textDecoration: 'underline',
-          color: '#4f46e5',
-        });
-        askAiLink.addEventListener('click', (event) => {
-          event.preventDefault();
-          const articleText = contentElement.innerText;
-          sessionStorage.setItem('articleContext', articleText);
-          window.location.href = `../ai_dashboard.html?context=true`;
-        });
-        targetContainer.parentNode.insertBefore(
-          askAiLink,
-          targetContainer.nextSibling,
-        );
-      });
-    </script>
-    <script src="/assets/ask-ai.js"></script>
-  </body>
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.toggleFeedback = function (id) { const el = document.getElementById(id); if (el) el.classList.toggle('hidden'); }
+
+    const correctAnswers = { q1: 'C', q2: 'C', q3: 'B', q4: 'B', q5: 'B' };
+
+    document.getElementById('quizForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const resultDiv = document.getElementById('resultMessage');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Procesando...';
+      let score = 0;
+      let userAnswers = {};
+      const formData = new FormData(this);
+      for (let [key, value] of formData.entries()) { if (key.startsWith('q')) { userAnswers[key] = value; if (value === correctAnswers[key]) score++; } }
+      const name = document.getElementById('studentName').value;
+      const email = document.getElementById('studentEmail').value;
+      const finalScore = (score / 5) * 100;
+      resultDiv.classList.remove('hidden');
+      if (finalScore >= 80) {
+        resultDiv.className = "p-6 rounded-2xl text-center font-bold bg-green-500/10 text-green-600 border border-green-500/20";
+        resultDiv.innerHTML = `<p class="text-2xl mb-1">¡Excelente!</p><p class="text-sm italic">Puntaje: ${finalScore}%</p>`;
+      } else {
+        resultDiv.className = "p-6 rounded-2xl text-center font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20";
+        resultDiv.innerHTML = `<p class="text-2xl mb-1">Casi lo logras</p><p class="text-sm italic">Puntaje: ${finalScore}%. Revisa la teoría.</p>`;
+      }
+      if (supabaseClient) { try { await supabaseClient.from('evaluaciones_erge').insert([{ nombre: name, email: email, respuestas: userAnswers, score: finalScore, created_at: new Date() }]); } catch (err) { console.error("Error Supabase:", err); } }
+      btn.innerHTML = 'Enviado con éxito';
+    });
+  </script>
+</body>
+
 </html>
