@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inferencia Causal y Regresiones - Powersemiotics</title>
+  <title>Inferencia Causal: Cohorte Chimborazo | Powersemiotics</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -18,326 +18,389 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(10px);
-      background-color: rgba(30, 58, 138, 0.95);
+      backdrop-filter: blur(12px);
+      background-color: rgba(30, 58, 138, 0.9);
     }
 
-    .card {
-      transition: transform 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-    }
-
-    /* Estilos para el Forest Plot Interactivo */
+    /* Estilos Forest Plot */
     .forest-line {
       stroke: #2563eb;
-      stroke-width: 2;
+      stroke-width: 3;
+      stroke-linecap: round;
     }
 
     .forest-point {
       fill: #1e3a8a;
-      cursor: pointer;
       transition: r 0.3s;
+      cursor: pointer;
     }
 
     .forest-point:hover {
-      r: 6;
+      r: 8;
+      fill: #f59e0b;
     }
 
     .null-line {
       stroke: #ef4444;
-      stroke-dasharray: 4;
+      stroke-dasharray: 5;
+      stroke-width: 2;
     }
 
-    /* Game Styles */
-    .game-btn {
+    /* Drag & Drop Styles */
+    .drop-zone {
+      transition: all 0.3s ease;
+      border: 2px dashed #cbd5e1;
+    }
+
+    .drop-zone.hover {
+      background-color: #eff6ff;
+      border-color: #3b82f6;
+    }
+
+    .draggable {
+      cursor: grab;
+      transition: transform 0.2s;
+    }
+
+    .draggable:active {
+      cursor: grabbing;
+      transform: scale(1.05);
+    }
+
+    /* Game UI */
+    .decision-btn {
       transition: all 0.2s;
     }
 
-    .game-btn:active {
-      transform: scale(0.95);
+    .decision-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
 
 <body class="bg-slate-50 text-slate-800">
 
-  <header class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white p-8 shadow-xl">
-    <div class="container mx-auto">
-      <div class="flex flex-col md:flex-row items-center gap-6">
-        <div class="bg-white/10 p-4 rounded-full backdrop-blur-sm">
-          <i class="fas fa-project-diagram text-4xl text-blue-200"></i>
+  <header class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white py-12 shadow-2xl relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/medical-icons.png')]">
+    </div>
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="md:w-2/3">
+          <span
+            class="bg-blue-500/30 text-blue-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">Módulo
+            Avanzado Medicina y Datos</span>
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">Del Dato a la Causalidad: <br><span
+              class="text-yellow-400">El Caso Chimborazo</span></h1>
+          <p class="text-xl text-blue-100 mb-6 max-w-2xl">
+            Un laboratorio clínico interactivo sobre <strong>1,547 pacientes reales</strong>. Aprende a distinguir
+            correlación de causalidad utilizando DAGs, regresiones y el marco contrafactual.
+          </p>
+          <div class="flex gap-4">
+            <a href="#laboratorio"
+              class="bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold py-3 px-6 rounded-lg shadow-lg transition flex items-center">
+              <i class="fas fa-flask mr-2"></i> Iniciar Análisis
+            </a>
+            <a href="#descargas"
+              class="bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-6 rounded-lg backdrop-blur-sm transition flex items-center">
+              <i class="fas fa-download mr-2"></i> Dataset (CSV)
+            </a>
+          </div>
         </div>
-        <div>
-          <h1 class="text-3xl md:text-4xl font-bold tracking-tight">De la Correlación a la Causalidad</h1>
-          <p class="text-blue-100 text-lg mt-2">Análisis de Regresión y Modelos PICO: Estudio Cohorte Chimborazo</p>
-          <div class="flex gap-3 mt-4 text-sm font-medium">
-            <span class="bg-blue-600 px-3 py-1 rounded-full"><i class="fas fa-database mr-2"></i>N=1547 Pacientes</span>
-            <span class="bg-emerald-600 px-3 py-1 rounded-full"><i class="fas fa-check-circle mr-2"></i>Datos
-              Reales</span>
+        <div class="md:w-1/3 hidden md:block">
+          <div
+            class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 shadow-xl transform rotate-3 hover:rotate-0 transition duration-500">
+            <div class="flex justify-between items-center mb-2">
+              <div class="text-xs font-mono text-blue-200">COHORTE CHIMBORAZO</div>
+              <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            </div>
+            <div class="space-y-2">
+              <div class="h-2 bg-white/20 rounded w-3/4"></div>
+              <div class="h-2 bg-white/20 rounded w-1/2"></div>
+              <div class="h-2 bg-white/20 rounded w-full"></div>
+            </div>
+            <div class="mt-4 flex justify-between text-xs text-blue-100">
+              <span>N = 1,547</span>
+              <span>Edad Media: 66.0</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <nav class="sticky-nav text-white py-3 shadow-md border-b border-blue-700">
-    <div class="container mx-auto flex overflow-x-auto whitespace-nowrap gap-4 px-4 md:justify-center scrollbar-hide">
-      <a href="#pico" class="hover:text-blue-200 transition"><i class="fas fa-question-circle mr-1"></i> Pregunta
+  <nav class="sticky-nav text-white shadow-lg">
+    <div
+      class="container mx-auto px-6 py-3 flex overflow-x-auto gap-6 whitespace-nowrap md:justify-center text-sm font-medium">
+      <a href="#pico" class="hover:text-yellow-400 transition"><i class="fas fa-question-circle mr-1"></i> 1. Pregunta
         PICO</a>
-      <a href="#dag" class="hover:text-blue-200 transition"><i class="fas fa-network-wired mr-1"></i> DAGs y
-        Confusores</a>
-      <a href="#modelos" class="hover:text-blue-200 transition"><i class="fas fa-chart-line mr-1"></i> Modelos
-        Ajustados</a>
-      <a href="#interpretacion" class="hover:text-blue-200 transition"><i class="fas fa-glasses mr-1"></i>
-        Interpretación</a>
-      <a href="#simulador"
-        class="px-3 py-0.5 bg-yellow-500 rounded-full hover:bg-yellow-400 text-blue-900 font-bold transition"><i
-          class="fas fa-gamepad mr-1"></i> Laboratorio Clínico</a>
+      <a href="#dag" class="hover:text-yellow-400 transition"><i class="fas fa-project-diagram mr-1"></i> 2. El DAG
+        (Confusores)</a>
+      <a href="#resultados" class="hover:text-yellow-400 transition"><i class="fas fa-chart-area mr-1"></i> 3. Forest
+        Plots</a>
+      <a href="#junta-medica" class="hover:text-yellow-400 transition"><i class="fas fa-user-md mr-1"></i> 4. Simulación
+        Clínica</a>
     </div>
   </nav>
 
-  <main class="container mx-auto p-4 md:p-8 max-w-6xl">
+  <main class="container mx-auto px-6 py-12 max-w-5xl">
 
-    <section id="pico" class="mb-12 scroll-mt-24">
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="h-8 w-1 bg-blue-600 rounded-full"></div>
-          <h2 class="text-2xl font-bold text-slate-800">1. Estructurando la Incertidumbre: El Modelo PICO</h2>
+    <section id="pico" class="mb-20 scroll-mt-24">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="bg-blue-100 text-blue-800 p-3 rounded-lg"><i class="fas fa-search text-2xl"></i></div>
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900">1. Estructurando la Incertidumbre</h2>
+          <p class="text-gray-600">Antes de correr una regresión, debemos definir la arquitectura de nuestra duda
+            clínica.</p>
         </div>
+      </div>
 
-        <p class="text-slate-600 mb-6 text-lg">
-          Antes de correr cualquier regresión, debemos definir nuestra pregunta causal. En el estudio Chimborazo,
-          buscamos determinar si el tratamiento antihipertensivo reduce complicaciones cardiovasculares en un entorno
-          real.
-        </p>
-
-        <div class="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300">
-          <h3 class="font-bold text-indigo-900 mb-4"><i class="fas fa-hand-pointer mr-2"></i> Actividad: Construye la
-            Pregunta de Investigación</h3>
-          <p class="text-sm text-slate-500 mb-4">Arrastra los componentes (derecha) a su categoría PICO correcta
-            (izquierda).</p>
-
-          <div class="grid md:grid-cols-2 gap-8">
-            <div class="space-y-3">
-              <div
-                class="pico-zone bg-white p-4 rounded-lg shadow-sm border border-blue-100 min-h-[60px] flex items-center"
-                data-target="P">
-                <span class="font-bold text-blue-600 w-12">P</span>
-                <span class="placeholder text-gray-400 text-sm italic">Arrastra Pacientes aquí...</span>
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+        <div class="p-8 grid lg:grid-cols-2 gap-12">
+          <div>
+            <h3 class="font-bold text-lg text-blue-900 mb-4">El Caso Clínico</h3>
+            <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+              "En la provincia de Chimborazo, tenemos 1,547 adultos con riesgo cardiovascular. Queremos saber si el
+              <strong>tratamiento antihipertensivo</strong> está logrando reducir las complicaciones graves como el
+              <strong>Tromboembolismo Venoso (VTE)</strong>, comparado con el cuidado estándar, considerando que la edad
+              promedio es de 66 años."
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+              <p class="text-xs font-bold text-blue-700 uppercase mb-2">Variables Disponibles:</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 bg-white rounded border text-xs text-gray-600">edad (Numérica)</span>
+                <span class="px-2 py-1 bg-white rounded border text-xs text-gray-600">tratamiento_ht (Sí/No)</span>
+                <span class="px-2 py-1 bg-white rounded border text-xs text-gray-600">vte (Evento)</span>
+                <span class="px-2 py-1 bg-white rounded border text-xs text-gray-600">zona (Urbana/Rural)</span>
               </div>
-              <div
-                class="pico-zone bg-white p-4 rounded-lg shadow-sm border border-blue-100 min-h-[60px] flex items-center"
-                data-target="I">
-                <span class="font-bold text-blue-600 w-12">I</span>
-                <span class="placeholder text-gray-400 text-sm italic">Arrastra Intervención aquí...</span>
-              </div>
-              <div
-                class="pico-zone bg-white p-4 rounded-lg shadow-sm border border-blue-100 min-h-[60px] flex items-center"
-                data-target="C">
-                <span class="font-bold text-blue-600 w-12">C</span>
-                <span class="placeholder text-gray-400 text-sm italic">Arrastra Comparación aquí...</span>
-              </div>
-              <div
-                class="pico-zone bg-white p-4 rounded-lg shadow-sm border border-blue-100 min-h-[60px] flex items-center"
-                data-target="O">
-                <span class="font-bold text-blue-600 w-12">O</span>
-                <span class="placeholder text-gray-400 text-sm italic">Arrastra Outcome aquí...</span>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-2">
-              <div
-                class="draggable bg-indigo-600 text-white p-3 rounded cursor-move hover:bg-indigo-700 shadow-md transition"
-                draggable="true" data-id="I">Tratamiento Antihipertensivo</div>
-              <div
-                class="draggable bg-emerald-600 text-white p-3 rounded cursor-move hover:bg-emerald-700 shadow-md transition"
-                draggable="true" data-id="O">Complicación VTE / Control PAS</div>
-              <div
-                class="draggable bg-slate-600 text-white p-3 rounded cursor-move hover:bg-slate-700 shadow-md transition"
-                draggable="true" data-id="P">Adultos Riesgo CV (Chimborazo)</div>
-              <div
-                class="draggable bg-gray-500 text-white p-3 rounded cursor-move hover:bg-gray-600 shadow-md transition"
-                draggable="true" data-id="C">Sin Tratamiento / Cuidados Habituales</div>
             </div>
           </div>
-          <div id="pico-feedback" class="hidden mt-4 p-3 bg-green-100 text-green-800 rounded-lg text-center font-bold">
-            ¡Excelente! Has definido correctamente el diseño del estudio[cite: 711, 712, 713].
+
+          <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-800 mb-4 text-center">Desafío: Arma la Pregunta PICO</h4>
+            <div class="grid grid-cols-2 gap-4 mb-6" id="draggables-container">
+              <div class="draggable bg-white shadow-sm p-2 rounded text-center text-sm border hover:border-blue-400"
+                draggable="true" data-type="P">Adultos Chimborazo (Riesgo CV)</div>
+              <div class="draggable bg-white shadow-sm p-2 rounded text-center text-sm border hover:border-blue-400"
+                draggable="true" data-type="I">Tratamiento Antihipertensivo</div>
+              <div class="draggable bg-white shadow-sm p-2 rounded text-center text-sm border hover:border-blue-400"
+                draggable="true" data-type="C">Sin Tratamiento / Cuidado Std</div>
+              <div class="draggable bg-white shadow-sm p-2 rounded text-center text-sm border hover:border-blue-400"
+                draggable="true" data-type="O">Complicación VTE / Reingreso</div>
+            </div>
+
+            <div class="space-y-3">
+              <div class="drop-zone bg-blue-100/50 p-3 rounded flex justify-between items-center" data-target="P">
+                <span class="font-bold text-blue-900 w-8">P</span>
+                <span class="text-xs text-gray-400 placeholder">Arrastra Pacientes aquí</span>
+              </div>
+              <div class="drop-zone bg-blue-100/50 p-3 rounded flex justify-between items-center" data-target="I">
+                <span class="font-bold text-blue-900 w-8">I</span>
+                <span class="text-xs text-gray-400 placeholder">Arrastra Intervención aquí</span>
+              </div>
+              <div class="drop-zone bg-blue-100/50 p-3 rounded flex justify-between items-center" data-target="C">
+                <span class="font-bold text-blue-900 w-8">C</span>
+                <span class="text-xs text-gray-400 placeholder">Arrastra Comparación aquí</span>
+              </div>
+              <div class="drop-zone bg-blue-100/50 p-3 rounded flex justify-between items-center" data-target="O">
+                <span class="font-bold text-blue-900 w-8">O</span>
+                <span class="text-xs text-gray-400 placeholder">Arrastra Outcome aquí</span>
+              </div>
+            </div>
+            <div id="pico-feedback" class="hidden mt-4 text-center text-sm font-bold text-green-600 animate-pulse">
+              ¡Excelente! Estructura validada.
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="dag" class="mb-12 scroll-mt-24">
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-          <h2 class="text-xl font-bold text-slate-800 mb-4">2. El Rol de las Variables (DAG)</h2>
-          <p class="text-slate-600 mb-4">En inferencia causal, no todas las variables son iguales. Debemos distinguir
-            entre exposiciones, desenlaces y confusores para evitar el sesgo[cite: 717, 1124].</p>
+    <section id="dag" class="mb-20 scroll-mt-24">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="bg-purple-100 text-purple-800 p-3 rounded-lg"><i class="fas fa-network-wired text-2xl"></i></div>
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900">2. El Mapa Causal (DAG)</h2>
+          <p class="text-gray-600">No todas las variables son iguales. Identifica los confusores para limpiar el efecto.
+          </p>
+        </div>
+      </div>
 
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div
+          class="relative bg-white p-6 rounded-2xl shadow-lg border border-gray-200 h-80 flex items-center justify-center">
+          <svg width="100%" height="100%" viewBox="0 0 400 300">
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
+              </marker>
+            </defs>
+
+            <line x1="200" y1="50" x2="100" y2="250" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" />
+            <line x1="200" y1="50" x2="300" y2="250" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" />
+
+            <line x1="100" y1="250" x2="300" y2="250" stroke="#10b981" stroke-width="3" marker-end="url(#arrowhead)" />
+
+            <circle cx="200" cy="50" r="30" fill="#f1f5f9" stroke="#64748b" stroke-width="2" />
+            <text x="200" y="55" text-anchor="middle" font-size="12" font-weight="bold">EDAD</text>
+
+            <circle cx="100" cy="250" r="35" fill="#dbeafe" stroke="#2563eb" stroke-width="2" />
+            <text x="100" y="255" text-anchor="middle" font-size="10" font-weight="bold">TRATAMIENTO</text>
+
+            <circle cx="300" cy="250" r="35" fill="#dcfce7" stroke="#059669" stroke-width="2" />
+            <text x="300" y="255" text-anchor="middle" font-size="10" font-weight="bold">VTE (Outcome)</text>
+          </svg>
+
+          <div class="absolute top-2 right-2">
+            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">Ruta de Puerta Trasera (Backdoor
+              Path)</span>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold text-slate-800 mb-4">¿Por qué ajustar por Edad?</h3>
+          <p class="text-gray-600 mb-4">
+            En el estudio Chimborazo, la edad es un <strong>Confusor</strong> clásico:
+          </p>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-bold mt-1 mr-3">CONFUSOR</span>
-              <div>
-                <strong class="text-slate-800">Edad:</strong> Variable numérica que afecta tanto a la probabilidad de
-                recibir tratamiento como al riesgo de VTE. Debe ser controlada.
-              </div>
+              <i class="fas fa-arrow-right text-purple-500 mt-1 mr-2"></i>
+              <span>Las personas mayores tienen <strong>más probabilidad</strong> de recibir tratamiento (porque tienen
+                más HTA).</span>
             </li>
             <li class="flex items-start">
-              <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold mt-1 mr-3">EXPOSICIÓN</span>
-              <div>
-                <strong class="text-slate-800">Tratamiento HTA / Diabetes:</strong> Variables dicotómicas (Sí/No). Son
-                nuestras intervenciones de interés.
-              </div>
-            </li>
-            <li class="flex items-start">
-              <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold mt-1 mr-3">OUTCOME</span>
-              <div>
-                <strong class="text-slate-800">VTE / Reingreso:</strong> Eventos binarios. Usaremos <em>Regresión
-                  Logística</em>.
-                <br><strong class="text-slate-800">PAS Final:</strong> Variable continua. Usaremos <em>Regresión
-                  Lineal</em>.
-              </div>
+              <i class="fas fa-arrow-right text-purple-500 mt-1 mr-2"></i>
+              <span>Las personas mayores tienen <strong>más riesgo natural</strong> de sufrir un evento VTE.</span>
             </li>
           </ul>
-        </div>
-
-        <div
-          class="bg-slate-50 rounded-2xl border border-slate-200 p-6 flex flex-col justify-center items-center text-center">
-          <h3 class="font-bold text-slate-700 mb-2">Evidencia de Disparidad Inicial</h3>
-          <p class="text-xs text-slate-500 mb-4 max-w-xs">Análisis bivariado previo al ajuste (Chi-cuadrado)</p>
-
-          <div class="w-full max-w-sm">
-            <canvas id="bivarChart"></canvas>
+          <div class="mt-6 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400 text-sm text-yellow-800">
+            <strong>Insight Clave:</strong> Si no "bloqueamos" esta ruta trasera mediante regresión multivariada,
+            podríamos creer que el tratamiento CAUSA el VTE, cuando en realidad solo está asociado a la vejez.
           </div>
-          <p class="text-xs text-slate-500 mt-4 italic">
-            "El grupo con tratamiento presenta una proporción significativamente menor de eventos VTE (p < 0.001)"[cite:
-              756, 758]. </p>
         </div>
       </div>
     </section>
 
-    <section id="modelos" class="mb-12 scroll-mt-24">
-      <div class="bg-indigo-900 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 p-12 opacity-5">
-          <i class="fas fa-tree text-9xl"></i>
+    <section id="resultados" class="mb-20 scroll-mt-24">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="bg-green-100 text-green-800 p-3 rounded-lg"><i class="fas fa-chart-bar text-2xl"></i></div>
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900">3. Resultados del Modelo (Forest Plots)</h2>
+          <p class="text-gray-600">Visualizando la evidencia ajustada del reporte clínico.</p>
         </div>
+      </div>
 
-        <h2 class="text-2xl font-bold mb-2">3. Interpretando Forest Plots: El Corazón de la Evidencia</h2>
-        <p class="text-indigo-200 mb-8 max-w-3xl">
-          Los modelos ajustados nos permiten ver el efecto "puro" de una variable manteniendo las demás constantes. A
-          continuación, presentamos los resultados del Módulo 4 del reporte clínico[cite: 782, 1133].
-        </p>
-
-        <div class="grid lg:grid-cols-3 gap-6">
-          <div class="bg-indigo-800/50 rounded-xl p-4 border border-indigo-700">
-            <h4 class="font-bold text-center mb-4 text-sm uppercase tracking-wider">Regresión Lineal: Presión Sistólica
-              (PAS)</h4>
-            <div class="forest-container h-48 relative bg-white/5 rounded-lg mb-2" id="forest-pas">
-            </div>
-            <div class="text-xs text-center text-indigo-300">
-              <strong>Interpretación:</strong> El tratamiento reduce la PAS en ~17 mmHg (Beta negativo)[cite: 783, 788].
-            </div>
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+          <div class="flex justify-between items-center mb-6">
+            <h4 class="font-bold text-gray-800">Modelo 1: Riesgo de VTE (Regresión Logística)</h4>
+            <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">Outcome Binario</span>
           </div>
 
-          <div class="bg-indigo-800/50 rounded-xl p-4 border border-indigo-700 relative">
-            <span class="absolute top-2 right-2 bg-green-500 text-xs font-bold px-2 py-1 rounded">Significativo</span>
-            <h4 class="font-bold text-center mb-4 text-sm uppercase tracking-wider">Regresión Logística: Riesgo VTE</h4>
-            <div class="forest-container h-48 relative bg-white/5 rounded-lg mb-2" id="forest-vte">
-            </div>
-            <div class="text-xs text-center text-indigo-300">
-              <strong>Interpretación:</strong> OR < 1. El tratamiento es un factor PROTECTOR robusto contra VTE[cite:
-                799, 1136]. </div>
-            </div>
+          <div class="h-40 relative w-full">
+            <svg width="100%" height="100%">
+              <line x1="50" y1="120" x2="350" y2="120" stroke="#e2e8f0" stroke-width="2" />
+              <line x1="200" y1="20" x2="200" y2="120" class="null-line" />
+              <text x="200" y="135" text-anchor="middle" font-size="10" fill="#64748b">OR = 1 (Nulo)</text>
+              <text x="50" y="135" text-anchor="middle" font-size="10" fill="#64748b">Protector (<1)< /text>
+                  <text x="350" y="135" text-anchor="middle" font-size="10" fill="#64748b">Riesgo (>1)</text>
 
-            <div class="bg-indigo-800/50 rounded-xl p-4 border border-indigo-700 relative">
-              <span class="absolute top-2 right-2 bg-yellow-500 text-indigo-900 text-xs font-bold px-2 py-1 rounded">No
-                Significativo</span>
-              <h4 class="font-bold text-center mb-4 text-sm uppercase tracking-wider">Regresión Logística: Reingreso
-              </h4>
-              <div class="forest-container h-48 relative bg-white/5 rounded-lg mb-2" id="forest-reingreso">
-              </div>
-              <div class="text-xs text-center text-indigo-300">
-                <strong>Interpretación:</strong> El IC de la Diabetes cruza la línea nula (1). Efecto incierto al
-                ajustar por edad[cite: 808, 1137].
-              </div>
-            </div>
+                  <g class="group cursor-pointer">
+                    <line x1="80" y1="50" x2="140" y2="50" class="forest-line" />
+                    <circle cx="110" cy="50" r="6" class="forest-point" /> <text x="110" y="35" text-anchor="middle"
+                      font-size="11" font-weight="bold" fill="#1e3a8a">Tratamiento HTA</text>
+                    <title>OR: 0.35 (IC 95%: 0.2 - 0.6). Significativo.</title>
+                  </g>
+
+                  <g class="group cursor-pointer opacity-50">
+                    <line x1="180" y1="90" x2="240" y2="90" class="forest-line" stroke="#94a3b8" />
+                    <circle cx="210" cy="90" r="6" class="forest-point" fill="#94a3b8" />
+                    <text x="210" y="75" text-anchor="middle" font-size="11" fill="#64748b">Diabetes</text>
+                    <title>OR: 1.1 (IC cruza 1). No significativo para VTE.</title>
+                  </g>
+            </svg>
           </div>
+          <p class="text-sm text-gray-500 mt-2 italic">
+            *El intervalo del Tratamiento está completamente a la izquierda de 1. Es un factor protector
+            estadísticamente significativo.
+          </p>
         </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+          <div class="flex justify-between items-center mb-6">
+            <h4 class="font-bold text-gray-800">Modelo 2: Presión Sistólica (Regresión Lineal)</h4>
+            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded">Outcome Continuo</span>
+          </div>
+
+          <div class="h-40 relative w-full">
+            <svg width="100%" height="100%">
+              <line x1="50" y1="120" x2="350" y2="120" stroke="#e2e8f0" stroke-width="2" />
+              <line x1="300" y1="20" x2="300" y2="120" class="null-line" />
+              <text x="300" y="135" text-anchor="middle" font-size="10" fill="#64748b">Beta = 0</text>
+
+              <g class="group cursor-pointer">
+                <line x1="50" y1="60" x2="100" y2="60" class="forest-line" />
+                <circle cx="75" cy="60" r="6" class="forest-point" />
+                <text x="75" y="45" text-anchor="middle" font-size="11" font-weight="bold"
+                  fill="#1e3a8a">Tratamiento</text>
+                <title>Beta: -17.5 mmHg. Reduce significativamente la presión.</title>
+              </g>
+            </svg>
+          </div>
+          <p class="text-sm text-gray-500 mt-2 italic">
+            *Coeficiente Beta negativo (-17.5) indica reducción de mmHg en la presión sistólica.
+          </p>
+        </div>
+      </div>
     </section>
 
-    <section id="simulador" class="mb-12 scroll-mt-24">
-      <div class="bg-white rounded-2xl shadow-lg border-2 border-slate-800 overflow-hidden">
-        <div class="bg-slate-800 p-4 flex justify-between items-center text-white">
-          <h2 class="text-xl font-bold"><i class="fas fa-user-secret mr-2"></i> Detective de Datos Clínicos</h2>
-          <span class="text-sm bg-slate-700 px-3 py-1 rounded-full">Caso: Chimborazo</span>
-        </div>
-
-        <div class="p-8">
-          <div id="scene-1" class="game-scene">
-            <p class="text-lg mb-4 font-medium text-slate-800">
-              Dr/a., acabamos de correr el modelo lineal para la Presión Arterial. El residente le entrega este gráfico
-              de residuos.
-            </p>
-            <div class="flex justify-center mb-6">
-              <div class="w-64 h-40 bg-slate-100 rounded border border-slate-300 relative">
-                <div class="absolute inset-0 flex items-center justify-center text-slate-400 text-xs">
-                  [Nube de puntos dispersa sin forma de embudo]
-                </div>
-                <div class="absolute top-1/4 left-1/4 w-1 h-1 bg-blue-500 rounded-full"></div>
-                <div class="absolute top-1/2 left-1/2 w-1 h-1 bg-blue-500 rounded-full"></div>
-                <div class="absolute bottom-1/3 right-1/4 w-1 h-1 bg-blue-500 rounded-full"></div>
-                <div class="absolute top-1/3 right-1/3 w-1 h-1 bg-blue-500 rounded-full"></div>
-              </div>
+    <section id="junta-medica" class="mb-20 scroll-mt-24">
+      <div class="bg-slate-900 rounded-3xl p-1 shadow-2xl overflow-hidden">
+        <div class="bg-gradient-to-b from-slate-800 to-slate-900 p-8 md:p-12">
+          <div class="text-center mb-10">
+            <div class="inline-block p-4 rounded-full bg-yellow-500/20 text-yellow-400 mb-4 animate-bounce">
+              <i class="fas fa-gavel text-4xl"></i>
             </div>
-            <p class="mb-4">¿Qué concluye sobre la validez del modelo?</p>
-
-            <div class="grid gap-3">
-              <button onclick="checkGame(1, 'error')"
-                class="game-btn w-full p-3 text-left border rounded hover:bg-slate-50">
-                A. El modelo no sirve, hay heterocedasticidad.
-              </button>
-              <button onclick="checkGame(1, 'correct')"
-                class="game-btn w-full p-3 text-left border rounded hover:bg-slate-50">
-                B. La varianza es constante (Homocedasticidad), el modelo es robusto[cite: 858, 1134].
-              </button>
-            </div>
+            <h2 class="text-3xl font-bold text-white mb-2">Simulador: La Junta Médica</h2>
+            <p class="text-slate-400 max-w-xl mx-auto">Eres el Director Médico del Hospital de Riobamba. Basado en los
+              datos de la cohorte que acabas de ver, debes tomar una decisión de presupuesto.</p>
           </div>
 
-          <div id="scene-2" class="game-scene hidden">
-            <p class="text-lg mb-4 font-medium text-slate-800">
-              Excelente. Ahora mire el Forest Plot de Reingreso Hospitalario. La Diabetes tiene un OR de 1.4 con un IC
-              95% de [0.9 - 2.1].
+          <div id="game-scenario" class="bg-white/5 border border-white/10 rounded-xl p-6 mb-8 text-slate-200">
+            <p class="text-lg font-medium mb-4">Situación:</p>
+            <p class="mb-4">
+              Se ha propuesto un programa costoso para monitorear <strong>exclusivamente a pacientes diabéticos</strong>
+              con el fin de prevenir <strong>reingresos hospitalarios</strong>.
             </p>
-            <p class="mb-4">El administrador del hospital quiere lanzar un programa costoso solo para diabéticos para
-              prevenir reingresos basándose en este dato. ¿Qué recomienda?</p>
-
-            <div class="grid gap-3">
-              <button onclick="checkGame(2, 'correct')"
-                class="game-btn w-full p-3 text-left border rounded hover:bg-slate-50">
-                A. Frenar el programa. El intervalo cruza la nulidad, el efecto no es estadísticamente
-                significativo[cite: 864, 1137].
-              </button>
-              <button onclick="checkGame(2, 'error')"
-                class="game-btn w-full p-3 text-left border rounded hover:bg-slate-50">
-                B. Aprobar el programa. Un OR de 1.4 es clínicamente alto aunque el IC cruce el 1.
-              </button>
-            </div>
+            <p class="mb-4 text-sm text-slate-400 bg-black/20 p-3 rounded">
+              <i class="fas fa-info-circle mr-2"></i> Dato del Reporte: En el modelo logístico para "Reingreso", la
+              variable Diabetes tuvo un OR de 1.4 con un Intervalo de Confianza (IC) de [0.9 - 2.1].
+            </p>
+            <p class="font-bold text-white">¿Apruebas el financiamiento del programa?</p>
           </div>
 
-          <div id="scene-end" class="game-scene hidden text-center">
-            <div class="text-5xl text-yellow-500 mb-4"><i class="fas fa-medal"></i></div>
-            <h3 class="text-2xl font-bold mb-2">¡Análisis Completado!</h3>
-            <p class="text-slate-600">Has demostrado competencia en inferencia causal básica y lectura crítica de
-              evidencia.</p>
+          <div class="grid md:grid-cols-2 gap-4" id="game-options">
+            <button onclick="resolveGame(false)"
+              class="decision-btn bg-green-600 hover:bg-green-500 text-white p-4 rounded-xl text-left border border-green-500/50">
+              <div class="font-bold text-lg mb-1">A. NO APROBAR</div>
+              <div class="text-sm opacity-90">El intervalo de confianza cruza la unidad (1). La evidencia no es
+                concluyente para justificar el gasto.</div>
+            </button>
+
+            <button onclick="resolveGame(true)"
+              class="decision-btn bg-red-600 hover:bg-red-500 text-white p-4 rounded-xl text-left border border-red-500/50">
+              <div class="font-bold text-lg mb-1">B. APROBAR</div>
+              <div class="text-sm opacity-90">Un OR de 1.4 sugiere un riesgo 40% mayor, es suficiente evidencia clínica
+                aunque no sea estadística.</div>
+            </button>
+          </div>
+
+          <div id="game-feedback" class="hidden mt-8 p-6 rounded-xl bg-slate-800 border border-slate-700 text-center">
+            <div id="feedback-icon" class="text-5xl mb-4"></div>
+            <h3 id="feedback-title" class="text-2xl font-bold text-white mb-2"></h3>
+            <p id="feedback-msg" class="text-slate-300"></p>
             <button onclick="location.reload()"
-              class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Reiniciar
+              class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition">Reiniciar
               Caso</button>
-          </div>
-
-          <div id="game-feedback" class="hidden mt-6 p-4 rounded-lg bg-blue-50 text-blue-900 border border-blue-200">
           </div>
         </div>
       </div>
@@ -345,147 +408,84 @@
 
   </main>
 
-  <footer class="bg-slate-900 text-slate-400 py-8 text-center border-t border-slate-800">
-    <p class="text-sm">Powersemiotics Medicina y Datos &copy; 2025</p>
-    <p class="text-xs mt-2 opacity-60">Basado en Reporte Clínico Validado Cohorte Chimborazo[cite: 711, 861].</p>
+  <footer class="bg-white border-t border-gray-200 mt-12 py-12">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-gray-500 font-medium">Powersemiotics &copy; 2026</p>
+      <p class="text-xs text-gray-400 mt-2">Basado en datos anonimizados del estudio "Cohorte Chimborazo" (N=1547). Uso
+        exclusivamente educativo.</p>
+    </div>
   </footer>
 
   <script>
-    // --- DRAG AND DROP PICO ---
+    // --- Lógica Drag & Drop PICO ---
     const draggables = document.querySelectorAll('.draggable');
-    const zones = document.querySelectorAll('.pico-zone');
-    let score = 0;
+    const dropZones = document.querySelectorAll('.drop-zone');
+    let matched = 0;
 
-    draggables.forEach(draggable => {
-      draggable.addEventListener('dragstart', () => {
-        draggable.classList.add('opacity-50');
+    draggables.forEach(item => {
+      item.addEventListener('dragstart', () => {
+        item.classList.add('opacity-50');
+        item.setAttribute('data-dragging', 'true');
       });
-      draggable.addEventListener('dragend', () => {
-        draggable.classList.remove('opacity-50');
+      item.addEventListener('dragend', () => {
+        item.classList.remove('opacity-50');
+        item.removeAttribute('data-dragging');
       });
     });
 
-    zones.forEach(zone => {
+    dropZones.forEach(zone => {
       zone.addEventListener('dragover', e => {
         e.preventDefault();
-        zone.classList.add('bg-blue-50');
+        zone.classList.add('bg-blue-200');
       });
       zone.addEventListener('dragleave', () => {
-        zone.classList.remove('bg-blue-50');
+        zone.classList.remove('bg-blue-200');
       });
       zone.addEventListener('drop', e => {
         e.preventDefault();
-        zone.classList.remove('bg-blue-50');
-        const draggedId = document.querySelector('.opacity-50').getAttribute('data-id');
-        const targetId = zone.getAttribute('data-target');
+        zone.classList.remove('bg-blue-200');
+        const draggingItem = document.querySelector('[data-dragging="true"]');
+        const type = draggingItem.getAttribute('data-type');
+        const target = zone.getAttribute('data-target');
 
-        if (draggedId === targetId) {
-          const el = document.querySelector('.opacity-50');
-          zone.innerHTML = ''; // Limpiar placeholder
-          zone.appendChild(el);
-          el.setAttribute('draggable', 'false');
-          el.classList.remove('bg-gray-500', 'bg-indigo-600', 'bg-emerald-600', 'bg-slate-600');
-          el.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-300', 'w-full');
-          score++;
-          if (score === 4) document.getElementById('pico-feedback').classList.remove('hidden');
+        if (type === target) {
+          zone.innerHTML = '';
+          // Estilo de éxito
+          const successItem = document.createElement('div');
+          successItem.className = 'bg-green-100 text-green-800 p-2 rounded w-full text-center font-bold text-sm';
+          successItem.innerText = draggingItem.innerText;
+          zone.appendChild(successItem);
+
+          draggingItem.remove(); // Eliminar del origen
+          matched++;
+          if (matched === 4) document.getElementById('pico-feedback').classList.remove('hidden');
         }
       });
     });
 
-    // --- FOREST PLOT RENDERER (SVG Simple) ---
-    function renderForest(id, type, data) {
-      const container = document.getElementById(id);
-      const width = container.offsetWidth;
-      const height = container.offsetHeight;
-
-      // Escalas simuladas
-      let svg = `<svg width="100%" height="100%" viewBox="0 0 ${width} ${height}">`;
-
-      // Eje central (Null line)
-      const center = type === 'linear' ? width * 0.8 : width * 0.4; // Ajuste según datos
-      svg += `<line x1="${center}" y1="10" x2="${center}" y2="${height - 20}" class="null-line" />`;
-      svg += `<text x="${center}" y="${height - 5}" text-anchor="middle" font-size="10" fill="white">${type === 'linear' ? '0' : '1 (Nulo)'}</text>`;
-
-      data.points.forEach((pt, i) => {
-        const y = 40 + (i * 40);
-        // Escalar valores x (simulado para visualización)
-        const scale = type === 'linear' ? 5 : 40;
-        const xVal = center + (pt.val * scale);
-        const xLow = center + (pt.low * scale);
-        const xHigh = center + (pt.high * scale);
-
-        // Linea de intervalo
-        svg += `<line x1="${xLow}" y1="${y}" x2="${xHigh}" y2="${y}" stroke="white" stroke-width="2" />`;
-        // Puntos finales del intervalo
-        svg += `<line x1="${xLow}" y1="${y - 4}" x2="${xLow}" y2="${y + 4}" stroke="white" stroke-width="2" />`;
-        svg += `<line x1="${xHigh}" y1="${y - 4}" x2="${xHigh}" y2="${y + 4}" stroke="white" stroke-width="2" />`;
-        // Punto central (Estimador)
-        svg += `<circle cx="${xVal}" cy="${y}" r="5" fill="${pt.color}" class="forest-point">
-                        <title>${pt.label}: ${pt.val} [${pt.low}, ${pt.high}]</title>
-                        </circle>`;
-        // Etiqueta
-        svg += `<text x="10" y="${y + 4}" font-size="11" fill="white" font-weight="bold">${pt.label}</text>`;
-      });
-
-      svg += `</svg>`;
-      container.innerHTML = svg;
-    }
-
-    // Datos del PDF [cite: 783, 799, 808]
-    renderForest('forest-pas', 'linear', {
-      points: [
-        { label: 'Tratamiento', val: -17.5, low: -18.5, high: -16.5, color: '#4ade80' },
-        { label: 'Edad', val: 1.0, low: 0.8, high: 1.2, color: '#94a3b8' }
-      ]
-    });
-    renderForest('forest-vte', 'logistic', {
-      points: [
-        { label: 'Tratamiento', val: -3, low: -4, high: -2, color: '#4ade80' }, // OR visualmente < 1
-        { label: 'Diabetes', val: 0, low: -1, high: 2, color: '#facc15' } // Cruza el 0 visualmente (1 en log)
-      ]
-    });
-    renderForest('forest-reingreso', 'logistic', {
-      points: [
-        { label: 'Diabetes', val: 1, low: -0.5, high: 2.5, color: '#facc15' } // Cruza nulo
-      ]
-    });
-
-    // --- CHART JS (Bivariado) ---
-    const ctx = document.getElementById('bivarChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Sin Tratamiento', 'Con Tratamiento'],
-        datasets: [{
-          label: '% Eventos VTE',
-          data: [85, 20], // Datos simulados basados en gráfica visual del PDF [cite: 760]
-          backgroundColor: ['#ef4444', '#3b82f6'],
-          borderRadius: 4
-        }]
-      },
-      options: {
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true, max: 100 } }
-      }
-    });
-
-    // --- GAME LOGIC ---
-    function checkGame(scene, result) {
+    // --- Lógica del Juego ---
+    function resolveGame(isWrong) {
+      const options = document.getElementById('game-options');
       const feedback = document.getElementById('game-feedback');
+      const icon = document.getElementById('feedback-icon');
+      const title = document.getElementById('feedback-title');
+      const msg = document.getElementById('feedback-msg');
+
+      options.classList.add('hidden');
       feedback.classList.remove('hidden');
 
-      if (result === 'correct') {
-        feedback.className = "mt-6 p-4 rounded-lg bg-green-100 text-green-900 border border-green-200 font-bold";
-        feedback.innerHTML = "<i class='fas fa-check-circle'></i> ¡Correcto! Proceda.";
-        setTimeout(() => {
-          document.getElementById(`scene-${scene}`).classList.add('hidden');
-          feedback.classList.add('hidden');
-          if (scene === 2) document.getElementById('scene-end').classList.remove('hidden');
-          else document.getElementById(`scene-${scene + 1}`).classList.remove('hidden');
-        }, 1500);
+      if (!isWrong) {
+        // Respuesta Correcta (No aprobar)
+        feedback.classList.add('border-green-500');
+        icon.innerHTML = '<i class="fas fa-check-circle text-green-500"></i>';
+        title.innerText = "¡Decisión Correcta!";
+        msg.innerText = "Excelente criterio estadístico. Dado que el Intervalo de Confianza incluye el 1 (Nulidad), no podemos descartar que el efecto sea azar. Invertir recursos públicos requiere evidencia sólida (p < 0.05 o IC que no cruce la nulidad).";
       } else {
-        feedback.className = "mt-6 p-4 rounded-lg bg-red-100 text-red-900 border border-red-200 font-bold";
-        feedback.innerHTML = "<i class='fas fa-times-circle'></i> Incorrecto. Revise la gráfica de nuevo.";
+        // Respuesta Incorrecta (Aprobar)
+        feedback.classList.add('border-red-500');
+        icon.innerHTML = '<i class="fas fa-times-circle text-red-500"></i>';
+        title.innerText = "Riesgo Financiero";
+        msg.innerText = "Cuidado. Aunque el OR es 1.4, el intervalo cruza el 1. Esto significa que estadísticamente no hay diferencia con el azar. Aprobar este programa podría desperdiciar recursos en una intervención no probada.";
       }
     }
   </script>
