@@ -1,509 +1,610 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Módulo: Inferencia Causal en Medicina</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="../assets/tailwind.css" rel="stylesheet" />
+  </head>
+  <body class="font-sans bg-gray-100 text-gray-800">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="../medicina_y_datos.html" class="flex items-center space-x-2">
+          <i class="fas fa-brain text-indigo-600 text-2xl"></i>
+          <span class="text-2xl font-bold gradient-text"
+            >Razonamiento Clínico</span
+          >
+        </a>
+        <div>
+          <a
+            href="../medicina_y_datos.html"
+            class="text-indigo-600 font-semibold"
+            >Hub de Medicina y Datos</a
+          >
+        </div>
+      </nav>
+    </header>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CausalMed - Inferencia Causal</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script type="importmap">
-    {
-        "imports": {
-            "react": "https://esm.sh/react@18.2.0",
-            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-            "lucide-react": "https://esm.sh/lucide-react@0.294.0"
-        }
-    }
-    </script>
-</head>
-
-<body>
-  <div id="root"></div>
-  <script type="text/babel" data-type="module">
-    import React, { useState, useEffect } from 'react';
-    import { createRoot } from 'react-dom/client';
-    import {
-      ArrowRight,
-      ChevronRight,
-      Info,
-      AlertCircle,
-      CheckCircle2,
-      HelpCircle,
-      Activity,
-      Zap,
-      Target,
-      GitBranch,
-      BrainCircuit,
-      Microscope,
-      Stethoscope
-    } from 'lucide-react';
-
-    const App = () => {
-      const [activeTab, setActiveTab] = useState('introduccion');
-      const [scrollProgress, setScrollProgress] = useState(0);
-
-      useEffect(() => {
-        const handleScroll = () => {
-          const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-          const currentProgress = (window.pageYOffset / totalScroll) * 100;
-          setScrollProgress(currentProgress);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
-
-      // Componentes de la interfaz
-      const SidebarItem = ({ id, label, icon: Icon }) => (
-        <button
-          onClick={() => setActiveTab(id)}
-          className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${activeTab === id
-              ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
-              : 'text-slate-600 hover:bg-slate-100'
-            }`}
+    <main class="container mx-auto px-6 py-16">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          Módulo Educativo: Inferencia Causal
+        </h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Aprendiendo a distinguir la correlación de la causalidad para una toma
+          de decisiones basada en evidencia robusta.
+        </p>
+        <!-- ENLACE DEL PDF CORREGIDO -->
+        <a
+          href="../assets/pdf/Inferencia-Causal.pdf"
+          download
+          class="mt-8 inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
         >
-          <Icon size={18} />
-          <span className="font-medium text-sm">{label}</span>
-        </button>
-      );
+          <i class="fas fa-download mr-2"></i> Descargar Resumen en PDF
+        </a>
+      </div>
 
-      return (
-        <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col md:flex-row">
-          {/* Sidebar Navigation */}
-          <aside className="w-full md:w-64 bg-white border-r border-slate-200 p-4 md:sticky md:top-0 md:h-screen z-10">
-            <div className="mb-8 flex items-center gap-2">
-              <div className="bg-blue-600 p-2 rounded-lg text-white">
-                <BrainCircuit size={24} />
-              </div>
-              <h1 className="font-bold text-xl tracking-tight text-blue-900 leading-tight">CausalMed</h1>
-            </div>
-
-            <nav className="space-y-1">
-              <SidebarItem id="introduccion" label="El Dilema de la TRH" icon={Microscope} />
-              <SidebarItem id="teoria" label="Resultados Potenciales" icon={GitBranch} />
-              <SidebarItem id="dags" label="Diagramas (DAGs)" icon={Activity} />
-              <SidebarItem id="metodos" label="Métodos de Ajuste" icon={Target} />
-              <SidebarItem id="quiz" label="Pon a Prueba tu Conocimiento" icon={HelpCircle} />
-            </nav>
-
-            <div className="absolute bottom-6 left-4 right-4 hidden md:block">
-              <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                <p className="text-xs text-blue-800 font-semibold mb-2">Progreso del curso</p>
-                <div className="w-full bg-blue-200 h-1.5 rounded-full overflow-hidden">
-                  <div
-                    className="bg-blue-600 h-full transition-all duration-300"
-                    style={{ width: `${scrollProgress}%` }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </aside>
-
-          {/* Main Content Area */}
-          <main className="flex-1 overflow-x-hidden">
-            <div className="max-w-4xl mx-auto p-6 md:p-12">
-              {activeTab === 'introduccion' && <IntroduccionSection />}
-              {activeTab === 'teoria' && <TeoriaSection />}
-              {activeTab === 'dags' && <DAGsSection />}
-              {activeTab === 'metodos' && <MetodosSection />}
-              {activeTab === 'quiz' && <QuizSection />}
-            </div>
-          </main>
-        </div>
-      );
-    };
-
-    // --- SECCIONES INDIVIDUALES ---
-
-    const IntroduccionSection = () => (
-      <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-        <header className="mb-12">
-          <span className="text-blue-600 font-bold tracking-widest uppercase text-xs mb-2 block">Caso de Estudio</span>
-          <h2 className="text-4xl font-extrabold text-slate-900 mb-4 leading-tight">El Salto Crítico: De la Asociación a la Causa</h2>
-          <p className="text-lg text-slate-600 max-w-2xl leading-relaxed">
-            La historia de la Terapia de Reemplazo Hormonal (TRH) es la lección más importante de la epidemiología moderna.
-          </p>
-        </header>
-
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-            <div className="bg-amber-100 text-amber-700 w-10 h-10 rounded-full flex items-center justify-center mb-4">
-              <AlertCircle size={20} />
-            </div>
-            <h3 className="font-bold text-xl mb-2">1980-2000: La Ilusión</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Estudios observacionales sugerían que las mujeres en TRH tenían un <strong>50% menos riesgo</strong> de cardiopatía coronaria. Se pensaba que el estrógeno era el "fármaco milagroso" para el corazón.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-            <div className="bg-blue-100 text-blue-700 w-10 h-10 rounded-full flex items-center justify-center mb-4">
-              <Stethoscope size={20} />
-            </div>
-            <h3 className="font-bold text-xl mb-2">2002: La Realidad</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">
-              El ensayo clínico aleatorizado (WHI) demostró lo contrario: la TRH <strong>aumentaba</strong> el riesgo de cardiopatía y cáncer de mama. La asociación anterior era espuria.
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-blue-900 text-white p-8 rounded-3xl relative overflow-hidden">
-          <div className="relative z-10">
-            <h3 className="text-2xl font-bold mb-4">¿Qué falló?</h3>
-            <p className="text-blue-100 mb-6 leading-relaxed">
-              El error fue el <strong>Sesgo del Usuario Sano</strong>. Las mujeres que tomaban TRH tenían mayor estatus socioeconómico, hacían más ejercicio y comían mejor. No era la hormona la que las protegía, sino su estilo de vida.
-            </p>
-            <div className="flex items-center gap-4 text-sm font-semibold text-blue-300 italic border-l-2 border-blue-500 pl-4">
-              "Correlación no implica causalidad, pero entender por qué existe la correlación es la esencia de la ciencia."
-            </div>
-          </div>
-          <div className="absolute top-0 right-0 -mr-16 -mt-16 bg-blue-800 w-64 h-64 rounded-full opacity-50 blur-3xl"></div>
-        </div>
-      </section>
-    );
-
-    const TeoriaSection = () => {
-      const [outcome, setOutcome] = useState('none');
-
-      return (
-        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <header className="mb-12">
-            <span className="text-blue-600 font-bold tracking-widest uppercase text-xs mb-2 block">Marco Teórico</span>
-            <h2 className="text-4xl font-extrabold text-slate-900 mb-4">Resultados Potenciales y el Contrafactual</h2>
-          </header>
-
-          <div className="bg-white p-8 rounded-2xl border border-slate-200 mb-12">
-            <h3 className="font-bold text-xl mb-6">Interactúa con el Experimento Mental</h3>
-            <p className="text-slate-600 mb-8 italic">¿Qué le sucede al Paciente X? Selecciona un escenario:</p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-              <button
-                onClick={() => setOutcome('treated')}
-                className={`px-6 py-4 rounded-xl font-bold transition-all border-2 ${outcome === 'treated' ? 'bg-indigo-600 text-white border-indigo-600 ring-4 ring-indigo-100' : 'bg-white text-indigo-600 border-indigo-100 hover:bg-indigo-50'}`}
-              >
-                Escenario A: Recibe Tratamiento
-              </button>
-              <button
-                onClick={() => setOutcome('control')}
-                className={`px-6 py-4 rounded-xl font-bold transition-all border-2 ${outcome === 'control' ? 'bg-slate-700 text-white border-slate-700 ring-4 ring-slate-100' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`}
-              >
-                Escenario B: No recibe nada (Control)
-              </button>
-            </div>
-
-            <div className="h-40 flex items-center justify-center bg-slate-50 rounded-2xl border border-dashed border-slate-300 p-6 text-center">
-              {outcome === 'none' && <p className="text-slate-400">Selecciona un escenario para ver el resultado potencial.</p>}
-              {outcome === 'treated' && (
-                <div className="animate-in zoom-in duration-300">
-                  <CheckCircle2 size={48} className="text-green-500 mx-auto mb-2" />
-                  <p className="font-bold text-slate-800">Resultado Observado: Mejora del síntoma (Y=1)</p>
-                  <p className="text-sm text-slate-500">¿Fue por el fármaco o por el azar?</p>
-                </div>
-              )}
-              {outcome === 'control' && (
-                <div className="animate-in zoom-in duration-300">
-                  <Activity size={48} className="text-rose-500 mx-auto mb-2" />
-                  <p className="font-bold text-slate-800">Resultado Contrafactual: No mejora (Y=0)</p>
-                  <p className="text-sm text-slate-500">Este escenario es invisible en la vida real.</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="border-l-4 border-blue-500 pl-6 py-2">
-              <h4 className="font-bold text-slate-900 mb-2">Intercambiabilidad</h4>
-              <p className="text-sm text-slate-600">El objetivo de la aleatorización es que el grupo control sea un sustituto perfecto del grupo tratado si este no hubiera sido tratado.</p>
-            </div>
-            <div className="border-l-4 border-amber-500 pl-6 py-2">
-              <h4 className="font-bold text-slate-900 mb-2">Estimandos (ATE vs ATT)</h4>
-              <p className="text-sm text-slate-600">¿Queremos saber el efecto en toda la población (ATE) o solo en los que realmente se trataron (ATT)?</p>
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const DAGsSection = () => {
-      const [activeConcept, setActiveConcept] = useState('confusor');
-
-      const concepts = {
-        confusor: {
-          title: "El Confusor (Backdoor)",
-          description: "Una variable que causa tanto el tratamiento como el resultado. Crea una asociación falsa.",
-          formula: "A ← C → Y",
-          action: "Se debe ajustar estadísticamente.",
-          color: "bg-blue-500"
-        },
-        colisionador: {
-          title: "El Colisionador",
-          description: "Una variable que es efecto de ambas. Ajustar por ella crea una asociación falsa.",
-          formula: "A → C ← Y",
-          action: "¡NUNCA se debe ajustar por un colisionador!",
-          color: "bg-rose-500"
-        },
-        mediador: {
-          title: "El Mediador",
-          description: "Variable en la cadena causal entre el tratamiento y el resultado.",
-          formula: "A → C → Y",
-          action: "Explica el mecanismo del efecto.",
-          color: "bg-emerald-500"
-        }
-      };
-
-      return (
-        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <header className="mb-12">
-            <span className="text-blue-600 font-bold tracking-widest uppercase text-xs mb-2 block">Visualización Causal</span>
-            <h2 className="text-4xl font-extrabold text-slate-900 mb-4">Diagramas Acíclicos Dirigidos (DAGs)</h2>
-            <p className="text-slate-600">Los DAGs nos permiten "ver" la estructura de la causalidad antes de tocar los datos.</p>
-          </header>
-
-          <div className="flex flex-wrap gap-2 mb-8">
-            {Object.keys(concepts).map((key) => (
-              <button
-                key={key}
-                onClick={() => setActiveConcept(key)}
-                className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${activeConcept === key ? 'bg-slate-900 text-white shadow-lg' : 'bg-white text-slate-500 border border-slate-200 hover:border-slate-400'}`}
-              >
-                {concepts[key].title}
-              </button>
-            ))}
-          </div>
-
-          <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-slate-100">
-            <div className={`h-2 ${concepts[activeConcept].color}`}></div>
-            <div className="p-8">
-              <div className="flex flex-col md:flex-row gap-8 items-center">
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold mb-4">{concepts[activeConcept].title}</h3>
-                  <p className="text-slate-600 mb-6 text-lg leading-relaxed">{concepts[activeConcept].description}</p>
-
-                  <div className="bg-slate-50 p-4 rounded-xl inline-block mb-6">
-                    <code className="text-2xl font-mono text-slate-800">{concepts[activeConcept].formula}</code>
-                  </div>
-
-                  <div className="flex items-start gap-3 bg-amber-50 p-4 rounded-xl border border-amber-100">
-                    <Info size={20} className="text-amber-600 flex-shrink-0 mt-1" />
-                    <p className="text-amber-800 font-medium">{concepts[activeConcept].action}</p>
-                  </div>
-                </div>
-
-                <div className="w-full md:w-1/3 flex justify-center py-12 bg-slate-50 rounded-2xl border border-slate-100">
-                  <div className="flex items-center gap-8 relative">
-                    {/* Visualización simplificada del DAG */}
-                    <div className="w-12 h-12 bg-white rounded-full border-4 border-blue-500 flex items-center justify-center font-bold shadow-sm">A</div>
-                    <div className="w-16 h-0.5 bg-slate-300 relative">
-                      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-2 h-2 bg-slate-300 rotate-45"></div>
-                    </div>
-                    <div className="w-12 h-12 bg-white rounded-full border-4 border-slate-800 flex items-center justify-center font-bold shadow-sm">Y</div>
-
-                    {activeConcept === 'confusor' && (
-                      <div className="absolute -top-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                        <div className="w-12 h-12 bg-white rounded-full border-4 border-amber-500 flex items-center justify-center font-bold shadow-sm">C</div>
-                        <div className="flex justify-between w-32 -mt-1">
-                          <div className="w-0.5 h-8 bg-amber-500 rotate-[45deg] origin-top"></div>
-                          <div className="w-0.5 h-8 bg-amber-500 -rotate-[45deg] origin-top"></div>
-                        </div>
-                      </div>
-                    )}
-                    {activeConcept === 'colisionador' && (
-                      <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
-                        <div className="flex justify-between w-32 -mb-1 rotate-180">
-                          <div className="w-0.5 h-8 bg-rose-500 rotate-[45deg] origin-top"></div>
-                          <div className="w-0.5 h-8 bg-rose-500 -rotate-[45deg] origin-top"></div>
-                        </div>
-                        <div className="w-12 h-12 bg-white rounded-full border-4 border-rose-500 flex items-center justify-center font-bold shadow-sm">C</div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const MetodosSection = () => {
-      const methods = [
-        {
-          name: "Propensity Score",
-          description: "Colapsa múltiples confusores en una sola probabilidad de ser tratado.",
-          pro: "Reduce la dimensionalidad.",
-          con: "No corrige por confusores no medidos."
-        },
-        {
-          name: "IPTW",
-          description: "Pondera a los pacientes inversamente a su probabilidad de tratamiento.",
-          pro: "Mantiene toda la muestra original.",
-          con: "Sensible a pesos extremos."
-        },
-        {
-          name: "Matching",
-          description: "Empareja a cada paciente tratado con uno no tratado 'clon' en sus características.",
-          pro: "Fácil de explicar clínicamente.",
-          con: "Se pierden datos si no hay 'parejas'."
-        }
-      ];
-
-      return (
-        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <header className="mb-12">
-            <span className="text-blue-600 font-bold tracking-widest uppercase text-xs mb-2 block">Herramientas</span>
-            <h2 className="text-4xl font-extrabold text-slate-900 mb-4 text-balance">Métodos para Imitar la Aleatorización</h2>
-          </header>
-
-          <div className="space-y-6">
-            {methods.map((m, i) => (
-              <div key={i} className="group bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-400 transition-all">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                    <div className="w-2 h-8 bg-blue-600 rounded-full group-hover:scale-y-125 transition-transform"></div>
-                    {m.name}
-                  </h3>
-                  <Zap size={20} className="text-slate-300 group-hover:text-amber-400 transition-colors" />
-                </div>
-                <p className="text-slate-600 mb-6">{m.description}</p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-green-50 p-3 rounded-lg">
-                    <span className="text-[10px] font-bold text-green-700 uppercase block mb-1">Ventaja</span>
-                    <p className="text-xs font-medium text-green-900">{m.pro}</p>
-                  </div>
-                  <div className="bg-rose-50 p-3 rounded-lg">
-                    <span className="text-[10px] font-bold text-rose-700 uppercase block mb-1">Limitación</span>
-                    <p className="text-xs font-medium text-rose-900">{m.con}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      );
-    };
-
-    const QuizSection = () => {
-      const [currentQuestion, setCurrentQuestion] = useState(0);
-      const [score, setScore] = useState(0);
-      const [showResult, setShowResult] = useState(false);
-      const [selectedOption, setSelectedOption] = useState(null);
-
-      const questions = [
-        {
-          q: "¿Por qué los estudios observacionales de TRH fallaron inicialmente?",
-          options: [
-            "Las dosis eran incorrectas.",
-            "El Sesgo del Usuario Sano (confusión).",
-            "Los investigadores mintieron.",
-            "No había suficientes pacientes."
-          ],
-          correct: 1
-        },
-        {
-          q: "Si ajustas por un colisionador en un DAG, ¿qué sucede?",
-          options: [
-            "Limpias el sesgo de confusión.",
-            "Descubres el mecanismo causal.",
-            "Introduces un sesgo de selección artificial.",
-            "La estimación se vuelve más precisa."
-          ],
-          correct: 2
-        },
-        {
-          q: "¿Qué método crea una 'pseudo-población' donde el tratamiento es independiente de los confusores?",
-          options: [
-            "Estratificación simple.",
-            "Regresión Lineal.",
-            "IPTW (Inversa de la Probabilidad).",
-            "Regresión de Cox."
-          ],
-          correct: 2
-        }
-      ];
-
-      const handleOptionClick = (idx) => {
-        if (selectedOption !== null) return;
-        setSelectedOption(idx);
-        if (idx === questions[currentQuestion].correct) {
-          setScore(score + 1);
-        }
-
-        setTimeout(() => {
-          if (currentQuestion < questions.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
-            setSelectedOption(null);
-          } else {
-            setShowResult(true);
-          }
-        }, 1500);
-      };
-
-      if (showResult) {
-        return (
-          <div className="bg-white p-12 rounded-3xl text-center shadow-xl border border-slate-100">
-            <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Target size={40} />
-            </div>
-            <h3 className="text-3xl font-bold mb-2 text-slate-900">¡Reto Completado!</h3>
-            <p className="text-slate-500 mb-8 text-lg">Has demostrado un gran entendimiento de la inferencia causal.</p>
-            <div className="text-6xl font-black text-blue-600 mb-8">{Math.round((score / questions.length) * 100)}%</div>
-            <button
-              onClick={() => {
-                setCurrentQuestion(0);
-                setScore(0);
-                setShowResult(false);
-                setSelectedOption(null);
-              }}
-              className="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800 transition-colors"
+      <!-- Contenedor del Acordeón -->
+      <div class="max-w-5xl mx-auto space-y-4">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition"
+          >
+            <span class="text-xl font-bold text-gray-800 font-lora"
+              >1. Presentación: De la Asociación a la Causa</span
             >
-              Reintentar Quiz
-            </button>
+            <svg
+              class="w-6 h-6 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div id="presentacion-container-wrapper" class="py-6"></div>
           </div>
-        );
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition"
+          >
+            <span class="text-xl font-bold text-gray-800 font-lora"
+              >2. Actividad Práctica: Desenmascarando el Sesgo</span
+            >
+            <svg
+              class="w-6 h-6 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div id="actividad-container-wrapper" class="py-6"></div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <button
+            class="accordion-button w-full text-left p-6 flex justify-between items-center bg-white hover:bg-gray-50 transition"
+          >
+            <span class="text-xl font-bold text-gray-800 font-lora"
+              >3. Autoevaluación: Ponte a Prueba</span
+            >
+            <svg
+              class="w-6 h-6 text-gray-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <div id="quiz-container-wrapper" class="py-6"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-white mt-20">
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>
+          &copy; 2024 Universidad Central del Ecuador. Todos los derechos
+          reservados.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // --- LÓGICA DEL ACORDEÓN ---
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        accordionButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const content = button.nextElementSibling;
+            button.classList.toggle('open');
+            if (content.style.maxHeight) {
+              content.style.maxHeight = null;
+              content.style.padding = '0 2rem';
+            } else {
+              content.style.maxHeight = content.scrollHeight + 2000 + 'px';
+              content.style.padding = '1.5rem 2rem';
+            }
+          });
+        });
+
+        // --- INYECCIÓN DE CONTENIDO ---
+        injectPresentation();
+        injectActivity();
+        injectQuiz();
+
+        // --- INICIALIZACIÓN DE ARTEFACTOS ---
+        initPresentation();
+        initQuiz();
+      });
+
+      // =================================================================================
+      // 1. PRESENTACIÓN
+      // =================================================================================
+      let presentationCurrentSlide = 0;
+      const slidesData = [
+        {
+          title: 'Inferencia Causal en la Práctica Clínica',
+          subtitle: 'De la Correlación a la Causa',
+          content: `<div class="text-center"><p class="text-xl">Curso: Medicina y Ciencia (Razonamiento Clínico)</p><p class="mt-2">Profesor: Dr. Alcy Torres</p><div class="mt-8 text-5xl text-indigo-500"><i class="fas fa-university"></i></div><p class="mt-2 text-lg font-semibold">Universidad Central del Ecuador</p></div>`,
+          notes:
+            'Bienvenidos. Hoy abordaremos uno de los desafíos intelectuales más importantes en medicina: cómo pasar de observar que dos cosas ocurren juntas a concluir que una causa la otra. Este es el núcleo del razonamiento clínico basado en evidencia.',
+        },
+        {
+          title: 'Cuando la Asociación Engaña: El Caso de la TRH',
+          content: `<div class="grid md:grid-cols-2 gap-6 text-center"><div class="bg-blue-50 p-4 rounded-lg"><p class="font-semibold text-lg text-blue-800">Estudios Observacionales (1970s-1990s)</p><p class="mt-2">"La Terapia de Reemplazo Hormonal (TRH) reduce el riesgo cardiovascular un 30-50%."</p></div><div class="bg-red-50 p-4 rounded-lg"><p class="font-semibold text-lg text-red-800">Ensayo Clínico Aleatorizado (WHI, 2002)</p><p class="mt-2">"La TRH aumenta el riesgo de infarto, ACV y cáncer de mama."</p></div></div><p class="mt-8 text-center text-xl">¿Por qué esta dramática contradicción?</p>`,
+          notes:
+            'Este es quizás el ejemplo más famoso en epidemiología moderna de cómo la evidencia observacional puede llevar a conclusiones erróneas. Durante años, creímos que la TRH protegía el corazón. Un riguroso ensayo clínico demostró lo contrario. La pregunta es: ¿por qué? La respuesta es la clave de la inferencia causal.',
+        },
+        {
+          title: 'Tres Tipos de Preguntas, Tres Objetivos Distintos',
+          content: `<div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead><tr><th class="border-b-2 p-3 font-lora text-lg">Tipo de Pregunta</th><th class="border-b-2 p-3 font-lora text-lg">Objetivo</th><th class="border-b-2 p-3 font-lora text-lg">Ejemplo</th></tr></thead><tbody><tr><td class="border-b p-3 font-semibold">Descriptiva</td><td class="border-b p-3">¿Qué tan común es?</td><td class="border-b p-3">Prevalencia de HTA en Quito.</td></tr><tr><td class="border-b p-3 font-semibold">Predictiva</td><td class="border-b p-3">¿Qué pasará?</td><td class="border-b p-3">Riesgo de reingreso hospitalario.</td></tr><tr class="bg-indigo-50"><td class="border-b p-3 font-semibold text-indigo-800">Causal</td><td class="border-b p-3 text-indigo-800">¿Por qué pasa? ¿Funciona?</td><td class="border-b p-3 text-indigo-800">Efecto de un fármaco vs. placebo.</td></tr></tbody></table></div>`,
+          notes:
+            'Antes de analizar datos, debemos tener claro qué tipo de pregunta estamos haciendo. Predecir quién se enfermará es diferente de entender qué causa la enfermedad. La inferencia causal se ocupa exclusivamente de la tercera pregunta.',
+        },
+        {
+          title: `El Mundo de los "Qué Hubiera Pasado Si..."`,
+          subtitle: 'El Marco Contrafactual',
+          content: `<p>Para un paciente, Sr. Pérez, existen dos realidades potenciales:</p><ul class="list-disc list-inside mt-4 space-y-2 text-lg"><li><span class="font-mono bg-gray-100 p-1 rounded">Y<sup>a=1</sup></span>: Su resultado si recibe el tratamiento A.</li><li><span class="font-mono bg-gray-100 p-1 rounded">Y<sup>a=0</sup></span>: Su resultado si NO recibe el tratamiento A.</li></ul><p class="mt-6 font-semibold text-2xl text-center text-indigo-700">Efecto Causal Individual = Y<sup>a=1</sup> - Y<sup>a=0</sup></p>`,
+          notes:
+            "La inferencia causal moderna se basa en la idea de 'resultados potenciales' o 'contrafactuales'. Para cualquier individuo, imaginamos dos realidades paralelas: una en la que recibe el tratamiento y otra en la que no. El efecto causal es la diferencia entre esas dos realidades.",
+        },
+        {
+          title: 'El Problema Fundamental de la Inferencia Causal',
+          content: `<div class="text-center"><p class="text-2xl mb-4">¡Solo podemos observar <span class="font-bold text-red-600">UNA</span> de las dos realidades!</p><p class="text-lg">Si el Sr. Pérez toma el fármaco, observamos <span class="font-mono bg-gray-100 p-1 rounded">Y<sup>a=1</sup></span>. Su <span class="font-mono bg-gray-100 p-1 rounded">Y<sup>a=0</sup></span> es para siempre inobservable (contrafactual).</p><p class="mt-8 text-xl font-bold">Conclusión: El efecto causal individual no se puede medir directamente.</p></div>`,
+          notes:
+            'Este es el núcleo del problema. Nunca podremos saber con certeza qué le habría pasado a un paciente individual si se hubiera tomado una decisión diferente. Por eso, nuestro objetivo se desplaza de lo individual a lo poblacional.',
+        },
+        {
+          title: 'La Solución del Diseño: El Ensayo Clínico Aleatorizado (ECA)',
+          content: `<p>La aleatorización crea <strong>intercambiabilidad</strong>: los grupos son comparables en TODAS las características basales (medidas y no medidas).</p><div class="my-6 text-center text-3xl text-gray-700 flex justify-around items-center"><i class="fas fa-users"></i><i class="fas fa-arrow-right text-indigo-500"></i><i class="fas fa-random text-indigo-500"></i><i class="fas fa-arrow-right text-indigo-500"></i><div><i class="fas fa-pills text-green-500"></i><br><i class="fas fa-tablets text-red-500"></i></div></div><p>El grupo control se convierte en un excelente sustituto del contrafactual del grupo de tratamiento.</p><p class="mt-6 text-xl font-bold text-center text-green-700">En un ECA ideal: Asociación = Causalidad.</p>`,
+          notes:
+            'La aleatorización es la herramienta de diseño más poderosa que tenemos. Al asignar el tratamiento al azar, nos aseguramos de que la única diferencia sistemática entre los grupos sea el tratamiento mismo. Así, cualquier diferencia en los resultados puede atribuirse causalmente a la intervención.',
+        },
+        {
+          title: 'Amenaza #1: Confusión (Confounding)',
+          content: `<p>Un sesgo causado por una <strong>causa común</strong> de la exposición y el resultado.</p><p class="mt-4"><strong>Ejemplo TRH:</strong></p><div class="my-4 p-4 bg-gray-100 rounded-lg text-center font-mono text-lg">Estilo de Vida Saludable (C) ⟶ Uso de TRH (A)<br>Estilo de Vida Saludable (C) ⟶ Menor Riesgo CV (Y)</div><p>Esto crea una ruta de asociación espuria: <span class="font-mono">A ← C → Y</span>, que se confunde con el efecto real <span class="font-mono">A → Y</span>.</p>`,
+          notes:
+            'En el mundo real, la gente no recibe tratamientos al azar. En el caso de la TRH, las mujeres más sanas eran más propensas a tomarla. Su buena salud (el confusor) causaba tanto su uso de TRH como su bajo riesgo cardíaco, creando la falsa impresión de que la TRH era protectora.',
+        },
+        {
+          title: 'Amenaza #2: Sesgo de Colisión (Collider Bias)',
+          content: `<p>Un sesgo causado por condicionar en un <strong>efecto común</strong> de la exposición y el resultado.</p><div class="my-4 p-4 bg-gray-100 rounded-lg text-center font-mono text-lg">Exposición (A) ⟶ Colisionador (C) ← Resultado (Y)</div><p class="font-bold text-red-600 mt-4 text-xl">Regla contraintuitiva:</p><p class="text-lg">Ajustar por un <span class="font-semibold">confusor</span> <span class="text-green-600">elimina</span> el sesgo. <br>Ajustar por un <span class="font-semibold">colisionador</span> <span class="text-red-600">CREA</span> sesgo.</p>`,
+          notes:
+            'Este es uno de los conceptos más difíciles pero más importantes. A diferencia de la confusión, donde el problema es no controlar por algo, aquí el problema surge precisamente por controlar o seleccionar en base a una variable.',
+        },
+        {
+          title: 'Ejemplo de Colisionador: La Paradoja de la Obesidad',
+          content: `<p><strong>Población general:</strong> Obesidad → ↑ Mortalidad</p><p><strong>Población de *solo diabéticos*:</strong> Obesidad → ↓ Mortalidad (aparente)</p><p class="mt-4"><strong>Diagrama Causal:</strong></p><div class="my-2 p-4 bg-gray-100 rounded-lg text-center font-mono">Obesidad ⟶ Diabetes ← Otros Factores de Riesgo<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mortalidad</div><p>Estudiar solo a diabéticos es condicionar en un colisionador (Diabetes).</p>`,
+          notes:
+            "Al seleccionar solo pacientes diabéticos, creamos una asociación negativa espuria entre la obesidad y otros factores de riesgo más letales. Dentro de este grupo, los obesos parecen más sanos porque tienen 'menos espacio' para tener las otras causas de diabetes.",
+        },
+        {
+          title:
+            'Un Mapa para el Razonamiento: Diagramas Acíclicos Dirigidos (DAGs)',
+          content: `<ul class="list-disc list-inside space-y-3 text-lg"><li><strong>Nodos:</strong> Variables.</li><li><strong>Flechas:</strong> Efectos causales directos.</li><li><strong>Rutas de Puerta Trasera (Back-door):</strong> Rutas no causales que generan confusión (ej. <span class="font-mono bg-gray-100 p-1 rounded">A ← C → Y</span>).</li></ul><p class="mt-8 text-2xl font-bold text-center text-indigo-700">Objetivo: Bloquear todas las rutas de puerta trasera.</p>`,
+          notes:
+            'Los DAGs son nuestra herramienta para poner nuestras suposiciones en papel de forma rigurosa. Nos ayudan a visualizar dónde puede surgir la confusión y cómo podemos solucionarlo.',
+        },
+        {
+          title:
+            'La Regla de Oro para el Ajuste: El Criterio de la Puerta Trasera',
+          content: `<p class="text-lg">Un conjunto de variables Z es un conjunto de ajuste suficiente si:</p><ol class="list-decimal list-inside mt-4 space-y-3 text-lg"><li>Z <strong>no contiene ningún descendiente</strong> (efecto) de la exposición.</li><li>Z <strong>bloquea todas las rutas de puerta trasera</strong> entre la exposición y el resultado.</li></ol><p class="mt-6 text-lg">Si encontramos tal Z con nuestras variables medidas, el efecto causal es <strong>identificable</strong>.</p>`,
+          notes:
+            'Esta es la regla formal que nos guía. La primera condición es clave: nunca ajustes por algo que ocurrió *después* del tratamiento si quieres saber el efecto total, ya que podría ser parte del mecanismo (mediador) o un colisionador.',
+        },
+        {
+          title: 'Aplicando el DAG al Caso TRH',
+          content: `<p>Un DAG simplificado para la TRH y la Enfermedad Coronaria (EC):</p><div class="my-6 text-center">[Diagrama de un DAG con nodos para TRH, EC, Edad, NSE, Síntomas Menopáusicos]</div><p class="font-mono p-4 bg-gray-100 rounded-lg text-lg">TRH ← Edad → EC<br>TRH ← NSE → EC<br>Síntomas → TRH → EC</p><p class="mt-4 text-lg">Edad y Nivel Socioeconómico (NSE) son confusores que abren rutas de puerta trasera. Deben ser ajustados.</p>`,
+          notes:
+            'Aquí vemos cómo el NSE y la Edad son confusores clásicos. Abren rutas de puerta trasera que necesitamos bloquear. ¿Qué variables deberíamos incluir en nuestro análisis para obtener una estimación insesgada del efecto de la TRH?',
+        },
+        {
+          title: 'Métodos Prácticos: El Score de Propensión (SP)',
+          content: `<p class="text-lg"><strong>Definición:</strong> <span class="font-mono bg-gray-100 p-1 rounded">SP = P(Tratamiento=1 | Confusores)</span></p><p class="mt-4 text-lg">Es la probabilidad predicha de recibir el tratamiento, dadas las características del paciente.</p><p class="mt-6 text-lg"><strong>Idea Clave:</strong> Colapsa múltiples confusores en una sola variable. Permite comparar pacientes tratados y no tratados que tenían una probabilidad similar de ser tratados a priori ("manzanas con manzanas").</p>`,
+          notes:
+            'El score de propensión es una herramienta muy utilizada en la literatura médica. En lugar de ajustar por 10 o 20 confusores, ajustamos por una sola variable que los resume: la propensión a ser tratado.',
+        },
+        {
+          title: 'Técnica 1: Emparejamiento por SP (PS Matching)',
+          content: `<p class="text-lg">Se empareja cada paciente tratado con un control con un SP similar. Se descartan los no emparejados.</p><div class="my-6 text-center">[Diagrama mostrando un grupo de tratados y un grupo de controles, con líneas que los emparejan según el SP]</div><p class="text-lg">Crea una subpoblación "equilibrada" que se asemeja a un ECA.</p><p class="mt-4 font-semibold text-lg">Estima el <strong>ATT</strong> (Efecto Promedio del Tratamiento en los Tratados).</p>`,
+          notes:
+            "El emparejamiento es muy intuitivo. Buscamos un 'clon' estadístico para cada paciente tratado. La pregunta que responde es: ¿cuál fue el efecto del tratamiento en el tipo de pacientes que lo recibieron?",
+        },
+        {
+          title: 'Técnica 2: Ponderación por Inverso de Probabilidad (IPTW)',
+          content: `<p class="text-lg">Se asigna un peso a cada paciente: <span class="font-mono bg-gray-100 p-1 rounded">Peso = 1 / P(recibir_tratamiento_real)</span>.</p><div class="my-6 text-center">[Diagrama mostrando que a los pacientes 'sorprendentes' se les da más peso]</div><p class="text-lg">Crea una "pseudo-población" ponderada y equilibrada.</p><p class="mt-4 font-semibold text-lg">Estima el <strong>ATE</strong> (Efecto Promedio del Tratamiento en la Población Total).</p>`,
+          notes:
+            "IPTW es un poco menos intuitivo. En lugar de descartar, re-ponderamos. A los pacientes 'sorprendentes' (ej. un paciente muy sano que recibió un tratamiento de alto riesgo) se les da más peso. Responde a una pregunta de salud pública: ¿cuál sería el efecto si todos en la población fueran tratados?",
+        },
+        {
+          title: 'ATE vs. ATT: Una Decisión Crucial',
+          content: `<div class="grid md:grid-cols-2 gap-6"><div class="p-4 bg-blue-50 rounded-lg border border-blue-200"><h4 class="font-bold text-blue-800 text-xl font-lora">ATE (Salud Pública)</h4><p class="mt-2">¿Deberíamos implementar esta política para <strong>todos</strong>?</p><p class="mt-2"><strong>Ej:</strong> Programa de vacunación nacional.</p><p class="mt-1 font-semibold">Método: IPTW.</p></div><div class="p-4 bg-green-50 rounded-lg border border-green-200"><h4 class="font-bold text-green-800 text-xl font-lora">ATT (Decisión Clínica)</h4><p class="mt-2">¿Cuál es el efecto en los pacientes que <strong>eligieron</strong> este tratamiento?</p><p class="mt-2"><strong>Ej:</strong> Cirugía electiva.</p><p class="mt-1 font-semibold">Método: PS Matching.</p></div></div>`,
+          notes:
+            'La elección entre ATE y ATT no es técnica, es conceptual. Depende de la pregunta que queramos responder y a quién se aplicará la decisión. Es fundamental leer los estudios críticamente para entender qué efecto están estimando.',
+        },
+        {
+          title: 'Conclusiones para el Razonamiento Clínico',
+          content: `<ul class="space-y-4 text-lg"><li class="flex items-start"><i class="fas fa-check-circle text-indigo-500 mr-3 mt-1"></i><span>La asociación no es causalidad. ¡Cuidado con el sesgo del usuario sano!</span></li><li class="flex items-start"><i class="fas fa-check-circle text-indigo-500 mr-3 mt-1"></i><span>La inferencia causal requiere supuestos explícitos (DAGs).</span></li><li class="flex items-start"><i class="fas fa-check-circle text-indigo-500 mr-3 mt-1"></i><span>La confusión (causas comunes) y el sesgo de colisión (efectos comunes) son las principales amenazas.</span></li><li class="flex items-start"><i class="fas fa-check-circle text-indigo-500 mr-3 mt-1"></i><span>Los métodos como el score de propensión intentan imitar un ECA, pero solo pueden controlar por los confusores <strong>medidos</strong>.</span></li><li class="flex items-start"><i class="fas fa-check-circle text-indigo-500 mr-3 mt-1"></i><span>Siempre pregunte: ¿Qué efecto se está estimando (ATE vs. ATT) y para qué población?</span></li></ul>`,
+          notes:
+            'En resumen, la inferencia causal nos proporciona un marco para pensar de manera más crítica y estructurada sobre la evidencia. Nos obliga a ser humildes sobre lo que podemos concluir de los datos observacionales y a ser explícitos sobre nuestras suposiciones.',
+        },
+        {
+          title: 'Preguntas y Discusión',
+          content: `<div class="text-center flex flex-col justify-center items-center h-full"><h3 class="text-5xl font-bold text-gray-800">Gracias</h3><i class="far fa-comments text-6xl text-gray-400 my-12"></i><p class="text-xl">Se abre el espacio para preguntas y discusión.</p></div>`,
+          notes:
+            'Ahora me gustaría abrir el espacio para sus preguntas y discutir cómo estos conceptos se aplican a sus propias experiencias clínicas y de investigación.',
+        },
+      ];
+      let presentationSlidesElements = [];
+
+      function injectPresentation() {
+        const presentationHTML = `
+    <div class="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden mx-auto">
+        <div id="presentation-container">
+            <!-- Slides will be injected here -->
+        </div>
+        <div class="bg-gray-50 p-4 flex justify-between items-center border-t">
+            <button id="presentation-prev-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
+            <div id="presentation-counter" class="text-sm text-gray-600"></div>
+            <button id="presentation-next-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Siguiente</button>
+        </div>
+    </div>`;
+        document.getElementById('presentacion-container-wrapper').innerHTML =
+          presentationHTML;
       }
 
-      return (
-        <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <header className="mb-12">
-            <span className="text-blue-600 font-bold tracking-widest uppercase text-xs mb-2 block">CheckPoint</span>
-            <h2 className="text-4xl font-extrabold text-slate-900 mb-2">Evaluación Rápida</h2>
-            <p className="text-slate-500">Pregunta {currentQuestion + 1} de {questions.length}</p>
-          </header>
-
-          <div className="bg-white p-8 rounded-3xl shadow-lg border border-slate-100">
-            <h3 className="text-xl font-bold text-slate-900 mb-8 leading-relaxed">
-              {questions[currentQuestion].q}
-            </h3>
-
-            <div className="space-y-3">
-              {questions[currentQuestion].options.map((opt, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleOptionClick(i)}
-                  className={`w-full text-left p-4 rounded-xl border-2 font-medium transition-all flex justify-between items-center ${selectedOption === null
-                      ? 'border-slate-100 hover:border-blue-500 hover:bg-blue-50'
-                      : i === questions[currentQuestion].correct
-                        ? 'border-green-500 bg-green-50 text-green-700'
-                        : selectedOption === i
-                          ? 'border-rose-500 bg-rose-50 text-rose-700'
-                          : 'border-slate-50 opacity-50'
-                    }`}
-                >
-                  {opt}
-                  {selectedOption !== null && i === questions[currentQuestion].correct && <CheckCircle2 size={18} />}
-                  {selectedOption === i && i !== questions[currentQuestion].correct && <AlertCircle size={18} />}
-                </button>
-              ))}
+      function initPresentation() {
+        const container = document.getElementById('presentation-container');
+        container.innerHTML = slidesData
+          .map(
+            (slide) => `
+        <div class="presentation-slide p-8 md:p-12">
+            <div class="presentation-slide-content flex flex-col justify-center">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">${slide.title}</h3>
+                ${slide.subtitle ? `<h4 class="text-2xl text-gray-500 mb-8">${slide.subtitle}</h4>` : ''}
+                <div class="prose max-w-none prose-lg">${slide.content}</div>
             </div>
-          </div>
-        </section>
-      );
-    };
+        </div>`,
+          )
+          .join('');
+        presentationSlidesElements = container.querySelectorAll(
+          '.presentation-slide',
+        );
 
-    const root = createRoot(document.getElementById('root'));
-    root.render(<App />);
+        document
+          .getElementById('presentation-prev-btn')
+          .addEventListener('click', () => navigatePresentation(-1));
+        document
+          .getElementById('presentation-next-btn')
+          .addEventListener('click', () => navigatePresentation(1));
 
-  </script>
-</body>
+        updatePresentation();
+      }
 
+      function updatePresentation() {
+        presentationSlidesElements.forEach((slide, index) => {
+          slide.classList.toggle(
+            'presentation-active-slide',
+            index === presentationCurrentSlide,
+          );
+        });
+        document.getElementById('presentation-counter').textContent =
+          `Diapositiva ${presentationCurrentSlide + 1} de ${slidesData.length}`;
+        document.getElementById('presentation-prev-btn').disabled =
+          presentationCurrentSlide === 0;
+        document.getElementById('presentation-next-btn').disabled =
+          presentationCurrentSlide === slidesData.length - 1;
+      }
+
+      function navigatePresentation(direction) {
+        presentationCurrentSlide += direction;
+        updatePresentation();
+      }
+
+      // =================================================================================
+      // 2. ACTIVIDAD INTERACTIVA
+      // =================================================================================
+      function injectActivity() {
+        const activityHTML = `
+    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+        <h3 class="text-2xl font-bold mb-4 text-indigo-800">Desenmascarando el Sesgo: Un Análisis Causal del Caso TRH</h3>
+        <p class="mb-4"><strong>Objetivo:</strong> Aplicar los conceptos de DAGs y el Criterio de la Puerta Trasera para diseñar un estudio observacional hipotético sobre el efecto de la TRH en la enfermedad coronaria, utilizando la herramienta web <a href="http://www.dagitty.net/" target="_blank" class="text-indigo-600 hover:underline font-medium">dagitty.net</a>.</p>
+        <p class="mb-4"><strong>Duración:</strong> 45-60 minutos.</p>
+        
+        <div class="space-y-6">
+            <div>
+                <h4 class="text-xl font-semibold mb-2 font-lora">Paso 1: Introducción y Formación de Grupos (5 min)</h4>
+                <p>El instructor recapitula el caso de la TRH y el concepto de confusión. Se divide a la clase en grupos de 3-4 estudiantes. El objetivo es diseñar el mejor estudio observacional posible para estimar el efecto causal de la TRH en la enfermedad coronaria, como si estuvieran en 1995.</p>
+            </div>
+            <div>
+                <h4 class="text-xl font-semibold mb-2 font-lora">Paso 2: Presentación de Variables y Herramienta (5 min)</h4>
+                <p class="mb-2">Se presenta la lista de variables a considerar:</p>
+                <ul class="list-disc list-inside bg-gray-100 p-4 rounded-lg">
+                    <li><strong>Exposición (A):</strong> Uso de TRH (Sí/No)</li>
+                    <li><strong>Resultado (Y):</strong> Enfermedad Coronaria (EC) (Sí/No)</li>
+                    <li><strong>Variables Potenciales (Z):</strong> Edad, Nivel Socioeconómico (NSE), Síntomas Menopáusicos, Visitas al Médico, Tabaquismo, Estilo de Vida (Dieta/Ejercicio), Presión Arterial Basal.</li>
+                </ul>
+                <p class="mt-2">Se instruye a los grupos a abrir <a href="http://www.dagitty.net/" target="_blank" class="text-indigo-600 hover:underline font-medium">dagitty.net</a>.</p>
+            </div>
+            <div>
+                <h4 class="text-xl font-semibold mb-2 font-lora">Paso 3: Construcción del DAG en Grupos (15-20 min)</h4>
+                <p>Los grupos discuten y dibujan un DAG que represente sus supuestos causales. El instructor circula y guía con preguntas:</p>
+                <ul class="list-disc list-inside mt-2">
+                    <li>"¿La edad afecta la decisión de tomar TRH? ¿Y el riesgo de EC? ¿Qué tipo de variable es?"</li>
+                    <li>"¿Qué pasa con los 'síntomas menopáusicos'? ¿Causan el uso de TRH?"</li>
+                    <li>"Piensen en 'visitas al médico'. ¿Es una causa, un efecto, o podría ser un colisionador?"</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xl font-semibold mb-2 font-lora">Paso 4: Identificación del Conjunto de Ajuste y Discusión (15-20 min)</h4>
+                <p>Los grupos usan \`dagitty.net\` para identificar el conjunto de ajuste mínimo necesario. Luego, presentan sus DAGs y hallazgos. Se modera una discusión sobre las diferencias, por qué ciertas variables son confusores y por qué no se debe ajustar por mediadores.</p>
+            </div>
+            <div>
+                <h4 class="text-xl font-semibold mb-2 font-lora">Paso 5: Cierre y Conclusión (5 min)</h4>
+                <p>Se resumen los hallazgos, enfatizando que diferentes DAGs (supuestos) llevan a diferentes análisis. Se conecta la actividad con el resultado real del estudio WHI, explicando que los ECAs son la única forma de romper todas las rutas de puerta trasera, incluidas las no medidas.</p>
+            </div>
+        </div>
+    </div>`;
+        document.getElementById('actividad-container-wrapper').innerHTML =
+          activityHTML;
+      }
+
+      // =================================================================================
+      // 3. AUTOEVALUACIÓN (QUIZ)
+      // =================================================================================
+      let quizCurrentQuestionIndex = 0;
+      let quizScore = 0;
+      const quizData = [
+        {
+          question:
+            "1. Un estudio observacional encuentra que las personas que beben café tienen tasas más bajas de depresión. Sin embargo, las personas que beben café también tienden a hacer más ejercicio. En este escenario, ¿qué papel juega probablemente el 'ejercicio'?",
+          options: ['Mediador', 'Colisionador', 'Confusor', 'Efecto causal'],
+          answer: 'Confusor',
+          explanation:
+            'Correcto. El ejercicio es una causa común tanto de beber café (exposición) como de tener tasas más bajas de depresión (resultado), creando una ruta de puerta trasera. Por lo tanto, es un confusor.',
+        },
+        {
+          question:
+            "2. ¿Cuál es el 'Problema Fundamental de la Inferencia Causal'?",
+          options: [
+            'Es difícil reclutar suficientes pacientes para los estudios.',
+            'Es imposible observar simultáneamente el resultado de un individuo bajo tratamiento y sin tratamiento.',
+            'Los estudios observacionales siempre están sesgados.',
+            'La aleatorización a veces puede fallar.',
+          ],
+          answer:
+            'Es imposible observar simultáneamente el resultado de un individuo bajo tratamiento y sin tratamiento.',
+          explanation:
+            'Correcto. Este es el núcleo del problema, ya que el efecto causal individual se define por la comparación entre el resultado factual y el contrafactual, y solo uno puede ser observado.',
+        },
+        {
+          question:
+            "3. Un ECA es el 'estándar de oro' porque la aleatorización, en una muestra grande, asegura:",
+          options: [
+            'Que el efecto del tratamiento será grande.',
+            'La intercambiabilidad entre el grupo de tratamiento y el de control.',
+            'Que todos los pacientes recibirán el tratamiento correcto.',
+            'Que no habrá abandonos en el estudio.',
+          ],
+          answer:
+            'La intercambiabilidad entre el grupo de tratamiento y el de control.',
+          explanation:
+            'Correcto. La intercambiabilidad significa que los grupos son comparables en todas las variables basales (medidas y no medidas), lo que permite que el grupo de control sirva como un sustituto válido del contrafactual.',
+        },
+        {
+          question:
+            '4. ¿Qué estimando causal se asocia típicamente con la Ponderación por el Inverso de la Probabilidad de Tratamiento (IPTW) y qué tipo de pregunta responde?',
+          options: [
+            'ATT; responde a una pregunta de decisión clínica para pacientes ya tratados.',
+            'ATE; responde a una pregunta de política de salud pública sobre la población total.',
+            'ATT; responde a una pregunta de salud pública.',
+            'ATE; responde a una pregunta de decisión clínica.',
+          ],
+          answer:
+            'ATE; responde a una pregunta de política de salud pública sobre la población total.',
+          explanation:
+            'Correcto. IPTW crea una pseudo-población que representa a la población total, por lo que estima el Efecto Promedio del Tratamiento (ATE), que es relevante para políticas de salud pública.',
+        },
+        {
+          question:
+            '5. Observe el DAG: A ← C → Y. Para estimar el efecto causal de A en Y, ¿qué debe hacer con la variable C?',
+          options: [
+            'Ignorarla.',
+            'Ajustar por ella (controlarla en el análisis).',
+            'Estratificar por A.',
+            'Medir un colisionador.',
+          ],
+          answer: 'Ajustar por ella (controlarla en el análisis).',
+          explanation:
+            'Correcto. C es un confusor (una causa común de A e Y), por lo que abre una ruta de puerta trasera. Ajustar por C bloquea esta ruta y elimina la confusión.',
+        },
+      ];
+
+      function injectQuiz() {
+        const quizHTML = `
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-lg overflow-hidden mx-auto">
+        <div id="quiz-container-main" class="p-8"></div>
+        <div id="quiz-results-container" class="p-8 text-center" style="display: none;">
+            <h3 class="text-3xl font-bold text-gray-800 mb-4 font-lora">Resultados Finales</h3>
+            <p id="quiz-score" class="text-5xl font-bold text-indigo-600 mb-6"></p>
+            <p id="quiz-feedback-message" class="text-lg mb-8"></p>
+            <button id="quiz-restart-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition">Intentar de Nuevo</button>
+        </div>
+    </div>`;
+        document.getElementById('quiz-container-wrapper').innerHTML = quizHTML;
+      }
+
+      function initQuiz() {
+        document.getElementById('quiz-container-main').innerHTML = `
+        <div class="text-center">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 font-lora">Autoevaluación Interactiva</h3>
+            <p class="text-gray-600 mb-6">Pon a prueba tu conocimiento sobre inferencia causal.</p>
+            <button id="quiz-start-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg">Iniciar Quiz</button>
+        </div>`;
+        document
+          .getElementById('quiz-start-btn')
+          .addEventListener('click', quizStart);
+        document
+          .getElementById('quiz-restart-btn')
+          .addEventListener('click', quizRestart);
+      }
+
+      function quizStart() {
+        quizCurrentQuestionIndex = 0;
+        quizScore = 0;
+        document.getElementById('quiz-results-container').style.display =
+          'none';
+        document.getElementById('quiz-container-main').style.display = 'block';
+        showQuizQuestion();
+      }
+
+      function showQuizQuestion() {
+        const q = quizData[quizCurrentQuestionIndex];
+        const optionsHtml = q.options
+          .map(
+            (option) =>
+              `<button class="quiz-option-btn w-full text-left p-4 bg-white border-2 border-gray-200 rounded-lg">${option}</button>`,
+          )
+          .join('');
+
+        document.getElementById('quiz-container-main').innerHTML = `
+        <p class="text-sm text-gray-500 mb-2">Pregunta ${quizCurrentQuestionIndex + 1} de ${quizData.length}</p>
+        <p class="text-lg font-medium text-gray-800 mb-6">${q.question}</p>
+        <div class="space-y-3" id="quiz-options">${optionsHtml}</div>
+        <div id="quiz-explanation" class="quiz-explanation"></div>
+        <button id="quiz-next-btn" class="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg w-full" style="display:none;"></button>
+    `;
+
+        document.querySelectorAll('.quiz-option-btn').forEach((btn) => {
+          btn.addEventListener('click', () => selectQuizAnswer(btn.innerText));
+        });
+      }
+
+      function selectQuizAnswer(selectedOption) {
+        const question = quizData[quizCurrentQuestionIndex];
+        const optionButtons = document.querySelectorAll(
+          '#quiz-options .quiz-option-btn',
+        );
+
+        optionButtons.forEach((btn) => {
+          btn.disabled = true;
+          if (btn.innerText === question.answer) {
+            btn.classList.add('quiz-correct');
+          } else if (btn.innerText === selectedOption) {
+            btn.classList.add('quiz-incorrect');
+          }
+        });
+
+        if (selectedOption === question.answer) {
+          quizScore++;
+        }
+
+        const explanationEl = document.getElementById('quiz-explanation');
+        explanationEl.innerHTML = `<p>${question.explanation}</p>`;
+        explanationEl.style.display = 'block';
+
+        const nextBtn = document.getElementById('quiz-next-btn');
+        nextBtn.innerText =
+          quizCurrentQuestionIndex < quizData.length - 1
+            ? 'Siguiente Pregunta'
+            : 'Ver Resultados';
+        nextBtn.style.display = 'block';
+        nextBtn.addEventListener('click', quizNextQuestion, { once: true });
+      }
+
+      function quizNextQuestion() {
+        quizCurrentQuestionIndex++;
+        if (quizCurrentQuestionIndex < quizData.length) {
+          showQuizQuestion();
+        } else {
+          showQuizResults();
+        }
+      }
+
+      function showQuizResults() {
+        document.getElementById('quiz-container-main').style.display = 'none';
+        const resultsContainer = document.getElementById(
+          'quiz-results-container',
+        );
+        resultsContainer.style.display = 'block';
+        document.getElementById('quiz-score').textContent =
+          `${quizScore} de ${quizData.length}`;
+
+        const percentage = (quizScore / quizData.length) * 100;
+        let feedbackMsg = '';
+        if (percentage === 100) {
+          feedbackMsg =
+            '¡Excelente! Tienes un dominio sobresaliente de la inferencia causal.';
+        } else if (percentage >= 60) {
+          feedbackMsg =
+            '¡Buen trabajo! Tienes una buena comprensión. Sigue practicando.';
+        } else {
+          feedbackMsg =
+            'Sigue estudiando. Reconocer estos conceptos es el primer paso para mejorar. ¡No te rindas!';
+        }
+        document.getElementById('quiz-feedback-message').textContent =
+          feedbackMsg;
+      }
+
+      function quizRestart() {
+        initQuiz();
+      }
+    </script>
+  </body>
 </html>
