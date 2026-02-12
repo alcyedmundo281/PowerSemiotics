@@ -1,131 +1,193 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Taller Interactivo: Diferenciando Cefaleas Primarias</title>
-    <link href="../../assets/tailwind.css" rel="stylesheet" />
-  </head>
-  <body class="font-sans">
-    <div class="max-w-4xl mx-auto p-4 md:p-8">
-      <header class="text-center mb-10">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900">
-          Taller de Casos Clínicos
-        </h1>
-        <p class="text-xl text-blue-600 font-semibold mt-2">
-          Diferenciando las Cefaleas Primarias
-        </p>
-      </header>
 
-      <div class="case-card">
-        <h2 class="case-title">
-          <span class="number">1</span>Caso 1: La Estudiante Estresada
-        </h2>
-        <p class="mt-4 text-gray-700 bg-blue-50 p-4 rounded-lg">
-          Una estudiante de medicina de 22 años consulta por dolores de cabeza
-          que aparecen al final del día, especialmente en época de exámenes.
-          Describe el dolor como una "presión en ambos lados de la cabeza, como
-          si tuviera un casco apretado". Dura varias horas, pero puede seguir
-          estudiando aunque con dificultad. No presenta náuseas ni sensibilidad
-          a la luz.
-        </p>
-        <div class="mt-6 bg-gray-100 p-4 rounded-lg">
-          <p class="font-bold text-lg">TAREA:</p>
-          <p class="text-gray-700 mt-1">
-            1. ¿Cuál es el diagnóstico más probable?
-          </p>
-          <input
-            type="text"
-            class="w-full mt-1 p-2 border rounded-md"
-            placeholder="Diagnóstico..."
-          />
-          <p class="text-gray-700 mt-2">
-            2. ¿Qué tratamiento no farmacológico y farmacológico de primera
-            línea recomendarían?
-          </p>
-          <textarea
-            class="w-full mt-1 p-2 border rounded-md"
-            rows="3"
-            placeholder="Recomendaciones..."
-          ></textarea>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller Interactivo: Cefaleas - Powersemiotics</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="../../assets/tailwind.css" rel="stylesheet" />
+  <style>
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .case-number {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-slate-50 text-slate-900 selection:bg-indigo-100">
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-20">
+    <!-- Back Button -->
+    <a href="index.html"
+      class="inline-flex items-center text-indigo-600 font-bold hover:text-indigo-800 transition-colors mb-12">
+      <i class="fas fa-arrow-left mr-2"></i> Volver al Módulo
+    </a>
+
+    <header class="text-center mb-16">
+      <span
+        class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-700 font-semibold text-sm mb-4 uppercase tracking-widest">
+        Actividad Práctica
+      </span>
+      <h1 class="text-5xl md:text-6xl font-display font-bold text-slate-900 leading-tight">
+        Taller de <br /><span class="text-indigo-600">Casos Clínicos</span>
+      </h1>
+      <p class="text-xl text-slate-500 mt-6 max-w-2xl mx-auto leading-relaxed">
+        Aplica tus conocimientos para el diagnóstico diferencial de las cefaleas primarias en escenarios de la vida
+        real.
+      </p>
+    </header>
+
+    <div class="space-y-12">
+      <!-- Caso 1 -->
+      <div class="glass-card p-8 md:p-10 rounded-3xl shadow-xl shadow-slate-200/50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full -mr-16 -mt-16 z-0"></div>
+
+        <div class="relative z-10">
+          <div class="flex items-center mb-8">
+            <span
+              class="case-number w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg mr-4">1</span>
+            <h2 class="text-2xl md:text-3xl font-display font-bold text-slate-900 text-balance">Caso 1: La Estudiante
+              Estresada</h2>
+          </div>
+
+          <div
+            class="bg-indigo-50/50 border-l-4 border-indigo-500 p-6 rounded-xl mb-10 italic text-slate-700 text-lg leading-relaxed">
+            "Una estudiante de medicina de 22 años consulta por dolores de cabeza que aparecen al final del día,
+            especialmente en época de exámenes. Describe el dolor como una 'presión en ambos lados de la cabeza, como si
+            tuviera un casco apretado'. Dura varias horas, pero puede seguir estudiando aunque con dificultad. No
+            presenta náuseas ni sensibilidad a la luz."
+          </div>
+
+          <div class="space-y-8">
+            <div>
+              <label class="block font-bold text-slate-800 mb-3 text-lg flex items-center">
+                <i class="fas fa-stethoscope text-indigo-500 mr-2"></i> 1. ¿Cuál es el diagnóstico más probable?
+              </label>
+              <input type="text" class="w-full p-4 bg-white border border-slate-200 rounded-2xl transition-all text-lg"
+                placeholder="Escribe tu diagnóstico aquí..." />
+            </div>
+            <div>
+              <label class="block font-bold text-slate-800 mb-3 text-lg flex items-center">
+                <i class="fas fa-pills text-indigo-500 mr-2"></i> 2. ¿Qué tratamiento (no farmacológico y farmacológico)
+                recomendarías?
+              </label>
+              <textarea class="w-full p-4 bg-white border border-slate-200 rounded-2xl transition-all text-lg" rows="4"
+                placeholder="Describe el plan de manejo..."></textarea>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="case-card">
-        <h2 class="case-title">
-          <span class="number">2</span>Caso 2: El Ejecutivo con Dolor
-          Incapacitante
-        </h2>
-        <p class="mt-4 text-gray-700 bg-blue-50 p-4 rounded-lg">
-          Un ejecutivo de 35 años describe episodios de dolor de cabeza 2-3
-          veces al mes. El dolor es severamente pulsátil, localizado en el lado
-          derecho de la cabeza, y dura unas 8 horas. Durante los episodios, no
-          tolera la luz ni el ruido y siente intensas náuseas. El dolor le
-          impide completamente trabajar.
-        </p>
-        <div class="mt-6 bg-gray-100 p-4 rounded-lg">
-          <p class="font-bold text-lg">TAREA:</p>
-          <p class="text-gray-700 mt-1">
-            1. ¿Cuál es el diagnóstico más probable?
-          </p>
-          <input
-            type="text"
-            class="w-full mt-1 p-2 border rounded-md"
-            placeholder="Diagnóstico..."
-          />
-          <p class="text-gray-700 mt-2">
-            2. ¿Qué fármaco abortivo sería el más apropiado para sus crisis
-            moderadas-severas?
-          </p>
-          <input
-            type="text"
-            class="w-full mt-1 p-2 border rounded-md"
-            placeholder="Fármaco abortivo..."
-          />
-          <p class="text-gray-700 mt-2">
-            3. ¿Considerarían tratamiento preventivo? ¿Por qué?
-          </p>
-          <textarea
-            class="w-full mt-1 p-2 border rounded-md"
-            rows="2"
-            placeholder="Tratamiento preventivo..."
-          ></textarea>
+      <!-- Caso 2 -->
+      <div class="glass-card p-8 md:p-10 rounded-3xl shadow-xl shadow-slate-200/50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16 z-0"></div>
+
+        <div class="relative z-10">
+          <div class="flex items-center mb-8">
+            <span
+              class="case-number w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg mr-4">2</span>
+            <h2 class="text-2xl md:text-3xl font-display font-bold text-slate-900 text-balance">Caso 2: El Ejecutivo con
+              Dolor Incapacitante</h2>
+          </div>
+
+          <div
+            class="bg-indigo-50/50 border-l-4 border-indigo-500 p-6 rounded-xl mb-10 italic text-slate-700 text-lg leading-relaxed">
+            "Un ejecutivo de 35 años describe episodios de dolor de cabeza 2-3 veces al mes. El dolor es severamente
+            pulsátil, localizado en el lado derecho, y dura unas 8 horas. No tolera la luz ni el ruido y siente intensas
+            náuseas. El dolor le impide completamente trabajar."
+          </div>
+
+          <div class="space-y-8">
+            <div>
+              <label class="block font-bold text-slate-800 mb-3 text-lg flex items-center">
+                <i class="fas fa-stethoscope text-indigo-500 mr-2"></i> 1. ¿Cuál es el diagnóstico más probable?
+              </label>
+              <input type="text" class="w-full p-4 bg-white border border-slate-200 rounded-2xl transition-all text-lg"
+                placeholder="Diagnóstico sugerido..." />
+            </div>
+            <div>
+              <label class="block font-bold text-slate-800 mb-3 text-lg flex items-center">
+                <i class="fas fa-bolt text-indigo-500 mr-2"></i> 2. ¿Qué fármaco abortivo sería el más apropiado?
+              </label>
+              <input type="text" class="w-full p-4 bg-white border border-slate-200 rounded-2xl transition-all text-lg"
+                placeholder="Fármaco para crisis moderada-severa..." />
+            </div>
+            <div>
+              <label class="block font-bold text-slate-800 mb-3 text-lg flex items-center">
+                <i class="fas fa-calendar-plus text-indigo-500 mr-2"></i> 3. ¿Considerarías tratamiento preventivo? ¿Por
+                qué?
+              </label>
+              <textarea class="w-full p-4 bg-white border border-slate-200 rounded-2xl transition-all text-lg" rows="3"
+                placeholder="Justifica tu decisión clínica..."></textarea>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="case-card">
-        <h2 class="case-title">
-          <span class="number">3</span>Caso 3: El Dolor Nocturno Inaguantable
-        </h2>
-        <p class="mt-4 text-gray-700 bg-blue-50 p-4 rounded-lg">
-          Un hombre de 50 años, fumador, se queja de "ataques" de dolor de
-          cabeza que lo despiertan por la noche. Describe el dolor como "el peor
-          dolor imaginable, como si me clavaran un cuchillo en el ojo
-          izquierdo". Dura aproximadamente una hora y se acompaña de lagrimeo y
-          caída del párpado del mismo lado. Ha tenido 2-3 ataques diarios
-          durante las últimas 2 semanas.
-        </p>
-        <div class="mt-6 bg-gray-100 p-4 rounded-lg">
-          <p class="font-bold text-lg">TAREA:</p>
-          <p class="text-gray-700 mt-1">
-            1. ¿Cuál es el diagnóstico más probable?
-          </p>
-          <input
-            type="text"
-            class="w-full mt-1 p-2 border rounded-md"
-            placeholder="Diagnóstico..."
-          />
-          <p class="text-gray-700 mt-2">
-            2. ¿Cuáles son las dos opciones de tratamiento abortivo más eficaces
-            para este tipo de cefalea?
-          </p>
-          <textarea
-            class="w-full mt-1 p-2 border rounded-md"
-            rows="2"
-            placeholder="1. Tratamiento A...&#x0a;2. Tratamiento B..."
-          ></textarea>
+      <!-- Caso 3 -->
+      <div class="glass-card p-8 md:p-10 rounded-3xl shadow-xl shadow-slate-200/50 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full -mr-16 -mt-16 z-0"></div>
+
+        <div class="relative z-10">
+          <div class="flex items-center mb-8">
+            <span
+              class="case-number w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg mr-4">3</span>
+            <h2 class="text-2xl md:text-3xl font-display font-bold text-slate-900 text-balance">Caso 3: El Dolor
+              Nocturno Inaguantable</h2>
+          </div>
+
+          <div
+            class="bg-red-50/50 border-l-4 border-red-500 p-6 rounded-xl mb-10 italic text-slate-700 text-lg leading-relaxed">
+            "Un hombre de 50 años, fumador, presenta 'ataques' nocturnos de dolor atroz, como si le clavaran un cuchillo
+            en el ojo izquierdo. Dura una hora y se acompaña de lagrimeo y caída del párpado ipsilateral. 2-3 ataques
+            diarios las últimas 2 semanas."
+          </div>
+
+          <div class="space-y-8">
+            <div>
+              <label class="block font-bold text-slate-800 mb-3 text-lg flex items-center">
+                <i class="fas fa-stethoscope text-red-500 mr-2"></i> 1. ¿Cuál es el diagnóstico más probable?
+              </label>
+              <input type="text" class="w-full p-4 bg-white border border-slate-200 rounded-2xl transition-all text-lg"
+                placeholder="Diagnóstico clínico..." />
+            </div>
+            <div>
+              <label class="block font-bold text-slate-800 mb-3 text-lg flex items-center">
+                <i class="fas fa-shield-alt text-red-500 mr-2"></i> 2. ¿Dos opciones de tratamiento abortivo más
+                eficaces?
+              </label>
+              <textarea class="w-full p-4 bg-white border border-slate-200 rounded-2xl transition-all text-lg" rows="2"
+                placeholder="Indica las dos medidas terapéuticas prioritarias..."></textarea>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </body>
+
+    <footer class="mt-20 pt-10 border-t border-slate-200 text-center text-slate-400">
+      <p>© 2026 Powersemiotics. Todos los derechos reservados.</p>
+    </footer>
+  </div>
+</body>
+
 </html>
