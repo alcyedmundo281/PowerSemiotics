@@ -1,0 +1,475 @@
+
+import React, { useState } from 'react';
+import { BookOpen, Activity, User, CheckCircle, AlertTriangle, ChevronRight, Award, Stethoscope } from 'lucide-react';
+
+const ProgressBar = ({ xp, level, nextLevelXp }) => (
+    <div className="bg-white p-4 shadow-sm sticky top-0 z-50 border-b border-blue-100">
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+                <div className="bg-blue-600 text-white p-2 rounded-lg font-bold shadow-lg">
+                    Nivel {level}
+                </div>
+                <div className="flex flex-col">
+                    <span className="text-sm font-semibold text-gray-700">Residente de Gastroenterología</span>
+                    <span className="text-xs text-gray-500">{xp} / {nextLevelXp} XP</span>
+                </div>
+            </div>
+            <div className="w-1/2 bg-gray-200 rounded-full h-4 overflow-hidden relative">
+                <div
+                    className="bg-blue-500 h-full transition-all duration-500 progress-bar-shine"
+                    style={{ width: `${Math.min((xp / nextLevelXp) * 100, 100)}%` }}
+                ></div>
+            </div>
+        </div>
+    </div>
+);
+
+const SectionCard = ({ title, icon: Icon, isActive, onClick, completed }) => (
+    <button
+        onClick={onClick}
+        className={`flex items-center gap-3 p-4 rounded-xl w-full text-left transition-all ${isActive
+                ? 'bg-blue-600 text-white shadow-lg scale-105'
+                : 'bg-white text-gray-700 hover:bg-blue-50'
+            } ${completed ? 'border-r-4 border-green-400' : ''}`}
+    >
+        <div className={`p-2 rounded-lg ${isActive ? 'bg-blue-500' : 'bg-gray-100 text-blue-600'}`}>
+            <Icon size={20} />
+        </div>
+        <span className="font-semibold flex-1">{title}</span>
+        {completed && <CheckCircle size={16} className="text-green-500" />}
+    </button>
+);
+
+const TheoryModule = ({ onComplete }) => {
+    const [activeTab, setActiveTab] = useState('etiology');
+
+    const content = {
+        etiology: {
+            title: "Etiología y Definición",
+            body: (
+                <div className="space-y-4">
+                    <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <h3 className="font-bold text-lg mb-2">Definición (Atlanta 2012)</h3>
+                        <p>Proceso inflamatorio agudo del páncreas que requiere <strong>2 de 3 criterios</strong>:</p>
+                        <ul className="list-disc ml-5 mt-2 space-y-1">
+                            <li>Dolor abdominal característico (epigastrio, irradiado a espalda).</li>
+                            <li>Lipasa/Amilasa ≥ 3 veces el límite superior normal.</li>
+                            <li>Hallazgos característicos en imagen (TC/RM).</li>
+                        </ul>
+                    </div>
+
+                    <h3 className="font-bold text-xl mt-6 text-gray-800">Mecanismos de Lesión (Ninja Nerd Insights)</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
+                            <div className="flex items-center gap-2 mb-2 text-red-600">
+                                <Activity size={20} />
+                                <h4 className="font-bold">Lesión de Célula Acinar</h4>
+                            </div>
+                            <ul className="text-sm space-y-2 text-gray-600">
+                                <li><strong>Alcohol:</strong> Sensibiliza la célula al daño oxidativo y libera enzimas prematuramente.</li>
+                                <li><strong>Hipertrigliceridemia:</strong> {'>'}1000 mg/dL. Los ácidos grasos libres son tóxicos.</li>
+                                <li><strong>Hipercalcemia:</strong> {'>'}14 mg/dL. El calcio activa proteasas intracelulares.</li>
+                            </ul>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
+                            <div className="flex items-center gap-2 mb-2 text-amber-600">
+                                <AlertTriangle size={20} />
+                                <h4 className="font-bold">Lesión Ductal</h4>
+                            </div>
+                            <ul className="text-sm space-y-2 text-gray-600">
+                                <li><strong>Litiasis Biliar (40%):</strong> Obstrucción de la ampolla de Vater genera reflujo y aumento de presión.</li>
+                                <li><strong>Post-CPRE:</strong> Trauma directo o hidrostático.</li>
+                                <li><strong>Fibrosis Quística:</strong> Moco espeso obstruye ductos (causa crónica agudizada).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            )
+        },
+        patho: {
+            title: "La Tormenta Perfecta (Fisiopatología)",
+            body: (
+                <div className="space-y-4">
+                    <p className="text-gray-700">
+                        La pancreatitis no es solo una inflamación local; es una bomba sistémica activada por la autodigestión.
+                    </p>
+
+                    <div className="relative pl-8 border-l-2 border-gray-300 space-y-6">
+                        <div className="relative">
+                            <div className="absolute -left-[41px] bg-red-500 text-white rounded-full p-2 w-8 h-8 flex items-center justify-center font-bold">1</div>
+                            <h4 className="font-bold text-gray-900">Activación Enzimática (Autodigestión)</h4>
+                            <p className="text-sm text-gray-600">El tripsinógeno se convierte en <strong>Tripsina</strong> dentro del páncreas. Esta activa a la Elastasa (daño vascular/hemorragia) y Fosfolipasa A2 (necrosis grasa).</p>
+                        </div>
+                        <div className="relative">
+                            <div className="absolute -left-[41px] bg-orange-500 text-white rounded-full p-2 w-8 h-8 flex items-center justify-center font-bold">2</div>
+                            <h4 className="font-bold text-gray-900">Respuesta Sistémica (SIRS)</h4>
+                            <p className="text-sm text-gray-600">Liberación masiva de citoquinas (<strong>IL-1, IL-6, TNF-α</strong>) al torrente sanguíneo.</p>
+                        </div>
+                        <div className="relative">
+                            <div className="absolute -left-[41px] bg-yellow-500 text-white rounded-full p-2 w-8 h-8 flex items-center justify-center font-bold">3</div>
+                            <h4 className="font-bold text-gray-900">"Third Spacing" y Shock</h4>
+                            <div className="bg-yellow-50 p-3 rounded text-sm text-gray-700 mt-1">
+                                <strong>Concepto Clave Ninja Nerd:</strong> Las citoquinas aumentan la permeabilidad capilar sistémica. El líquido se "fuga" de los vasos al espacio intersticial (tercer espacio), causando hipovolemia severa, hipotensión y shock, incluso si el paciente no pierde sangre visiblemente.
+                            </div>
+                        </div>
+                        <div className="relative">
+                            <div className="absolute -left-[41px] bg-purple-600 text-white rounded-full p-2 w-8 h-8 flex items-center justify-center font-bold">4</div>
+                            <h4 className="font-bold text-gray-900">Falla Multiorgánica</h4>
+                            <ul className="text-sm text-gray-600 list-disc ml-4">
+                                <li><strong>Pulmón (ARDS):</strong> Edema alveolar por fuga capilar.</li>
+                                <li><strong>Riñón (AKI):</strong> Necrosis tubular por hipoperfusión.</li>
+                                <li><strong>Coagulación (CID):</strong> Consumo de plaquetas/factores. Riesgo de sangrado paradójico.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            )
+        },
+        complications: {
+            title: "Cronología de Complicaciones",
+            body: (
+                <div className="space-y-6">
+                    <div className="grid grid-cols-2 gap-4 text-center">
+                        <div className="bg-blue-100 p-4 rounded-lg">
+                            <h4 className="font-bold text-blue-800"> &lt; 4 Semanas</h4>
+                            <div className="text-xs mt-2 space-y-2">
+                                <div className="bg-white p-2 rounded shadow-sm">
+                                    <strong>Colección Líquida Aguda</strong><br />(En pancreatitis edematosa)
+                                </div>
+                                <div className="bg-white p-2 rounded shadow-sm border-l-4 border-red-500">
+                                    <strong>Colección Necrótica Aguda</strong><br />(Tejido muerto + líquido)
+                                </div>
+                            </div>
+                        </div>
+                        <div className="bg-indigo-100 p-4 rounded-lg">
+                            <h4 className="font-bold text-indigo-800"> &gt; 4 Semanas</h4>
+                            <div className="text-xs mt-2 space-y-2">
+                                <div className="bg-white p-2 rounded shadow-sm">
+                                    <strong>Pseudoquiste</strong><br />(Pared encapsulada de tejido fibroso)
+                                </div>
+                                <div className="bg-white p-2 rounded shadow-sm border-l-4 border-red-500">
+                                    <strong>Walled-off Necrosis (WON)</strong><br />(Necrosis amurallada)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+                        <h4 className="font-bold text-red-700 flex items-center gap-2"><AlertTriangle size={18} /> Signos de Alarma Hemorrágica</h4>
+                        <p className="text-sm text-gray-700 mt-1">Si la necrosis erosiona vasos (ej. arteria gastroduodenal):</p>
+                        <ul className="list-disc ml-5 mt-2 text-sm text-gray-800">
+                            <li><strong>Signo de Cullen:</strong> Equimosis periumbilical.</li>
+                            <li><strong>Signo de Grey Turner:</strong> Equimosis en los flancos (sangrado retroperitoneal).</li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-gray-800 text-white p-4 rounded-lg">
+                        <h4 className="font-bold flex items-center gap-2"><Activity size={18} /> Síndrome Compartimental Abdominal</h4>
+                        <p className="text-sm mt-1">Presión intraabdominal {'>'} 20 mmHg. Comprime vena cava (baja retorno venoso) y riñones. Requiere descompresión urgente.</p>
+                    </div>
+                </div>
+            )
+        }
+    };
+
+    return (
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden min-h-[500px] flex flex-col md:flex-row">
+            <div className="w-full md:w-1/4 bg-gray-50 border-r border-gray-100 p-4 flex flex-col gap-2">
+                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Módulos Teóricos</h3>
+                <button onClick={() => setActiveTab('etiology')} className={`p-3 text-sm rounded-lg text-left font-medium ${activeTab === 'etiology' ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'}`}>1. Etiología y Definición</button>
+                <button onClick={() => setActiveTab('patho')} className={`p-3 text-sm rounded-lg text-left font-medium ${activeTab === 'patho' ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'}`}>2. Fisiopatología Avanzada</button>
+                <button onClick={() => setActiveTab('complications')} className={`p-3 text-sm rounded-lg text-left font-medium ${activeTab === 'complications' ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-100'}`}>3. Complicaciones</button>
+
+                <div className="mt-auto pt-4 border-t">
+                    <button
+                        onClick={onComplete}
+                        className="w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-bold flex items-center justify-center gap-2"
+                    >
+                        <CheckCircle size={16} /> Marcar como Leído (+50 XP)
+                    </button>
+                </div>
+            </div>
+            <div className="flex-1 p-6 md:p-8 overflow-y-auto max-h-[600px]">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">{content[activeTab].title}</h2>
+                <div className="prose max-w-none">
+                    {content[activeTab].body}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const PathoSimulator = ({ onComplete }) => {
+    const [stage, setStage] = useState(0);
+
+    const stages = [
+        {
+            title: "Estado Basal",
+            desc: "El páncreas funciona normalmente. Las enzimas (zimógenos) están inactivas.",
+            visual: "🟢 Páncreas Feliz",
+            action: "Ingerir Alcohol Excesivo / Obstruir con Cálculo"
+        },
+        {
+            title: "Activación Intracelular",
+            desc: "¡Alerta! El tripsinógeno se activa a TRIPSINA dentro de la célula acinar.",
+            visual: "🟡 Activación Enzimática",
+            action: "Desencadenar Cascada"
+        },
+        {
+            title: "Autodigestión",
+            desc: "La tripsina activa Elastasa y Fosfolipasa. Se digieren vasos y grasa pancreática.",
+            visual: "🟠 Daño Local",
+            action: "Liberar Citoquinas"
+        },
+        {
+            title: "Tormenta de Citoquinas (SIRS)",
+            desc: "IL-1, IL-6 y TNF-α entran a la sangre. Aumenta la permeabilidad vascular sistémica.",
+            visual: "🔴 Inflamación Sistémica",
+            action: "Inducir Fuga Capilar"
+        },
+        {
+            title: "Third Spacing & Shock",
+            desc: "El líquido intravascular se fuga al intersticio. Hipovolemia masiva -> Hipotensión -> Falla Renal.",
+            visual: "⚫ Shock Hipovolémico",
+            action: "Reiniciar Simulación"
+        }
+    ];
+
+    const handleAction = () => {
+        if (stage < stages.length - 1) {
+            setStage(stage + 1);
+            if (stage === 3) onComplete();
+        } else {
+            setStage(0);
+        }
+    };
+
+    return (
+        <div className="bg-gray-900 text-white rounded-2xl shadow-xl p-8 flex flex-col items-center justify-center min-h-[500px] text-center">
+            <h2 className="text-3xl font-bold mb-2">Simulador de Fisiopatología</h2>
+            <p className="text-gray-400 mb-8">Experimenta la cascada desde la lesión hasta el fallo orgánico</p>
+
+            <div className="w-full max-w-2xl bg-gray-800 rounded-xl p-8 border border-gray-700 relative overflow-hidden">
+                <div className={`transition-all duration-500 transform ${stage === 4 ? 'scale-110 animate-pulse' : 'scale-100'}`}>
+                    <div className="text-6xl mb-4">{stages[stage].visual.split(' ')[0]}</div>
+                    <h3 className="text-2xl font-bold mb-2">{stages[stage].title}</h3>
+                    <p className="text-gray-300">{stages[stage].desc}</p>
+                </div>
+
+                {stage >= 3 && (
+                    <div className="mt-6 bg-black rounded-full h-4 w-full overflow-hidden border border-gray-600">
+                        <div className="h-full bg-blue-500 transition-all duration-1000" style={{ width: stage === 4 ? '20%' : '100%' }}></div>
+                        <div className="text-xs text-center -mt-3.5 text-white font-mono mix-blend-difference">VOLUMEN SANGUÍNEO</div>
+                    </div>
+                )}
+            </div>
+
+            <button
+                onClick={handleAction}
+                className="mt-8 px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-blue-500/50 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2"
+            >
+                {stages[stage].action} <ChevronRight size={20} />
+            </button>
+        </div>
+    );
+};
+
+const ClinicalCase = ({ onComplete }) => {
+    const [scene, setScene] = useState('intro');
+    const [feedback, setFeedback] = useState(null);
+
+    const handleDecision = (correct, feedbackText) => {
+        setFeedback({ correct, text: feedbackText });
+    };
+
+    const nextScene = (next) => {
+        setFeedback(null);
+        setScene(next);
+        if (next === 'end') onComplete();
+    };
+
+    const scenes = {
+        intro: {
+            title: "Urgencias - 08:00 AM",
+            desc: "Masculino de 48 años. Dolor epigástrico intenso irradiado a espalda (10/10). Antecedente de alcoholismo social y cólicos biliares. TA: 125/80, FC: 110. Lipasa: 2500.",
+            question: "¿Cuál es tu primera orden médica prioritaria?",
+            options: [
+                { text: "TC Abdomen con Contraste Inmediata", correct: false, feedback: "Incorrecto. La TC temprana (<72h) subestima la necrosis y no se requiere para diagnóstico si ya tienes clínica + lipasa." },
+                { text: "Antibióticos Profilácticos (Imipenem)", correct: false, feedback: "Incorrecto. Los antibióticos no previenen la infección de la necrosis estéril. Solo se usan si hay infección confirmada." },
+                { text: "Ringer Lactato 1.5 ml/kg/h", correct: true, feedback: "¡Correcto! La reanimación con fluidos es el pilar #1 para prevenir la hipoperfusión y necrosis pancreática." }
+            ],
+            next: 'evolution'
+        },
+        evolution: {
+            title: "Día 2 - Evolución Tórpida",
+            desc: "A pesar de líquidos, persiste taquicárdico. BUN sube de 20 a 35 mg/dL. Hto sube a 47%.",
+            question: "¿Qué indica esta elevación del BUN y Hematocrito?",
+            options: [
+                { text: "Falla Renal establecida", correct: false, feedback: "No necesariamente daño intrínseco aún, pero indica hipovolemia severa." },
+                { text: "Hemoconcentración por 'Third Spacing'", correct: true, feedback: "¡Exacto! El líquido se está fugando al tercer espacio. El paciente está intravascularmente seco a pesar de tu manejo. Necesita más fluidos (con cuidado)." },
+                { text: "Sangrado retroperitoneal", correct: false, feedback: "El sangrado bajaría el hematocrito, no lo subiría." }
+            ],
+            next: 'complication'
+        },
+        complication: {
+            title: "Día 10 - La Fiebre",
+            desc: "El paciente estaba mejorando, pero hoy presenta fiebre de 39°C y Leucocitos 18,000. TC muestra necrosis del 40% con gas en su interior.",
+            question: "Diagnóstico: Necrosis Infectada. ¿Cuál es el manejo 'Step-Up'?",
+            options: [
+                { text: "Cirugía abierta inmediata (Necrosectomía)", correct: false, feedback: "¡Alto riesgo! La cirugía abierta temprana tiene altísima mortalidad." },
+                { text: "Antibióticos + Drenaje Percutáneo/Endoscópico", correct: true, feedback: "¡Excelente! El enfoque 'Step-Up' inicia con antibióticos y drenaje mínimamente invasivo. La cirugía se deja como último recurso." }
+            ],
+            next: 'end'
+        },
+        end: {
+            title: "Caso Resuelto",
+            desc: "Gracias a tu manejo escalonado, el paciente se recuperó tras 4 semanas de drenaje percutáneo y posterior colecistectomía.",
+            visual: "🏆",
+            final: true
+        }
+    };
+
+    const current = scenes[scene];
+
+    return (
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-3xl mx-auto border-t-8 border-blue-600">
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <Stethoscope className="text-blue-600" /> {current.title}
+                </h2>
+                {scene !== 'intro' && scene !== 'end' && <span className="text-xs font-mono bg-gray-200 px-2 py-1 rounded">Ranson Score: Alto</span>}
+            </div>
+
+            {current.final ? (
+                <div className="text-center py-10">
+                    <div className="text-6xl mb-4">{current.visual}</div>
+                    <p className="text-xl text-gray-700">{current.desc}</p>
+                </div>
+            ) : (
+                <>
+                    <p className="text-lg text-gray-700 mb-6 border-l-4 border-gray-300 pl-4 italic">
+                        "{current.desc}"
+                    </p>
+
+                    {!feedback ? (
+                        <div className="space-y-3">
+                            <h3 className="font-bold text-gray-900 mb-2">{current.question}</h3>
+                            {current.options.map((opt, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => handleDecision(opt.correct, opt.feedback)}
+                                    className="w-full p-4 text-left rounded-xl border-2 border-gray-100 hover:border-blue-500 hover:bg-blue-50 transition-all font-medium text-gray-700"
+                                >
+                                    {opt.text}
+                                </button>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className={`p-6 rounded-xl text-center animate-pulse ${feedback.correct ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                            <div className="font-bold text-xl mb-2">{feedback.correct ? '¡Correcto!' : 'Incorrecto'}</div>
+                            <p className="mb-4">{feedback.text}</p>
+                            {feedback.correct ? (
+                                <button onClick={() => nextScene(current.next)} className="bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700">Continuar</button>
+                            ) : (
+                                <button onClick={() => setFeedback(null)} className="bg-red-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-red-700">Intentar de nuevo</button>
+                            )}
+                        </div>
+                    )}
+                </>
+            )}
+        </div>
+    );
+};
+
+export default function App() {
+    const [xp, setXp] = useState(0);
+    const [activeSection, setActiveSection] = useState('theory');
+    const [completedSections, setCompletedSections] = useState({ theory: false, sim: false, case: false });
+
+    const level = Math.floor(xp / 100) + 1;
+    const nextLevelXp = level * 100;
+
+    const addXp = (amount, sectionKey) => {
+        if (sectionKey && !completedSections[sectionKey]) {
+            setXp(prev => prev + amount);
+            setCompletedSections(prev => ({ ...prev, [sectionKey]: true }));
+        }
+    };
+
+    const renderSection = () => {
+        switch (activeSection) {
+            case 'theory': return <TheoryModule onComplete={() => addXp(50, 'theory')} />;
+            case 'sim': return <PathoSimulator onComplete={() => addXp(30, 'sim')} />;
+            case 'case': return <ClinicalCase onComplete={() => addXp(40, 'case')} />;
+            default: return <TheoryModule />;
+        }
+    };
+
+    return (
+        <div className="min-h-screen pb-20 bg-[#f0f4f8]" style={{ fontFamily: "'Inter', sans-serif" }}>
+            <style>{`
+                .fade-in { animation: fadeIn 0.5s ease-in; }
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                .progress-bar-shine {
+                    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+                    background-size: 200% 100%;
+                    animation: shine 2s infinite;
+                }
+                @keyframes shine { to { background-position: -200% 0; } }
+            `}</style>
+
+            <ProgressBar xp={xp} level={level} nextLevelXp={nextLevelXp} />
+
+            <div className="max-w-7xl mx-auto px-4 py-8">
+                <div className="mb-12 text-center">
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
+                        Pancreatitis Aguda <span className="text-blue-600">Master Class</span>
+                    </h1>
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Módulo interactivo basado en guías internacionales y fisiopatología avanzada.
+                        Aprende a diagnosticar, estratificar y tratar como un experto.
+                    </p>
+                </div>
+
+                <div className="flex flex-col lg:flex-row gap-8">
+                    <div className="lg:w-1/4 space-y-4">
+                        <SectionCard
+                            title="Teoría & Evidencia"
+                            icon={BookOpen}
+                            isActive={activeSection === 'theory'}
+                            onClick={() => setActiveSection('theory')}
+                            completed={completedSections.theory}
+                        />
+                        <SectionCard
+                            title="Simulador Fisiopatológico"
+                            icon={Activity}
+                            isActive={activeSection === 'sim'}
+                            onClick={() => setActiveSection('sim')}
+                            completed={completedSections.sim}
+                        />
+                        <SectionCard
+                            title="Caso Clínico RPG"
+                            icon={User}
+                            isActive={activeSection === 'case'}
+                            onClick={() => setActiveSection('case')}
+                            completed={completedSections.case}
+                        />
+
+                        <div className="mt-8 bg-blue-900 rounded-xl p-6 text-white text-center">
+                            <Award className="mx-auto mb-2 text-yellow-400" size={32} />
+                            <div className="font-bold">Logros Desbloqueados</div>
+                            <div className="text-sm text-blue-200 mt-1">
+                                {Object.values(completedSections).filter(Boolean).length} / 3 Completados
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="lg:w-3/4 fade-in">
+                        {renderSection()}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
