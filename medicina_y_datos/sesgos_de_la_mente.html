@@ -10,6 +10,62 @@
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="../assets/tailwind.css" rel="stylesheet" />
+    <style>
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 2rem;
+        transition: max-height 0.35s ease, padding 0.3s ease;
+      }
+
+      .accordion-button.open svg {
+        transform: rotate(180deg);
+      }
+
+      .accordion-button svg {
+        transition: transform 0.3s ease;
+      }
+
+      .presentation-slide {
+        display: none;
+        min-height: 460px;
+      }
+
+      .presentation-active-slide {
+        display: block;
+        animation: fade-in 0.25s ease;
+      }
+
+      .quiz-explanation {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        border: 1px solid #cbd5e1;
+        background: #f8fafc;
+      }
+
+      .quiz-correct {
+        border-color: #16a34a;
+        background: #dcfce7;
+      }
+
+      .quiz-incorrect {
+        border-color: #dc2626;
+        background: #fee2e2;
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
   </head>
   <body class="font-sans bg-gray-100 text-gray-800">
     <header class="bg-white shadow-sm sticky top-0 z-50">
@@ -270,7 +326,11 @@
       }
 
       function navigatePresentation(direction) {
-        presentationCurrentSlide += direction;
+        const nextSlide = presentationCurrentSlide + direction;
+        if (nextSlide < 0 || nextSlide >= presentationSlides.length) {
+          return;
+        }
+        presentationCurrentSlide = nextSlide;
         updatePresentation();
       }
 
@@ -516,7 +576,7 @@
         const optionsHtml = q.options
           .map(
             (option) =>
-              `<button class="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-lg quiz-option-btn" onclick="selectQuizAnswer('${option}')">${option}</button>`,
+              `<button class="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-lg quiz-option-btn" data-option="${encodeURIComponent(option)}">${option}</button>`,
           )
           .join('');
 
@@ -527,6 +587,14 @@
         <div id="quiz-explanation-${quizCurrentQuestionIndex}" class="quiz-explanation"></div>
         <button id="quiz-next-btn-${quizCurrentQuestionIndex}" onclick="quizNextQuestion()" class="mt-6 bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded-lg w-full" style="display:none;"></button>
     `;
+
+        document
+          .querySelectorAll('#quiz-container-main .quiz-option-btn')
+          .forEach((button) => {
+            button.addEventListener('click', () => {
+              selectQuizAnswer(decodeURIComponent(button.dataset.option));
+            });
+          });
       }
 
       function selectQuizAnswer(selectedOption) {
