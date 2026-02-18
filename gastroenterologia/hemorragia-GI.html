@@ -7,11 +7,12 @@
   <title>Módulo Interactivo: Hemorragia Digestiva</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+  <link href="../assets/tailwind.css" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/gastro-layout.css" />
   <style>
     /* Specific styles for this module */
     .nav-link.active {
-      background-color: #ef4444;
+      background-color: #ef4444 !important;
       /* red-500 */
       color: white !important;
     }
@@ -20,6 +21,23 @@
       margin-right: 0.75rem;
       width: 1.25rem;
       text-align: center;
+    }
+
+    #side-nav ul li a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: #374151;
+      /* gray-700 */
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    #side-nav ul li a:hover:not(.active) {
+      background-color: #fee2e2;
+      /* red-100 */
+      color: #b91c1c;
+      /* red-700 */
     }
 
     .slide {
