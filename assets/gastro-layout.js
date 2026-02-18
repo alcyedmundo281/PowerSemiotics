@@ -22,13 +22,7 @@ window.addEventListener('load', () => {
   originalChildren.forEach((child) => wrapper.appendChild(child));
   contentArea.appendChild(wrapper);
 
-  const aiPanel = document.createElement('aside');
-  aiPanel.id = 'ai-panel';
-  const iframe = document.createElement('iframe');
-  iframe.src = '/ai_dashboard.html';
-  aiPanel.appendChild(iframe);
-
-  app.append(sideNav, contentArea, aiPanel);
+  app.append(sideNav, contentArea);
   body.appendChild(app);
 
   let headings = wrapper.querySelectorAll('.content-section h2');
