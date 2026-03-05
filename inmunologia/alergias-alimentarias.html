@@ -255,6 +255,45 @@
             </div>
         );
 
+        // Evaluación Clínica Inicial (Historia y Examen Físico - UpToDate)
+        const ClinicalEvaluation = () => (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-6">
+                <div>
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.BookOpen /> Evaluación Clínica Inicial
+                    </h2>
+                    <p className="text-slate-600 mb-6 text-sm">
+                        La historia clínica cuidadosa es el determinante más crítico de la probabilidad pre-test de padecer una alergia alimentaria verdadera, mientras que el examen físico busca signos orientativos de atopia o cronicidad en las consultas inter-crisis.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-blue-50 p-5 rounded-xl border border-blue-200">
+                            <h3 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
+                                <span className="bg-blue-200 p-1 rounded">1</span> Interrogatorio (Historia Clave)
+                            </h3>
+                            <ul className="list-disc pl-5 text-sm text-blue-900 space-y-2">
+                                <li><strong>Temporalidad:</strong> ¿Inicio inmediato en minutos (IgE mediado) o demorado 3-6 horas (Síndrome Alpha-gal, FPIES)?</li>
+                                <li><strong>Reproducibilidad:</strong> ¿Se presentan síntomas de forma consistente <em>cada vez</em> que se ingiere el alimento?</li>
+                                <li><strong>Preparación y Dosis:</strong> ¿Se tolera cocido pero no crudo (S. Alergia Oral / PFAS)? ¿Requiere grandes volúmenes para síntomas (sospecha intolerancia)?</li>
+                                <li><strong>Cofactores:</strong> ¿Había realizado ejercicio previo (FDEIAn), consumido AINEs, alcohol, o estaba en periodo menstrual?</li>
+                                <li><strong>Ocultos:</strong> Investigar etiquetas de advertencia y contaminación cruzada inadvertida.</li>
+                            </ul>
+                        </div>
+                        <div className="bg-emerald-50 p-5 rounded-xl border border-emerald-200">
+                            <h3 className="font-bold text-emerald-800 mb-3 flex items-center gap-2">
+                                <span className="bg-emerald-200 p-1 rounded">2</span> Examen Físico Focalizado
+                            </h3>
+                            <p className="text-sm text-emerald-900 mb-2 italic">Generalmente normal entre reacciones agudas, pero esencial para orientar el fenotipo clínico.</p>
+                            <ul className="list-disc pl-5 text-sm text-emerald-900 space-y-2">
+                                <li><strong>Estigmas de Atopia:</strong> Buscar activamente dermatitis atópica (eccema en zonas flexoras), "saludo alérgico" (pliegue nasal transverso), ojeras alérgicas (allergic shiners) y líneas de Dennie-Morgan.</li>
+                                <li><strong>Signos Crónicos (Alergia No IgE):</strong> En cuadros severos como enteropatía sensible a proteínas, FPIES o esofagitis, evaluar parámetros de crecimiento, fallo de medro (failure to thrive), desnutrición subclínica o palidez.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
         // 3. Tratamiento y Manejo (Nuevo según UpToDate)
         const TreatmentMgt = () => (
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-8">
@@ -302,11 +341,11 @@
                             </ul>
                         </div>
                         <div className="bg-white/5 p-3 rounded-lg">
-                            <h4 className="font-bold text-blue-300 uppercase mb-2">Terapias Avanzadas:</h4>
+                            <h4 className="font-bold text-blue-300 uppercase mb-2">Terapias Biológicas (FDA 2024):</h4>
                             <ul className="list-disc pl-4 space-y-1">
-                                <li><strong>Palforzia:</strong> OIT aprobada por FDA para maní (4-17 años).</li>
-                                <li><strong>Omalizumab:</strong> Aprobado para elevar el umbral de reacción.</li>
-                                <li>Seguimiento: Pruebas cada 6-12 meses para evaluar resolución natural.</li>
+                                <li><strong>Omalizumab (Xolair):</strong> Anti-IgE. Aprobado en Feb 2024 para reducir riesgo de anafilaxia por exposición accidental. Eleva de forma crítica el umbral de tolerancia.</li>
+                                <li><strong>Palforzia:</strong> OIT aprobada para desensibilización de maní.</li>
+                                <li><strong>Dupilumab / Ligelizumab:</strong> En investigación y uso off-label para alergias alimentarias y EoE.</li>
                             </ul>
                         </div>
                     </div>
@@ -727,6 +766,7 @@
                 switch (activeSection) {
                     case 'hub': return <KnowledgeHub />;
                     case 'diff': return <DifferentialDiagnosis />;
+                    case 'evaluation': return <ClinicalEvaluation />;
                     case 'criteria': return <DiagnosticCriteria />;
                     case 'manifestations': return <ClinicalManifestations />;
                     case 'treatment': return <TreatmentMgt />;
@@ -775,6 +815,12 @@
                                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'manifestations' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
                                 >
                                     <Icons.Activity /> Manifestaciones Clínicas
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('evaluation')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'evaluation' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.BookOpen /> Historia y Examen Físico
                                 </button>
                                 <button
                                     onClick={() => setActiveSection('treatment')}
