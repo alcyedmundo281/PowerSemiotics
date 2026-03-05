@@ -104,6 +104,40 @@
                         </div>
                     </div>
                 </div>
+
+                {/* Nuevo Panel: Patogénesis y Tolerancia Oral */}
+                <div className="bg-gradient-to-br from-slate-50 to-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.Activity /> Patogénesis y Ruptura de Tolerancia
+                    </h2>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+                        <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
+                            <h3 className="font-bold text-emerald-800 mb-2 flex items-center gap-1"><Icons.CheckCircle /> Tolerancia Oral</h3>
+                            <p className="text-sm text-emerald-700">Estado fisiológico normal. El sistema inmune intestinal reconoce proteínas alimentarias y genera <strong>Células T Reguladoras (Tregs)</strong> específicas, suprimiendo reacciones pro-inflamatorias y previniendo la alergia.</p>
+                        </div>
+                        <div className="bg-red-50 p-4 rounded-xl border border-red-100">
+                            <h3 className="font-bold text-red-800 mb-2 flex items-center gap-1"><Icons.AlertCircle /> Ruptura de Tolerancia</h3>
+                            <p className="text-sm text-red-700">Ocurre cuando la barrera epitelial se compromete (<strong>Hipótesis de la Barrera Epitelial</strong>). Las Tregs disfuncionan o se "reprograman" hacia un fenotipo patogénico, permitiendo la inflamación.</p>
+                        </div>
+                        <div className="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+                            <h3 className="font-bold text-indigo-800 mb-2 flex items-center gap-1"><Icons.Search /> Exposición Dual</h3>
+                            <p className="text-sm text-indigo-700">Plantea que la sensibilización alérgica ocurre a través de una <strong>piel inflamada/dañada</strong> (ej. Dermatitis Atópica), mientras que la tolerancia se induce mediante la introducción <strong>oral/gastrointestinal</strong> temprana.</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-white p-5 rounded-lg border border-slate-100 shadow-sm">
+                        <h3 className="font-bold text-slate-800 mb-3 border-b pb-2">Vía de Polarización Th2 (Mecanismo Molecular)</h3>
+                        <div className="text-sm text-slate-600">
+                            <ol className="list-decimal pl-5 space-y-2">
+                                <li><strong>Alarminas Epiteliales:</strong> El epitelio dañado (piel o intestino) secreta citocinas de alarma como <strong>TSLP</strong> e <strong>IL-33</strong>.</li>
+                                <li><strong>Polarización Dendrítica:</strong> Estas alarminas instruyen a las APC locales para sesgar la diferenciación de células T naive hacia un potente fenotipo <strong>Th2</strong>.</li>
+                                <li><strong>Cascada de Citocinas:</strong> Las células Th2 producen <strong>IL-4</strong> e <strong>IL-13</strong>, dictando a las células B el cambio de isotipo para producir masivamente anticuerpos IgE de alta afinidad.</li>
+                                <li><strong>Fase Efectora:</strong> La IgE se une a los receptores en mastocitos y basófilos, dejándolos "armados". La re-exposición cruzará los anticuerpos y causará una degranulación explosiva (histamina, triptasa).</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
 
