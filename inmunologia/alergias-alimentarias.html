@@ -301,26 +301,49 @@
                     <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
                         <Icons.CheckCircle /> Pilares del Tratamiento
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
-                            <h3 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                <span className="bg-slate-200 p-1 rounded">1</span> Evitación Estricta
-                            </h3>
-                            <ul className="list-disc pl-5 text-sm text-slate-600 space-y-2">
-                                <li><strong>Lectura de Etiquetas:</strong> Identificar los 9 grandes alérgenos (FALCPA).</li>
-                                <li><strong>Etiquetas de Advertencia:</strong> Evitar "puede contener" o "procesado en...". Riesgo impredecible.</li>
-                                <li><strong>Restaurantes:</strong> Comunicación directa sobre el riesgo de contaminación cruzada.</li>
-                            </ul>
+                    <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm mt-2 mb-6">
+                        <h3 className="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+                            <Icons.Search /> Evitación Estricta y Etiquetado (FALCPA & PAL)
+                        </h3>
+                        <p className="text-slate-600 text-sm mb-4">
+                            La piedra angular del manejo es evitar el alérgeno. Esto requiere una educación exhaustiva sobre la lectura de etiquetas y la comprensión de los riesgos de contacto cruzado (cross-contact) en manufactura y restaurantes.
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                            <div>
+                                <h4 className="font-bold text-slate-700 mb-2 border-b border-slate-200 pb-1">Regulación Oficial (FALCPA / FASTER)</h4>
+                                <ul className="list-disc pl-5 text-slate-600 space-y-2">
+                                    <li><strong>Declaración Obligatoria:</strong> La ley exige declarar en lenguaje sencillo los <strong>9 grandes alérgenos</strong> (Leche, Huevo, Pescado, Mariscos crustáceos, Frutos Secos, Maní, Trigo, Soja y <span className="font-bold text-indigo-700 bg-indigo-50 px-1 rounded">Sésamo</span>, añadido por la ley FASTER en 2023).</li>
+                                    <li><strong>Limitaciones Críticas:</strong> FALCPA <strong>solo</strong> aplica a ingredientes añadidos intencionalmente regulados por la FDA (excluye carnes USDA y alcohol). NO exige advertencias sobre contaminación cruzada.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-slate-700 mb-2 border-b border-slate-200 pb-1">Etiquetado Preventivo (PAL) y Contacto Cruzado</h4>
+                                <ul className="list-disc pl-5 text-slate-600 space-y-2">
+                                    <li><strong>Naturaleza Voluntaria:</strong> El <em>Precautionary Allergen Labeling</em> (PAL) como "puede contener" o "procesado en instalaciones que..." es totalmente voluntario y no regulado.</li>
+                                    <li><strong>Ausencia de Etiqueta =/= Seguridad:</strong> Que un producto NO tenga la etiqueta "puede contener" no garantiza que esté libre de contacto cruzado si comparte equipos de manufactura.</li>
+                                    <li><strong>Regla de Oro:</strong> Se instruye a los pacientes a <strong>evitar absolutamente</strong> todos los productos con etiquetas PAL (indistintamente de cómo estén redactadas) debido a la altísima variabilidad en la dosis contaminante.</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div className="bg-red-50 p-5 rounded-xl border border-red-200">
-                            <h3 className="font-bold text-red-800 mb-3 flex items-center gap-2">
-                                <span className="bg-red-200 p-1 rounded text-red-900">2</span> Preparación para Emergencias
-                            </h3>
-                            <ul className="list-disc pl-5 text-sm text-red-900 space-y-2">
-                                <li><strong>Plan de Acción Escrito:</strong> Instrucciones claras para escuela/hogar.</li>
-                                <li><strong>Adrenalina (Epinefrina):</strong> Acceso inmediato (autoinyectores) 24/7.</li>
-                                <li><strong>Identificación Médica:</strong> Pulseras/alertas de alergia.</li>
-                            </ul>
+                    </div>
+
+                    <div className="bg-red-50 p-6 rounded-2xl border border-red-200 shadow-sm mb-6">
+                        <h3 className="font-bold text-red-800 text-lg mb-4 flex items-center gap-2">
+                            <Icons.Activity /> Preparación para Emergencias
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                            <div className="bg-white/60 p-4 rounded-xl border border-red-100/50">
+                                <h4 className="font-bold text-red-900 mb-2">Plan de Acción (PAAA)</h4>
+                                <p className="text-red-800">Documento escrito y estandarizado (ej. FARE) con síntomas y dosis exactas de medicamentos para escuela, hogar o tutores.</p>
+                            </div>
+                            <div className="bg-white/60 p-4 rounded-xl border border-red-100/50">
+                                <h4 className="font-bold text-red-900 mb-2">Epinefrina (Adrenalina)</h4>
+                                <p className="text-red-800">Porte constante de <strong>dos (2)</strong> autoinyectores (EAI). Un 20% de reacciones severas requieren una segunda dosis.</p>
+                            </div>
+                            <div className="bg-white/60 p-4 rounded-xl border border-red-100/50">
+                                <h4 className="font-bold text-red-900 mb-2">Identificación</h4>
+                                <p className="text-red-800">Uso de identificación médica (pulsera/collar) y entrenamiento a la red de apoyo para reconocer síntomas rápidamente.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
