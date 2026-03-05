@@ -614,7 +614,44 @@
             </div>
         );
 
-        // 7. Caso Clínico USMLE (FPIAP)
+        // 7. Entornos Educativos (Escuelas y Campamentos) - UpToDate
+        const EducationalSettings = () => (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-6">
+                <div>
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.Search /> Escuelas y Campamentos
+                    </h2>
+                    <p className="text-slate-600 mb-6 text-sm">
+                        El manejo de alergias en entornos institucionales infantiles requiere un enfoque sistémico que priorice la prevención de contacto cruzado, la preparación para emergencias y la comunicación constante.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-indigo-50 p-5 rounded-xl border border-indigo-200">
+                            <h3 className="font-bold text-indigo-800 mb-3 flex items-center gap-2">
+                                <span className="bg-indigo-200 p-1 rounded">1</span> Planes Individualizados
+                            </h3>
+                            <ul className="list-disc pl-5 text-sm text-indigo-900 space-y-2">
+                                <li><strong>Plan de Emergencia:</strong> Todo niño en riesgo debe tener un Plan Estricto de Cuidado de Emergencia (ej. modelo FARE) firmado por el médico y tutores.</li>
+                                <li><strong>Admon. de Adrenalina:</strong> Autorización explícita para el autoinyector o su administración por personal escolar entrenado ante los primeros signos de sospecha clínica.</li>
+                                <li><strong>Stock de Epinefrina:</strong> Se recomienda encarecidamente a las escuelas disponer de autoinyectores "no asignados", ya que el 25% de las reacciones severas se presentan en pacientes sin diagnóstico previo (debut).</li>
+                            </ul>
+                        </div>
+                        <div className="bg-emerald-50 p-5 rounded-xl border border-emerald-200">
+                            <h3 className="font-bold text-emerald-800 mb-3 flex items-center gap-2">
+                                <span className="bg-emerald-200 p-1 rounded">2</span> Reducción de Riesgo (Safe vs Free)
+                            </h3>
+                            <ul className="list-disc pl-5 text-sm text-emerald-900 space-y-2">
+                                <li><strong>Entorno "Allergen-Safe":</strong> Evitar políticas irreales de "prohibición absoluta" (Allergen-Free); en su lugar, concentrarse en frenar el contacto cruzado (mesas designadas).</li>
+                                <li><strong>Lavado de Manos:</strong> El alcohol en gel <strong>NO</strong> elimina alérgenos. Promover lavado estricto con agua y jabón, y uso de toallitas húmedas para pupitres.</li>
+                                <li><strong>Campamentos:</strong> Comunicación previa intensiva sobre menús, proximidad a urgencias e implicación de la cadena de mando de supervisión.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 8. Caso Clínico USMLE (FPIAP)
         const UsmleCase = () => {
             const [isFlipped, setIsFlipped] = useState(false);
 
@@ -801,6 +838,7 @@
                     case 'treatment': return <TreatmentMgt />;
                     case 'adults': return <AdultScenarios />;
                     case 'resolution': return <NaturalHistory />;
+                    case 'schools': return <EducationalSettings />;
                     case 'usmle': return <UsmleCase />;
                     case 'game': return <AllergenDetective />;
                     default: return <KnowledgeHub />;
@@ -868,6 +906,12 @@
                                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'resolution' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
                                 >
                                     <Icons.CheckCircle /> Historia Natural y Resolución
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('schools')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'schools' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Search /> Escuelas y Campamentos
                                 </button>
                                 <button
                                     onClick={() => setActiveSection('usmle')}
