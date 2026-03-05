@@ -255,6 +255,72 @@
             </div>
         );
 
+        // 4. Síndrome de Alergia Oral / Polen-Alimento (PFAS)
+        const PollenFoodSyndrome = () => (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-6">
+                <div>
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.Search /> Pollen-Food Allergy Syndrome (PFAS / OAS)
+                    </h2>
+                    <div className="bg-amber-50 p-5 rounded-2xl border border-amber-200 shadow-sm mb-6">
+                        <p className="text-amber-900 text-sm leading-relaxed">
+                            También conocido como Síndrome de Alergia Oral (OAS). Es la alergia alimentaria más común en adultos. Ocurre por <strong>reactividad cruzada</strong> inmunológica: la IgE del paciente, originalmente sensibilizada a pólenes ambientales, "confunde" las proteínas homólogas presentes en frutas frescas, verduras y nueces crudas.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h3 className="font-bold text-slate-800 mb-4 pb-2 border-b border-slate-200">Familias de Proteínas Implicadas</h3>
+                            <div className="space-y-4">
+                                <div>
+                                    <h4 className="font-bold text-indigo-700 text-sm mb-1 flex items-center gap-1"><Icons.BookOpen /> Proteínas PR-10</h4>
+                                    <p className="text-xs text-slate-600">
+                                        Altamente asociadas al <strong>Polen de Abedul (Bet v 1)</strong>. Reacciona con manzanas (Mal d 1), cerezas, duraznos, avellanas (Cor a 1), maní (Ara h 8) y soja (Gly m 4).<br /><span className="italic">Termolábiles (se toleran cocidas).</span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-indigo-700 text-sm mb-1 flex items-center gap-1"><Icons.BookOpen /> Profilinas</h4>
+                                    <p className="text-xs text-slate-600">
+                                        "Panalérgenos" ubicuos. Responsables de reactividad entre polen, látex y alimentos (ej. melón, sandía). <br /><span className="italic">Termolábiles y susceptibles a digestión gástrica.</span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-red-700 text-sm mb-1 flex items-center gap-1"><Icons.AlertCircle /> LTPs (Lipid Transfer Proteins)</h4>
+                                    <p className="text-xs text-slate-600 text-red-600 bg-red-50 p-2 rounded">
+                                        Proteínas termoestables y resistentes a la pepsina. Asociadas a reacciones <strong>sistémicas severas</strong> (no solo orales), de forma independiente al polen en zonas mediterráneas (Pru p 3 en durazno).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100 flex gap-4">
+                                <div className="text-emerald-500 bg-emerald-50 p-2 rounded-lg h-fit"><Icons.CheckCircle /></div>
+                                <div>
+                                    <h4 className="font-bold text-emerald-800 text-sm">Clínica Típica</h4>
+                                    <p className="text-xs text-emerald-700 mt-1">Prurito, hormigueo y edema leve confinado a labios, lengua, paladar y orofaringe tras minutos de ingerir el alimento <strong>crudo</strong>. Remite rápidamente.</p>
+                                </div>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow-sm border border-blue-100 flex gap-4">
+                                <div className="text-blue-500 bg-blue-50 p-2 rounded-lg h-fit"><Icons.Activity /></div>
+                                <div>
+                                    <h4 className="font-bold text-blue-800 text-sm">Clave Diagnóstica (Termolabilidad)</h4>
+                                    <p className="text-xs text-blue-700 mt-1">El paciente típicamente reporta síntomas al comer una <em>manzana fresca</em>, pero tolera perfectamente el <em>puré de manzana procesado (cocido)</em> o la tarta de manzana. Si hay reacción con cocidos, sospechar LTP o alergia genuina.</p>
+                                </div>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow-sm border border-red-100 flex gap-4">
+                                <div className="text-red-500 bg-red-50 p-2 rounded-lg h-fit"><Icons.AlertCircle /></div>
+                                <div>
+                                    <h4 className="font-bold text-red-800 text-sm">Riesgo Sistémico</h4>
+                                    <p className="text-xs text-red-700 mt-1">Aunque raro (1-2%), el PFAS puede progresar a anafilaxia. Educar sobre monitoreo en pacientes sumamente atópicos o reactores a nueces/maní homólogos (Ara h 8).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
         // Evaluación Clínica Inicial (Historia y Examen Físico - UpToDate)
         const ClinicalEvaluation = () => (
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-6">
@@ -897,6 +963,7 @@
                     case 'criteria': return <DiagnosticCriteria />;
                     case 'manifestations': return <ClinicalManifestations />;
                     case 'treatment': return <TreatmentMgt />;
+                    case 'pfas': return <PollenFoodSyndrome />;
                     case 'adults': return <AdultScenarios />;
                     case 'resolution': return <NaturalHistory />;
                     case 'schools': return <EducationalSettings />;
@@ -943,6 +1010,12 @@
                                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'manifestations' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
                                 >
                                     <Icons.Activity /> Manifestaciones Clínicas
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('pfas')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'pfas' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Search /> S. de Alergia Oral (PFAS)
                                 </button>
                                 <button
                                     onClick={() => setActiveSection('evaluation')}
