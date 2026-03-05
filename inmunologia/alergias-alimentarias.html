@@ -107,7 +107,90 @@
             </div>
         );
 
-        // 2. Criterios Diagnósticos (Nuevo según UpToDate)
+        // 2. Manifestaciones Clínicas (Nuevo según UpToDate)
+        const ClinicalManifestations = () => {
+            const [selectedSystem, setSelectedSystem] = useState('skin');
+
+            const systems = {
+                skin: {
+                    title: "Cutáneas",
+                    icon: <Icons.Activity />,
+                    color: "bg-blue-50 border-blue-200 text-blue-800",
+                    items: [
+                        { name: "Urticaria y Angioedema", desc: "La más frecuente (20% de urticarias agudas). Inicio en minutos." },
+                        { name: "S. Alergia Oral (SFA)", desc: "Prurito y edema en labios/paladar por reacción cruzada con polen." },
+                        { name: "Dermatitis Atópica", desc: "Exacerbación en 30% de niños con DA moderada-grave." }
+                    ]
+                },
+                gi: {
+                    title: "Gastrointestinales",
+                    icon: <Icons.Search />,
+                    color: "bg-emerald-50 border-emerald-200 text-emerald-800",
+                    items: [
+                        { name: "Anafilaxia GI", desc: "Náuseas, vómitos, dolor y diarrea inmediata (IgE)." },
+                        { name: "FPIES", desc: "Vómitos profusos retrasados (2-4h), letargia e hipotensión (No IgE)." },
+                        { name: "EoE", desc: "Disfagia e impactación alimentaria crónica (Mixto)." }
+                    ]
+                },
+                resp: {
+                    title: "Respiratorias",
+                    icon: <Icons.AlertCircle />,
+                    color: "bg-indigo-50 border-indigo-200 text-indigo-800",
+                    items: [
+                        { name: "Rinoconjuntivitis", desc: "Generalmente asociada a otros síntomas (rara aislada)." },
+                        { name: "Asma Aguda", desc: "Sibilancias como parte de una reacción sistémica grave." },
+                        { name: "S. de Heiner", desc: "Hemosiderosis pulmonar inducida por leche (muy raro, No IgE)." }
+                    ]
+                },
+                systemic: {
+                    title: "Sistémicas",
+                    icon: <Icons.CheckCircle />,
+                    color: "bg-red-50 border-red-200 text-red-800",
+                    items: [
+                        { name: "Anafilaxia", desc: "Reacción multiorgánica rápida y potencialmente mortal." },
+                        { name: "FDEIAn", desc: "Anafilaxia inducida por ejercicio dependiente de alimentos." },
+                        { name: "Cofactores", desc: "Alcohol, AINEs y el ejercicio bajan el umbral de reacción." }
+                    ]
+                }
+            };
+
+            return (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-6">
+                    <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                        <Icons.Stethoscope /> Espectro de Manifestaciones
+                    </h2>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                        {Object.keys(systems).map(key => (
+                            <button
+                                key={key}
+                                onClick={() => setSelectedSystem(key)}
+                                className={`p-4 rounded-xl border-2 transition-all text-left flex flex-col gap-2 ${selectedSystem === key ? systems[key].color + ' shadow-md scale-105' : 'bg-slate-50 border-transparent hover:bg-slate-100'}`}
+                            >
+                                <span className="opacity-70">{systems[key].icon}</span>
+                                <span className="font-bold">{systems[key].title}</span>
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className={`p-6 rounded-2xl border ${systems[selectedSystem].color}`}>
+                        <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                            {systems[selectedSystem].title}
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {systems[selectedSystem].items.map((item, i) => (
+                                <div key={i} className="bg-white/50 p-4 rounded-xl border border-black/5">
+                                    <h4 className="font-bold mb-1">{item.name}</h4>
+                                    <p className="text-sm opacity-90">{item.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 3. Criterios Diagnósticos (Nuevo según UpToDate)
         const DiagnosticCriteria = () => (
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-8">
                 <div>
@@ -576,6 +659,7 @@
                     case 'hub': return <KnowledgeHub />;
                     case 'diff': return <DifferentialDiagnosis />;
                     case 'criteria': return <DiagnosticCriteria />;
+                    case 'manifestations': return <ClinicalManifestations />;
                     case 'treatment': return <TreatmentMgt />;
                     case 'adults': return <AdultScenarios />;
                     case 'usmle': return <UsmleCase />;
@@ -615,6 +699,12 @@
                                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'criteria' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
                                 >
                                     <Icons.Search /> Criterios Diagnósticos
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('manifestations')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'manifestations' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Activity /> Manifestaciones Clínicas
                                 </button>
                                 <button
                                     onClick={() => setActiveSection('treatment')}
