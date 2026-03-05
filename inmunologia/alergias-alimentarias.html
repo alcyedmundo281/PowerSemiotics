@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerSemiotics - Alergias Alimentarias</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .flip-card {
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- ICONOS SVG (Inline para evitar dependencias externas) ---
+        const Icons = {
+            BookOpen: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>,
+            Stethoscope: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path><path d="M8 15v8"></path><path d="M16 2v0a6 6 0 0 1 6 6v0b"></path><circle cx="16" cy="14" r="4"></circle></svg>,
+            Activity: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>,
+            Search: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>,
+            CheckCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>,
+            AlertCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        };
+
+        // --- COMPONENTES DE VISTA ---
+
+        // 1. Hub de Conocimiento
+        const KnowledgeHub = () => (
+            <div className="animate-fade-in space-y-6">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.BookOpen /> Fundamentos de Inmunología
+                    </h2>
+                    <p className="text-slate-600 mb-4">
+                        Según la revisión de <em>Gregory Hage</em> y <em>Suzanne Barshow</em>, la hipersensibilidad alimentaria es un término paraguas. El sistema inmunológico gastrointestinal debe mantener tolerancia a antígenos alimentarios inocuos (tolerancia oral).
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                            <h3 className="font-semibold text-blue-800 mb-2">Mecanismo IgE Mediado</h3>
+                            <ul className="list-disc pl-5 text-sm text-blue-900 space-y-1">
+                                <li>Sensibilización inicial: Producción de IgE específica.</li>
+                                <li>Re-exposición: Entrecruzamiento de IgE en mastocitos/basófilos.</li>
+                                <li>De granulación: Histamina, triptasa, leucotrienos.</li>
+                                <li>Clínica: Inmediata (minutos). Urticaria, anafilaxia.</li>
+                            </ul>
+                        </div>
+                        <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
+                            <h3 className="font-semibold text-purple-800 mb-2">Mecanismos No IgE Mediados</h3>
+                            <ul className="list-disc pl-5 text-sm text-purple-900 space-y-1">
+                                <li>Mediados por células T o mecanismos mixtos.</li>
+                                <li>Inflamación subaguda o crónica del tracto GI.</li>
+                                <li>Patologías: FPIES, FPIAP, Enteropatía inducida por proteínas.</li>
+                                <li>Clínica: Retrasada (horas/días). Vómitos profusos, diarrea sanguinolenta.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 2. Diagnóstico Diferencial
+        const DifferentialDiagnosis = () => {
+            const [activeTab, setActiveTab] = useState('alergia');
+
+            const content = {
+                alergia: {
+                    title: "Alergia Verdadera",
+                    mediator: "Inmunológico (IgE mediado)",
+                    onset: "Inmediato (Minutos a < 2 horas)",
+                    symptoms: "Urticaria, angioedema, broncoespasmo, anafilaxia, vómitos agudos.",
+                    examples: "Alergia al maní, mariscos, anafilaxia por leche de vaca.",
+                    color: "bg-red-50",
+                    borderColor: "border-red-500",
+                    textColor: "text-red-800"
+                },
+                intolerancia: {
+                    title: "Intolerancia",
+                    mediator: "No Inmune (Déficit enzimático / Farmacológico)",
+                    onset: "Variable (Horas)",
+                    symptoms: "Dolor abdominal, distensión, flatulencia, diarrea osmótica.",
+                    examples: "Intolerancia a la lactosa (déficit de lactasa), sensibilidad a FODMAPs.",
+                    color: "bg-amber-50",
+                    borderColor: "border-amber-500",
+                    textColor: "text-amber-800"
+                },
+                sensibilidad: {
+                    title: "Sensibilidad",
+                    mediator: "Inmune mixto (IgG / Activación celular local)",
+                    onset: "Diferido (Horas a Días)",
+                    symptoms: "Migraña, fatiga, mialgias, alteraciones GI crónicas (Leaky gut).",
+                    examples: "Sensibilidad al Gluten No Celíaca (SGNC), sensibilidades sistémicas.",
+                    color: "bg-indigo-50",
+                    borderColor: "border-indigo-500",
+                    textColor: "text-indigo-800"
+                }
+            };
+
+            return (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                        <Icons.Activity /> El Diferencial Crítico
+                    </h2>
+
+                    <div className="flex flex-wrap gap-2 mb-6">
+                        {Object.keys(content).map((key) => (
+                            <button
+                                key={key}
+                                onClick={() => setActiveTab(key)}
+                                className={`px-5 py-2.5 rounded-lg font-semibold transition-all duration-200 ${activeTab === key
+                                        ? 'bg-slate-800 text-white shadow-md transform scale-105'
+                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                    }`}
+                            >
+                                {content[key].title}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className={`p-6 border-l-4 rounded-r-lg ${content[activeTab].color} ${content[activeTab].borderColor} transition-all duration-300`}>
+                        <h3 className={`text-xl font-bold mb-4 ${content[activeTab].textColor}`}>{content[activeTab].title}</h3>
+                        <div className="space-y-3">
+                            <div className="flex flex-col sm:flex-row sm:items-center border-b border-black/5 pb-2">
+                                <span className="font-semibold w-40 text-slate-700">Mecanismo:</span>
+                                <span className="text-slate-800">{content[activeTab].mediator}</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:items-center border-b border-black/5 pb-2">
+                                <span className="font-semibold w-40 text-slate-700">Inicio:</span>
+                                <span className="text-slate-800">{content[activeTab].onset}</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row border-b border-black/5 pb-2">
+                                <span className="font-semibold w-40 text-slate-700 mt-1">Clínica Clave:</span>
+                                <span className="text-slate-800 flex-1">{content[activeTab].symptoms}</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row">
+                                <span className="font-semibold w-40 text-slate-700 mt-1">Ejemplos:</span>
+                                <span className="text-slate-800 flex-1 italic">{content[activeTab].examples}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 3. Caso Clínico USMLE (FPIAP)
+        const UsmleCase = () => {
+            const [isFlipped, setIsFlipped] = useState(false);
+
+            return (
+                <div className="animate-fade-in">
+                    <div className="bg-slate-800 text-white p-4 rounded-t-xl flex justify-between items-center">
+                        <h2 className="text-xl font-bold flex items-center gap-2">
+                            <Icons.Stethoscope /> Viñeta Clínica: USMLE Step 2 CK
+                        </h2>
+                        <span className="bg-blue-500 text-xs font-bold px-2 py-1 rounded">ALTO RENDIMIENTO</span>
+                    </div>
+
+                    <div className="bg-white p-6 border border-t-0 border-gray-200 rounded-b-xl shadow-sm">
+                        <p className="text-slate-700 mb-6 leading-relaxed text-lg">
+                            Un lactante varón de <strong>6 semanas de vida</strong> es traído a la clínica por su madre debido a que notó
+                            <strong> estrías de sangre y moco en las heces</strong> durante las últimas 24 horas.
+                            El bebé es alimentado exclusivamente con lactancia materna. Gana peso adecuadamente, no tiene fiebre, no vomita y luce cómodo y sano en el examen físico. El abdomen es blando y no doloroso. Fisura anal descartada.
+                        </p>
+
+                        <div className="bg-gray-50 p-4 rounded-lg mb-6 border border-gray-200">
+                            <p className="font-semibold text-slate-800">¿Cuál es el siguiente paso más apropiado en el manejo de este paciente?</p>
+                        </div>
+
+                        <div className={`flip-card w-full h-64 ${isFlipped ? 'flipped' : ''}`} onClick={() => setIsFlipped(!isFlipped)}>
+                            <div className="flip-card-inner relative w-full h-full cursor-pointer">
+                                {/* FRONT */}
+                                <div className="flip-card-front bg-blue-50 flex flex-col items-center justify-center border-2 border-blue-200 rounded-xl hover:bg-blue-100 transition-colors shadow-sm">
+                                    <Icons.Activity />
+                                    <h3 className="text-xl font-bold text-blue-800 mt-4">Toca para revelar el Diagnóstico y Manejo</h3>
+                                    <p className="text-blue-600 text-sm mt-2">(Proctocolitis Alérgica Inducida por Proteínas Alimentarias - FPIAP)</p>
+                                </div>
+                                {/* BACK */}
+                                <div className="flip-card-back bg-emerald-50 border-2 border-emerald-200 rounded-xl p-6 flex flex-col justify-center shadow-sm">
+                                    <h3 className="text-xl font-bold text-emerald-800 mb-2">Diagnóstico: FPIAP</h3>
+                                    <p className="text-emerald-900 mb-3">
+                                        <strong>Manejo:</strong> Continuar la lactancia materna, pero la madre debe <strong>eliminar la leche de vaca y la soja</strong> de su propia dieta.
+                                    </p>
+                                    <ul className="list-disc pl-5 text-sm text-emerald-800 space-y-1">
+                                        <li><strong>Perla USMLE:</strong> Bebé "feliz y sangrante" (healthy-appearing infant with bloody stools).</li>
+                                        <li>Mecanismo: Reacción no mediada por IgE en el colon (eosinofílica).</li>
+                                        <li>Pronóstico: Excelente. Suele resolverse hacia el primer año de vida, permitiendo reintroducción.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 4. Minijuego Gamificado
+        const AllergenDetective = () => {
+            const [selectedFoods, setSelectedFoods] = useState([]);
+            const [status, setStatus] = useState('idle'); // idle, success, error
+
+            const foods = [
+                { id: 'leche', name: 'Lácteos', type: 'allergen', emoji: '🥛' },
+                { id: 'trigo', name: 'Gluten / Trigo', type: 'allergen', emoji: '🍞' },
+                { id: 'soja', name: 'Soja', type: 'allergen', emoji: '🫘' },
+                { id: 'huevo', name: 'Huevos', type: 'allergen', emoji: '🥚' },
+                { id: 'manzana', name: 'Manzanas', type: 'safe', emoji: '🍎' },
+                { id: 'pollo', name: 'Pollo', type: 'safe', emoji: '🍗' },
+                { id: 'arroz', name: 'Arroz', type: 'safe', emoji: '🍚' },
+                { id: 'brocoli', name: 'Brócoli', type: 'safe', emoji: '🥦' },
+            ];
+
+            const toggleFood = (id) => {
+                setStatus('idle');
+                if (selectedFoods.includes(id)) {
+                    setSelectedFoods(selectedFoods.filter(f => f !== id));
+                } else {
+                    setSelectedFoods([...selectedFoods, id]);
+                }
+            };
+
+            const evaluateDiet = () => {
+                const allergens = foods.filter(f => f.type === 'allergen').map(f => f.id);
+                const isCorrect =
+                    selectedFoods.length === allergens.length &&
+                    allergens.every(a => selectedFoods.includes(a));
+
+                setStatus(isCorrect ? 'success' : 'error');
+            };
+
+            const resetGame = () => {
+                setSelectedFoods([]);
+                setStatus('idle');
+            };
+
+            return (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in">
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.Search /> El Detective de Alérgenos
+                        </h2>
+                        <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full border border-indigo-200">Simulación Clínica</span>
+                    </div>
+
+                    <div className="bg-slate-50 p-4 rounded-lg mb-6 border-l-4 border-indigo-500">
+                        <p className="text-slate-700">
+                            <strong>Caso:</strong> Paciente femenina de 28 años con tiroiditis de Hashimoto, refiere fatiga crónica, niebla mental y dolor abdominal difuso (sin signos de alarma). Sospechas de un componente de <strong>Sensibilidad Sistémica (No IgE)</strong> mediada por permeabilidad intestinal y mimetismo molecular.
+                        </p>
+                        <p className="text-slate-700 mt-2 font-medium">
+                            <strong>Misión:</strong> Selecciona el "Top 4" de alimentos altamente inmunogénicos que prescribirías eliminar durante la fase inicial de 3 a 4 semanas (Estándar de Oro).
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        {foods.map(food => (
+                            <button
+                                key={food.id}
+                                onClick={() => toggleFood(food.id)}
+                                className={`flex flex-col items-center p-4 rounded-xl border-2 transition-all duration-200 ${selectedFoods.includes(food.id)
+                                        ? 'border-red-500 bg-red-50 transform scale-95 opacity-75'
+                                        : 'border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
+                                    }`}
+                            >
+                                <span className="text-4xl mb-2">{food.emoji}</span>
+                                <span className={`font-semibold ${selectedFoods.includes(food.id) ? 'text-red-700 line-through' : 'text-slate-700'}`}>
+                                    {food.name}
+                                </span>
+                                {selectedFoods.includes(food.id) && <span className="text-xs text-red-600 font-bold mt-1">ELIMINADO</span>}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-center justify-between border-t border-gray-100 pt-6">
+                        <p className="text-sm text-slate-500 mb-4 sm:mb-0">
+                            Alimentos eliminados: <strong>{selectedFoods.length} de 4 permitidos.</strong>
+                        </p>
+                        <div className="flex gap-3">
+                            <button onClick={resetGame} className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg font-medium transition-colors">
+                                Reiniciar
+                            </button>
+                            <button
+                                onClick={evaluateDiet}
+                                className="px-6 py-2 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition-colors shadow-md disabled:opacity-50"
+                                disabled={selectedFoods.length === 0}
+                            >
+                                Evaluar Dieta
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Feedback Areas */}
+                    {status === 'success' && (
+                        <div className="mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg flex items-start gap-3 animate-fade-in">
+                            <Icons.CheckCircle />
+                            <div>
+                                <h4 className="font-bold text-emerald-800">¡Excelente razonamiento clínico!</h4>
+                                <p className="text-emerald-700 text-sm mt-1">
+                                    El <strong>gluten, lácteos, soja y huevos</strong> son responsables de la inmensa mayoría de las sensibilidades cruzadas no mediadas por IgE. Una eliminación empírica de 3-4 semanas seguida de un "Challenge Test" (reintroducción progresiva) es el Gold Standard diagnóstico.
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
+                    {status === 'error' && (
+                        <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 animate-fade-in">
+                            <Icons.AlertCircle />
+                            <div>
+                                <h4 className="font-bold text-red-800">Dieta Subóptima</h4>
+                                <p className="text-red-700 text-sm mt-1">
+                                    Has eliminado alimentos seguros (como pollo, arroz, brócoli o manzana) o has olvidado retirar los principales antígenos (lácteos, gluten, soja, huevo). Reevalúa tu prescripción.
+                                </p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- APLICACIÓN PRINCIPAL ---
+        const App = () => {
+            const [activeSection, setActiveSection] = useState('hub');
+
+            const renderContent = () => {
+                switch (activeSection) {
+                    case 'hub': return <KnowledgeHub />;
+                    case 'diff': return <DifferentialDiagnosis />;
+                    case 'usmle': return <UsmleCase />;
+                    case 'game': return <AllergenDetective />;
+                    default: return <KnowledgeHub />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col md:flex-row">
+                    {/* Sidebar / Navegación */}
+                    <aside className="w-full md:w-72 bg-slate-900 text-slate-300 flex flex-col shadow-xl z-10 shrink-0">
+                        <div className="p-6 border-b border-slate-700">
+                            <h1 className="text-2xl font-bold text-white tracking-tight">
+                                Power<span className="text-indigo-400">Semiotics</span>
+                            </h1>
+                            <p className="text-xs font-medium text-slate-400 mt-1 tracking-widest uppercase">Clinical OS V2.0</p>
+                        </div>
+
+                        <div className="p-4">
+                            <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider px-3">Semana 13: Inmunología</p>
+                            <nav className="space-y-1">
+                                <button
+                                    onClick={() => setActiveSection('hub')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'hub' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.BookOpen /> Fundamentos
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('diff')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'diff' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Activity /> Diagnóstico Diferencial
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('usmle')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'usmle' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Stethoscope /> Clínica (USMLE Focus)
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('game')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'game' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Search /> Simulación Clínica
+                                </button>
+                            </nav>
+                        </div>
+
+                        <div className="mt-auto p-6 text-sm text-slate-500 border-t border-slate-700">
+                            <p>Universidad Central del Ecuador</p>
+                            <p>Medicina - Séptimo Semestre</p>
+                        </div>
+                    </aside>
+
+                    {/* Área de Contenido Principal */}
+                    <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+                        <header className="mb-8 border-b border-gray-200 pb-4">
+                            <h2 className="text-3xl font-bold text-slate-800">Alergia a Alimentos</h2>
+                            <p className="text-slate-500 mt-2">Módulo interactivo de estudio para el diagnóstico de hipersensibilidad, tolerancia e intolerancia.</p>
+                        </header>
+
+                        <div className="max-w-4xl">
+                            {renderContent()}
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

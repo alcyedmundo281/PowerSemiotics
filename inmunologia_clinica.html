@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inmunología Clínica - Powersemiotics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link href="assets/tailwind.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        window.SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
+        window.SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
+        window.supabaseClient = null;
+
+        function toggleAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            if (modal) modal.classList.toggle('hidden');
+            else console.error("No se encontró el modal de autenticación");
+        }
+
+        async function handleLogout() {
+            if (window.supabaseClient) {
+                await window.supabaseClient.auth.signOut();
+                window.location.reload();
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans bg-gray-50 text-gray-800">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8" />
+                <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="inmunologia_clinica.html" class="text-indigo-800 font-semibold">Inmunología</a>
+                <button id="auth-btn" type="button" onclick="signInWithGoogle()"
+                    class="px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary-hover transition-all">
+                    Iniciar Sesión
+                </button>
+                <span id="user-email" class="hidden text-sm font-medium text-gray-600 italic"></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal"
+        class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 transform transition-all">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">Acceso Estudiantes</h3>
+                <button onclick="toggleAuthModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="auth-options" class="space-y-4">
+                <button type="button" onclick="signInWithGoogle()"
+                    class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-bold py-3 rounded-xl shadow-sm hover:bg-gray-50 transition-all">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5">
+                    CONTINUAR CON GOOGLE
+                </button>
+
+                <div class="relative flex items-center py-4">
+                    <div class="flex-grow border-t border-gray-100"></div>
+                    <span class="flex-shrink mx-4 text-gray-400 text-[10px] font-bold uppercase tracking-widest">Acceso
+                        rápido</span>
+                    <div class="flex-grow border-t border-gray-100"></div>
+                </div>
+
+                <div class="space-y-3">
+                    <input type="email" id="login-email"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                        placeholder="O ingresa tu email para enlace mágico">
+                    <button type="button" onclick="handleMagicLink()" id="btn-magic-link"
+                        class="w-full text-primary font-bold text-sm hover:underline py-2 transition-all">
+                        Recibir enlace por email &rarr;
+                    </button>
+                </div>
+            </div>
+            <p id="auth-status" class="hidden mt-4 text-center text-sm font-bold"></p>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-6 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                HUB de Inmunología Clínica
+            </h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Explora los mecanismos del sistema inmunitario, desde la hipersensibilidad hasta la inmunopatología
+                clínica avanzada.
+            </p>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <a href="inmunologia/alergias-alimentarias.html"
+                class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-apple-whole text-4xl gradient-text"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">
+                    Módulo: Alergias Alimentarias
+                </h2>
+                <p class="text-gray-600 text-md mt-2">
+                    Abordaje interactivo de la hipersensibilidad alimentaria, diagnóstico diferencial y manejo clínico
+                    (USMLE Focus).
+                </p>
+            </a>
+
+            <!-- Placeholder cards for future modules -->
+            <div class="block w-full bg-white p-8 rounded-xl shadow-lg opacity-60 border border-gray-200 grayscale">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-dna text-4xl text-gray-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-400">
+                    Módulo: Inmunodeficiencias (Próximamente)
+                </h2>
+                <p class="text-gray-400 text-md mt-2">
+                    Estudio de las fallas del sistema inmune primarias y secundarias.
+                </p>
+            </div>
+
+            <div class="block w-full bg-white p-8 rounded-xl shadow-lg opacity-60 border border-gray-200 grayscale">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-shield-virus text-4xl text-gray-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-400">
+                    Módulo: Autoinmunidad (Próximamente)
+                </h2>
+                <p class="text-gray-400 text-md mt-2">
+                    Mecanismos de pérdida de tolerancia y enfermedades sistémicas.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white mt-20">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Supabase Session Logic -->
+    <script>
+        function toggleAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            if (modal) {
+                modal.classList.toggle('hidden');
+            }
+        }
+
+        window.SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
+        window.SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
+        window.supabaseClient = null;
+
+        async function initAuth() {
+            try {
+                if (!window.supabase) return;
+                window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+                const { data: { session } } = await window.supabaseClient.auth.getSession();
+                updateUI(session);
+            } catch (e) {
+                console.error("Error inicializando Auth:", e);
+            }
+        }
+
+        function updateUI(session) {
+            const authBtn = document.getElementById('auth-btn');
+            const userEmail = document.getElementById('user-email');
+
+            if (!authBtn) return;
+
+            if (session) {
+                authBtn.innerText = "Cerrar Sesión";
+                authBtn.onclick = handleLogout;
+                if (userEmail) {
+                    userEmail.innerText = session.user.email;
+                    userEmail.classList.remove('hidden');
+                }
+            } else {
+                authBtn.innerText = "Iniciar Sesión";
+                authBtn.onclick = toggleAuthModal;
+                if (userEmail) userEmail.classList.add('hidden');
+            }
+        }
+
+        async function handleLogout() {
+            if (!window.supabaseClient) return;
+            await window.supabaseClient.auth.signOut();
+            window.location.reload();
+        }
+
+        async function signInWithGoogle() {
+            if (!window.supabaseClient) return;
+            if (window.location.protocol === 'file:') {
+                alert("El login con Google requiere un servidor web.");
+                return;
+            }
+            const { error } = await window.supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.href }
+            });
+            if (error) alert("Error Google: " + error.message);
+        }
+
+        async function handleMagicLink() {
+            const email = document.getElementById('login-email').value;
+            const statusEl = document.getElementById('auth-status');
+            if (!window.supabaseClient || !email) return;
+
+            const { error } = await window.supabaseClient.auth.signInWithOtp({
+                email,
+                options: { emailRedirectTo: window.location.href }
+            });
+
+            if (error) {
+                statusEl.innerText = "Error: " + error.message;
+                statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
+            } else {
+                statusEl.innerText = "¡Enlace enviado! Revisa tu email.";
+                statusEl.className = "mt-4 text-center text-sm font-bold text-green-500";
+            }
+            statusEl.classList.remove('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', initAuth);
+    </script>
+</body>
+
+</html>
