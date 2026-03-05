@@ -172,7 +172,66 @@
             </div>
         );
 
-        // 2. Diagnóstico Diferencial
+        // 3. Tratamiento y Manejo (Nuevo según UpToDate)
+        const TreatmentMgt = () => (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-8">
+                <div>
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.CheckCircle /> Pilares del Tratamiento
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h3 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                <span className="bg-slate-200 p-1 rounded">1</span> Evitación Estricta
+                            </h3>
+                            <ul className="list-disc pl-5 text-sm text-slate-600 space-y-2">
+                                <li><strong>Lectura de Etiquetas:</strong> Identificar los 9 grandes alérgenos (FALCPA).</li>
+                                <li><strong>Etiquetas de Advertencia:</strong> Evitar "puede contener" o "procesado en...". Riesgo impredecible.</li>
+                                <li><strong>Restaurantes:</strong> Comunicación directa sobre el riesgo de contaminación cruzada.</li>
+                            </ul>
+                        </div>
+                        <div className="bg-red-50 p-5 rounded-xl border border-red-200">
+                            <h3 className="font-bold text-red-800 mb-3 flex items-center gap-2">
+                                <span className="bg-red-200 p-1 rounded text-red-900">2</span> Preparación para Emergencias
+                            </h3>
+                            <ul className="list-disc pl-5 text-sm text-red-900 space-y-2">
+                                <li><strong>Plan de Acción Escrito:</strong> Instrucciones claras para escuela/hogar.</li>
+                                <li><strong>Adrenalina (Epinefrina):</strong> Acceso inmediato (autoinyectores) 24/7.</li>
+                                <li><strong>Identificación Médica:</strong> Pulseras/alertas de alergia.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-blue-900 text-white p-6 rounded-2xl shadow-xl">
+                    <h3 className="text-xl font-bold mb-4">Manejo de la Anafilaxia (UpToDate Gold Standard)</h3>
+                    <div className="bg-white/10 p-4 rounded-lg border border-white/20 mb-4">
+                        <p className="text-sm italic">"En caso de duda, administre epinefrina". No hay contraindicaciones absolutas en anafilaxia.</p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <div className="bg-white/5 p-3 rounded-lg">
+                            <h4 className="font-bold text-blue-300 uppercase mb-2">Administrar Adrenalina Si:</h4>
+                            <ul className="list-disc pl-4 space-y-1">
+                                <li>Dificultad respiratoria o estridor.</li>
+                                <li>Vómitos repetitivos (en niños).</li>
+                                <li>Hipotensión o mareo súbito.</li>
+                                <li>Afectación de ≥2 sistemas órganicos.</li>
+                            </ul>
+                        </div>
+                        <div className="bg-white/5 p-3 rounded-lg">
+                            <h4 className="font-bold text-blue-300 uppercase mb-2">Terapias Avanzadas:</h4>
+                            <ul className="list-disc pl-4 space-y-1">
+                                <li><strong>Palforzia:</strong> OIT aprobada por FDA para maní (4-17 años).</li>
+                                <li><strong>Omalizumab:</strong> Aprobado para elevar el umbral de reacción.</li>
+                                <li>Seguimiento: Pruebas cada 6-12 meses para evaluar resolución natural.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 4. Diagnóstico Diferencial
         const DifferentialDiagnosis = () => {
             const [activeTab, setActiveTab] = useState('alergia');
 
@@ -437,6 +496,7 @@
                     case 'hub': return <KnowledgeHub />;
                     case 'diff': return <DifferentialDiagnosis />;
                     case 'criteria': return <DiagnosticCriteria />;
+                    case 'treatment': return <TreatmentMgt />;
                     case 'usmle': return <UsmleCase />;
                     case 'game': return <AllergenDetective />;
                     default: return <KnowledgeHub />;
@@ -474,6 +534,12 @@
                                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'criteria' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
                                 >
                                     <Icons.Search /> Criterios Diagnósticos
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('treatment')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'treatment' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.CheckCircle /> Tratamiento y Manejo
                                 </button>
                                 <button
                                     onClick={() => setActiveSection('usmle')}
