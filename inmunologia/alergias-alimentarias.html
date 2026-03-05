@@ -289,7 +289,7 @@
                         ))}
                     </div>
 
-                    <div className={`p-6 border-l-4 rounded-r-lg ${content[activeTab].color} ${content[activeTab].borderColor} transition-all duration-300`}>
+                    <div className={`p-6 border-l-4 rounded-r-lg ${content[activeTab].color} ${content[activeTab].borderColor} transition-all duration-300 mb-8`}>
                         <h3 className={`text-xl font-bold mb-4 ${content[activeTab].textColor}`}>{content[activeTab].title}</h3>
                         <div className="space-y-3">
                             <div className="flex flex-col sm:flex-row sm:items-center border-b border-black/5 pb-2">
@@ -310,9 +310,89 @@
                             </div>
                         </div>
                     </div>
+
+                    <div className="border-t border-slate-100 pt-6">
+                        <h3 className="text-lg font-bold text-slate-800 mb-4">El Filtro Inicial: Tóxico vs No Tóxico</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                <h4 className="font-bold text-slate-700 mb-2">Reacciones Tóxicas (Envenenamiento)</h4>
+                                <p className="text-slate-600">Ocurren en <strong>cualquier persona</strong> si la dosis es suficiente. No dependen de la genética del individuo.</p>
+                                <ul className="list-disc pl-5 mt-2 text-slate-500 space-y-1">
+                                    <li><strong>Escombroidosis:</strong> Histamina en pescado mal conservado (Atún, Mahi-mahi).</li>
+                                    <li><strong>Ciguatera:</strong> Toxinas marinas acumuladas.</li>
+                                    <li><strong>Hongos:</strong> Toxinas endógenas.</li>
+                                </ul>
+                            </div>
+                            <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                                <h4 className="font-bold text-indigo-700 mb-2">Reacciones No Tóxicas (Alergia/Intol.)</h4>
+                                <p className="text-indigo-600">Dependen de la <strong>susceptibilidad individual</strong>. La mayoría de las personas toleran el alimento sin problemas.</p>
+                                <ul className="list-disc pl-5 mt-2 text-indigo-500 space-y-1">
+                                    <li><strong>Inmunes:</strong> Alergias mediadas por IgE o células.</li>
+                                    <li><strong>No Inmunes:</strong> Déficits enzimáticos o farmacológicos.</li>
+                                    <li><strong>Psicosomáticas:</strong> Aversión alimentaria.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             );
         };
+
+        // 5. Escenarios Específicos en Adultos (Nuevo según UpToDate)
+        const AdultScenarios = () => (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-8">
+                <div>
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.Activity /> Perfiles Críticos en el Adulto
+                    </h2>
+                    <div className="grid grid-cols-1 gap-6">
+                        <div className="bg-indigo-900 text-white p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                            <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+                            <h3 className="text-xl font-bold mb-3 flex items-center gap-3">
+                                <span className="bg-white/20 p-1.5 rounded-lg text-xs">Alergia Tardía</span> Síndrome de Alpha-gal
+                            </h3>
+                            <p className="text-indigo-100 text-sm leading-relaxed mb-4">
+                                Sensibilización al carbohidrato <em>galactosa-alfa-1,3-galactosa</em> tras picadura de garrapatas (Amlyomma americanum). Es el gran imitador en adultos.
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="bg-white/10 p-3 rounded-lg border border-white/20">
+                                    <h4 className="font-bold text-indigo-300 text-xs uppercase mb-1">Clave Diagnóstica:</h4>
+                                    <p className="text-xs">Inicio <strong>3-6 HORAS</strong> después de ingerir carne de mamífero (Vaca, Cerdo, Cordero). No es inmediata.</p>
+                                </div>
+                                <div className="bg-white/10 p-3 rounded-lg border border-white/20">
+                                    <h4 className="font-bold text-indigo-300 text-xs uppercase mb-1">Impacto:</h4>
+                                    <p className="text-xs">Puede causar anafilaxia grave en pacientes que antes toleraban la carne sin problemas.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="bg-emerald-50 p-5 rounded-xl border border-emerald-200">
+                                <h3 className="font-bold text-emerald-800 mb-3 flex items-center gap-2">
+                                    <Icons.BookOpen /> PFAS (S. Alergia Polen-Alimento)
+                                </h3>
+                                <p className="text-sm text-emerald-900 mb-2">La alergia alimentaria **más común** en adultos.</p>
+                                <p className="text-xs text-emerald-700 italic">Reactividad cruzada: Polen de abedul vs Manzana/Melocotón.</p>
+                                <ul className="list-disc pl-4 mt-2 text-xs text-emerald-800 space-y-1">
+                                    <li>Solo ocurre con alimentos **crudos** (la cocción desnaturaliza la proteína).</li>
+                                    <li>Clínica: Prurito orofaríngeo leve.</li>
+                                </ul>
+                            </div>
+                            <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                                <h3 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
+                                    <Icons.Activity /> Esofagitis Eosinofílica (EoE)
+                                </h3>
+                                <p className="text-sm text-slate-700 mb-2">Mecanismo mixto (IgE y Celular).</p>
+                                <div className="bg-white p-3 rounded-lg text-xs border border-slate-200">
+                                    <p><strong>En Adultos:</strong> Debuta con disfagia crónica e impactación de bolo alimenticio.</p>
+                                    <p className="mt-1 text-slate-500 italic">"Anillo de Schatki" recurrente en endoscopia.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
 
         // 3. Caso Clínico USMLE (FPIAP)
         const UsmleCase = () => {
@@ -497,6 +577,7 @@
                     case 'diff': return <DifferentialDiagnosis />;
                     case 'criteria': return <DiagnosticCriteria />;
                     case 'treatment': return <TreatmentMgt />;
+                    case 'adults': return <AdultScenarios />;
                     case 'usmle': return <UsmleCase />;
                     case 'game': return <AllergenDetective />;
                     default: return <KnowledgeHub />;
@@ -540,6 +621,12 @@
                                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'treatment' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
                                 >
                                     <Icons.CheckCircle /> Tratamiento y Manejo
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('adults')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'adults' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Activity /> Escenarios en Adultos
                                 </button>
                                 <button
                                     onClick={() => setActiveSection('usmle')}
