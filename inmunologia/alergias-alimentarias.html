@@ -82,30 +82,91 @@
             <div className="animate-fade-in space-y-6">
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                     <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                        <Icons.BookOpen /> Fundamentos de Inmunología
+                        <Icons.BookOpen /> Fundamentos e Historia Clínica
                     </h2>
                     <p className="text-slate-600 mb-4">
-                        Según la revisión de <em>Gregory Hage</em> y <em>Suzanne Barshow</em>, la hipersensibilidad alimentaria es un término paraguas. El sistema inmunológico gastrointestinal debe mantener tolerancia a antígenos alimentarios inocuos (tolerancia oral).
+                        La <strong>Historia Clínica</strong> es la herramienta diagnóstica más ponderante. Determina la <em>probabilidad pretest</em>. Según UpToDate, no se deben pedir paneles extensos sin historia sugerente, para evitar el sobrediagnóstico de "sensibilización" (test positivo sin relevancia clínica).
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                            <h3 className="font-semibold text-blue-800 mb-2">Mecanismo IgE Mediado</h3>
+                            <h3 className="font-semibold text-blue-800 mb-2">Pretest y Sensibilización</h3>
                             <ul className="list-disc pl-5 text-sm text-blue-900 space-y-1">
-                                <li>Sensibilización inicial: Producción de IgE específica.</li>
-                                <li>Re-exposición: Entrecruzamiento de IgE en mastocitos/basófilos.</li>
-                                <li>De granulación: Histamina, triptasa, leucotrienos.</li>
-                                <li>Clínica: Inmediata (minutos). Urticaria, anafilaxia.</li>
+                                <li><strong>Sensibilización:</strong> Presencia de IgE sin síntomas al ingerir el alimento.</li>
+                                <li><strong>Alergia Clínica:</strong> Síntomas objetivos tras la exposición.</li>
+                                <li><strong>Regla de Oro:</strong> Si un alimento se tolera habitualmente, NO se debe retirar de la dieta aunque el test sea positivo.</li>
                             </ul>
                         </div>
-                        <div className="bg-purple-50 p-4 rounded-lg border border-purple-100">
-                            <h3 className="font-semibold text-purple-800 mb-2">Mecanismos No IgE Mediados</h3>
-                            <ul className="list-disc pl-5 text-sm text-purple-900 space-y-1">
-                                <li>Mediados por células T o mecanismos mixtos.</li>
-                                <li>Inflamación subaguda o crónica del tracto GI.</li>
-                                <li>Patologías: FPIES, FPIAP, Enteropatía inducida por proteínas.</li>
-                                <li>Clínica: Retrasada (horas/días). Vómitos profusos, diarrea sanguinolenta.</li>
-                            </ul>
+                        <div className="bg-amber-50 p-4 rounded-lg border border-amber-100">
+                            <h3 className="font-semibold text-amber-800 mb-2">Mecanismo IgE Mediado</h3>
+                            <p className="text-sm text-amber-900 leading-relaxed">
+                                Reacción inmediata (minutos a &lt; 2h). El entrecruzamiento de IgE en mastocitos libera histamina y triptasa. Riesgo de anafilaxia sistémica. El Skin Prick Test (SPT) tiene un <strong>VPN del 95%</strong>.
+                            </p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 2. Criterios Diagnósticos (Nuevo según UpToDate)
+        const DiagnosticCriteria = () => (
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 animate-fade-in space-y-8">
+                <div>
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.Search /> Niveles Predictivos (95% PPV)
+                    </h2>
+                    <p className="text-slate-600 mb-6 text-sm italic">Valores de sIgE (kUA/L) por encima de los cuales la probabilidad de reacción en un OFC es &gt;95%.</p>
+
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-slate-50 border-b border-slate-200">
+                                    <th className="p-3 text-slate-700 font-bold">Alimento</th>
+                                    <th className="p-3 text-slate-700 font-bold">sIgE (kUA/L)</th>
+                                    <th className="p-3 text-slate-700 font-bold">Lactantes (&lt;2a)</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-sm text-slate-600">
+                                <tr className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td className="p-3 font-semibold text-slate-800">Huevo</td>
+                                    <td className="p-3">7</td>
+                                    <td className="p-3 text-indigo-600 font-bold">2</td>
+                                </tr>
+                                <tr className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td className="p-3 font-semibold text-slate-800">Leche</td>
+                                    <td className="p-3">15</td>
+                                    <td className="p-3 text-indigo-600 font-bold">5</td>
+                                </tr>
+                                <tr className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                                    <td className="p-3 font-semibold text-slate-800">Maní (Cacahuate)</td>
+                                    <td className="p-3">14</td>
+                                    <td className="p-3">-</td>
+                                </tr>
+                                <tr className="hover:bg-slate-50 transition-colors">
+                                    <td className="p-3 font-semibold text-slate-800">Pescado</td>
+                                    <td className="p-3">20</td>
+                                    <td className="p-3">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-indigo-900 text-white p-5 rounded-xl shadow-lg relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-2 opacity-10"><Icons.Activity /></div>
+                        <h3 className="font-bold text-lg mb-2">Component-Resolved (CRD)</h3>
+                        <p className="text-sm text-indigo-100 leading-relaxed">
+                            Analiza proteínas específicas (ej. <strong>Ara h 2</strong> vs Ara h 8). Determina si la sensibilización es de alto riesgo sistémico o simple reactividad cruzada con polen.
+                        </p>
+                    </div>
+
+                    <div className="bg-emerald-50 border-2 border-emerald-500/20 p-5 rounded-xl">
+                        <h3 className="font-bold text-emerald-800 text-lg mb-2 flex items-center gap-2">
+                            <Icons.CheckCircle /> El "Gold Standard"
+                        </h3>
+                        <p className="text-sm text-emerald-900">
+                            El <strong>Oral Food Challenge (OFC)</strong> es el estándar definitivo. Se indica cuando la historia y los tests son indeterminados. Siempre bajo supervisión y con adrenalina disponible.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -160,8 +221,8 @@
                                 key={key}
                                 onClick={() => setActiveTab(key)}
                                 className={`px-5 py-2.5 rounded-lg font-semibold transition-all duration-200 ${activeTab === key
-                                        ? 'bg-slate-800 text-white shadow-md transform scale-105'
-                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                    ? 'bg-slate-800 text-white shadow-md transform scale-105'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                     }`}
                             >
                                 {content[key].title}
@@ -308,8 +369,8 @@
                                 key={food.id}
                                 onClick={() => toggleFood(food.id)}
                                 className={`flex flex-col items-center p-4 rounded-xl border-2 transition-all duration-200 ${selectedFoods.includes(food.id)
-                                        ? 'border-red-500 bg-red-50 transform scale-95 opacity-75'
-                                        : 'border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
+                                    ? 'border-red-500 bg-red-50 transform scale-95 opacity-75'
+                                    : 'border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
                                     }`}
                             >
                                 <span className="text-4xl mb-2">{food.emoji}</span>
@@ -375,6 +436,7 @@
                 switch (activeSection) {
                     case 'hub': return <KnowledgeHub />;
                     case 'diff': return <DifferentialDiagnosis />;
+                    case 'criteria': return <DiagnosticCriteria />;
                     case 'usmle': return <UsmleCase />;
                     case 'game': return <AllergenDetective />;
                     default: return <KnowledgeHub />;
@@ -406,6 +468,12 @@
                                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'diff' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
                                 >
                                     <Icons.Activity /> Diagnóstico Diferencial
+                                </button>
+                                <button
+                                    onClick={() => setActiveSection('criteria')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'criteria' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Search /> Criterios Diagnósticos
                                 </button>
                                 <button
                                     onClick={() => setActiveSection('usmle')}
