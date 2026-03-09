@@ -11,12 +11,100 @@
 
 <body class="font-sans bg-gray-100">
   <!-- Header -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="../neurologia.html" class="text-xl font-bold text-blue-700">&larr; Volver al Hub de Neurología</a>
-      <div class="text-xl font-bold text-gray-700">Power Semiotics</div>
+  <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+    <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <a href="../neurologia.html" class="flex items-center gap-2 group text-blue-700 font-medium transition-all">
+        <span class="bg-blue-50 p-2 rounded-lg group-hover:bg-blue-100 transition-colors">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        Volver al Hub
+      </a>
+      <div class="text-xl font-extrabold tracking-tight text-gray-900">Power<span class="text-blue-600">Semiotics</span>
+      </div>
     </nav>
   </header>
+
+  <style>
+    .accordion-button {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .accordion-button:hover {
+      background-color: rgba(37, 99, 235, 0.05);
+    }
+
+    .accordion-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .accordion-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-premium {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .brand-gradient {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s duration;
+      background-color: white;
+    }
+
+    .option-btn:hover {
+      border-color: #93c5fd;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .option-btn.correct {
+      border-color: #10b981 !important;
+      background-color: #ecfdf5 !important;
+      color: #065f46 !important;
+    }
+
+    .option-btn.incorrect {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2 !important;
+      color: #991b1b !important;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      display: none;
+    }
+
+    .feedback.correct {
+      display: block;
+      background-color: #f0fdf4;
+      color: #166534;
+      border: 1px solid #dcfce7;
+    }
+
+    .feedback.incorrect {
+      display: block;
+      background-color: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fee2e2;
+    }
+  </style>
 
   <!-- Main Module Container -->
   <div class="container mx-auto p-4 md:p-8">
@@ -32,23 +120,24 @@
     <!-- Botón de Descarga PDF -->
     <div class="text-center mb-12">
       <a href="../assets/pdf/Trastornos-del-Movimiento-2.pdf" download
-        class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm">
-        <i class="fas fa-download mr-2"></i>
-        Descargar Banco de Conocimientos (PDF)
+        class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-xl text-white btn-premium">
+        <i class="fas fa-file-pdf mr-3 text-xl"></i>
+        Descargar Banco de Conocimientos
       </a>
     </div>
 
     <!-- Accordion Container -->
     <div id="accordion-container" class="space-y-4 max-w-5xl mx-auto">
       <!-- Accordion Item 1: Guía de Conocimiento -->
-      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden accordion-item">
         <button
-          class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-          <span>1. Guía de Conocimiento: Diagnóstico Diferencial</span>
-          <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
+          class="accordion-button w-full flex justify-between items-center p-6 text-left font-bold text-xl text-gray-900 transition-colors">
+          <span class="flex items-center gap-4">
+            <span
+              class="w-10 h-10 flex items-center justify-center bg-blue-50 text-blue-600 rounded-full text-sm">01</span>
+            Guía de Conocimiento: Diagnóstico Diferencial
+          </span>
+          <i class="fas fa-chevron-down accordion-icon text-gray-400 transition-transform"></i>
         </button>
         <div class="accordion-content">
           <div class="p-5 border-t border-gray-200 text-gray-700 embedded-content">
@@ -166,14 +255,15 @@
       </div>
 
       <!-- Accordion Item 2: Presentación Interactiva -->
-      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden accordion-item">
         <button
-          class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-          <span>2. Presentación Interactiva: Diagnóstico Diferencial</span>
-          <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
+          class="accordion-button w-full flex justify-between items-center p-6 text-left font-bold text-xl text-gray-900 transition-colors">
+          <span class="flex items-center gap-4">
+            <span
+              class="w-10 h-10 flex items-center justify-center bg-blue-50 text-blue-600 rounded-full text-sm">02</span>
+            Presentación Interactiva: Diagnóstico Diferencial
+          </span>
+          <i class="fas fa-chevron-down accordion-icon text-gray-400 transition-transform"></i>
         </button>
         <div class="accordion-content">
           <div id="presentation-container-parent" class="p-5 border-t border-gray-200">
@@ -183,14 +273,15 @@
       </div>
 
       <!-- Accordion Item 3: Herramienta Interactiva -->
-      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden accordion-item">
         <button
-          class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-          <span>3. Herramienta: Clasificador de Fenotipos Clínicos</span>
-          <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
+          class="accordion-button w-full flex justify-between items-center p-6 text-left font-bold text-xl text-gray-900 transition-colors">
+          <span class="flex items-center gap-4">
+            <span
+              class="w-10 h-10 flex items-center justify-center bg-blue-50 text-blue-600 rounded-full text-sm">03</span>
+            Herramienta: Clasificador de Fenotipos Clínicos
+          </span>
+          <i class="fas fa-chevron-down accordion-icon text-gray-400 transition-transform"></i>
         </button>
         <div class="accordion-content">
           <div id="classifier-container-parent" class="p-5 border-t border-gray-200">
@@ -200,14 +291,15 @@
       </div>
 
       <!-- Accordion Item 4: Actividad Interactiva (ABP) -->
-      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden accordion-item">
         <button
-          class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-          <span>4. Actividad Interactiva: Casos Clínicos ABP</span>
-          <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
+          class="accordion-button w-full flex justify-between items-center p-6 text-left font-bold text-xl text-gray-900 transition-colors">
+          <span class="flex items-center gap-4">
+            <span
+              class="w-10 h-10 flex items-center justify-center bg-blue-50 text-blue-600 rounded-full text-sm">04</span>
+            Actividad Interactiva: Casos Clínicos ABP
+          </span>
+          <i class="fas fa-chevron-down accordion-icon text-gray-400 transition-transform"></i>
         </button>
         <div class="accordion-content">
           <div id="abp-container-parent" class="p-5 border-t border-gray-200">
@@ -217,15 +309,15 @@
       </div>
 
       <!-- Accordion Item 5: Banco de Preguntas -->
-      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden accordion-item">
         <button
-          class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-gray-800 hover:bg-gray-50 transition-colors">
-          <span>5. Banco de Preguntas: Autoevaluación de Diagnóstico
-            Diferencial</span>
-          <svg class="accordion-icon w-6 h-6 transition-transform" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
+          class="accordion-button w-full flex justify-between items-center p-6 text-left font-bold text-xl text-gray-900 transition-colors">
+          <span class="flex items-center gap-4">
+            <span
+              class="w-10 h-10 flex items-center justify-center bg-blue-50 text-blue-600 rounded-full text-sm">05</span>
+            Autoevaluación: Banco de Preguntas Clínicas
+          </span>
+          <i class="fas fa-chevron-down accordion-icon text-gray-400 transition-transform"></i>
         </button>
         <div class="accordion-content">
           <div id="quiz-container-parent" class="p-5 border-t border-gray-200">
@@ -900,7 +992,12 @@
         resultText =
           'Seleccione una combinación de signos para obtener una orientación diagnóstica. Si no hay banderas rojas claras, considere Enfermedad de Parkinson Idiopática.';
       }
-      resultEl.innerHTML = `<div class="p-4 mt-4 bg-blue-100 text-blue-800 rounded-lg">${resultText}</div>`;
+      resultEl.innerHTML = `<div class="p-5 mt-6 bg-blue-50 border border-blue-200 text-blue-900 rounded-xl shadow-inner animate-pulse-once">
+        <div class="flex items-start gap-4">
+          <i class="fas fa-info-circle mt-1 text-blue-600 text-xl"></i>
+          <div>${resultText}</div>
+        </div>
+      </div>`;
     }
 
     function quiz_selectAnswer(btn, isCorrect) {
