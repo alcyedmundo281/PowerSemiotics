@@ -104,6 +104,54 @@
       color: #991b1b;
       border: 1px solid #fee2e2;
     }
+
+    /* Presentation Styles */
+    .slide {
+      display: none;
+      padding: 2rem;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide h2 {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #dbeafe;
+      padding-bottom: 0.5rem;
+    }
+
+    .slide h3 {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 0.75rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #slide-container {
+      min-height: 450px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   </style>
 
   <!-- Main Module Container -->
@@ -1047,6 +1095,16 @@
           slideCounter.textContent = `Diapositiva ${n + 1} de ${totalSlides}`;
         if (prevBtn) prevBtn.disabled = n === 0;
         if (nextBtn) nextBtn.disabled = n === totalSlides - 1;
+
+        // Sync parent accordion height
+        const accordionContent = container.closest('.accordion-content');
+        if (accordionContent && accordionContent.style.maxHeight) {
+          accordionContent.style.maxHeight = 'none';
+          setTimeout(() => {
+            accordionContent.style.maxHeight =
+              accordionContent.scrollHeight + 'px';
+          }, 10);
+        }
       }
 
       function changeSlide(direction) {
