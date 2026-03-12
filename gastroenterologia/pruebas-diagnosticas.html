@@ -83,6 +83,67 @@
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
         }
 
+        /* --- Study Cards (Flashcards) --- */
+        #theory-view {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2.5rem;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 250px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .flip-card-front {
+            background-color: white;
+            color: var(--text-main);
+        }
+
+        .flip-card-back {
+            background-color: var(--primary);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .card-icon { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary); }
+        .flip-card-back .card-icon { color: white; }
+        .card-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; }
+        .card-text { font-size: 0.9375rem; line-height: 1.6; }
+
         .rank-card {
             margin-top: auto;
             background: rgba(255, 255, 255, 0.05);
@@ -233,7 +294,8 @@
     <aside id="sidebar">
         <div class="logo"><i class="fa-solid fa-liver"></i> LiverFlow AI</div>
         <nav>
-            <a href="#" class="nav-item active"><i class="fa-solid fa-vial-circle-check"></i> Simulador</a>
+            <a href="javascript:showView('simulator')" id="nav-simulator" class="nav-item active"><i class="fa-solid fa-vial-circle-check"></i> Simulador</a>
+            <a href="javascript:showView('theory')" id="nav-theory" class="nav-item"><i class="fa-solid fa-graduation-cap"></i> Principios Generales</a>
             <a href="javascript:toggleGuide()" class="nav-item"><i class="fa-solid fa-book-open-reader"></i> Guía Académica</a>
             <a href="#" class="nav-item"><i class="fa-solid fa-award"></i> Logros</a>
         </nav>
@@ -261,25 +323,33 @@
         </header>
 
         <div id="dashboard">
-            <section class="case-section">
-                <div class="card patient-card" id="patient-display">
-                    <!-- Patient context injected here -->
-                </div>
-            </section>
+            <!-- Simulator Content -->
+            <div id="simulator-view" style="display: contents;">
+                <section class="case-section">
+                    <div class="card patient-card" id="patient-display">
+                        <!-- Patient context injected here -->
+                    </div>
+                </section>
 
-            <section class="card">
-                <h3 class="module-title"><i class="fa-solid fa-microscope" style="color:var(--primary);"></i> Perfil Bioquímico</h3>
-                <div class="lab-grid" id="lab-display">
-                    <!-- Labs injected here -->
-                </div>
-            </section>
+                <section class="card">
+                    <h3 class="module-title"><i class="fa-solid fa-microscope" style="color:var(--primary);"></i> Perfil Bioquímico</h3>
+                    <div class="lab-grid" id="lab-display">
+                        <!-- Labs injected here -->
+                    </div>
+                </section>
 
-            <section class="card">
-                <h3 class="module-title"><i class="fa-solid fa-stethoscope" style="color:var(--accent);"></i> Plan de Acción</h3>
-                <div class="action-container" id="action-display">
-                    <!-- Actions injected here -->
-                </div>
-            </section>
+                <section class="card">
+                    <h3 class="module-title"><i class="fa-solid fa-stethoscope" style="color:var(--accent);"></i> Plan de Acción</h3>
+                    <div class="action-container" id="action-display">
+                        <!-- Actions injected here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Theory Cards -->
+            <div id="theory-view">
+                <!-- Theoretical Cards Injected Here -->
+            </div>
         </div>
     </main>
 
@@ -398,6 +468,45 @@
             }
         ];
 
+        const theoreticalCards = [
+            {
+                icon: "fa-scale-unbalanced",
+                title: "Prioridad Diagnóstica",
+                front: "¿Cuál es el primer paso ante pruebas hepáticas anormales?",
+                back: "Historia clínica detallada (fármacos, alcohol, riesgo viral) y examen físico buscando estigmas de enfermedad crónica."
+            },
+            {
+                icon: "fa-calculator",
+                title: "Factor R",
+                front: "¿Cómo se clasifica el tipo de lesión hepática?",
+                back: "R = (ALT/ULN) / (ALP/ULN). R ≥ 5: Hepatocelular. R ≤ 2: Colestásico. Entre 2 y 5: Mixto."
+            },
+            {
+                icon: "fa-beer-mug-empty",
+                title: "Ratio AST:ALT",
+                front: "¿Qué sugiere una relación AST/ALT mayor a 2?",
+                back: "Hepatitis alcohol-asociada, especialmente si los valores absolutos son < 300 UI/L."
+            },
+            {
+                icon: "fa-faucet",
+                title: "Regla de la Tubería",
+                front: "¿Qué hacer ante un patrón colestásico (R ≤ 2)?",
+                back: "Realizar ecografía RUQ para diferenciar entre dilatación biliar (obstrucción) o no (intrahepático)."
+            },
+            {
+                icon: "fa-triangle-exclamation",
+                title: "Alarma Fulminante",
+                front: "¿Cuándo es una emergencia médica?",
+                back: "Transaminasas > 1000 + Coagulopatía (INR > 1.5) + Alteración del estado mental (Encefalopatía)."
+            },
+            {
+                icon: "fa-eye",
+                title: "Umbral Ictérico",
+                front: "¿A partir de qué nivel de bilirrubina se ve la ictericia?",
+                back: "Usualmente cuando la Bilirrubina Total supera los 2.5 - 3.0 mg/dL."
+            }
+        ];
+
         let currentCaseIdx = 0;
         let score = 0;
         let attempts = 0;
@@ -411,6 +520,52 @@
 
         function toggleGuide() {
             document.getElementById('knowledge-guide').classList.toggle('open');
+        }
+
+        function showView(view) {
+            const simEl = document.getElementById('simulator-view');
+            const theoryEl = document.getElementById('theory-view');
+            const navSim = document.getElementById('nav-simulator');
+            const navTheory = document.getElementById('nav-theory');
+
+            if (view === 'theory') {
+                simEl.style.display = 'none';
+                theoryEl.style.display = 'grid';
+                navSim.classList.remove('active');
+                navTheory.classList.add('active');
+                renderTheoryCards();
+            } else {
+                simEl.style.display = 'contents';
+                theoryEl.style.display = 'none';
+                navSim.classList.add('active');
+                navTheory.classList.remove('active');
+            }
+        }
+
+        function renderTheoryCards() {
+            const container = document.getElementById('theory-view');
+            container.innerHTML = '';
+            theoreticalCards.forEach(card => {
+                const flipCard = document.createElement('div');
+                flipCard.className = 'flip-card';
+                flipCard.innerHTML = `
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fa-solid ${card.icon} card-icon"></i>
+                            <h3 class="card-title">${card.title}</h3>
+                            <p class="card-text" style="margin-top:1rem;">${card.front}</p>
+                            <p style="margin-top: auto; font-size: 0.75rem; color: var(--text-muted);">Click para revelar respuesta</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <i class="fa-solid ${card.icon} card-icon"></i>
+                            <p class="card-text" style="font-weight:600;">${card.back}</p>
+                            <p style="margin-top: auto; font-size: 0.75rem; opacity: 0.8;">Click para volver</p>
+                        </div>
+                    </div>
+                `;
+                flipCard.onclick = () => flipCard.classList.toggle('flipped');
+                container.appendChild(flipCard);
+            });
         }
 
         function calculateRFactor(labs) {
