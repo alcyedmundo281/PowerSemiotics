@@ -3,53 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Diagnóstico Hepático | Academia de Medicina</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>LiverFlow AI | Advanced Diagnostic Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         :root {
-            --primary: #6366f1; /* Indigo 500 */
+            --primary: #6366f1;
             --primary-dark: #4f46e5;
-            --secondary: #10b981; /* Emerald 500 */
-            --accent: #f59e0b; /* Amber 500 */
-            --danger: #ef4444; /* Red 500 */
-            --bg-main: #f8fafc; /* Slate 50 */
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --bg-main: #f8fafc;
+            --bg-sidebar: #0f172a;
             --bg-card: #ffffff;
-            --text-main: #1e293b; /* Slate 800 */
-            --text-muted: #64748b; /* Slate 500 */
-            --border: #e2e8f0; /* Slate 200 */
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: var(--font-body);
             background-color: var(--bg-main);
             color: var(--text-main);
             height: 100vh;
-            overflow: hidden;
             display: flex;
+            overflow: hidden;
         }
 
         /* --- Sidebar Navigation --- */
         #sidebar {
-            width: 280px;
-            background: #0f172a; /* Slate 900 */
+            width: 260px;
+            background: var(--bg-sidebar);
             color: white;
             display: flex;
             flex-direction: column;
-            padding: 2rem 1.5rem;
+            padding: 2rem 1.25rem;
             flex-shrink: 0;
-            transition: transform 0.3s ease;
+            z-index: 30;
         }
 
         .logo {
-            font-size: 1.25rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
             font-weight: 800;
             margin-bottom: 2.5rem;
             background: linear-gradient(135deg, #818cf8, #34d399);
@@ -61,7 +61,7 @@
         }
 
         .nav-item {
-            padding: 0.75rem 1rem;
+            padding: 0.875rem 1rem;
             border-radius: 0.75rem;
             color: #94a3b8;
             text-decoration: none;
@@ -70,379 +70,261 @@
             gap: 1rem;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-item:hover, .nav-item.active {
             color: white;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .nav-item.active {
             background: var(--primary);
-            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
         }
 
-        .stats-card {
+        .rank-card {
             margin-top: auto;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1.25rem;
             padding: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .stat-line {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.875rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .stat-value {
-            font-weight: 700;
-            color: var(--secondary);
-        }
+        .rank-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; font-weight: 700; margin-bottom: 0.5rem; }
+        .rank-value { font-size: 1.125rem; font-weight: 700; color: var(--secondary); margin-bottom: 1rem; }
 
         /* --- Main Content Area --- */
-        #main-content {
+        #main-container {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            height: 100%;
-            overflow-y: auto;
-            padding: 2rem;
-            gap: 2rem;
+            position: relative;
+            background: #f1f5f9;
         }
 
-        .header {
+        #top-header {
+            background: white;
+            padding: 1.25rem 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid var(--border);
         }
 
-        .header h1 {
-            font-size: 1.875rem;
-            font-weight: 800;
-            letter-spacing: -0.025em;
-        }
+        #top-header h1 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; }
 
-        .case-header {
-            background: var(--bg-card);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .case-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--primary);
-        }
-
-        .patient-info h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .patient-meta {
-            display: flex;
-            gap: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        .clinical-vignette {
-            margin-top: 1.25rem;
-            line-height: 1.6;
-            color: #475569;
-        }
-
-        /* --- Dashboard Grid --- */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 2rem;
+        #dashboard {
             flex-grow: 1;
-        }
-
-        .lab-results {
-            background: var(--bg-card);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-
-        .grid-labs {
+            overflow-y: auto;
+            padding: 2.5rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            grid-template-columns: 1fr 380px;
+            gap: 2.5rem;
         }
 
-        .lab-card {
-            padding: 1rem;
-            border-radius: 1rem;
-            background: var(--bg-main);
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .lab-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .lab-value {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .lab-unit {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .lab-status {
-            font-size: 0.75rem;
-            margin-top: 0.5rem;
-            font-weight: 600;
-        }
-
-        .lab-status.normal { color: var(--secondary); }
-        .lab-status.abnormal { color: var(--danger); }
-
-        /* --- Interaction Panel --- */
-        .interaction-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
+        /* --- Case Display --- */
+        .case-section { grid-column: 1 / -1; }
 
         .card {
-            background: var(--bg-card);
+            background: white;
             border-radius: 1.5rem;
-            padding: 1.5rem;
+            padding: 2rem;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
+            position: relative;
         }
 
-        .card h3 {
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+        .patient-card { display: flex; gap: 2.5rem; align-items: flex-start; }
+        .avatar { width: 80px; height: 80px; border-radius: 1.5rem; background: #e0f2fe; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #0284c7; flex-shrink: 0; }
+        
+        .patient-info h2 { font-family: var(--font-display); font-size: 1.75rem; margin-bottom: 0.5rem; }
+        .patient-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.875rem; font-weight: 500; margin-bottom: 1rem; }
+        .vignette { line-height: 1.7; color: #334155; font-size: 1.05rem; }
 
-        .action-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
+        /* --- Grid Modules --- */
+        .module-title { font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
 
-        .btn-action {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            border-radius: 0.75rem;
-            border: 1px solid var(--border);
-            background: white;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-            font-size: 0.875rem;
+        .lab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.25rem; }
+        .lab-item { padding: 1.25rem; border-radius: 1.25rem; background: #f8fafc; border: 1px solid var(--border); text-align: center; transition: transform 0.2s; cursor: help; position: relative; }
+        .lab-item:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .lab-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; }
+        .lab-value { font-size: 1.75rem; font-weight: 800; color: var(--text-main); }
+        .lab-unit { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
+        .lab-indicator { margin-top: 0.5rem; font-size: 0.75rem; font-weight: 700; }
+
+        /* --- Interactive Actions --- */
+        .action-container { display: flex; flex-direction: column; gap: 1rem; }
+        .action-btn { 
+            width: 100%; 
+            padding: 1.125rem 1.5rem; 
+            border-radius: 1rem; 
+            border: 2px solid var(--border); 
+            background: white; 
+            text-align: left; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            font-weight: 600; 
+            font-size: 0.9375rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+        .action-btn:hover { border-color: var(--primary); background: #f5f3ff; color: var(--primary); }
+        .action-btn i { opacity: 0; transition: opacity 0.2s; }
+        .action-btn:hover i { opacity: 1; }
 
-        .btn-action:hover {
-            border-color: var(--primary);
-            background: var(--bg-main);
-        }
-
-        .btn-action i {
-            color: var(--text-muted);
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .btn-action:hover i {
-            opacity: 1;
-        }
-
-        /* --- Gamified Feedback --- */
-        #feedback-overlay {
+        /* --- Knowledge Guide (Drawer) --- */
+        #knowledge-guide {
             position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(8px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 50;
-            padding: 1rem;
-        }
-
-        .feedback-content {
+            top: 0;
+            right: -500px;
+            width: 500px;
+            height: 100vh;
             background: white;
-            max-width: 600px;
-            width: 100%;
-            border-radius: 2rem;
-            padding: 2.5rem;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
-            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .result-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            z-index: 50;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin: 0 auto 1.5rem;
+            flex-direction: column;
+            padding: 2.5rem;
+            overflow-y: auto;
         }
+        #knowledge-guide.open { right: 0; }
+        .guide-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem; }
+        .guide-section { margin-bottom: 2rem; }
+        .guide-section h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--primary); }
+        .guide-section p { font-size: 0.9375rem; line-height: 1.6; color: #475569; margin-bottom: 1rem; }
+        .guide-point { display: flex; gap: 0.75rem; background: #f1f5f9; padding: 1rem; border-radius: 1rem; margin-bottom: 0.75rem; font-size: 0.875rem; border-left: 4px solid var(--primary); }
 
-        .result-icon.correct { background: #dcfce7; color: #166534; }
-        .result-icon.incorrect { background: #fee2e2; color: #991b1b; }
-
-        .feedback-text {
-            margin: 1.5rem 0;
-            line-height: 1.6;
-            color: #475569;
-            text-align: left;
-            padding: 1.25rem;
-            background: var(--bg-main);
-            border-radius: 1rem;
-            font-size: 0.9375rem;
+        /* --- Overlays & Modals --- */
+        #feedback-overlay {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px);
+            z-index: 100; display: none; align-items: center; justify-content: center; padding: 1rem;
         }
-
-        .uptodate-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.25rem 0.75rem;
-            background: #f1f5f9;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 1rem;
+        .modal-content {
+            background: white; max-width: 650px; width: 100%; border-radius: 2.5rem; padding: 3rem;
+            text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); transform: translateY(20px); opacity: 0;
+            transition: all 0.4s;
         }
+        .modal-content.show { transform: translateY(0); opacity: 1; }
+        .status-icon { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 2rem; }
+        .status-icon.success { background: #dcfce7; color: #15803d; }
+        .status-icon.error { background: #fee2e2; color: #b91c1c; }
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 0.75rem;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+        .evidence-box { background: #f8fafc; border: 1px solid var(--border); border-radius: 1.5rem; padding: 1.5rem; text-align: left; margin: 2rem 0; font-size: 0.9375rem; line-height: 1.6; }
+        .uptodate-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary); font-weight: 700; text-decoration: none; margin-top: 1rem; }
 
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
+        .btn-next { background: var(--primary); color: white; border: none; padding: 1rem 2.5rem; border-radius: 1rem; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .btn-next:hover { background: var(--primary-dark); }
 
-        /* --- Responsive --- */
+        /* --- Utilitaries --- */
+        .badge { padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+        .badge-uptodate { background: #0f172a; color: white; }
+        .badge-emergency { background: #fee2e2; color: #b91c1c; }
+
+        .r-factor-box { background: var(--bg-sidebar); color: white; padding: 0.75rem 1rem; border-radius: 0.75rem; display: inline-flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; font-weight: 700; }
+        .r-factor-box span { color: var(--secondary); }
+
+        @media (max-width: 1200px) { #dashboard { grid-template-columns: 1fr; } }
     </style>
-  </head>
+</head>
 <body>
     <aside id="sidebar">
-        <div class="logo">
-            <i class="fa-solid fa-liver"></i>
-            <span>LiverFlow AI</span>
-        </div>
+        <div class="logo"><i class="fa-solid fa-liver"></i> LiverFlow AI</div>
         <nav>
-            <a href="#" class="nav-item active"><i class="fa-solid fa-vial"></i> Simulador</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-book-medical"></i> Guía UpToDate</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-chart-line"></i> Mi Progreso</a>
+            <a href="#" class="nav-item active"><i class="fa-solid fa-vial-circle-check"></i> Simulador</a>
+            <a href="javascript:toggleGuide()" class="nav-item"><i class="fa-solid fa-book-open-reader"></i> Guía Académica</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-award"></i> Logros</a>
         </nav>
-        <div class="stats-card">
-            <div class="stat-line">
-                <span>Precisión Diagnóstica</span>
-                <span class="stat-value" id="accuracy-score">0%</span>
-            </div>
-            <div class="stat-line">
-                <span>Casos Resueltos</span>
-                <span class="stat-value" id="cases-solved">0/10</span>
-            </div>
-            <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 0.5rem; overflow: hidden;">
-                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--secondary); transition: width 0.3s;"></div>
+        <div class="rank-card">
+            <div class="rank-title">Nivel Académico</div>
+            <div class="rank-value" id="user-rank">Estudiante de Medicina</div>
+            <div class="rank-title">Precisión Diagnóstica</div>
+            <div style="font-size: 1.25rem; font-weight: 800; color: white;" id="accuracy-stat">0%</div>
+            <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 1rem; overflow: hidden;">
+                <div id="rank-progress" style="width: 10%; height: 100%; background: var(--secondary); transition: width 0.5s;"></div>
             </div>
         </div>
     </aside>
 
-    <main id="main-content">
-        <div class="header">
-            <h1>Panel de Simulación Clínica</h1>
-            <div class="uptodate-badge"><i class="fa-solid fa-shield-halved"></i> Basado en UpToDate 2024</div>
-        </div>
-
-        <div id="case-display">
-            <!-- Case information will be injected here -->
-        </div>
-
-        <div class="dashboard-grid">
-            <div class="lab-results">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h3 style="font-size: 1.25rem; font-weight: 700;">Perfil Bioquímico Hepático</h3>
-                    <span id="lab-timer" style="font-family: monospace; font-weight: 700; color: var(--text-muted);">Lab Status: READY</span>
-                </div>
-                <div class="grid-labs" id="lab-panel">
-                    <!-- Labs will be injected here -->
-                </div>
+    <main id="main-container">
+        <header id="top-header">
+            <div>
+                <span class="badge badge-uptodate">Premium</span>
+                <span style="color: var(--text-muted); font-size: 0.875rem; font-weight: 600; margin-left: 0.75rem;">Módulo: Pruebas Hepáticas Anormales</span>
             </div>
-
-            <div class="interaction-panel">
-                <div class="card">
-                    <h3><i class="fa-solid fa-clipboard-question"></i> Siguiente Paso</h3>
-                    <div class="action-list" id="action-panel">
-                        <!-- Actions will be injected here -->
-                    </div>
-                </div>
-                
-                <div class="card" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white; border: none;">
-                    <h3 style="color: white;"><i class="fa-solid fa-lightbulb" style="color: var(--accent);"></i> Tip Clínico</h3>
-                    <p id="clinical-tip" style="font-size: 0.875rem; line-height: 1.5; color: #94a3b8;">
-                        Evalúe el patrón: ¿Es predominantemente hepatocelular (ALT/AST) o colestásico (FA/GGT)?
-                    </p>
-                </div>
+            <div style="display:flex; gap: 1.5rem; align-items: center;">
+                <div id="r-factor-display" class="r-factor-box" style="visibility: hidden;">Factor R: <span id="r-val">--</span></div>
+                <button onclick="toggleGuide()" class="btn-next" style="padding: 0.5rem 1rem; font-size: 0.875rem; background: #eff6ff; color: var(--primary); border: 1px solid #dbeafe;">Ver Guía UpToDate</button>
             </div>
+        </header>
+
+        <div id="dashboard">
+            <section class="case-section">
+                <div class="card patient-card" id="patient-display">
+                    <!-- Patient context injected here -->
+                </div>
+            </section>
+
+            <section class="card">
+                <h3 class="module-title"><i class="fa-solid fa-microscope" style="color:var(--primary);"></i> Perfil Bioquímico</h3>
+                <div class="lab-grid" id="lab-display">
+                    <!-- Labs injected here -->
+                </div>
+            </section>
+
+            <section class="card">
+                <h3 class="module-title"><i class="fa-solid fa-stethoscope" style="color:var(--accent);"></i> Plan de Acción</h3>
+                <div class="action-container" id="action-display">
+                    <!-- Actions injected here -->
+                </div>
+            </section>
         </div>
     </main>
 
+    <!-- Knowledge Guide Drawer -->
+    <div id="knowledge-guide">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 class="guide-title">Protocolo UpToDate</h2>
+            <button onclick="toggleGuide()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.5rem;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="guide-section">
+            <h4>El Factor R (Herramienta Clave)</h4>
+            <p>La relación ALT/FA ayuda a clasificar el tipo de lesión hepática:</p>
+            <div class="guide-point"><b>Hepatocelular:</b> R ≥ 5</div>
+            <div class="guide-point"><b>Mixto:</b> R entre 2 y 5</div>
+            <div class="guide-point"><b>Colestásico:</b> R ≤ 2</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Fórmula: (ALT / LSN) ÷ (FA / LSN)</p>
+        </div>
+
+        <div class="guide-section">
+            <h4>Puntos de Conocimiento (Perlas)</h4>
+            <div class="guide-point"><b>Ratio AST:ALT > 2:</b> Altamente sugerente de Hepatitis Alcohólica si las enzimas son < 300.</div>
+            <div class="guide-point"><b>Regla de la Tubería:</b> Ante colestasis (R < 2), el primer paso es Ecografía para ver si la vía biliar está dilatada.</div>
+            <div class="guide-point"><b>Falla Fulminante:</b> Transaminas > 1000 + Alteración mental (Encefalopatía) = ¡Urgencia Médica!</div>
+        </div>
+
+        <div class="guide-section">
+            <h4>Evaluación Inicial</h4>
+            <p>Siempre documentar: Alcohol, Fármacos (Acetaminofén), Suplementos herbales y Factores de riesgo viral.</p>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
     <div id="feedback-overlay">
-        <div class="feedback-content">
-            <div id="feedback-icon" class="result-icon"></div>
-            <h2 id="feedback-title" style="font-size: 1.75rem; margin-bottom: 0.5rem;"></h2>
-            <div class="uptodate-badge">Evidencia UpToDate</div>
-            <div id="feedback-text" class="feedback-text"></div>
-            <button id="next-case-btn" class="btn-primary">Siguiente Paciente</button>
+        <div class="modal-content" id="modal-content">
+            <div id="status-icon" class="status-icon"></div>
+            <h2 id="modal-title" style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem;"></h2>
+            <div id="modal-subtitle" style="color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem;">Análisis Clínico Académico</div>
+            
+            <div class="evidence-box" id="modal-evidence"></div>
+            
+            <div style="display:flex; justify-content:center; gap: 1rem;">
+                <button class="btn-next" id="next-btn" style="background:#f1f5f9; color:var(--text-main);">Siguiente Caso</button>
+                <button class="btn-next" onclick="toggleGuide()">Ver Guía Detallada</button>
+            </div>
         </div>
     </div>
 
@@ -450,174 +332,195 @@
         const clinicalCases = [
             {
                 id: 1,
-                patient: "Elena V.",
-                age: 24,
+                patient: "Marta Gómez",
+                age: 28,
                 sex: "Femenino",
-                vignette: "Estudiante de medicina refiere fatiga súbita, náuseas y dolor leve en hipocondrio derecho tras regresar de un viaje de voluntariado. Al examen físico se observa ictericia leve en escleras.",
-                labs: {
-                    alt: { val: 1850, ref: 40, unit: "U/L", label: "ALT (GPT)" },
-                    ast: { val: 1620, ref: 40, unit: "U/L", label: "AST (GOT)" },
-                    alp: { val: 140, ref: 120, unit: "U/L", label: "FA" },
-                    bili: { val: 6.4, ref: 1.2, unit: "mg/dL", label: "Bilirrubina T" },
-                    inr: { val: 1.1, ref: 1.1, unit: "", label: "INR" }
-                },
-                pattern: "Hepatocelular Marcado (R > 5)",
-                correctDiagnosis: "Hepatitis A Aguda",
-                actions: [
-                    { label: "Serología para Virus de Hepatitis A (IgM)", correct: true, feedback: "<b>Correcto.</b> Con una elevación de transaminasas >15x LSN y un patrón puramente hepatocelular (R factor = 15.8), la sospecha principal es viral. El antecedente epidemiológico sugiere VHA." },
-                    { label: "Ecografía de Vías Biliares", correct: false, feedback: "<b>Incorrecto.</b> La ecografía es la prueba de elección para un patrón <i>colestásico</i> (FA predominante). Aquí el daño es hepatocelular masivo." },
-                    { label: "TAC de Abdomen con Contraste", correct: false, feedback: "<b>Incorrecto.</b> La TAC no aporta información diagnóstica clave en este punto y expone a la paciente a radiación innecesaria." }
+                vignette: "Paciente sana de base. Inicia ayer con náuseas persistentes y coloración amarillenta de piel. Antecedente de ingesta accidental de una cantidad indeterminada de paracetamol por cefalea intensa hace 48 horas.",
+                labs: [
+                    { key: "alt", val: 5620, ref: 40, unit: "U/L", label: "ALT (GPT)" },
+                    { key: "ast", val: 4980, ref: 40, unit: "U/L", label: "AST (GOT)" },
+                    { key: "alp", val: 110, ref: 120, unit: "U/L", label: "Fosfatasa Alc." },
+                    { key: "bili", val: 4.2, ref: 1.2, unit: "mg/dL", label: "Bilirrubina T" },
+                    { key: "inr", val: 2.1, ref: 1.1, unit: "", label: "INR (Coagulación)" }
                 ],
-                tip: "Un factor R (ALT/LSN ÷ FA/LSN) > 5 indica una lesión hepatocelular; < 2 indica colestasis."
+                correctAction: "Medir Niveles de Paracetamol + N-Acetilcisteína",
+                evidence: "<b>Hepatitis Tóxica Aguda.</b> Con transaminasas > 1000 y antecedente de ingesta, el diagnóstico es claro. El INR de 2.1 indica falla de la función sintética hepática aguda (Falla Hepática Fulminante potencial).",
+                actions: [
+                    { label: "N-Acetilcisteína Urgente", correct: true },
+                    { label: "Panel de Virus de Hepatitis A, B, C", correct: false, note: "Aunque es importante, el antecedente de paracetamol requiere antídoto inmediato." },
+                    { label: "Ecografía Abdominal", correct: false, note: "Ante este nivel de transaminasas, la obstrucción biliar es improbable (R-factor masivo)." }
+                ],
+                uptodateUrl: "https://www.uptodate.com/contents/acetaminophen-poisoning-in-adults-pathophysiology-presentation-and-diagnosis"
             },
             {
                 id: 2,
-                patient: "Roberto T.",
-                age: 56,
+                patient: "Carlos Ruiz",
+                age: 52,
                 sex: "Masculino",
-                vignette: "Paciente con antecedente de consumo crónico de alcohol (80g/día). Ingresa con fiebre, dolor abdominal y ascitis. Sus ojos están visiblemente amarillos.",
-                labs: {
-                    alt: { val: 85, ref: 40, unit: "U/L", label: "ALT (GPT)" },
-                    ast: { val: 240, ref: 40, unit: "U/L", label: "AST (GOT)" },
-                    alp: { val: 190, ref: 120, unit: "U/L", label: "FA" },
-                    bili: { val: 12.5, ref: 1.2, unit: "mg/dL", label: "Bilirrubina T" },
-                    inr: { val: 1.9, ref: 1.1, unit: "", label: "INR" }
-                },
-                pattern: "AST/ALT > 2 / Hepatitis Alcohólica",
-                correctDiagnosis: "Hepatitis Alcohólica Aguda",
-                actions: [
-                    { label: "Cálculo de Función Discriminante de Maddrey", correct: true, feedback: "<b>¡Excelente!</b> En la hepatitis alcohólica, el ratio AST/ALT > 2 es característico. El cálculo de Maddrey es esencial para decidir el inicio de corticoides según UpToDate." },
-                    { label: "Antibióticos de Amplio Espectro", correct: false, feedback: "<b>Parcialmente correcto.</b> Si bien el paciente tiene fiebre, primero se debe confirmar PBE sospechada por la ascitis, pero el manejo del hígado requiere diagnóstico específico." },
-                    { label: "Serologías Virales", correct: false, feedback: "<b>Incorrecto.</b> Aunque se deben pedir, el ratio AST/ALT y el nivel absoluto de transaminasas (raramente >300 en alcohol) dirigen el diagnóstico." }
+                vignette: "Presenta prurito generalizado, ictericia franca y acolia. Refiere dolor en hipocondrio derecho tipo cólico de 2 meses de evolución que se ha vuelto constante.",
+                labs: [
+                    { key: "alt", val: 145, ref: 40, unit: "U/L", label: "ALT (GPT)" },
+                    { key: "ast", val: 120, ref: 40, unit: "U/L", label: "AST (GOT)" },
+                    { key: "alp", val: 940, ref: 120, unit: "U/L", label: "Fosfatasa Alc." },
+                    { key: "ggt", val: 680, ref: 50, unit: "U/L", label: "GGT" },
+                    { key: "bili", val: 11.5, ref: 1.2, unit: "mg/dL", label: "Bilirrubina T" }
                 ],
-                tip: "En la enfermedad hepática por alcohol, la AST rara vez supera las 500 U/L y la ALT suele ser normal o levemente elevada."
+                correctAction: "Ecografía de Vías Biliares (RUQ)",
+                evidence: "<b>Patrón Colestásico (R = 0.46).</b> Cuando el Factor R es < 2 y existe ictericia franca, UpToDate manda como primer paso la Ecografía para diferenciar entre colestasis intrahepática y extrahepática (dilatación).",
+                actions: [
+                    { label: "Ecografía de Vías Biliares", correct: true },
+                    { label: "Anticuerpos Antimitocondriales (AMA)", correct: false, note: "Primero debemos descartar obstrucción mecánica (piedras/tumor) antes de pensar en CBP." },
+                    { label: "Colonoscopia", correct: false, note: "No tiene relación con el cuadro biliar agudo." }
+                ],
+                uptodateUrl: "https://www.uptodate.com/contents/diagnostic-approach-to-the-patient-with-jaundice-or-abnormal-liver-tests"
             },
             {
                 id: 3,
-                patient: "Isabel S.",
-                age: 68,
+                patient: "Lucía Méndez",
+                age: 45,
                 sex: "Femenino",
-                vignette: "Presenta prurito intenso de 3 meses y fatiga. Sin dolor abdominal. Las pruebas de laboratorio muestran una elevación aislada y marcada de la fosfatasa alcalina.",
-                labs: {
-                    alt: { val: 52, ref: 40, unit: "U/L", label: "ALT (GPT)" },
-                    ast: { val: 48, ref: 40, unit: "U/L", label: "AST (GOT)" },
-                    alp: { val: 890, ref: 120, unit: "U/L", label: "FA" },
-                    bili: { val: 1.4, ref: 1.2, unit: "mg/dL", label: "Bilirrubina T" },
-                    inr: { val: 1.0, ref: 1.1, unit: "", label: "INR" }
-                },
-                pattern: "Colestásico Puro / Crónico",
-                correctDiagnosis: "Cirrosis Biliar Primaria (CBP)",
-                actions: [
-                    { label: "Medir GGT + Anticuerpos Antimitocondriales (AMA)", correct: true, feedback: "<b>Correcto.</b> Primero confirmamos el origen hepático de la FA con GGT. Ante una colestasis intrahepática crónica en una mujer, la búsqueda de AMA es el siguiente paso según el algoritmo de UpToDate." },
-                    { label: "CPRE de Urgencias", correct: false, feedback: "<b>Incorrecto.</b> La CPRE es invasiva. Primero se debe realizar una ecografía para descartar obstrucción extrahepática." },
-                    { label: "Ecografía Abdominal (RUQ)", correct: true, feedback: "<b>También Correcto.</b> UpToDate recomienda RUQ US como primer paso de imagen para distinguir colestasis intra vs extrahepática." }
+                vignette: "Hallazgo incidental en examen de rutina. Obesidad IMC 32. Sin síntomas. Transaminasas levemente elevadas de forma persistente (6 meses).",
+                labs: [
+                    { key: "alt", val: 78, ref: 40, unit: "U/L", label: "ALT (GPT)" },
+                    { key: "ast", val: 62, ref: 40, unit: "U/L", label: "AST (GOT)" },
+                    { key: "alp", val: 95, ref: 120, unit: "U/L", label: "Fosfatasa Alc." },
+                    { key: "glp", val: 110, ref: 100, unit: "mg/dL", label: "Glucosa Ayunas" },
+                    { key: "ferr", val: 150, ref: 200, unit: "ng/mL", label: "Ferritina" }
                 ],
-                tip: "Si los AMA son positivos y la ecografía es normal, el diagnóstico de Cirrosis Biliar Primaria (Colangitis Biliar Primaria) es altamente probable."
+                correctAction: "Ecografía Hepática (Screening de MASLD)",
+                evidence: "<b>Elevación Crónica Leve (ALT > AST).</b> En un paciente con síndrome metabólico, la causa #1 es el hígado graso (MASLD). Se debe confirmar con imagen y descartar causas virales.",
+                actions: [
+                    { label: "Ecografía Hepática + Perfil Lipídico", correct: true },
+                    { label: "Biopsia Hepática", correct: false, note: "Demasiado invasivo para el inicio de estudio de transaminasemia persistente leve." },
+                    { label: "Tratar con Antibióticos", correct: false, note: "No hay indicación infecciosa." }
+                ],
+                uptodateUrl: "https://www.uptodate.com/contents/approach-to-the-patient-with-abnormal-liver-tests"
             }
         ];
 
         let currentCaseIdx = 0;
         let score = 0;
-        let totalAnswered = 0;
+        let attempts = 0;
+
+        const ranks = [
+            { threshold: 0, name: "Estudiante de Medicina" },
+            { threshold: 1, name: "Interno de Pregrado" },
+            { threshold: 2, name: "Residente de Medicina Interna" },
+            { threshold: 3, name: "Fellow de Gastroenterología" }
+        ];
+
+        function toggleGuide() {
+            document.getElementById('knowledge-guide').classList.toggle('open');
+        }
+
+        function calculateRFactor(labs) {
+            const alt = labs.find(l => l.key === 'alt')?.val || 0;
+            const alp = labs.find(l => l.key === 'alp')?.val || 1;
+            const altULN = labs.find(l => l.key === 'alt')?.ref || 40;
+            const alpULN = labs.find(l => l.key === 'alp')?.ref || 120;
+            
+            const r = (alt / altULN) / (alp / alpULN);
+            return r.toFixed(2);
+        }
 
         function updateUI() {
             const currentCase = clinicalCases[currentCaseIdx];
             
-            // Inject Case Header
-            document.getElementById('case-display').innerHTML = `
-                <div class="case-header">
-                    <div class="patient-info">
-                        <h2>Paciente: ${currentCase.patient}</h2>
-                        <div class="patient-meta">
-                            <span><i class="fa-solid fa-calendar"></i> Edad: ${currentCase.age} años</span>
-                            <span><i class="fa-solid fa-venus-mars"></i> Sexo: ${currentCase.sex}</span>
-                            <span><i class="fa-solid fa-id-badge"></i> ID: #2024-00${currentCase.id}</span>
-                        </div>
-                        <p class="clinical-vignette">${currentCase.vignette}</p>
+            // Patient Info
+            document.getElementById('patient-display').innerHTML = `
+                <div class="avatar"><i class="fa-solid fa-user-doctor"></i></div>
+                <div class="patient-info">
+                    <h2>${currentCase.patient}</h2>
+                    <div class="patient-meta">
+                        <span><i class="fa-solid fa-calendar"></i> ${currentCase.age} años</span>
+                        <span><i class="fa-solid fa-venus-mars"></i> ${currentCase.sex}</span>
+                        <span><i class="fa-solid fa-clipboard-list"></i> Caso #${currentCase.id}</span>
                     </div>
+                    <p class="vignette">${currentCase.vignette}</p>
                 </div>
             `;
 
-            // Inject Labs
-            const labPanel = document.getElementById('lab-panel');
-            labPanel.innerHTML = '';
-            for (const key in currentCase.labs) {
-                const lab = currentCase.labs[key];
-                const isAbnormal = lab.val > lab.ref;
-                labPanel.innerHTML += `
-                    <div class="lab-card">
+            // Labs
+            const labDisplay = document.getElementById('lab-display');
+            labDisplay.innerHTML = '';
+            currentCase.labs.forEach(lab => {
+                const isHigh = lab.val > lab.ref;
+                labDisplay.innerHTML += `
+                    <div class="lab-item" title="Referencia: ${lab.ref}">
                         <div class="lab-label">${lab.label}</div>
-                        <div class="lab-value" style="color: ${isAbnormal ? 'var(--danger)' : 'var(--secondary)'}">${lab.val}</div>
+                        <div class="lab-value" style="color: ${isHigh ? 'var(--danger)' : 'var(--text-main)'}">${lab.val}</div>
                         <div class="lab-unit">${lab.unit}</div>
-                        <div class="lab-status ${isAbnormal ? 'abnormal' : 'normal'}">
-                            ${isAbnormal ? '↑ Elevado' : '✓ Normal'}
+                        <div class="lab-indicator" style="color: ${isHigh ? 'var(--danger)' : 'var(--secondary)'}">
+                            ${isHigh ? '↑ Elevado' : '✓ Normal'}
                         </div>
                     </div>
                 `;
-            }
-
-            // Inject Actions
-            const actionPanel = document.getElementById('action-panel');
-            actionPanel.innerHTML = '';
-            currentCase.actions.forEach((action, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-action';
-                btn.innerHTML = `${action.label} <i class="fa-solid fa-chevron-right"></i>`;
-                btn.onclick = () => handleAction(action);
-                actionPanel.appendChild(btn);
             });
 
-            // Update Tip
-            document.getElementById('clinical-tip').textContent = currentCase.tip;
+            // R-Factor
+            const rVal = calculateRFactor(currentCase.labs);
+            document.getElementById('r-factor-display').style.visibility = 'visible';
+            document.getElementById('r-val').textContent = rVal;
 
-            // Update Sidebar Stats
-            document.getElementById('cases-solved').textContent = `${currentCaseIdx}/10`;
-            document.getElementById('progress-bar').style.width = `${(currentCaseIdx / 10) * 100}%`;
+            // Actions
+            const actionDisplay = document.getElementById('action-display');
+            actionDisplay.innerHTML = '';
+            currentCase.actions.forEach(action => {
+                const btn = document.createElement('button');
+                btn.className = 'action-btn';
+                btn.innerHTML = `<span>${action.label}</span> <i class="fa-solid fa-chevron-right"></i>`;
+                btn.onclick = () => handleChoice(action);
+                actionDisplay.appendChild(btn);
+            });
+
+            // Sidebar
+            const accuracy = attempts === 0 ? 0 : Math.round((score / attempts) * 100);
+            document.getElementById('accuracy-stat').textContent = `${accuracy}%`;
+            
+            let currentRank = ranks[0].name;
+            ranks.forEach(r => { if(score >= r.threshold) currentRank = r.name; });
+            document.getElementById('user-rank').textContent = currentRank;
+            document.getElementById('rank-progress').style.width = `${(score / clinicalCases.length) * 100}%`;
         }
 
-        function handleAction(action) {
-            totalAnswered++;
-            if (action.correct) score++;
-            
-            const accuracy = Math.round((score / totalAnswered) * 100);
-            document.getElementById('accuracy-score').textContent = `${accuracy}%`;
-
+        function handleChoice(action) {
+            attempts++;
             const overlay = document.getElementById('feedback-overlay');
-            const icon = document.getElementById('feedback-icon');
-            const title = document.getElementById('feedback-title');
-            const text = document.getElementById('feedback-text');
+            const icon = document.getElementById('status-icon');
+            const title = document.getElementById('modal-title');
+            const evidence = document.getElementById('modal-evidence');
+            const currentCase = clinicalCases[currentCaseIdx];
+
+            overlay.style.display = 'flex';
+            setTimeout(() => document.getElementById('modal-content').classList.add('show'), 10);
 
             if (action.correct) {
-                icon.className = 'result-icon correct';
+                score++;
+                icon.className = 'status-icon success';
                 icon.innerHTML = '<i class="fa-solid fa-check"></i>';
-                title.textContent = "¡Excelente Decisión!";
-                title.style.color = "#166534";
+                title.textContent = "¡Análisis Correcto!";
+                evidence.innerHTML = `${currentCase.evidence} <br><br> <a href="${currentCase.uptodateUrl}" target="_blank" class="uptodate-link"><i class="fa-solid fa-link"></i> Revisar en UpToDate Oficial</a>`;
             } else {
-                icon.className = 'result-icon incorrect';
+                icon.className = 'status-icon error';
                 icon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-                title.textContent = "Análisis Clínico";
-                title.style.color = "#991b1b";
+                title.textContent = "Ajuste su diagnóstico";
+                evidence.innerHTML = `<b>Nota Pedagógica:</b> ${action.note} <br><br> Consulte la "Guía Académica" en la barra lateral para revisar el algoritmo de UpToDate.`;
             }
 
-            text.innerHTML = action.feedback + `<br><br><a href="https://www.uptodate.com/contents/approach-to-the-patient-with-abnormal-liver-tests?search=acute%20hepatitis&source=search_result&selectedTitle=1~150&usage_type=default&display_rank=1" target="_blank" style="color: var(--primary); font-weight: 600; text-decoration: none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Evidencia en UpToDate</a>`;
-            overlay.style.display = 'flex';
+            document.getElementById('next-btn').onclick = () => {
+                document.getElementById('modal-content').classList.remove('show');
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    if (action.correct) {
+                        currentCaseIdx = (currentCaseIdx + 1) % clinicalCases.length;
+                        updateUI();
+                    }
+                }, 300);
+            };
         }
 
-        document.getElementById('next-case-btn').onclick = () => {
-            document.getElementById('feedback-overlay').style.display = 'none';
-            currentCaseIdx++;
-            if (currentCaseIdx < clinicalCases.length) {
-                updateUI();
-            } else {
-                alert("¡Felicidades! Has completado el bloque de entrenamiento de hoy.");
-                currentCaseIdx = 0; // Restart for demo
-                updateUI();
-            }
-        };
-
-        // Initialize
+        // Init
         updateUI();
     </script>
 </body>
 </html>
-```
