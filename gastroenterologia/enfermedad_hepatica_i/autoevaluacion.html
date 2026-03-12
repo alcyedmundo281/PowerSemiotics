@@ -5,17 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Autoevaluación: Enfermedad Hepática I</title>
     <link href="../../assets/tailwind.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/gastro-layout.css" />
-    <script src="../../assets/gastro-layout.js" defer></script>
+    <style>
+      #presentation-container {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      #slider-viewport {
+        flex-grow: 1;
+        overflow: hidden;
+      }
+      #slider-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s ease-in-out;
+      }
+      .slide {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* Ensure slide content is responsive */
+      .slide > div {
+        max-width: 90%;
+        max-height: 90%;
+        overflow-y: auto;
+      }
+    </style>
   </head>
-  <body
-    class="font-sans bg-gray-100 flex items-center justify-center min-h-screen"
-  >
-    <div class="relative w-full h-screen flex flex-col">
-      <div
-        id="slider-container"
-        class="slider-container flex-grow flex w-full overflow-x-auto no-scrollbar"
-      >
+  <body class="font-sans bg-gray-100 text-gray-800">
+    <div id="presentation-container">
+      <div id="slider-viewport">
+        <div id="slider-container">
         <!-- Slide 0: Inicio -->
         <div
           id="slide-0"
@@ -280,10 +307,7 @@
       }
 
       function scrollToSlide(slideIndex) {
-        sliderContainer.scrollTo({
-          left: slideIndex * sliderContainer.clientWidth,
-          behavior: 'smooth',
-        });
+        sliderContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
       }
       buildQuiz();
     </script>
