@@ -1,850 +1,697 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Módulo Interactivo de Gastroenterología</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    :root {
-      --primary-color: #005a9c;
-      --secondary-color: #003366;
-      --background-color: #f0f4f8;
-      --text-color: #333;
-      --card-bg: #ffffff;
-      --accent-color: #e3f2fd;
-      --success-color: #28a745;
-      --danger-color: #dc3545;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--background-color);
-      color: var(--text-color);
-      margin: 0;
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    /* --- Layout Principal --- */
-    #app-container {
-      display: flex;
-      width: 100%;
-      height: 100%;
-    }
-
-    aside#side-nav {
-      width: 280px;
-      background-color: var(--card-bg);
-      padding: 25px;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      z-index: 10;
-    }
-
-    main#content-area {
-      flex-grow: 1;
-      padding: 30px;
-      overflow: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #content-wrapper {
-      /* Letter-size canvas that scales within the viewport */
-      width: 816px;
-      height: 1056px;
-      max-width: 100%;
-      max-height: 100%;
-      background-color: var(--card-bg);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      overflow: auto;
-    }
-
-
-    /* --- Panel de Navegación --- */
-    #side-nav h1 {
-      color: var(--primary-color);
-      font-size: 1.5em;
-      margin: 0 0 30px 0;
-      border-bottom: 2px solid var(--accent-color);
-      padding-bottom: 15px;
-    }
-
-    #side-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    #side-nav li a {
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      color: var(--secondary-color);
-      text-decoration: none;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      font-weight: 500;
-      transition:
-        background-color 0.3s,
-        color 0.3s;
-    }
-
-    #side-nav li a .fa-solid {
-      margin-right: 15px;
-      width: 20px;
-      text-align: center;
-    }
-
-    #side-nav li a:hover {
-      background-color: var(--accent-color);
-    }
-
-    #side-nav li a.active {
-      background-color: var(--primary-color);
-      color: white;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0, 90, 156, 0.2);
-    }
-
-    /* --- Estilos Generales de Componentes --- */
-    .component-container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Estilos de la Presentación --- */
-    #presentation-container {
-      width: 100%;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .slide {
-      background-color: var(--card-bg);
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      height: 100%;
-      padding: 40px;
-      box-sizing: border-box;
-      display: none;
-      flex-direction: column;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-      overflow-y: auto;
-    }
-
-    .slide.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    .slide h1,
-    .slide h2,
-    .slide h3 {
-      color: var(--secondary-color);
-      margin-bottom: 20px;
-      width: 100%;
-      border-bottom: 2px solid var(--primary-color);
-      padding-bottom: 10px;
-    }
-
-    .slide h1 {
-      font-size: 2.2em;
-      text-align: center;
-      border-bottom: none;
-    }
-
-    .slide h2 {
-      font-size: 1.8em;
-    }
-
-    .slide h3 {
-      font-size: 1.4em;
-      color: var(--primary-color);
-      border-bottom: 1px solid #ccc;
-    }
-
-    .slide p,
-    .slide ul,
-    .slide li {
-      font-size: 1.1em;
-      line-height: 1.6;
-      text-align: left;
-      max-width: 100%;
-    }
-
-    .slide ul {
-      list-style-type: none;
-      padding-left: 20px;
-    }
-
-    .slide li::before {
-      content: '✓';
-      color: var(--primary-color);
-      font-weight: bold;
-      display: inline-block;
-      width: 1.2em;
-      margin-left: -1.2em;
-    }
-
-    .title-slide {
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    .navigation {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-top: 20px;
-    }
-
-    .nav-button {
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 1em;
-      border-radius: 5px;
-      cursor: pointer;
-      margin: 0 10px;
-      transition: background-color 0.3s;
-    }
-
-    .nav-button:hover {
-      background-color: var(--secondary-color);
-    }
-
-    .nav-button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    #slide-counter {
-      font-size: 1.1em;
-      color: var(--text-color);
-      font-weight: bold;
-    }
-
-    .comparative-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      font-size: 0.9em;
-    }
-
-    .comparative-table th,
-    .comparative-table td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-
-    .comparative-table th {
-      background-color: var(--accent-color);
-      color: var(--secondary-color);
-      font-weight: bold;
-    }
-
-    .case-study {
-      background-color: var(--accent-color);
-      border-left: 5px solid var(--primary-color);
-      padding: 15px;
-      margin-top: 15px;
-      border-radius: 5px;
-    }
-
-    /* --- Estilos de la Herramienta Diagnóstica --- */
-    .diagnostic-tool-card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .diagnostic-tool-card h2 {
-      color: var(--secondary-color);
-      border-bottom: 2px solid var(--primary-color);
-      padding-bottom: 10px;
-    }
-
-    .scenario-option {
-      margin-bottom: 15px;
-    }
-
-    .scenario-option label {
-      display: block;
-      background-color: #f8f9fa;
-      border: 1px solid #ddd;
-      padding: 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition:
-        border-color 0.3s,
-        background-color 0.3s;
-    }
-
-    .scenario-option input[type='radio'] {
-      display: none;
-    }
-
-    .scenario-option input[type='radio']:checked+label {
-      border-color: var(--primary-color);
-      background-color: var(--accent-color);
-      font-weight: bold;
-    }
-
-    #diagnostic-result {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 8px;
-      border-left: 5px solid;
-      display: none;
-    }
-
-    #diagnostic-result.eda {
-      border-color: #ff9800;
-    }
-
-    #diagnostic-result.tc {
-      border-color: #f44336;
-    }
-
-    #diagnostic-result.eco {
-      border-color: #4caf50;
-    }
-
-    #diagnostic-result.aliento {
-      border-color: #2196f3;
-    }
-
-    #diagnostic-result h3 {
-      margin-top: 0;
-    }
-
-    /* --- Estilos de la Autoevaluación --- */
-    .quiz-card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .quiz-card h2 {
-      color: var(--secondary-color);
-      border-bottom: 2px solid var(--primary-color);
-      padding-bottom: 10px;
-    }
-
-    #question-container p {
-      font-size: 1.2em;
-      font-weight: 500;
-    }
-
-    .quiz-options {
-      list-style: none;
-      padding: 0;
-    }
-
-    .quiz-options li {
-      background-color: #f8f9fa;
-      border: 1px solid #ddd;
-      padding: 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
-    }
-
-    .quiz-options li:hover {
-      background-color: var(--accent-color);
-    }
-
-    .quiz-options li.correct {
-      background-color: #d4edda;
-      border-color: var(--success-color);
-    }
-
-    .quiz-options li.incorrect {
-      background-color: #f8d7da;
-      border-color: var(--danger-color);
-    }
-
-    #feedback-text {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    #quiz-result-container {
-      text-align: center;
-    }
-
-    #quiz-result-container h3 {
-      font-size: 2em;
-      color: var(--primary-color);
-    }
-
-    #quiz-result-container p {
-      font-size: 1.3em;
-    }
-
-    @media (max-width: 768px) {
-      #app-container {
-        flex-direction: column;
-      }
-
-      aside#side-nav {
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 10px;
-      }
-
-      aside#ai-panel {
-        display: none;
-      }
-
-      #side-nav h1 {
-        display: none;
-      }
-
-      #side-nav ul {
-        display: flex;
-      }
-
-      #side-nav li a {
-        flex-direction: column;
-        font-size: 0.8em;
-        padding: 10px 5px;
-      }
-
-      #side-nav li a .fa-solid {
-        margin-right: 0;
-        margin-bottom: 5px;
-      }
-
-      main#content-area {
-        padding: 15px;
-      }
-
-      #content-wrapper {
-        width: 100%;
-        height: auto;
-      }
-    }
-  </style>
-</head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Diagnóstico Hepático | Academia de Medicina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #6366f1; /* Indigo 500 */
+            --primary-dark: #4f46e5;
+            --secondary: #10b981; /* Emerald 500 */
+            --accent: #f59e0b; /* Amber 500 */
+            --danger: #ef4444; /* Red 500 */
+            --bg-main: #f8fafc; /* Slate 50 */
+            --bg-card: #ffffff;
+            --text-main: #1e293b; /* Slate 800 */
+            --text-muted: #64748b; /* Slate 500 */
+            --border: #e2e8f0; /* Slate 200 */
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        /* --- Sidebar Navigation --- */
+        #sidebar {
+            width: 280px;
+            background: #0f172a; /* Slate 900 */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, #818cf8, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            color: #94a3b8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+
+        .stats-card {
+            margin-top: auto;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 1.25rem;
+        }
+
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* --- Main Content Area --- */
+        #main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .case-header {
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .patient-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .patient-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .clinical-vignette {
+            margin-top: 1.25rem;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        /* --- Dashboard Grid --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        .lab-results {
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .grid-labs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .lab-card {
+            padding: 1rem;
+            border-radius: 1rem;
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .lab-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .lab-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .lab-unit {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .lab-status {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .lab-status.normal { color: var(--secondary); }
+        .lab-status.abnormal { color: var(--danger); }
+
+        /* --- Interaction Panel --- */
+        .interaction-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            background: white;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-action:hover {
+            border-color: var(--primary);
+            background: var(--bg-main);
+        }
+
+        .btn-action i {
+            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action:hover i {
+            opacity: 1;
+        }
+
+        /* --- Gamified Feedback --- */
+        #feedback-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            padding: 1rem;
+        }
+
+        .feedback-content {
+            background: white;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 2rem;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .result-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .result-icon.correct { background: #dcfce7; color: #166534; }
+        .result-icon.incorrect { background: #fee2e2; color: #991b1b; }
+
+        .feedback-text {
+            margin: 1.5rem 0;
+            line-height: 1.6;
+            color: #475569;
+            text-align: left;
+            padding: 1.25rem;
+            background: var(--bg-main);
+            border-radius: 1rem;
+            font-size: 0.9375rem;
+        }
+
+        .uptodate-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: #f1f5f9;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* --- Responsive --- */
+        /* --- Login Overlay --- */
+        #login-overlay {
+            position: fixed;
+            inset: 0;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1.5rem;
+        }
+
+        .login-card {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+    </style>
+  </head>
 <body>
-  <div id="app-container">
-    <aside id="side-nav">
-      <h1>Diagnóstico GI</h1>
-      <nav>
-        <ul>
-          <li>
-            <a href="#" class="nav-link active" data-template="presentation-template"><i
-                class="fa-solid fa-book-open"></i> Base de Conocimiento</a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-template="diagnostic-tool-template"><i
-                class="fa-solid fa-stethoscope"></i> Herramienta
-              Diagnóstica</a>
-          </li>
-          <li>
-            <a href="#" class="nav-link" data-template="quiz-template"><i class="fa-solid fa-gamepad"></i>
-              Autoevaluación</a>
-          </li>
-        </ul>
-      </nav>
+    <!-- Login Overlay -->
+    <div id="login-overlay">
+        <div class="login-card">
+            <div class="logo" style="justify-content:center;">
+                <i class="fa-solid fa-liver"></i>
+                <span>LiverFlow AI</span>
+            </div>
+            <h2>Bienvenido</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.875rem;">Inicie sesión para acceder al simulador</p>
+            
+            <input type="email" class="login-input" value="alcyedmundo@gmail.com" readonly placeholder="Usuario">
+            <input type="password" class="login-input" value="••••••••" readonly placeholder="Contraseña">
+            
+            <button id="login-btn" class="btn-primary" style="width:100%; margin-top: 1rem;">Acceder al Simulador</button>
+            <p style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted);">Acceso autorizado para personal médico</p>
+        </div>
+    </div>
+
+    <aside id="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-liver"></i>
+            <span>LiverFlow AI</span>
+        </div>
+        <nav>
+            <a href="#" class="nav-item active"><i class="fa-solid fa-vial"></i> Simulador</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-book-medical"></i> Guía UpToDate</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-chart-line"></i> Mi Progreso</a>
+        </nav>
+        <div class="stats-card">
+            <div class="stat-line">
+                <span>Precisión Diagnóstica</span>
+                <span class="stat-value" id="accuracy-score">0%</span>
+            </div>
+            <div class="stat-line">
+                <span>Casos Resueltos</span>
+                <span class="stat-value" id="cases-solved">0/10</span>
+            </div>
+            <div style="height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 0.5rem; overflow: hidden;">
+                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--secondary); transition: width 0.3s;"></div>
+            </div>
+        </div>
     </aside>
 
-    <main id="content-area">
-      <div id="content-wrapper"></div>
+    <main id="main-content">
+        <div class="header">
+            <h1>Panel de Simulación Clínica</h1>
+            <div class="uptodate-badge"><i class="fa-solid fa-shield-halved"></i> Basado en UpToDate 2024</div>
+        </div>
+
+        <div id="case-display">
+            <!-- Case information will be injected here -->
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="lab-results">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3 style="font-size: 1.25rem; font-weight: 700;">Perfil Bioquímico Hepático</h3>
+                    <span id="lab-timer" style="font-family: monospace; font-weight: 700; color: var(--text-muted);">Lab Status: READY</span>
+                </div>
+                <div class="grid-labs" id="lab-panel">
+                    <!-- Labs will be injected here -->
+                </div>
+            </div>
+
+            <div class="interaction-panel">
+                <div class="card">
+                    <h3><i class="fa-solid fa-clipboard-question"></i> Siguiente Paso</h3>
+                    <div class="action-list" id="action-panel">
+                        <!-- Actions will be injected here -->
+                    </div>
+                </div>
+                
+                <div class="card" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white; border: none;">
+                    <h3 style="color: white;"><i class="fa-solid fa-lightbulb" style="color: var(--accent);"></i> Tip Clínico</h3>
+                    <p id="clinical-tip" style="font-size: 0.875rem; line-height: 1.5; color: #94a3b8;">
+                        Evalúe el patrón: ¿Es predominantemente hepatocelular (ALT/AST) o colestásico (FA/GGT)?
+                    </p>
+                </div>
+            </div>
+        </div>
     </main>
-  </div>
 
-  <!-- ########## TEMPLATES ########## -->
-
-  <!-- Plantilla 1: Presentación Interactiva -->
-  <template id="presentation-template">
-    <div class="component-container">
-      <div id="presentation-container">
-        <!-- Las diapositivas se insertarán aquí por JS -->
-      </div>
-      <div class="navigation">
-        <button id="prev-btn" class="nav-button">Anterior</button>
-        <span id="slide-counter"></span>
-        <button id="next-btn" class="nav-button">Siguiente</button>
-      </div>
+    <div id="feedback-overlay">
+        <div class="feedback-content">
+            <div id="feedback-icon" class="result-icon"></div>
+            <h2 id="feedback-title" style="font-size: 1.75rem; margin-bottom: 0.5rem;"></h2>
+            <div class="uptodate-badge">Evidencia UpToDate</div>
+            <div id="feedback-text" class="feedback-text"></div>
+            <button id="next-case-btn" class="btn-primary">Siguiente Paciente</button>
+        </div>
     </div>
-  </template>
 
-  <!-- Plantilla 2: Herramienta Diagnóstica -->
-  <template id="diagnostic-tool-template">
-    <div class="component-container">
-      <div class="diagnostic-tool-card">
-        <h2>Herramienta de Decisión Clínica</h2>
-        <p>
-          Seleccione el escenario clínico principal para ver la prueba
-          diagnóstica de primera línea recomendada.
-        </p>
-        <div id="diagnostic-scenarios">
-          <div class="scenario-option">
-            <input type="radio" id="scenario1" name="clinical_scenario" value="eco" />
-            <label for="scenario1">Dolor crónico en hipocondrio derecho, sospecha de patología
-              biliar.</label>
-          </div>
-          <div class="scenario-option">
-            <input type="radio" id="scenario2" name="clinical_scenario" value="eda" />
-            <label for="scenario2">Hombre > 60 años con dispepsia de nueva aparición y pérdida de
-              peso.</label>
-          </div>
-          <div class="scenario-option">
-            <input type="radio" id="scenario3" name="clinical_scenario" value="tc" />
-            <label for="scenario3">Paciente con dolor abdominal agudo, severo, y signos de
-              peritonismo en urgencias.</label>
-          </div>
-          <div class="scenario-option">
-            <input type="radio" id="scenario4" name="clinical_scenario" value="aliento" />
-            <label for="scenario4">Mujer con hinchazón, gases y diarrea crónicos; estudios
-              endoscópicos previos normales.</label>
-          </div>
-        </div>
-        <button id="analyze-btn" class="nav-button" style="margin-top: 20px">
-          Analizar Escenario
-        </button>
-        <div id="diagnostic-result">
-          <h3 id="result-title"></h3>
-          <p id="result-rationale"></p>
-        </div>
-      </div>
-    </div>
-  </template>
+    <script>
+        const clinicalCases = [
+            {
+                id: 1,
+                patient: "Elena V.",
+                age: 24,
+                sex: "Femenino",
+                vignette: "Estudiante de medicina refiere fatiga súbita, náuseas y dolor leve en hipocondrio derecho tras regresar de un viaje de voluntariado. Al examen físico se observa ictericia leve en escleras.",
+                labs: {
+                    alt: { val: 1850, ref: 40, unit: "U/L", label: "ALT (GPT)" },
+                    ast: { val: 1620, ref: 40, unit: "U/L", label: "AST (GOT)" },
+                    alp: { val: 140, ref: 120, unit: "U/L", label: "FA" },
+                    bili: { val: 6.4, ref: 1.2, unit: "mg/dL", label: "Bilirrubina T" },
+                    inr: { val: 1.1, ref: 1.1, unit: "", label: "INR" }
+                },
+                pattern: "Hepatocelular Marcado (R > 5)",
+                correctDiagnosis: "Hepatitis A Aguda",
+                actions: [
+                    { label: "Serología para Virus de Hepatitis A (IgM)", correct: true, feedback: "<b>Correcto.</b> Con una elevación de transaminasas >15x LSN y un patrón puramente hepatocelular (R factor = 15.8), la sospecha principal es viral. El antecedente epidemiológico sugiere VHA." },
+                    { label: "Ecografía de Vías Biliares", correct: false, feedback: "<b>Incorrecto.</b> La ecografía es la prueba de elección para un patrón <i>colestásico</i> (FA predominante). Aquí el daño es hepatocelular masivo." },
+                    { label: "TAC de Abdomen con Contraste", correct: false, feedback: "<b>Incorrecto.</b> La TAC no aporta información diagnóstica clave en este punto y expone a la paciente a radiación innecesaria." }
+                ],
+                tip: "Un factor R (ALT/LSN ÷ FA/LSN) > 5 indica una lesión hepatocelular; < 2 indica colestasis."
+            },
+            {
+                id: 2,
+                patient: "Roberto T.",
+                age: 56,
+                sex: "Masculino",
+                vignette: "Paciente con antecedente de consumo crónico de alcohol (80g/día). Ingresa con fiebre, dolor abdominal y ascitis. Sus ojos están visiblemente amarillos.",
+                labs: {
+                    alt: { val: 85, ref: 40, unit: "U/L", label: "ALT (GPT)" },
+                    ast: { val: 240, ref: 40, unit: "U/L", label: "AST (GOT)" },
+                    alp: { val: 190, ref: 120, unit: "U/L", label: "FA" },
+                    bili: { val: 12.5, ref: 1.2, unit: "mg/dL", label: "Bilirrubina T" },
+                    inr: { val: 1.9, ref: 1.1, unit: "", label: "INR" }
+                },
+                pattern: "AST/ALT > 2 / Hepatitis Alcohólica",
+                correctDiagnosis: "Hepatitis Alcohólica Aguda",
+                actions: [
+                    { label: "Cálculo de Función Discriminante de Maddrey", correct: true, feedback: "<b>¡Excelente!</b> En la hepatitis alcohólica, el ratio AST/ALT > 2 es característico. El cálculo de Maddrey es esencial para decidir el inicio de corticoides según UpToDate." },
+                    { label: "Antibióticos de Amplio Espectro", correct: false, feedback: "<b>Parcialmente correcto.</b> Si bien el paciente tiene fiebre, primero se debe confirmar PBE sospechada por la ascitis, pero el manejo del hígado requiere diagnóstico específico." },
+                    { label: "Serologías Virales", correct: false, feedback: "<b>Incorrecto.</b> Aunque se deben pedir, el ratio AST/ALT y el nivel absoluto de transaminasas (raramente >300 en alcohol) dirigen el diagnóstico." }
+                ],
+                tip: "En la enfermedad hepática por alcohol, la AST rara vez supera las 500 U/L y la ALT suele ser normal o levemente elevada."
+            },
+            {
+                id: 3,
+                patient: "Isabel S.",
+                age: 68,
+                sex: "Femenino",
+                vignette: "Presenta prurito intenso de 3 meses y fatiga. Sin dolor abdominal. Las pruebas de laboratorio muestran una elevación aislada y marcada de la fosfatasa alcalina.",
+                labs: {
+                    alt: { val: 52, ref: 40, unit: "U/L", label: "ALT (GPT)" },
+                    ast: { val: 48, ref: 40, unit: "U/L", label: "AST (GOT)" },
+                    alp: { val: 890, ref: 120, unit: "U/L", label: "FA" },
+                    bili: { val: 1.4, ref: 1.2, unit: "mg/dL", label: "Bilirrubina T" },
+                    inr: { val: 1.0, ref: 1.1, unit: "", label: "INR" }
+                },
+                pattern: "Colestásico Puro / Crónico",
+                correctDiagnosis: "Cirrosis Biliar Primaria (CBP)",
+                actions: [
+                    { label: "Medir GGT + Anticuerpos Antimitocondriales (AMA)", correct: true, feedback: "<b>Correcto.</b> Primero confirmamos el origen hepático de la FA con GGT. Ante una colestasis intrahepática crónica en una mujer, la búsqueda de AMA es el siguiente paso según el algoritmo de UpToDate." },
+                    { label: "CPRE de Urgencias", correct: false, feedback: "<b>Incorrecto.</b> La CPRE es invasiva. Primero se debe realizar una ecografía para descartar obstrucción extrahepática." },
+                    { label: "Ecografía Abdominal (RUQ)", correct: true, feedback: "<b>También Correcto.</b> UpToDate recomienda RUQ US como primer paso de imagen para distinguir colestasis intra vs extrahepática." }
+                ],
+                tip: "Si los AMA son positivos y la ecografía es normal, el diagnóstico de Cirrosis Biliar Primaria (Colangitis Biliar Primaria) es altamente probable."
+            }
+        ];
 
-  <!-- Plantilla 3: Autoevaluación Gamificada -->
-  <template id="quiz-template">
-    <div class="component-container">
-      <div class="quiz-card">
-        <h2>Autoevaluación de Casos Clínicos</h2>
-        <div id="quiz-container">
-          <div id="question-container">
-            <p id="question-text"></p>
-            <ul class="quiz-options" id="quiz-options"></ul>
-          </div>
-          <div id="feedback-text"></div>
-          <button id="next-question-btn" class="nav-button" style="display: none; margin-top: 15px">
-            Siguiente Pregunta
-          </button>
-        </div>
-        <div id="quiz-result-container" style="display: none">
-          <h3>¡Evaluación Completada!</h3>
-          <p id="score-text"></p>
-          <button id="restart-quiz-btn" class="nav-button">
-            Repetir Evaluación
-          </button>
-        </div>
-      </div>
-    </div>
-  </template>
+        let currentCaseIdx = 0;
+        let score = 0;
+        let totalAnswered = 0;
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const navLinks = document.querySelectorAll('.nav-link');
-      const contentWrapper = document.getElementById('content-wrapper');
+        function updateUI() {
+            const currentCase = clinicalCases[currentCaseIdx];
+            
+            // Inject Case Header
+            document.getElementById('case-display').innerHTML = `
+                <div class="case-header">
+                    <div class="patient-info">
+                        <h2>Paciente: ${currentCase.patient}</h2>
+                        <div class="patient-meta">
+                            <span><i class="fa-solid fa-calendar"></i> Edad: ${currentCase.age} años</span>
+                            <span><i class="fa-solid fa-venus-mars"></i> Sexo: ${currentCase.sex}</span>
+                            <span><i class="fa-solid fa-id-badge"></i> ID: #2024-00${currentCase.id}</span>
+                        </div>
+                        <p class="clinical-vignette">${currentCase.vignette}</p>
+                    </div>
+                </div>
+            `;
 
-      const templates = {
-        'presentation-template': initPresentation,
-        'diagnostic-tool-template': initDiagnosticTool,
-        'quiz-template': initQuiz,
-      };
+            // Inject Labs
+            const labPanel = document.getElementById('lab-panel');
+            labPanel.innerHTML = '';
+            for (const key in currentCase.labs) {
+                const lab = currentCase.labs[key];
+                const isAbnormal = lab.val > lab.ref;
+                labPanel.innerHTML += `
+                    <div class="lab-card">
+                        <div class="lab-label">${lab.label}</div>
+                        <div class="lab-value" style="color: ${isAbnormal ? 'var(--danger)' : 'var(--secondary)'}">${lab.val}</div>
+                        <div class="lab-unit">${lab.unit}</div>
+                        <div class="lab-status ${isAbnormal ? 'abnormal' : 'normal'}">
+                            ${isAbnormal ? '↑ Elevado' : '✓ Normal'}
+                        </div>
+                    </div>
+                `;
+            }
 
-      function loadContent(templateId) {
-        // Limpiar contenido anterior
-        contentWrapper.innerHTML = '';
+            // Inject Actions
+            const actionPanel = document.getElementById('action-panel');
+            actionPanel.innerHTML = '';
+            currentCase.actions.forEach((action, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-action';
+                btn.innerHTML = `${action.label} <i class="fa-solid fa-chevron-right"></i>`;
+                btn.onclick = () => handleAction(action);
+                actionPanel.appendChild(btn);
+            });
 
-        // Clonar y añadir nuevo contenido
-        const template = document.getElementById(templateId);
-        if (template) {
-          const clone = template.content.cloneNode(true);
-          contentWrapper.appendChild(clone);
+            // Update Tip
+            document.getElementById('clinical-tip').textContent = currentCase.tip;
 
-          // Inicializar el script del componente
-          if (templates[templateId]) {
-            templates[templateId]();
-          }
+            // Update Sidebar Stats
+            document.getElementById('cases-solved').textContent = `${currentCaseIdx}/10`;
+            document.getElementById('progress-bar').style.width = `${(currentCaseIdx / 10) * 100}%`;
         }
-      }
 
-      navLinks.forEach((link) => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
+        function handleAction(action) {
+            totalAnswered++;
+            if (action.correct) score++;
+            
+            const accuracy = Math.round((score / totalAnswered) * 100);
+            document.getElementById('accuracy-score').textContent = `${accuracy}%`;
 
-          navLinks.forEach((l) => l.classList.remove('active'));
-          link.classList.add('active');
+            const overlay = document.getElementById('feedback-overlay');
+            const icon = document.getElementById('feedback-icon');
+            const title = document.getElementById('feedback-title');
+            const text = document.getElementById('feedback-text');
 
-          const templateId = link.getAttribute('data-template');
-          loadContent(templateId);
-        });
-      });
+            if (action.correct) {
+                icon.className = 'result-icon correct';
+                icon.innerHTML = '<i class="fa-solid fa-check"></i>';
+                title.textContent = "¡Excelente Decisión!";
+                title.style.color = "#166534";
+            } else {
+                icon.className = 'result-icon incorrect';
+                icon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                title.textContent = "Análisis Clínico";
+                title.style.color = "#991b1b";
+            }
 
-      // Cargar el contenido inicial (Presentación)
-      loadContent('presentation-template');
-    });
-
-    // --- LÓGICA DE LA PRESENTACIÓN ---
-    function initPresentation() {
-      const presentationContainer = document.getElementById(
-        'presentation-container',
-      );
-      if (!presentationContainer) return;
-
-      const slidesContent = [
-        `<div class="slide active title-slide"><h1>Fundamentos de las Técnicas Diagnósticas en Gastroenterología</h1><p>Indicaciones, Limitaciones y Aplicación Clínica</p></div>`,
-        `<div class="slide"><h2>Introducción: La Evolución del Diagnóstico</h2><ul><li><strong>De la anamnesis a la tecnología:</strong> Evolución desde la clínica pura a un paradigma sofisticado.</li><li><strong>Herramientas modernas:</strong> Endoscopia, Ecografía, TC, Pruebas de Aliento.</li><li><strong>El reto clínico:</strong> La selección de la prueba adecuada es una habilidad fundamental.</li><li><strong>Objetivo:</strong> Dotar de un marco conceptual para la aplicación racional y efectiva de estas técnicas.</li></ul></div>`,
-        `<div class="slide"><h2>Sección 1: Endoscopia Digestiva</h2><h3>La Exploración Directa y Terapéutica</h3><ul><li><strong>Principio:</strong> Visualización directa de la mucosa GI con un tubo flexible y cámara HD.</li><li><strong>Capacidad Dual:</strong> Es la única técnica que es <strong>diagnóstica y terapéutica</strong> a la vez.<ul><li><strong>Diagnóstica:</strong> Inspección visual y toma de <strong>biopsias (estándar de oro)</strong>.</li><li><strong>Terapéutica:</strong> Polipectomía, hemostasia, dilatación, etc.</li></ul></li></ul></div>`,
-        `<div class="slide"><h2>Endoscopia Digestiva Alta (EDA)</h2><h3>Indicaciones Diagnósticas Clave</h3><ul><li><strong>Dispepsia con signos de alarma:</strong> >55 años, pérdida de peso, anorexia.</li><li><strong>ERGE persistente o con alarma:</strong> Disfagia, odinofagia. Detección de Esófago de Barrett.</li><li><strong>Hemorragia Digestiva Alta (Urgente):</strong> Hematemesis, melena.</li><li><strong>Anemia ferropénica</strong> de origen no aclarado.</li><li><strong>Confirmación histológica:</strong> Enfermedad celíaca, gastritis por <em>H. pylori</em>.</li></ul></div>`,
-        `<div class="slide"><h2>Colonoscopia</h2><h3>Indicaciones Diagnósticas y de Cribado</h3><ul><li><strong>Cribado de Cáncer Colorrectal (CCR):</strong> Estándar de oro a partir de 45-50 años.</li><li><strong>Evaluación de síntomas bajos:</strong> Rectorragia, cambio de hábito intestinal.</li><li><strong>Anemia ferropénica</strong> (si la EDA es negativa).</li><li><strong>Diagnóstico y seguimiento de Enfermedad Inflamatoria Intestinal (EII).</strong></li></ul></div>`,
-        `<div class="slide"><h2>Endoscopia: Riesgos y Limitaciones</h2><h3>¿Cuándo NO hacer una endoscopia?</h3><ul><li><strong>Contraindicaciones Absolutas:</strong><ul><li>Sospecha de <strong>perforación</strong> de víscera.</li><li>Inestabilidad hemodinámica (shock).</li><li>Colitis fulminante o megacolon tóxico.</li></ul></li><li><strong>Riesgos Principales (Bajos pero Reales):</strong><ul><li><strong>Perforación:</strong> El más temido, mayor en procedimientos terapéuticos.</li><li><strong>Sangrado:</strong> El más común, especialmente tras polipectomía.</li><li><strong>Complicaciones de la sedación.</strong></li></ul></li></ul></div>`,
-        `<div class="slide"><h2>Sección 2: Ecografía Abdominal</h2><h3>La Ventana No Invasiva al Abdomen</h3><ul><li><strong>Principio:</strong> Ondas de ultrasonido para crear imágenes en tiempo real.</li><li><strong>Ventaja Fundamental:</strong> <strong>Totalmente inocua. No usa radiación ionizante.</strong></li><li><strong>Ideal para:</strong> Niños y mujeres embarazadas.</li></ul></div>`,
-        `<div class="slide"><h2>Ecografía: Aplicaciones Clásicas y Emergentes</h2><h3>Rol Principal</h3><ul><li><strong>Patología biliar (1ª línea):</strong> Detección de <strong>cálculos (colelitiasis)</strong> y <strong>colecistitis</strong>.</li><li><strong>Hígado y Páncreas:</strong> Detección de quistes, tumores, hígado graso.</li></ul><h3>"Revolución Silenciosa" en Tubo Digestivo</h3><ul><li><strong>Apendicitis Aguda:</strong> Técnica de primera línea en niños y mujeres jóvenes.</li><li><strong>Enfermedad Inflamatoria Intestinal (EII):</strong> Valiosa para detectar inflamación y monitorizar respuesta al tratamiento.</li></ul></div>`,
-        `<div class="slide"><h2>Ecografía: Limitaciones Críticas</h2><ul><li><strong>Altamente Operador-Dependiente:</strong> La calidad depende de la habilidad de quien la realiza.</li><li><strong>Interferencia por Gas Intestinal:</strong> El gas es el "enemigo" del ultrasonido.</li><li><strong>Hábito del Paciente:</strong> La obesidad degrada la calidad de la imagen.</li><li><strong>"Puntos Ciegos":</strong> El recto y gran parte del intestino delgado son difíciles de visualizar.</li></ul></div>`,
-        `<div class="slide"><h2>Sección 3: Tomografía Computarizada (TC)</h2><h3>Mapeo Anatómico de Alta Resolución</h3><ul><li><strong>Principio:</strong> Rayos X que rotan alrededor del paciente para crear "cortes" detallados.</li><li><strong>Visión Panorámica:</strong> Ofrece un mapa anatómico 3D de toda la cavidad abdominal.</li><li><strong>Uso de Contraste (Fundamental):</strong> Intravenoso (Yodo) y Enteral (Oral/Rectal).</li></ul></div>`,
-        `<div class="slide"><h2>TC Abdominal: Indicaciones de Primera Línea</h2><ul><li><strong>Abdomen Agudo Severo (URGENCIAS):</strong> Diagnóstico rápido de obstrucción, perforación, isquemia, diverticulitis complicada.</li><li><strong>Estadificación Oncológica:</strong> Fundamental para evaluar la extensión de cánceres y buscar metástasis.</li><li><strong>Detección de Complicaciones:</strong> La mejor técnica para ver abscesos y colecciones.</li></ul></div>`,
-        `<div class="slide"><h2>TC: Limitaciones y Riesgos Críticos</h2><ul><li><strong>Radiación Ionizante (Limitación MÁS IMPORTANTE):</strong> Riesgo acumulativo de cáncer. Evitarse en jóvenes y exploraciones repetidas si es posible.</li><li><strong>Riesgos del Contraste IV Yodado:</strong><ul><li><strong>Nefrotoxicidad:</strong> Puede dañar los riñones.</li><li><strong>Reacciones Alérgicas.</strong></li></ul></li><li><strong>Limitada para patología de la mucosa:</strong> No ve lesiones superficiales como la endoscopia.</li></ul></div>`,
-        `<div class="slide"><h2>Sección 4: Pruebas Funcionales de Aliento</h2><h3>Evaluando la Fisiología y el Metabolismo</h3><ul><li><strong>Principio:</strong> Miden la función, no la anatomía.</li><li><strong>Metodología:</strong> Se ingiere un sustrato y se mide el gas producido en el aliento (CO₂, H₂, CH₄).</li><li><strong>Ventajas:</strong> No invasivas, seguras, de bajo coste y muy precisas para preguntas específicas.</li></ul></div>`,
-        `<div class="slide"><h2>Pruebas de Aliento: Aplicaciones Clave</h2><ul><li><strong>Infección por <em>H. pylori</em> (Prueba de Urea):</strong> Método NO INVASIVO de elección para diagnóstico y confirmación de erradicación.</li><li><strong>Sobrecrecimiento Bacteriano (SIBO) y Malabsorción (Lactosa/Fructosa):</strong> Estudio de hinchazón, gases y diarrea crónica cuando otros estudios son normales.</li></ul></div>`,
-        `<div class="slide"><h2>Sección 5: Enfoque Diagnóstico Integrado</h2><h3>Selección de la Prueba Óptima</h3><ul><li><strong>Dolor agudo severo →</strong> <strong>TC con contraste</strong></li><li><strong>Dolor en hipocondrio derecho →</strong> <strong>Ecografía</strong></li><li><strong>Dispepsia con signos de alarma →</strong> <strong>Endoscopia Alta (EDA)</strong></li><li><strong>Hinchazón y gases crónicos →</strong> <strong>Pruebas de Aliento</strong></li><li><strong>Sospecha de EII →</strong> 1º <strong>Colonoscopia con biopsias</strong>, 2º <strong>Entero-TC/RM o Ecografía</strong></li></ul></div>`,
-        `<div class="slide"><h2>Tabla Comparativa de Modalidades</h2><table class="comparative-table"><thead><tr><th>Característica</th><th>Endoscopia</th><th>Ecografía</th><th>TC Abdominal</th><th>Pruebas de Aliento</th></tr></thead><tbody><tr><td><strong>Principio</strong></td><td>Visualización directa</td><td>Ultrasonido</td><td>Rayos X</td><td>Metabolitos gaseosos</td></tr><tr><td><strong>Ventaja Principal</strong></td><td>Diagnóstica + Terapéutica</td><td><strong>Sin radiación</strong>, bajo coste</td><td>Rapidez, visión panorámica</td><td>No invasiva, alta precisión</td></tr><tr><td><strong>Riesgo/Limitación</strong></td><td>Invasiva, perforación</td><td>Operador-dependiente, gas</td><td><strong>Radiación ionizante</strong></td><td>Falsos +/- por preparación</td></tr></tbody></table></div>`,
-        `<div class="slide title-slide"><h1>Conclusiones</h1><p>El arte de la gastroenterología reside en integrar la clínica con la tecnología, seleccionando la herramienta adecuada para cada paciente y cada pregunta.</p></div>`,
-      ];
-
-      presentationContainer.innerHTML = slidesContent.join('');
-
-      const slides = presentationContainer.querySelectorAll('.slide');
-      const prevBtn = document.getElementById('prev-btn');
-      const nextBtn = document.getElementById('next-btn');
-      const slideCounter = document.getElementById('slide-counter');
-
-      let currentSlideIndex = 0;
-      const totalSlides = slides.length;
-
-      function showSlide(index) {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle('active', i === index);
-        });
-        slideCounter.textContent = `${index + 1} / ${totalSlides}`;
-        prevBtn.disabled = index === 0;
-        nextBtn.disabled = index === totalSlides - 1;
-      }
-
-      nextBtn.addEventListener('click', () => {
-        if (currentSlideIndex < totalSlides - 1) {
-          currentSlideIndex++;
-          showSlide(currentSlideIndex);
+            text.innerHTML = action.feedback + `<br><br><a href="https://www.uptodate.com/contents/approach-to-the-patient-with-abnormal-liver-tests?search=acute%20hepatitis&source=search_result&selectedTitle=1~150&usage_type=default&display_rank=1" target="_blank" style="color: var(--primary); font-weight: 600; text-decoration: none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Evidencia en UpToDate</a>`;
+            overlay.style.display = 'flex';
         }
-      });
 
-      prevBtn.addEventListener('click', () => {
-        if (currentSlideIndex > 0) {
-          currentSlideIndex--;
-          showSlide(currentSlideIndex);
-        }
-      });
-      showSlide(currentSlideIndex);
-    }
+        document.getElementById('next-case-btn').onclick = () => {
+            document.getElementById('feedback-overlay').style.display = 'none';
+            currentCaseIdx++;
+            if (currentCaseIdx < clinicalCases.length) {
+                updateUI();
+            } else {
+                alert("¡Felicidades! Has completado el bloque de entrenamiento de hoy.");
+                currentCaseIdx = 0; // Restart for demo
+                updateUI();
+            }
+        };
 
-    // --- LÓGICA DE LA HERRAMIENTA DIAGNÓSTICA ---
-    function initDiagnosticTool() {
-      const analyzeBtn = document.getElementById('analyze-btn');
-      if (!analyzeBtn) return;
+        // Login Logic
+        document.getElementById('login-btn').onclick = () => {
+            const btn = document.getElementById('login-btn');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Autenticando...';
+            setTimeout(() => {
+                document.getElementById('login-overlay').style.opacity = '0';
+                document.getElementById('login-overlay').style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.getElementById('login-overlay').style.display = 'none';
+                    updateUI();
+                }, 500);
+            }, 1000);
+        };
 
-      const resultDiv = document.getElementById('diagnostic-result');
-      const resultTitle = document.getElementById('result-title');
-      const resultRationale = document.getElementById('result-rationale');
-
-      const recommendations = {
-        eco: {
-          title: 'Ecografía Abdominal',
-          rationale:
-            'Es la prueba de primera línea, segura, económica y excelente para detectar patología biliar (cálculos) o hepática, que son la causa más probable de dolor en el hipocondrio derecho.',
-          class: 'eco',
-        },
-        eda: {
-          title: 'Endoscopia Digestiva Alta (EDA)',
-          rationale:
-            'Los signos de alarma (edad > 55, pérdida de peso) obligan a descartar una neoplasia esofagogástrica. La EDA es mandatoria porque permite la visualización directa y la toma de biopsias.',
-          class: 'eda',
-        },
-        tc: {
-          title: 'TC Abdominal con Contraste',
-          rationale:
-            'Ante una posible catástrofe intraabdominal (perforación, isquemia, etc.), la TC es la prueba de elección por su rapidez, visión panorámica y alta precisión para guiar una intervención urgente.',
-          class: 'tc',
-        },
-        aliento: {
-          title: 'Pruebas de Aliento',
-          rationale:
-            'Dado que los estudios anatómicos (endoscopias) son normales, la sospecha se inclina hacia un trastorno funcional. Las pruebas de aliento para SIBO o malabsorción son el paso más racional y menos invasivo.',
-          class: 'aliento',
-        },
-      };
-
-      analyzeBtn.addEventListener('click', () => {
-        const selectedScenario = document.querySelector(
-          'input[name="clinical_scenario"]:checked',
-        );
-        if (selectedScenario) {
-          const value = selectedScenario.value;
-          const recommendation = recommendations[value];
-
-          resultTitle.textContent =
-            'Prueba recomendada: ' + recommendation.title;
-          resultRationale.textContent =
-            'Justificación: ' + recommendation.rationale;
-          resultDiv.className = ''; // Reset class
-          resultDiv.classList.add(recommendation.class);
-          resultDiv.style.display = 'block';
-        } else {
-          resultTitle.textContent = 'Por favor, seleccione un escenario.';
-          resultRationale.textContent = '';
-          resultDiv.style.display = 'block';
-          resultDiv.className = '';
-        }
-      });
-    }
-
-    // --- LÓGICA DE LA AUTOEVALUACIÓN ---
-    function initQuiz() {
-      const quizContainer = document.getElementById('quiz-container');
-      if (!quizContainer) return;
-
-      const questionText = document.getElementById('question-text');
-      const quizOptions = document.getElementById('quiz-options');
-      const feedbackText = document.getElementById('feedback-text');
-      const nextBtn = document.getElementById('next-question-btn');
-      const resultContainer = document.getElementById(
-        'quiz-result-container',
-      );
-      const scoreText = document.getElementById('score-text');
-      const restartBtn = document.getElementById('restart-quiz-btn');
-
-      const questions = [
-        {
-          question:
-            'Mujer de 25 años con dolor en fosa ilíaca derecha y test de embarazo negativo. ¿Cuál es la primera prueba de imagen recomendada?',
-          options: [
-            'Ecografía abdominal',
-            'TC con contraste',
-            'RM abdominal',
-            'Endoscopia',
-          ],
-          correct: 0,
-        },
-        {
-          question:
-            'Paciente con hematemesis y melena. ¿Cuál es la prueba diagnóstica inicial?',
-          options: [
-            'Colonoscopia',
-            'Ecografía',
-            'Endoscopia digestiva alta',
-            'TC de abdomen',
-          ],
-          correct: 2,
-        },
-        {
-          question:
-            'Dolor en hipocondrio derecho acompañado de fiebre y leucocitosis. ¿Cuál es la prueba de elección?',
-          options: [
-            'Radiografía simple',
-            'Ecografía abdominal',
-            'Endoscopia',
-            'TC sin contraste',
-          ],
-          correct: 1,
-        },
-      ];
-
-      let currentQuestion = 0;
-      let score = 0;
-
-      function showQuestion() {
-        const q = questions[currentQuestion];
-        questionText.textContent = q.question;
-        quizOptions.innerHTML = '';
-        q.options.forEach((opt, idx) => {
-          const li = document.createElement('li');
-          li.textContent = opt;
-          li.addEventListener('click', () => selectAnswer(idx));
-          quizOptions.appendChild(li);
-        });
-        feedbackText.textContent = '';
-        feedbackText.style.backgroundColor = '';
-        nextBtn.style.display = 'none';
-      }
-
-      function selectAnswer(index) {
-        const q = questions[currentQuestion];
-        const options = quizOptions.querySelectorAll('li');
-        options.forEach((li, idx) => {
-          if (idx === q.correct) {
-            li.classList.add('correct');
-          } else if (idx === index) {
-            li.classList.add('incorrect');
-          }
-          li.style.pointerEvents = 'none';
-        });
-        if (index === q.correct) {
-          feedbackText.textContent = '¡Correcto!';
-          feedbackText.style.backgroundColor = '#d4edda';
-          score++;
-        } else {
-          feedbackText.textContent = 'Respuesta incorrecta';
-          feedbackText.style.backgroundColor = '#f8d7da';
-        }
-        nextBtn.style.display = 'inline-block';
-      }
-
-      nextBtn.addEventListener('click', () => {
-        currentQuestion++;
-        if (currentQuestion < questions.length) {
-          showQuestion();
-        } else {
-          quizContainer.style.display = 'none';
-          resultContainer.style.display = 'block';
-          scoreText.textContent = `Tu puntaje: ${score} de ${questions.length}`;
-        }
-      });
-
-      restartBtn.addEventListener('click', () => {
-        currentQuestion = 0;
-        score = 0;
-        quizContainer.style.display = 'block';
-        resultContainer.style.display = 'none';
-        showQuestion();
-      });
-
-      showQuestion();
-    }
-  </script>
+        // Initialize (Show overlay first)
+        // updateUI(); // Handled by login
+    </script>
 </body>
-
 </html>
+```
