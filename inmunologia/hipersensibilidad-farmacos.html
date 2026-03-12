@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerSemiotics - Hipersensibilidad a Fármacos</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar para las tablas */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // --- ICONOS SVG ---
+        const Icons = {
+            BookOpen: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>,
+            Pill: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>,
+            AlertTriangle: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>,
+            Search: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>,
+            CheckCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>,
+            XCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>,
+            GraduationCap: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.42 10.922a2 2 0 0 1-.019 3.022l-7.1 7.1a2 2 0 0 1-2.828 0l-7.1-7.1a2 2 0 0 1-.018-3.022l8.4-8.4a2 2 0 0 1 2.828 0l8.4 8.4z"></path><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M2 12h2"></path><path d="M20 12h2"></path></svg>
+        };
+
+        // --- COMPONENTES DE VISTA ---
+
+        // 1. Hub de Conocimiento General
+        const KnowledgeHub = () => (
+            <div className="animate-fade-in space-y-6">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 border-t-4 border-t-indigo-600">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.BookOpen /> Fundamentos de Hipersensibilidad a Fármacos
+                    </h2>
+                    <p className="text-slate-600 mb-4 leading-relaxed">
+                        Basado en las revisiones de <em>Marc Pallardy</em> y <em>Romane Cadot</em>, las reacciones de hipersensibilidad a medicamentos (DHRs) se dividen clásicamente por su <strong>tiempo de inicio</strong> y su <strong>mecanismo inmunológico</strong> (Clasificación de Gell y Coombs adaptada). Es crucial diferenciar una reacción alérgica verdadera de un efecto adverso predecible (Tipo A).
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div className="bg-blue-50/50 p-5 rounded-xl border border-blue-100 relative overflow-hidden">
+                            <div className="absolute -right-4 -top-4 text-blue-100 opacity-50 scale-150"><Icons.Pill /></div>
+                            <h3 className="font-bold text-blue-900 mb-3 text-lg relative z-10">Semana 14: Reacciones Inmediatas</h3>
+                            <ul className="list-disc pl-5 text-sm text-blue-800 space-y-2 relative z-10">
+                                <li><strong>Tiempo:</strong> &lt; 1 a 6 horas tras la administración.</li>
+                                <li><strong>Mecanismo:</strong> Mediadas por IgE (urticaria, anafilaxia) o degranulación directa de mastocitos.</li>
+                                <li><strong>Focos:</strong> Antibióticos Betalactámicos y pseudoalergia por AINEs.</li>
+                            </ul>
+                        </div>
+                        <div className="bg-rose-50/50 p-5 rounded-xl border border-rose-100 relative overflow-hidden">
+                            <div className="absolute -right-4 -top-4 text-rose-100 opacity-50 scale-150"><Icons.AlertTriangle /></div>
+                            <h3 className="font-bold text-rose-900 mb-3 text-lg relative z-10">Semana 15: Reacciones Tardías (SCARs)</h3>
+                            <ul className="list-disc pl-5 text-sm text-rose-800 space-y-2 relative z-10">
+                                <li><strong>Tiempo:</strong> Días a semanas (incluso hasta 8 semanas).</li>
+                                <li><strong>Mecanismo:</strong> Mediadas por células T (Tipo IV).</li>
+                                <li><strong>Focos:</strong> SJS/NET, DRESS, AGEP, Exantema maculopapular. Potencialmente letales.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 2. Semana 14: Inmediatas (Betalactámicos y AINEs)
+        const Semana14 = () => {
+            return (
+                <div className="animate-fade-in space-y-6">
+                    <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2 mb-6">
+                        <Icons.Pill /> Reacciones Inmediatas: Betalactámicos y AINEs
+                    </h2>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* Betalactámicos */}
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 className="text-xl font-bold text-indigo-700 mb-4 border-b pb-2">Alergia a Betalactámicos</h3>
+                            <p className="text-sm text-slate-600 mb-4">
+                                <em>Ref: Ileana-Maria Ghiordanescu</em>. <br/>
+                                La penicilina es la alergia a medicamentos más comúnmente reportada (~10%), pero el <strong>&gt;90% de los pacientes "alérgicos" pueden tolerarla</strong> tras una evaluación adecuada.
+                            </p>
+                            <div className="bg-indigo-50 p-4 rounded-lg">
+                                <h4 className="font-semibold text-indigo-900 mb-2">Puntos Clave:</h4>
+                                <ul className="list-disc pl-5 text-sm text-indigo-800 space-y-1">
+                                    <li><strong>Determinantes:</strong> Mayor (anillo peniciloil) y Menores.</li>
+                                    <li><strong>Reactividad cruzada:</strong> Penicilinas y Cefalosporinas de 1era/2da generación (por cadenas laterales R1 similares). Menor al 2% con cefalosporinas de 3era gen.</li>
+                                    <li><strong>Des-etiquetado (Delabeling):</strong> Uso de Pruebas cutáneas y Reto oral (Gold Standard) en pacientes de bajo riesgo.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        {/* AINEs */}
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 className="text-xl font-bold text-teal-700 mb-4 border-b pb-2">Hipersensibilidad a AINEs</h3>
+                            <p className="text-sm text-slate-600 mb-4">
+                                Frecuentemente no son alergias verdaderas (IgE), sino <strong>"Pseudoalergias"</strong> por alteraciones en el metabolismo del ácido araquidónico.
+                            </p>
+                            <div className="bg-teal-50 p-4 rounded-lg">
+                                <h4 className="font-semibold text-teal-900 mb-2">Mecanismo:</h4>
+                                <ul className="list-disc pl-5 text-sm text-teal-800 space-y-1">
+                                    <li>Inhibición de COX-1 &rarr; Desvío hacia la vía de la Lipooxigenasa (LOX).</li>
+                                    <li>Sobreproducción de <strong>Leucotrienos</strong>.</li>
+                                </ul>
+                                <h4 className="font-semibold text-teal-900 mt-3 mb-1">Fenotipos Clínicos:</h4>
+                                <ul className="list-disc pl-5 text-sm text-teal-800 space-y-1">
+                                    <li>Enf. Respiratoria Exacerbada por Aspirina (EREA / Triada de Samter): Asma + Pólipos nasales + Intolerancia AINEs.</li>
+                                    <li>Urticaria/Angioedema exacerbado por AINEs (en pacientes con urticaria crónica).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 3. Semana 15: Tardías (SCARs)
+        const Semana15 = () => {
+            return (
+                <div className="animate-fade-in bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.AlertTriangle /> Reacciones Tardías (SCARs)
+                        </h2>
+                        <span className="bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Alto Riesgo</span>
+                    </div>
+                    
+                    <p className="text-slate-600 mb-6">
+                        <em>Ref: Romane Cadot</em>. Las Reacciones Adversas Cutáneas Severas (SCARs) son emergencias dermatológicas e inmunológicas. El reconocimiento del patrón clínico y la latencia son fundamentales.
+                    </p>
+
+                    <div className="overflow-x-auto custom-scrollbar pb-4">
+                        <table className="w-full text-left border-collapse min-w-[800px]">
+                            <thead>
+                                <tr className="bg-slate-100 text-slate-700">
+                                    <th className="p-3 border-b-2 border-slate-200 font-bold rounded-tl-lg">Síndrome</th>
+                                    <th className="p-3 border-b-2 border-slate-200 font-bold">Latencia</th>
+                                    <th className="p-3 border-b-2 border-slate-200 font-bold">Hallazgos Cutáneos Clave</th>
+                                    <th className="p-3 border-b-2 border-slate-200 font-bold">Afección Sistémica</th>
+                                    <th className="p-3 border-b-2 border-slate-200 font-bold rounded-tr-lg">Fármacos Típicos</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-sm">
+                                <tr className="border-b border-slate-100 hover:bg-slate-50">
+                                    <td className="p-3 font-bold text-slate-800">SJS / NET</td>
+                                    <td className="p-3 text-slate-600">4 a 28 días</td>
+                                    <td className="p-3 text-slate-600">Máculas en diana atípicas, <strong>desprendimiento epidérmico</strong> (Nikolsky +). Mucosas MUY afectadas.</td>
+                                    <td className="p-3 text-slate-600">Fiebre alta, necrosis epitelial masiva (falla multiorgánica por sepsis/pérdida de fluidos).</td>
+                                    <td className="p-3 text-slate-600">Alopurinol, Anticonvulsivantes, Sulfas.</td>
+                                </tr>
+                                <tr className="border-b border-slate-100 hover:bg-slate-50">
+                                    <td className="p-3 font-bold text-slate-800">DRESS</td>
+                                    <td className="p-3 text-rose-600 font-semibold">2 a 8 semanas</td>
+                                    <td className="p-3 text-slate-600">Eritema extenso, <strong>edema facial</strong> característico.</td>
+                                    <td className="p-3 text-slate-600">Adenopatías, <strong>Eosinofilia</strong> (&gt;1500), Afectación hepática (ALT alta), reactivación HHV-6.</td>
+                                    <td className="p-3 text-slate-600">Anticonvulsivantes (Fenitoína), Alopurinol.</td>
+                                </tr>
+                                <tr className="border-b border-slate-100 hover:bg-slate-50">
+                                    <td className="p-3 font-bold text-slate-800">AGEP</td>
+                                    <td className="p-3 text-blue-600 font-semibold">1 a 4 días (&lt; 1 semana)</td>
+                                    <td className="p-3 text-slate-600"><strong>Pústulas</strong> puntiformes estériles sobre base eritematosa. Flexuras afectadas.</td>
+                                    <td className="p-3 text-slate-600">Fiebre, <strong>Neutrofilia</strong>. Resolución rápida al suspender el fármaco.</td>
+                                    <td className="p-3 text-slate-600">Betalactámicos, Macrólidos.</td>
+                                </tr>
+                                <tr className="hover:bg-slate-50">
+                                    <td className="p-3 font-bold text-slate-800">Exantema Maculopapular</td>
+                                    <td className="p-3 text-slate-600">4 a 14 días</td>
+                                    <td className="p-3 text-slate-600">Erupción "morbiliforme" en tronco que se disemina. Pruriginoso.</td>
+                                    <td className="p-3 text-slate-600">Ausente o leve (febrícula). NO mucosas, NO ampollas.</td>
+                                    <td className="p-3 text-slate-600">Aminopenicilinas, Sulfas.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // 3.5. USMLE High-Yield Facts (Flashcards & Tables)
+        const UsmleFacts = () => {
+            const [flippedCard, setFlippedCard] = useState(null);
+
+            const flashcards = [
+                { id: 1, front: "Tipo I (Inmediata)", back: "IgE + Mastocitos/Basófilos (<1 hr). Ej: Anafilaxia por Penicilina." },
+                { id: 2, front: "Tipo II (Citotóxica)", back: "IgG/IgM + Complemento. Ej: Anemia hemolítica por Penicilina/Quinidina." },
+                { id: 3, front: "Tipo III (Inmunocomplejos)", back: "IgG + Ag. Depósitos sistémicos (1-3 semanas). Ej: Enfermedad del suero." },
+                { id: 4, front: "Tipo IV (Retardada)", back: "Células T (48-72h). Th1 (Macrófagos), Th2 (Eosinófilos), CTL (SJS/NET)." }
+            ];
+
+            return (
+                <div className="animate-fade-in space-y-8">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.GraduationCap /> USMLE High-Yield Facts
+                        </h2>
+                        <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Review</span>
+                    </div>
+
+                    {/* Gell and Coombs Flashcards */}
+                    <div>
+                        <h3 className="text-xl font-bold text-slate-700 mb-4 border-b pb-2">Clasificación de Gell y Coombs</h3>
+                        <p className="text-sm text-slate-500 mb-4">Haz clic para voltear las tarjetas y repasar los mecanismos.</p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                            {flashcards.map(card => (
+                                <div 
+                                    key={card.id} 
+                                    className="relative h-32 w-full perspective-1000 cursor-pointer"
+                                    onClick={() => setFlippedCard(flippedCard === card.id ? null : card.id)}
+                                >
+                                    <div className={`absolute w-full h-full transition-all duration-500 preserve-3d flex items-center justify-center p-4 text-center rounded-xl shadow-md border ${flippedCard === card.id ? '[transform:rotateY(180deg)]' : ''}`}>
+                                        <div className={`absolute w-full h-full backface-hidden bg-white border-indigo-200 text-indigo-900 font-bold flex items-center justify-center rounded-xl p-4 ${flippedCard === card.id ? 'hidden' : 'block'}`}>
+                                            {card.front}
+                                        </div>
+                                        <div className={`absolute w-full h-full backface-hidden bg-indigo-600 text-white font-medium flex items-center justify-center text-sm rounded-xl p-3 [transform:rotateY(180deg)] ${flippedCard === card.id ? 'block' : 'hidden'}`}>
+                                            {card.back}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Red Man Syndrome */}
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 className="text-lg font-bold text-rose-700 mb-3 border-b pb-2">Síndrome del Hombre Rojo (Vancomicina)</h3>
+                            <ul className="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                                <li><strong>Mecanismo:</strong> Reacción <em>pseudoalérgica</em> (NO IgE). Liberación directa de histamina por mastocitos según la velocidad de infusión.</li>
+                                <li><strong>Clínica:</strong> Eritema/flushing intenso en cara, cuello y torso superior.</li>
+                                <li><strong>USMLE Tip:</strong> Prevenir disminuyendo la velocidad de infusión y dando antihistamínicos. <span className="font-bold underline">NO</span> es contraindicación absoluta.</li>
+                            </ul>
+                        </div>
+
+                        {/* Drug-Induced Lupus */}
+                        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 className="text-lg font-bold text-violet-700 mb-3 border-b pb-2">Lupus Inducido por Fármacos (DIL)</h3>
+                            <ul className="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                                <li><strong>Marcador:</strong> Anticuerpos <strong>Anti-histona</strong> positivos (&gt;95%). Anti-dsDNA raramente positivos. (No afecta riñón/SNC).</li>
+                                <li><strong>Culprits (SHIPP):</strong> <strong>S</strong>ulfonamidas, <strong>H</strong>idralazina (más común), <strong>I</strong>soniazida, <strong>P</strong>rocainamida, <strong>P</strong>enitoína.</li>
+                                <li><strong>USMLE Tip:</strong> Pacientes que son <em>Acetiladores Lentos</em> hepáticos acumulan la droga y tienen mucho mayor riesgo.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 4. Minijuego Gamificado
+        const ScarGame = () => {
+            const [currentCase, setCurrentCase] = useState(0);
+            const [feedback, setFeedback] = useState(null); // { type: 'success'|'error', msg: string }
+            const [score, setScore] = useState(0);
+
+            const cases = [
+                {
+                    id: 1,
+                    patient: "Mujer de 45 años",
+                    history: "Inició tratamiento con Alopurinol por gota hace 4 semanas.",
+                    clinic: "Acude a urgencias por fiebre (39°C), edema facial marcado y un exantema eritematoso difuso. Exámenes: Eosinófilos 2500/mm3, ALT 450 U/L. No hay afectación de mucosas ni ampollas.",
+                    options: [
+                        { id: 'sjs', label: 'Síndrome de Stevens-Johnson' },
+                        { id: 'dress', label: 'Síndrome DRESS' },
+                        { id: 'agep', label: 'AGEP' }
+                    ],
+                    correct: 'dress',
+                    explanation: "Correcto. La latencia larga (4 semanas), el edema facial característico, la eosinofilia y la afectación hepática (ALT elevada) son pilares diagnósticos del DRESS."
+                },
+                {
+                    id: 2,
+                    patient: "Hombre de 30 años",
+                    history: "Tratado con Amoxicilina hace 48 horas por faringitis.",
+                    clinic: "Fiebre abrupta (39.5°C) y aparición súbita de decenas de pequeñas pústulas no foliculares sobre un fondo intensamente eritematoso, predominantemente en pliegues (axilas, ingles). Laboratorio muestra Neutrofilia prominente.",
+                    options: [
+                        { id: 'sjs', label: 'Síndrome de Stevens-Johnson' },
+                        { id: 'dress', label: 'Síndrome DRESS' },
+                        { id: 'agep', label: 'AGEP' }
+                    ],
+                    correct: 'agep',
+                    explanation: "Correcto. Latencia muy corta (< 4 días), pústulas estériles y neutrofilia apuntan directamente a Pustulosis Exantemática Generalizada Aguda (AGEP)."
+                },
+                {
+                    id: 3,
+                    patient: "Niña de 12 años",
+                    history: "Tomando Trimetoprima-Sulfametoxazol (Bactrim) desde hace 10 días por una ITU.",
+                    clinic: "Fiebre, mialgias y odinofagia hace 2 días. Hoy desarrolla máculas atípicas en diana en el torso con formación de vesículas centrales. Presenta costras hemorrágicas severas en labios y conjuntivitis purulenta. Signo de Nikolsky positivo en un 15% de superficie corporal.",
+                    options: [
+                        { id: 'sjs', label: 'SJS/NET (Superposición)' },
+                        { id: 'dress', label: 'Síndrome DRESS' },
+                        { id: 'efm', label: 'Eritema Fijo Medicamentoso' }
+                    ],
+                    correct: 'sjs',
+                    explanation: "Correcto. La afectación severa de mucosas (labios, ojos), las lesiones en diana atípicas y el desprendimiento epidérmico (Nikolsky +) son clásicos del espectro SJS/NET. Entre 10-30% de superficie se considera superposición."
+                },
+                {
+                    id: 4,
+                    patient: "Hombre de 55 años",
+                    history: "Inició tratamiento con Vancomicina IV empírica por sospecha de bacteriemia hace 15 minutos.",
+                    clinic: "Desarrolla bruscamente un eritema (flushing) intenso y prurito en cara, cuello y la parte superior del tronco. No hay sibilancias, y la presión arterial está levemente disminuida. ¿Cuál es la conducta a seguir según los conceptos USMLE?",
+                    options: [
+                        { id: 'suspender', label: 'Suspender definitivamente (Alergia IgE Tipo I)' },
+                        { id: 'ralentizar', label: 'Ralentizar infusión + Antihistamínicos' },
+                        { id: 'epi', label: 'Administrar Epinefrina IM de inmediato' }
+                    ],
+                    correct: 'ralentizar',
+                    explanation: "Correcto. Es el Síndrome del Hombre Rojo, una pseudoalergia por desgranulación directa de mastocitos debida a una infusión rápida. No mediada por IgE. Se trata ralentizando la infusión y no contraindica el uso futuro de la droga."
+                },
+                {
+                    id: 5,
+                    patient: "Mujer de 60 años",
+                    history: "Tratamiento crónico con Procainamida por arritmia. Su perfil genético muestra que es una 'Acetiladora Lenta'.",
+                    clinic: "Acude por artralgias severas bilaterales crónicas, fiebre leve y un leve exantema malar. El laboratorio muestra ANAs (+). El examen de orina (uroanálisis) es normal y la creatinina de 0.8.",
+                    options: [
+                        { id: 'sle', label: 'Lupus Eritematoso Sistémico de novo' },
+                        { id: 'dil', label: 'Lupus Inducido por Fármacos (DIL)' },
+                        { id: 'tipo3', label: 'Enfermedad del Suero (Tipo III)' }
+                    ],
+                    correct: 'dil',
+                    explanation: "Correcto. El cuadro clínico de Lupus sin daño renal/SNC asociado al uso de Procainamida, especialmente en una acetiladora lenta (aumenta toxicidad de Hidralazina/Isoniazida/Procainamida), es diagnóstico de DIL. Se confirma con anticuerpos Anti-Histona."
+                }
+            ];
+
+            const handleAnswer = (optionId) => {
+                if (optionId === cases[currentCase].correct) {
+                    setFeedback({ type: 'success', msg: cases[currentCase].explanation });
+                    if (!feedback) setScore(score + 1); // Solo suma si responde bien a la primera
+                } else {
+                    setFeedback({ type: 'error', msg: "Respuesta incorrecta. Revisa los tiempos de latencia y síntomas clave." });
+                }
+            };
+
+            const nextCase = () => {
+                setFeedback(null);
+                setCurrentCase(prev => prev + 1);
+            };
+
+            const resetGame = () => {
+                setFeedback(null);
+                setCurrentCase(0);
+                setScore(0);
+            };
+
+            const isFinished = currentCase >= cases.length;
+
+            return (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 animate-fade-in">
+                    <div className="flex items-center justify-between mb-6 border-b pb-4">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.Search /> El Detective de SCARs
+                        </h2>
+                        <span className="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Simulador de Urgencias</span>
+                    </div>
+
+                    {!isFinished ? (
+                        <div>
+                            <div className="flex justify-between text-sm font-bold text-slate-500 mb-4">
+                                <span>Caso {currentCase + 1} de {cases.length}</span>
+                                <span>Puntuación: {score}</span>
+                            </div>
+
+                            <div className="bg-slate-50 border-l-4 border-indigo-500 p-5 rounded-r-lg mb-6">
+                                <p className="font-semibold text-indigo-900 mb-1">{cases[currentCase].patient}</p>
+                                <p className="text-slate-700 mb-3"><span className="font-medium text-slate-600">Antecedentes:</span> {cases[currentCase].history}</p>
+                                <p className="text-slate-800"><span className="font-medium text-slate-600">Clínica actual:</span> {cases[currentCase].clinic}</p>
+                            </div>
+
+                            <div className="space-y-3 mb-6">
+                                {cases[currentCase].options.map(opt => (
+                                    <button
+                                        key={opt.id}
+                                        onClick={() => handleAnswer(opt.id)}
+                                        disabled={feedback?.type === 'success'}
+                                        className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                                            feedback && opt.id === cases[currentCase].correct
+                                                ? 'border-emerald-500 bg-emerald-50 text-emerald-800 font-semibold'
+                                                : feedback?.type === 'success' 
+                                                    ? 'border-slate-200 opacity-50 cursor-not-allowed'
+                                                    : 'border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700'
+                                        }`}
+                                    >
+                                        {opt.label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {feedback && (
+                                <div className={`p-4 rounded-lg flex items-start gap-3 mb-6 ${feedback.type === 'success' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                                    {feedback.type === 'success' ? <Icons.CheckCircle /> : <Icons.XCircle />}
+                                    <p className="text-sm font-medium pt-0.5">{feedback.msg}</p>
+                                </div>
+                            )}
+
+                            {feedback?.type === 'success' && (
+                                <button 
+                                    onClick={nextCase}
+                                    className="w-full py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-md hover:bg-indigo-700 transition-colors"
+                                >
+                                    Siguiente Caso
+                                </button>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="text-center py-8">
+                            <h3 className="text-2xl font-bold text-slate-800 mb-2">Simulación Completada</h3>
+                            <p className="text-lg text-slate-600 mb-6">Acertaste {score} de {cases.length} casos al primer intento.</p>
+                            <div className="flex justify-center mb-6">
+                                <div className="bg-indigo-100 text-indigo-800 p-6 rounded-full inline-block">
+                                    <Icons.CheckCircle />
+                                </div>
+                            </div>
+                            <button 
+                                onClick={resetGame}
+                                className="px-6 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-md hover:bg-slate-900 transition-colors"
+                            >
+                                Volver a Jugar
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- APLICACIÓN PRINCIPAL ---
+        const App = () => {
+            const [activeSection, setActiveSection] = useState('hub');
+
+            const renderContent = () => {
+                switch(activeSection) {
+                    case 'hub': return <KnowledgeHub />;
+                    case 'sem14': return <Semana14 />;
+                    case 'sem15': return <Semana15 />;
+                    case 'usmle': return <UsmleFacts />;
+                    case 'game': return <ScarGame />;
+                    default: return <KnowledgeHub />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col md:flex-row">
+                    {/* Sidebar / Navegación */}
+                    <aside className="w-full md:w-72 bg-slate-900 text-slate-300 flex flex-col shadow-xl z-10 shrink-0">
+                        <div className="p-6 border-b border-slate-700">
+                            <h1 className="text-2xl font-bold text-white tracking-tight">
+                                Power<span className="text-indigo-400">Semiotics</span>
+                            </h1>
+                            <p className="text-xs font-medium text-slate-400 mt-1 tracking-widest uppercase">Clinical OS V2.0</p>
+                        </div>
+                        
+                        <div className="p-4 flex-1">
+                            <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider px-3">Sem. 14 y 15: Fármacos</p>
+                            <nav className="space-y-2">
+                                <button 
+                                    onClick={() => setActiveSection('hub')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'hub' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.BookOpen /> Fundamentos DHR
+                                </button>
+                                <button 
+                                    onClick={() => setActiveSection('sem14')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'sem14' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Pill /> Semana 14: Inmediatas
+                                </button>
+                                <button 
+                                    onClick={() => setActiveSection('sem15')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'sem15' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.AlertTriangle /> Semana 15: SCARs
+                                </button>
+                                <button 
+                                    onClick={() => setActiveSection('usmle')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'usmle' ? 'bg-violet-600 text-white' : 'hover:bg-slate-800 hover:text-white text-violet-400'}`}
+                                >
+                                    <Icons.GraduationCap /> USMLE High-Yield
+                                </button>
+                                <div className="pt-4 mt-2 border-t border-slate-700">
+                                    <button 
+                                        onClick={() => setActiveSection('game')}
+                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'game' ? 'bg-amber-600 text-white' : 'hover:bg-slate-800 hover:text-white text-amber-400'}`}
+                                    >
+                                        <Icons.Search /> Simulador Clínico
+                                    </button>
+                                </div>
+                            </nav>
+                        </div>
+                        
+                        <div className="mt-auto p-6 text-sm text-slate-500 border-t border-slate-700">
+                            <p>Universidad Central del Ecuador</p>
+                            <p>Medicina - Séptimo Semestre</p>
+                        </div>
+                    </aside>
+
+                    {/* Área de Contenido Principal */}
+                    <main className="flex-1 p-6 md:p-10 overflow-y-auto bg-slate-50">
+                        <header className="mb-8 border-b border-gray-200 pb-4">
+                            <h2 className="text-3xl font-bold text-slate-800">Hipersensibilidad a Fármacos</h2>
+                            <p className="text-slate-500 mt-2">Módulo de estudio para Reacciones Inmediatas y Tardías (SCARs).</p>
+                        </header>
+                        
+                        <div className="max-w-4xl">
+                            {renderContent()}
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
