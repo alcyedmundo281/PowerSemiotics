@@ -369,69 +369,9 @@
         }
 
         /* --- Responsive --- */
-        /* --- Login Overlay --- */
-        #login-overlay {
-            position: fixed;
-            inset: 0;
-            background: #0f172a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            padding: 1.5rem;
-        }
-
-        .login-card {
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            padding: 2.5rem;
-            border-radius: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .login-card h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 0.75rem;
-            border: 1px solid var(--border);
-            margin-bottom: 1rem;
-            font-family: inherit;
-        }
-
-        .login-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
     </style>
   </head>
 <body>
-    <!-- Login Overlay -->
-    <div id="login-overlay">
-        <div class="login-card">
-            <div class="logo" style="justify-content:center;">
-                <i class="fa-solid fa-liver"></i>
-                <span>LiverFlow AI</span>
-            </div>
-            <h2>Bienvenido</h2>
-            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.875rem;">Inicie sesión para acceder al simulador</p>
-            
-            <input type="email" class="login-input" value="alcyedmundo@gmail.com" readonly placeholder="Usuario">
-            <input type="password" class="login-input" value="••••••••" readonly placeholder="Contraseña">
-            
-            <button id="login-btn" class="btn-primary" style="width:100%; margin-top: 1rem;">Acceder al Simulador</button>
-            <p style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted);">Acceso autorizado para personal médico</p>
-        </div>
-    </div>
-
     <aside id="sidebar">
         <div class="logo">
             <i class="fa-solid fa-liver"></i>
@@ -675,22 +615,8 @@
             }
         };
 
-        // Login Logic
-        document.getElementById('login-btn').onclick = () => {
-            const btn = document.getElementById('login-btn');
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Autenticando...';
-            setTimeout(() => {
-                document.getElementById('login-overlay').style.opacity = '0';
-                document.getElementById('login-overlay').style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    document.getElementById('login-overlay').style.display = 'none';
-                    updateUI();
-                }, 500);
-            }, 1000);
-        };
-
-        // Initialize (Show overlay first)
-        // updateUI(); // Handled by login
+        // Initialize
+        updateUI();
     </script>
 </body>
 </html>
