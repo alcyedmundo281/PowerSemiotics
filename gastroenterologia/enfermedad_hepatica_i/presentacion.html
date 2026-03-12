@@ -5,15 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Presentación: Enfermedad Hepática I</title>
     <link href="../../assets/tailwind.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/gastro-layout.css" />
-    <script src="../../assets/gastro-layout.js" defer></script>
+    <style>
+      #presentation-container {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      #slider-viewport {
+        flex-grow: 1;
+        overflow: hidden;
+      }
+      #slider-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s ease-in-out;
+      }
+      .slide {
+        flex: 0 0 100%;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* Ensure slide content is responsive */
+      .slide > div {
+        max-width: 90%;
+        max-height: 90%;
+        overflow-y: auto;
+      }
+    </style>
   </head>
   <body class="font-sans bg-gray-100 text-gray-800">
-    <div class="relative w-full h-screen flex flex-col">
-      <div
-        id="slider-container"
-        class="slider-container flex w-full h-full overflow-x-auto no-scrollbar"
-      >
+    <div id="presentation-container">
+      <div id="slider-viewport">
+        <div id="slider-container">
         <!-- Slide 1: Título -->
         <div
           id="slide-1"
@@ -542,56 +571,48 @@
       const slideCounter = document.getElementById('slide-counter');
       const slides = document.querySelectorAll('.slide');
       const totalSlides = slides.length;
-      let currentSlide = 1;
+      let currentIndex = 0;
 
       function updateUI() {
-        slideCounter.textContent = `Diapositiva ${currentSlide} / ${totalSlides}`;
-        prevBtn.disabled = currentSlide === 1;
-        nextBtn.disabled = currentSlide === totalSlides;
-      }
-
-      function scrollToSlide(slideNumber) {
-        const slideWidth = sliderContainer.clientWidth;
-        sliderContainer.scrollTo({
-          left: (slideNumber - 1) * slideWidth,
-          behavior: 'smooth',
-        });
+        sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        slideCounter.textContent = `Diapositiva ${currentIndex + 1} / ${totalSlides}`;
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === totalSlides - 1;
       }
 
       nextBtn.addEventListener('click', () => {
-        if (currentSlide < totalSlides) {
-          currentSlide++;
-          scrollToSlide(currentSlide);
+        if (currentIndex < totalSlides - 1) {
+          currentIndex++;
           updateUI();
         }
       });
 
       prevBtn.addEventListener('click', () => {
-        if (currentSlide > 1) {
-          currentSlide--;
-          scrollToSlide(currentSlide);
+        if (currentIndex > 0) {
+          currentIndex--;
           updateUI();
         }
       });
 
-      let scrollTimeout;
-      sliderContainer.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          const newSlide =
-            Math.round(
-              sliderContainer.scrollLeft / sliderContainer.clientWidth,
-            ) + 1;
-          if (newSlide !== currentSlide) {
-            currentSlide = newSlide;
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          if (currentIndex < totalSlides - 1) {
+            currentIndex++;
             updateUI();
           }
-        }, 100);
+        } else if (e.key === 'ArrowLeft') {
+          if (currentIndex > 0) {
+            currentIndex--;
+            updateUI();
+          }
+        }
       });
 
       window.addEventListener('resize', () => {
-        scrollToSlide(currentSlide);
+        updateUI();
       });
+
       updateUI();
     </script>
   </body>
