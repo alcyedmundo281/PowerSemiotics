@@ -126,6 +126,14 @@
           </li>
           <li class="mb-2">
             <a
+              href="#flashcards"
+              class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"
+            >
+              <i class="fas fa-bolt w-6 text-center mr-3"></i>Flashcards USMLE
+            </a>
+          </li>
+          <li class="mb-2">
+            <a
               href="#abp"
               class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors"
             >
@@ -262,18 +270,24 @@
                       <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap&quot; rel=&quot;stylesheet&quot;>
                       <style>
                           html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #0f172a; font-family: 'Inter', sans-serif; color: #f8fafc; }
-                          #presentationCanvas { display: block; width: 100%; height: 100%; }
-                          #instructions-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.9); display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; cursor: pointer; z-index: 10; transition: opacity 0.5s ease; }
+                          #presentationCanvas { display: block; width: 100%; height: 100%; outline: none; }
+                          #instructions-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.9); display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; cursor: pointer; z-index: 20; transition: opacity 0.5s ease; }
                           #instructions-overlay h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #38bdf8; }
                           #instructions-overlay p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; }
                           #instructions-overlay .key-icon { display: inline-block; background-color: #334155; padding: 0.5rem 0.8rem; border-radius: 0.5rem; border-bottom: 3px solid #1e293b; margin: 0 0.25rem; font-family: monospace; }
+                          .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(30, 41, 59, 0.7); color: white; border: none; padding: 1rem 0.75rem; cursor: pointer; z-index: 10; font-size: 1.5rem; transition: background-color 0.2s; border-radius: 0.5rem; }
+                          .nav-btn:hover { background-color: rgba(56, 189, 248, 0.9); }
+                          .nav-btn.left { left: 1rem; }
+                          .nav-btn.right { right: 1rem; }
                       </style>
                   </head>
-                  <body>
+                  <body tabindex=&quot;0&quot;>
+                      <button id=&quot;btn-prev&quot; class=&quot;nav-btn left&quot;>&#10094;</button>
+                      <button id=&quot;btn-next&quot; class=&quot;nav-btn right&quot;>&#10095;</button>
                       <div id=&quot;instructions-overlay&quot;>
                           <div>
                               <h1>Bienvenido</h1>
-                              <p>Utilice las teclas de flecha <span class=&quot;key-icon&quot;>▲</span> (Arriba) y <span class=&quot;key-icon&quot;>▼</span> (Abajo) para navegar por la presentación.</p>
+                              <p>Utilice las teclas de flecha <span class=&quot;key-icon&quot;>▲</span> (Arriba) y <span class=&quot;key-icon&quot;>▼</span> (Abajo) para navegar por la presentación, o utilice los botones laterales.</p>
                               <p style=&quot;margin-top: 2rem; font-size: 1rem; opacity: 0.7;&quot;>(Haga clic en cualquier lugar para comenzar)</p>
                           </div>
                       </div>
@@ -309,15 +323,77 @@
                           function drawSlide(index) { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = STYLES.BACKGROUND; ctx.fillRect(0, 0, canvas.width, canvas.height); const slide = slides[index]; if (!slide) return; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; switch (slide.type) { case 'title': drawTitleSlide(slide); break; case 'content': drawContentSlide(slide); break; case 'table': drawTableSlide(slide); break; default: console.error(`Tipo de diapositiva desconocido: ${slide.type}`); } }
                           function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; drawSlide(currentSlide); }
                           function handleKeyDown(e) { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { if (currentSlide < slides.length - 1) { currentSlide++; drawSlide(currentSlide); } } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { if (currentSlide > 0) { currentSlide--; drawSlide(currentSlide); } } }
-                          instructionsOverlay.addEventListener('click', () => { instructionsOverlay.style.opacity = '0'; setTimeout(() => { instructionsOverlay.style.display = 'none'; }, 500); });
+                          instructionsOverlay.addEventListener('click', () => { instructionsOverlay.style.opacity = '0'; setTimeout(() => { instructionsOverlay.style.display = 'none'; }, 500); document.body.focus(); });
+                          document.getElementById('btn-prev').addEventListener('click', (e) => { e.stopPropagation(); if (currentSlide > 0) { currentSlide--; drawSlide(currentSlide); } document.body.focus(); });
+                          document.getElementById('btn-next').addEventListener('click', (e) => { e.stopPropagation(); if (currentSlide < slides.length - 1) { currentSlide++; drawSlide(currentSlide); } document.body.focus(); });
                           window.addEventListener('keydown', handleKeyDown);
                           window.addEventListener('resize', resizeCanvas);
+                          document.addEventListener('click', () => document.body.focus());
                           resizeCanvas();
                       </script>
                   </body>
                   </html>
                 "
             ></iframe>
+          </div>
+        </section>
+
+        <!-- Interactive USMLE Flashcards -->
+        <section id="flashcards" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Flashcards Interactivas (USMLE High-Yield)
+          </h2>
+          <p class="mb-6 text-gray-600">
+            Repasa los conceptos clave de la unión neuromuscular extraídos de las clases de Ninja Nerd, enfocados en tus exámenes USMLE. Haz clic en la tarjeta para ver la respuesta.
+          </p>
+
+          <style>
+            .flashcard-inner {
+              transition: transform 0.6s;
+              transform-style: preserve-3d;
+            }
+            .flashcard.flipped .flashcard-inner {
+              transform: rotateY(180deg);
+            }
+            .flashcard-front, .flashcard-back {
+              backface-visibility: hidden;
+              -webkit-backface-visibility: hidden;
+            }
+            .flashcard-back {
+              transform: rotateY(180deg);
+            }
+          </style>
+
+          <div class="relative w-full max-w-2xl mx-auto h-[350px]">
+            <!-- Card Container -->
+            <div id="flashcard-container" class="w-full h-full cursor-pointer flashcard group" style="perspective: 1000px;">
+              <div class="flashcard-inner relative w-full h-full rounded-2xl shadow-xl">
+                <!-- Front -->
+                <div class="flashcard-front absolute w-full h-full bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 flex flex-col justify-center items-center text-center border-2 border-indigo-200">
+                  <span class="text-indigo-500 text-sm font-bold uppercase tracking-widest mb-4">Pregunta <span id="fc-current">1</span>/<span id="fc-total">5</span></span>
+                  <h3 id="fc-question" class="text-2xl font-bold text-gray-800 leading-tight">¿Qué receptores se ven afectados en la Miastenia Gravis?</h3>
+                  <div class="mt-8 text-gray-400 text-sm flex items-center">
+                    <i class="fas fa-hand-pointer mr-2"></i> Haz clic para voltear
+                  </div>
+                </div>
+                <!-- Back -->
+                <div class="flashcard-back absolute w-full h-full bg-gradient-to-br from-indigo-600 to-blue-700 rounded-2xl p-8 flex flex-col justify-center items-center text-center text-white border-2 border-indigo-500 shadow-inner">
+                  <span class="text-indigo-200 text-sm font-bold uppercase tracking-widest mb-4">Respuesta</span>
+                  <p id="fc-answer" class="text-xl font-medium leading-relaxed">Los anticuerpos bloquean, alteran o destruyen los receptores de acetilcolina (AChR) en la membrana postsináptica.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="flex justify-between items-center mt-6">
+              <button id="fc-prev" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                <i class="fas fa-chevron-left mr-2"></i> Anterior
+              </button>
+              <button id="fc-next" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                Siguiente <i class="fas fa-chevron-right ml-2"></i>
+              </button>
+            </div>
+          </div>
           </div>
         </section>
 
@@ -545,6 +621,67 @@
           resultadoDiv.innerHTML = resultHtml;
           resultadoDiv.classList.remove('hidden');
         });
+
+        // --- FLASHCARDS LOGIC ---
+        const flashcardsData = [
+          {
+            q: "¿Cómo contribuye la Na+/K+ ATPasa al potencial de membrana en reposo?",
+            a: "Saca 3 iones de Na+ e introduce 2 de K+ en contra de su gradiente (actuando como transporte activo primario), manteniendo el interior de la célula electronegativo (ej., -90 mV en músculo esquelético)."
+          },
+          {
+            q: "¿Qué estructura tiene el receptor nicotínico muscular (tipo 1)?",
+            a: "Es una proteína pentamérica, un canal iónico activado por ligando, compuesto por dos subunidades Alfa, una Beta, una Gamma y una Delta."
+          },
+          {
+            q: "Fisiopatología de la Miastenia Gravis (USMLE)",
+            a: "Enfermedad autoinmune donde anticuerpos IgG atacan competitiva o destructivamente los receptores de Acetilcolina (o proteínas asociadas como MuSK) en la membrana postsináptica, disminuyendo el número de receptores funcionales."
+          },
+          {
+            q: "Fisiopatología del Síndrome de Eaton-Lambert",
+            a: "Anticuerpos que atacan de forma cruzada los canales de calcio dependientes de voltaje (VGCC) PRESINÁPTICOS, impidiendo la entrada de calcio y bloqueando la exocitosis de la acetilcolina. Comúnmente es un síndrome paraneoplásico."
+          },
+          {
+            q: "¿Cómo actúa la Toxina Botulínica en la Unión Neuromuscular?",
+            a: "Atúa de forma presináptica, al escindir (cortar) las proteínas del complejo SNARE, impidiendo irreversiblemente la exocitosis de vesículas repletas de acetilcolina hacia el espacio sináptico."
+          }
+        ];
+
+        let fcIndex = 0;
+        const fcContainer = document.getElementById('flashcard-container');
+        const fcQuestion = document.getElementById('fc-question');
+        const fcAnswer = document.getElementById('fc-answer');
+        const fcCurrent = document.getElementById('fc-current');
+        const fcTotal = document.getElementById('fc-total');
+        const fcPrev = document.getElementById('fc-prev');
+        const fcNext = document.getElementById('fc-next');
+
+        fcTotal.textContent = flashcardsData.length;
+
+        function updateFlashcard() {
+          fcContainer.classList.remove('flipped');
+          // Wait slightly for the card to be face-up before changing content
+          setTimeout(() => {
+            fcQuestion.textContent = flashcardsData[fcIndex].q;
+            fcAnswer.textContent = flashcardsData[fcIndex].a;
+            fcCurrent.textContent = fcIndex + 1;
+            fcPrev.disabled = fcIndex === 0;
+            fcNext.disabled = fcIndex === flashcardsData.length - 1;
+          }, 200);
+        }
+
+        fcContainer.addEventListener('click', () => {
+          fcContainer.classList.toggle('flipped');
+        });
+
+        fcPrev.addEventListener('click', () => {
+          if (fcIndex > 0) { fcIndex--; updateFlashcard(); }
+        });
+
+        fcNext.addEventListener('click', () => {
+          if (fcIndex < flashcardsData.length - 1) { fcIndex++; updateFlashcard(); }
+        });
+
+        updateFlashcard();
 
         // --- SELF-ASSESSMENT QUIZ LOGIC ---
         const quizQuestions = [
