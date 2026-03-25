@@ -260,10 +260,10 @@
                                   ctx.textAlign = 'left'; ctx.textBaseline = 'top';
                                   ctx.fillStyle = STYLES.ACCENT; ctx.font = `bold ${getFontSize(3.5)}px ${STYLES.FONT}`;
                                   let y = canvas.height * 0.15; const mx = canvas.width * 0.1; const w = canvas.width * 0.8;
-                                  y = wrapText(ctx, slide.title, mx, y, w, getFontSize(4)) + getFontSize(3);
+                                  y += wrapText(ctx, slide.title, mx, y, w, getFontSize(4)) + getFontSize(3);
                                   ctx.fillStyle = STYLES.TEXT; ctx.font = `400 ${getFontSize(2)}px ${STYLES.FONT}`;
                                   const lh = getFontSize(2.5);
-                                  for (const pt of slide.points) y = wrapText(ctx, `• ${pt}`, mx, y, w, lh) + lh * 0.5;
+                                  for (const pt of slide.points) y += wrapText(ctx, `• ${pt}`, mx, y, w, lh) + lh * 0.5;
                               }
                           }
 
