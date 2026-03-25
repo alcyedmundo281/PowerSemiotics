@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cirrosis Hepática - PowerSemiotics</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Custom styles for interactive elements */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .gradient-text {
+        background: linear-gradient(to right, #4f46e5, #ec4899);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      /* Styles for the diagnostic tool checkboxes */
+      .checkbox-label {
+        display: block;
+        padding: 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        font-weight: 500;
+        height: 100%; /* Ensure labels in the same row have same height */
+      }
+      .checkbox-label:hover {
+        border-color: #3b82f6;
+        background-color: #eff6ff;
+      }
+      input[type='checkbox']:checked + .checkbox-label {
+        border-color: #3b82f6;
+        background-color: #dbeafe;
+        color: #1e40af;
+        box-shadow: 0 0 0 2px #bfdbfe;
+      }
+      /* Styles for the quiz progress bar */
+      .progress-bar-container {
+        width: 100%;
+        background-color: #e5e7eb;
+        border-radius: 9999px;
+        height: 1rem;
+        overflow: hidden;
+      }
+      .progress-bar {
+        background-color: #3b82f6;
+        height: 100%;
+        border-radius: 9999px;
+        transition: width 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#" class="flex items-center space-x-2">
+          <i class="fas fa-liver text-3xl text-indigo-600"></i>
+        </a>
+        <div>
+          <a href="../gastroenterologia.html" class="text-indigo-600 font-semibold hover:underline">
+            Volver a Gastroenterología
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto px-4 py-8 flex flex-col lg:flex-row">
+      <!-- Sticky Side Navigation -->
+      <nav class="w-full lg:w-64 bg-white shadow-lg rounded-lg p-4 mb-8 lg:mb-0 lg:mr-8 self-start sticky top-24">
+        <h3 class="text-xl font-bold mb-4 text-gray-700">Secciones</h3>
+        <ul>
+          <li class="mb-2">
+            <a href="#guia" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-book-open w-6 text-center mr-3"></i>Guía
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#presentacion" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-desktop w-6 text-center mr-3"></i>Presentación
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#flashcards" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-bolt w-6 text-center mr-3"></i>Flashcards USMLE
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#herramienta" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-stethoscope w-6 text-center mr-3"></i>Asistente
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#abp" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-user-md w-6 text-center mr-3"></i>Caso Clínico
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#autoevaluacion" class="flex items-center text-gray-800 hover:bg-blue-100 p-2 rounded-lg transition-colors">
+              <i class="fas fa-clipboard-check w-6 text-center mr-3"></i>Autoevaluación
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="flex-grow">
+        <header class="text-center mb-10">
+          <h1 class="text-4xl font-bold text-gray-800">
+            Plataforma Educativa de Cirrosis Hepática
+          </h1>
+          <p class="text-lg text-gray-600 mt-2">
+            Aprende Fisiopatología, Diagnóstico y Manejo (Basado en UpToDate y Ninja Nerd)
+          </p>
+        </header>
+
+        <!-- Knowledge Guide -->
+        <section id="guia" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Guía Rápida de Cirrosis
+          </h2>
+          <p class="mb-6 text-gray-600">
+            Resumen conciso de etiologías, manifestaciones clínicas y criterios diagnósticos.
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full table-auto border-collapse border border-gray-300">
+              <thead class="bg-gray-200">
+                <tr>
+                  <th class="border border-gray-300 p-3 text-left">Fase / Tipo</th>
+                  <th class="border border-gray-300 p-3 text-left">Características Clínicas</th>
+                  <th class="border border-gray-300 p-3 text-left">Hallazgos y Marcadores</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover:bg-gray-50">
+                  <td class="border border-gray-300 p-3 font-semibold">Cirrosis Compensada</td>
+                  <td class="border border-gray-300 p-3">A menudo asintomática. Fatiga, pérdida de peso incipiente.</td>
+                  <td class="border border-gray-300 p-3">Ligeras alteraciones enzimáticas, trombocitopenia temprana, nódulos en ecografía sin líquido libre.</td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="border border-gray-300 p-3 font-semibold">Cirrosis Descompensada</td>
+                  <td class="border border-gray-300 p-3">Ictericia, ascitis, encefalopatía, sangrado variceal.</td>
+                  <td class="border border-gray-300 p-3">Hipoalbuminemia, TP/INR prolongado, hiperbilirrubinemia, gradiente SAAG > 1.1 g/dL.</td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="border border-gray-300 p-3 font-semibold">Etiologías Comunes</td>
+                  <td class="border border-gray-300 p-3">VHC crónico, Enf. Hepática Alcohólica, NASH/MASH, VHB.</td>
+                  <td class="border border-gray-300 p-3">AST > ALT (2:1 en alcohol), Ac anti-VHC, HBsAg, Ecogenicidad aumentada (esteatosis).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Interactive Presentation -->
+        <section id="presentacion" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Presentación Interactiva (Ninja Tutor)
+          </h2>
+          <div class="w-full h-[600px] border rounded-lg overflow-hidden shadow-inner">
+            <iframe
+              class="w-full h-full"
+              srcdoc="
+                  <!DOCTYPE html>
+                  <html lang=&quot;es&quot;>
+                  <head>
+                      <meta charset=&quot;UTF-8&quot;>
+                      <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+                      <title>Presentación: Cirrosis Hepática</title>
+                      <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+                      <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+                      <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap&quot; rel=&quot;stylesheet&quot;>
+                      <style>
+                          html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #1e293b; font-family: 'Inter', sans-serif; color: #f8fafc; }
+                          #presentationCanvas { display: block; width: 100%; height: 100%; outline: none; }
+                          #instructions-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(30, 41, 59, 0.9); display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; cursor: pointer; z-index: 20; transition: opacity 0.5s ease; }
+                          #instructions-overlay h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #34d399; }
+                          #instructions-overlay p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; }
+                          .key-icon { background-color: #334155; padding: 0.5rem 0.8rem; border-radius: 0.5rem; margin: 0 0.25rem; font-family: monospace; }
+                          .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(51, 65, 85, 0.7); color: white; border: none; padding: 1rem 0.75rem; cursor: pointer; z-index: 10; font-size: 1.5rem; border-radius: 0.5rem; transition: background-color 0.2s; }
+                          .nav-btn:hover { background-color: rgba(52, 211, 153, 0.9); }
+                          .nav-btn.left { left: 1rem; }
+                          .nav-btn.right { right: 1rem; }
+                      </style>
+                  </head>
+                  <body tabindex=&quot;0&quot;>
+                      <button id=&quot;btn-prev&quot; class=&quot;nav-btn left&quot;>&#10094;</button>
+                      <button id=&quot;btn-next&quot; class=&quot;nav-btn right&quot;>&#10095;</button>
+                      <div id=&quot;instructions-overlay&quot;>
+                          <div>
+                              <h1>Cirrosis Hepática</h1>
+                              <p>Utilice las teclas <span class=&quot;key-icon&quot;>▲</span> y <span class=&quot;key-icon&quot;>▼</span> o los botones laterales para navegar.</p>
+                              <p style=&quot;margin-top: 2rem; font-size: 1rem; opacity: 0.7;&quot;>(Clic para comenzar)</p>
+                          </div>
+                      </div>
+                      <canvas id=&quot;presentationCanvas&quot;></canvas>
+                      <script>
+                          const canvas = document.getElementById('presentationCanvas');
+                          const ctx = canvas.getContext('2d');
+                          const overlay = document.getElementById('instructions-overlay');
+                          let currentSlide = 0;
+                          const STYLES = { BG: '#1e293b', TEXT: '#f8fafc', ACCENT: '#34d399', FONT: 'Inter, sans-serif' };
+                          
+                          const slides = [
+                              { type: 'title', title: 'Cirrosis Hepática', subtitle: 'Fisiopatología, Diagnóstico y Manejo (Basado en Ninja Nerd & UpToDate)' },
+                              { type: 'content', title: 'Fisiopatología Estructural', points: ['Las Células Estrelladas (Ito) en el espacio de Disse se activan por citoquinas (TGF-beta) tras una lesión.', 'Pierden su función de almacenar Vitamina A y se transforman en miofibroblastos.', 'Secretan colágeno tipo I y III, causando fibrosis irreversible.', 'Formación de nódulos regenerativos rodeados de bandas fibróticas que distorsionan la arquitectura.'] },
+                              { type: 'content', title: 'Hipertensión Portal', points: ['Aumento de la resistencia al flujo sanguíneo portal por fibrosis + vasoconstricción local.', 'Ascitis: Por aumento de presión hidrostática portal y vasodilatación esplácnica mediada por óxido nítrico.', 'Varices: Shunts portosistémicos (esofágicas, periumbilicales/Caput Medusae, hemorroidales).', 'Esplenomegalia: Secuestro esplénico que resulta en grave trombocitopenia temprana.'] },
+                              { type: 'content', title: 'Disfunción Sintética y Metabólica', points: ['Hipoalbuminemia: El hígado falla en sintetizar albúmina (baja presión oncótica empeora ascitis).', 'Coagulopatía: Deficiencia de factores dependientes de vitamina K (II, VII, IX, X), prolonga TP/INR.', 'Ictericia: Falla en la conjugación y excreción de bilirrubina (hiperbilirrubinemia mixta/directa).', 'Hiperestrogenismo: Falla en su catabolismo -> Ginecomastia, angiomas en araña, eritema palmar.'] },
+                              { type: 'content', title: 'Encefalopatía Hepática', points: ['El amoníaco (NH3) de las bacterias intestinales normalmente va al ciclo de la urea hepático.', 'En cirrosis, debido al fallo celular y los shunts portosistémicos, el amoníaco pasa al cerebro.', 'Clínica: Confusión, letargo, asterixis (temblor aleteante en manos).', 'Tratamiento: Lactulosa (acidifica el colon para atrapar NH4+) y Rifaximina (reduce bacterias productoras).'] },
+                              { type: 'content', title: 'Manejo de Complicaciones (UpToDate)', points: ['Ascitis: Restricción de sodio (<2g/d), Espironolactona + Furosemida, Paracentesis.', 'Varices Esofágicas Sangrantes: Reanimación, Octreotida, ATB profilácticos, Ligadura con banda endoscópica.', 'Peritonitis Bacteriana Espontánea (PBE): Cefalosporinas 3ra gen (Cefotaxima) + Albúmina IV.', 'Supervivencia: Uso del score Child-Pugh y puntuación MELD (para priorizar trasplante hepático).'] },
+                              { type: 'title', title: 'Fin de la Presentación', subtitle: 'Pase a las Flashcards para evaluar retención' }
+                          ];
+
+                          function getFontSize(vw) { return (vw / 100) * canvas.width; }
+                          function wrapText(ctx, text, x, y, maxWidth, lineHeight) { 
+                              const words = text.split(' '); let line = ''; let currentY = y;
+                              for (let n = 0; n < words.length; n++) { 
+                                  const testLine = line + words[n] + ' '; 
+                                  const metrics = ctx.measureText(testLine); 
+                                  if (metrics.width > maxWidth && n > 0) { ctx.fillText(line.trim(), x, currentY); line = words[n] + ' '; currentY += lineHeight; } 
+                                  else { line = testLine; } 
+                              } 
+                              ctx.fillText(line.trim(), x, currentY); 
+                              return currentY - y + lineHeight; 
+                          }
+
+                          function draw() {
+                              ctx.fillStyle = STYLES.BG; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                              const slide = slides[currentSlide];
+                              const cx = canvas.width / 2; const cy = canvas.height / 2;
+                              
+                              if (slide.type === 'title') {
+                                  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                                  ctx.fillStyle = STYLES.TEXT; ctx.font = `bold ${getFontSize(4)}px ${STYLES.FONT}`;
+                                  wrapText(ctx, slide.title, cx, cy - getFontSize(2), canvas.width * 0.8, getFontSize(5));
+                                  ctx.fillStyle = STYLES.ACCENT; ctx.font = `400 ${getFontSize(2)}px ${STYLES.FONT}`;
+                                  wrapText(ctx, slide.subtitle, cx, cy + getFontSize(3), canvas.width * 0.7, getFontSize(2.5));
+                              } else if (slide.type === 'content') {
+                                  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                                  ctx.fillStyle = STYLES.ACCENT; ctx.font = `bold ${getFontSize(3.5)}px ${STYLES.FONT}`;
+                                  let y = canvas.height * 0.15; const mx = canvas.width * 0.1; const w = canvas.width * 0.8;
+                                  y = wrapText(ctx, slide.title, mx, y, w, getFontSize(4)) + getFontSize(3);
+                                  ctx.fillStyle = STYLES.TEXT; ctx.font = `400 ${getFontSize(2)}px ${STYLES.FONT}`;
+                                  const lh = getFontSize(2.5);
+                                  for (const pt of slide.points) y = wrapText(ctx, `• ${pt}`, mx, y, w, lh) + lh * 0.5;
+                              }
+                          }
+
+                          function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; draw(); }
+                          window.addEventListener('resize', resize);
+                          
+                          function go(dir) { currentSlide = Math.max(0, Math.min(slides.length - 1, currentSlide + dir)); draw(); }
+                          window.addEventListener('keydown', (e) => { 
+                              if(e.key==='ArrowDown'||e.key==='ArrowRight') go(1); 
+                              if(e.key==='ArrowUp'||e.key==='ArrowLeft') go(-1); 
+                          });
+                          document.getElementById('btn-next').onclick = (e) => { e.stopPropagation(); go(1); document.body.focus(); };
+                          document.getElementById('btn-prev').onclick = (e) => { e.stopPropagation(); go(-1); document.body.focus(); };
+                          overlay.onclick = () => { overlay.style.opacity = '0'; setTimeout(()=>overlay.style.display='none',500); document.body.focus(); };
+                          
+                          resize();
+                      </script>
+                  </body>
+                  </html>
+              "
+            ></iframe>
+          </div>
+        </section>
+
+        <!-- Interactive USMLE Flashcards -->
+        <section id="flashcards" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Flashcards Interactivas (USMLE High-Yield)
+          </h2>
+          <p class="mb-6 text-gray-600">
+            Repasa fisiopatología hepática enfocada al USMLE. Haz clic en la tarjeta para ver la respuesta.
+          </p>
+
+          <style>
+            .flashcard-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+            .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+            .flashcard-front, .flashcard-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+            .flashcard-back { transform: rotateY(180deg); }
+          </style>
+
+          <div class="relative w-full max-w-2xl mx-auto h-[350px]">
+            <div id="flashcard-container" class="w-full h-full cursor-pointer flashcard group" style="perspective: 1000px;">
+              <div class="flashcard-inner relative w-full h-full rounded-2xl shadow-xl">
+                <div class="flashcard-front absolute w-full h-full bg-gradient-to-br from-teal-50 to-emerald-100 rounded-2xl p-8 flex flex-col justify-center items-center text-center border-2 border-emerald-200">
+                  <span class="text-emerald-500 text-sm font-bold uppercase tracking-widest mb-4">Pregunta <span id="fc-current">1</span>/<span id="fc-total">5</span></span>
+                  <h3 id="fc-question" class="text-2xl font-bold text-gray-800 leading-tight">...</h3>
+                  <div class="mt-8 text-gray-400 text-sm flex items-center">
+                    <i class="fas fa-hand-pointer mr-2"></i> Clic para voltear
+                  </div>
+                </div>
+                <div class="flashcard-back absolute w-full h-full bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl p-8 flex flex-col justify-center items-center text-center text-white border-2 border-emerald-500 shadow-inner">
+                  <span class="text-emerald-200 text-sm font-bold uppercase tracking-widest mb-4">Respuesta</span>
+                  <p id="fc-answer" class="text-xl font-medium leading-relaxed">...</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex justify-between items-center mt-6">
+              <button id="fc-prev" class="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-semibold transition-colors disabled:opacity-50">
+                <i class="fas fa-chevron-left mr-2"></i> Anterior
+              </button>
+              <button id="fc-next" class="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold transition-colors disabled:opacity-50">
+                Siguiente <i class="fas fa-chevron-right ml-2"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Diagnostic Assistant -->
+        <section id="herramienta" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Asistente de Orientación de Complicaciones
+          </h2>
+          <p class="mb-6 text-gray-600">
+            Seleccione los signos y síntomas para orientar hacia la complicación específica de cirrosis:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+              <input type="checkbox" id="sx_conf" class="hidden" data-symptom="eh"/>
+              <label for="sx_conf" class="checkbox-label">Confusión letargo e Inversión del sueño</label>
+            </div>
+            <div>
+              <input type="checkbox" id="sx_ast" class="hidden" data-symptom="eh"/>
+              <label for="sx_ast" class="checkbox-label">Asterixis (Temblor aleteante)</label>
+            </div>
+            <div>
+              <input type="checkbox" id="sx_hem" class="hidden" data-symptom="vgh"/>
+              <label for="sx_hem" class="checkbox-label">Hematemesis / Melena de inicio brusco</label>
+            </div>
+            <div>
+              <input type="checkbox" id="sx_abd" class="hidden" data-symptom="pbe"/>
+              <label for="sx_abd" class="checkbox-label">Ascitis + Fiebre + Dolor Abdominal</label>
+            </div>
+            <div>
+              <input type="checkbox" id="sx_pm" class="hidden" data-symptom="cmp"/>
+              <label for="sx_pm" class="checkbox-label">Trombocitopenia marcada y esplenomegalia a la palpación</label>
+            </div>
+            <div>
+              <input type="checkbox" id="sx_gin" class="hidden" data-symptom="cmp"/>
+              <label for="sx_gin" class="checkbox-label">Ginecomastia y eritema palmar exacerbados</label>
+            </div>
+          </div>
+          <button id="analizarBtn" class="w-full px-4 py-3 bg-emerald-500 text-white font-bold rounded-lg hover:bg-emerald-600 transition-colors">
+            Analizar Signos
+          </button>
+          <div id="resultadoDiagnostico" class="mt-6 p-4 rounded-lg bg-gray-100 hidden"></div>
+        </section>
+
+        <!-- Clinical Case -->
+        <section id="abp" class="mb-12 p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Actividad ABP: Caso Clínico (Step 2 CK)
+          </h2>
+          <div class="bg-emerald-50 border-l-4 border-emerald-500 text-emerald-800 p-4 rounded-r-lg">
+            <p class="font-bold">Presentación del Paciente:</p>
+            <p class="mt-2">
+              Hombre de 56 años con historia severa de consumo de alcohol es traído a urgencias por su esposa debido a confusión mental profunda en el último día. Está desorientado y muy soñoliento. Su abdomen está notablemente distendido, hay ruidos hidroaéreos normales pero matidez cambiante. Se observa ictericia escleral, angiomas en araña en tórax y temblor rítmico espasmódico en las manos extendidas. Tiene antecedente de un cuadro de hematemesis por varices hace un año.
+            </p>
+          </div>
+          <div class="mt-6">
+            <h3 class="font-bold text-lg mb-2">Preguntas Guía para Análisis:</h3>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li>¿Cuál es la causa primaria más probable de la alteración mental actual?</li>
+              <li>¿Qué toxina metabólica está directamente implicada en esta complicación?</li>
+              <li>¿Cuál es el tratamiento agudo farmacológico principal para la reversión de estos síntomas neurológicos?</li>
+              <li>Sabiendo que tiene antecedente de varices, ¿qué medida de profilaxis debió haber estado tomando?</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Self-Assessment Quiz -->
+        <section id="autoevaluacion" class="p-8 bg-white shadow-lg rounded-lg">
+          <h2 class="text-3xl font-bold mb-2 text-gray-800 border-b-2 border-blue-500 pb-2">
+            Autoevaluación
+          </h2>
+          <p class="mb-4 text-gray-600">Evalúa tus conocimientos sobre Cirrosis.</p>
+          <div id="quizProgress" class="mb-4">
+            <div class="flex justify-between mb-1">
+              <span class="text-base font-medium text-blue-700">Progreso</span>
+              <span id="progressText" class="text-sm font-medium text-blue-700"></span>
+            </div>
+            <div class="progress-bar-container">
+              <div id="progressBar" class="progress-bar bg-emerald-500"></div>
+            </div>
+          </div>
+          <div id="quizContainer" class="mb-4">
+            <!-- Filled by JS -->
+          </div>
+          <div id="quizResultContainer" class="text-center p-6 bg-gray-100 rounded-lg hidden"></div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+
+        // --- FLASHCARDS LOGIC ---
+        const fcData = [
+          { q: "¿Qué célula es la principal mediadora de la fibrogénesis en la cirrosis hepática?", a: "Las células estrelladas hepáticas (Células de Ito) que residen en el espacio de Disse. Al activarse, se vuelven miofibroblastos productores de colágeno." },
+          { q: "Triada de la descompensación hepática aguda grave que amerita trasplante:", a: "Encefalopatía, Ascitis refractaria, Sangrado por varices o deterioro renal marcado con un elevado puntaje MELD." },
+          { q: "¿Manejo médico de urgencia para sangrado activo de varices esofágicas?", a: "Reanimación de líquidos (controlada si es ascítico), Vasoconstrictores esplácnicos (Octreotida o Terlipresina), Profilaxis ATB (Ceftriaxona) y Endoscopia emergente (ligadura con banda endoscópica)." },
+          { q: "Signo temprano indicativo de Hipertensión Portal severa derivando en hiperesplenismo:", a: "Trombocitopenia (Plaquetas caen significativamente antes de alteraciones evidentes en bilirrubina o albúmina, debido a la hiperinfiltración esplénica)." },
+          { q: "Explicación fisiopatológica de la retención de Na+ en pacientes con ascitis cirrótica:", a: "La vasodilatación arterial esplácnica (mediada por NO) disminuye el volumen arterial efectivo, activando RAAS (Aldosterona) y sistema parasimpático para retener Sodio y Agua (formación de ascitis)." }
+        ];
+
+        let fcIndex = 0;
+        const fcContainer = document.getElementById('flashcard-container');
+        const fcQuestion = document.getElementById('fc-question');
+        const fcAnswer = document.getElementById('fc-answer');
+        const fcCurrent = document.getElementById('fc-current');
+        const fcTotal = document.getElementById('fc-total');
+        const fcPrev = document.getElementById('fc-prev');
+        const fcNext = document.getElementById('fc-next');
+
+        fcTotal.textContent = fcData.length;
+
+        function updateFC() {
+          fcContainer.classList.remove('flipped');
+          setTimeout(() => {
+            fcQuestion.textContent = fcData[fcIndex].q;
+            fcAnswer.textContent = fcData[fcIndex].a;
+            fcCurrent.textContent = fcIndex + 1;
+            fcPrev.disabled = fcIndex === 0;
+            fcNext.disabled = fcIndex === fcData.length - 1;
+          }, 200);
+        }
+
+        fcContainer.addEventListener('click', () => fcContainer.classList.toggle('flipped'));
+        fcPrev.addEventListener('click', () => { if(fcIndex > 0) { fcIndex--; updateFC(); }});
+        fcNext.addEventListener('click', () => { if(fcIndex < fcData.length - 1) { fcIndex++; updateFC(); }});
+        updateFC();
+
+        // --- ASSISTANT LOGIC ---
+        const analizarBtn = document.getElementById('analizarBtn');
+        const resultDiv = document.getElementById('resultadoDiagnostico');
+        analizarBtn.onclick = () => {
+          const cbs = document.querySelectorAll('#herramienta input:checked');
+          if (cbs.length === 0) {
+            resultDiv.innerHTML = `<p class="font-semibold text-gray-700">Por favor, seleccione al menos un síntoma.</p>`;
+            resultDiv.classList.remove('hidden'); return;
+          }
+          let h = '<h4 class="font-bold text-lg mb-2">Orientación Diagnóstica:</h4><ul class="space-y-2 list-disc list-inside">';
+          const scores = { eh: 0, vgh: 0, pbe: 0, cmp: 0 };
+          cbs.forEach(cb => { cb.dataset.symptom.split(' ').forEach(s => scores[s]++); });
+          
+          if(scores.eh > 0) h += `<li><span class="font-bold text-orange-600">Encefalopatía Hepática:</span> Sugerido por asterixis e inversión del sueño. El amoníaco no se está depurando.</li>`;
+          if(scores.vgh > 0) h += `<li><span class="font-bold text-red-600">Sangrado Variceal:</span> Emergencia! Shunts portosistémicos con gradientes de presión >12mmHg rompen varices.</li>`;
+          if(scores.pbe > 0) h += `<li><span class="font-bold text-purple-600">Peritonitis Bacteriana Espontánea:</span> Punción de ascitis y polimorfonucleares >250/mm3 confirmaría PBE.</li>`;
+          if(scores.cmp > 0) h += `<li><span class="font-bold text-blue-600">Fallo Sistémico/Hipertensión Portal:</span> Ginecomastia refleja fallo de catabolismo hormonal; esplenomegalia es por congestión venosa crónica.</li>`;
+          
+          h += '</ul>';
+          resultDiv.innerHTML = h; resultDiv.classList.remove('hidden');
+        };
+
+        // --- QUIZ LOGIC ---
+        const quQs = [
+          { q: "El tratamiento inicial y primario fundamental para tratar el componente principal de la encefalopatía hepática es:", o: ["Octreotida IV", "Lactulosa Oral / Enemas", "Espironolactona", "Rifaximina solamente"], a: "Lactulosa Oral / Enemas" },
+          { q: "¿Qué mecanismo de la coagulación explica un TP elongado en el paciente cirrótico en estadio final?", o: ["Hiperfibrinolisis exclusiva", "Deficiencia severa pura de Fibrinógeno", "Falla sintética de factores II, VII, IX, X dependientes de Vit. K", "Consumo masivo de plaquetas"], a: "Falla sintética de factores II, VII, IX, X dependientes de Vit. K" },
+          { q: "¿Qué medicamento profiláctico es estándar en un paciente cirrótico sin historia de sangrado pero hallazgo de varices grandes?", o: ["Hemostáticos venosos", "Transfusión plaquetaria", "Beta bloqueador no selectivo (Propranolol / Nadolol)", "Ceftriaxona"], a: "Beta bloqueador no selectivo (Propranolol / Nadolol)" },
+          { q: "Una parancentesis diagnóstica con gradiente SAAG (Sero-Ascitic Albumin Gradient) > 1.1 g/dL típicamente implica la presencia de:", o: ["Malignidad con carcinomatosis", "Infección de tuberculosis peritoneal", "Hipertensión portal por cirrosis", "Pancreatitis severa"], a: "Hipertensión portal por cirrosis" }
+        ];
+        let qi = 0, score = 0;
+        const qC = document.getElementById('quizContainer');
+        const qRC = document.getElementById('quizResultContainer');
+        const pB = document.getElementById('progressBar');
+        const pT = document.getElementById('progressText');
+
+        function loadQ() {
+          if (qi >= quQs.length) {
+            qC.classList.add('hidden'); qRC.classList.remove('hidden');
+            pB.style.width = '100%'; pT.textContent = 'Completado';
+            qRC.innerHTML = `<h3 class="text-2xl font-bold mb-2">¡Completado!</h3><p class="text-xl">Score: <span class="font-bold text-emerald-600">${score}/${quQs.length}</span></p>
+                             <button id="restart" class="mt-4 px-6 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600">Reintentar</button>`;
+            document.getElementById('restart').onclick = () => { qi = 0; score = 0; qRC.classList.add('hidden'); qC.classList.remove('hidden'); loadQ(); };
+            return;
+          }
+          qC.innerHTML = `<div class="font-semibold text-lg mb-4">${quQs[qi].q}</div><div class="space-y-3">
+                           ${quQs[qi].o.map(o => `<button class="block w-full text-left p-3 bg-gray-100 hover:bg-emerald-100 rounded-lg quiz-opt">${o}</button>`).join('')}</div>`;
+          document.querySelectorAll('.quiz-opt').forEach(b => b.onclick = (e) => {
+            if(e.target.textContent === quQs[qi].a) score++;
+            qi++; loadQ();
+          });
+          pB.style.width = `${(qi / quQs.length) * 100}%`;
+          pT.textContent = `Pregunta ${qi + 1} de ${quQs.length}`;
+        }
+        loadQ();
+      });
+    </script>
+  </body>
+</html>
