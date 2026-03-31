@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerSemiotics - Vacunas e Inmunización</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4; /* Tono verde muy suave de fondo */
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #94a3b8; 
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // --- ICONOS SVG ---
+        const Icons = {
+            Syringe: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m18 2 4 4"></path><path d="m17 7 3-3"></path><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"></path><path d="m9 11 4 4"></path><path d="m5 19-3 3"></path><path d="m14 4 6 6"></path></svg>,
+            ShieldCheck: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m9 12 2 2 4-4"></path></svg>,
+            Calendar: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>,
+            UserX: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="17" y1="8" x2="22" y2="13"></line><line x1="22" y1="8" x2="17" y2="13"></line></svg>,
+            CheckCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>,
+            AlertCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        };
+
+        // --- COMPONENTES DE VISTA ---
+
+        // 1. Hub de Clasificación de Vacunas
+        const VaccineTypes = () => (
+            <div className="animate-fade-in space-y-6">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-emerald-100 border-t-4 border-t-emerald-500">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.ShieldCheck /> Clasificación Inmunológica
+                    </h2>
+                    <p className="text-slate-600 mb-6 leading-relaxed">
+                        El diseño de la vacuna determina el tipo de respuesta (celular vs. humoral) y las contraindicaciones clínicas. <em>Referencia: Inmunología Clínica (Rich, 5ta Ed.).</em>
+                    </p>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* Vivas Atenuadas */}
+                        <div className="bg-rose-50 p-5 rounded-xl border border-rose-200">
+                            <h3 className="font-bold text-rose-900 mb-2 text-lg">Vivas Atenuadas</h3>
+                            <p className="text-sm text-rose-800 mb-3">
+                                Patógeno íntegro pero debilitado. Inducen fuerte inmunidad celular y humoral (T y B).
+                            </p>
+                            <div className="bg-white/60 p-3 rounded-lg text-sm text-slate-700 mb-3 font-mono">
+                                <span className="font-bold text-rose-600">ROME Is My Best Place To Yell:</span><br/>
+                                Rubéola, Oral Polio (Sabin), Measles (Sarampión), Influenza intranasal, Mumps (Paperas), BCG, Fiebre Amarilla. (+ Rotavirus, Varicela).
+                            </div>
+                            <div className="flex items-start gap-2 text-sm text-rose-900 bg-rose-100 p-2 rounded">
+                                <span className="text-rose-600">⚠️</span>
+                                <p><strong>Contraindicadas en:</strong> Embarazo, Inmunodeficiencias primarias severas (SCID) y secundarias (VIH avanzado, Quimioterapia).</p>
+                            </div>
+                        </div>
+
+                        {/* Inactivadas & Subunidades */}
+                        <div className="space-y-6">
+                            <div className="bg-blue-50 p-5 rounded-xl border border-blue-200">
+                                <h3 className="font-bold text-blue-900 mb-2 text-lg">Inactivadas (Muertas)</h3>
+                                <p className="text-sm text-blue-800 mb-2">Patógeno destruido. Respuesta principalmente humoral. Requieren refuerzos.</p>
+                                <p className="text-sm text-slate-700 bg-white/60 p-2 rounded"><strong>RIP Always:</strong> Rabia, Influenza IM, Polio (Salk), Hepatitis A.</p>
+                            </div>
+
+                            <div className="bg-indigo-50 p-5 rounded-xl border border-indigo-200">
+                                <h3 className="font-bold text-indigo-900 mb-2 text-lg">Polisacáridas vs Conjugadas</h3>
+                                <p className="text-sm text-indigo-800 mb-2"><strong>Perla USMLE:</strong></p>
+                                <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1">
+                                    <li><strong>Polisacárida Pura:</strong> T-independiente (Solo IgM, sin memoria). Inútil en menores de 2 años.</li>
+                                    <li><strong>Conjugada:</strong> Polisacárido unido a proteína transportadora. Activa <strong>Linfocitos T CD4+</strong> (Respuesta T-dependiente). Eficaz en lactantes (Ej: Neumococo, Hib).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 2. Calendario de Vacunación (MSP Ecuador)
+        const CalendarMSP = () => {
+            return (
+                <div className="animate-fade-in bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.Calendar /> Esquema Infantil (MSP Ecuador)
+                        </h2>
+                        <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Alto Rendimiento</span>
+                    </div>
+                    
+                    <p className="text-slate-600 mb-6">
+                        Tabla simplificada de las principales inmunizaciones del esquema básico infantil. Crucial para pediatría y exámenes de grado.
+                    </p>
+
+                    <div className="overflow-x-auto custom-scrollbar pb-4">
+                        <table className="w-full text-left border-collapse min-w-[700px]">
+                            <thead>
+                                <tr className="bg-slate-800 text-white">
+                                    <th className="p-3 font-bold rounded-tl-lg w-1/4">Edad</th>
+                                    <th className="p-3 font-bold">Vacunas Administradas</th>
+                                    <th className="p-3 font-bold rounded-tr-lg w-1/3">Notas Clínicas</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-sm">
+                                <tr className="border-b border-slate-100 hover:bg-slate-50">
+                                    <td className="p-3 font-bold text-slate-700 bg-slate-100">Recién Nacido</td>
+                                    <td className="p-3 text-emerald-700 font-semibold">BCG + Hepatitis B (HB)</td>
+                                    <td className="p-3 text-slate-600">BCG previene TB meníngea/miliar. Dosis única intradérmica.</td>
+                                </tr>
+                                <tr className="border-b border-slate-100 hover:bg-slate-50">
+                                    <td className="p-3 font-bold text-slate-700 bg-slate-100">2 y 4 meses</td>
+                                    <td className="p-3 text-slate-800">
+                                        Rotavirus (Oral) <br/>
+                                        Polio fIPV (Inactivada, IM) <br/>
+                                        Neumococo Conjugada <br/>
+                                        Pentavalente
+                                    </td>
+                                    <td className="p-3 text-slate-600">Pentavalente = DTP + HB + Hib. <br/>DTP = Difteria, Tétanos, Tos ferina.</td>
+                                </tr>
+                                <tr className="border-b border-slate-100 hover:bg-slate-50">
+                                    <td className="p-3 font-bold text-slate-700 bg-slate-100">6 meses</td>
+                                    <td className="p-3 text-slate-800">bOPV (Polio Oral) + Pentavalente</td>
+                                    <td className="p-3 text-slate-600">OPV (Sabin) es virus vivo atenuado en el tracto GI (IgA).</td>
+                                </tr>
+                                <tr className="hover:bg-slate-50">
+                                    <td className="p-3 font-bold text-slate-700 bg-slate-100 rounded-bl-lg">12 a 15 meses</td>
+                                    <td className="p-3 text-rose-700 font-semibold">SRP + Fiebre Amarilla + Varicela</td>
+                                    <td className="p-3 text-slate-600"><strong>¡Cuidado!</strong> Las tres son de virus vivos atenuados. SRP = Sarampión, Rubéola, Parotiditis.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // 3. Simulador: El Inmunólogo de Guardia
+        const PrescriptionSimulator = () => {
+            const [currentCase, setCurrentCase] = useState(0);
+            const [feedback, setFeedback] = useState(null);
+            const [score, setScore] = useState(0);
+
+            const cases = [
+                {
+                    id: 1,
+                    patient: "Embarazada de 28 semanas",
+                    scenario: "Acude a control prenatal. Te pregunta si debe recibir la vacuna dTpa (Difteria, Tétanos, Tos ferina acelular).",
+                    question: "¿Cuál es la conducta médica indicada?",
+                    options: [
+                        { id: 'contra', label: 'Contraindicada. Es riesgosa para el feto.' },
+                        { id: 'indicada', label: 'Indicada. Protege al feto vía transferencia de IgG.' },
+                        { id: 'posponer', label: 'Posponer para el post-parto inmediato.' }
+                    ],
+                    correct: 'indicada',
+                    explanation: "Correcto. La dTpa está INDICADA en cada embarazo (preferible entre 27-36 semanas) para generar IgG materna que cruza la placenta y protege al recién nacido contra la tos ferina severa."
+                },
+                {
+                    id: 2,
+                    patient: "Lactante de 12 meses con Síndrome de DiGeorge severo (Aplasia Tímica)",
+                    scenario: "Llega al centro de salud para su esquema de vacunación del año de edad.",
+                    question: "¿Qué vacunas de las siguientes están ABSOLUTAMENTE contraindicadas?",
+                    options: [
+                        { id: 'neu', label: 'Neumococo e Influenza IM' },
+                        { id: 'srp', label: 'SRP (Sarampión, Rubéola, Parotiditis) y Varicela' },
+                        { id: 'hep', label: 'Hepatitis A y Hepatitis B' }
+                    ],
+                    correct: 'srp',
+                    explanation: "Correcto. Los pacientes con inmunodeficiencia de células T severa no pueden recibir vacunas VIVAS ATENUADAS (SRP, Varicela, BCG, OPV) por riesgo de enfermedad vacunal fatal."
+                },
+                {
+                    id: 3,
+                    patient: "Lactante de 6 meses sano",
+                    scenario: "El interno de guardia propone aplicar la vacuna Neumocócica Polisacárida 23-valente en lugar de la Conjugada, porque 'cubre más serotipos'.",
+                    question: "¿Es correcta esta decisión inmunológica?",
+                    options: [
+                        { id: 'si', label: 'Sí. Más valencia implica mayor cobertura.' },
+                        { id: 'no', label: 'No. El polisacárido puro no genera respuesta en menores de 2 años.' },
+                        { id: 'da_igual', label: 'Da igual, ambas activan a los linfocitos T.' }
+                    ],
+                    correct: 'no',
+                    explanation: "Excelente. Los niños menores de 2 años tienen un sistema inmune inmaduro frente a antígenos T-independientes (polisacáridos puros). Requieren vacunas CONJUGADAS (unidas a proteína) para reclutar células T CD4+."
+                }
+            ];
+
+            const handleAnswer = (optionId) => {
+                if (optionId === cases[currentCase].correct) {
+                    setFeedback({ type: 'success', msg: cases[currentCase].explanation });
+                    if (!feedback) setScore(score + 1);
+                } else {
+                    setFeedback({ type: 'error', msg: "Incorrecto. Analiza el tipo de vacuna (Viva vs. Inactivada) o el tipo de antígeno." });
+                }
+            };
+
+            const nextCase = () => {
+                setFeedback(null);
+                setCurrentCase(prev => prev + 1);
+            };
+
+            const resetGame = () => {
+                setFeedback(null);
+                setCurrentCase(0);
+                setScore(0);
+            };
+
+            const isFinished = currentCase >= cases.length;
+
+            return (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 animate-fade-in">
+                    <div className="flex items-center justify-between mb-6 border-b pb-4">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.UserX /> El Inmunólogo de Guardia
+                        </h2>
+                        <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Simulador</span>
+                    </div>
+
+                    {!isFinished ? (
+                        <div>
+                            <div className="flex justify-between text-sm font-bold text-slate-500 mb-4">
+                                <span>Paciente {currentCase + 1} de {cases.length}</span>
+                                <span>Puntuación: {score}</span>
+                            </div>
+
+                            <div className="bg-slate-50 border-l-4 border-emerald-500 p-5 rounded-r-lg mb-6">
+                                <h3 className="font-bold text-emerald-900 mb-2 text-lg">{cases[currentCase].patient}</h3>
+                                <p className="text-slate-700 mb-4 italic">"{cases[currentCase].scenario}"</p>
+                                <p className="font-semibold text-slate-800">{cases[currentCase].question}</p>
+                            </div>
+
+                            <div className="space-y-3 mb-6">
+                                {cases[currentCase].options.map(opt => (
+                                    <button
+                                        key={opt.id}
+                                        onClick={() => handleAnswer(opt.id)}
+                                        disabled={feedback?.type === 'success'}
+                                        className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                                            feedback && opt.id === cases[currentCase].correct
+                                                ? 'border-emerald-500 bg-emerald-50 text-emerald-800 font-semibold'
+                                                : feedback?.type === 'success' 
+                                                    ? 'border-slate-200 opacity-50 cursor-not-allowed'
+                                                    : 'border-slate-200 hover:border-emerald-400 hover:bg-emerald-50 text-slate-700'
+                                        }`}
+                                    >
+                                        {opt.label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {feedback && (
+                                <div className={`p-4 rounded-lg flex items-start gap-3 mb-6 ${feedback.type === 'success' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                                    {feedback.type === 'success' ? <Icons.CheckCircle /> : <Icons.AlertCircle />}
+                                    <p className="text-sm font-medium pt-0.5">{feedback.msg}</p>
+                                </div>
+                            )}
+
+                            {feedback?.type === 'success' && (
+                                <button 
+                                    onClick={nextCase}
+                                    className="w-full py-3 bg-emerald-600 text-white font-bold rounded-lg shadow-md hover:bg-emerald-700 transition-colors"
+                                >
+                                    Siguiente Paciente
+                                </button>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="text-center py-8">
+                            <h3 className="text-2xl font-bold text-slate-800 mb-2">Turno Finalizado</h3>
+                            <p className="text-lg text-slate-600 mb-6">Resolviste {score} de {cases.length} prescripciones a la primera.</p>
+                            <div className="flex justify-center mb-6">
+                                <div className="bg-emerald-100 text-emerald-800 p-6 rounded-full inline-block">
+                                    <Icons.CheckCircle />
+                                </div>
+                            </div>
+                            <button 
+                                onClick={resetGame}
+                                className="px-6 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-md hover:bg-slate-900 transition-colors"
+                            >
+                                Reiniciar Guardia
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- APLICACIÓN PRINCIPAL ---
+        const App = () => {
+            const [activeSection, setActiveSection] = useState('types');
+
+            const renderContent = () => {
+                switch(activeSection) {
+                    case 'types': return <VaccineTypes />;
+                    case 'calendar': return <CalendarMSP />;
+                    case 'sim': return <PrescriptionSimulator />;
+                    default: return <VaccineTypes />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col md:flex-row">
+                    {/* Sidebar / Navegación */}
+                    <aside className="w-full md:w-72 bg-slate-900 text-slate-300 flex flex-col shadow-xl z-10 shrink-0">
+                        <div className="p-6 border-b border-slate-700">
+                            <h1 className="text-2xl font-bold text-white tracking-tight">
+                                Power<span className="text-emerald-400">Semiotics</span>
+                            </h1>
+                            <p className="text-xs font-medium text-slate-400 mt-1 tracking-widest uppercase">Clinical OS V2.0</p>
+                        </div>
+                        
+                        <div className="p-4 flex-1">
+                            <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider px-3">Semana 16: Inmunización</p>
+                            <nav className="space-y-2">
+                                <button 
+                                    onClick={() => setActiveSection('types')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'types' ? 'bg-emerald-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.ShieldCheck /> Clasificación
+                                </button>
+                                <button 
+                                    onClick={() => setActiveSection('calendar')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'calendar' ? 'bg-emerald-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Calendar /> Calendario MSP
+                                </button>
+                                <div className="pt-4 mt-2 border-t border-slate-700">
+                                    <button 
+                                        onClick={() => setActiveSection('sim')}
+                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'sim' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white text-indigo-400'}`}
+                                    >
+                                        <Icons.UserX /> Simulador Prescripción
+                                    </button>
+                                </div>
+                            </nav>
+                        </div>
+                        
+                        <div className="mt-auto p-6 text-sm text-slate-500 border-t border-slate-700">
+                            <p>Universidad Central del Ecuador</p>
+                            <p>Medicina - Séptimo Semestre</p>
+                        </div>
+                    </aside>
+
+                    {/* Área de Contenido Principal */}
+                    <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+                        <header className="mb-8 border-b border-gray-200 pb-4">
+                            <h2 className="text-3xl font-bold text-slate-800">Vacunas e Inmunización</h2>
+                            <p className="text-slate-500 mt-2">Módulo de estudio sobre tipos de vacunas, esquema infantil y casos clínicos especiales.</p>
+                        </header>
+                        
+                        <div className="max-w-4xl">
+                            {renderContent()}
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
