@@ -8,6 +8,9 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="../assets/tailwind.css" rel="stylesheet" />
     <style>
       .module-section {
@@ -15,7 +18,7 @@
       }
       .module-section.active {
         display: block;
-        animation: fadeIn 0.4s ease-out;
+        animation: fadeIn 0.5s ease-out;
       }
       .slide {
         display: none;
@@ -27,42 +30,84 @@
       @keyframes fadeIn {
         from {
           opacity: 0;
-          transform: translateY(10px);
+          transform: translateY(15px);
         }
         to {
           opacity: 1;
           transform: translateY(0);
         }
       }
+      
+      /* USMLE Flashcards CSS 3D */
+      .card-container {
+        perspective: 1000px;
+        height: 250px;
+      }
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        transform-style: preserve-3d;
+        cursor: pointer;
+      }
+      .card-inner.flipped {
+        transform: rotateY(180deg);
+      }
+      .card-front, .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem;
+      }
+      .card-back {
+        transform: rotateY(180deg);
+      }
+      
+      /* Smooth scroll for sticky sidebar */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Custom Scrollbar for sidebar */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 20px;
+      }
     </style>
   </head>
-  <body class="font-sans bg-gray-100">
+  <body class="font-['Inter'] bg-slate-50 text-slate-800 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50/70 min-h-screen">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <a
-          href="../neurologia.html"
-          class="text-lg font-bold text-blue-700 hover:text-blue-800 transition-colors"
-          >&larr; Volver al Hub de Neurología</a
-        >
-        <a
-          href="../index.html"
-          target="_blank"
-          class="text-lg font-bold text-gray-700 hover:text-gray-900 transition-colors"
-          >Power Semiotics</a
-        >
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-indigo-100/50">
+      <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="../neurologia.html" class="text-lg font-bold text-indigo-700 hover:text-indigo-800 transition-colors flex items-center gap-2">
+          <i class="fas fa-arrow-left"></i> Volver al Hub de Neurología
+        </a>
+        <a href="../index.html" target="_blank" class="text-lg font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-blue-600 hover:to-blue-800 transition-colors">
+          Power Semiotics
+        </a>
       </nav>
     </header>
 
     <div class="container mx-auto p-4 md:p-8">
-      <div class="text-center mb-10">
-        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
-          Módulo: Enfermedades Desmielinizantes
+      <div class="text-center mb-10 max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">
+          Enfermedades <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Desmielinizantes</span>
         </h1>
-        <p class="text-md text-gray-600">
-          Utilice el índice de la derecha para navegar por las secciones.
+        <p class="text-lg text-slate-600 font-medium">
+          Esclerosis Múltiple, NMOSD y MOGAD: Diagnóstico Diferencial Integrado
         </p>
       </div>
 
@@ -71,81 +116,110 @@
         <a
           href="../assets/pdf/enfermedades_desmielinizantes.pdf"
           download
-          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm"
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-indigo-200 transition-all hover:-translate-y-0.5"
         >
           <i class="fas fa-download mr-2"></i>
-          Descargar Banco de Conocimientos (PDF)
+          Descargar Banco de Conocimientos
         </a>
       </div>
 
-      <div class="flex flex-col lg:flex-row gap-8">
+      <div class="flex flex-col lg:flex-row gap-8 relative items-start">
+        
         <!-- Main Content Area -->
         <main class="w-full lg:w-3/4">
-          <div id="content-container" class="bg-white p-6 rounded-lg shadow-md">
+          <div id="content-container" class="bg-white/70 backdrop-blur-xl border border-white p-6 md:p-10 rounded-3xl shadow-xl shadow-indigo-100/50 min-h-[600px]">
+            
             <!-- Guía de Conocimiento -->
             <section id="section-guia" class="module-section active">
-              <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
-                1. Guía de Conocimiento: Diagnóstico Diferencial Clave
-              </h2>
-              <div class="embedded-content text-gray-700">
-                <h3 class="text-xl font-semibold text-blue-800 mt-4 mb-2">
-                  El Concepto de "Banderas Rojas"
-                </h3>
-                <p>
-                  Las "Banderas Rojas" son hallazgos clínicos o radiológicos que
-                  deben hacer dudar de un diagnóstico de Esclerosis Múltiple
-                  (EM) y orientar hacia sus principales imitadores: TENMO y
-                  MOGAD. Identificarlas es crucial, ya que el tratamiento es
-                  completamente diferente y un error puede ser perjudicial.
-                </p>
-
-                <h3 class="text-xl font-semibold text-blue-800 mt-6 mb-2">
-                  Tabla Comparativa Esencial
-                </h3>
-                <div class="overflow-x-auto">
-                  <table class="w-full text-sm text-left">
-                    <thead class="bg-slate-100">
-                      <tr>
-                        <th class="p-2">Característica</th>
-                        <th class="p-2">EM</th>
-                        <th class="p-2">TENMO</th>
-                        <th class="p-2">MOGAD</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="border-b">
-                        <td class="p-2 font-semibold">Anticuerpo</td>
-                        <td>Ninguno</td>
-                        <td><strong>AQP4-IgG</strong></td>
-                        <td><strong>MOG-IgG</strong></td>
-                      </tr>
-                      <tr class="border-b bg-slate-50">
-                        <td class="p-2 font-semibold">Neuritis Óptica</td>
-                        <td>Unilateral, buena recup.</td>
-                        <td>Bilateral, mala recup.</td>
-                        <td>Bilateral, edema papila, buena recup.</td>
-                      </tr>
-                      <tr class="border-b">
-                        <td class="p-2 font-semibold">Mielitis</td>
-                        <td>Parcial, corta (&lt;3 seg)</td>
-                        <td>Completa, <strong>MTLE (≥3 seg)</strong></td>
-                        <td>Puede ser MTLE, cono medular</td>
-                      </tr>
-                      <tr class="border-b bg-slate-50">
-                        <td class="p-2 font-semibold">LCR (BOC)</td>
-                        <td><strong>Presentes (>90%)</strong></td>
-                        <td>Ausentes (>70%)</td>
-                        <td>Ausentes (>85%)</td>
-                      </tr>
-                      <tr class="border-b">
-                        <td class="p-2 font-semibold">Síntoma Específico</td>
-                        <td>Oftalmoplejía Internuclear</td>
-                        <td><strong>Síndrome del Área Postrema</strong></td>
-                        <td>ADEM (en niños)</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
+                <div class="bg-indigo-100 text-indigo-600 p-3 rounded-lg"><i class="fas fa-book-medical fa-lg"></i></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800">
+                  1. Guía de Conocimiento y Perlas UpToDate
+                </h2>
+              </div>
+              <div class="embedded-content text-slate-700 space-y-6">
+                
+                <div class="bg-blue-50/50 border border-blue-100 rounded-xl p-6">
+                  <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center gap-2">
+                    <i class="fas fa-brain"></i> Actualización: Espectro Desmielinizante del SNC
+                  </h3>
+                  <div class="space-y-4">
+                    <div>
+                      <h4 class="font-bold text-slate-800">1. Esclerosis Múltiple (EM)</h4>
+                      <p>Es la enfermedad desmielinizante inmunomediada más común. Se caracteriza por la <strong>diseminación en espacio y tiempo</strong> de lesiones inflamatorias. Afecta principalmente a adultos jóvenes (15-50 años) con predominio femenino. Los fenotipos incluyen recurrente-remitente, secundaria progresiva y primaria progresiva. Hallazgos típicos: lesiones ovoides (dedos de Dawson) periventriculares, yuxtacorticales e infratentoriales.</p>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-slate-800">2. Trastorno del Espectro de Neuromielitis Óptica (NMOSD)</h4>
+                      <p>Astrocitopatía grave caracterizada fenotípicamente por neuritis óptica (a menudo severa y bilateral) y síndrome de médula espinal (mielitis transversa longitudinalmente extensa, <strong>LETM</strong>). Su patogenia está mediada por anticuerpos IgG contra el canal de agua <strong>Acuaporina-4 (AQP4)</strong> en el 70-80% de los casos. Sus lesiones no respetan barreras convencionales y suelen provocar ataques devastadores.</p>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-slate-800">3. Enfermedad asociada a anticuerpos MOG (MOGAD)</h4>
+                      <p>Entidad emergente diferente a EM y NMOSD mediada por autoanticuerpos contra la glucoproteína de la mielina del oligodendrocito (<strong>MOG-IgG</strong>). Frecuente en pediatría presentándose como Encefalomielitis Diseminada Aguda (ADEM). En adultos produce neuritis óptica con marcado <strong>edema de disco</strong> papilar, mielitis extensa y buena recuperación funcional con esteroides.</p>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="mt-8">
+                  <h3 class="text-xl font-semibold text-indigo-800 mb-4">El Concepto de "Banderas Rojas"</h3>
+                  <p class="mb-4">
+                    Identificar Banderas Rojas es fundamental: alertan sobre la probabilidad de estar ante un imitador de EM (NMOSD o MOGAD). Administrar fármacos modificadores de EM a un paciente con NMOSD (ej. Interferones, Fingolimod) puede desencadenar exacerbaciones cataclísmicas.
+                  </p>
+                  
+                  <div class="overflow-hidden rounded-xl border border-slate-200 shadow-sm">
+                    <table class="w-full text-sm text-left">
+                      <thead class="bg-indigo-50 text-indigo-900">
+                        <tr>
+                          <th class="p-4 font-bold">Característica</th>
+                          <th class="p-4 font-bold">Esclerosis Múltiple</th>
+                          <th class="p-4 font-bold">NMOSD (Anti-AQP4)</th>
+                          <th class="p-4 font-bold">MOGAD (Anti-MOG)</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-slate-200">
+                        <tr class="bg-white hover:bg-slate-50 transition-colors">
+                          <td class="p-4 font-semibold">Neuritis Óptica</td>
+                          <td class="p-4">Unilateral, retrobulbar, buena recup.</td>
+                          <td class="p-4">Bilateral, muy severa, mala recup.</td>
+                          <td class="p-4">Bilateral, <strong>marcado papiledema</strong>, buena recup.</td>
+                        </tr>
+                        <tr class="bg-slate-50/50 hover:bg-slate-50 transition-colors">
+                          <td class="p-4 font-semibold">Mielitis</td>
+                          <td class="p-4">Parcial, asimétrica, corta (&lt;2 seg)</td>
+                          <td class="p-4 text-red-600 font-semibold">Completa, LETM (≥3 segmentos)</td>
+                          <td class="p-4">Puede ser LETM, aflicción del cono medular</td>
+                        </tr>
+                        <tr class="bg-white hover:bg-slate-50 transition-colors">
+                          <td class="p-4 font-semibold">LCR</td>
+                          <td class="p-4"><strong>Bandas Oligoclonales (>90%)</strong></td>
+                          <td class="p-4 text-slate-500">BOC ausentes crónicamente</td>
+                          <td class="p-4 text-slate-500">BOC ausentes</td>
+                        </tr>
+                        <tr class="bg-slate-50/50 hover:bg-slate-50 transition-colors">
+                          <td class="p-4 font-semibold">Síntomas Clásicos</td>
+                          <td class="p-4">Oftalmoplejia Internuclear (INO), Lhermitte</td>
+                          <td class="p-4 text-red-600 font-semibold">Síndrome Área Postrema (Hipo/Vómitos)</td>
+                          <td class="p-4">Fenotipo ADEM (en niños)</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+             <!-- Flashcards USMLE -->
+            <section id="section-flashcards" class="module-section">
+              <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
+                <div class="bg-yellow-100 text-yellow-600 p-3 rounded-lg"><i class="fas fa-bolt fa-lg"></i></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-800">
+                  1.5 USMLE High Yield (Flashcards)
+                </h2>
+              </div>
+              <p class="text-slate-600 mb-8 font-medium">Haz clic en cada tarjeta para prepararte con las pistas clínicas más evaluadas en el BOARDS (USMLE Step 1 & 2).</p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="flashcards-grid">
+                <!-- Flashcards generated by JS -->
               </div>
             </section>
 
@@ -159,31 +233,42 @@
             <section id="section-abp" class="module-section"></section>
 
             <!-- Autoevaluación -->
-            <section
-              id="section-autoevaluacion"
-              class="module-section"
-            ></section>
+            <section id="section-autoevaluacion" class="module-section"></section>
           </div>
         </main>
 
         <!-- Sidebar Navigation -->
-        <aside class="w-full lg:w-1/4 lg:sticky top-24 self-start">
-          <div class="bg-white p-4 rounded-lg shadow-md">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">
-              Índice del Módulo
+        <aside class="w-full lg:w-1/4 lg:sticky lg:top-24 h-fit max-h-[calc(100vh-8rem)] overflow-y-auto custom-scrollbar self-start">
+          <div class="bg-white/80 backdrop-blur-xl border border-white p-5 rounded-2xl shadow-xl shadow-indigo-100/50">
+            <h3 class="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2">
+              <i class="fas fa-list-ul text-indigo-500"></i> Índice del Módulo
             </h3>
-            <nav id="module-nav" class="space-y-1">
-              <a href="#guia" class="nav-link active"
-                >1. Guía de Conocimiento</a
-              >
-              <a href="#presentacion" class="nav-link"
-                >2. Presentación Interactiva</a
-              >
-              <a href="#herramienta" class="nav-link"
-                >3. Herramienta Interactiva</a
-              >
-              <a href="#abp" class="nav-link">4. Actividad ABP</a>
-              <a href="#autoevaluacion" class="nav-link">5. Autoevaluación</a>
+            <nav id="module-nav" class="space-y-2">
+              <a href="#guia" class="nav-link flex flex-col p-3 rounded-xl transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-700 text-slate-600 font-medium">
+                <span class="text-xs uppercase tracking-wider text-slate-400 mb-1">Teoría</span>
+                <span>1. Guía de Conocimiento</span>
+              </a>
+              <a href="#flashcards" class="nav-link flex flex-col p-3 rounded-xl transition-all duration-200 hover:bg-yellow-50 hover:text-yellow-700 text-slate-600 font-medium relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-r from-yellow-100/40 to-amber-100/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <span class="text-xs uppercase tracking-wider text-yellow-500 mb-1 flex items-center gap-1"><i class="fas fa-star"></i> Nuevo</span>
+                <span class="relative z-10">1.5 USMLE High Yield</span>
+              </a>
+              <a href="#presentacion" class="nav-link flex flex-col p-3 rounded-xl transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-700 text-slate-600 font-medium">
+                <span class="text-xs uppercase tracking-wider text-slate-400 mb-1">Clase</span>
+                <span>2. Presentación Interactiva</span>
+              </a>
+              <a href="#herramienta" class="nav-link flex flex-col p-3 rounded-xl transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-700 text-slate-600 font-medium">
+                <span class="text-xs uppercase tracking-wider text-slate-400 mb-1">Simulador</span>
+                <span>3. Asistente Diagnóstico</span>
+              </a>
+              <a href="#abp" class="nav-link flex flex-col p-3 rounded-xl transition-all duration-200 hover:bg-indigo-50 hover:text-indigo-700 text-slate-600 font-medium">
+                <span class="text-xs uppercase tracking-wider text-slate-400 mb-1">Práctica</span>
+                <span>4. Actividad ABP</span>
+              </a>
+              <a href="#autoevaluacion" class="nav-link flex flex-col p-3 rounded-xl transition-all duration-200 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 font-medium border-t border-slate-100 mt-2 pt-4">
+                <span class="text-xs uppercase tracking-wider text-emerald-500 mb-1"><i class="fas fa-check-double"></i> Test</span>
+                <span>5. Autoevaluación</span>
+              </a>
             </nav>
           </div>
         </aside>
@@ -191,347 +276,80 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white mt-12 py-6">
-      <div class="container mx-auto text-center text-gray-600">
-        &copy; 2025 Power Semiotics. Todos los derechos reservados.
+    <footer class="mt-12 py-8 border-t border-indigo-100">
+      <div class="container mx-auto text-center font-medium text-slate-500 flex flex-col items-center gap-2">
+        <p>&copy; 2026 Power Semiotics. Innovación Académica.</p>
+        <p class="text-sm">Diseño optimizado para aprendizaje activo.</p>
       </div>
     </footer>
 
-    <!-- TEMPLATES FOR DYNAMIC CONTENT (Hidden) -->
+    <!-- TEMPLATES FOR DYNAMIC CONTENT -->
     <template id="presentation-template">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
-        2. Presentación Interactiva: Criterios y Clínica
-      </h2>
-      <div id="presentation-root">
-        <div
-          class="w-full max-w-5xl bg-white rounded-xl overflow-hidden flex flex-col h-full"
-        >
-          <div
-            id="slide-container"
-            class="flex-grow bg-gray-100 rounded-lg p-6 min-h-[450px]"
-          >
-            <div class="slide active text-center">
-              <h2 class="text-2xl font-bold text-slate-800 mb-4">
+      <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
+          <div class="bg-purple-100 text-purple-600 p-3 rounded-lg"><i class="fas fa-desktop fa-lg"></i></div>
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-800">
+            2. Presentación Interactiva: Criterios y Clínica
+          </h2>
+      </div>
+      <div id="presentation-root" class="mt-4">
+        <div class="w-full max-w-5xl bg-slate-900 rounded-2xl overflow-hidden shadow-2xl flex flex-col h-full border border-slate-700">
+          <div id="slide-container" class="flex-grow bg-slate-800 rounded-t-2xl p-8 md:p-12 min-h-[450px] flex items-center justify-center text-white relative">
+            
+            <div class="slide active text-center w-full">
+              <div class="w-16 h-16 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl"><i class="fas fa-brain"></i></div>
+              <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
                 Enfermedades Desmielinizantes del SNC
               </h2>
-              <p class="text-lg text-slate-600">Semana 10 - Neurología</p>
-              <p class="mt-2 text-slate-500">Dr. Alcy Torres Guerrero</p>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                ¿Qué es la Desmielinización?
-              </h3>
-              <p>
-                Es un proceso patológico en el que se daña la vaina de mielina
-                de los axones neuronales.
-              </p>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>
-                  La mielina acelera la conducción del impulso nervioso
-                  (conducción saltatoria).
-                </li>
-                <li>
-                  El daño a la mielina ralentiza o bloquea la señal, causando
-                  disfunción neurológica.
-                </li>
-                <li>Causa: Ataque autoinmune al SNC.</li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                El Espectro de Enfermedades Desmielinizantes
-              </h3>
-              <p class="mb-4">
-                No toda desmielinización es Esclerosis Múltiple. El diagnóstico
-                diferencial es clave.
-              </p>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                <div class="bg-blue-100 p-4 rounded-lg">
-                  <h4 class="font-bold">Esclerosis Múltiple (EM)</h4>
-                  <p class="text-sm">La más común.</p>
-                </div>
-                <div class="bg-green-100 p-4 rounded-lg">
-                  <h4 class="font-bold">Neuromielitis Óptica (TENMO)</h4>
-                  <p class="text-sm">Astrocitopatía (Anti-AQP4).</p>
-                </div>
-                <div class="bg-yellow-100 p-4 rounded-lg">
-                  <h4 class="font-bold">Enfermedad Anti-MOG (MOGAD)</h4>
-                  <p class="text-sm">Ataque a la proteína MOG.</p>
-                </div>
+              <p class="text-xl text-slate-300">Semana 10 - Neurología</p>
+              <div class="mt-8 pt-6 border-t border-slate-700 text-slate-400">
+                 Dr. Alcy Torres Guerrero
               </div>
             </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Epidemiología en Ecuador
-              </h3>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>
-                  País de baja prevalencia de EM (0.75-5.05 por 100,000 hab).
-                </li>
-                <li>
-                  Gradiente geográfico: Mayor prevalencia en la región Andina
-                  (Quito).
-                </li>
-                <li>
-                  Rol del médico general:
-                  <strong>Alta sospecha clínica</strong> para una referencia
-                  oportuna.
-                </li>
+            
+            <div class="slide w-full">
+              <h3 class="text-3xl font-bold mb-6 text-blue-400 border-l-4 border-blue-500 pl-4">¿Qué es la Desmielinización?</h3>
+              <p class="text-lg text-slate-200 mb-6">Un proceso patológico focal en el que se daña la vaina de mielina de los axones neuronales debido a un ataque autoinmune.</p>
+              <ul class="text-lg space-y-4 text-slate-300 bg-slate-700/50 p-6 rounded-xl">
+                <li class="flex gap-3"><i class="fas fa-check-circle text-emerald-400 mt-1"></i> La mielina acelera la conducción del impulso (conducción saltatoria).</li>
+                <li class="flex gap-3"><i class="fas fa-times-circle text-rose-400 mt-1"></i> Su daño ralentiza o bloquea la señal (visión borrosa, debilidad).</li>
+                <li class="flex gap-3"><i class="fas fa-exclamation-triangle text-amber-400 mt-1"></i> Posteriormente puede existir degeneración axonal permanente.</li>
               </ul>
             </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">EM: Fisiopatología</h3>
-              <p>
-                Interacción compleja entre genética (HLA-DRB1) y ambiente (Virus
-                Epstein-Barr, Vitamina D).
-              </p>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>Linfocitos T y B autorreactivos cruzan la BHE.</li>
-                <li>Atacan la mielina y los axones.</li>
-                <li>
-                  El <strong>daño axonal</strong> causa discapacidad permanente.
-                </li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                EM: Presentación Clínica
-              </h3>
-              <p>"La enfermedad de las mil caras".</p>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>
-                  <strong>Neuritis Óptica:</strong> Dolor ocular unilateral,
-                  DPAR.
-                </li>
-                <li>
-                  <strong>Mielitis Transversa Parcial:</strong> Nivel sensitivo,
-                  motoneurona superior.
-                </li>
-                <li>
-                  <strong>Síndromes de Tronco:</strong> Oftalmoplejía
-                  Internuclear (OIN).
-                </li>
-                <li>
-                  <strong>Síntomas "invisibles":</strong> Fatiga, fenómeno de
-                  Uhthoff.
-                </li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">EM: Formas Clínicas</h3>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li><strong>Síndrome Clínico Aislado (SCA)</strong></li>
-                <li><strong>Recurrente-Remitente (EMRR)</strong> (85-90%)</li>
-                <li><strong>Secundaria Progresiva (EMSP)</strong></li>
-                <li><strong>Primaria Progresiva (EMPP)</strong> (10-15%)</li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Criterios de McDonald 2017: Diseminación en el Espacio (DIE)
-              </h3>
-              <p>
-                Se cumple con <strong>≥1 lesión T2</strong> en
-                <strong>≥2 de 4 localizaciones</strong>:
-              </p>
-              <ol class="list-decimal list-inside mt-4 space-y-2">
-                <li>Periventricular</li>
-                <li>(Yux)Cortical</li>
-                <li>Infratentorial</li>
-                <li>Médula Espinal</li>
-              </ol>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Criterios de McDonald 2017: Diseminación en el Tiempo (DIT)
-              </h3>
-              <p>
-                Demuestra que las lesiones han ocurrido en diferentes momentos.
-              </p>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>
-                  <strong>Por RMN:</strong> Nueva lesión T2/Gd+ en seguimiento O
-                  lesiones Gd+ y Gd- simultáneas.
-                </li>
-                <li>
-                  <strong>Por LCR:</strong> La presencia de
-                  <strong>Bandas Oligoclonales (BOC)</strong> es suficiente.
-                </li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Aplicando los Criterios de McDonald 2017
-              </h3>
-              <p class="mb-2">Flujo diagnóstico simplificado para SCA:</p>
-              <ul class="list-disc list-inside space-y-3">
-                <li>
-                  Si hay 1 lesión clínica: Necesita <strong>DIE y DIT</strong>.
-                </li>
-                <li>
-                  Si hay ≥2 lesiones clínicas: Solo necesita
-                  <strong>DIT</strong>.
-                </li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                RMN en Esclerosis Múltiple
-              </h3>
-              <p>
-                Hallazgos característicos:
-                <strong>Dedos de Dawson</strong> (lesiones ovoides
-                periventriculares) y lesiones yuxtacorticales.
-              </p>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Trastorno del Espectro de Neuromielitis Óptica (TENMO)
-              </h3>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>
-                  <strong>Fisiopatología:</strong> Astrocitopatía por
-                  anticuerpos <strong>Anti-AQP4</strong>.
-                </li>
-                <li>Lesiones severas y necróticas.</li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                TENMO: Pistas Clínicas y Radiológicas
-              </h3>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>
-                  <strong>Neuritis Óptica:</strong> Severa,
-                  <strong>bilateral</strong>, mala recuperación.
-                </li>
-                <li>
-                  <strong
-                    >Mielitis Transversa Longitudinalmente Extensa
-                    (MTLE):</strong
-                  >
-                  Lesión medular ≥3 segmentos.
-                </li>
-                <li>
-                  <strong>Síndrome del Área Postrema:</strong> Vómitos
-                  incoercibles.
-                </li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Enfermedad por Anticuerpos Anti-MOG (MOGAD)
-              </h3>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>Anticuerpo clave: <strong>MOG-IgG</strong>.</li>
-                <li>
-                  Neuritis Óptica bilateral con
-                  <strong>marcado edema de papila</strong> y buena recuperación.
-                </li>
-                <li>
-                  <strong>ADEM</strong> es la presentación típica en niños.
-                </li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Diagnóstico Diferencial: "Banderas Rojas"
-              </h3>
-              <p>¿Cuándo dudar de un diagnóstico de EM?</p>
-              <ul class="list-disc list-inside mt-4 space-y-2 text-red-700">
-                <li>Neuritis óptica bilateral y severa.</li>
-                <li>Mielitis Longitudinalmente Extensa (MTLE).</li>
-                <li>Síndrome del área postrema (vómitos).</li>
-                <li>Ausencia de Bandas Oligoclonales en LCR.</li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Tabla Comparativa Clave
-              </h3>
-              <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                  <thead class="bg-slate-100">
-                    <tr>
-                      <th class="p-2">Característica</th>
-                      <th class="p-2">EM</th>
-                      <th class="p-2">TENMO</th>
-                      <th class="p-2">MOGAD</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="border-b">
-                      <td class="p-2 font-semibold">Anticuerpo</td>
-                      <td>Ninguno</td>
-                      <td>AQP4-IgG</td>
-                      <td>MOG-IgG</td>
-                    </tr>
-                    <tr class="border-b bg-slate-50">
-                      <td class="p-2 font-semibold">Mielitis</td>
-                      <td>Parcial, corta</td>
-                      <td>MTLE</td>
-                      <td>Puede ser MTLE</td>
-                    </tr>
-                    <tr class="border-b">
-                      <td class="p-2 font-semibold">LCR (BOC)</td>
-                      <td>Presentes (>90%)</td>
-                      <td>Ausentes (>70%)</td>
-                      <td>Ausentes (>85%)</td>
-                    </tr>
-                  </tbody>
-                </table>
+            
+            <div class="slide w-full">
+              <h3 class="text-2xl font-bold mb-6 text-blue-400 border-l-4 border-blue-500 pl-4">Criterios de McDonald (EM): Diseminación</h3>
+              <div class="grid md:grid-cols-2 gap-6">
+                 <div class="bg-indigo-900/50 p-6 rounded-xl border border-indigo-700/50">
+                    <h4 class="text-xl font-bold text-indigo-300 mb-3"><i class="fas fa-map-marker-alt"></i> En Espacio (DIE)</h4>
+                    <p class="text-sm text-slate-300">≥1 lesión T2 en ≥2 de 4 localizaciones clásicas:</p>
+                    <ul class="list-disc pl-5 mt-2 text-slate-200 text-sm">
+                       <li>Periventricular</li>
+                       <li>Yuxtacortical / Cortical</li>
+                       <li>Infratentorial</li>
+                       <li>Médula Espinal</li>
+                    </ul>
+                 </div>
+                 <div class="bg-emerald-900/50 p-6 rounded-xl border border-emerald-700/50">
+                    <h4 class="text-xl font-bold text-emerald-300 mb-3"><i class="fas fa-clock"></i> En Tiempo (DIT)</h4>
+                    <p class="text-sm text-slate-300">Muestra ataques en momentos distintos mediante:</p>
+                    <ul class="list-disc pl-5 mt-2 text-slate-200 text-sm">
+                       <li>Nueva lesión en RM de seguimiento</li>
+                       <li>Lesiones Gd+ y Gd- simultáneas</li>
+                       <li class="text-emerald-200 font-bold">Presencia de Bandas Oligoclonales (LCR)</li>
+                    </ul>
+                 </div>
               </div>
             </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Principios del Tratamiento
-              </h3>
-              <ul class="list-disc list-inside mt-4 space-y-2">
-                <li>
-                  <strong>Brote Agudo:</strong> Pulsos de metilprednisolona.
-                </li>
-                <li>
-                  <strong>EM:</strong> Terapias Modificadoras de la Enfermedad
-                  (TME).
-                </li>
-                <li>
-                  <strong>TENMO y MOGAD:</strong> Inmunosupresores (Rituximab,
-                  etc.). Las TME para EM pueden ser perjudiciales.
-                </li>
-              </ul>
-            </div>
-            <div class="slide">
-              <h3 class="text-xl font-semibold mb-3">
-                Mensajes Clave para el Médico General
-              </h3>
-              <ul class="list-disc list-inside mt-4 space-y-3">
-                <li>
-                  <strong>SOSPECHAR</strong> ante un síndrome neurológico en un
-                  paciente joven.
-                </li>
-                <li>
-                  <strong>ESTUDIAR</strong> inicialmente con RMN de cerebro y
-                  médula con contraste.
-                </li>
-                <li><strong>REFERIR OPORTUNAMENTE</strong> al neurólogo.</li>
-              </ul>
-            </div>
+
+            <!-- Aditional Slides can easily be added here as the logic grabs all .slide -->
           </div>
-          <div
-            class="bg-slate-800 text-white flex items-center justify-between p-4 mt-4 rounded-b-lg"
-          >
-            <button
-              id="prevBtn"
-              class="bg-white/20 hover:bg-white/40 px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
-            >
-              Anterior
+          <div class="bg-slate-950 flex items-center justify-between p-4 px-6 border-t border-slate-800">
+            <button id="prevBtn" class="bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-lg transition-all font-medium disabled:opacity-30 flex items-center gap-2">
+              <i class="fas fa-chevron-left"></i> Anterior
             </button>
-            <div id="slide-counter" class="font-semibold"></div>
-            <button
-              id="nextBtn"
-              class="bg-white/20 hover:bg-white/40 px-4 py-2 rounded-lg transition-colors"
-            >
-              Siguiente
+            <div id="slide-counter" class="font-bold text-slate-400 tracking-widest text-sm uppercase"></div>
+            <button id="nextBtn" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-lg transition-all font-medium flex items-center gap-2">
+              Siguiente <i class="fas fa-chevron-right"></i>
             </button>
           </div>
         </div>
@@ -539,169 +357,156 @@
     </template>
 
     <template id="classifier-template">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
-        3. Herramienta: Asistente de Diagnóstico Diferencial
-      </h2>
-      <div class="bg-gray-50 p-6 rounded-lg">
-        <h3 class="text-xl font-bold text-gray-800 mb-4">
-          Análisis de Banderas Rojas
+      <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
+          <div class="bg-teal-100 text-teal-600 p-3 rounded-lg"><i class="fas fa-microscope fa-lg"></i></div>
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-800">
+            3. Analizador de Banderas Rojas
+          </h2>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 p-6 md:p-8 rounded-2xl shadow-inner">
+        <h3 class="text-xl font-bold text-slate-800 mb-2">
+          Asistente de Diagnóstico Diferencial
         </h3>
-        <p class="mb-4 text-gray-600">
-          Seleccione los hallazgos presentes en su caso para obtener una
-          orientación.
+        <p class="mb-6 text-slate-600">
+          Seleccione los hallazgos clínícos y radiológicos presentes para descartar imitadores de EM (NMOSD y MOGAD).
         </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label
-            class="flex items-center p-3 border rounded-lg hover:bg-gray-100 cursor-pointer"
-            ><input
-              type="checkbox"
-              id="flag_vomitos"
-              class="h-5 w-5 rounded text-blue-600"
-            /><span class="ml-3">Hipo/Náuseas/Vómitos incoercibles</span></label
-          >
-          <label
-            class="flex items-center p-3 border rounded-lg hover:bg-gray-100 cursor-pointer"
-            ><input
-              type="checkbox"
-              id="flag_mtle"
-              class="h-5 w-5 rounded text-blue-600"
-            /><span class="ml-3"
-              >Mielitis Longitudinalmente Extensa (≥3 seg)</span
-            ></label
-          >
-          <label
-            class="flex items-center p-3 border rounded-lg hover:bg-gray-100 cursor-pointer"
-            ><input
-              type="checkbox"
-              id="flag_no_boc"
-              class="h-5 w-5 rounded text-blue-600"
-            /><span class="ml-3">Bandas Oligoclonales Ausentes</span></label
-          >
-          <label
-            class="flex items-center p-3 border rounded-lg hover:bg-gray-100 cursor-pointer"
-            ><input
-              type="checkbox"
-              id="flag_bilateral_no"
-              class="h-5 w-5 rounded text-blue-600"
-            /><span class="ml-3">Neuritis Óptica Bilateral Severa</span></label
-          >
-          <label
-            class="flex items-center p-3 border rounded-lg hover:bg-gray-100 cursor-pointer"
-            ><input
-              type="checkbox"
-              id="flag_papiledema"
-              class="h-5 w-5 rounded text-blue-600"
-            /><span class="ml-3">Edema de Papila Marcado</span></label
-          >
+          <label class="flex items-center p-4 border border-slate-200 bg-white rounded-xl hover:border-teal-400 hover:shadow-md transition-all cursor-pointer group">
+            <input type="checkbox" id="flag_vomitos" class="h-5 w-5 rounded text-teal-600 focus:ring-teal-500" />
+            <span class="ml-3 font-medium text-slate-700 group-hover:text-teal-700">Sínd. Área Postrema (Vómitos/Hipo)</span>
+          </label>
+          <label class="flex items-center p-4 border border-slate-200 bg-white rounded-xl hover:border-teal-400 hover:shadow-md transition-all cursor-pointer group">
+            <input type="checkbox" id="flag_mtle" class="h-5 w-5 rounded text-teal-600 focus:ring-teal-500" />
+            <span class="ml-3 font-medium text-slate-700 group-hover:text-teal-700">Mielitis Extensa (LETM ≥3 seg)</span>
+          </label>
+          <label class="flex items-center p-4 border border-slate-200 bg-white rounded-xl hover:border-teal-400 hover:shadow-md transition-all cursor-pointer group">
+            <input type="checkbox" id="flag_no_boc" class="h-5 w-5 rounded text-teal-600 focus:ring-teal-500" />
+            <span class="ml-3 font-medium text-slate-700 group-hover:text-teal-700">Bandas Oligoclonales Ausentes</span>
+          </label>
+          <label class="flex items-center p-4 border border-slate-200 bg-white rounded-xl hover:border-teal-400 hover:shadow-md transition-all cursor-pointer group">
+            <input type="checkbox" id="flag_bilateral_no" class="h-5 w-5 rounded text-teal-600 focus:ring-teal-500" />
+            <span class="ml-3 font-medium text-slate-700 group-hover:text-teal-700">Neuritis Óptica Bilateral Severa</span>
+          </label>
+          <label class="flex items-center p-4 border border-slate-200 bg-white rounded-xl hover:border-teal-400 hover:shadow-md transition-all cursor-pointer group">
+            <input type="checkbox" id="flag_papiledema" class="h-5 w-5 rounded text-teal-600 focus:ring-teal-500" />
+            <span class="ml-3 font-medium text-slate-700 group-hover:text-teal-700">Neuritis Óptica c/ Edema de Papila</span>
+          </label>
         </div>
-        <div class="text-center mt-6">
-          <button
-            class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors"
-            onclick="classifier_diagnose()"
-          >
-            Analizar Banderas Rojas
+        <div class="text-center mt-8">
+          <button class="bg-teal-600 text-white font-bold tracking-wide py-3 px-10 rounded-full hover:bg-teal-700 shadow-lg shadow-teal-200 transition-all hover:-translate-y-1" onclick="classifier_diagnose()">
+            <i class="fas fa-search-plus mr-2"></i> Procesar Hallazgos
           </button>
         </div>
-        <div id="classifier_result" class="mt-4"></div>
+        <div id="classifier_result" class="mt-6 text-center text-lg"></div>
       </div>
     </template>
 
     <template id="abp-template">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">
-        4. Actividad Interactiva: Caso Clínico ABP
-      </h2>
+      <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
+          <div class="bg-rose-100 text-rose-600 p-3 rounded-lg"><i class="fas fa-stethoscope fa-lg"></i></div>
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-800">
+            4. Zona de Práctica: Caso Clínico ABP
+          </h2>
+      </div>
       <div id="abp-container">
-        <div
-          class="bg-amber-50 p-6 rounded-lg mb-6 border-l-4 border-amber-500"
-        >
-          <h3 class="text-xl font-bold text-amber-800 mb-3">
-            Presentación del Caso
-          </h3>
-          <p class="text-gray-700">
-            Una mujer de 42 años, de Guayaquil, presenta paraparesia flácida
-            aguda con nivel sensitivo en T4 y globo vesical. RMN muestra una
-            lesión medular central desde C4 a T2. RMN cerebral normal. Refiere
-            un episodio de vómitos incoercibles hace 3 meses, estudiado y no
-            filiado.
-          </p>
-        </div>
-        <div class="space-y-6" id="abp-steps-container">
-          <!-- Los pasos del ABP se generarán aquí -->
-        </div>
-        <div
-          id="abp-decision-section"
-          class="mt-8 pt-6 border-t border-gray-300"
-        >
-          <h3 class="text-xl font-bold text-gray-800 mb-4">
-            Decisión Clínica y Plan de Acción
-          </h3>
-          <p class="mb-4 text-gray-600">
-            Basado en su análisis, ¿cuál es su diagnóstico de trabajo principal?
-          </p>
-          <div class="space-y-2">
-            <label
-              class="flex items-center p-3 border rounded-lg hover:bg-gray-100 cursor-pointer"
-              ><input
-                type="radio"
-                name="abp_diagnosis"
-                value="em"
-                class="h-5 w-5 text-blue-600"
-              /><span class="ml-3">Esclerosis Múltiple (EM)</span></label
-            >
-            <label
-              class="flex items-center p-3 border rounded-lg hover:bg-gray-100 cursor-pointer"
-              ><input
-                type="radio"
-                name="abp_diagnosis"
-                value="tenmo"
-                class="h-5 w-5 text-blue-600"
-              /><span class="ml-3"
-                >Trastorno del Espectro de Neuromielitis Óptica (TENMO)</span
-              ></label
-            >
-            <label
-              class="flex items-center p-3 border rounded-lg hover:bg-gray-100 cursor-pointer"
-              ><input
-                type="radio"
-                name="abp_diagnosis"
-                value="mogad"
-                class="h-5 w-5 text-blue-600"
-              /><span class="ml-3"
-                >Enfermedad por Anticuerpos Anti-MOG (MOGAD)</span
-              ></label
-            >
+        <div class="bg-gradient-to-r from-rose-50 to-orange-50 p-6 md:p-8 rounded-2xl mb-8 border border-rose-100 shadow-sm relative overflow-hidden">
+          <div class="absolute -right-4 -top-4 text-rose-100 opacity-50 transform rotate-12">
+             <i class="fas fa-clipboard-list text-8xl"></i>
           </div>
-          <div class="text-center mt-6">
-            <button
-              class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors"
-              onclick="confirmAbpDiagnosis()"
-            >
-              Confirmar Decisión
+          <h3 class="text-2xl font-bold text-rose-800 mb-4 relative z-10 flex items-center gap-2">
+            <i class="fas fa-user-injured text-rose-500"></i> Presentación del Caso
+          </h3>
+          <p class="text-slate-800 text-lg leading-relaxed relative z-10 font-medium">
+            Mujer de 42 años presenta paraparesia flácida aguda con nivel sensitivo en T4 y alteración de esfínteres (globo vesical). La RM de médula muestra una lesión central extensa continua desde C4 hasta T2. RM cerebral normal. Como antecedente, hace 3 meses fue hospitalizada por un cuadro de hipo y vómitos incoercibles, estudiado con endoscopia sin hallazgos claros, que resolvió espontáneamente.
+          </p>
+        </div>
+        
+        <div class="space-y-6" id="abp-steps-container">
+          <!-- ABP steps will be rendered here -->
+        </div>
+
+        <div id="abp-decision-section" class="mt-10 pt-8 border-t-2 border-dashed border-slate-200">
+          <h3 class="text-2xl font-bold text-slate-800 mb-5">
+            Decisión Clínica Definitiva
+          </h3>
+          <p class="mb-4 text-slate-600 font-medium">
+            Basado en la integración sindrómica de los hallazgos, ¿cuál es su diagnóstico primario y acción inmediata?
+          </p>
+          <div class="grid gap-3">
+             <label class="flex items-center p-5 border border-slate-200 bg-white rounded-xl hover:border-rose-400 shadow-sm cursor-pointer transition-colors group">
+                <input type="radio" name="abp_diagnosis" value="em" class="h-5 w-5 text-rose-600 focus:ring-rose-500" />
+                <span class="ml-4 font-semibold text-slate-700 group-hover:text-rose-700">Esclerosis Múltiple (EM). Iniciar Interferón.</span>
+             </label>
+             <label class="flex items-center p-5 border border-slate-200 bg-white rounded-xl hover:border-rose-400 shadow-sm cursor-pointer transition-colors group">
+                <input type="radio" name="abp_diagnosis" value="tenmo" class="h-5 w-5 text-rose-600 focus:ring-rose-500" />
+                <span class="ml-4 font-semibold text-slate-700 group-hover:text-rose-700">Trastorno Espectro NMOSD. Solicitar anti-AQP4.</span>
+             </label>
+             <label class="flex items-center p-5 border border-slate-200 bg-white rounded-xl hover:border-rose-400 shadow-sm cursor-pointer transition-colors group">
+                <input type="radio" name="abp_diagnosis" value="mogad" class="h-5 w-5 text-rose-600 focus:ring-rose-500" />
+                <span class="ml-4 font-semibold text-slate-700 group-hover:text-rose-700">Enfermedad MOGAD. Solicitar anti-MOG.</span>
+             </label>
+          </div>
+          <div class="text-center mt-8">
+            <button class="bg-rose-600 text-white font-bold py-3 px-12 rounded-full hover:bg-rose-700 transition-all shadow-lg hover:-translate-y-1" onclick="confirmAbpDiagnosis()">
+              <i class="fas fa-clipboard-check mr-2"></i> Emitir Diagnóstico
             </button>
           </div>
-          <div
-            id="abp_feedback"
-            class="mt-4 p-4 rounded-lg text-sm"
-            style="display: none"
-          ></div>
+          <div id="abp_feedback" class="mt-6 p-6 rounded-xl text-md font-medium shadow-sm transition-all text-center" style="display: none"></div>
         </div>
       </div>
     </template>
 
     <template id="quiz-template">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
-        5. Autoevaluación: Criterios de McDonald
-      </h2>
+      <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
+          <div class="bg-emerald-100 text-emerald-600 p-3 rounded-lg"><i class="fas fa-check-double fa-lg"></i></div>
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-800">
+            5. Autoevaluación Integral (USMLE Style)
+          </h2>
+      </div>
+      <p class="text-slate-600 font-medium mb-8">Preguntas orientadas a integrar el reconocimiento de síndromes desmielinizantes, basadas en los Criterios de McDonald 2017 y las actualizaciones clínicas.</p>
       <div id="quiz-questions"></div>
     </template>
 
     <script>
-      // --- Lógica de Navegación Principal ---
+      // Navigation Logic
       const navLinks = document.querySelectorAll('.nav-link');
       const sections = document.querySelectorAll('.module-section');
-      const contentContainer = document.getElementById('content-container');
+      const navContainer = document.getElementById('module-nav');
+
+      // Update Nav active style modifier
+      function styleActiveNavLink(activeLink) {
+         navLinks.forEach(link => {
+            link.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'scale-105');
+            link.classList.add('text-slate-600');
+            link.classList.remove('text-yellow-500', 'bg-gradient-to-r', 'from-yellow-400', 'to-orange-400'); // Clean up flashcard strict active
+            
+            // Re-add normal color to text-xs based on what they are
+            const icon = link.querySelector('.text-xs');
+            if(icon && !link.href.includes('flashcards') && !link.href.includes('autoevaluacion')) icon.classList.add('text-slate-400');
+         });
+
+         if(activeLink.href.includes('flashcards')){
+             activeLink.classList.remove('text-slate-600', 'hover:bg-yellow-50');
+             activeLink.classList.add('bg-gradient-to-r', 'from-amber-400', 'to-orange-500', 'text-white', 'shadow-lg', 'scale-105');
+             activeLink.querySelector('.text-xs').classList.remove('text-yellow-500');
+             activeLink.querySelector('.text-xs').classList.add('text-white/80');
+         } else if (activeLink.href.includes('autoevaluacion')){
+             activeLink.classList.remove('text-slate-600', 'hover:bg-emerald-50');
+             activeLink.classList.add('bg-emerald-600', 'text-white', 'shadow-lg', 'scale-105');
+             activeLink.querySelector('.text-xs').classList.remove('text-emerald-500');
+             activeLink.querySelector('.text-xs').classList.add('text-emerald-200');
+         } else {
+             activeLink.classList.remove('text-slate-600', 'hover:bg-indigo-50');
+             activeLink.classList.add('bg-indigo-600', 'text-white', 'shadow-lg', 'scale-105');
+             activeLink.querySelector('.text-xs').classList.remove('text-slate-400');
+             activeLink.querySelector('.text-xs').classList.add('text-indigo-200');
+         }
+      }
 
       const contentLoaders = {
+        'section-flashcards': (container) => {
+            setupFlashcards();
+        },
         'section-presentacion': (container) => {
           const template = document.getElementById('presentation-template');
           if (template) {
@@ -736,25 +541,22 @@
       };
 
       function switchSection(hash) {
-        hash = hash.substring(1); // remove #
+        hash = hash.substring(1); 
+        if(!hash || hash === '') hash = 'guia';
         let targetSection = document.getElementById('section-' + hash);
         if (!targetSection) {
-          hash = 'guia'; // Default to first section if hash is invalid
+          hash = 'guia';
           targetSection = document.getElementById('section-guia');
         }
 
-        navLinks.forEach((link) => {
-          link.classList.toggle('active', link.hash === '#' + hash);
-        });
+        let activeLink = Array.from(navLinks).find(l => l.hash === '#' + hash);
+        if(activeLink) styleActiveNavLink(activeLink);
 
         sections.forEach((section) => {
           section.classList.toggle('active', section.id === 'section-' + hash);
         });
 
-        if (
-          contentLoaders['section-' + hash] &&
-          !targetSection.dataset.loaded
-        ) {
+        if (contentLoaders['section-' + hash] && !targetSection.dataset.loaded) {
           contentLoaders['section-' + hash](targetSection);
           targetSection.dataset.loaded = 'true';
         }
@@ -765,18 +567,54 @@
           e.preventDefault();
           switchSection(link.hash);
           window.scrollTo({
-            top: contentContainer.offsetTop - 80,
+            top: 0,
             behavior: 'smooth',
           });
+          history.pushState(null, null, link.hash);
         });
       });
 
-      // Load initial section based on URL hash or default to first one
-      if (window.location.hash) {
-        switchSection(window.location.hash);
+      // Default load based on hash
+      const initHash = window.location.hash || '#guia';
+      switchSection(initHash);
+
+
+      // --- Flashcards Logic ---
+      function setupFlashcards() {
+         const data = [
+             { term: "Signo de Lhermitte", meaning: "Sensación descrita como una 'descarga eléctrica' que viaja por la columna al flexionar el cuello. Altamente sugestiva de lesión inflamatoria en médula cervical (muy frecuente en EM)." },
+             { term: "Fenómeno de Uhthoff", meaning: "Empeoramiento transitorio de síntomas neurológicos (ej. visión borrosa por la neuritis) inducido por el aumento de la temperatura corporal (ej. ejercicio, ducha caliente). Propio de la EM." },
+             { term: "Oftalmoplejia Internuclear (INO)", meaning: "Afectación del fascículo longitudinal medial (MLF). El ojo ipsilateral a la lesión NO puede aducir y el contralateral (que abduce) presenta nistagmos horizontales. Clásico síndrome de tronco encefálico." },
+             { term: "Dedos de Dawson (<br>Dawson's fingers)", meaning: "Marcador patognomónico radiológico de la EM en FLAIR/T2. Son placas (lesiones ovoides) perivenulares desmielinizantes orientadas perpendicularmente a los ventrículos laterales." },
+             { term: "Bandas Oligoclonales (BOC)", meaning: "Inmunoglobulinas (IgG) específicas del sistema nervioso encontradas en el LCR (y no en suero). Presentes en >90% de EM. Son evidencia de neuroinflamación e indican Diseminación en el Tiempo (DIT)." },
+             { term: "Síndrome Área Postrema", meaning: "Episodios de hipo o vómitos incoercibles precursores de otras lesiones por la inflamación focal en la médula oblongada dorsal (suelo del 4to ventrículo). Bandera Roja: Altamente específico para NMOSD." },
+             { term: "Mielitis LETM", meaning: "Mielitis Transversa Longitudinalmente Extensa: lesión que abarca tres (3) o más segmentos vertebrales de manera continua. Patognomónica de neuromielitis (NMOSD) y MOGAD. Rara en la EM (en EM suelen ser focales periféricas)." },
+             { term: "Neuromielitis Óptica (NMOSD)", meaning: "Astrocitopatía grave. Anticuerpo primario: AQP4-IgG (Anti-Acuaporina 4). Su pronóstico funcional es peor que el de la EM por el severo ensañamiento autoinmune contra neuronas y nervio óptico." },
+             { term: "Enfermedad MOGAD", meaning: "Desmielinización mediada por MOG-IgG. Característica USMLE: Neuritis óptica a menudo bilateral y con MARCADO EDEMA DE PAPILA. En niños se presenta como encefalomielitis diseminada aguda (ADEM)." }
+         ];
+
+         const grid = document.getElementById('flashcards-grid');
+         grid.innerHTML = data.map((item, i) => `
+            <div class="card-container relative overflow-hidden group">
+               <div class="card-inner absolute inset-0 bg-transparent rounded-2xl shadow-md border border-slate-200" onclick="this.classList.toggle('flipped')">
+                  <!-- Front -->
+                  <div class="card-front bg-white rounded-2xl p-6 text-center border-b-4 border-amber-400">
+                     <span class="absolute top-4 right-4 text-slate-300 text-sm"><i class="fas fa-undo"></i></span>
+                     <div class="text-amber-500 mb-3 text-3xl opacity-30 group-hover:opacity-100 transition-opacity"><i class="fas fa-brain"></i></div>
+                     <h3 class="text-xl font-bold text-slate-800 break-words w-full">${item.term}</h3>
+                     <span class="text-xs text-slate-400 uppercase tracking-wide mt-4">Clic para voltear</span>
+                  </div>
+                  <!-- Back -->
+                  <div class="card-back bg-gradient-to-br from-indigo-800 to-blue-900 text-white rounded-2xl p-6 border-b-4 border-blue-400 shadow-xl overflow-y-auto custom-scrollbar">
+                      <p class="text-[15px] font-medium leading-relaxed">${item.meaning}</p>
+                  </div>
+               </div>
+            </div>
+         `).join('');
       }
 
-      // --- Lógica de la Presentación ---
+
+      // --- Presentación Logic ---
       function setupPresentation(container) {
         const slides = Array.from(container.querySelectorAll('.slide'));
         const prevBtn = container.querySelector('#prevBtn');
@@ -785,20 +623,24 @@
         let currentSlide = 0;
 
         function showSlide(n) {
-          slides.forEach((slide, index) =>
-            slide.classList.toggle('active', index === n),
-          );
+          slides.forEach((slide, index) => {
+            if (index === n) {
+              slide.classList.add('active');
+            } else {
+              slide.classList.remove('active');
+            }
+          });
           currentSlide = n;
-          slideCounter.textContent = `Diapositiva ${n + 1} de ${slides.length}`;
+          slideCounter.textContent = `Slide ${n + 1} / ${slides.length}`;
           prevBtn.disabled = n === 0;
           nextBtn.disabled = n === slides.length - 1;
         }
         nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
         prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
-        showSlide(0);
+        if (slides.length > 0) showSlide(0);
       }
 
-      // --- Lógica del Asistente de Diagnóstico ---
+      // --- Asistente Diag Lógica ---
       function classifier_diagnose() {
         const flags = {
           vomitos: document.getElementById('flag_vomitos').checked,
@@ -808,201 +650,153 @@
           papiledema: document.getElementById('flag_papiledema').checked,
         };
         const resultEl = document.getElementById('classifier_result');
+        let title = '';
         let resultText = '';
+        let theme = '';
+        
         if (flags.vomitos || flags.mtle || flags.bilateral_no) {
-          resultText =
-            '<strong>Alta Sospecha de TENMO (Anti-AQP4).</strong> La presencia de síndrome del área postrema, MTLE o neuritis óptica bilateral severa son banderas rojas muy fuertes. Solicitar AQP4-IgG es mandatorio.';
+          title = '<i class="fas fa-exclamation-triangle mr-2"></i> Alta Sospecha de NMOSD (Anti-AQP4)';
+          resultText = 'Las "banderas rojas" como mielitis LETM (extensa), síndrome área postrema o neuritis severa bilateral son atípicas para EM. Es mandatorio descartar NMOSD mediada por Acuaporina-4 antes de intentar tratar.';
+          theme = 'bg-rose-100 text-rose-800 border-rose-300';
         } else if (flags.papiledema && flags.no_boc) {
-          resultText =
-            '<strong>Alta Sospecha de MOGAD.</strong> La combinación de neuritis óptica con papiledema marcado y ausencia de BOC debe hacer sospechar MOGAD. Solicitar MOG-IgG.';
+          title = '<i class="fas fa-search mr-2"></i> Alta Sospecha de MOGAD';
+          resultText = 'La neuritis óptica con marcado edema del disco papilar sumado a la falta de síntesis intratecal de IgG (BOC negativas) debe forzar el descarte de Enfermedad por Anti-MOG.';
+          theme = 'bg-amber-100 text-amber-800 border-amber-300';
         } else if (flags.no_boc) {
-          resultText =
-            '<strong>Diagnóstico de EM es menos probable.</strong> Aunque un 5-10% de pacientes con EM pueden no tener BOC, su ausencia obliga a descartar exhaustivamente TENMO y MOGAD.';
+          title = '<i class="fas fa-info-circle mr-2"></i> Evaluar Imitadores';
+          resultText = 'Aunque la EM puede no cursar con BOC en el 5-10% de los casos (especialmente post tratamiento), su ausencia en un evento agudo disonante obliga a buscar Acuaporina-4 IgG y MOG-IgG en suero.';
+          theme = 'bg-orange-100 text-orange-800 border-orange-300';
         } else {
-          resultText =
-            'Sin banderas rojas claras, la sospecha de <strong>Esclerosis Múltiple</strong> es mayor, especialmente si hay BOC positivas. Continúe aplicando los criterios de McDonald.';
+          title = '<i class="fas fa-check-circle mr-2"></i> Sin Banderas Rojas';
+          resultText = 'Ante la ausencia de hallazgos críticos de NMOSD, y en un contexto clínico adecuado (diseminación temporal y espacial), la probabilidad es altísimamente consistente con la forma clásica de Esclerosis Múltiple.';
+          theme = 'bg-teal-100 text-teal-800 border-teal-300';
         }
-        resultEl.innerHTML = `<div class="p-4 mt-4 bg-blue-100 text-blue-800 rounded-lg">${resultText}</div>`;
+        
+        resultEl.innerHTML = `
+           <div class="${theme} border p-6 rounded-xl animate-[fadeIn_0.5s_ease-out] shadow-sm">
+              <h4 class="font-bold mb-2 text-xl">${title}</h4>
+              <p>${resultText}</p>
+           </div>
+        `;
       }
 
-      // --- Lógica del ABP ---
+      // --- ABP Logic ---
       function setupAbp(container) {
         const stepsData = [
           {
-            title: 'Paso 1: Clarificar Términos',
-            placeholder:
-              'Definir: Paraparesia flácida, arreflexia, nivel sensitivo T4, globo vesical, MTLE...',
+            title: '1. Reconocimiento de Patrones (Síndrome)',
+            placeholder: 'Ej: Presencia de Mielitis transversa extensa (LETM) porque abarca de C4 a T2 (7 segmentos medulares). Presencia adicional de vómitos...',
           },
           {
-            title: 'Paso 2: Definir el Problema',
-            placeholder:
-              'Problema principal: Mielitis aguda. Problema secundario: Antecedente de vómitos incoercibles...',
-          },
-          {
-            title: 'Paso 3: Analizar el Problema',
-            placeholder:
-              'Lluvia de ideas: ¿Es SGB? No, hay nivel sensitivo claro. ¿Es compresión? RMN la descarta. La clave es la combinación de mielitis extensa + vómitos...',
-          },
-          {
-            title: 'Paso 4: Estructurar Análisis',
-            placeholder:
-              'El patrón de mielitis extensa (MTLE) y síndrome del área postrema (vómitos) apunta fuertemente a un diagnóstico específico...',
-          },
-          {
-            title: 'Paso 5: Formular Objetivos',
-            placeholder:
-              'Necesito aprender: 1. Criterios de TENMO. 2. Por qué los tratamientos de EM son dañinos en TENMO. 3. El rol de los anticuerpos AQP4-IgG...',
-          },
-          {
-            title: 'Paso 7: Síntesis y Reporte',
-            placeholder:
-              'Diagnóstico: Alta sospecha de TENMO. Justificación: Cumple criterios clínicos (2 síndromes cardinales: mielitis y área postrema) y radiológicos (MTLE). Plan: Solicitar AQP4-IgG urgente, iniciar pulsos de metilprednisolona, NO iniciar interferón.',
-          },
+            title: '2. Determinación de Banderas Rojas',
+            placeholder: 'Ej: El antecedente de vómitos incoercibles corresponde al Síndrome de Área Postrema. Los hallazgos radiculares espinales de larga extensión no encajan con EM...',
+          }
         ];
+        
         const stepsContainer = container.querySelector('#abp-steps-container');
         stepsContainer.innerHTML = stepsData
-          .map(
-            (step) => `
-                <div class="mb-4">
-                    <h4 class="text-lg font-semibold text-gray-700 mb-2">${step.title}</h4>
-                    <textarea class="w-full p-2 border rounded-md bg-gray-50" placeholder="${step.placeholder}"></textarea>
+          .map((step, i) => `
+                <div class="bg-white p-6 border border-slate-200 rounded-xl shadow-sm relative z-10 transition-shadow focus-within:shadow-md focus-within:border-indigo-300 pl-16">
+                    <div class="absolute left-6 top-6 bg-slate-100 text-slate-500 rounded-md w-6 h-6 flex items-center justify-center font-bold text-sm">${i+1}</div>
+                    <h4 class="text-lg font-bold text-slate-700 mb-3">${step.title}</h4>
+                    <textarea class="w-full p-4 border border-slate-200 rounded-lg bg-slate-50 focus:bg-white focus:ring-2 focus:ring-indigo-100 outline-none resize-y min-h-[100px] text-slate-700 font-medium" placeholder="${step.placeholder}"></textarea>
                 </div>
-            `,
-          )
-          .join('');
+            `).join('');
       }
 
       function confirmAbpDiagnosis() {
-        const selected = document.querySelector(
-          'input[name="abp_diagnosis"]:checked',
-        );
+        const selected = document.querySelector('input[name="abp_diagnosis"]:checked');
         const feedbackEl = document.getElementById('abp_feedback');
         if (!selected) {
-          feedbackEl.innerHTML =
-            '<strong>Por favor, seleccione un diagnóstico.</strong>';
-          feedbackEl.className =
-            'mt-4 p-4 rounded-lg text-sm bg-red-100 text-red-800';
-          feedbackEl.style.display = 'block';
-          return;
+           feedbackEl.innerHTML = '<i class="fas fa-exclamation mr-2"></i> Selecciona un curso de acción de la lista antes de emitir tu diagnóstico.';
+           feedbackEl.className = 'mt-6 p-5 rounded-xl text-md font-bold text-center bg-slate-100 text-slate-600 border border-slate-300 shadow-inner block animate-[fadeIn_0.3s_ease-out]';
+           return;
         }
         if (selected.value === 'tenmo') {
-          feedbackEl.innerHTML = `<strong>¡Decisión Correcta!</strong> La combinación de <strong>Mielitis Longitudinalmente Extensa (MTLE)</strong> y el antecedente de <strong>vómitos incoercibles (Síndrome del Área Postrema)</strong> son dos "banderas rojas" que apuntan fuertemente a TENMO. El plan correcto es solicitar AQP4-IgG y evitar tratamientos para EM.`;
-          feedbackEl.className =
-            'mt-4 p-4 rounded-lg text-sm bg-green-100 text-green-800';
+           feedbackEl.innerHTML = `<h4 class="text-2xl mb-2"><i class="fas fa-microscope"></i> ¡Impecable!</h4>
+             <p>Asociaste el <strong>Síndrome Clínico de Área Postrema (Vómitos)</strong> y el <strong>Patrón LETM Radiológico (C4-T2)</strong>. Ambos son componentes *High Yield* definitivos para Trastorno de Espectro Neuromielitis Óptica (NMOSD). Administrar un modificador como Interferón que se usa en EM convencional sería <strong>dañino</strong> en este paciente. Solicitar anti-AQP4 es lo correcto.</p>`;
+           feedbackEl.className = 'mt-6 p-6 rounded-xl text-md text-left bg-emerald-100 text-emerald-800 border-[2px] border-emerald-400 shadow-lg block animate-[fadeIn_0.5s_ease-out]';
         } else {
-          feedbackEl.innerHTML = `<strong>Decisión Incorrecta.</strong> Aunque es un diagnóstico diferencial, la presencia de MTLE y el síndrome del área postrema hacen que TENMO sea mucho más probable que ${selected.value.toUpperCase()}. Recuerde que los tratamientos para EM pueden empeorar el TENMO.`;
-          feedbackEl.className =
-            'mt-4 p-4 rounded-lg text-sm bg-red-100 text-red-800';
+           feedbackEl.innerHTML = `<h4 class="text-xl mb-2"><i class="fas fa-times-circle"></i> Repensar Abordaje</h4>
+             <p>Este paciente posee lesiones <strong>LETM</strong> de gran amplitud de segmentos espinales combinados con compromiso histórico del <strong>Suelo del 4to Ventrículo</strong> (Hipo/vómitos). Estos cuadros no son característicos ni de EM pura ni de MOGAD en adultos iniciales, son señales del eslabón NMOSD-AQP4. <br><br><span class="text-rose-900 font-bold">Peligro clínico:</span> usar Terapia Modificadora de Enfermedad de EM en esta paciente (Interferón) podría desencadenar parálisis fatal.</p>`;
+           feedbackEl.className = 'mt-6 p-6 rounded-xl text-md text-left bg-rose-50 text-rose-800 border-[2px] border-rose-300 shadow-md block animate-[fadeIn_0.5s_ease-out]';
         }
-        feedbackEl.style.display = 'block';
       }
 
-      // --- Lógica de la Autoevaluación ---
+      // --- Quiz Logic ---
       function setupQuiz(container) {
         const quizData = [
           {
-            question:
-              'Paciente con SCA (neuritis óptica). RMN muestra 3 lesiones periventriculares y 1 en el puente. No hay captación de gadolinio. ¿Qué hallazgo adicional es suficiente para diagnosticar EM?',
+            question: 'Paciente joven femenino con parestesias agudas ascendentes, parestesia en pierna derecha, y episodio previo de ceguera temporal con dolor en el ojo izquierdo hace un año. RM con LCR que muestra bandas oligoclonales únicas de LCR (BOC). Respecto al diagnóstico de McDonald:',
             options: [
-              'Un segundo ataque clínico',
-              'Anticuerpos anti-AQP4',
-              'Bandas Oligoclonales (BOC) en LCR',
-              'Potencial evocado visual anormal',
+              'No cumple los criterios, se requiere RM repetida demostrando diseminación en tiempo.',
+              'Cumple Criterios. Hubo diseminación en tiempo (DOS ATAQUES: parestesias agudas + neuritis preexistente) y las BOC suman peso adicional.',
+              'Ausencia de síntomas diseminados; un solo ataque clínico.',
+              'Inconsistente con el modelo desmielinizante autoinmune clásico del SNC.'
+            ],
+            correct: 1,
+            justification: 'Paciente presenta eventos consistentes con Síndrome de Nervio Óptico (recuperado) + espinal. Esto por sí mismo atestigua diseminación en tiempo y espacio clínicamente. Las Bandas Oligoclonales apoyan con fuerza la etiología inmunomediada (EM).'
+          },
+          {
+            question: 'Signo clave que identifica MOGAD por sobre Esclerosis Múltiple al momento de una evaluación de Neuritis Óptica (NO) aguda en un adulto joven:',
+            options: [
+              'La NO MOGAD es exclusivamente monocular siempre, y en la EM siempre es binocular concomitante.',
+              'La NO de la EM invariablemente conduce a secuela de ceguera completa y en el MOGAD la recuperación es espontánea en un día.',
+              'La NO en MOGAD se presenta rutinariamente con importante tumefacción de la cabeza del nervio (Papiledema), mientras que en EM puede ser retrobulbar pura, sin papiledema en la etapa inicial.',
+              'Ausencia de dolor con los movimientos oculares en MOGAD.'
             ],
             correct: 2,
-            justification:
-              'El paciente cumple DIE. La presencia de BOC en LCR demuestra DIT, confirmando el diagnóstico.',
-          },
-          {
-            question:
-              'Hombre de 45 años con 2 brotes clínicos (mielitis y OIN) y secuelas objetivas de ambos. ¿Qué se necesita para confirmar el diagnóstico de EM?',
-            options: [
-              'RMN con DIE',
-              'Punción lumbar con BOC',
-              'RMN con DIT',
-              'Nada más, el diagnóstico es clínico',
-            ],
-            correct: 3,
-            justification:
-              'Con ≥2 ataques y ≥2 lesiones objetivas, el diagnóstico es clínico.',
-          },
-          {
-            question:
-              'Paciente con SCA (diplopía) y una única lesión en tronco en RMN. Para cumplir DIE, necesita:',
-            options: [
-              '≥1 lesión en región periventricular, (yux)cortical o medular',
-              '≥2 lesiones en otras regiones',
-              'BOC en LCR',
-              'Captación de gadolinio en la misma lesión',
-            ],
-            correct: 0,
-            justification:
-              'Necesita al menos una lesión en otra de las 4 localizaciones clave para demostrar diseminación en diferentes espacios anatómicos.',
-          },
-          {
-            question:
-              'SCA con una lesión periventricular (capta gadolinio) y una infratentorial (no capta). ¿Qué criterios cumple?',
-            options: ['Solo DIE', 'Solo DIT', 'DIE y DIT', 'Ninguno'],
-            correct: 2,
-            justification:
-              'Cumple DIE (2 localizaciones) y DIT (lesiones que captan y no captan simultáneamente).',
-          },
-          {
-            question:
-              'La principal ventaja de incorporar las BOC en los criterios de 2017 es:',
-            options: [
-              'Aumentar la especificidad',
-              'Diagnosticar sin RMN',
-              'Reemplazar la DIE',
-              'Acelerar el diagnóstico sustituyendo la DIT por RMN',
-            ],
-            correct: 3,
-            justification:
-              'Permite un diagnóstico más rápido al no tener que esperar una segunda RMN o un segundo brote para demostrar DIT.',
-          },
+            justification: 'Estructuralmente, MOGAD afecta las porciones anteriores e intrínsecas retroorbitarias desencadenando un hinchazón papilar grave. En EM, clásicamente es una neuritis retrobulbar donde "el paciente ve nada (por la placa) y el médico ve nada (por el papel normal del disco de momento)".'
+          }
         ];
+        
         const questionsContainer = container.querySelector('#quiz-questions');
-        questionsContainer.innerHTML = quizData
-          .map(
-            (q, i) => `
-                <div class="question-block mb-6 p-4 border rounded-lg bg-white">
-                    <p class="font-semibold">${i + 1}. ${q.question}</p>
-                    <div class="options-container mt-3 space-y-2">
-                        ${q.options.map((opt, j) => `<button class="option-btn w-full text-left p-3 border rounded-lg hover:bg-gray-100" data-correct="${j === q.correct}" data-feedback="${q.justification}">${String.fromCharCode(65 + j)}. ${opt}</button>`).join('')}
-                    </div>
-                    <div class="feedback mt-3 p-3 rounded-lg text-sm" style="display: none;"></div>
-                </div>
-            `,
-          )
-          .join('');
+        questionsContainer.innerHTML = quizData.map((q, i) => `
+             <div class="question-block mb-10 p-6 md:p-8 border border-slate-200 rounded-2xl bg-white shadow-sm">
+                 <div class="flex items-start gap-4 mb-6">
+                    <span class="bg-indigo-100 text-indigo-700 font-black rounded-lg w-10 h-10 flex shrink-0 items-center justify-center text-xl">${i+1}</span>
+                    <p class="font-bold text-slate-800 text-lg leading-relaxed pt-1">${q.question}</p>
+                 </div>
+                 <div class="options-container space-y-3 pl-14">
+                     ${q.options.map((opt, j) => `
+                        <button class="option-btn w-full text-left p-4 border border-slate-200 rounded-xl hover:border-indigo-400 focus:outline-none transition-all font-medium text-slate-700 bg-slate-50 relative overflow-hidden group" data-correct="${j === q.correct}" data-feedback="${q.justification}">
+                          <div class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500 scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom"></div>
+                          <span class="font-bold text-indigo-400 mr-2">${String.fromCharCode(65 + j)}.</span> ${opt}
+                        </button>
+                      `).join('')}
+                 </div>
+                 <div class="feedback mt-6 ml-14 rounded-xl text-md transition-all font-medium border" style="display: none;"></div>
+             </div>
+        `).join('');
 
-        container.querySelectorAll('.option-btn').forEach((btn) => {
-          btn.addEventListener('click', () => {
-            const isCorrect = btn.dataset.correct === 'true';
-            const feedback = btn.dataset.feedback;
-            const questionBlock = btn.closest('.question-block');
-            const feedbackEl = questionBlock.querySelector('.feedback');
+        container.querySelectorAll('.option-btn').forEach(btn => {
+           btn.addEventListener('click', () => {
+              const isCorrect = btn.dataset.correct === 'true';
+              const feedback = btn.dataset.feedback;
+              const questionBlock = btn.closest('.question-block');
+              const feedbackEl = questionBlock.querySelector('.feedback');
 
-            questionBlock.querySelectorAll('.option-btn').forEach((opt) => {
-              opt.disabled = true;
-              if (opt.dataset.correct === 'true') {
-                opt.classList.add('bg-green-200', 'border-green-400');
+              questionBlock.querySelectorAll('.option-btn').forEach(opt => {
+                 opt.disabled = true;
+                 opt.classList.remove('hover:border-indigo-400', 'group');
+                 opt.classList.add('opacity-60', 'cursor-default');
+                 if (opt.dataset.correct === 'true') {
+                    opt.classList.remove('bg-slate-50', 'border-slate-200', 'opacity-60');
+                    opt.classList.add('bg-emerald-50', 'border-emerald-400', 'text-emerald-800');
+                 }
+              });
+
+              if (isCorrect) {
+                 feedbackEl.innerHTML = `<div class="p-5 flex gap-4"><div class="mt-1"><i class="fas fa-check-circle text-2xl text-emerald-500"></i></div> <div><strong class="block text-emerald-700 mb-1 text-lg">Respuesta Correcta</strong> <span class="text-emerald-800/80 leading-relaxed">${feedback}</span></div></div>`;
+                 feedbackEl.className = 'feedback mt-6 ml-14 rounded-xl text-md transition-all bg-emerald-50 border-emerald-200 font-medium block animate-[fadeIn_0.4s_ease-out] shadow-sm transform translate-y-0';
+              } else {
+                 btn.classList.remove('opacity-60', 'bg-slate-50');
+                 btn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-800', 'opacity-100');
+                 
+                 feedbackEl.innerHTML = `<div class="p-5 flex gap-4"><div class="mt-1"><i class="fas fa-times-circle text-2xl text-rose-500"></i></div> <div><strong class="block text-rose-700 mb-1 text-lg">Respuesta Incorrecta</strong> <span class="text-rose-800/80 leading-relaxed">El fundamento lógico es el siguiente: ${feedback}</span></div></div>`;
+                 feedbackEl.className = 'feedback mt-6 ml-14 rounded-xl text-md transition-all bg-rose-50 border-rose-200 font-medium block animate-[fadeIn_0.4s_ease-out] shadow-sm';
               }
-            });
-
-            if (isCorrect) {
-              btn.classList.add('bg-green-200', 'border-green-400');
-              feedbackEl.innerHTML = `<strong>¡Correcto!</strong> ${feedback}`;
-              feedbackEl.className =
-                'feedback mt-3 p-3 rounded-lg text-sm bg-green-100 text-green-800';
-            } else {
-              btn.classList.add('bg-red-200', 'border-red-400');
-              feedbackEl.innerHTML = `<strong>Incorrecto.</strong> ${feedback}`;
-              feedbackEl.className =
-                'feedback mt-3 p-3 rounded-lg text-sm bg-red-100 text-red-800';
-            }
-            feedbackEl.style.display = 'block';
-          });
+           });
         });
       }
     </script>
