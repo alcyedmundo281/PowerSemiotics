@@ -38,6 +38,29 @@
             background: #94a3b8; 
             border-radius: 10px;
         }
+
+        /* Flashcard CSS */
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 <body>
@@ -53,7 +76,9 @@
             Calendar: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>,
             UserX: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="17" y1="8" x2="22" y2="13"></line><line x1="22" y1="8" x2="17" y2="13"></line></svg>,
             CheckCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>,
-            AlertCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            AlertCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>,
+            Layers: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>,
+            Gamepad2: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><line x1="15" y1="13" x2="15.01" y2="13"></line><line x1="18" y1="11" x2="18.01" y2="11"></line><rect x="2" y="6" width="20" height="12" rx="2"></rect></svg>
         };
 
         // --- COMPONENTES DE VISTA ---
@@ -313,6 +338,248 @@
             );
         };
 
+// 4. Flashcards USMLE
+        const UsmleFlashcards = () => {
+            const [currentCard, setCurrentCard] = useState(0);
+            const [isFlipped, setIsFlipped] = useState(false);
+
+            const flashcards = [
+                {
+                    front: "Vacunación en Asplenia (Funcional/Anatómica)",
+                    back: "Cubrir bacterias encapsuladas: Neumococo, Haemophilus influenzae tipo B (Hib) y Meningococo. Indispensable la vacuna anual contra la Influenza."
+                },
+                {
+                    front: "Embarazo y Vacunas Vivas",
+                    back: "CONTRAINDICADAS (Ej: MMR, Varicela, Influenza Intranasal). Se debe evitar el embarazo por 28 días tras su administración."
+                },
+                {
+                    front: "Esquema Tdap en Embarazo",
+                    back: "Administrar en CADA embarazo, idealmente entre las semanas 27 y 36. Proporciona inmunidad pasiva (IgG) al feto contra la tos ferina."
+                },
+                {
+                    front: "Contraindicaciones absolutas de Rotavirus",
+                    back: "Antecedentes de invaginación intestinal (intussusception) o presencia de Inmunodeficiencia Combinada Grave (SCID)."
+                },
+                {
+                    front: "Pauta de 'Catch-up' en Vacunas Retrasadas",
+                    back: "NUNCA reiniciar la serie sin importar el tiempo transcurrido. Retomar usando los intervalos mínimos recomendados."
+                },
+                {
+                    front: "Prevención de VSR (Virus Sincitial Respiratorio)",
+                    back: "Vacuna RSV a la madre (32-36 semanas de gestación) O Anticuerpo monoclonal (Nirsevimab) al lactante."
+                }
+            ];
+
+            const nextCard = () => {
+                setIsFlipped(false);
+                setTimeout(() => {
+                    setCurrentCard((prev) => (prev + 1) % flashcards.length);
+                }, 150);
+            };
+
+            const prevCard = () => {
+                setIsFlipped(false);
+                setTimeout(() => {
+                    setCurrentCard((prev) => (prev - 1 + flashcards.length) % flashcards.length);
+                }, 150);
+            };
+
+            return (
+                <div className="animate-fade-in bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div className="flex items-center justify-between mb-8 border-b pb-4">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.Layers /> Flashcards USMLE
+                        </h2>
+                        <span className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase">UpToDate High-Yield</span>
+                    </div>
+
+                    <div className="flex flex-col items-center">
+                        <div className="text-sm font-semibold text-slate-500 mb-4 tracking-widest uppercase">
+                            Tarjeta {currentCard + 1} de {flashcards.length}
+                        </div>
+
+                        {/* Flashcard Container */}
+                        <div 
+                            className={`flip-card w-full max-w-lg h-64 cursor-pointer select-none ${isFlipped ? 'flipped' : ''}`}
+                            onClick={() => setIsFlipped(!isFlipped)}
+                        >
+                            <div className="flip-card-inner relative w-full h-full text-center shadow-lg rounded-2xl">
+                                {/* Front */}
+                                <div className="flip-card-front bg-slate-800 text-white rounded-2xl flex flex-col items-center justify-center p-8 border-4 border-slate-700">
+                                    <h3 className="text-xl md:text-2xl font-bold mb-4">{flashcards[currentCard].front}</h3>
+                                    <p className="text-slate-400 text-sm italic mt-auto">🌟 Toca para revelar 🌟</p>
+                                </div>
+                                {/* Back */}
+                                <div className="flip-card-back bg-emerald-50 text-slate-800 rounded-2xl flex flex-col items-center justify-center p-8 border-4 border-emerald-400">
+                                    <p className="text-lg md:text-xl font-medium leading-relaxed">{flashcards[currentCard].back}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Controls */}
+                        <div className="flex gap-4 mt-8">
+                            <button onClick={prevCard} className="px-6 py-2 rounded-lg font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors">
+                                Anterior
+                            </button>
+                            <button onClick={nextCard} className="px-6 py-2 rounded-lg font-bold bg-slate-800 text-white hover:bg-slate-900 transition-colors">
+                                Siguiente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 5. Autoevaluación Gamificada
+        const GamifiedQuiz = () => {
+            const [currentQuestion, setCurrentQuestion] = useState(0);
+            const [score, setScore] = useState(0);
+            const [showResults, setShowResults] = useState(false);
+            const [feedback, setFeedback] = useState(null);
+
+            const questions = [
+                {
+                    text: "Paciente de 28 años, VIH positivo con CD4 de 150 cel/mm3, acude a su control habitual. ¿Qué vacuna está absolutamente contraindicada en este momento?",
+                    options: [
+                        { id: 'a', text: "Vacuna antineumocócica conjugada (PCV20)" },
+                        { id: 'b', text: "Influenza intramuscular inactivada" },
+                        { id: 'c', text: "Triple Viral (Sarampión, Rubéola, Parotiditis)" },
+                        { id: 'd', text: "Hepatitis B recombinante" }
+                    ],
+                    correct: 'c',
+                    explanation: "Correcto. La vacuna Triple Viral (SRP) es de virus VIVOS atenuados. Está contraindicada en pacientes con VIH y un recuento de CD4 < 200 cel/mm3 por el riesgo de enfermedad vacunal diseminada."
+                },
+                {
+                    text: "Mujer de 32 años, primigesta cursando la semana 29 de embarazo. Acude a su control prenatal de rutina. ¿Qué indicación vacunal es prioritaria según las guías actuales?",
+                    options: [
+                        { id: 'a', text: "Administrar Tdap para proteger al recién nacido" },
+                        { id: 'b', text: "Administrar SRP para prevenir rubéola congénita" },
+                        { id: 'c', text: "Diferir todas las vacunas hasta el postparto" },
+                        { id: 'd', text: "Vacuna oral contra el Rotavirus" }
+                    ],
+                    correct: 'a',
+                    explanation: "Correcto. La Tdap está indicada en CADA embarazo (óptimo semanas 27-36) para desarrollar niveles altos de IgG materna contra la toxina pertússica, los cuales cruzan la placenta y protegen al lactante durante sus primeros meses."
+                },
+                {
+                    text: "Una paciente de 24 años se administró la vacuna contra la Fiebre Amarilla (viva atenuada) para un viaje. Cuatro días después descubre que está embarazada de 6 semanas. Se muestra muy ansiosa. ¿Cuál es el manejo más apropiado?",
+                    options: [
+                        { id: 'a', text: "Recomendar la interrupción terapéutica del embarazo." },
+                        { id: 'b', text: "Tranquilizar a la paciente e informar que no es indicación para terminar el embarazo." },
+                        { id: 'c', text: "Administrar inmunoglobulina hiperinmune de inmediato." },
+                        { id: 'd', text: "Realizar amniocentesis de urgencia para descartar infección fetal." }
+                    ],
+                    correct: 'b',
+                    explanation: "Correcto. Aunque las vacunas vivas están contraindicadas durante el embarazo, la administración inadvertida de una vacuna viva (como MMR, Fiebre Amarilla o Varicela) durante o justo antes del embarazo NO es una indicación documentada para la interrupción del mismo, ya que el riesgo teórico de teratogénesis es extremadamente bajo."
+                }
+            ];
+
+            const answerQuestion = (optionId) => {
+                if (feedback) return; // Prevent double clicking
+                
+                const isCorrect = optionId === questions[currentQuestion].correct;
+                if (isCorrect) setScore(score + 1);
+                
+                setFeedback({
+                    isCorrect,
+                    text: isCorrect ? "¡Correcto! " + questions[currentQuestion].explanation : "Incorrecto. Intenta deducir usando los principios UpToDate."
+                });
+            };
+
+            const nextQuestion = () => {
+                setFeedback(null);
+                if (currentQuestion + 1 < questions.length) {
+                    setCurrentQuestion(currentQuestion + 1);
+                } else {
+                    setShowResults(true);
+                }
+            };
+
+            const restartQuiz = () => {
+                setCurrentQuestion(0);
+                setScore(0);
+                setShowResults(false);
+                setFeedback(null);
+            };
+
+            if (showResults) {
+                return (
+                    <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 text-center animate-fade-in">
+                        <h2 className="text-3xl font-bold text-slate-800 mb-4">Quiz Finalizado</h2>
+                        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-slate-100 mb-6">
+                            <span className="text-4xl font-black text-emerald-600">{score}/{questions.length}</span>
+                        </div>
+                        <p className="text-lg text-slate-600 mb-8">
+                            {score === questions.length ? "¡Excelente! Dominas los conceptos High-Yield." : "Buen intento. Revisa las Flashcards para solidificar el conocimiento."}
+                        </p>
+                        <button onClick={restartQuiz} className="px-8 py-3 bg-indigo-600 text-white rounded-lg font-bold shadow-md hover:bg-indigo-700 transition">
+                            Reintentar Quiz
+                        </button>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 animate-fade-in">
+                    <div className="flex items-center justify-between mb-6 border-b pb-4">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.Gamepad2 /> UpToDate Quick Quiz
+                        </h2>
+                        <span className="text-sm font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded">
+                            Pregunta {currentQuestion + 1} / {questions.length}
+                        </span>
+                    </div>
+
+                    <div className="mb-8">
+                        <p className="text-lg font-medium text-slate-800 leading-relaxed bg-slate-50 p-6 rounded-xl border border-slate-100">
+                            {questions[currentQuestion].text}
+                        </p>
+                    </div>
+
+                    <div className="space-y-3">
+                        {questions[currentQuestion].options.map((opt) => {
+                            let btnStyle = "bg-white text-slate-700 border-slate-200 hover:border-indigo-400 hover:bg-indigo-50";
+                            if (feedback) {
+                                if (opt.id === questions[currentQuestion].correct) {
+                                    btnStyle = "bg-emerald-50 text-emerald-800 border-emerald-500 font-bold shadow-md";
+                                } else if (feedback && !feedback.isCorrect) {
+                                    btnStyle = "opacity-50 border-slate-200 bg-white text-slate-400 cursor-not-allowed";
+                                } else {
+                                    btnStyle = "opacity-50 border-slate-200 bg-white text-slate-400 cursor-not-allowed";
+                                }
+                            }
+
+                            return (
+                                <button
+                                    key={opt.id}
+                                    onClick={() => answerQuestion(opt.id)}
+                                    disabled={feedback !== null}
+                                    className={`w-full text-left p-4 rounded-xl border-2 transition-all ${btnStyle}`}
+                                >
+                                    <span className="mr-3 font-bold text-slate-400">{opt.id.toUpperCase()}.</span>
+                                    {opt.text}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {feedback && (
+                        <div className="mt-8">
+                            <div className={`p-4 rounded-lg flex items-start gap-3 ${feedback.isCorrect ? 'bg-emerald-100 text-emerald-900 border border-emerald-200' : 'bg-rose-100 text-rose-900 border border-rose-200'}`}>
+                                {feedback.isCorrect ? <Icons.CheckCircle /> : <Icons.AlertCircle />}
+                                <p className="font-medium">{feedback.text}</p>
+                            </div>
+                            <button
+                                onClick={nextQuestion}
+                                className="mt-6 w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition shadow-lg"
+                            >
+                                {currentQuestion + 1 === questions.length ? "Ver Resultados" : "Siguiente Pregunta"}
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
         // --- APLICACIÓN PRINCIPAL ---
         const App = () => {
             const [activeSection, setActiveSection] = useState('types');
@@ -322,6 +589,8 @@
                     case 'types': return <VaccineTypes />;
                     case 'calendar': return <CalendarMSP />;
                     case 'sim': return <PrescriptionSimulator />;
+                    case 'flashcards': return <UsmleFlashcards />;
+                    case 'quiz': return <GamifiedQuiz />;
                     default: return <VaccineTypes />;
                 }
             };
@@ -358,6 +627,20 @@
                                         className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'sim' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white text-indigo-400'}`}
                                     >
                                         <Icons.UserX /> Simulador Prescripción
+                                    </button>
+                                </div>
+                                <div className="pt-4 mt-2 border-t border-slate-700 space-y-2">
+                                    <button 
+                                        onClick={() => setActiveSection('flashcards')}
+                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'flashcards' ? 'bg-amber-500 text-white shadow-lg' : 'hover:bg-slate-800 hover:text-white text-amber-400'}`}
+                                    >
+                                        <Icons.Layers /> Flashcards USMLE
+                                    </button>
+                                    <button 
+                                        onClick={() => setActiveSection('quiz')}
+                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'quiz' ? 'bg-rose-500 text-white shadow-lg' : 'hover:bg-slate-800 hover:text-white text-rose-400'}`}
+                                    >
+                                        <Icons.Gamepad2 /> Gamified Quiz
                                     </button>
                                 </div>
                             </nav>
