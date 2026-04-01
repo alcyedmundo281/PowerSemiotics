@@ -423,10 +423,158 @@
         background-color: #f8d7da;
         border-left: 5px solid #dc3545;
       }
-      .quiz-justification {
-        margin-top: 10px;
-        padding-top: 10px;
-        border-top: 1px dashed #ccc;
+      /* --- Flashcards USMLE --- */
+      .usmle-pearls {
+        background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        border-left: 5px solid #ffc107;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 25px 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      }
+      .usmle-pearls h3 {
+        color: #d39e00;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .flashcards-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 30px 0;
+      }
+      .flashcard-container {
+        width: 100%;
+        max-width: 500px;
+        height: 300px;
+        perspective: 1000px;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+      .flashcard-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        transform-style: preserve-3d;
+      }
+      .flashcard-container.is-flipped .flashcard-inner {
+        transform: rotateY(180deg);
+      }
+      .flashcard-front, .flashcard-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-sizing: border-box;
+      }
+      .flashcard-front {
+        background: linear-gradient(135deg, #0056b3 0%, #003366 100%);
+        color: white;
+      }
+      .flashcard-back {
+        background: #ffffff;
+        color: #003366;
+        transform: rotateY(180deg);
+        border-top: 5px solid #28a745;
+      }
+      .flashcard-front p {
+        font-size: 1.4em;
+        font-weight: 600;
+      }
+      .flashcard-back p {
+        font-size: 1.2em;
+        line-height: 1.6;
+      }
+      .fc-nav {
+        display: flex;
+        gap: 15px;
+      }
+      .fc-btn {
+        background: #e9ecef;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #495057;
+        transition: 0.2s;
+      }
+      .fc-btn:hover { background: #dee2e6; color: #000; }
+      .fc-counter {
+        align-self: center;
+        font-weight: bold;
+        color: #6c757d;
+      }
+
+      /* --- Gamificación ABP --- */
+      .health-bar-container {
+        width: 100%;
+        background-color: #e9ecef;
+        border-radius: 10px;
+        height: 25px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+      }
+      .health-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #28a745, #5cb85c);
+        width: 100%;
+        transition: width 0.5s ease-in-out, background 0.5s;
+      }
+      .health-text {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        pointer-events: none;
+      }
+      .damage-anim {
+        animation: shake 0.5s;
+      }
+      @keyframes shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        10% { transform: translate(-1px, -2px) rotate(-1deg); }
+        20% { transform: translate(-3px, 0px) rotate(1deg); }
+        30% { transform: translate(3px, 2px) rotate(0deg); }
+        40% { transform: translate(1px, -1px) rotate(1deg); }
+        50% { transform: translate(-1px, 2px) rotate(-1deg); }
+        60% { transform: translate(-3px, 1px) rotate(0deg); }
+        70% { transform: translate(3px, 1px) rotate(-1deg); }
+        80% { transform: translate(-1px, -1px) rotate(1deg); }
+        90% { transform: translate(1px, 2px) rotate(0deg); }
+        100% { transform: translate(1px, -2px) rotate(-1deg); }
+      }
+
+      /* Mejoras Quiz */
+      .quiz-options button.correct-anim {
+        background-color: #d4edda !important;
+        border-color: #28a745 !important;
+        color: #155724 !important;
+      }
+      .quiz-options button.wrong-anim {
+        background-color: #f8d7da !important;
+        border-color: #dc3545 !important;
+        color: #721c24 !important;
       }
     </style>
   </head>
@@ -550,9 +698,45 @@
                 </li>
                 <li>
                   <strong>Mantenimiento:</strong> Se usan inmunomoduladores como
-                  la Azatioprina para mantener la remisión libre de esteroides.
-                </li>
               </ul>
+
+              <div class="usmle-pearls">
+                <h3><i class="fas fa-star"></i> Perlas Clínicas (USMLE High-Yield)</h3>
+                <p><strong>Mnemotecnia ULCERS para Colitis Ulcerosa:</strong></p>
+                <ul>
+                  <li><strong>U:</strong> Úlceras (afectación mucosal y submucosal).</li>
+                  <li><strong>L:</strong> Large intestine (Intestino grueso, recto siempre involucrado).</li>
+                  <li><strong>C:</strong> Continuo (lesiones continuas) y Cáncer colorrectal (riesgo elevado).</li>
+                  <li><strong>E:</strong> Extraintestinales (manifestaciones como colangitis esclerosante primaria - CEP).</li>
+                  <li><strong>R:</strong> Rectorragia (diarrea roja/sanguinolenta).</li>
+                  <li><strong>S:</strong> Sclerosing cholangitis.</li>
+                </ul>
+                <p><strong>Diferencias Clave (CU vs Crohn):</strong></p>
+                <ul>
+                  <li><strong>Patología:</strong> CU presenta abscesos crípticos (Th2 mediado). Crohn presenta granulomas no caseificantes (Th1 mediado).</li>
+                  <li><strong>Inmunología:</strong> p-ANCA es positivo frecuentemente en CU; ASCA en Crohn.</li>
+                  <li><strong>Tabaquismo:</strong> Curiosamente, es <em>protector</em> en CU, pero empeora severamente la Enfermedad de Crohn.</li>
+                </ul>
+              </div>
+
+              <div class="flashcards-wrapper">
+                <h3 style="color: #003366; text-align: center; width: 100%;">Repaso Activo (Flashcards)</h3>
+                <div class="flashcard-container" id="fc-container" onclick="flipFlashcard()">
+                  <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                      <p id="fc-front-text">¿Marcador serológico más asociado a Colitis Ulcerosa?</p>
+                    </div>
+                    <div class="flashcard-back">
+                      <p id="fc-back-text">p-ANCA</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="fc-nav">
+                  <button class="fc-btn" onclick="prevFlashcard()"><i class="fas fa-chevron-left"></i> Anterior</button>
+                  <span class="fc-counter" id="fc-counter">1 / 5</span>
+                  <button class="fc-btn" onclick="nextFlashcard()">Siguiente <i class="fas fa-chevron-right"></i></button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -582,7 +766,13 @@
             3. Actividad de Aprendizaje Basado en Problemas (ABP)
           </div>
           <div class="accordion-content">
-            <div class="interactive-container">
+            <div class="interactive-container" id="abp-simulator">
+              <!-- Barra de Salud (Gamificación) -->
+              <div class="health-bar-container abp-hidden" id="health-bar-wrapper">
+                <div class="health-text">Integridad del Paciente: <span id="health-percentage">100</span>%</div>
+                <div class="health-bar-fill" id="health-bar-fill"></div>
+              </div>
+
               <!-- Fase 1: Presentación del Problema -->
               <div id="abp-phase-1" class="abp-phase">
                 <h3>Fase 1: Presentación del Problema (Caso Clínico)</h3>
@@ -647,7 +837,7 @@
                 </div>
                 <button
                   class="abp-reveal-button"
-                  onclick="revealNextPhase('abp-phase-4')"
+                  onclick="revealNextPhase('abp-phase-4'); document.getElementById('health-bar-wrapper').classList.remove('abp-hidden');"
                 >
                   Continuar a la Toma de Decisiones
                 </button>
@@ -691,6 +881,11 @@
                     Verificar
                   </button>
                   <div id="feedback-ind" class="abp-feedback abp-hidden"></div>
+                </div>
+                
+                <div id="abp-final-review" class="abp-hidden" style="margin-top:20px; text-align:center;">
+                  <h3 id="abp-final-status" style="color:#0056b3;"></h3>
+                  <p id="abp-final-msg"></p>
                 </div>
               </div>
             </div>
@@ -780,6 +975,45 @@
           });
         }
 
+        // Flashcards Logic
+        const fcData = [
+          { q: "¿Marcador serológico más asociado a Colitis Ulcerosa?", a: "p-ANCA" },
+          { q: "¿Marcador serológico de la Enf. de Crohn?", a: "ASCA" },
+          { q: "Mnemotecnia ULCERS: ¿Qué significa la 'C' doble?", a: "Continuo y Cáncer colorrectal" },
+          { q: "¿Hallazgo histológico patognomónico clásico en CU?", a: "Abscesos crípticos (Th2)" },
+          { q: "Efecto del tabaquismo en la Colitis Ulcerosa vs Crohn", a: "Protector en CU, dañino en Crohn" }
+        ];
+        let currentFc = 0;
+        
+        window.flipFlashcard = function() {
+          const container = document.getElementById('fc-container');
+          if(container) container.classList.toggle('is-flipped');
+        };
+        
+        function updateFcUI() {
+          const container = document.getElementById('fc-container');
+          if(container) container.classList.remove('is-flipped');
+          setTimeout(() => {
+            const frontEl = document.getElementById('fc-front-text');
+            const backEl = document.getElementById('fc-back-text');
+            const countEl = document.getElementById('fc-counter');
+            if (frontEl) frontEl.textContent = fcData[currentFc].q;
+            if (backEl) backEl.textContent = fcData[currentFc].a;
+            if (countEl) countEl.textContent = `${currentFc + 1} / ${fcData.length}`;
+          }, 150);
+        }
+        
+        window.nextFlashcard = function() {
+          currentFc = (currentFc + 1) % fcData.length;
+          updateFcUI();
+        };
+        
+        window.prevFlashcard = function() {
+          currentFc = (currentFc - 1 + fcData.length) % fcData.length;
+          updateFcUI();
+        };
+        updateFcUI(); // init
+
         // ABP Logic
         window.revealNextPhase = function (phaseId) {
           const nextPhase = document.getElementById(phaseId);
@@ -788,6 +1022,28 @@
             adjustAccordionHeight(nextPhase);
           }
         };
+
+        // Gamificación Variables
+        let healthPoints = 100;
+        let abpCompletedDecisions = 0;
+
+        function updateHealth(amt) {
+          healthPoints += amt;
+          if(healthPoints > 100) healthPoints = 100;
+          if(healthPoints < 0) healthPoints = 0;
+          const pctEl = document.getElementById('health-percentage');
+          const fillEl = document.getElementById('health-bar-fill');
+          if(pctEl) pctEl.textContent = healthPoints;
+          if(fillEl) fillEl.style.width = healthPoints + '%';
+          
+          if(amt < 0) {
+            const bar = document.getElementById('health-bar-wrapper');
+            if(bar) {
+              bar.classList.add('damage-anim');
+              setTimeout(() => bar.classList.remove('damage-anim'), 500);
+            }
+          }
+        }
 
         window.checkAbpDecision = function (decisionType) {
           let feedbackText = '';
@@ -802,27 +1058,36 @@
             return;
           }
 
+          // Deshabilitar radio buttons para evitar trampas
+          const radios = document.querySelectorAll(`input[name="${decisionType}"]`);
+          radios.forEach(r => r.disabled = true);
+          const btn = document.querySelector(`button[onclick="checkAbpDecision('${decisionType}')"]`);
+          if(btn) btn.disabled = true;
+
           switch (decisionType) {
             case 'clas':
               feedbackElement = document.getElementById('feedback-clas');
               if (selectedValue === 'e2s2') {
                 feedbackText =
-                  '<strong>Correcto.</strong> La inflamación hasta el ángulo esplénico es Colitis Izquierda (E2) y los síntomas corresponden a un brote Moderado (S2).';
+                  '<strong>Correcto.</strong> Inflamación hasta ángulo esplénico = Colitis Izquierda (E2). Síntomas sistémicos = Moderado (S2). ¡Buen diagnóstico!';
                 isCorrect = true;
               } else {
                 feedbackText =
-                  '<strong>Incorrecto.</strong> Revise la clasificación de Montreal. La inflamación llega hasta el ángulo esplénico (E2) y los síntomas sistémicos lo clasifican como moderado (S2).';
+                  '<strong>Incorrecto.</strong> Revisa Montreal. La extensión es E2 y severidad S2. El paciente sufre estrés por mal diagnóstico. (-15 Salud)';
+                updateHealth(-15);
               }
               break;
             case 'ind':
               feedbackElement = document.getElementById('feedback-ind');
               if (selectedValue === 'prednisona') {
                 feedbackText =
-                  '<strong>Correcto.</strong> Para un brote moderado, se requiere un corticoide sistémico como la Prednisona para inducir la remisión. La Mesalazina sola es insuficiente y la Azatioprina es para mantenimiento, no inducción.';
+                  '<strong>Correcto.</strong> Brote moderado requiere corticoide sistémico para inducción. (+5 Salud)';
                 isCorrect = true;
+                updateHealth(5);
               } else {
                 feedbackText =
-                  '<strong>Incorrecto.</strong> La Mesalazina es para casos leves o mantenimiento. La Azatioprina tiene un inicio de acción muy lento y no se usa para inducción. La Prednisona es la elección para apagar un brote moderado.';
+                  '<strong>Incorrecto.</strong> Mesalazina no basta y AZA es para mantenimiento. El brote empeora. (-20 Salud)';
+                updateHealth(-20);
               }
               break;
           }
@@ -831,6 +1096,28 @@
           feedbackElement.className = `abp-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
           feedbackElement.classList.remove('abp-hidden');
           adjustAccordionHeight(feedbackElement);
+          
+          abpCompletedDecisions++;
+          if (abpCompletedDecisions >= 2) {
+             setTimeout(() => {
+                const finalReview = document.getElementById('abp-final-review');
+                const statusStr = document.getElementById('abp-final-status');
+                const msgStr = document.getElementById('abp-final-msg');
+                if(finalReview) finalReview.classList.remove('abp-hidden');
+                
+                if(healthPoints >= 90) {
+                   if(statusStr) { statusStr.textContent = "¡Caso Exitoso!"; statusStr.style.color = "#28a745"; }
+                   if(msgStr) msgStr.textContent = "Excelente abordaje. El paciente está estable y en vía de remisión.";
+                } else if(healthPoints > 50) {
+                   if(statusStr) { statusStr.textContent = "Caso Aceptable"; statusStr.style.color = "#fd7e14"; }
+                   if(msgStr) msgStr.textContent = "Lograste estabilizar al paciente, pero hubo errores en el camino. Revisa el protocolo de actuación.";
+                } else {
+                   if(statusStr) { statusStr.textContent = "Caso Crítico"; statusStr.style.color = "#dc3545"; }
+                   if(msgStr) msgStr.textContent = "Las decisiones comprometieron la integridad del paciente. Necesita atención de tercer nivel.";
+                }
+                adjustAccordionHeight(finalReview);
+             }, 800);
+          }
         };
 
         // Presentation Logic
@@ -1071,19 +1358,39 @@
             button.onclick = () => selectQuizOption(index, button);
             optionsContainer.appendChild(button);
           });
+          quizNavButton.style.display = 'none'; // se revela tras responder
           quizNavButton.textContent =
             currentQuizQuestionIndex === quizData.length - 1
               ? 'Finalizar y Ver Resultados'
               : 'Siguiente Pregunta';
+          adjustAccordionHeight(optionsContainer);
         }
 
         function selectQuizOption(index, button) {
-          const options = document.querySelectorAll(
-            '#quiz-options-container button',
-          );
-          options.forEach((btn) => btn.classList.remove('selected'));
-          button.classList.add('selected');
+          if (userAnswers[currentQuizQuestionIndex] !== undefined) return;
           userAnswers[currentQuizQuestionIndex] = index;
+          
+          const q = quizData[currentQuizQuestionIndex];
+          const options = document.querySelectorAll('#quiz-options-container button');
+          
+          options.forEach((btn, i) => {
+            btn.disabled = true;
+            if (i === q.correctAnswer) {
+               btn.classList.add('correct-anim');
+            } else if (i === index && index !== q.correctAnswer) {
+               btn.classList.add('wrong-anim');
+            }
+          });
+          
+          const optionsContainer = document.getElementById('quiz-options-container');
+          const justif = document.createElement('div');
+          justif.className = 'quiz-justification';
+          justif.style.marginTop = '15px';
+          justif.innerHTML = `<strong>Justificación:</strong> ${q.justification}`;
+          optionsContainer.appendChild(justif);
+          
+          quizNavButton.style.display = 'inline-block';
+          adjustAccordionHeight(optionsContainer);
         }
 
         function nextQuizQuestion() {
