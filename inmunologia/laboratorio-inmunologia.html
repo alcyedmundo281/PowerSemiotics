@@ -43,6 +43,20 @@
             background: #a855f7; 
             border-radius: 10px;
         }
+
+        /* Utilidades para Flashcards 3D */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 <body>
@@ -57,6 +71,8 @@
             TestTube: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5h0c-1.4 0-2.5-1.1-2.5-2.5V2"></path><path d="M8.5 2h7"></path><path d="M14.5 16h-5"></path></svg>,
             ClipboardList: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>,
             Target: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>,
+            Brain: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>,
+            RefreshCw: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>,
             CheckCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>,
             XCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
         };
@@ -74,11 +90,17 @@
                         Los ANA son la prueba de tamizaje (screening) inicial para enfermedades reumatológicas sistémicas. Son <strong>altamente sensibles</strong> (raro tener Lupus con ANA negativo), pero <strong>poco específicos</strong> (personas sanas, infecciones o fármacos pueden positivizarlos). Se miden por Inmunofluorescencia Indirecta (IFI).
                     </p>
                     
-                    <div className="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 rounded-r-lg text-sm text-amber-900">
-                        <strong>Regla Clínica:</strong> Títulos de ANA &lt; 1:80 a menudo carecen de importancia clínica. Títulos <strong>&ge; 1:160</strong> en presencia de síntomas (artritis, rash, serositis) obligan a investigar anticuerpos específicos.
+                    <div className="bg-amber-50 border-l-4 border-amber-500 p-4 mb-4 rounded-r-lg text-sm text-amber-900 shadow-sm">
+                        <div className="mb-2"><strong className="text-amber-950 uppercase tracking-wide text-xs">UptoDate Clinical Pearl: ¿Cuándo testear?</strong></div>
+                        Las pruebas ANA deben ordenarse <strong>solo si hay alta probabilidad pre-test</strong> de enfermedad reumática (ej. rash malar, sinovitis clínica, Raynaud). El cribado rutinario para fatiga crónica o dolores inespecíficos genera alta tasa de <strong>falsos positivos</strong>.
+                    </div>
+                    
+                    <div className="bg-emerald-50 border-l-4 border-emerald-500 p-4 mb-6 rounded-r-lg text-sm text-emerald-900 shadow-sm">
+                        <div className="mb-2"><strong className="text-emerald-950 uppercase tracking-wide text-xs">Perla de Patrón: DFS70</strong></div>
+                        El Patrón Moteado Fino Denso aislado (DFS70) es frecuentemente encontrado en <strong>personas sanas</strong>. Su presencia asilada brinda tranquilidad, ya que es excepcionalmente raro en Enfermedades Reumatológicas Sistémicas severas.
                     </div>
 
-                    <h3 className="text-xl font-bold text-purple-900 mb-4">Patrones de Inmunofluorescencia (IFI)</h3>
+                    <h3 className="text-xl font-bold text-purple-900 mb-4">Patrones Clásicos de Inmunofluorescencia</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Homogéneo */}
                         <div className="border border-slate-200 rounded-lg p-4 hover:border-purple-400 transition-colors bg-purple-50/30">
@@ -110,10 +132,11 @@
                             <h4 className="font-bold text-purple-800 mb-2 flex items-center gap-2">
                                 <div className="w-4 h-4 rounded-full bg-slate-200 flex items-center justify-center"><div className="w-1 h-1 bg-purple-800 rounded-full"></div></div> Centromérico
                             </h4>
-                            <p className="text-sm text-slate-700 mb-2">Tinción de 46 puntos aislados correspondientes a los centrómeros de los cromosomas.</p>
+                            <p className="text-sm text-slate-700 mb-2">Tinción de 46 puntos aislados correspondientes a los centrómeros de los cromosomas (CENP-B).</p>
                             <p className="text-sm font-semibold text-slate-900">Asociación Clínica:</p>
                             <ul className="list-disc pl-5 text-sm text-slate-600">
                                 <li>Esclerosis Sistémica Limitada (Síndrome CREST).</li>
+                                <li>Cirrosis Biliar Primaria (CBP).</li>
                             </ul>
                         </div>
                         {/* Nucleolar */}
@@ -144,16 +167,16 @@
                     </div>
                     
                     <p className="text-slate-600 mb-6">
-                        Tabla resumen para exámenes de grado. Relaciona el anticuerpo específico con su patología de mayor asociación.
+                        Correlación de autoanticuerpos de alta especificidad con base en datos de UpToDate.
                     </p>
 
                     <div className="overflow-x-auto custom-scrollbar pb-4">
-                        <table className="w-full text-left border-collapse min-w-[700px]">
+                        <table className="w-full text-left border-collapse min-w-[800px]">
                             <thead>
                                 <tr className="bg-purple-900 text-white">
-                                    <th className="p-3 font-bold rounded-tl-lg w-1/4">Anticuerpo</th>
-                                    <th className="p-3 font-bold w-1/3">Enfermedad Asociada</th>
-                                    <th className="p-3 font-bold rounded-tr-lg">Perla Clínica / Utilidad</th>
+                                    <th className="p-3 font-bold rounded-tl-lg w-1/4">Anticuerpo (ENA/DNA)</th>
+                                    <th className="p-3 font-bold w-1/3">Enfermedad Primaria</th>
+                                    <th className="p-3 font-bold rounded-tr-lg">Perla Clínica / Alto Rendimiento</th>
                                 </tr>
                             </thead>
                             <tbody className="text-sm">
@@ -161,40 +184,44 @@
                                 <tr className="border-b border-purple-100 hover:bg-purple-50">
                                     <td className="p-3 font-bold text-purple-800 bg-purple-50/50">Anti-dsDNA (ADN bicatenario)</td>
                                     <td className="p-3 text-slate-800 font-semibold">Lupus Eritematoso Sistémico (LES)</td>
-                                    <td className="p-3 text-slate-600">Altamente específico. Sus niveles se correlacionan con la actividad de la enfermedad (especialmente Nefritis Lúpica).</td>
+                                    <td className="p-3 text-slate-600">Sensibilidad ~60%, Especificidad >95%. Sus títulos varían y se correlacionan con <strong>Nefritis Lúpica</strong> y actividad de la enfermedad.</td>
                                 </tr>
                                 <tr className="border-b border-purple-100 hover:bg-purple-50">
                                     <td className="p-3 font-bold text-purple-800 bg-purple-50/50">Anti-Sm (Smith)</td>
                                     <td className="p-3 text-slate-800">LES</td>
-                                    <td className="p-3 text-slate-600">El anticuerpo <strong>más específico</strong> para LES, pero poco sensible (solo 20-30% de pacientes lo tienen).</td>
+                                    <td className="p-3 text-slate-600">El anticuerpo <strong>más específico</strong> para LES (>99%), pero pobre sensibilidad (20-30%). Sus niveles no se correlacionan con la actividad clínica.</td>
                                 </tr>
                                 <tr className="border-b border-purple-100 hover:bg-purple-50">
                                     <td className="p-3 font-bold text-purple-800 bg-purple-50/50">Anti-Histonas</td>
-                                    <td className="p-3 text-slate-800">Lupus Inducido por Fármacos</td>
-                                    <td className="p-3 text-slate-600">Clásico post uso de Hidralazina, Isoniazida, Procainamida.</td>
+                                    <td className="p-3 text-slate-800 font-semibold">Lupus Inducido por Fármacos</td>
+                                    <td className="p-3 text-slate-600">Presente en >95% de los casos. Clásico post uso de <strong>Hidralazina, Procainamida o Isoniazida</strong>.</td>
                                 </tr>
-                                {/* AR */}
+                                {/* MCTD & Sjögren */}
                                 <tr className="border-b border-purple-100 hover:bg-purple-50">
-                                    <td className="p-3 font-bold text-indigo-700 bg-indigo-50/50">Anti-CCP (Péptidos Citrulinados)</td>
-                                    <td className="p-3 text-slate-800 font-semibold">Artritis Reumatoide</td>
-                                    <td className="p-3 text-slate-600">Más específico que el Factor Reumatoide (FR). Marcador de enfermedad erosiva grave.</td>
+                                    <td className="p-3 font-bold text-teal-700 bg-teal-50/50">Anti-U1 RNP</td>
+                                    <td className="p-3 text-slate-800 font-semibold">Enfermedad Mixta del Tejido Conectivo (EMTC)</td>
+                                    <td className="p-3 text-slate-600">Su presencia a altos títulos es <strong>obligatoria</strong> para el diagnóstico (Sensibilidad 100%).</td>
                                 </tr>
-                                {/* Sjögren */}
                                 <tr className="border-b border-purple-100 hover:bg-purple-50">
                                     <td className="p-3 font-bold text-teal-700 bg-teal-50/50">Anti-Ro (SSA) y Anti-La (SSB)</td>
-                                    <td className="p-3 text-slate-800">Síndrome de Sjögren</td>
-                                    <td className="p-3 text-slate-600">Se asocian a Lupus Neonatal (bloqueo cardíaco congénito si la madre es positiva).</td>
+                                    <td className="p-3 text-slate-800">Síndrome de Sjögren / LES</td>
+                                    <td className="p-3 text-slate-600">Altamente predictivos del <strong>Lupus Neonatal</strong> y bloqueo auriculoventricular congénito si la madre embarazada es positiva.</td>
                                 </tr>
-                                {/* Vasculitis */}
+                                {/* Sclerosis y Miositis */}
                                 <tr className="border-b border-purple-100 hover:bg-purple-50">
-                                    <td className="p-3 font-bold text-rose-700 bg-rose-50/50">c-ANCA (Anti-PR3)</td>
-                                    <td className="p-3 text-slate-800 font-semibold">Granulomatosis con Poliangeítis (Wegener)</td>
-                                    <td className="p-3 text-slate-600">Paciente con sinusitis crónica, hemoptisis y glomerulonefritis.</td>
+                                    <td className="p-3 font-bold text-amber-700 bg-amber-50/50">Anti-Scl-70 (Topoisomerasa I)</td>
+                                    <td className="p-3 text-slate-800 font-semibold">Esclerosis Sistémica Difusa</td>
+                                    <td className="p-3 text-slate-600">Acarrea un riesgo muy alto de desarrollo de <strong>Enfermedad Pulmonar Intersticial (ILD)</strong>.</td>
+                                </tr>
+                                <tr className="border-b border-purple-100 hover:bg-purple-50">
+                                    <td className="p-3 font-bold text-amber-700 bg-amber-50/50">Anti-Centrómero</td>
+                                    <td className="p-3 text-slate-800 font-semibold">Esclerosis Sistémica Limitada (CREST)</td>
+                                    <td className="p-3 text-slate-600">Fuertemente asociado a la aparición tardía de <strong>Hipertensión Arterial Pulmonar (PAH)</strong>.</td>
                                 </tr>
                                 <tr className="hover:bg-purple-50">
-                                    <td className="p-3 font-bold text-rose-700 bg-rose-50/50 rounded-bl-lg">p-ANCA (Anti-MPO)</td>
-                                    <td className="p-3 text-slate-800">Poliangeítis Microscópica / Churg-Strauss</td>
-                                    <td className="p-3 text-slate-600">Asociado a asma severa y eosinofilia en el caso del Síndrome de Churg-Strauss.</td>
+                                    <td className="p-3 font-bold text-amber-700 bg-amber-50/50 rounded-bl-lg">Anti-Jo-1 (Antisintetasa)</td>
+                                    <td className="p-3 text-slate-800">Polimiositis / Dermatomiositis</td>
+                                    <td className="p-3 text-slate-600">Asociado a disnea progresiva (Neumopatía Intersticial) y manos hiperqueratósicas ("Manos de Mecánico").</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -203,7 +230,102 @@
             );
         };
 
-        // 3. Simulador Gamificado: El Patólogo Clínico
+        // 3. Flashcards Gamificadas (USMLE)
+        const Flashcards = () => {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [isFlipped, setIsFlipped] = useState(false);
+
+            const cards = [
+                {
+                    id: 1,
+                    front: "Paciente con debilidad muscular proximal severa. Al examen físico sus dedos presentan fisuras hiperqueratósicas y engrosamento bilateral (Manos de Mecánico). Inicia tos seca progresiva. ¿Qué anticuerpo esperas encontrar y a qué síndrome corresponde?",
+                    back: "Anticuerpo: Anti-Jo-1.\n\nSíndrome: Síndrome Antisintetasa (una variante de la Polimiositis/Dermatomiositis). La tos se debe a Neumopatía Intersticial difusa fuertemente asociada.",
+                    tag: "Reumatología Repaso"
+                },
+                {
+                    id: 2,
+                    front: "Mujer de 38 años presenta fenómeno de Raynaud, dificultad para deglutir (motilidad esofágica alterada) y piel tensa/endurecida estrictamente limitada a la cara y las manos (distal al codo). ¿Qué anticuerpo está asociado y cuál es su principal riesgo letal?",
+                    back: "Anticuerpo: Anti-Centrómero.\n\nEnfermedad: Esclerosis Sistémica Limitada (Síndrome CREST).\nRiesgo Letal asociado: Hipertensión Arterial Pulmonar (PAH).",
+                    tag: "Esclerosis"
+                },
+                {
+                    id: 3,
+                    front: "Un paciente joven sin síntomas clínicos es sometido a un panel ANA 'de rutina' por fatiga laboral. El resultado es positivo 1:160 con patrón DFS70 (Dense Fine Speckled aisaldo). ¿Conducta diagnóstica?",
+                    back: "Tranquilizar al paciente.\n\nPerla: El patrón DFS70 de forma aislada se asocia frecuentemente a individuos asintomáticos y tiene un inmenso Valor Predictivo Negativo para descartar enfermedad reumática sistémica grave.",
+                    tag: "Laboratorio Clínico"
+                }
+            ];
+
+            const flipCard = () => setIsFlipped(!isFlipped);
+            
+            const nextCard = () => {
+                setIsFlipped(false);
+                setTimeout(() => {
+                    setCurrentIndex((prev) => (prev + 1) % cards.length);
+                }, 150); // Pequeño delay visual para que gire devuelta primero
+            };
+
+            const prevCard = () => {
+                setIsFlipped(false);
+                setTimeout(() => {
+                    setCurrentIndex((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
+                }, 150);
+            };
+
+            return (
+                <div className="animate-fade-in bg-slate-900 border border-slate-800 p-8 rounded-2xl flex flex-col items-center">
+                    <div className="w-full flex justify-between items-center mb-8">
+                        <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                            <Icons.Brain /> USMLE Active Recall
+                        </h2>
+                        <span className="bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            {currentIndex + 1} / {cards.length}
+                        </span>
+                    </div>
+
+                    {/* Escena 3D de la Flashcard */}
+                    <div className="w-full max-w-xl aspect-[4/3] perspective-1000 mb-8 cursor-pointer" onClick={flipCard}>
+                        {/* Contenedor Giratorio */}
+                        <div className={`relative w-full h-full duration-500 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+                            
+                            {/* Cara Frontal */}
+                            <div className="absolute w-full h-full backface-hidden bg-white text-slate-800 rounded-2xl shadow-[0_0_25px_rgba(168,85,247,0.3)] border-2 border-purple-200 p-8 flex flex-col justify-center text-center">
+                                <span className="absolute top-4 left-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Pregunta</span>
+                                <p className="text-lg md:text-xl font-medium leading-relaxed">
+                                    {cards[currentIndex].front}
+                                </p>
+                                <div className="absolute bottom-4 left-0 right-0 flex justify-center text-purple-400 opacity-60">
+                                    <Icons.RefreshCw />
+                                </div>
+                            </div>
+
+                            {/* Cara Trasera */}
+                            <div className="absolute w-full h-full backface-hidden bg-purple-900 text-white rounded-2xl shadow-[0_0_25px_rgba(168,85,247,0.5)] border-2 border-purple-400 p-8 flex flex-col justify-center text-center rotate-y-180">
+                                <span className="absolute top-4 left-4 text-xs font-bold text-fuchsia-300 uppercase tracking-widest">Respuesta</span>
+                                <div className="text-lg md:text-xl leading-relaxed whitespace-pre-line">
+                                    {cards[currentIndex].back}
+                                </div>
+                                <div className="absolute bottom-4 right-4 bg-purple-800 px-3 py-1 rounded-full text-xs font-semibold text-purple-300 border border-purple-500">
+                                    {cards[currentIndex].tag}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className="flex gap-4">
+                        <button onClick={prevCard} className="px-6 py-2 rounded-full border border-slate-600 text-slate-300 hover:bg-slate-800 transition-colors">
+                            &larr; Anterior
+                        </button>
+                        <button onClick={nextCard} className="px-6 py-2 rounded-full border border-slate-600 text-slate-300 hover:bg-slate-800 transition-colors">
+                            Siguiente &rarr;
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // 4. Simulador Gamificado: El Patólogo Clínico
         const LabSimulator = () => {
             const [currentCase, setCurrentCase] = useState(0);
             const [feedback, setFeedback] = useState(null);
@@ -219,7 +341,7 @@
                         "ANA (IFI): Positivo, Título 1:640, Patrón Homogéneo",
                         "Factor Reumatoide: Negativo"
                     ],
-                    question: "Según el patrón de ANA y la clínica, ¿qué prueba específica confirmaría el diagnóstico y evaluaría el riesgo de compromiso renal?",
+                    question: "Según el patrón de ANA y la clínica, ¿qué prueba específica confirmaría el diagnóstico y evaluaría el riesgo de compromiso renal severo?",
                     options: [
                         { id: 'ccp', label: 'Anti-CCP' },
                         { id: 'dsdna', label: 'Anti-dsDNA (Anti-ADN de doble cadena)' },
@@ -237,31 +359,67 @@
                         "ANA (IFI): Negativo",
                         "INMUNOLOGÍA VASCULAR: Pendiente"
                     ],
-                    question: "¿Qué marcador serológico esperarías encontrar positivo en este paciente?",
+                    question: "¿Qué autanticuerpo (no-ANA) es patognomónico y marcador sérico ideal para este diagnóstico sistémico?",
                     options: [
                         { id: 'canca', label: 'c-ANCA (Anticuerpos anti-Proteinasa 3)' },
                         { id: 'panca', label: 'p-ANCA (Anticuerpos anti-Mieloperoxidasa)' },
                         { id: 'ro', label: 'Anti-Ro (SSA)' }
                     ],
                     correct: 'canca',
-                    explanation: "Excelente. La tríada clásica de afección del tracto respiratorio superior (sinusitis), tracto respiratorio inferior (hemoptisis/nódulos) y riñón (glomerulonefritis) es típica de la Granulomatosis con Poliangeítis (Enf. de Wegener), fuertemente asociada a c-ANCA (PR3)."
+                    explanation: "Excelente. La tríada clásica de afección de vías aéreas superiores, inferiores (hemoptisis) y glomerulonefritis paucimmune es Granulomatosis con Poliangeítis (Wegener), asociada abrumadoramente a c-ANCA (PR3)."
                 },
                 {
                     id: 3,
+                    patient: "Varón, 60 años",
+                    clinic: "Paciente tratado por tuberculosis activa desde hace 4 meses. Relata aparición súbita de fiebre, artralgias persistentes y mialgias generalizadas.",
+                    labReport: [
+                        "ANA (IFI): Positivo, Título 1:320, Patrón Homogéneo",
+                        "Anti-dsDNA: Negativo",
+                        "Anti-Sm: Negativo"
+                    ],
+                    question: "Suponiendo que los síntomas son causados por su medicación antituberculosa (Isoniazida), ¿qué anticuerpo confirmará el diagnóstico toxicológico?",
+                    options: [
+                        { id: 'u1rnp', label: 'Anti-U1 RNP' },
+                        { id: 'centromero', label: 'Anticuerpos Anti-Centrómero' },
+                        { id: 'histona', label: 'Anticuerpos Anti-Histonas' }
+                    ],
+                    correct: 'histona',
+                    explanation: "Correcto. Fármacos como la Isoniazida, Hidralazina o Procainamida inducen la formación de Anticuerpos Anti-Histonas (patrón homogéneo) causando un 'Lupus Inducido por Fármacos'. Se caracteriza por la ausencia de daño renal o neurológico clásico (por ello dsDNA es negativo)."
+                },
+                {
+                    id: 4,
                     patient: "Mujer, 42 años",
-                    clinic: "Consulta oftalmología por sensación severa de 'arena en los ojos' y al dentista por caries múltiples (boca muy seca). Refiere dolor articular leve.",
+                    clinic: "Consulta al dentista por caries múltiples recurrentes. Menciona la sensación persistente de 'arena en los ojos' (queratoconjuntivitis).",
                     labReport: [
                         "ANA (IFI): Positivo, Título 1:320, Patrón Moteado",
-                        "Factor Reumatoide: Positivo débil"
+                        "Biopsia Glándula Salival: Infiltrado linfocítico focal"
                     ],
-                    question: "El patrón moteado orienta hacia antígenos nucleares extraíbles (ENA). ¿Qué anticuerpos confirmarían su principal sospecha diagnóstica?",
+                    question: "El patrón moteado orienta hacia antígenos nucleares extraíbles (ENA). ¿Qué anticuerpo(s) correlaciona mejor con el diagnóstico primario?",
                     options: [
-                        { id: 'sm', label: 'Anti-Sm y Anti-dsDNA' },
-                        { id: 'centromero', label: 'Anticuerpos Anti-Centrómero' },
-                        { id: 'rossa', label: 'Anti-Ro (SSA) y Anti-La (SSB)' }
+                        { id: 'sm', label: 'Anti-Sm' },
+                        { id: 'rossa', label: 'Anti-Ro (SSA) y Anti-La (SSB)' },
+                        { id: 'scl70', label: 'Anti-Scl-70' }
                     ],
                     correct: 'rossa',
-                    explanation: "Correcto. El Síndrome de Sjögren primario (queratoconjuntivitis seca + xerostomía) se caracteriza típicamente por positividad de ANA con patrón moteado, impulsado por los anticuerpos Anti-Ro y Anti-La."
+                    explanation: "Correcto. El paciente tiene Síndrome de Sjögren primario (xerostomía + xeroftalmía). El diagnóstico serológico fundamental recae en anticuerpos Ro/SSA y La/SSB (los cuales pueden desencadenar un patrón moteado en ANA)."
+                },
+                {
+                    id: 5,
+                    patient: "Hombre, 48 años",
+                    clinic: "Presenta debilidad severa para trepar escaleras. Físicamente se evidencia engrosamiento y descamación palmar severa bilateral. Informa tos no productiva de nueva aparición.",
+                    labReport: [
+                        "Creatina Cinasa (CK): 4,500 U/L",
+                        "ANA (IFI): Positivo débil, Patrón Moteado",
+                        "RX Tórax: Infiltrados reticulares bibasales"
+                    ],
+                    question: "Acaba de configurar un Síndrome Antisintetasa clínico. ¿Qué anticuerpo es crítico extraer del perfil ENA extendido?",
+                    options: [
+                        { id: 'jo1', label: 'Anti-Jo-1' },
+                        { id: 'dsdna', label: 'Anti-dsDNA' },
+                        { id: 'u1rnp', label: 'Anti-U1 RNP' }
+                    ],
+                    correct: 'jo1',
+                    explanation: "Excelente. La tríada de Miopatía inflamatoria, Manos de mecánico (hiperqueratosis) e ILD (Enf. Pulmonar Intersticial manifestada en la radiografía y tos) es clásica del anticuerpo Antisintetasa: Anti-Jo-1."
                 }
             ];
 
@@ -270,7 +428,7 @@
                     setFeedback({ type: 'success', msg: cases[currentCase].explanation });
                     if (!feedback) setScore(score + 1);
                 } else {
-                    setFeedback({ type: 'error', msg: "Incorrecto. Analiza el patrón de ANA en correlación con el órgano afectado (Ej. Riñón, Pulmón, Glándulas)." });
+                    setFeedback({ type: 'error', msg: "Incorrecto. Correlaciona la clínica presentada con las perlas de UpToDate de la tabla teórica." });
                 }
             };
 
@@ -301,11 +459,11 @@
                             {/* Panel Izquierdo: Caso Clínico y Lab */}
                             <div className="space-y-4">
                                 <div className="flex justify-between text-sm font-bold text-slate-500">
-                                    <span>Muestra {currentCase + 1} de {cases.length}</span>
-                                    <span>Aciertos: {score}</span>
+                                    <span>Caso {currentCase + 1} de {cases.length}</span>
+                                    <span>Puntos: {score}</span>
                                 </div>
                                 
-                                <div className="bg-slate-50 border-l-4 border-slate-400 p-4 rounded-r-lg">
+                                <div className="bg-slate-50 border-l-4 border-slate-500 p-4 rounded-r-lg">
                                     <h3 className="font-bold text-slate-800 mb-1">Motivo de Consulta</h3>
                                     <p className="text-sm text-slate-700"><strong>{cases[currentCase].patient}:</strong> {cases[currentCase].clinic}</p>
                                 </div>
@@ -313,7 +471,7 @@
                                 <div className="bg-[#fdfdfd] border border-slate-300 p-4 rounded shadow-inner font-mono-lab text-sm">
                                     <div className="border-b border-dashed border-slate-400 pb-2 mb-2 flex justify-between text-xs text-slate-500 uppercase">
                                         <span>Hospital Universitario</span>
-                                        <span>Resultados Inmunología</span>
+                                        <span>Resultados Preliminares</span>
                                     </div>
                                     {cases[currentCase].labReport.map((line, idx) => (
                                         <p key={idx} className={line.includes("Positivo") ? "text-rose-600 font-bold" : "text-slate-800"}>
@@ -351,7 +509,9 @@
                                         <div className="shrink-0 pt-0.5">
                                             {feedback.type === 'success' ? <Icons.CheckCircle /> : <Icons.XCircle />}
                                         </div>
-                                        <p className="text-sm font-medium">{feedback.msg}</p>
+                                        <div className="text-sm">
+                                            {feedback.msg.split('\n').map((str, index) => <p key={index} className="mb-1 last:mb-0">{str}</p>)}
+                                        </div>
                                     </div>
                                 )}
 
@@ -368,7 +528,7 @@
                     ) : (
                         <div className="text-center py-10 max-w-md mx-auto">
                             <h3 className="text-2xl font-bold text-slate-800 mb-2">Turno de Laboratorio Finalizado</h3>
-                            <p className="text-slate-600 mb-6">Lograste {score} diagnósticos precisos al primer intento.</p>
+                            <p className="text-slate-600 mb-6">Lograste {score} de {cases.length} diagnósticos precisos al primer intento.</p>
                             <div className="flex justify-center mb-6">
                                 <div className="bg-purple-100 text-purple-700 p-6 rounded-full inline-block shadow-inner">
                                     <Icons.Microscope />
@@ -376,10 +536,13 @@
                             </div>
                             <button 
                                 onClick={resetGame}
-                                className="px-8 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-md hover:bg-slate-900 transition-colors w-full"
+                                className="px-8 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-md hover:bg-slate-900 transition-colors w-full mb-3"
                             >
                                 Solicitar Nuevas Muestras
                             </button>
+                            <a href="../inmunologia_clinica.html" className="block w-full px-8 py-3 bg-white text-slate-700 border border-slate-300 font-bold rounded-lg hover:bg-slate-50 transition-colors">
+                                Volver al Hub Central
+                            </a>
                         </div>
                     )}
                 </div>
@@ -394,6 +557,7 @@
                 switch(activeSection) {
                     case 'ana': return <AnaPatterns />;
                     case 'panel': return <AutoantibodyTable />;
+                    case 'flashcards': return <Flashcards />;
                     case 'sim': return <LabSimulator />;
                     default: return <AnaPatterns />;
                 }
@@ -412,8 +576,8 @@
                         
                         <div className="p-4 flex-1">
                             <div className="bg-slate-800/50 rounded-lg p-3 mb-4 border border-slate-700 text-center">
-                                <p className="text-xs font-bold text-purple-400 uppercase tracking-wider">Unidad Integradora</p>
-                                <p className="text-sm font-medium text-slate-300 mt-1">Semanas 17 y 18</p>
+                                <p className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">UpToDate Integra.</p>
+                                <p className="text-sm font-medium text-slate-300 mt-1">Medicina Interna 2</p>
                             </div>
                             
                             <nav className="space-y-2">
@@ -427,30 +591,39 @@
                                     onClick={() => setActiveSection('panel')}
                                     className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'panel' ? 'bg-purple-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
                                 >
-                                    <Icons.ClipboardList /> Panel de Anticuerpos
+                                    <Icons.ClipboardList /> Panel Teórico ENA
                                 </button>
+                                
                                 <div className="pt-4 mt-2 border-t border-slate-700">
+                                    <p className="px-3 text-xs uppercase font-bold text-slate-500 mb-2">Simulación & Práctica</p>
+                                    <button 
+                                        onClick={() => setActiveSection('flashcards')}
+                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'flashcards' ? 'bg-slate-700 text-white border-l-4 border-fuchsia-400' : 'hover:bg-slate-800 hover:text-white text-slate-300'}`}
+                                    >
+                                        <Icons.Brain /> Flashcards USMLE
+                                    </button>
                                     <button 
                                         onClick={() => setActiveSection('sim')}
-                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'sim' ? 'bg-fuchsia-600 text-white' : 'hover:bg-slate-800 hover:text-white text-fuchsia-400'}`}
+                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'sim' ? 'bg-fuchsia-600 text-white shadow-lg shadow-fuchsia-900/50' : 'hover:bg-slate-800 hover:text-white text-fuchsia-400'}`}
                                     >
-                                        <Icons.TestTube /> Simulador de Laboratorio
+                                        <Icons.TestTube /> Eval. de Casos (5)
                                     </button>
                                 </div>
                             </nav>
                         </div>
                         
-                        <div className="mt-auto p-6 text-sm text-slate-500 border-t border-slate-800">
-                            <p>Universidad Central del Ecuador</p>
-                            <p>Medicina - Séptimo Semestre</p>
+                        <div className="mt-auto p-6 text-sm text-slate-500 border-t border-slate-800 flex items-center justify-between">
+                            <div>
+                                <a href="../inmunologia_clinica.html" className="hover:text-white transition-colors underline decoration-slate-600 underline-offset-4">Volver al Hub</a>
+                            </div>
                         </div>
                     </aside>
 
                     {/* Área de Contenido Principal */}
                     <main className="flex-1 p-6 md:p-10 overflow-y-auto">
                         <header className="mb-8 border-b border-gray-200 pb-4">
-                            <h2 className="text-3xl font-bold text-slate-800">Laboratorio de Autoinmunidad</h2>
-                            <p className="text-slate-500 mt-2">Correlación clínico-patológica: Interpretación de ANA, ENA y ANCA.</p>
+                            <h2 className="text-3xl font-bold text-slate-800">Inmunología Molecular</h2>
+                            <p className="text-slate-500 mt-2">Correlación clínico-patológica avalada por UpToDate. Active Recall y casos USMLE Step 1 / Step 2.</p>
                         </header>
                         
                         <div className="max-w-5xl">
