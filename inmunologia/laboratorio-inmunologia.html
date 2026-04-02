@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerSemiotics - Laboratorio de Inmunología</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap'); /* Para reportes de lab */
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf5ff; /* Tono violeta muy suave */
+        }
+        .font-mono-lab {
+            font-family: 'Courier Prime', monospace;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f3e8ff; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #a855f7; 
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // --- ICONOS SVG ---
+        const Icons = {
+            Microscope: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18h8"></path><path d="M3 22h18"></path><path d="M14 22a7 7 0 1 0 0-14h-1"></path><path d="M9 14h2"></path><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"></path><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"></path></svg>,
+            TestTube: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5h0c-1.4 0-2.5-1.1-2.5-2.5V2"></path><path d="M8.5 2h7"></path><path d="M14.5 16h-5"></path></svg>,
+            ClipboardList: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>,
+            Target: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>,
+            CheckCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>,
+            XCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        };
+
+        // --- COMPONENTES DE VISTA ---
+
+        // 1. Hub: Patrones ANA
+        const AnaPatterns = () => (
+            <div className="animate-fade-in space-y-6">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-purple-100 border-t-4 border-t-purple-600">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.Microscope /> Anticuerpos Antinucleares (ANA)
+                    </h2>
+                    <p className="text-slate-600 mb-4 leading-relaxed">
+                        Los ANA son la prueba de tamizaje (screening) inicial para enfermedades reumatológicas sistémicas. Son <strong>altamente sensibles</strong> (raro tener Lupus con ANA negativo), pero <strong>poco específicos</strong> (personas sanas, infecciones o fármacos pueden positivizarlos). Se miden por Inmunofluorescencia Indirecta (IFI).
+                    </p>
+                    
+                    <div className="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 rounded-r-lg text-sm text-amber-900">
+                        <strong>Regla Clínica:</strong> Títulos de ANA &lt; 1:80 a menudo carecen de importancia clínica. Títulos <strong>&ge; 1:160</strong> en presencia de síntomas (artritis, rash, serositis) obligan a investigar anticuerpos específicos.
+                    </div>
+
+                    <h3 className="text-xl font-bold text-purple-900 mb-4">Patrones de Inmunofluorescencia (IFI)</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Homogéneo */}
+                        <div className="border border-slate-200 rounded-lg p-4 hover:border-purple-400 transition-colors bg-purple-50/30">
+                            <h4 className="font-bold text-purple-800 mb-2 flex items-center gap-2">
+                                <div className="w-4 h-4 rounded-full bg-purple-600"></div> Homogéneo
+                            </h4>
+                            <p className="text-sm text-slate-700 mb-2">Tinción uniforme de todo el núcleo. Se asocia a anticuerpos dirigidos contra la cromatina y las histonas.</p>
+                            <p className="text-sm font-semibold text-slate-900">Asociación Clínica:</p>
+                            <ul className="list-disc pl-5 text-sm text-slate-600">
+                                <li>Lupus Eritematoso Sistémico (LES).</li>
+                                <li>Lupus Inducido por Fármacos (anti-Histonas).</li>
+                            </ul>
+                        </div>
+                        {/* Moteado */}
+                        <div className="border border-slate-200 rounded-lg p-4 hover:border-purple-400 transition-colors bg-purple-50/30">
+                            <h4 className="font-bold text-purple-800 mb-2 flex items-center gap-2">
+                                <div className="w-4 h-4 rounded-full bg-purple-600" style={{backgroundImage: 'radial-gradient(circle, white 20%, transparent 20%)', backgroundSize: '4px 4px'}}></div> Moteado (Speckled)
+                            </h4>
+                            <p className="text-sm text-slate-700 mb-2">Punteado fino o grueso en el núcleo. El más frecuente y menos específico.</p>
+                            <p className="text-sm font-semibold text-slate-900">Asociación Clínica:</p>
+                            <ul className="list-disc pl-5 text-sm text-slate-600">
+                                <li>Síndrome de Sjögren (anti-Ro/SSA, anti-La/SSB).</li>
+                                <li>Enf. Mixta del Tejido Conectivo (anti-U1 RNP).</li>
+                                <li>Lupus (anti-Sm).</li>
+                            </ul>
+                        </div>
+                        {/* Centromérico */}
+                        <div className="border border-slate-200 rounded-lg p-4 hover:border-purple-400 transition-colors bg-purple-50/30">
+                            <h4 className="font-bold text-purple-800 mb-2 flex items-center gap-2">
+                                <div className="w-4 h-4 rounded-full bg-slate-200 flex items-center justify-center"><div className="w-1 h-1 bg-purple-800 rounded-full"></div></div> Centromérico
+                            </h4>
+                            <p className="text-sm text-slate-700 mb-2">Tinción de 46 puntos aislados correspondientes a los centrómeros de los cromosomas.</p>
+                            <p className="text-sm font-semibold text-slate-900">Asociación Clínica:</p>
+                            <ul className="list-disc pl-5 text-sm text-slate-600">
+                                <li>Esclerosis Sistémica Limitada (Síndrome CREST).</li>
+                            </ul>
+                        </div>
+                        {/* Nucleolar */}
+                        <div className="border border-slate-200 rounded-lg p-4 hover:border-purple-400 transition-colors bg-purple-50/30">
+                            <h4 className="font-bold text-purple-800 mb-2 flex items-center gap-2">
+                                <div className="w-4 h-4 rounded-full bg-slate-200 flex items-center justify-center"><div className="w-2 h-2 bg-purple-600 rounded-full"></div></div> Nucleolar
+                            </h4>
+                            <p className="text-sm text-slate-700 mb-2">Tinción homogénea solo de los nucléolos (2 a 6 por núcleo).</p>
+                            <p className="text-sm font-semibold text-slate-900">Asociación Clínica:</p>
+                            <ul className="list-disc pl-5 text-sm text-slate-600">
+                                <li>Esclerosis Sistémica Difusa (anti-Scl-70).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 2. Tabla de Anticuerpos Específicos
+        const AutoantibodyTable = () => {
+            return (
+                <div className="animate-fade-in bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.Target /> Panel de Autoinmunidad
+                        </h2>
+                        <span className="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Alto Rendimiento USMLE</span>
+                    </div>
+                    
+                    <p className="text-slate-600 mb-6">
+                        Tabla resumen para exámenes de grado. Relaciona el anticuerpo específico con su patología de mayor asociación.
+                    </p>
+
+                    <div className="overflow-x-auto custom-scrollbar pb-4">
+                        <table className="w-full text-left border-collapse min-w-[700px]">
+                            <thead>
+                                <tr className="bg-purple-900 text-white">
+                                    <th className="p-3 font-bold rounded-tl-lg w-1/4">Anticuerpo</th>
+                                    <th className="p-3 font-bold w-1/3">Enfermedad Asociada</th>
+                                    <th className="p-3 font-bold rounded-tr-lg">Perla Clínica / Utilidad</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-sm">
+                                {/* LES */}
+                                <tr className="border-b border-purple-100 hover:bg-purple-50">
+                                    <td className="p-3 font-bold text-purple-800 bg-purple-50/50">Anti-dsDNA (ADN bicatenario)</td>
+                                    <td className="p-3 text-slate-800 font-semibold">Lupus Eritematoso Sistémico (LES)</td>
+                                    <td className="p-3 text-slate-600">Altamente específico. Sus niveles se correlacionan con la actividad de la enfermedad (especialmente Nefritis Lúpica).</td>
+                                </tr>
+                                <tr className="border-b border-purple-100 hover:bg-purple-50">
+                                    <td className="p-3 font-bold text-purple-800 bg-purple-50/50">Anti-Sm (Smith)</td>
+                                    <td className="p-3 text-slate-800">LES</td>
+                                    <td className="p-3 text-slate-600">El anticuerpo <strong>más específico</strong> para LES, pero poco sensible (solo 20-30% de pacientes lo tienen).</td>
+                                </tr>
+                                <tr className="border-b border-purple-100 hover:bg-purple-50">
+                                    <td className="p-3 font-bold text-purple-800 bg-purple-50/50">Anti-Histonas</td>
+                                    <td className="p-3 text-slate-800">Lupus Inducido por Fármacos</td>
+                                    <td className="p-3 text-slate-600">Clásico post uso de Hidralazina, Isoniazida, Procainamida.</td>
+                                </tr>
+                                {/* AR */}
+                                <tr className="border-b border-purple-100 hover:bg-purple-50">
+                                    <td className="p-3 font-bold text-indigo-700 bg-indigo-50/50">Anti-CCP (Péptidos Citrulinados)</td>
+                                    <td className="p-3 text-slate-800 font-semibold">Artritis Reumatoide</td>
+                                    <td className="p-3 text-slate-600">Más específico que el Factor Reumatoide (FR). Marcador de enfermedad erosiva grave.</td>
+                                </tr>
+                                {/* Sjögren */}
+                                <tr className="border-b border-purple-100 hover:bg-purple-50">
+                                    <td className="p-3 font-bold text-teal-700 bg-teal-50/50">Anti-Ro (SSA) y Anti-La (SSB)</td>
+                                    <td className="p-3 text-slate-800">Síndrome de Sjögren</td>
+                                    <td className="p-3 text-slate-600">Se asocian a Lupus Neonatal (bloqueo cardíaco congénito si la madre es positiva).</td>
+                                </tr>
+                                {/* Vasculitis */}
+                                <tr className="border-b border-purple-100 hover:bg-purple-50">
+                                    <td className="p-3 font-bold text-rose-700 bg-rose-50/50">c-ANCA (Anti-PR3)</td>
+                                    <td className="p-3 text-slate-800 font-semibold">Granulomatosis con Poliangeítis (Wegener)</td>
+                                    <td className="p-3 text-slate-600">Paciente con sinusitis crónica, hemoptisis y glomerulonefritis.</td>
+                                </tr>
+                                <tr className="hover:bg-purple-50">
+                                    <td className="p-3 font-bold text-rose-700 bg-rose-50/50 rounded-bl-lg">p-ANCA (Anti-MPO)</td>
+                                    <td className="p-3 text-slate-800">Poliangeítis Microscópica / Churg-Strauss</td>
+                                    <td className="p-3 text-slate-600">Asociado a asma severa y eosinofilia en el caso del Síndrome de Churg-Strauss.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        };
+
+        // 3. Simulador Gamificado: El Patólogo Clínico
+        const LabSimulator = () => {
+            const [currentCase, setCurrentCase] = useState(0);
+            const [feedback, setFeedback] = useState(null);
+            const [score, setScore] = useState(0);
+
+            const cases = [
+                {
+                    id: 1,
+                    patient: "Mujer, 26 años",
+                    clinic: "Consulta por dolor articular en manos (simétrico), fiebre intermitente y eritema facial que empeora con el sol. Proteinuria ++ en examen físico de orina.",
+                    labReport: [
+                        "HEMOGRAMA: Leucopenia (3000/mm3)",
+                        "ANA (IFI): Positivo, Título 1:640, Patrón Homogéneo",
+                        "Factor Reumatoide: Negativo"
+                    ],
+                    question: "Según el patrón de ANA y la clínica, ¿qué prueba específica confirmaría el diagnóstico y evaluaría el riesgo de compromiso renal?",
+                    options: [
+                        { id: 'ccp', label: 'Anti-CCP' },
+                        { id: 'dsdna', label: 'Anti-dsDNA (Anti-ADN de doble cadena)' },
+                        { id: 'scl70', label: 'Anti-Scl-70' }
+                    ],
+                    correct: 'dsdna',
+                    explanation: "Correcto. La clínica (eritema malar, nefritis lúpica) y el patrón homogéneo alto apuntan a Lupus Eritematoso Sistémico (LES). El Anti-dsDNA es altamente específico para LES y sus títulos se correlacionan con la actividad de la nefritis lúpica."
+                },
+                {
+                    id: 2,
+                    patient: "Hombre, 55 años",
+                    clinic: "Refiere sinusitis crónica resistente a antibióticos desde hace 6 meses. Recientemente tosió sangre (hemoptisis) y notó orina oscura (hematuria).",
+                    labReport: [
+                        "BUN: 45 mg/dL, Creatinina: 2.5 mg/dL",
+                        "ANA (IFI): Negativo",
+                        "INMUNOLOGÍA VASCULAR: Pendiente"
+                    ],
+                    question: "¿Qué marcador serológico esperarías encontrar positivo en este paciente?",
+                    options: [
+                        { id: 'canca', label: 'c-ANCA (Anticuerpos anti-Proteinasa 3)' },
+                        { id: 'panca', label: 'p-ANCA (Anticuerpos anti-Mieloperoxidasa)' },
+                        { id: 'ro', label: 'Anti-Ro (SSA)' }
+                    ],
+                    correct: 'canca',
+                    explanation: "Excelente. La tríada clásica de afección del tracto respiratorio superior (sinusitis), tracto respiratorio inferior (hemoptisis/nódulos) y riñón (glomerulonefritis) es típica de la Granulomatosis con Poliangeítis (Enf. de Wegener), fuertemente asociada a c-ANCA (PR3)."
+                },
+                {
+                    id: 3,
+                    patient: "Mujer, 42 años",
+                    clinic: "Consulta oftalmología por sensación severa de 'arena en los ojos' y al dentista por caries múltiples (boca muy seca). Refiere dolor articular leve.",
+                    labReport: [
+                        "ANA (IFI): Positivo, Título 1:320, Patrón Moteado",
+                        "Factor Reumatoide: Positivo débil"
+                    ],
+                    question: "El patrón moteado orienta hacia antígenos nucleares extraíbles (ENA). ¿Qué anticuerpos confirmarían su principal sospecha diagnóstica?",
+                    options: [
+                        { id: 'sm', label: 'Anti-Sm y Anti-dsDNA' },
+                        { id: 'centromero', label: 'Anticuerpos Anti-Centrómero' },
+                        { id: 'rossa', label: 'Anti-Ro (SSA) y Anti-La (SSB)' }
+                    ],
+                    correct: 'rossa',
+                    explanation: "Correcto. El Síndrome de Sjögren primario (queratoconjuntivitis seca + xerostomía) se caracteriza típicamente por positividad de ANA con patrón moteado, impulsado por los anticuerpos Anti-Ro y Anti-La."
+                }
+            ];
+
+            const handleAnswer = (optionId) => {
+                if (optionId === cases[currentCase].correct) {
+                    setFeedback({ type: 'success', msg: cases[currentCase].explanation });
+                    if (!feedback) setScore(score + 1);
+                } else {
+                    setFeedback({ type: 'error', msg: "Incorrecto. Analiza el patrón de ANA en correlación con el órgano afectado (Ej. Riñón, Pulmón, Glándulas)." });
+                }
+            };
+
+            const nextCase = () => {
+                setFeedback(null);
+                setCurrentCase(prev => prev + 1);
+            };
+
+            const resetGame = () => {
+                setFeedback(null);
+                setCurrentCase(0);
+                setScore(0);
+            };
+
+            const isFinished = currentCase >= cases.length;
+
+            return (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 animate-fade-in">
+                    <div className="flex items-center justify-between mb-6 border-b pb-4">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.TestTube /> El Patólogo Clínico
+                        </h2>
+                        <span className="bg-fuchsia-100 text-fuchsia-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Correlación Clínico-Patológica</span>
+                    </div>
+
+                    {!isFinished ? (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {/* Panel Izquierdo: Caso Clínico y Lab */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between text-sm font-bold text-slate-500">
+                                    <span>Muestra {currentCase + 1} de {cases.length}</span>
+                                    <span>Aciertos: {score}</span>
+                                </div>
+                                
+                                <div className="bg-slate-50 border-l-4 border-slate-400 p-4 rounded-r-lg">
+                                    <h3 className="font-bold text-slate-800 mb-1">Motivo de Consulta</h3>
+                                    <p className="text-sm text-slate-700"><strong>{cases[currentCase].patient}:</strong> {cases[currentCase].clinic}</p>
+                                </div>
+
+                                <div className="bg-[#fdfdfd] border border-slate-300 p-4 rounded shadow-inner font-mono-lab text-sm">
+                                    <div className="border-b border-dashed border-slate-400 pb-2 mb-2 flex justify-between text-xs text-slate-500 uppercase">
+                                        <span>Hospital Universitario</span>
+                                        <span>Resultados Inmunología</span>
+                                    </div>
+                                    {cases[currentCase].labReport.map((line, idx) => (
+                                        <p key={idx} className={line.includes("Positivo") ? "text-rose-600 font-bold" : "text-slate-800"}>
+                                            &gt; {line}
+                                        </p>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Panel Derecho: Interacción */}
+                            <div className="flex flex-col justify-center">
+                                <p className="font-semibold text-slate-800 mb-4">{cases[currentCase].question}</p>
+                                
+                                <div className="space-y-3 mb-6">
+                                    {cases[currentCase].options.map(opt => (
+                                        <button
+                                            key={opt.id}
+                                            onClick={() => handleAnswer(opt.id)}
+                                            disabled={feedback?.type === 'success'}
+                                            className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                                                feedback && opt.id === cases[currentCase].correct
+                                                    ? 'border-emerald-500 bg-emerald-50 text-emerald-800 font-semibold shadow-sm'
+                                                    : feedback?.type === 'success' 
+                                                        ? 'border-slate-100 opacity-40 cursor-not-allowed'
+                                                        : 'border-slate-200 hover:border-purple-400 hover:bg-purple-50 text-slate-700'
+                                            }`}
+                                        >
+                                            {opt.label}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {feedback && (
+                                    <div className={`p-4 rounded-lg flex items-start gap-3 mb-4 animate-fade-in ${feedback.type === 'success' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                                        <div className="shrink-0 pt-0.5">
+                                            {feedback.type === 'success' ? <Icons.CheckCircle /> : <Icons.XCircle />}
+                                        </div>
+                                        <p className="text-sm font-medium">{feedback.msg}</p>
+                                    </div>
+                                )}
+
+                                {feedback?.type === 'success' && (
+                                    <button 
+                                        onClick={nextCase}
+                                        className="w-full py-3 bg-purple-700 text-white font-bold rounded-lg shadow-md hover:bg-purple-800 transition-colors animate-fade-in"
+                                    >
+                                        Firmar Reporte y Siguiente
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="text-center py-10 max-w-md mx-auto">
+                            <h3 className="text-2xl font-bold text-slate-800 mb-2">Turno de Laboratorio Finalizado</h3>
+                            <p className="text-slate-600 mb-6">Lograste {score} diagnósticos precisos al primer intento.</p>
+                            <div className="flex justify-center mb-6">
+                                <div className="bg-purple-100 text-purple-700 p-6 rounded-full inline-block shadow-inner">
+                                    <Icons.Microscope />
+                                </div>
+                            </div>
+                            <button 
+                                onClick={resetGame}
+                                className="px-8 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-md hover:bg-slate-900 transition-colors w-full"
+                            >
+                                Solicitar Nuevas Muestras
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- APLICACIÓN PRINCIPAL ---
+        const App = () => {
+            const [activeSection, setActiveSection] = useState('ana');
+
+            const renderContent = () => {
+                switch(activeSection) {
+                    case 'ana': return <AnaPatterns />;
+                    case 'panel': return <AutoantibodyTable />;
+                    case 'sim': return <LabSimulator />;
+                    default: return <AnaPatterns />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col md:flex-row">
+                    {/* Sidebar / Navegación */}
+                    <aside className="w-full md:w-72 bg-slate-900 text-slate-300 flex flex-col shadow-xl z-10 shrink-0">
+                        <div className="p-6 border-b border-slate-800">
+                            <h1 className="text-2xl font-bold text-white tracking-tight">
+                                Power<span className="text-purple-400">Semiotics</span>
+                            </h1>
+                            <p className="text-xs font-medium text-slate-400 mt-1 tracking-widest uppercase">Clinical OS V2.0</p>
+                        </div>
+                        
+                        <div className="p-4 flex-1">
+                            <div className="bg-slate-800/50 rounded-lg p-3 mb-4 border border-slate-700 text-center">
+                                <p className="text-xs font-bold text-purple-400 uppercase tracking-wider">Unidad Integradora</p>
+                                <p className="text-sm font-medium text-slate-300 mt-1">Semanas 17 y 18</p>
+                            </div>
+                            
+                            <nav className="space-y-2">
+                                <button 
+                                    onClick={() => setActiveSection('ana')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'ana' ? 'bg-purple-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Microscope /> Patrones ANA
+                                </button>
+                                <button 
+                                    onClick={() => setActiveSection('panel')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'panel' ? 'bg-purple-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.ClipboardList /> Panel de Anticuerpos
+                                </button>
+                                <div className="pt-4 mt-2 border-t border-slate-700">
+                                    <button 
+                                        onClick={() => setActiveSection('sim')}
+                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'sim' ? 'bg-fuchsia-600 text-white' : 'hover:bg-slate-800 hover:text-white text-fuchsia-400'}`}
+                                    >
+                                        <Icons.TestTube /> Simulador de Laboratorio
+                                    </button>
+                                </div>
+                            </nav>
+                        </div>
+                        
+                        <div className="mt-auto p-6 text-sm text-slate-500 border-t border-slate-800">
+                            <p>Universidad Central del Ecuador</p>
+                            <p>Medicina - Séptimo Semestre</p>
+                        </div>
+                    </aside>
+
+                    {/* Área de Contenido Principal */}
+                    <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+                        <header className="mb-8 border-b border-gray-200 pb-4">
+                            <h2 className="text-3xl font-bold text-slate-800">Laboratorio de Autoinmunidad</h2>
+                            <p className="text-slate-500 mt-2">Correlación clínico-patológica: Interpretación de ANA, ENA y ANCA.</p>
+                        </header>
+                        
+                        <div className="max-w-5xl">
+                            {renderContent()}
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
