@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerSemiotics - Inmunología del Trasplante</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel para JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Tono celeste (sky) muy suave */
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #e0f2fe; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #38bdf8; 
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // --- ICONOS SVG ---
+        const Icons = {
+            HeartPulse: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg>,
+            Activity: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>,
+            ShieldAlert: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m12 8-1.5 6h3Z"></path><path d="M12 17h.01"></path></svg>,
+            Pill: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>,
+            CheckCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>,
+            XCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        };
+
+        // --- COMPONENTES DE VISTA ---
+
+        // 1. Hub: Tipos de Rechazo
+        const RejectionTypes = () => (
+            <div className="animate-fade-in space-y-6">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-sky-100 border-t-4 border-t-sky-500">
+                    <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <Icons.Activity /> Espectro del Rechazo de Trasplantes
+                    </h2>
+                    <p className="text-slate-600 mb-4 leading-relaxed">
+                        El rechazo de aloinjertos sólidos se clasifica clásicamente según su <strong>tiempo de aparición</strong> y el <strong>mecanismo inmunológico subyacente</strong> (humoral vs. celular). El factor clave de compatibilidad es el sistema HLA (Complejo Mayor de Histocompatibilidad).
+                    </p>
+
+                    <div className="space-y-4 mt-6">
+                        {/* Hiperagudo */}
+                        <div className="flex flex-col md:flex-row bg-rose-50 border border-rose-200 rounded-lg overflow-hidden shadow-sm">
+                            <div className="bg-rose-500 text-white p-4 md:w-1/4 flex flex-col justify-center items-center text-center">
+                                <h3 className="font-bold text-lg">Rechazo Hiperagudo</h3>
+                                <span className="text-rose-100 text-sm mt-1 font-semibold block">Minutos a Horas</span>
+                            </div>
+                            <div className="p-5 md:w-3/4">
+                                <p className="text-sm text-slate-700 mb-2"><strong>Mecanismo (Tipo II):</strong> Anticuerpos <em>preformados</em> específicos del donante o DSA (anti-HLA o anti-ABO) presentes en el receptor activan el complemento tras la reperfusión.</p>
+                                <p className="text-sm text-slate-700 mb-2"><strong>Patología:</strong> Trombosis microvascular generalizada, isquemia, necrosis fibrinoide de paredes arteriales con neutrófilos. En quirófano, el órgano trasplantado se torna "moteado y cianótico" (injerto azul).</p>
+                                <div className="mt-3 bg-white p-2 rounded text-sm border border-rose-100">
+                                    <span className="font-bold text-rose-700">Manejo:</span> Irreversible. Requiere remoción inmediata del injerto.
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Agudo */}
+                        <div className="flex flex-col md:flex-row bg-sky-50 border border-sky-200 rounded-lg overflow-hidden shadow-sm">
+                            <div className="bg-sky-500 text-white p-4 md:w-1/4 flex flex-col justify-center items-center text-center">
+                                <h3 className="font-bold text-lg">Rechazo Agudo</h3>
+                                <span className="text-sky-100 text-sm mt-1 font-semibold block">Días a Semanas/Meses</span>
+                            </div>
+                            <div className="p-5 md:w-3/4">
+                                <p className="text-sm text-slate-700 mb-2"><strong>Mecanismo Celular (TCMR - Tipo IV):</strong> Células T CD8+ y CD4+ del receptor se activan e infiltran túbulos e intersticio.</p>
+                                <p className="text-sm text-slate-700 mb-2"><strong>Mecanismo Humoral (ABMR - Tipo II):</strong> Anticuerpos de novo causan inflamación microvascular.</p>
+                                <p className="text-sm text-slate-700 mb-2"><strong>Patología Clásica:</strong> Infiltrado linfocítico denso intersticial con <em>tubulitis</em> (TCMR) o capilaritis peritubular con inflamación y depósito de <strong>C4d</strong> (ABMR).</p>
+                                <div className="mt-3 bg-white p-2 rounded text-sm border border-sky-100">
+                                    <span className="font-bold text-sky-700">Manejo:</span> <strong>Altamente reversible</strong>. TCMR responde a esteroides a altas dosis o globulina antitimocítica. ABMR suele requerir plasmaféresis e inmunoglobulina intravenosa (IVIG).
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Crónico */}
+                        <div className="flex flex-col md:flex-row bg-slate-50 border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+                            <div className="bg-slate-600 text-white p-4 md:w-1/4 flex flex-col justify-center items-center text-center">
+                                <h3 className="font-bold text-lg">Rechazo Crónico</h3>
+                                <span className="text-slate-300 text-sm mt-1 font-semibold block">Meses a Años</span>
+                            </div>
+                            <div className="p-5 md:w-3/4">
+                                <p className="text-sm text-slate-700 mb-2"><strong>Mecanismo (Mixto):</strong> Células T CD4+ responden a los APCs que presentan péptidos del donante. Secreción de citoquinas que causan proliferación de músculo liso y <strong>fibrosis</strong>.</p>
+                                <p className="text-sm text-slate-700 mb-2"><strong>Patología Clásica (High-Yield):</strong></p>
+                                <ul className="list-disc pl-5 text-sm text-slate-600 mb-2">
+                                    <li>Corazón: Aterosclerosis coronaria acelerada.</li>
+                                    <li>Pulmón: Bronquiolitis obliterans.</li>
+                                    <li>Riñón: Nefropatía crónica del aloinjerto (fibrosis intersticial).</li>
+                                </ul>
+                                <div className="mt-3 bg-white p-2 rounded text-sm border border-slate-200">
+                                    <span className="font-bold text-slate-700">Manejo:</span> Irreversible. Eventualmente requiere re-trasplante.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 2. GVHD e Inmunosupresores
+        const GvhdAndPharma = () => {
+            return (
+                <div className="animate-fade-in space-y-6">
+                    {/* GVHD */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-orange-100 border-t-4 border-t-orange-500">
+                        <h2 className="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <Icons.ShieldAlert /> Enfermedad Injerto Contra Huésped (GVHD)
+                        </h2>
+                        <p className="text-sm text-slate-600 mb-4">
+                            Generalmente ocurre en <strong>trasplantes de médula ósea</strong> (células madre hematopoyéticas) o transfusiones de sangre no irradiada en inmunodeprimidos.
+                        </p>
+                        
+                        <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                            <h3 className="font-bold text-orange-900 mb-2">Fisiopatología "Al Revés"</h3>
+                            <p className="text-sm text-orange-800 mb-3">
+                                A diferencia del rechazo de órganos (Receptor ataca al Injerto), en GVHD las <strong>Células T inmunocompetentes del donante</strong> reconocen los antígenos del receptor inmunosuprimido como "extraños" y lo atacan (Tipo IV).
+                            </p>
+                            <h4 className="font-semibold text-orange-900 mt-4 mb-2">Tríada Clínica Clásica:</h4>
+                            <ul className="list-disc pl-5 text-sm text-orange-800">
+                                <li><strong>Piel:</strong> Erupción maculopapular difusa (frecuentemente palmas y plantas), descamación.</li>
+                                <li><strong>Hígado:</strong> Ictericia, hepatomegalia, aumento de bilirrubina y fosfatasa alcalina.</li>
+                                <li><strong>Tracto Gastrointestinal:</strong> Diarrea secretora severa, dolor abdominal.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Fármacos */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-indigo-100 border-t-4 border-t-indigo-500">
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                                <Icons.Pill /> Inmunosupresores Clave
+                            </h2>
+                            <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Farmacología USMLE</span>
+                        </div>
+                        
+                        <div className="overflow-x-auto custom-scrollbar pb-4">
+                            <table className="w-full text-left border-collapse min-w-[700px]">
+                                <thead>
+                                    <tr className="bg-indigo-900 text-white">
+                                        <th className="p-3 font-bold rounded-tl-lg w-1/4">Fármaco</th>
+                                        <th className="p-3 font-bold w-1/3">Mecanismo de Acción</th>
+                                        <th className="p-3 font-bold rounded-tr-lg">Efecto Adverso Clave (High-Yield)</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-sm">
+                                    <tr className="border-b border-indigo-100 hover:bg-indigo-50">
+                                        <td className="p-3 font-bold text-indigo-800 bg-indigo-50/50">Ciclosporina</td>
+                                        <td className="p-3 text-slate-800">Inhibidor de la Calcineurina. Bloquea la transcripción de IL-2 (evita la activación de células T).</td>
+                                        <td className="p-3 text-slate-600"><strong>Nefrotoxicidad</strong> (muy común), hiperplasia gingival, hirsutismo.</td>
+                                    </tr>
+                                    <tr className="border-b border-indigo-100 hover:bg-indigo-50">
+                                        <td className="p-3 font-bold text-indigo-800 bg-indigo-50/50">Tacrolimus (FK506)</td>
+                                        <td className="p-3 text-slate-800">Inhibidor de la Calcineurina (se une a FKBP). Mismo mecanismo: ↓ transcripción de IL-2.</td>
+                                        <td className="p-3 text-slate-600"><strong>Nefrotoxicidad</strong>, diabetes post-trasplante, neurotoxicidad. NO causa hiperplasia gingival.</td>
+                                    </tr>
+                                    <tr className="border-b border-indigo-100 hover:bg-indigo-50">
+                                        <td className="p-3 font-bold text-indigo-800 bg-indigo-50/50">Micofenolato Mofetilo</td>
+                                        <td className="p-3 text-slate-800">Inhibe la IMP deshidrogenasa. Previene la síntesis de novo de purinas (B y T cells dependen de esto).</td>
+                                        <td className="p-3 text-slate-600">Toxicidad GI (diarrea), mielosupresión (leucopenia).</td>
+                                    </tr>
+                                    <tr className="hover:bg-indigo-50">
+                                        <td className="p-3 font-bold text-indigo-800 bg-indigo-50/50 rounded-bl-lg">Sirolimus (Rapamicina)</td>
+                                        <td className="p-3 text-slate-800">Inhibidor de mTOR. Bloquea la respuesta celular a IL-2.</td>
+                                        <td className="p-3 text-slate-600">Hiperlipidemia severa, "Pan-citopenia". (Ventaja: <strong>No es nefrotóxico</strong>).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 3. Simulador Gamificado: Rondas de Trasplante
+        const TransplantSimulator = () => {
+            const [currentCase, setCurrentCase] = useState(0);
+            const [feedback, setFeedback] = useState(null);
+            const [score, setScore] = useState(0);
+
+            const cases = [
+                {
+                    id: 1,
+                    patient: "Hombre de 50 años",
+                    context: "Recibe un trasplante renal de donante cadavérico.",
+                    clinic: "Apenas 10 minutos después de que los cirujanos despinzan los vasos sanguíneos y se restablece el flujo al injerto renal, el órgano se torna de un color púrpura oscuro, moteado y flácido. La producción de orina cesa inmediatamente.",
+                    question: "¿Cuál es el mecanismo inmunológico primario responsable de este evento?",
+                    options: [
+                        { id: 'cd8', label: 'Células T CD8+ reaccionando contra el MHC del donante' },
+                        { id: 'ab', label: 'Anticuerpos preformados contra antígenos del donante (ABO o HLA)' },
+                        { id: 'fibrosis', label: 'Proliferación de células musculares lisas y fibrosis vascular' }
+                    ],
+                    correct: 'ab',
+                    explanation: "Correcto. Este es el cuadro clásico de un Rechazo Hiperagudo. Ocurre por anticuerpos preexistentes (por embarazo, transfusiones previas o trasplantes) que causan trombosis vascular inmediata e isquemia del injerto."
+                },
+                {
+                    id: 2,
+                    patient: "Mujer de 35 años",
+                    context: "Recibió un trasplante renal hace 4 semanas por Nefropatía por IgA.",
+                    clinic: "Acude a control por fiebre leve, oliguria y aumento de la creatinina sérica de 1.2 a 2.8 mg/dL. Se realiza una biopsia renal que reporta un denso infiltrado intersticial mononuclear (linfocítico) con tubulitis.",
+                    question: "¿Cuál es la conducta médica más apropiada para este paciente?",
+                    options: [
+                        { id: 'remove', label: 'Nefrectomía inmediata del aloinjerto' },
+                        { id: 'ignore', label: 'Observación; es un hallazgo crónico irreversible' },
+                        { id: 'steroids', label: 'Pulsos de corticosteroides intravenosos a altas dosis' }
+                    ],
+                    correct: 'steroids',
+                    explanation: "Excelente. Se trata de un Rechazo Agudo Celular (infiltrado linfocítico, 4 semanas post-trasplante). A diferencia del hiperagudo o crónico, el rechazo agudo es altamente reversible con terapia inmunosupresora agresiva, siendo los pulsos de corticoides la primera línea."
+                },
+                {
+                    id: 3,
+                    patient: "Niña de 10 años",
+                    context: "Sometida a un trasplante alogénico de células madre hematopoyéticas (médula ósea) por Leucemia Linfoblástica Aguda hace 3 semanas.",
+                    clinic: "Desarrolla una erupción maculopapular pruriginosa que involucra palmas y plantas, dolor abdominal tipo cólico con diarrea acuosa voluminosa (1 litro/día), y la bilirrubina total asciende a 4.5 mg/dL.",
+                    question: "¿Cuál es el diagnóstico más probable?",
+                    options: [
+                        { id: 'cmv', label: 'Infección diseminada por Citomegalovirus (CMV)' },
+                        { id: 'gvhd', label: 'Enfermedad Injerto contra Huésped (GVHD)' },
+                        { id: 'acute', label: 'Rechazo Agudo del Injerto' }
+                    ],
+                    correct: 'gvhd',
+                    explanation: "Perfecto. La tríada de piel (rash maculopapular en palmas/plantas), hígado (ictericia/bilirrubina alta) y tracto GI (diarrea severa) semanas después de un trasplante de médula ósea es patognomónica de GVHD. Ocurre porque los linfocitos T del donante atacan al receptor."
+                }
+            ];
+
+            const handleAnswer = (optionId) => {
+                if (optionId === cases[currentCase].correct) {
+                    setFeedback({ type: 'success', msg: cases[currentCase].explanation });
+                    if (!feedback) setScore(score + 1);
+                } else {
+                    setFeedback({ type: 'error', msg: "Incorrecto. Revisa el tiempo de evolución (minutos vs semanas) y los órganos afectados." });
+                }
+            };
+
+            const nextCase = () => {
+                setFeedback(null);
+                setCurrentCase(prev => prev + 1);
+            };
+
+            const resetGame = () => {
+                setFeedback(null);
+                setCurrentCase(0);
+                setScore(0);
+            };
+
+            const isFinished = currentCase >= cases.length;
+
+            return (
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 animate-fade-in">
+                    <div className="flex items-center justify-between mb-6 border-b pb-4">
+                        <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                            <Icons.HeartPulse /> Rondas de Trasplante
+                        </h2>
+                        <span className="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Correlación Clínica - USMLE</span>
+                    </div>
+
+                    {!isFinished ? (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {/* Panel Izquierdo: Caso Clínico */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between text-sm font-bold text-slate-500">
+                                    <span>Viñeta Clínica {currentCase + 1} de {cases.length}</span>
+                                    <span>Puntuación: {score}</span>
+                                </div>
+                                
+                                <div className="bg-sky-50 border-l-4 border-sky-500 p-5 rounded-r-lg shadow-sm">
+                                    <h3 className="font-bold text-sky-900 mb-2">{cases[currentCase].patient}</h3>
+                                    <p className="text-sm text-sky-800 mb-3 italic">Antecedente: {cases[currentCase].context}</p>
+                                    <p className="text-slate-800 font-medium">{cases[currentCase].clinic}</p>
+                                </div>
+                            </div>
+
+                            {/* Panel Derecho: Interacción */}
+                            <div className="flex flex-col justify-center">
+                                <p className="font-semibold text-slate-800 mb-4">{cases[currentCase].question}</p>
+                                
+                                <div className="space-y-3 mb-6">
+                                    {cases[currentCase].options.map(opt => (
+                                        <button
+                                            key={opt.id}
+                                            onClick={() => handleAnswer(opt.id)}
+                                            disabled={feedback?.type === 'success'}
+                                            className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                                                feedback && opt.id === cases[currentCase].correct
+                                                    ? 'border-emerald-500 bg-emerald-50 text-emerald-800 font-semibold shadow-sm'
+                                                    : feedback?.type === 'success' 
+                                                        ? 'border-slate-100 opacity-40 cursor-not-allowed'
+                                                        : 'border-slate-200 hover:border-sky-400 hover:bg-sky-50 text-slate-700'
+                                            }`}
+                                        >
+                                            {opt.label}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {feedback && (
+                                    <div className={`p-4 rounded-lg flex items-start gap-3 mb-4 animate-fade-in ${feedback.type === 'success' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                                        <div className="shrink-0 pt-0.5">
+                                            {feedback.type === 'success' ? <Icons.CheckCircle /> : <Icons.XCircle />}
+                                        </div>
+                                        <p className="text-sm font-medium">{feedback.msg}</p>
+                                    </div>
+                                )}
+
+                                {feedback?.type === 'success' && (
+                                    <button 
+                                        onClick={nextCase}
+                                        className="w-full py-3 bg-sky-600 text-white font-bold rounded-lg shadow-md hover:bg-sky-700 transition-colors animate-fade-in"
+                                    >
+                                        Siguiente Paciente
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="text-center py-10 max-w-md mx-auto">
+                            <h3 className="text-2xl font-bold text-slate-800 mb-2">Rondas Finalizadas</h3>
+                            <p className="text-slate-600 mb-6">Lograste diagnosticar correctamente {score} de {cases.length} pacientes.</p>
+                            <div className="flex justify-center mb-6">
+                                <div className="bg-sky-100 text-sky-700 p-6 rounded-full inline-block shadow-inner">
+                                    <Icons.HeartPulse />
+                                </div>
+                            </div>
+                            <button 
+                                onClick={resetGame}
+                                className="px-8 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-md hover:bg-slate-900 transition-colors w-full"
+                            >
+                                Iniciar Nueva Guardia
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- APLICACIÓN PRINCIPAL ---
+        const App = () => {
+            const [activeSection, setActiveSection] = useState('rejection');
+
+            const renderContent = () => {
+                switch(activeSection) {
+                    case 'rejection': return <RejectionTypes />;
+                    case 'gvhd': return <GvhdAndPharma />;
+                    case 'sim': return <TransplantSimulator />;
+                    default: return <RejectionTypes />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col md:flex-row">
+                    {/* Sidebar / Navegación */}
+                    <aside className="w-full md:w-72 bg-slate-900 text-slate-300 flex flex-col shadow-xl z-10 shrink-0">
+                        <div className="p-6 border-b border-slate-800">
+                            <h1 className="text-2xl font-bold text-white tracking-tight">
+                                Power<span className="text-sky-400">Semiotics</span>
+                            </h1>
+                            <p className="text-xs font-medium text-slate-400 mt-1 tracking-widest uppercase">Clinical OS V2.0</p>
+                        </div>
+                        
+                        <div className="p-4 flex-1">
+                            <div className="bg-slate-800/50 rounded-lg p-3 mb-4 border border-slate-700 text-center">
+                                <p className="text-xs font-bold text-sky-400 uppercase tracking-wider">Unidad Integradora</p>
+                                <p className="text-sm font-medium text-slate-300 mt-1">Semanas 17 y 18</p>
+                            </div>
+                            
+                            <nav className="space-y-2">
+                                <button 
+                                    onClick={() => setActiveSection('rejection')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'rejection' ? 'bg-sky-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.Activity /> Tipos de Rechazo
+                                </button>
+                                <button 
+                                    onClick={() => setActiveSection('gvhd')}
+                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'gvhd' ? 'bg-sky-600 text-white' : 'hover:bg-slate-800 hover:text-white'}`}
+                                >
+                                    <Icons.ShieldAlert /> GVHD y Fármacos
+                                </button>
+                                <div className="pt-4 mt-2 border-t border-slate-700">
+                                    <button 
+                                        onClick={() => setActiveSection('sim')}
+                                        className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-colors ${activeSection === 'sim' ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800 hover:text-white text-indigo-400'}`}
+                                    >
+                                        <Icons.HeartPulse /> Simulador Clínico
+                                    </button>
+                                </div>
+                            </nav>
+                        </div>
+                        
+                        <div className="mt-auto p-6 text-sm text-slate-500 border-t border-slate-800">
+                            <p>Universidad Central del Ecuador</p>
+                            <p>Medicina - Séptimo Semestre</p>
+                        </div>
+                    </aside>
+
+                    {/* Área de Contenido Principal */}
+                    <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+                        <header className="mb-8 border-b border-gray-200 pb-4">
+                            <h2 className="text-3xl font-bold text-slate-800">Inmunología del Trasplante</h2>
+                            <p className="text-slate-500 mt-2">Rechazo de aloinjertos, enfermedad injerto contra huésped (GVHD) e inmunosupresores.</p>
+                        </header>
+                        
+                        <div className="max-w-5xl">
+                            {renderContent()}
+                        </div>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
