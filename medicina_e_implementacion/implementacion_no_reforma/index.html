@@ -1,380 +1,326 @@
-<!doctype html>
-<html lang="es" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Monografía: La Paradoja del Gasto en Salud en Ecuador</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="../../assets/tailwind.css" rel="stylesheet" />
-  </head>
-  <body class="font-sans text-gray-800">
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-      <nav
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <a
-          href="../../index.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center space-x-2"
-        >
-          <span class="text-2xl font-bold text-blue-900">PowerSemiotics</span>
-        </a>
-        <div>
-          <a
-            href="../../medicina_e_implementacion.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-blue-800 font-semibold hover:underline"
-            >Medicina e Implementación</a
-          >
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Implementación no es Reforma | PowerSemiotics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f0e8;
+    --accent: #c41e1e;
+    --muted: #6b6560;
+    --rule: #d4cfc7;
+    --highlight: #e8e0d0;
+    --correct: #1e7a4b;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --display: 'Playfair Display', Georgia, serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* Header & Hero */
+  .masthead {
+    border-bottom: 3px solid var(--ink);
+    padding: 1.5rem 0 1rem;
+    text-align: center;
+    position: relative;
+  }
+  .masthead::before {
+    content: '';
+    display: block;
+    height: 2px;
+    background: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .site-name {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    margin-top: 0.5rem;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+  
+  .hero { padding: 4rem 0 3rem; border-bottom: 1px solid var(--rule); text-align: center; }
+  h1 { font-family: var(--display); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .subtitle { font-family: var(--serif); font-size: 1.2rem; font-weight: 300; font-style: italic; color: var(--muted); margin: 0 auto 2.5rem; max-width: 700px; }
+  
+  /* Section Headers */
+  h2 { font-family: var(--display); font-size: 2rem; font-weight: 700; border-bottom: 2px solid var(--ink); padding-bottom: 0.5rem; margin: 4rem 0 2rem; }
+  
+  /* Key Points Block */
+  .key-points { background: var(--highlight); padding: 2.5rem; border-left: 4px solid var(--accent); margin-bottom: 3rem; }
+  .key-points h3 { font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; }
+  .key-points ul { list-style: none; }
+  .key-points li { margin-bottom: 1rem; position: relative; padding-left: 1.5rem; font-size: 1.05rem; }
+  .key-points li::before { content: '■'; color: var(--accent); position: absolute; left: 0; font-size: 0.8rem; top: 0.3rem; }
+
+  /* Flashcards USMLE Style */
+  .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 3rem 0; }
+  .flashcard { background-color: transparent; height: 320px; perspective: 1000px; cursor: pointer; }
+  .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; border: 1px solid var(--rule); background: var(--paper); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  .flashcard-front { border-top: 4px solid var(--ink); }
+  .flashcard-back { background: var(--ink); color: var(--paper); transform: rotateY(180deg); border-top: 4px solid var(--accent); }
+  .flashcard-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); position: absolute; top: 1rem; }
+  .flashcard-back .flashcard-label { color: var(--rule); }
+  .flashcard-content { font-family: var(--serif); font-size: 1.1rem; }
+
+  /* ABP Layers */
+  .abp-container { border: 1px solid var(--rule); margin: 3rem 0; }
+  .abp-header { background: var(--ink); color: var(--paper); padding: 1rem 2rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .abp-layer { border-bottom: 1px solid var(--rule); }
+  .abp-layer:last-child { border-bottom: none; }
+  .abp-layer-title { padding: 1.25rem 2rem; font-family: var(--mono); font-size: 0.8rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
+  .abp-layer-title:hover { background: var(--highlight); }
+  .abp-layer-title span { color: var(--accent); margin-right: 1rem; font-weight: 600; }
+  .abp-layer-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: var(--highlight); }
+  .abp-layer.open .abp-layer-content { max-height: 1000px; }
+  .abp-layer-inner { padding: 1.5rem 2rem; border-top: 1px solid var(--rule); font-size: 0.95rem; }
+
+  /* Gamified Quiz */
+  .quiz-section { background: var(--ink); color: var(--paper); padding: 3rem; margin: 4rem 0; position: relative; }
+  .quiz-section::before { content: 'AUTOEVALUACIÓN'; position: absolute; top: 1rem; right: 2rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); }
+  .quiz-question { margin-bottom: 2rem; display: none; }
+  .quiz-question.active { display: block; animation: fadeIn 0.5s ease; }
+  .quiz-question p { font-family: var(--display); font-size: 1.3rem; margin-bottom: 1.5rem; }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+  .quiz-btn { background: transparent; border: 1px solid rgba(245,240,232,0.3); color: var(--paper); padding: 1rem; font-family: var(--serif); font-size: 1rem; cursor: pointer; transition: all 0.2s; text-align: left; }
+  .quiz-btn:hover { border-color: var(--accent); background: rgba(196, 30, 30, 0.1); }
+  .quiz-btn.correct { background: var(--correct); border-color: var(--correct); color: white; }
+  .quiz-btn.wrong { background: var(--accent); border-color: var(--accent); color: white; }
+  .quiz-feedback { margin-top: 1.5rem; font-family: var(--mono); font-size: 0.8rem; display: none; padding: 1rem; border-left: 3px solid var(--accent); background: rgba(255,255,255,0.05); }
+  .next-btn { margin-top: 1.5rem; background: var(--paper); color: var(--ink); border: none; padding: 0.75rem 1.5rem; font-family: var(--mono); font-size: 0.8rem; font-weight: 600; cursor: pointer; text-transform: uppercase; display: none; }
+  
+  /* Footer */
+  footer { background: var(--ink); color: var(--paper); padding: 2rem; text-align: center; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.4); margin-top: 4rem; }
+  footer span { color: var(--accent); }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  
+  .citation { font-size: 0.75em; vertical-align: super; color: var(--muted); cursor: help; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="site-name">PowerSemiotics</div>
+  <div class="section-tag">Módulo Maestro: Economía Política y Salud</div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>La Implementación <br><em>No Es Reforma</em></h1>
+    <p class="subtitle">Desentrañando la paradoja del gasto en salud en Ecuador: Alto nivel de inversión pública frente a un Gasto de Bolsillo (GDB) catastrófico.</p>
+  </section>
+
+  <section class="key-points">
+    <h3>Puntos Clave del Módulo</h3>
+    <ul>
+      [cite_start]<li><strong>La Paradoja Central:</strong> Ecuador invierte considerablemente en salud pública (4.8% del PIB en 2020), pero el Gasto de Bolsillo de los hogares representó un insostenible 32.8% en 2022 y 2023[cite: 2124, 2137].</li>
+      [cite_start]<li><strong>La Pregunta Fundamental:</strong> <em>"¿Quién recibe el dinero?"</em>[cite: 2173]. La respuesta no es contable, es política. [cite_start]Trasciende los flujos formales para revelar a los beneficiarios finales y a quienes soportan la carga residual[cite: 2175, 2176].</li>
+      [cite_start]<li><strong>Las Cuatro Arenas de Poder de Dahl:</strong> El control del presupuesto del MSP (gobernado por el MEF) [cite: 2391][cite_start], las políticas del IESS (capturado por deuda y nombramientos) [cite: 2407, 2408][cite_start], las tarifas de la Red Privada Complementaria (equilibrio negociado) [cite: 2422][cite_start], y el mercado farmacéutico (gobernado por la industria)[cite: 2433].</li>
+      [cite_start]<li><strong>La Ciencia de la Implementación (CI):</strong> Explica la "brecha entre el saber y el hacer", demostrando que los actores utilizan "estrategias de implementación" impulsadas por sus propios intereses para influir en los recursos financieros[cite: 2234, 2240].</li>
+    </ul>
+  </section>
+
+  <h2>Recuperación Activa (USMLE Style Flashcards)</h2>
+  <p>Haz clic en las tarjetas para revelar la respuesta. Domina los conceptos estructurales antes de pasar a la clínica.</p>
+  
+  <div class="flashcard-grid">
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="flashcard-label">Concepto Epidemiológico</div>
+          <div class="flashcard-content">¿Qué métrica expone de forma más cruda el fallo en la protección financiera del sistema de salud ecuatoriano, y cuál fue su valor en 2023?</div>
         </div>
-      </nav>
-    </header>
-
-    <div class="container mx-auto px-6 py-12">
-      <div class="lg:flex lg:space-x-12">
-        <aside class="lg:w-1/4 mb-12 lg:mb-0">
-          <div class="bg-white p-6 rounded-lg shadow-md sticky top-24">
-            <h3 class="font-bold text-lg mb-4 border-b pb-3 text-gray-700">
-              Contenido de la Monografía
-            </h3>
-            <nav id="navigation" class="space-y-1">
-              <!-- Los enlaces de navegación se generarán aquí con JS -->
-            </nav>
-          </div>
-        </aside>
-
-        <main class="lg:w-3/4">
-          <div id="content-display" class="bg-white p-8 rounded-lg shadow-md">
-            <!-- El contenido del capítulo se cargará aquí -->
-          </div>
-        </main>
+        <div class="flashcard-back">
+          <div class="flashcard-label">Respuesta</div>
+          <div class="flashcard-content">El <strong>Gasto de Bolsillo (GDB)</strong>. [cite_start]Representó el <strong>32.8%</strong> en 2023, perpetuando la paradoja del financiamiento donde la inversión estatal alta no protege al ciudadano[cite: 2137, 2148].</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="flashcard-label">Marco de Dahl</div>
+          <div class="flashcard-content">En la Arena 1 (Presupuesto del MSP), ¿qué entidad ejerce un poder decisivo y qué "cara del poder" utiliza para limitar las aspiraciones sanitarias?</div>
+        </div>
+        <div class="flashcard-back">
+          <div class="flashcard-label">Respuesta</div>
+          <div class="flashcard-content">El <strong>Ministerio de Economía y Finanzas (MEF)</strong>. [cite_start]Ejerce el <em>poder de agenda</em> (segunda cara) al fijar techos fiscales que dejan fuera de discusión la expansión del presupuesto basada en derechos[cite: 2391, 2394].</div>
+        </div>
       </div>
     </div>
 
-    <footer class="bg-white mt-16 border-t">
-      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-        <p>&copy; 2024 PowerSemiotics. Todos los derechos reservados.</p>
+    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="flashcard-label">Economía Política</div>
+          <div class="flashcard-content">¿Cómo gobierna la industria farmacéutica la "Arena 4" (Políticas de Adquisición), según las tres caras del poder de Lukes?</div>
+        </div>
+        <div class="flashcard-back">
+          <div class="flashcard-label">Respuesta</div>
+          [cite_start]<div class="flashcard-content">A través del poder decisional (precios favorables), de agenda (influir en qué se subasta vía SICM) e ideológico (imponer el valor de sus marcas)[cite: 2431, 2435].</div>
+        </div>
       </div>
-    </footer>
+    </div>
+  </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const contentData = [
-          {
-            title: 'Introducción',
-            icon: 'fa-book-reader',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 1</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">La Paradoja del Gasto en Salud: Introducción y Planteamiento del Problema</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>El sistema de salud de Ecuador presenta una contradicción fundamental que constituye el núcleo de esta investigación. A pesar de un considerable y sostenido gasto público en el sector —que en 2021 representó el 5.28% del Producto Interno Bruto (PIB) y el 14.76% del gasto público total—, la población ecuatoriana sigue soportando una carga desproporcionadamente alta de Gasto de Bolsillo (GDB). Este gasto, que en 2023 alcanzó el 32.8% del gasto total en salud, evidencia una profunda desconexión entre la inversión estatal y la protección financiera real de los ciudadanos.</p>
-                        <p>Esta "paradoja del gasto en salud" —un alto gasto público que coexiste con un alto gasto privado— sugiere la existencia de disfunciones sistémicas severas. El esfuerzo fiscal del país no se traduce en un alivio tangible para las familias, que continúan enfrentando barreras de acceso y costos onerosos al buscar atención médica. La persistencia de esta situación a lo largo del tiempo, pese a las reformas y al aumento de la inversión, nos obliga a formular una pregunta central y crítica:</p>
-                        <blockquote class="border-l-4 border-blue-600 pl-4 italic text-gray-700 my-6">
-                            <p>¿Quién recibe realmente el dinero del sistema de salud ecuatoriano?</p>
-                        </blockquote>
-                        <p>Esta monografía se embarca en un viaje para responder a esta pregunta, trascendiendo los análisis convencionales. A través de un innovador marco teórico que combina la <strong>Ciencia de la Implementación</strong> con el <strong>Análisis de Economía Política</strong>, se busca desentrañar el complejo laberinto de flujos financieros, dinámicas de poder y brechas de implementación que definen al sistema. El objetivo es identificar no solo dónde va el dinero, sino por qué sigue rutas que no logran garantizar el derecho a la salud para todos, sentando las bases para proponer reformas estructurales hacia una verdadera justicia sistémica.</p>
-                    </div>
-                    <div class="mt-12 border-t pt-8">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Recursos del Capítulo</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <a href="./infografia_resumen_final.html" target="_blank" class="block p-6 bg-purple-50 rounded-lg border border-purple-200 hover:shadow-lg resource-card">
-                                <i class="fas fa-file-alt text-4xl text-purple-600 mb-3"></i>
-                                <h3 class="font-bold text-lg text-purple-800">Infografía: Resumen Final</h3>
-                                <p class="text-sm text-gray-600 mt-1">Un vistazo completo a los hallazgos de la monografía.</p>
-                            </a>
-                            <a href="./infografia_paradoja.html" target="_blank" class="block p-6 bg-blue-50 rounded-lg border border-blue-200 hover:shadow-lg resource-card">
-                                <i class="fas fa-chart-pie text-4xl text-blue-600 mb-3"></i>
-                                <h3 class="font-bold text-lg text-blue-800">Infografía: La Paradoja</h3>
-                                <p class="text-sm text-gray-600 mt-1">Visualiza los datos clave que definen la paradoja del gasto.</p>
-                            </a>
-                        </div>
-                    </div>
-                `,
-          },
-          {
-            title: 'Marco Teórico',
-            icon: 'fa-sitemap',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 2</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Un Marco Teórico Híbrido para Desentrañar la Complejidad</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>Para abordar la paradoja del gasto en salud, un enfoque convencional resulta insuficiente. Es necesario un marco analítico que pueda, simultáneamente, examinar los fallos en los procesos y desvelar las estructuras de poder que los perpetúan. Por ello, esta investigación se fundamenta en un <strong>marco teórico híbrido</strong> que integra dos potentes disciplinas: la Ciencia de la Implementación (CI) y el Análisis de Economía Política (AEP).</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">2.1 La Ciencia de la Implementación (CI): El Puente entre la Política y la Realidad</h3>
-                        <p>La Ciencia de la Implementación se enfoca en estudiar y cerrar la brecha que existe entre lo que las políticas y programas de salud proponen (el "deber ser") y lo que realmente ocurre en la práctica. En lugar de asumir que las buenas políticas se ejecutan automáticamente, la CI investiga sistemáticamente los <strong>"cómo"</strong> y los <strong>"por qué"</strong> de las fallas en la prestación de servicios. Permite identificar los cuellos de botella, las barreras y los facilitadores que determinan si los recursos financieros se traducen en servicios de salud efectivos y de calidad para los ciudadanos.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">2.2 Análisis de Economía Política (AEP): Descifrando el Poder y los Intereses</h3>
-                        <p>Mientras la CI se enfoca en los procesos, el Análisis de Economía Política se pregunta <strong>"quién"</strong> se beneficia del sistema tal como está. El AEP investiga cómo los intereses de diversos actores (grupos farmacéuticos, élites burocráticas, gremios profesionales, actores políticos), las relaciones de poder y las instituciones (formales e informales) moldean las decisiones sobre la asignación y el uso de los recursos. Este enfoque es crucial para entender por qué persisten las ineficiencias: a menudo, no son simples fallos técnicos, sino el resultado de un equilibrio político que favorece a ciertos grupos en detrimento del interés público.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">2.3 La Sinergia del Marco Híbrido</h3>
-                        <p>La verdadera fortaleza de nuestro enfoque radica en la sinergia entre CI y AEP. La CI nos muestra <strong>dónde</strong> se rompe la cadena de servicio y <strong>cómo</strong> fallan los procesos. El AEP nos explica <strong>por qué</strong> esos fallos no se corrigen, revelando los intereses que se benefician del statu quo. Juntos, estos dos lentes nos permiten construir un diagnóstico integral que no solo describe la ineficiencia del sistema de salud ecuatoriano, sino que también expone las raíces políticas y estructurales de la paradoja del gasto. Este marco es la herramienta fundamental para responder a la pregunta central: ¿quién recibe realmente el dinero?</p>
-                    </div>
-                     <div class="mt-12 border-t pt-8">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Recursos del Capítulo</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <a href="./infografia_metodologia.html" target="_blank" class="block p-6 bg-green-50 rounded-lg border border-green-200 hover:shadow-lg resource-card">
-                                <i class="fas fa-project-diagram text-4xl text-green-600 mb-3"></i>
-                                <h3 class="font-bold text-lg text-green-800">Infografía: Metodología</h3>
-                                <p class="text-sm text-gray-600 mt-1">Un diagrama visual que explica la sinergia entre CI y AEP.</p>
-                            </a>
-                            <a href="./modulo_poder.html" target="_blank" class="block p-6 bg-indigo-50 rounded-lg border border-indigo-200 hover:shadow-lg resource-card">
-                                <i class="fas fa-cogs text-4xl text-indigo-600 mb-3"></i>
-                                <h3 class="font-bold text-lg text-indigo-800">Módulo: La Caja Negra del Poder</h3>
-                                <p class="text-sm text-gray-600 mt-1">Un viaje interactivo para desenmascarar las dimensiones del poder.</p>
-                            </a>
-                        </div>
-                    </div>
-                `,
-          },
-          {
-            title: 'Metodología',
-            icon: 'fa-microscope',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 3</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Metodología de la Investigación</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>Para responder a la compleja pregunta de investigación, este estudio adopta un <strong>diseño de métodos mixtos</strong>. Esta aproximación permite una comprensión más profunda y matizada del fenómeno, combinando la robustez de los datos cuantitativos con la riqueza contextual del análisis cualitativo. La metodología se estructura en dos fases secuenciales y complementarias.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">3.1 Fase Cuantitativa: Mapeo del Flujo de Recursos</h3>
-                        <p>El objetivo de esta fase es trazar la ruta del dinero a través del sistema de salud. Se realiza un análisis exhaustivo de datos secundarios provenientes de fuentes oficiales, incluyendo:</p>
-                        <ul class="list-disc list-inside mb-4 space-y-2">
-                            <li><strong>Cuentas Nacionales de Salud:</strong> Para entender la estructura general del financiamiento y el gasto.</li>
-                            <li><strong>Presupuesto General del Estado:</strong> Para analizar las asignaciones a los diferentes subsectores y programas de salud.</li>
-                            <li><strong>Datos de ejecución presupuestaria:</strong> Para comparar lo asignado versus lo realmente gastado.</li>
-                            <li><strong>Encuestas de Condiciones de Vida (ECV):</strong> Para cuantificar el Gasto de Bolsillo (GDB) de los hogares.</li>
-                        </ul>
-                        <p>Este análisis cuantitativo nos permite identificar patrones, tendencias y anomalías en el flujo financiero, sentando las bases para la investigación cualitativa.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">3.2 Fase Cualitativa: Análisis de Procesos y Poder</h3>
-                        <p>Una vez mapeado el "qué" del flujo financiero, esta fase busca explicar el "porqué" y el "cómo". Utilizando los marcos de la Ciencia de la Implementación y el Análisis de Economía Política, se realiza un análisis documental profundo de:</p>
-                        <ul class="list-disc list-inside mb-4 space-y-2">
-                            <li><strong>Leyes y normativas:</strong> Para comprender el marco institucional que regula el sistema.</li>
-                            <li><strong>Políticas y planes de salud:</strong> Para analizar las intenciones y los diseños de las intervenciones.</li>
-                            <li><strong>Informes de auditoría y evaluaciones:</strong> Para identificar fallas de implementación y gestión documentadas.</li>
-                            <li><strong>Literatura académica y periodística:</strong> Para contextualizar los hallazgos e identificar a los actores clave y sus intereses.</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">3.3 Integración de Datos</h3>
-                        <p>La fortaleza de la metodología reside en la <strong>integración de los hallazgos</strong> de ambas fases. Los resultados cuantitativos (ej. una alta concentración de gasto en un área específica) guían el análisis cualitativo para investigar por qué ocurre esa concentración. A su vez, el análisis cualitativo (ej. la identificación de un grupo de interés influyente) ayuda a interpretar los patrones numéricos. Esta triangulación de datos es la que permite construir una explicación coherente y basada en evidencia sobre quién, en última instancia, se beneficia del gasto en salud en Ecuador.</p>
-                    </div>
-                     <div class="mt-12 border-t pt-8">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Recursos del Capítulo</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                             <a href="./infografia_historica.html" target="_blank" class="block p-6 bg-orange-50 rounded-lg border border-orange-200 hover:shadow-lg resource-card">
-                                <i class="fas fa-landmark text-4xl text-orange-600 mb-3"></i>
-                                <h3 class="font-bold text-lg text-orange-800">Infografía: Contexto Histórico</h3>
-                                <p class="text-sm text-gray-600 mt-1">Un viaje a través del tiempo para entender las raíces del sistema actual.</p>
-                            </a>
-                        </div>
-                    </div>
-                `,
-          },
-          {
-            title: 'Mapeo del Flujo Financiero',
-            icon: 'fa-chart-line',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 4</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Mapeo del Flujo Financiero: La Ruta del Dinero</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>Este capítulo presenta los resultados de la fase cuantitativa de la investigación, trazando el camino que sigue el dinero desde sus fuentes hasta sus destinos finales. El análisis revela un panorama complejo, marcado por una fuerte concentración del gasto y la existencia de significativos "puntos de fuga" donde los recursos se desvían de su propósito de mejorar la salud de la población.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">4.1 Concentración del Gasto: Un Modelo Curativo y Hospitalocéntrico</h3>
-                        <p>El análisis de los datos del Presupuesto General del Estado y de las Cuentas Nacionales de Salud demuestra consistentemente que la mayor parte del gasto público en salud se destina a la <strong>atención curativa y especializada</strong>. Los hospitales de segundo y tercer nivel, junto con la compra de medicamentos de alto costo y tecnología médica, absorben una porción desproporcionada de los recursos. En contraste, la Atención Primaria de Salud (APS), que debería ser la base del sistema, se encuentra crónicamente subfinanciada.</p>
-                        <p>Esta asignación refleja un modelo de salud reactivo, enfocado en tratar la enfermedad en lugar de prevenirla. Este modelo es inherentemente más costoso e ineficiente, y beneficia principalmente a los proveedores de servicios especializados y a la industria farmacéutica, en lugar de a la salud colectiva.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">4.2 Puntos de Fuga y Gasto Ineficiente</h3>
-                        <p>El mapeo del flujo financiero también identifica varios puntos críticos donde el valor del dinero público se erosiona:</p>
-                        <ul class="list-disc list-inside mb-4 space-y-2">
-                            <li><strong>Compra de Medicamentos:</strong> A pesar de mecanismos como la subasta inversa, persisten problemas de sobreprecios, compras fragmentadas e ineficientes, y una falta de planificación que conduce tanto al desabastecimiento como al desperdicio de fármacos.</li>
-                            <li><strong>Prestadores Privados:</strong> Una parte significativa de los fondos públicos, especialmente del IESS, se transfiere a proveedores privados para la prestación de servicios. La falta de regulación de tarifas, auditorías débiles y la ausencia de mecanismos de pago basados en resultados generan un entorno propicio para la sobrefacturación y la prestación de servicios innecesarios.</li>
-                            <li><strong>Corrupción y Gastos Administrativos:</strong> Aunque difíciles de cuantificar con precisión, los informes de la Contraloría y los escándalos reportados en medios de comunicación sugieren que la corrupción es un punto de fuga relevante. Además, un gasto administrativo elevado y una burocracia ineficiente consumen recursos que podrían destinarse a la atención directa.</li>
-                        </ul>
-                        <p>Estos hallazgos cuantitativos son la evidencia tangible de la paradoja. Muestran que, aunque el dinero se gasta, no necesariamente se invierte de manera efectiva. El siguiente capítulo utilizará el lente del Análisis de Economía Política para explorar por qué el sistema está estructurado de esta manera.</p>
-                    </div>
-                     <div class="mt-12 border-t pt-8">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6">Recursos del Capítulo</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <a href="./infografia_gobernanza.html" target="_blank" class="block p-6 bg-red-50 rounded-lg border border-red-200 hover:shadow-lg resource-card">
-                                <i class="fas fa-balance-scale text-4xl text-red-600 mb-3"></i>
-                                <h3 class="font-bold text-lg text-red-800">Infografía: Gobernanza</h3>
-                                <p class="text-sm text-gray-600 mt-1">Explora las dinámicas de poder en las arenas de decisión clave.</p>
-                            </a>
-                        </div>
-                    </div>
-                `,
-          },
-          {
-            title: 'Gobernanza y Poder',
-            icon: 'fa-chess-king',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 5</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Gobernanza y Poder en la Asignación de Recursos</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>El Capítulo 4 demostró <em>qué</em> está mal con el flujo de dinero. Este capítulo utiliza el Análisis de Economía Política para explicar <em>por qué</em>. Las ineficiencias y la mala asignación de recursos no son accidentes, sino el resultado de un sistema de gobernanza donde los intereses de grupos poderosos a menudo prevalecen sobre el interés público. Estos actores han moldeado las reglas del juego —formales e informales— para su propio beneficio.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">5.1 Los Actores Dominantes y sus Intereses</h3>
-                        <p>El análisis revela un "triángulo de hierro" de intereses que captura una parte significativa de los recursos de salud:</p>
-                        <ul class="list-disc list-inside mb-4 space-y-2">
-                            <li><strong>Industria Farmacéutica y de Proveedores de Tecnología:</strong> Su interés es maximizar las ventas y los precios. Ejercen una influencia considerable a través del cabildeo para la inclusión de sus productos en los planes de beneficios, a menudo sin una evaluación rigurosa de costo-efectividad, y se benefician de procesos de compra opacos.</li>
-                            <li><strong>Gremios Médicos y de Profesionales de la Salud:</strong> Si bien abogan por mejores condiciones laborales, ciertos sectores de los gremios han resistido históricamente las reformas orientadas a la atención primaria y a modelos de pago basados en el desempeño, ya que el modelo hospitalocéntrico y de pago por servicio es más lucrativo para los especialistas.</li>
-                            <li><strong>Proveedores Privados (Clínicas, Hospitales, Laboratorios):</strong> Como receptores de fondos públicos a través de derivaciones, su interés es mantener y expandir este flujo de ingresos. La falta de una regulación de tarifas y de controles estrictos les permite beneficiarse de la ineficiencia del sector público.</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">5.2 El Papel de las Élites Burocráticas y Políticas</h3>
-                        <p>Los actores políticos y los altos funcionarios del sistema de salud (élites burocráticas) actúan como intermediarios y, a menudo, como facilitadores de esta captura de recursos. La inestabilidad política y la alta rotación de ministros y directivos impiden la implementación de reformas a largo plazo. En muchos casos, las decisiones de asignación de recursos responden a presiones políticas y a la necesidad de satisfacer las demandas de los grupos de interés influyentes, en lugar de basarse en criterios técnicos de salud pública.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">5.3 El Resultado: Un Equilibrio Político Ineficiente</h3>
-                        <p>El resultado es un "equilibrio políticamente estable pero socialmente ineficiente". El sistema se mantiene en un estado de bajo rendimiento porque los actores con el poder para cambiarlo son los mismos que se benefician de su funcionamiento actual. Los costos de esta ineficiencia (el alto gasto de bolsillo, la baja calidad de la atención) son asumidos por la población general, un grupo grande y desorganizado con poca capacidad de influencia. Este análisis de poder es fundamental para entender por qué las reformas técnicas por sí solas han fracasado y por qué cualquier intento de cambio real debe abordar estas profundas asimetrías de poder.</p>
-                    </div>
-                `,
-          },
-          {
-            title: 'La Brecha de Implementación',
-            icon: 'fa-bridge-water',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 6</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">La Brecha de Implementación: Del Papel a la Realidad</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>Si los capítulos anteriores explicaron dónde va el dinero y por qué, este capítulo, utilizando el lente de la <strong>Ciencia de la Implementación</strong>, se enfoca en <em>cómo</em> los recursos se pierden en la "última milla": la prestación real de servicios. Aquí es donde las políticas bien intencionadas chocan con la realidad operativa, creando una brecha que los ciudadanos experimentan directamente en forma de desabastecimiento, largas esperas y mala calidad de atención.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">6.1 Fallas en la Cadena de Suministro: La Crisis de los Medicamentos</h3>
-                        <p>El problema más visible es la ineficiencia crónica en la compra, almacenamiento y distribución de medicamentos e insumos. A pesar de las políticas de compra centralizada, el sistema sufre de una <strong>planificación deficiente</strong>, procesos burocráticos engorrosos y una logística inadecuada. Esto genera un ciclo perverso de desabastecimiento en las farmacias de los hospitales, obligando a los pacientes a comprar sus propios medicamentos e insumos (el origen directo del gasto de bolsillo), seguido de compras de emergencia a precios más altos, lo que alimenta la ineficiencia y la corrupción.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">6.2 Sistemas de Información Débiles y Fragmentados</h3>
-                        <p>El sistema de salud opera a ciegas. La falta de un sistema de información unificado e interoperable impide la toma de decisiones basada en evidencia. No se puede rastrear a los pacientes a través de los diferentes niveles de atención, no hay un control efectivo de los inventarios en tiempo real y la gestión clínica se basa en registros manuales propensos a errores. Esta <strong>ceguera informativa</strong> hace imposible gestionar eficientemente los recursos, planificar las necesidades de la población o evaluar el desempeño de los proveedores.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">6.3 Desarticulación de la Red de Servicios</h3>
-                        <p>El sistema de salud está legalmente organizado como una red, pero en la práctica funciona como un archipiélago de unidades aisladas. No existe una coordinación efectiva entre la atención primaria, los hospitales y los centros de especialidad. Los pacientes se pierden en un laberinto burocrático sin un sistema de referencia y contrarreferencia que funcione. Esta <strong>fragmentación</strong> provoca la duplicación de esfuerzos, la interrupción de los tratamientos y el uso ineficiente de los hospitales para problemas que podrían resolverse en el primer nivel de atención, perpetuando el modelo hospitalocéntrico y costoso.</p>
-                        <p>En conjunto, estas fallas de implementación demuestran que el dinero asignado a la salud no garantiza su uso efectivo. La brecha entre la política y la práctica es el terreno fértil donde florece la ineficiencia, se desvían los recursos y, en última instancia, se niega el derecho a la salud de los ciudadanos.</p>
-                    </div>
-                `,
-          },
-          {
-            title: 'Análisis Integrado',
-            icon: 'fa-puzzle-piece',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 7</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Análisis Integrado: ¿Quién Recibe Realmente el Dinero?</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>Este capítulo culmina el análisis al integrar los hallazgos de las secciones anteriores para ofrecer una respuesta directa y multifacética a la pregunta central de la monografía. La paradoja del gasto en salud no tiene una causa única, sino que es el resultado de la interacción sinérgica entre un flujo de recursos mal dirigido (Cap. 4), un sistema de gobernanza capturado por intereses particulares (Cap. 5) y una serie de fallas crónicas en la implementación de servicios (Cap. 6).</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">7.1 Los Verdaderos Receptores del Gasto en Salud</h3>
-                        <p>El dinero del sistema de salud ecuatoriano, en lugar de beneficiar primordialmente a los ciudadanos a través de servicios accesibles y de calidad, es capturado en gran medida por una red de actores que se lucran de la ineficiencia y la falta de transparencia del sistema. Los principales beneficiarios son:</p>
-                        <ul class="list-disc list-inside mb-4 space-y-2">
-                            <li><strong>Proveedores de la industria farmacéutica y tecnológica:</strong> Se benefician de un modelo curativo que prioriza medicamentos y tecnologías de alto costo, y de procesos de compra débiles que permiten sobreprecios y una baja competencia efectiva.</li>
-                            <li><strong>Proveedores privados de servicios de salud:</strong> Reciben fondos públicos a través de derivaciones, a menudo sin una regulación de tarifas ni controles de calidad adecuados, lo que incentiva la sobrefacturación y la prestación de servicios innecesarios.</li>
-                            <li><strong>Actores corruptos dentro del sistema:</strong> Redes incrustadas en la burocracia desvían recursos a través de contratos fraudulentos y otros mecanismos ilícitos, aprovechando la complejidad y opacidad de la gestión.</li>
-                            <li><strong>Gremios y élites profesionales:</strong> Al defender un modelo hospitalocéntrico y resistirse a reformas que fortalezcan la atención primaria y los mecanismos de pago por resultados, protegen un status quo que beneficia económicamente a los especialistas.</li>
-                        </ul>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">7.2 La Interacción Causal: Cómo Funciona la Paradoja</h3>
-                        <p>El marco teórico híbrido nos permite ver cómo estas piezas se conectan. El <strong>Análisis de Economía Política</strong> revela <em>por qué</em> el sistema está diseñado para beneficiar a estos grupos: ellos tienen el poder de influir en las políticas. La <strong>Ciencia de la Implementación</strong> muestra <em>cómo</em> esta captura se materializa en el día a día: a través de cadenas de suministro rotas, sistemas de información inútiles y una red de servicios fragmentada. La brecha de implementación no es un accidente; es el espacio donde los intereses creados operan y extraen rentas del sistema.</p>
-                        <p>En conclusión, el dinero no llega a la gente porque es sistemáticamente interceptado en el camino. La paradoja del gasto en salud es, en esencia, una <strong>paradoja de poder</strong>. Los ciudadanos pagan tres veces: con sus impuestos, con su gasto de bolsillo y, finalmente, con su salud. El siguiente y último capítulo discutirá qué se puede hacer para romper este ciclo vicioso.</p>
-                    </div>
-                `,
-          },
-          {
-            title: 'Hacia la Justicia Sistémica',
-            icon: 'fa-gavel',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Capítulo 8</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Hacia la Justicia Sistémica: Un Nuevo Contrato Social para la Salud</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>Tras un exhaustivo diagnóstico de la paradoja del gasto en salud, este capítulo final trasciende la crítica para proponer un camino hacia la transformación. No se trata de ofrecer ajustes menores, sino de abogar por una <strong>reforma estructural</strong> basada en los principios de la justicia sistémica. Esto implica no solo corregir las ineficiencias técnicas, sino, fundamentalmente, reequilibrar el poder y realinear los incentivos del sistema hacia el objetivo primordial del derecho a la salud para todos.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">8.1 Contribuciones Teóricas y Lecciones Aprendidas</h3>
-                        <p>Esta investigación demuestra la potencia del <strong>marco teórico híbrido (CI + AEP)</strong> para desentrañar problemas complejos en los sistemas de salud. La principal lección es que las reformas fracasan cuando ignoran la economía política subyacente. Un análisis que solo se enfoca en los fallos de implementación (la CI) sin entender quién se beneficia de ellos (el AEP) es incompleto. La contribución de este trabajo es ofrecer un modelo integrado que puede ser adaptado y aplicado en otros contextos para diagnosticar y abordar problemas similares de gobernanza y rendimiento en el sector social.</p>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">8.2 Pilares para una Reforma Basada en la Justicia Sistémica</h3>
-                        <p>Una reforma verdadera debe ser multifacética y abordar las causas raíz de la paradoja. Proponemos una agenda de cambio basada en tres pilares interconectados:</p>
-                        <ol class="list-decimal list-inside mb-4 space-y-4">
-                            <li>
-                                <strong>Gobernanza para el Interés Público:</strong> Es el pilar fundamental. Implica desmantelar la captura del sistema y fortalecer la rectoría del Ministerio de Salud. Las acciones clave incluyen:
-                                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
-                                    <li>Crear una <strong>Agencia de Evaluación de Tecnologías Sanitarias (ETESA)</strong> autónoma y técnica, que tome decisiones sobre la inclusión de medicamentos y tecnologías basándose en evidencia de costo-efectividad, no en la presión de la industria.</li>
-                                    <li>Implementar la <strong>regulación de precios de medicamentos</strong> para el sector privado, utilizando mecanismos como la referenciación de precios internacionales para combatir los sobreprecios.</li>
-                                    <li>Fortalecer la transparencia y la rendición de cuentas en todos los procesos de compra pública, con una ciudadanía vigilante y activa.</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <strong>Reorientación del Financiamiento hacia la Atención Primaria (APS):</strong> Se debe romper el modelo hospitalocéntrico. Esto requiere una decisión política audaz para reasignar una porción significativa del presupuesto hacia el primer nivel de atención. Las acciones incluyen:
-                                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
-                                    <li>Establecer <strong>mecanismos de pago capitativos</strong> ajustados por riesgo para los equipos de APS, incentivando la prevención y el mantenimiento de la salud de la población a su cargo.</li>
-                                    <li>Invertir en la infraestructura y el equipamiento de los centros de salud para aumentar su capacidad resolutiva y convertirlos en la verdadera puerta de entrada al sistema.</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <strong>Implementación Inteligente y Basada en Datos:</strong> La buena política requiere una buena ejecución. Es crucial cerrar la brecha de implementación con herramientas modernas de gestión. Las acciones clave son:
-                                <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
-                                    <li>Desarrollar e implementar una <strong>plataforma nacional de información de salud interoperable</strong>, que incluya historia clínica única y un sistema logístico integrado para la gestión de medicamentos en tiempo real.</li>
-                                    <li>Profesionalizar la gerencia en salud, seleccionando a los directivos de hospitales y distritos por mérito técnico y no por afiliación política.</li>
-                                </ul>
-                            </li>
-                        </ol>
-                        <h3 class="text-xl font-semibold mt-6 mb-3">8.3 Conclusión: Una Tarea Política y Social</h3>
-                        <p>Transformar el sistema de salud es, en última instancia, una tarea política. Requiere la construcción de una nueva coalición social, liderada por el Estado pero con el apoyo activo de la academia, la sociedad civil y los ciudadanos, para contrarrestar el poder de los intereses creados. La ruta hacia la justicia sistémica es compleja y enfrentará resistencia, pero el costo de la inacción —medido en vidas perdidas y en la perpetuación de la inequidad— es inaceptablemente alto. Esta monografía ha iluminado el problema y sus causas; ahora comienza el trabajo de construir las soluciones.</p>
-                    </div>
-                `,
-          },
-          {
-            title: 'Descargas',
-            icon: 'fa-download',
-            content: `
-                    <div class="mb-8">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600">Recursos Adicionales</p>
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-1">Descargar Capítulos en PDF</h1>
-                    </div>
-                    <div class="prose max-w-none text-lg leading-relaxed">
-                        <p>Accede al texto completo de cada capítulo de la monografía en formato PDF para una lectura detallada y sin conexión.</p>
-                        <ul class="list-none p-0">
-                            <li class="border-b py-3"><a href="../../assets/pdf/capitulo-1.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 1: Introducción</a></li>
-                            <li class="border-b py-3"><a href="../../assets/pdf/capitulo-2.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 2: Marco Teórico</a></li>
-                            <li class="border-b py-3"><a href="../../assets/pdf/capitulo-3.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 3: Metodología</a></li>
-                            <li class="border-b py-3"><a href="../../assets/pdf/capitulo-4.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 4: Mapeo del Flujo Financiero</a></li>
-                            <li class="border-b py-3"><a href="../../assets/pdf/capitulo-5.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 5: Gobernanza y Poder</a></li>
-                            <li class="border-b py-3"><a href="../../assets/pdf/capitulo-6.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 6: La Brecha de Implementación</a></li>
-                            <li class="border-b py-3"><a href="../../assets/pdf/capitulo-7.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 7: Análisis Integrado</a></li>
-                            <li class="py-3"><a href="../../assets/pdf/capitulo-8.pdf" download class="text-blue-700 hover:underline font-semibold no-underline"><i class="fas fa-file-pdf w-6 mr-2 text-red-600"></i>Capítulo 8: Hacia la Justicia Sistémica</a></li>
-                        </ul>
-                    </div>
-                `,
-          },
-        ];
+  <h2>Aprendizaje Basado en Problemas (ABP)</h2>
+  <div class="abp-container">
+    <div class="abp-header">Mapeo Clínico-Estructural <span>· Despliega para analizar ·</span></div>
+    
+    <div class="abp-layer" onclick="toggleLayer(this)">
+      <div class="abp-layer-title">
+        <div><span>Capa 01</span> Fisiopatología y Gasto de Bolsillo</div>
+      </div>
+      <div class="abp-layer-content">
+        <div class="abp-layer-inner">
+          <p>Un paciente con diabetes tipo 2 acude por neuropatía diabética severa. La farmacia pública lleva meses sin su medicación específica. El paciente asume el costo directo. [cite_start]Este no es un fallo administrativo aislado; es la materialización del GDB (32.8%) en el cuerpo del paciente[cite: 2137]. [cite_start]La "fuga de efectividad" hace que el recurso estatal no alivie la carga financiera del hogar[cite: 2156].</p>
+        </div>
+      </div>
+    </div>
 
-        const navigation = document.getElementById('navigation');
-        const contentDisplay = document.getElementById('content-display');
-        let navLinks = [];
+    <div class="abp-layer" onclick="toggleLayer(this)">
+      <div class="abp-layer-title">
+        <div><span>Capa 02</span> Fragmentación como Herramienta de Poder</div>
+      </div>
+      <div class="abp-layer-content">
+        <div class="abp-layer-inner">
+          [cite_start]<p>La coexistencia del MSP y el IESS con limitada coordinación genera duplicidades y vacíos[cite: 2159]. [cite_start]La Ciencia de la Implementación advierte que esta fragmentación crea barreras donde cada subsistema opera con su propia lógica[cite: 2244]. [cite_start]En el IESS, la deuda estatal crónica es usada como palanca de poder por el MEF para controlar la liquidez[cite: 2408, 2409].</p>
+        </div>
+      </div>
+    </div>
 
-        function showContent(index) {
-          const contentObject = contentData[index];
-          contentDisplay.innerHTML = contentObject.content;
+    <div class="abp-layer" onclick="toggleLayer(this)">
+      <div class="abp-layer-title">
+        <div><span>Capa 03</span> La Red Privada Complementaria (RPC)</div>
+      </div>
+      <div class="abp-layer-content">
+        <div class="abp-layer-inner">
+          <p>Cuando el Estado no puede absorber la demanda, deriva a la RPC. [cite_start]Aquí el poder es un "equilibrio negociado"[cite: 2422]. [cite_start]Si los proveedores organizados (ej. ACHPE) negocian tarifas altas, se convierten en los principales "receptores" del dinero público, restando recursos para fortalecer el sistema primario[cite: 2418, 2424].</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          navLinks.forEach((link, i) => {
-            link.classList.toggle('active', i === index);
-          });
-        }
+  <section class="quiz-section">
+    <div id="quiz-container">
+      <div class="quiz-question active" data-step="1">
+        <p>1. ¿Qué enfoque teórico permite explicar por qué las intervenciones basadas en evidencia no logran los resultados esperados en la práctica, abordando la "brecha entre el saber y el hacer"?</p>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. La microeconomía neoclásica asume decisiones racionales, no evalúa barreras prácticas de implementación.')">A) La microeconomía neoclásica</button>
+          [cite_start]<button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! La Ciencia de la Implementación (CI) estudia sistemáticamente por qué las políticas fallan en la práctica, usando marcos como el CFIR[cite: 2234, 2237].')">B) La Ciencia de la Implementación (CI)</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. La contabilidad gubernamental rastrea la legalidad del gasto, no sus fallos de impacto real.')">C) La auditoría contable gubernamental</button>
+        </div>
+        <div class="quiz-feedback"></div>
+        <button class="next-btn" onclick="nextQuestion(1)">Siguiente Pregunta ➔</button>
+      </div>
 
-        contentData.forEach((item, index) => {
-          const link = document.createElement('a');
-          link.href = '#';
-          link.className =
-            'flex items-center p-3 text-gray-700 border-l-4 border-transparent nav-link';
-          link.innerHTML = `<i class="fas ${item.icon} w-6 text-center mr-3"></i><span>${item.title}</span>`;
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            showContent(index);
-          });
-          navigation.appendChild(link);
-          navLinks.push(link);
-        });
+      <div class="quiz-question" data-step="2">
+        <p>2. Al aplicar la obra de Robert Dahl para responder "¿Quién gobierna?", el análisis comparativo transversal de las 4 arenas en Ecuador revela que:</p>
+        <div class="quiz-options">
+          [cite_start]<button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Ninguna élite única controla el sistema de salud ecuatoriano en su totalidad[cite: 2440].')">A) Existe una élite única (el MSP) que controla monopólicamente todo el sistema de salud.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Los pacientes son precisamente quienes sufren la asimetría de poder y soportan el GDB.')">B) Los pacientes y sus asociaciones tienen el poder de agenda decisivo.</button>
+          [cite_start]<button class="quiz-btn" onclick="checkAnswer(this, true, '¡Exacto! El sistema opera como un "pluralismo segmentado", donde actores diferentes (MEF, Farmacéuticas, ACHPE) dominan nichos o arenas específicas[cite: 2439, 2441].')">C) Existe un "pluralismo segmentado" donde diferentes actores dominan en nichos específicos (ej. MEF en presupuesto, industria en medicamentos).</button>
+        </div>
+        <div class="quiz-feedback"></div>
+        <button class="next-btn" onclick="finishQuiz()">Finalizar Módulo</button>
+      </div>
+      
+      <div class="quiz-question" data-step="3" id="quiz-finish">
+        <p style="color: var(--accent); font-family: var(--display); font-size: 2rem;">¡Módulo Completado!</p>
+        <p style="font-size: 1rem; color: rgba(245,240,232,0.8);">El diagnóstico sistémico es el primer paso para la verdadera implementación clínica y política. La evidencia documentada aquí desarma los discursos de austeridad superficiales.</p>
+        <button class="quiz-btn" style="margin-top: 1rem; text-align: center;" onclick="location.reload()">Reiniciar Autoevaluación</button>
+      </div>
+    </div>
+  </section>
 
-        // Cargar el primer capítulo por defecto
-        showContent(0);
+</main>
+
+<footer>
+  <span>PowerSemiotics</span> · Decodificando el lenguaje de la ciencia · Medicina e Implementación
+</footer>
+
+<script>
+  // ABP Accordion Logic
+  function toggleLayer(el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.abp-layer').forEach(l => l.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  // Quiz Logic
+  function checkAnswer(btn, isCorrect, feedbackText) {
+    const parent = btn.closest('.quiz-question');
+    const allBtns = parent.querySelectorAll('.quiz-btn');
+    const feedbackDiv = parent.querySelector('.quiz-feedback');
+    const nextBtn = parent.querySelector('.next-btn');
+
+    if(parent.classList.contains('answered')) return; // Prevent multiple clicks
+    parent.classList.add('answered');
+
+    // Highlight correct/incorrect
+    if(isCorrect) {
+      btn.classList.add('correct');
+    } else {
+      btn.classList.add('wrong');
+      // Show which one was correct
+      allBtns.forEach(b => {
+        if(b.getAttribute('onclick').includes('true')) b.classList.add('correct');
       });
-    </script>
-  </body>
+    }
+
+    // Disable buttons
+    allBtns.forEach(b => b.style.cursor = 'default');
+
+    // Show feedback
+    feedbackDiv.innerHTML = feedbackText;
+    feedbackDiv.style.display = 'block';
+    
+    // Show next button
+    if(nextBtn) nextBtn.style.display = 'block';
+  }
+
+  function nextQuestion(currentStep) {
+    document.querySelector(`.quiz-question[data-step="${currentStep}"]`).classList.remove('active');
+    document.querySelector(`.quiz-question[data-step="${currentStep + 1}"]`).classList.add('active');
+  }
+
+  function finishQuiz() {
+    document.querySelector(`.quiz-question[data-step="2"]`).classList.remove('active');
+    document.querySelector(`#quiz-finish`).classList.add('active');
+  }
+</script>
+
+</body>
 </html>
