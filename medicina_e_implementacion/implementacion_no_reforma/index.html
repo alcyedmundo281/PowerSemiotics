@@ -71,19 +71,31 @@
   h1 em { font-style: italic; color: var(--accent); }
   .subtitle { font-family: var(--serif); font-size: 1.2rem; font-weight: 300; font-style: italic; color: var(--muted); margin: 0 auto 2.5rem; max-width: 700px; }
   
-  /* Section Headers */
-  h2 { font-family: var(--display); font-size: 2rem; font-weight: 700; border-bottom: 2px solid var(--ink); padding-bottom: 0.5rem; margin: 4rem 0 2rem; }
+  /* Section Headers & Text */
+  h2 { font-family: var(--display); font-size: 2rem; font-weight: 700; border-bottom: 2px solid var(--ink); padding-bottom: 0.5rem; margin: 4rem 0 1.5rem; }
+  h3 { font-family: var(--display); font-size: 1.4rem; font-style: italic; margin: 2rem 0 1rem; color: var(--ink); }
+  p { margin-bottom: 1.5rem; font-size: 1.05rem; }
   
   /* Key Points Block */
   .key-points { background: var(--highlight); padding: 2.5rem; border-left: 4px solid var(--accent); margin-bottom: 3rem; }
-  .key-points h3 { font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; }
+  .key-points h3 { font-family: var(--mono); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; font-style: normal; }
   .key-points ul { list-style: none; }
   .key-points li { margin-bottom: 1rem; position: relative; padding-left: 1.5rem; font-size: 1.05rem; }
   .key-points li::before { content: '■'; color: var(--accent); position: absolute; left: 0; font-size: 0.8rem; top: 0.3rem; }
 
+  /* Theoretical Comparison Table */
+  .theory-table-wrapper { overflow-x: auto; margin: 3rem 0; border: 1px solid var(--rule); }
+  .theory-table { width: 100%; border-collapse: collapse; text-align: left; }
+  .theory-table th, .theory-table td { padding: 1.25rem; border-bottom: 1px solid var(--rule); }
+  .theory-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .theory-table tr:last-child td { border-bottom: none; }
+  .theory-table td { font-size: 0.95rem; vertical-align: top; }
+  .theory-table td:first-child { font-family: var(--mono); font-weight: 600; color: var(--accent); width: 20%; font-size: 0.8rem; text-transform: uppercase; }
+  .theory-table tr:nth-child(even) { background: var(--highlight); }
+
   /* Flashcards USMLE Style */
   .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 3rem 0; }
-  .flashcard { background-color: transparent; height: 320px; perspective: 1000px; cursor: pointer; }
+  .flashcard { background-color: transparent; height: 340px; perspective: 1000px; cursor: pointer; }
   .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
   .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
   .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; border: 1px solid var(--rule); background: var(--paper); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
@@ -91,7 +103,7 @@
   .flashcard-back { background: var(--ink); color: var(--paper); transform: rotateY(180deg); border-top: 4px solid var(--accent); }
   .flashcard-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); position: absolute; top: 1rem; }
   .flashcard-back .flashcard-label { color: var(--rule); }
-  .flashcard-content { font-family: var(--serif); font-size: 1.1rem; }
+  .flashcard-content { font-family: var(--serif); font-size: 1.05rem; }
 
   /* ABP Layers */
   .abp-container { border: 1px solid var(--rule); margin: 3rem 0; }
@@ -107,16 +119,17 @@
 
   /* Gamified Quiz */
   .quiz-section { background: var(--ink); color: var(--paper); padding: 3rem; margin: 4rem 0; position: relative; }
-  .quiz-section::before { content: 'AUTOEVALUACIÓN'; position: absolute; top: 1rem; right: 2rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); }
+  .quiz-section::before { content: 'AUTOEVALUACIÓN DE ALTO RENDIMIENTO'; position: absolute; top: 1rem; right: 2rem; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.3em; color: var(--accent); }
+  .quiz-progress { font-family: var(--mono); font-size: 0.75rem; color: var(--rule); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
   .quiz-question { margin-bottom: 2rem; display: none; }
   .quiz-question.active { display: block; animation: fadeIn 0.5s ease; }
-  .quiz-question p { font-family: var(--display); font-size: 1.3rem; margin-bottom: 1.5rem; }
+  .quiz-question p { font-family: var(--display); font-size: 1.2rem; margin-bottom: 1.5rem; line-height: 1.6; }
   .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
-  .quiz-btn { background: transparent; border: 1px solid rgba(245,240,232,0.3); color: var(--paper); padding: 1rem; font-family: var(--serif); font-size: 1rem; cursor: pointer; transition: all 0.2s; text-align: left; }
+  .quiz-btn { background: transparent; border: 1px solid rgba(245,240,232,0.3); color: var(--paper); padding: 1rem; font-family: var(--serif); font-size: 0.95rem; cursor: pointer; transition: all 0.2s; text-align: left; }
   .quiz-btn:hover { border-color: var(--accent); background: rgba(196, 30, 30, 0.1); }
   .quiz-btn.correct { background: var(--correct); border-color: var(--correct); color: white; }
   .quiz-btn.wrong { background: var(--accent); border-color: var(--accent); color: white; }
-  .quiz-feedback { margin-top: 1.5rem; font-family: var(--mono); font-size: 0.8rem; display: none; padding: 1rem; border-left: 3px solid var(--accent); background: rgba(255,255,255,0.05); }
+  .quiz-feedback { margin-top: 1.5rem; font-family: var(--mono); font-size: 0.8rem; display: none; padding: 1rem; border-left: 3px solid var(--accent); background: rgba(255,255,255,0.05); line-height: 1.5;}
   .next-btn { margin-top: 1.5rem; background: var(--paper); color: var(--ink); border: none; padding: 0.75rem 1.5rem; font-family: var(--mono); font-size: 0.8rem; font-weight: 600; cursor: pointer; text-transform: uppercase; display: none; }
   
   /* Footer */
@@ -124,8 +137,6 @@
   footer span { color: var(--accent); }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  
-  .citation { font-size: 0.75em; vertical-align: super; color: var(--muted); cursor: help; }
 </style>
 </head>
 <body>
@@ -138,32 +149,77 @@
 <main class="container">
   <section class="hero">
     <h1>La Implementación <br><em>No Es Reforma</em></h1>
-    <p class="subtitle">Desentrañando la paradoja del gasto en salud en Ecuador: Alto nivel de inversión pública frente a un Gasto de Bolsillo (GDB) catastrófico.</p>
+    <p class="subtitle">Desentrañando la estructura de poder en América Latina: Captura supranacional, oposición funcional y la falacia de la poliarquía frente al Gasto de Bolsillo.</p>
   </section>
 
-  <section class="key-points">
-    <h3>Puntos Clave del Módulo</h3>
+  <article>
+    <h2>I. La Paradoja como Síntoma de Régimen</h2>
+    <p>El sistema de salud ecuatoriano y latinoamericano contemporáneo presenta una contradicción que no es un simple error técnico o administrativo, sino una característica estructural del régimen de acumulación: un esfuerzo de inversión estatal significativo (4.8% del PIB en Ecuador, 2020) que convive con un <strong>Gasto de Bolsillo (GDB) paralizante del 32.8%</strong> (INEC, 2023).</p>
+    <p>Esta "fuga de efectividad" exige abandonar la auditoría contable y adoptar la economía política. La pregunta central deja de ser <em>"¿cuánto se gasta?"</em> para convertirse en <strong><em>"¿quién recibe el dinero?"</em></strong>. El Estado, en este marco, no actúa como el guardián hobbesiano del bien común, sino como un mediador que legitima la captura de recursos públicos por actores privados y transnacionales.</p>
+
+    <h2>II. Arenas Post-Dahlianas y Actores Supranacionales</h2>
+    <p>El marco clásico de Robert Dahl en <em>¿Quién Gobierna?</em> describe un poder distribuido entre múltiples élites locales. Sin embargo, para decodificar la salud pública periférica, debemos expandir este modelo para incluir la dimensión supranacional:</p>
     <ul>
-      <li><strong>La Paradoja Central:</strong> Ecuador invierte considerablemente en salud pública (4.8% del PIB en 2020), pero el Gasto de Bolsillo de los hogares representó un insostenible 32.8% en 2022 y 2023.</li>
-      <li><strong>La Pregunta Fundamental:</strong> <em>"¿Quién recibe el dinero?"</em>. La respuesta no es contable, es política. Trasciende los flujos formales para revelar a los beneficiarios finales y a quienes soportan la carga residual.</li>
-      <li><strong>Las Cuatro Arenas de Poder de Dahl:</strong> El control del presupuesto del MSP (gobernado por el MEF) , las políticas del IESS (capturado por deuda y nombramientos) , las tarifas de la Red Privada Complementaria (equilibrio negociado) , y el mercado farmacéutico (gobernado por la industria).</li>
-      <li><strong>La Ciencia de la Implementación (CI):</strong> Explica la "brecha entre el saber y el hacer", demostrando que los actores utilizan "estrategias de implementación" impulsadas por sus propios intereses para influir en los recursos financieros.</li>
+      <li><strong>La Arena Farmacéutica Global:</strong> El regulador local (el Ministerio de Salud) se enfrenta a una industria farmacéutica multinacional dotada de asimetría de información y poder de mercado. Los precios en la Subasta Inversa no se dictan por costo-efectividad social, sino por el monopolio de las patentes.</li>
+      <li><strong>La Deuda como Palanca de Gobierno:</strong> La deuda crónica del Estado con entidades como el IESS no es un accidente contable; es un mecanismo de disciplina fiscal. El Ministerio de Economía y Finanzas (MEF) utiliza el control de liquidez para asfixiar la infraestructura pública, forzando la tercerización hacia la Red Privada Complementaria (RPC).</li>
     </ul>
-  </section>
 
-  <h2>Recuperación Activa (USMLE Style Flashcards)</h2>
-  <p>Haz clic en las tarjetas para revelar la respuesta. Domina los conceptos estructurales antes de pasar a la clínica.</p>
+    <h2>III. La Captura de la Oposición y la Contestación Simulada</h2>
+    <p>La dimensión más insidiosa de la "Tercera cara del poder" de Lukes es la capacidad del sistema de moldear las preferencias de quienes lo combaten. En el sistema de salud, la oposición (gremios médicos, colectivos de pacientes) con frecuencia resulta <strong>capturada o funcional al statu quo</strong>:</p>
+    <p>Las batallas legales (como las acciones de protección constitucionales) se enfocan en exigir que el Estado compre moléculas hipercostosas para individuos específicos. Aunque moralmente urgentes, estas acciones <em>institucionalizan el conflicto</em>: saturan el presupuesto del tercer nivel de atención, benefician a la industria farmacéutica y dejan intacto el desabastecimiento crónico de la atención primaria que previene la enfermedad en la base poblacional.</p>
+
+    <h2>IV. Síntesis Teórica: Poliarquía vs. Fascismo Pluralista</h2>
+    <p>Para comprender por qué la democracia procedimental no se traduce en salud universal, contrastamos la visión pluralista clásica con la teoría crítica contemporánea:</p>
+
+    <div class="theory-table-wrapper">
+      <table class="theory-table">
+        <thead>
+          <tr>
+            <th>Dimensión</th>
+            <th>Visión Dahliana (Poliarquía)</th>
+            <th>Visión de Sousa Santos (Fascismo Pluralista)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Naturaleza del Poder</td>
+            <td>Distribuido en un pluralismo de élites en competencia constante. Ningún grupo domina todas las arenas.</td>
+            <td>Capturado por un bloque hegemónico (capital financiero/transnacional) que excluye de facto a sectores enteros de la población.</td>
+          </tr>
+          <tr>
+            <td>Participación y Derechos</td>
+            <td>Procedimental. Garantizada mediante el lobby, la votación y la negociación gremial equitativa.</td>
+            <td>Excluyente. El derecho existe en el papel (Art. 32 de la Constitución), pero es negado sistemáticamente en el cuerpo del ciudadano.</td>
+          </tr>
+          <tr>
+            <td>Dinámica del Conflicto</td>
+            <td>Resolutivo. Las instituciones procesan las demandas y llegan a un equilibrio.</td>
+            <td>Simulado/Capturado. La oposición es fragmentada y sus victorias parciales son funcionales a la reproducción del modelo dominante.</td>
+          </tr>
+          <tr>
+            <td>Resultado Sistémico</td>
+            <td>Un equilibrio de mercado, perfectible mediante reformas técnicas.</td>
+            <td><strong>Fascismo Social:</strong> Un régimen donde el Estado delega la soberanía de la vida a actores privados con capacidad de veto sobre la existencia material.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Conclusión:</strong> Modificar leyes, reglamentos o cambiar autoridades es, en el mejor de los casos, <em>reforma</em>. Pero <strong>la implementación no es reforma</strong>. La verdadera implementación exige redistribuir el poder y desviar el flujo financiero hacia la base. Mientras el "Fascismo Pluralista" opere detrás de la fachada institucional, el contrato social permanecerá roto.</p>
+  </article>
+
+  <h2>Recuperación Activa (Flashcards Teóricas)</h2>
   
   <div class="flashcard-grid">
     <div class="flashcard" onclick="this.classList.toggle('flipped')">
       <div class="flashcard-inner">
         <div class="flashcard-front">
-          <div class="flashcard-label">Concepto Epidemiológico</div>
-          <div class="flashcard-content">¿Qué métrica expone de forma más cruda el fallo en la protección financiera del sistema de salud ecuatoriano, y cuál fue su valor en 2023?</div>
+          <div class="flashcard-label">Paradoja del Financiamiento</div>
+          <div class="flashcard-content">¿Qué métrica expone de forma cruda que la inversión del Estado (4.8% PIB) no está llegando como protección financiera al ciudadano de a pie?</div>
         </div>
         <div class="flashcard-back">
           <div class="flashcard-label">Respuesta</div>
-          <div class="flashcard-content">El <strong>Gasto de Bolsillo (GDB)</strong>. Representó el <strong>32.8%</strong> en 2023, perpetuando la paradoja del financiamiento donde la inversión estatal alta no protege al ciudadano.</div>
+          <div class="flashcard-content">El <strong>Gasto de Bolsillo (GDB)</strong>. Representó el <strong>32.8%</strong> en 2022 y 2023, perpetuando el riesgo de gastos catastróficos para las familias.</div>
         </div>
       </div>
     </div>
@@ -171,12 +227,12 @@
     <div class="flashcard" onclick="this.classList.toggle('flipped')">
       <div class="flashcard-inner">
         <div class="flashcard-front">
-          <div class="flashcard-label">Marco de Dahl</div>
-          <div class="flashcard-content">En la Arena 1 (Presupuesto del MSP), ¿qué entidad ejerce un poder decisivo y qué "cara del poder" utiliza para limitar las aspiraciones sanitarias?</div>
+          <div class="flashcard-label">Teoría del Poder</div>
+          <div class="flashcard-content">¿Cuál es la diferencia crítica entre la "Poliarquía" de Dahl y el concepto de "Fascismo Pluralista" de Boaventura de Sousa Santos en el ámbito de la salud?</div>
         </div>
         <div class="flashcard-back">
           <div class="flashcard-label">Respuesta</div>
-          <div class="flashcard-content">El <strong>Ministerio de Economía y Finanzas (MEF)</strong>. Ejerce el <em>poder de agenda</em> (segunda cara) al fijar techos fiscales que dejan fuera de discusión la expansión del presupuesto basada en derechos.</div>
+          <div class="flashcard-content">Dahl ve un equilibrio de élites compitiendo formalmente. Sousa Santos advierte una exclusión sistémica donde la democracia procedimental convive con actores que tienen <strong>poder de veto sobre la vida humana</strong>.</div>
         </div>
       </div>
     </div>
@@ -184,12 +240,12 @@
     <div class="flashcard" onclick="this.classList.toggle('flipped')">
       <div class="flashcard-inner">
         <div class="flashcard-front">
-          <div class="flashcard-label">Economía Política</div>
-          <div class="flashcard-content">¿Cómo gobierna la industria farmacéutica la "Arena 4" (Políticas de Adquisición), según las tres caras del poder de Lukes?</div>
+          <div class="flashcard-label">Captura de Oposición</div>
+          <div class="flashcard-content">¿Por qué las "acciones de protección" impulsadas por pacientes para conseguir medicamentos de alto costo pueden ser consideradas funcionales al statu quo?</div>
         </div>
         <div class="flashcard-back">
           <div class="flashcard-label">Respuesta</div>
-          <div class="flashcard-content">A través del poder decisional (precios favorables), de agenda (influir en qué se subasta vía SICM) e ideológico (imponer el valor de sus marcas).</div>
+          <div class="flashcard-content">Porque actúan bajo la "Tercera cara del poder" (Lukes): legitiman la imposición de precios abusivos por parte de la industria, drenando los fondos públicos de la atención primaria sin cuestionar la patentes.</div>
         </div>
       </div>
     </div>
@@ -201,33 +257,33 @@
     
     <div class="abp-layer" onclick="toggleLayer(this)">
       <div class="abp-layer-title">
-        <div><span>Capa 01</span> Fisiopatología y Gasto de Bolsillo</div>
+        <div><span>Capa 01</span> La Fisiopatología y la Ruptura del Contrato</div>
       </div>
       <div class="abp-layer-content">
         <div class="abp-layer-inner">
-          <p>Un paciente con diabetes tipo 2 acude por neuropatía diabética severa. La farmacia pública lleva meses sin su medicación específica. El paciente asume el costo directo. Este no es un fallo administrativo aislado; es la materialización del GDB (32.8%) en el cuerpo del paciente. La "fuga de efectividad" hace que el recurso estatal no alivie la carga financiera del hogar.</p>
+          <p>Un paciente con cetoacidosis diabética ingresa a urgencias de tercer nivel. El factor precipitante no fue infeccioso, sino económico: desabastecimiento de insulina glargina en la farmacia pública durante 3 meses y la incapacidad de pagar de su bolsillo. Clínicamente, manejamos el anión gap; estructuralmente, debemos reconocer que el Estado ha roto el contrato hobbesiano. El dinero asignado no llegó al cuerpo.</p>
         </div>
       </div>
     </div>
 
     <div class="abp-layer" onclick="toggleLayer(this)">
       <div class="abp-layer-title">
-        <div><span>Capa 02</span> Fragmentación como Herramienta de Poder</div>
+        <div><span>Capa 02</span> La Deuda como Herramienta Disciplinaria</div>
       </div>
       <div class="abp-layer-content">
         <div class="abp-layer-inner">
-          <p>La coexistencia del MSP y el IESS con limitada coordinación genera duplicidades y vacíos. La Ciencia de la Implementación advierte que esta fragmentación crea barreras donde cada subsistema opera con su propia lógica. En el IESS, la deuda estatal crónica es usada como palanca de poder por el MEF para controlar la liquidez.</p>
+          <p>El IESS, teóricamente autónomo, se encuentra asfixiado. El MEF no simplemente "retrasa" pagos por ineficiencia. La deuda histórica opera como un instrumento de poder que condiciona la liquidez de los hospitales del Seguro Social, justificando la inyección de pacientes e ingresos hacia la Red Privada Complementaria. Es un mecanismo de vaciamiento institucional encubierto de crisis fiscal.</p>
         </div>
       </div>
     </div>
 
     <div class="abp-layer" onclick="toggleLayer(this)">
       <div class="abp-layer-title">
-        <div><span>Capa 03</span> La Red Privada Complementaria (RPC)</div>
+        <div><span>Capa 03</span> Hegemonía y la Falsa Contestación</div>
       </div>
       <div class="abp-layer-content">
         <div class="abp-layer-inner">
-          <p>Cuando el Estado no puede absorber la demanda, deriva a la RPC. Aquí el poder es un "equilibrio negociado". Si los proveedores organizados (ej. ACHPE) negocian tarifas altas, se convierten en los principales "receptores" del dinero público, restando recursos para fortalecer el sistema primario.</p>
+          <p>Ante el desabastecimiento, los gremios protestan exigiendo "presupuesto" o pidiendo la renuncia de mandos medios. Esta contestación está capturada. No se cuestiona el modelo de compras corporativas (SICM) dominado por asimetrías de información de la industria transnacional. Quien controla la agenda (segunda cara del poder) se asegura de que las protestas nunca alteren las reglas de fijación de precios.</p>
         </div>
       </div>
     </div>
@@ -235,32 +291,84 @@
 
   <section class="quiz-section">
     <div id="quiz-container">
+      
       <div class="quiz-question active" data-step="1">
-        <p>1. ¿Qué enfoque teórico permite explicar por qué las intervenciones basadas en evidencia no logran los resultados esperados en la práctica, abordando la "brecha entre el saber y el hacer"?</p>
+        <div class="quiz-progress">Pregunta 1 de 6</div>
+        <p>Cuando los pacientes o gremios médicos dirigen toda su energía a presentar "acciones de protección" legales para forzar al Estado a comprar medicamentos hipercostosos patentados, ¿qué concepto de poder de Steven Lukes están reproduciendo inadvertidamente?</p>
         <div class="quiz-options">
-          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. La microeconomía neoclásica asume decisiones racionales, no evalúa barreras prácticas de implementación.')">A) La microeconomía neoclásica</button>
-          <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! La Ciencia de la Implementación (CI) estudia sistemáticamente por qué las políticas fallan en la práctica, usando marcos como el CFIR.')">B) La Ciencia de la Implementación (CI)</button>
-          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. La contabilidad gubernamental rastrea la legalidad del gasto, no sus fallos de impacto real.')">C) La auditoría contable gubernamental</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. La coacción pura implica el uso de fuerza directa del Estado, lo cual no aplica aquí.')">A) La coacción pura y legítima del Estado sobre la población.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Esa es la primera cara (quién gana el voto/decisión formal).')">B) La primera cara del poder (el triunfo en una decisión legislativa abierta).</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Es la 3ra cara (poder ideológico): la industria moldea las preferencias para que los pacientes luchen por pagar sus patentes, drenando el fondo público sin cuestionar el modelo de propiedad intelectual.')">C) La tercera cara del poder (ideológica), donde el modelo asimétrico transnacional moldea las preferencias, haciendo que la protesta sea funcional a los intereses de la industria.</button>
         </div>
         <div class="quiz-feedback"></div>
         <button class="next-btn" onclick="nextQuestion(1)">Siguiente Pregunta ➔</button>
       </div>
 
       <div class="quiz-question" data-step="2">
-        <p>2. Al aplicar la obra de Robert Dahl para responder "¿Quién gobierna?", el análisis comparativo transversal de las 4 arenas en Ecuador revela que:</p>
+        <div class="quiz-progress">Pregunta 2 de 6</div>
+        <p>Ecuador invierte un 4.8% de su PIB en salud pública, pero el Gasto de Bolsillo (GDB) alcanza el 32.8%. Desde la perspectiva de la Economía Política de la Salud, esta "paradoja del gasto" se explica fundamentalmente por:</p>
         <div class="quiz-options">
-          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Ninguna élite única controla el sistema de salud ecuatoriano en su totalidad.')">A) Existe una élite única (el MSP) que controla monopólicamente todo el sistema de salud.</button>
-          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Los pacientes son precisamente quienes sufren la asimetría de poder y soportan el GDB.')">B) Los pacientes y sus asociaciones tienen el poder de agenda decisivo.</button>
-          <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Exacto! El sistema opera como un &quot;pluralismo segmentado&quot;, donde actores diferentes (MEF, Farmacéuticas, ACHPE) dominan nichos o arenas específicas.')">C) Existe un "pluralismo segmentado" donde diferentes actores dominan en nichos específicos (ej. MEF en presupuesto, industria en medicamentos).</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Culpar a la falta de educación financiera es una visión reduccionista que ignora las fallas estructurales de protección.')">A) La falta de educación financiera preventiva por parte de los pacientes.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. En salud, la asimetría de información hace que los mercados libres exacerben el GDB, no que lo corrijan.')">B) Un fallo de mercado temporal que se corrige naturalmente fomentando una mayor libre competencia entre aseguradoras privadas.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Esta fuga de efectividad evidencia que la ejecución del presupuesto se queda en rentas transnacionales o intermediarios, obligando al ciudadano a pagar directamente en el punto de atención.')">C) Una "fuga de efectividad" sistémica donde el Estado, operando como mediador capturado, dirige los flujos financieros hacia actores que no reducen la carga directa del ciudadano.</button>
         </div>
         <div class="quiz-feedback"></div>
-        <button class="next-btn" onclick="finishQuiz()">Finalizar Módulo</button>
+        <button class="next-btn" onclick="nextQuestion(2)">Siguiente Pregunta ➔</button>
+      </div>
+
+      <div class="quiz-question" data-step="3">
+        <div class="quiz-progress">Pregunta 3 de 6</div>
+        <p>Según el contraste teórico del módulo, si afirmamos que el sistema de salud en Latinoamérica presenta un "Fascismo Pluralista o Social" (Boaventura de Sousa Santos), nos referimos a:</p>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Exacto! El fascismo pluralista no requiere dictaduras militares; opera en democracias donde el mercado y actores privados tienen poder de veto sobre las condiciones materiales de vida de las poblaciones vulnerables.')">A) Un régimen donde operan instituciones democráticas procedimentales, pero el poder transnacional y privado tiene capacidad de veto sobre la vida material, excluyendo a grandes sectores poblacionales.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Esa descripción corresponde a la Poliarquía idealizada de Dahl, no al Fascismo Pluralista.')">B) Un sistema de gobernanza donde múltiples élites locales negocian y logran equilibrar perfectamente la demanda ciudadana en igualdad de condiciones.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. El fascismo social/pluralista no depende de la abolición formal de la democracia electoral, sino de asimetrías extremas de capital.')">C) La instauración formal de un modelo de partido único y la abolición total del Estado de Derecho y las elecciones presidenciales.</button>
+        </div>
+        <div class="quiz-feedback"></div>
+        <button class="next-btn" onclick="nextQuestion(3)">Siguiente Pregunta ➔</button>
+      </div>
+
+      <div class="quiz-question" data-step="4">
+        <div class="quiz-progress">Pregunta 4 de 6</div>
+        <p>En el análisis de las arenas de decisión, la deuda histórica del Estado ecuatoriano con el IESS no debe interpretarse como un simple "retraso contable" o incapacidad de pago, sino como:</p>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. El IESS sufre una descapitalización crónica por esta deuda, no se beneficia de intereses.')">A) Una estrategia exclusiva del IESS para generar altos intereses moratorios a su favor, aumentando su liquidez a largo plazo.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! Al controlar el flujo de pagos, el MEF condiciona la operatividad del Seguro Social, lo asfixia y fuerza la externalización de servicios.')">B) Un mecanismo de disciplina fiscal y una palanca de poder ejercida por el MEF que asfixia la capacidad instalada de la red pública y favorece el flujo hacia la Red Privada Complementaria.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. La deuda del Estado con el IESS es un problema de flujo de caja y aportaciones consolidadas, ajeno a los algoritmos técnicos de la SICM.')">C) Un mero error técnico en los algoritmos de adjudicación de la Subasta Inversa Corporativa de Medicamentos (SICM).</button>
+        </div>
+        <div class="quiz-feedback"></div>
+        <button class="next-btn" onclick="nextQuestion(4)">Siguiente Pregunta ➔</button>
+      </div>
+
+      <div class="quiz-question" data-step="5">
+        <div class="quiz-progress">Pregunta 5 de 6</div>
+        <p>La "Ciencia de la Implementación" (CI) advierte que cuando una política de salud pública teóricamente sólida (ej. gratuidad de medicamentos esenciales) fracasa repetidamente en la práctica clínica, a menudo no se debe a una "incompetencia administrativa", sino a que:</p>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Exacto! El fracaso en la implementación no es neutral. Las barreras son, a menudo, estrategias activas para mantener los flujos de dinero hacia los grupos que controlan el statu quo.')">A) El fracaso es en realidad funcional para los actores dominantes, quienes utilizan sus propias "estrategias de implementación" informales para asegurar sus intereses sobre el bien común.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Aunque la adherencia es un problema clínico, la CI aplicada a políticas de financiamiento aborda fallas sistémicas, no conductuales del paciente.')">B) Los pacientes sistemáticamente deciden no adherirse a los tratamientos gratuitos prescritos en las guías de práctica clínica.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Las fallas de implementación suelen ocurrir a pesar de que el marco normativo (leyes, vetos, firmas) esté perfectamente establecido en el papel.')">C) Las políticas de salud nunca logran obtener la aprobación final y firma del poder Ejecutivo tras salir de la Asamblea Nacional.</button>
+        </div>
+        <div class="quiz-feedback"></div>
+        <button class="next-btn" onclick="nextQuestion(5)">Siguiente Pregunta ➔</button>
+      </div>
+
+      <div class="quiz-question" data-step="6">
+        <div class="quiz-progress">Pregunta 6 de 6</div>
+        <p>Al aplicar de forma crítica el marco de Robert Dahl a las 4 arenas del sistema ecuatoriano (Presupuesto MSP, IESS, Tarifario Privado, Fármacos), se concluye que el poder real sobre el financiamiento de la salud:</p>
+        <div class="quiz-options">
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. El Ministerio de Salud a menudo pierde en disputas contra el MEF o la industria transnacional.')">A) Está centralizado absoluta y monopólicamente en el Ministerio de Salud Pública, que dicta todas las condiciones macro y microeconómicas.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, false, 'Incorrecto. Ni Dahl ni la evidencia del Gasto de Bolsillo sostienen que la sociedad civil tenga el control hegemónico de los recursos.')">B) Se rige por una democracia perfecta donde los sindicatos y las organizaciones de base controlan efectivamente más del 50% de las decisiones de gasto.</button>
+          <button class="quiz-btn" onclick="checkAnswer(this, true, '¡Correcto! No hay un solo "villano" todopoderoso. Existe un pluralismo segmentado: el MEF domina lo macrofiscal, la industria los medicamentos, y los proveedores privados sus tarifas.')">C) Opera bajo un modelo de "pluralismo segmentado", donde no existe una élite monolítica, sino diferentes actores con alto poder que dominan y extraen rentas en nichos específicos y desarticulados.</button>
+        </div>
+        <div class="quiz-feedback"></div>
+        <button class="next-btn" onclick="nextQuestion(6)">Ver Resultados Finales</button>
       </div>
       
-      <div class="quiz-question" data-step="3" id="quiz-finish">
-        <p style="color: var(--accent); font-family: var(--display); font-size: 2rem;">¡Módulo Completado!</p>
-        <p style="font-size: 1rem; color: rgba(245,240,232,0.8);">El diagnóstico sistémico es el primer paso para la verdadera implementación clínica y política. La evidencia documentada aquí desarma los discursos de austeridad superficiales.</p>
-        <button class="quiz-btn" style="margin-top: 1rem; text-align: center;" onclick="location.reload()">Reiniciar Autoevaluación</button>
+      <div class="quiz-question" data-step="7" id="quiz-finish">
+        <p style="color: var(--accent); font-family: var(--display); font-size: 2.2rem; line-height: 1.1;">¡Simulación <br> Completada!</p>
+        <p style="font-size: 1.1rem; color: rgba(245,240,232,0.9); margin-bottom: 1rem;"><strong>Conocimiento Accionable:</strong> Has mapeado el conflicto. Reconocer que la deuda es una palanca, que la contestación puede ser capturada y que habitamos un fascismo social, es el primer paso para no ser peones funcionales en las arenas de decisión clínica y hospitalaria.</p>
+        <p style="font-size: 0.95rem; font-family: var(--mono); color: var(--muted); border-left: 2px solid var(--accent); padding-left: 1rem;">"La Implementación no es Reforma. Es arrebatarle el control del flujo financiero a las élites segmentadas para redirigirlo a la supervivencia de la base material."</p>
+        <button class="quiz-btn" style="margin-top: 2rem; text-align: center; border-color: var(--accent);" onclick="location.reload()">↺ Reiniciar Autoevaluación</button>
       </div>
     </div>
   </section>
@@ -286,7 +394,7 @@
     const feedbackDiv = parent.querySelector('.quiz-feedback');
     const nextBtn = parent.querySelector('.next-btn');
 
-    if(parent.classList.contains('answered')) return; // Prevent multiple clicks
+    if(parent.classList.contains('answered')) return;
     parent.classList.add('answered');
 
     // Highlight correct/incorrect
@@ -294,13 +402,12 @@
       btn.classList.add('correct');
     } else {
       btn.classList.add('wrong');
-      // Show which one was correct
       allBtns.forEach(b => {
         if(b.getAttribute('onclick').includes('true')) b.classList.add('correct');
       });
     }
 
-    // Disable buttons
+    // Disable buttons to prevent re-answering
     allBtns.forEach(b => b.style.cursor = 'default');
 
     // Show feedback
@@ -311,14 +418,11 @@
     if(nextBtn) nextBtn.style.display = 'block';
   }
 
+  // Navigation Logic
   function nextQuestion(currentStep) {
     document.querySelector(`.quiz-question[data-step="${currentStep}"]`).classList.remove('active');
-    document.querySelector(`.quiz-question[data-step="${currentStep + 1}"]`).classList.add('active');
-  }
-
-  function finishQuiz() {
-    document.querySelector(`.quiz-question[data-step="2"]`).classList.remove('active');
-    document.querySelector(`#quiz-finish`).classList.add('active');
+    const nextQ = document.querySelector(`.quiz-question[data-step="${currentStep + 1}"]`);
+    if(nextQ) nextQ.classList.add('active');
   }
 </script>
 
