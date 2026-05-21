@@ -1,177 +1,256 @@
 <!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medicina y Datos - Powersemiotics</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Medicina y Datos - Powersemiotics</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="assets/tailwind.css" rel="stylesheet" />
+  </head>
 
-  <link href="assets/tailwind.css" rel="stylesheet" />
-</head>
+  <body class="font-sans bg-gray-50 text-gray-800">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="index.html" class="flex items-center space-x-2">
+          <!-- Asumiendo que tienes un logo, si no, puedes quitar la img -->
+          <!-- <img src="assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8"> -->
+          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+        </a>
+        <div class="flex items-center space-x-4">
+          <a href="medicina_y_datos.html" class="text-indigo-600 font-semibold"
+            >Medicina y Datos</a
+          >
+        </div>
+      </nav>
+    </header>
 
-<body class="font-sans bg-gray-50 text-gray-800">
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="index.html" class="flex items-center space-x-2">
-        <!-- Asumiendo que tienes un logo, si no, puedes quitar la img -->
-        <!-- <img src="assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8"> -->
-        <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-      </a>
-      <div class="flex items-center space-x-4">
-        <a href="medicina_y_datos.html" class="text-indigo-600 font-semibold">Medicina y Datos</a>
+    <main class="container mx-auto px-6 py-20">
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          El Universo de la Medicina y los Datos
+        </h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Explora nuestros módulos de conocimiento en la intersección de la
+          ciencia de datos, la inteligencia artificial y la práctica clínica.
+        </p>
       </div>
-    </nav>
-  </header>
 
-  <main class="container mx-auto px-6 py-20">
-    <div class="text-center mb-16">
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        El Universo de la Medicina y los Datos
-      </h1>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-        Explora nuestros módulos de conocimiento en la intersección de la
-        ciencia de datos, la inteligencia artificial y la práctica clínica.
-      </p>
-    </div>
-
-    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-      <!-- Card 1: Módulo de Razonamiento Clínico -->
-      <a href="medicina_y_datos/razonamiento_clinico/index.html"
-        class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-brain text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Módulo: Razonamiento Clínico
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Analiza la nueva arquitectura del juicio clínico en la era
-          computacional, desde la lógica hasta la IA.
-        </p>
-      </a>
-
-      <!-- Card 2: Módulo de Cuantificar Incertidumbre -->
-      <a href="medicina_y_datos/cuantificando_incertidumbre/index.html"
-        class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-calculator text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Unidad 3: Cuantificando la Incertidumbre
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Herramientas para evaluar la evidencia diagnóstica y tomar
-          decisiones informadas.
-        </p>
-      </a>
-
-      <!-- Card 3: Módulo de Sesgos de la Mente -->
-      <a href="medicina_y_datos/sesgos_de_la_mente.html"
-        class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-user-doctor text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Unidad 4: Los Sesgos de la Mente
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Aprende a identificar y mitigar los atajos mentales que afectan el
-          juicio clínico y conducen al error diagnóstico.
-        </p>
-      </a>
-
-      <!-- Card 4: Módulo de Inferencia Causal (NUEVO) -->
       <div
-        class="group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden h-full flex flex-col">
-        <div
-          class="absolute top-4 right-4 bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider">
-          Caso Real
-        </div>
-
-        <div class="p-6 flex-grow">
-          <div
-            class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-            <i class="fas fa-project-diagram text-xl"></i>
+        class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8"
+      >
+        <!-- Card 1: Módulo de Razonamiento Clínico -->
+        <a
+          href="medicina_y_datos/razonamiento_clinico/index.html"
+          class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-brain text-4xl gradient-text"></i>
           </div>
-
-          <h3 class="text-xl font-bold text-slate-900 mb-2">CausalMed: El Caso TRH</h3>
-
-          <p class="text-slate-500 text-sm mb-4 line-clamp-3">
-            ¿Por qué fallaron los estudios observacionales? Domina los DAGs, el criterio de la puerta trasera y los
-            resultados potenciales en esta simulación interactiva.
+          <h2 class="text-2xl font-bold text-gray-800">
+            Módulo: Razonamiento Clínico
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Analiza la nueva arquitectura del juicio clínico en la era
+            computacional, desde la lógica hasta la IA.
           </p>
+        </a>
 
-          <div class="space-y-2 mb-6 border-t border-slate-100 pt-4">
-            <div class="flex items-center text-xs text-slate-600">
-              <i class="fas fa-microscope text-blue-500 mr-2"></i> Caso Histórico Real
+        <!-- Card 2: Módulo de Cuantificar Incertidumbre -->
+        <a
+          href="medicina_y_datos/cuantificando_incertidumbre/index.html"
+          class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-calculator text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Unidad 3: Cuantificando la Incertidumbre
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Herramientas para evaluar la evidencia diagnóstica y tomar
+            decisiones informadas.
+          </p>
+        </a>
+
+        <!-- Card 3: Módulo de Sesgos de la Mente -->
+        <a
+          href="medicina_y_datos/sesgos_de_la_mente.html"
+          class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-user-doctor text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Unidad 4: Los Sesgos de la Mente
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Aprende a identificar y mitigar los atajos mentales que afectan el
+            juicio clínico y conducen al error diagnóstico.
+          </p>
+        </a>
+
+        <!-- Card 4: Módulo de Inferencia Causal (NUEVO) -->
+        <div
+          class="group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden h-full flex flex-col"
+        >
+          <div
+            class="absolute top-4 right-4 bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider"
+          >
+            Caso Real
+          </div>
+
+          <div class="p-6 flex-grow">
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors"
+            >
+              <i class="fas fa-project-diagram text-xl"></i>
             </div>
-            <div class="flex items-center text-xs text-slate-600">
-              <i class="fas fa-check-circle text-green-500 mr-2"></i> Simulación Interactiva
+
+            <h3 class="text-xl font-bold text-slate-900 mb-2">
+              CausalMed: El Caso TRH
+            </h3>
+
+            <p class="text-slate-500 text-sm mb-4 line-clamp-3">
+              ¿Por qué fallaron los estudios observacionales? Domina los DAGs,
+              el criterio de la puerta trasera y los resultados potenciales en
+              esta simulación interactiva.
+            </p>
+
+            <div class="space-y-2 mb-6 border-t border-slate-100 pt-4">
+              <div class="flex items-center text-xs text-slate-600">
+                <i class="fas fa-microscope text-blue-500 mr-2"></i> Caso
+                Histórico Real
+              </div>
+              <div class="flex items-center text-xs text-slate-600">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                Simulación Interactiva
+              </div>
             </div>
+          </div>
+
+          <div class="p-4 bg-slate-50 border-t border-slate-100">
+            <a
+              href="medicina_y_datos/inferencia-causal.html"
+              class="block w-full text-center bg-white hover:bg-blue-600 hover:text-white text-blue-700 font-semibold py-2 px-4 rounded-lg transition-colors border border-blue-200 hover:border-transparent shadow-sm"
+            >
+              Entrar al Laboratorio
+            </a>
           </div>
         </div>
 
-        <div class="p-4 bg-slate-50 border-t border-slate-100">
-          <a href="medicina_y_datos/inferencia-causal.html"
-            class="block w-full text-center bg-white hover:bg-blue-600 hover:text-white text-blue-700 font-semibold py-2 px-4 rounded-lg transition-colors border border-blue-200 hover:border-transparent shadow-sm">
-            Entrar al Laboratorio
-          </a>
-        </div>
+        <!-- Card 5: La Intuición Bayesiana -->
+        <a
+          href="medicina_y_datos/probabilidad_estadistica/index.html"
+          class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-brain text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            La Intuición Bayesiana
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            ¿Por qué tu cerebro te engaña con las probabilidades? Una guía
+            interactiva desde Steve hasta el diagnóstico médico.
+          </p>
+        </a>
+
+        <!-- Card 6: Aplicación de Estadísticos -->
+        <a
+          href="medicina_y_datos/estadisticos_descubiertos/index.html"
+          class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-chart-line text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Aplicación: Estadísticos Clínicos
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Accede a la aplicación interactiva para explorar cálculos y
+            visualizaciones clave en estadística clínica.
+          </p>
+        </a>
+
+        <!-- Card 7: Semana 4 - Comunicación y Visualización -->
+        <a
+          href="medicina_y_datos/razonamiento_clinico/comunicacion_y_visualizacion.html"
+          class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-comments text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Semana 4: Comunicación y Visualización
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Estrategias para la comunicación efectiva y visualización de datos
+            en la práctica clínica.
+          </p>
+        </a>
+
+        <!-- Card 8: Laboratorio de Código Estadístico -->
+        <a
+          href="medicina_y_datos/codigo_estadistico/index.html"
+          class="block w-full h-full bg-slate-900 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-800 group card-hover-effect flex flex-col justify-between text-left"
+        >
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-code text-4xl text-teal-400"></i>
+              <span
+                class="bg-teal-500/10 text-teal-400 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-teal-500/20"
+                >Consola Interactiva</span
+              >
+            </div>
+            <h2
+              class="text-2xl font-bold text-white group-hover:text-teal-400 transition-colors"
+            >
+              Laboratorio de Código
+            </h2>
+            <p class="text-slate-400 text-md mt-2 leading-relaxed">
+              Ejecuta R, Python, SQL y LaTeX directamente en el navegador.
+              Explora y visualiza datos epidemiológicos de Chimborazo con
+              misiones clínicas guiadas.
+            </p>
+          </div>
+          <div
+            class="flex flex-wrap gap-1.5 mt-6 pt-6 border-t border-slate-800"
+          >
+            <span
+              class="font-mono text-xs px-2 py-0.5 rounded border border-blue-500/20 text-blue-400 bg-blue-950/20"
+              >R</span
+            >
+            <span
+              class="font-mono text-xs px-2 py-0.5 rounded border border-green-500/20 text-green-400 bg-green-950/20"
+              >Python</span
+            >
+            <span
+              class="font-mono text-xs px-2 py-0.5 rounded border border-purple-500/20 text-purple-400 bg-purple-950/20"
+              >SQL</span
+            >
+            <span
+              class="font-mono text-xs px-2 py-0.5 rounded border border-amber-500/20 text-amber-400 bg-amber-950/20"
+              >LaTeX</span
+            >
+            <span
+              class="font-mono text-xs px-2 py-0.5 rounded border border-teal-500/20 text-teal-400 bg-teal-950/20"
+              >Bash</span
+            >
+          </div>
+        </a>
       </div>
+    </main>
 
-      <!-- Card 5: La Intuición Bayesiana -->
-      <a href="medicina_y_datos/probabilidad_estadistica/index.html"
-        class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-brain text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          La Intuición Bayesiana
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          ¿Por qué tu cerebro te engaña con las probabilidades? Una guía interactiva desde Steve hasta el diagnóstico
-          médico.
-        </p>
-      </a>
-
-      <!-- Card 6: Aplicación de Estadísticos -->
-      <a href="medicina_y_datos/estadisticos_descubiertos/index.html"
-        class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-chart-line text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Aplicación: Estadísticos Clínicos
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Accede a la aplicación interactiva para explorar cálculos y
-          visualizaciones clave en estadística clínica.
-        </p>
-      </a>
-
-      <!-- Card 7: Semana 4 - Comunicación y Visualización -->
-      <a href="medicina_y_datos/razonamiento_clinico/comunicacion_y_visualizacion.html"
-        class="block w-full h-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect flex flex-col">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-comments text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Semana 4: Comunicación y Visualización
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Estrategias para la comunicación efectiva y visualización de datos
-          en la práctica clínica.
-        </p>
-      </a>
-    </div>
-  </main>
-
-  <footer class="bg-white mt-20">
-    <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-      <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
-    </div>
-  </footer>
-</body>
-
+    <footer class="bg-white mt-20">
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>&copy; 2024 Powersemiotics. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </body>
 </html>

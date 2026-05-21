@@ -1,0 +1,3382 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laboratorio de Código Estadístico | Medicina y Datos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+      :root {
+        --bg: #060c18;
+        --bg2: #0c1424;
+        --bg3: #111e34;
+        --bg4: #162240;
+        --border: #1b2e4a;
+        --border2: #243d5e;
+        --text: #b8cce0;
+        --text-hi: #e0edf8;
+        --text-dim: #4a6a8a;
+        --text-faint: #2a4060;
+        --accent: #00d8c0;
+        --accent-lo: rgba(0, 216, 192, 0.12);
+        --accent2: #ff9f43;
+        --r-col: #75baff;
+        --py-col: #69c472;
+        --sql-col: #c07bff;
+        --tex-col: #ffc870;
+        --bash-col: #50c8b4;
+        --green: #3ddc84;
+        --red: #ff6b6b;
+        --yellow: #f1c232;
+        --mono: 'JetBrains Mono', 'Courier New', monospace;
+        --sans: 'IBM Plex Sans', system-ui, sans-serif;
+        --display: 'Syne', system-ui, sans-serif;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 15px;
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      /* NAV */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        height: 52px;
+        background: rgba(6, 12, 24, 0.9);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(12px);
+      }
+      .nav-logo {
+        font-family: var(--display);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-hi);
+        letter-spacing: 0.05em;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .nav-logo img {
+        height: 24px;
+        width: auto;
+      }
+      .nav-crumbs {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--text-dim);
+      }
+      .nav-crumbs a {
+        color: var(--text-dim);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-crumbs a:hover {
+        color: var(--accent);
+      }
+      .nav-crumbs span {
+        color: var(--text-faint);
+      }
+
+      /* HERO */
+      .hero {
+        padding: 3.5rem 2rem 2.5rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2rem;
+        align-items: center;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 0.25rem 0.75rem;
+        border-radius: 2px;
+        margin-bottom: 1rem;
+      }
+      .hero-badge::before {
+        content: '>';
+        margin-right: 2px;
+      }
+      .hero h1 {
+        font-family: var(--display);
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: var(--text-hi);
+        line-height: 1.15;
+        margin-bottom: 0.75rem;
+      }
+      .hero h1 span {
+        color: var(--accent);
+      }
+      .hero p {
+        color: var(--text);
+        font-size: 1rem;
+        max-width: 540px;
+        line-height: 1.7;
+      }
+      .hero-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        padding: 1.25rem 1.5rem;
+        border-radius: 4px;
+        min-width: 200px;
+      }
+      .stat-item {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+      .stat-label {
+        color: var(--text-dim);
+      }
+      .stat-val {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* DATASET PILL BAR */
+      .ds-bar {
+        max-width: 1100px;
+        margin: 0 auto 0;
+        padding: 0 2rem 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .ds-pill {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        padding: 0.2rem 0.6rem;
+        border-radius: 2px;
+        color: var(--text-dim);
+        cursor: default;
+        transition: all 0.2s;
+      }
+      .ds-pill:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .ds-pill.num {
+        border-color: #1a3a5a;
+        color: var(--r-col);
+      }
+      .ds-pill.cat {
+        border-color: #2a1a4a;
+        color: var(--sql-col);
+      }
+      .ds-pill.bin {
+        border-color: #1a3a2a;
+        color: var(--py-col);
+      }
+
+      /* LANG TABS */
+      .lab-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 2rem 4rem;
+      }
+      .lang-tabs {
+        display: flex;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 0;
+      }
+      .lang-tab {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        padding: 0.7rem 1.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        color: var(--text-dim);
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        position: relative;
+        top: 1px;
+      }
+      .lang-tab:hover {
+        color: var(--text);
+      }
+      .lang-tab.active-r {
+        color: var(--r-col);
+        border-color: var(--r-col);
+      }
+      .lang-tab.active-py {
+        color: var(--py-col);
+        border-color: var(--py-col);
+      }
+      .lang-tab.active-sql {
+        color: var(--sql-col);
+        border-color: var(--sql-col);
+      }
+      .lang-tab.active-tex {
+        color: var(--tex-col);
+        border-color: var(--tex-col);
+      }
+      .lang-tab.active-bash {
+        color: var(--bash-col);
+        border-color: var(--bash-col);
+      }
+      .tab-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.7;
+      }
+
+      /* LAB PANEL */
+      .lab-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border: 1px solid var(--border);
+        border-top: none;
+        background: var(--bg2);
+      }
+      .editor-side {
+        border-right: 1px solid var(--border);
+      }
+      .editor-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg3);
+      }
+      .editor-title {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--text-dim);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .btn-run {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 0.3rem 1rem;
+        background: var(--accent);
+        color: #040c18;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .btn-run:hover {
+        background: #00f0d4;
+        transform: translateY(-1px);
+      }
+      .btn-run:active {
+        transform: translateY(0);
+      }
+      .btn-clear {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        background: transparent;
+        border: 1px solid var(--border2);
+        color: var(--text-dim);
+        padding: 0.28rem 0.75rem;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-clear:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
+
+      textarea.code-editor {
+        width: 100%;
+        min-height: 300px;
+        height: 300px;
+        background: var(--bg);
+        color: var(--text-hi);
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        line-height: 1.65;
+        padding: 1.2rem;
+        border: none;
+        outline: none;
+        resize: vertical;
+        caret-color: var(--accent);
+        tab-size: 2;
+      }
+      textarea.code-editor::placeholder {
+        color: var(--text-faint);
+      }
+
+      .output-side {
+      }
+      .output-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg3);
+      }
+      .output-title {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--text-dim);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .terminal-out {
+        min-height: 300px;
+        max-height: 500px;
+        overflow-y: auto;
+        padding: 1rem;
+        background: var(--bg);
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        line-height: 1.7;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .terminal-out .t-prompt {
+        color: var(--accent);
+      }
+      .terminal-out .t-input {
+        color: var(--text-hi);
+      }
+      .terminal-out .t-out {
+        color: var(--text);
+      }
+      .terminal-out .t-num {
+        color: var(--r-col);
+      }
+      .terminal-out .t-hi {
+        color: var(--accent2);
+      }
+      .terminal-out .t-err {
+        color: var(--red);
+      }
+      .terminal-out .t-comment {
+        color: #3a6a4a;
+      }
+      .terminal-out .t-success {
+        color: var(--green);
+      }
+      .terminal-out .t-head {
+        color: var(--text-hi);
+        font-weight: 700;
+      }
+      .terminal-out .t-sep {
+        color: var(--border2);
+      }
+      .terminal-out .t-py {
+        color: var(--py-col);
+      }
+      .terminal-out .t-sql {
+        color: var(--sql-col);
+      }
+
+      /* CHART AREA */
+      .chart-area {
+        padding: 1rem;
+        border-top: 1px solid var(--border);
+        background: var(--bg2);
+        display: none;
+      }
+      .chart-area.visible {
+        display: block;
+      }
+      .chart-wrap {
+        position: relative;
+        max-width: 100%;
+        height: 280px;
+      }
+      .chart-title-bar {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--text-dim);
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.05em;
+      }
+      #chartCanvas {
+        background: var(--bg3);
+        border-radius: 2px;
+      }
+
+      /* MISSIONS */
+      .missions-section {
+        margin-top: 2rem;
+      }
+      .missions-title {
+        font-family: var(--display);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-hi);
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .missions-title::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+      .mission-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1rem;
+      }
+      .mission-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+      .mission-card:hover {
+        border-color: var(--border2);
+      }
+      .mission-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        user-select: none;
+      }
+      .mission-num {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--text-dim);
+        letter-spacing: 0.1em;
+      }
+      .mission-name {
+        font-family: var(--display);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-hi);
+        margin: 0.2rem 0;
+      }
+      .mission-lang {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 1px;
+        border: 1px solid currentColor;
+      }
+      .mission-body {
+        padding: 0 1rem;
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.3s ease,
+          padding 0.3s;
+      }
+      .mission-body.open {
+        max-height: 500px;
+        padding: 0.75rem 1rem 1rem;
+      }
+      .mission-desc {
+        font-size: 0.82rem;
+        color: var(--text);
+        margin-bottom: 0.75rem;
+        line-height: 1.6;
+      }
+      .mission-code {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        padding: 0.75rem;
+        border-radius: 2px;
+        font-family: var(--mono);
+        font-size: 0.73rem;
+        line-height: 1.75;
+        color: var(--text);
+        white-space: pre;
+        overflow-x: auto;
+        margin-bottom: 0.5rem;
+      }
+      .mission-code .c-comment {
+        color: #3a6a4a;
+      }
+      .mission-code .c-fn {
+        color: var(--accent2);
+      }
+      .mission-code .c-str {
+        color: var(--py-col);
+      }
+      .mission-code .c-kw {
+        color: var(--sql-col);
+      }
+      .btn-load-mission {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        background: transparent;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        padding: 0.35rem 0.9rem;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 0.5rem;
+      }
+      .btn-load-mission:hover {
+        background: var(--accent-lo);
+      }
+
+      /* LANG REFERENCE */
+      .ref-section {
+        margin-top: 2.5rem;
+      }
+      .ref-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 0.75rem;
+      }
+      .ref-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        padding: 0.85rem 1rem;
+        border-radius: 2px;
+      }
+      .ref-lang {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-bottom: 0.4rem;
+      }
+      .ref-cmd {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--text-hi);
+        margin-bottom: 0.15rem;
+        cursor: pointer;
+        transition: color 0.15s;
+      }
+      .ref-cmd:hover {
+        color: var(--accent);
+      }
+      .ref-desc {
+        font-size: 0.73rem;
+        color: var(--text-dim);
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--border);
+        text-align: center;
+        padding: 1.5rem;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--text-faint);
+      }
+      footer a {
+        color: var(--text-dim);
+        text-decoration: none;
+      }
+      footer a:hover {
+        color: var(--accent);
+      }
+
+      /* SCROLLBAR */
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border2);
+        border-radius: 2px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 700px) {
+        .lab-panel {
+          grid-template-columns: 1fr;
+        }
+        .editor-side {
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-stats {
+          display: none;
+        }
+        .hero h1 {
+          font-size: 1.7rem;
+        }
+        .mission-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a class="nav-logo" href="https://powersemiotics.com/index.html">
+        Powersemiotics
+      </a>
+      <div class="nav-crumbs">
+        <a href="https://powersemiotics.com/medicina_y_datos.html"
+          >Medicina y Datos</a
+        >
+        <span>/</span>
+        <span style="color: var(--accent)">Código Estadístico</span>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div>
+        <div class="hero-badge">Laboratorio Interactivo</div>
+        <h1>Codifica.<br /><span>Analiza.</span> Comprende.</h1>
+        <p>
+          Ejecuta código real de R, Python, SQL y LaTeX directamente en tu
+          navegador sobre una base de datos epidemiológica de Chimborazo. Sin
+          instalaciones. Sin configuraciones. Solo código y ciencia.
+        </p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-label">Base de datos</span
+          ><span class="stat-val">cleaned_chimborazo</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Observaciones</span
+          ><span class="stat-val" id="ds-n">120</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Variables</span
+          ><span class="stat-val">16</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Lenguajes</span
+          ><span class="stat-val">R · Python · SQL · LaTeX</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Cantones</span
+          ><span class="stat-val">7</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATASET PILLS -->
+    <div class="ds-bar">
+      <span
+        style="
+          font-family: var(--mono);
+          font-size: 0.68rem;
+          color: var(--text-dim);
+          align-self: center;
+          margin-right: 0.25rem;
+        "
+        >variables →</span
+      >
+      <span class="ds-pill num">id</span>
+      <span class="ds-pill cat">canton</span>
+      <span class="ds-pill cat">parroquia</span>
+      <span class="ds-pill num">edad</span>
+      <span class="ds-pill cat">sexo</span>
+      <span class="ds-pill num">peso</span>
+      <span class="ds-pill num">talla</span>
+      <span class="ds-pill num">imc</span>
+      <span class="ds-pill num">hemoglobina</span>
+      <span class="ds-pill num">glucosa</span>
+      <span class="ds-pill num">pres_sis</span>
+      <span class="ds-pill num">pres_dias</span>
+      <span class="ds-pill num">cintura</span>
+      <span class="ds-pill num">colesterol</span>
+      <span class="ds-pill bin">anemia</span>
+      <span class="ds-pill bin">dm2</span>
+      <span class="ds-pill bin">hta</span>
+    </div>
+
+    <!-- LAB CONTAINER -->
+    <div class="lab-container">
+      <!-- LANG TABS -->
+      <div class="lang-tabs">
+        <button
+          class="lang-tab active-r"
+          data-lang="r"
+          onclick="switchLang('r')"
+        >
+          <span class="tab-dot"></span>R
+        </button>
+        <button class="lang-tab" data-lang="py" onclick="switchLang('py')">
+          <span class="tab-dot"></span>Python
+        </button>
+        <button class="lang-tab" data-lang="sql" onclick="switchLang('sql')">
+          <span class="tab-dot"></span>SQL
+        </button>
+        <button class="lang-tab" data-lang="tex" onclick="switchLang('tex')">
+          <span class="tab-dot"></span>LaTeX
+        </button>
+        <button class="lang-tab" data-lang="bash" onclick="switchLang('bash')">
+          <span class="tab-dot"></span>Terminal
+        </button>
+      </div>
+
+      <!-- LAB PANEL -->
+      <div class="lab-panel">
+        <div class="editor-side">
+          <div class="editor-header">
+            <span class="editor-title" id="editor-label">editor — R</span>
+            <div style="display: flex; gap: 0.5rem">
+              <button class="btn-clear" onclick="clearEditor()">limpiar</button>
+              <button class="btn-run" onclick="runCode()">▶ Ejecutar</button>
+            </div>
+          </div>
+          <textarea
+            class="code-editor"
+            id="codeEditor"
+            placeholder='# Escribe código R aquí...
+# Tip: empieza con:  datos <- read.csv("chimborazo.csv")'
+            spellcheck="false"
+          ></textarea>
+        </div>
+        <div class="output-side">
+          <div class="output-header">
+            <span class="output-title">salida</span>
+            <button
+              class="btn-clear"
+              onclick="clearOutput()"
+              style="font-size: 0.65rem"
+            >
+              limpiar salida
+            </button>
+          </div>
+          <div class="terminal-out" id="terminalOut">
+            <span class="t-comment"
+              ># Bienvenido al Laboratorio de Código Estadístico # Base de
+              datos: cleaned_chimborazo (Provincia de Chimborazo, Ecuador) #
+              Variables disponibles: id, canton, parroquia, edad, sexo, peso,
+              talla, imc, # hemoglobina, glucosa, pres_sis, pres_dias, cintura,
+              colesterol, anemia, dm2, hta # # Comienza cargando los datos: # R:
+              datos &lt;- read.csv("chimborazo.csv") # Python: import pandas as
+              pd; df = pd.read_csv("chimborazo.csv") # SQL: SELECT * FROM
+              chimborazo LIMIT 10;
+            </span>
+          </div>
+          <div class="chart-area" id="chartArea">
+            <div class="chart-title-bar" id="chartTitle">visualización</div>
+            <div class="chart-wrap">
+              <canvas id="chartCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MISSIONS -->
+      <div class="missions-section">
+        <div class="missions-title">Misiones Guiadas</div>
+        <div class="mission-grid" id="missionGrid"></div>
+      </div>
+
+      <!-- QUICK REFERENCE -->
+      <div class="ref-section">
+        <div class="missions-title" style="margin-top: 0.5rem">
+          Referencia Rápida
+        </div>
+        <div class="ref-grid" id="refGrid"></div>
+      </div>
+    </div>
+    <!-- /lab-container -->
+
+    <footer>
+      <a href="https://powersemiotics.com/index.html">Powersemiotics</a>
+      &nbsp;·&nbsp;
+      <a href="https://powersemiotics.com/medicina_y_datos.html"
+        >Medicina y Datos</a
+      >
+      &nbsp;·&nbsp;
+      <span>Datos simulados · Chimborazo, Ecuador · uso educativo</span>
+    </footer>
+
+    <script>
+      /* ======================================================
+   1. DATASET GENERATION
+====================================================== */
+      function generateDataset() {
+        const cantones = [
+          'Riobamba',
+          'Alausí',
+          'Colta',
+          'Guamote',
+          'Guano',
+          'Chambo',
+          'Pallatanga',
+        ];
+        const parroquias = {
+          Riobamba: [
+            'Veloz',
+            'Maldonado',
+            'Lizarzaburu',
+            'Velasco',
+            'Yaruquíes',
+          ],
+          Alausí: ['Alausí', 'Tixán', 'Multitud', 'Sevilla'],
+          Colta: ['Cajabamba', 'Columbe', 'Cañi', 'Juan de Velasco'],
+          Guamote: ['Guamote', 'Cebadas', 'Palmira'],
+          Guano: ['Guano', 'San Andrés', 'Ilapo'],
+          Chambo: ['Chambo'],
+          Pallatanga: ['Pallatanga'],
+        };
+        const etnias = ['Indígena', 'Mestizo', 'Mestizo', 'Mestizo', 'Blanco'];
+        let seed = 31337;
+        function rng() {
+          seed = (seed * 1664525 + 1013904223) & 0xffffffff;
+          return (seed >>> 0) / 0xffffffff;
+        }
+        function norm(m, s) {
+          const u = rng() + 1e-9,
+            v = rng();
+          return m + s * Math.sqrt(-2 * Math.log(u)) * Math.cos(6.2832 * v);
+        }
+        const data = [];
+        for (let i = 1; i <= 120; i++) {
+          const canton = cantones[Math.floor(rng() * cantones.length)];
+          const plist = parroquias[canton];
+          const parroquia = plist[Math.floor(rng() * plist.length)];
+          const sexo = rng() < 0.52 ? 'F' : 'M';
+          const etnia = etnias[Math.floor(rng() * etnias.length)];
+          const edad = Math.round(Math.max(18, Math.min(75, norm(42, 13))));
+          const talla =
+            Math.round(
+              (sexo === 'M' ? norm(1.68, 0.06) : norm(1.56, 0.055)) * 100,
+            ) / 100;
+          const peso =
+            Math.round((sexo === 'M' ? norm(71, 11) : norm(63, 10)) * 10) / 10;
+          const imc = Math.round((peso / (talla * talla)) * 10) / 10;
+          const hemo_base = sexo === 'M' ? norm(14.2, 1.4) : norm(12.3, 1.4);
+          const altCorr = norm(0.6, 0.25); // altitude adjustment Chimborazo
+          const hemoglobina = Math.round((hemo_base + altCorr) * 10) / 10;
+          const glucosa = Math.round(Math.max(70, norm(96, 22)));
+          const pres_sis = Math.round(Math.max(90, norm(120, 15)));
+          const pres_dias = Math.round(Math.max(60, norm(78, 10)));
+          const cintura = Math.round(
+            sexo === 'M' ? norm(89, 11) : norm(84, 11),
+          );
+          const colesterol = Math.round(Math.max(120, norm(192, 38)));
+          const trigliceridos = Math.round(Math.max(50, norm(165, 55)));
+          const anemia = (sexo === 'M' ? hemoglobina < 13 : hemoglobina < 12)
+            ? 'Si'
+            : 'No';
+          const dm2 =
+            glucosa >= 126
+              ? 'Si'
+              : glucosa >= 100 && rng() < 0.15
+                ? 'Si'
+                : 'No';
+          const hta =
+            pres_sis >= 140 || pres_dias >= 90
+              ? 'Si'
+              : rng() < 0.08
+                ? 'Si'
+                : 'No';
+          const obesidad = imc >= 30 ? 'Si' : 'No';
+          data.push({
+            id: i,
+            canton,
+            parroquia,
+            etnia,
+            edad,
+            sexo,
+            peso,
+            talla,
+            imc,
+            hemoglobina,
+            glucosa,
+            pres_sis,
+            pres_dias,
+            cintura,
+            colesterol,
+            trigliceridos,
+            anemia,
+            dm2,
+            hta,
+            obesidad,
+          });
+        }
+        return data;
+      }
+      const DS = generateDataset();
+      document.getElementById('ds-n').textContent = DS.length;
+
+      /* ======================================================
+   2. STATE
+====================================================== */
+      let currentLang = 'r';
+      let rVars = {}; // R environment
+      let pyVars = {}; // Python environment
+      let rDataLoaded = false;
+      let pyDataLoaded = false;
+      let currentChart = null;
+
+      const langMeta = {
+        r: {
+          label: 'editor — R',
+          color: 'var(--r-col)',
+          placeholder:
+            '# Escribe código R aquí...\ndatos <- read.csv("chimborazo.csv")',
+        },
+        py: {
+          label: 'editor — Python',
+          color: 'var(--py-col)',
+          placeholder:
+            '# Python\nimport pandas as pd\ndf = pd.read_csv("chimborazo.csv")',
+        },
+        sql: {
+          label: 'editor — SQL',
+          color: 'var(--sql-col)',
+          placeholder: '-- SQL\nSELECT * FROM chimborazo LIMIT 10;',
+        },
+        tex: {
+          label: 'editor — LaTeX',
+          color: 'var(--tex-col)',
+          placeholder:
+            '%LaTeX\n\\begin{table}[h]\n  \\centering\n  \\caption{Estadísticas descriptivas}\n  \\begin{tabular}{lrr}\n  \\hline\n  Variable & Media & DS \\\\\n  \\hline\n  IMC & 27.3 & 4.1 \\\\\n  \\hline\n  \\end{tabular}\n\\end{table}',
+        },
+        bash: {
+          label: 'terminal — bash',
+          color: 'var(--bash-col)',
+          placeholder:
+            '# Terminal\nls\nhead chimborazo.csv\nwc -l chimborazo.csv',
+        },
+      };
+
+      /* ======================================================
+   3. LANG SWITCH
+====================================================== */
+      function switchLang(lang) {
+        currentLang = lang;
+        document.querySelectorAll('.lang-tab').forEach((t) => {
+          t.className = 'lang-tab';
+          if (t.dataset.lang === lang) t.classList.add('active-' + lang);
+        });
+        document.getElementById('editor-label').textContent =
+          langMeta[lang].label;
+        document.getElementById('codeEditor').placeholder =
+          langMeta[lang].placeholder;
+        renderQuickRef();
+      }
+
+      /* ======================================================
+   4. OUTPUT HELPERS
+====================================================== */
+      function esc(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+      function appendOut(html) {
+        document.getElementById('terminalOut').innerHTML += html + '\n';
+      }
+      function appendLine(text, cls = 't-out') {
+        appendOut(`<span class="${cls}">${esc(text)}</span>`);
+      }
+      function appendRaw(html) {
+        document.getElementById('terminalOut').innerHTML += html;
+      }
+      function clearOutput() {
+        document.getElementById('terminalOut').innerHTML = '';
+        document.getElementById('chartArea').classList.remove('visible');
+      }
+      function clearEditor() {
+        document.getElementById('codeEditor').value = '';
+      }
+      function scrollOut() {
+        const el = document.getElementById('terminalOut');
+        el.scrollTop = el.scrollHeight;
+      }
+      function showPrompt(code, lang) {
+        const prompts = {
+          r: 'R> ',
+          py: '>>> ',
+          sql: 'sql> ',
+          tex: 'tex> ',
+          bash: '$ ',
+        };
+        const cls = {
+          r: 't-out',
+          py: 't-py',
+          sql: 't-sql',
+          tex: 't-hi',
+          bash: 't-success',
+        };
+        code.split('\n').forEach((line, i) => {
+          const pr =
+            i === 0
+              ? `<span class="t-prompt">${esc(prompts[lang] || '> ')}</span>`
+              : '     ';
+          appendOut(`${pr}<span class="t-input">${esc(line)}</span>`);
+        });
+      }
+
+      /* ======================================================
+   5. TABLE FORMATTING
+====================================================== */
+      function formatTable(rows, cols, maxRows = 10) {
+        if (!rows.length) return '[0 observaciones]\n';
+        const disp = rows.slice(0, maxRows);
+        // compute col widths
+        const widths = {};
+        cols.forEach((c) => {
+          widths[c] = String(c).length;
+        });
+        disp.forEach((r) => {
+          cols.forEach((c) => {
+            const v = String(r[c] ?? 'NA');
+            if (v.length > widths[c]) widths[c] = v.length;
+          });
+        });
+        const pad = (s, w) => String(s).padEnd(w);
+        let out = '';
+        // header
+        const hdr = cols.map((c) => pad(c, widths[c])).join('  ');
+        out += hdr + '\n';
+        out += cols.map((c) => '-'.repeat(widths[c])).join('  ') + '\n';
+        disp.forEach((r, i) => {
+          out +=
+            cols.map((c) => pad(r[c] ?? 'NA', widths[c])).join('  ') + '\n';
+        });
+        if (rows.length > maxRows)
+          out += `... ${rows.length - maxRows} filas adicionales\n`;
+        return out;
+      }
+      function summaryStats(vals) {
+        const nums = vals
+          .map(Number)
+          .filter((v) => !isNaN(v))
+          .sort((a, b) => a - b);
+        if (!nums.length) return null;
+        const n = nums.length;
+        const mean = nums.reduce((a, b) => a + b, 0) / n;
+        const median =
+          n % 2 ? nums[(n - 1) / 2] : (nums[n / 2 - 1] + nums[n / 2]) / 2;
+        const q1 = nums[Math.floor(n * 0.25)];
+        const q3 = nums[Math.floor(n * 0.75)];
+        const sd = Math.sqrt(
+          nums.reduce((a, b) => a + (b - mean) ** 2, 0) / (n - 1),
+        );
+        return { n, mean, median, sd, min: nums[0], max: nums[n - 1], q1, q3 };
+      }
+      function fmt(v, d = 3) {
+        return typeof v === 'number' ? v.toFixed(d) : v;
+      }
+
+      /* ======================================================
+   6. CHART RENDERER
+====================================================== */
+      function renderChart(type, labels, datasets, title, opts = {}) {
+        const area = document.getElementById('chartArea');
+        const canvas = document.getElementById('chartCanvas');
+        area.classList.add('visible');
+        document.getElementById('chartTitle').textContent = title;
+        if (currentChart) {
+          currentChart.destroy();
+          currentChart = null;
+        }
+        const gridColor = 'rgba(30,45,74,0.7)';
+        const tickColor = 'rgba(90,122,158,0.8)';
+        const cfg = {
+          type,
+          data: { labels, datasets },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: datasets.length > 1,
+                labels: {
+                  color: tickColor,
+                  font: { family: "'JetBrains Mono',monospace", size: 10 },
+                },
+              },
+              title: { display: false },
+            },
+            scales: {
+              x: {
+                grid: { color: gridColor },
+                ticks: {
+                  color: tickColor,
+                  font: { family: "'JetBrains Mono',monospace", size: 9 },
+                },
+                ...(opts.xLabel
+                  ? {
+                      title: {
+                        display: true,
+                        text: opts.xLabel,
+                        color: tickColor,
+                        font: { size: 10 },
+                      },
+                    }
+                  : {}),
+              },
+              y: {
+                grid: { color: gridColor },
+                ticks: {
+                  color: tickColor,
+                  font: { family: "'JetBrains Mono',monospace", size: 9 },
+                },
+                ...(opts.yLabel
+                  ? {
+                      title: {
+                        display: true,
+                        text: opts.yLabel,
+                        color: tickColor,
+                        font: { size: 10 },
+                      },
+                    }
+                  : {}),
+              },
+            },
+            animation: { duration: 400 },
+            ...opts.extraOpts,
+          },
+        };
+        currentChart = new Chart(canvas, cfg);
+      }
+
+      function makeHist(vals, col, color) {
+        const nums = vals.map(Number).filter((v) => !isNaN(v));
+        const min = Math.min(...nums),
+          max = Math.max(...nums);
+        const bins = 10;
+        const w = (max - min) / bins;
+        const counts = Array(bins).fill(0);
+        const labels = [];
+        for (let i = 0; i < bins; i++) labels.push((min + i * w).toFixed(1));
+        nums.forEach((v) => {
+          let b = Math.floor((v - min) / w);
+          if (b >= bins) b = bins - 1;
+          counts[b]++;
+        });
+        renderChart(
+          'bar',
+          labels,
+          [
+            {
+              label: col,
+              data: counts,
+              backgroundColor: color + '99',
+              borderColor: color,
+              borderWidth: 1,
+            },
+          ],
+          `Histograma: ${col}`,
+          { xLabel: col, yLabel: 'Frecuencia' },
+        );
+      }
+      function makeBoxplot(groups, col, groupCol, color) {
+        const gkeys = [...new Set(groups.map((r) => r[groupCol]))].sort();
+        const means = gkeys.map((g) => {
+          const vals = groups
+            .filter((r) => r[groupCol] === g)
+            .map((r) => Number(r[col]))
+            .filter((v) => !isNaN(v));
+          return vals.length
+            ? vals.reduce((a, b) => a + b, 0) / vals.length
+            : 0;
+        });
+        const colors = [
+          '#75baff',
+          '#ff9f43',
+          '#69c472',
+          '#c07bff',
+          '#50c8b4',
+          '#ff6b6b',
+        ];
+        renderChart(
+          'bar',
+          gkeys,
+          [
+            {
+              label: `Media ${col} por ${groupCol}`,
+              data: means.map((v) => +v.toFixed(2)),
+              backgroundColor: gkeys.map(
+                (_, i) => colors[i % colors.length] + '99',
+              ),
+              borderColor: gkeys.map((_, i) => colors[i % colors.length]),
+              borderWidth: 1,
+            },
+          ],
+          `${col} por ${groupCol} (medias)`,
+          { xLabel: groupCol, yLabel: col },
+        );
+      }
+      function makeScatter(rows, xCol, yCol) {
+        const pts = rows
+          .map((r) => ({ x: +r[xCol], y: +r[yCol] }))
+          .filter((p) => !isNaN(p.x) && !isNaN(p.y));
+        renderChart(
+          'scatter',
+          [],
+          [
+            {
+              label: `${xCol} vs ${yCol}`,
+              data: pts,
+              backgroundColor: '#00d8c099',
+              borderColor: '#00d8c0',
+              pointRadius: 3,
+              pointHoverRadius: 5,
+            },
+          ],
+          `Diagrama de dispersión: ${xCol} vs ${yCol}`,
+          {
+            xLabel: xCol,
+            yLabel: yCol,
+            extraOpts: {
+              scales: { x: { type: 'linear' }, y: { type: 'linear' } },
+            },
+          },
+        );
+      }
+      function makeBar(labels, counts, title, color) {
+        renderChart(
+          'bar',
+          labels,
+          [
+            {
+              label: 'n',
+              data: counts,
+              backgroundColor: color + '99',
+              borderColor: color,
+              borderWidth: 1,
+            },
+          ],
+          title,
+          { yLabel: 'Frecuencia' },
+        );
+      }
+
+      /* ======================================================
+   7. R INTERPRETER
+====================================================== */
+      function getCol(varName, col) {
+        const src = rVars[varName] || [];
+        return src.map((r) => r[col]);
+      }
+      function resolveVal(expr) {
+        const dollarM = expr.match(/^(\w+)\$(\w+)$/);
+        if (dollarM) {
+          const src = rVars[dollarM[1]] || DS;
+          return src.map((r) => r[dollarM[2]]);
+        }
+        const numM = expr.match(/^-?\d+(\.\d+)?$/);
+        if (numM) return Number(expr);
+        return null;
+      }
+
+      function runR(code) {
+        const lines = code.split('\n');
+        lines.forEach((rawLine) => {
+          const line = rawLine.trim();
+          if (!line || line.startsWith('#')) {
+            if (line.startsWith('#')) appendLine(line, 't-comment');
+            return;
+          }
+          showPrompt(rawLine, 'r');
+          try {
+            interpretR(line);
+          } catch (e) {
+            appendLine('Error: ' + e.message, 't-err');
+          }
+        });
+        scrollOut();
+      }
+
+      function interpretR(line) {
+        const asgn = line.match(/^(\w+)\s*<-\s*(.+)$|^(\w+)\s*=\s*(.+)$/);
+        if (asgn) {
+          const vn = asgn[1] || asgn[3];
+          const expr = (asgn[2] || asgn[4]).trim();
+          const val = evalRExpr(expr, vn);
+          if (val !== undefined) rVars[vn] = val;
+          return;
+        }
+        evalRExpr(line, null, true);
+      }
+
+      function evalRExpr(expr, assignTarget, print = false) {
+        const e = expr.trim();
+
+        // read.csv
+        if (/^read\.csv\(["']chimborazo\.csv["']\)$/.test(e)) {
+          rVars['__loaded'] = true;
+          const result = [...DS];
+          if (assignTarget) {
+            appendLine(
+              `✓ data.frame cargado: ${result.length} obs. de ${Object.keys(result[0]).length} variables`,
+              't-success',
+            );
+          }
+          return result;
+        }
+
+        // nrow
+        const nrowM = e.match(/^nrow\((\w+)\)$/);
+        if (nrowM) {
+          const v = rVars[nrowM[1]] || [];
+          if (print || !assignTarget) appendLine(`[1] ${v.length}`, 't-num');
+          return v.length;
+        }
+
+        // ncol
+        const ncolM = e.match(/^ncol\((\w+)\)$/);
+        if (ncolM) {
+          const v = rVars[ncolM[1]] || [{}];
+          if (print || !assignTarget)
+            appendLine(`[1] ${Object.keys(v[0] || {}).length}`, 't-num');
+          return Object.keys(v[0] || {}).length;
+        }
+
+        // dim
+        const dimM = e.match(/^dim\((\w+)\)$/);
+        if (dimM) {
+          const v = rVars[dimM[1]] || [];
+          const cols = Object.keys(v[0] || {}).length;
+          if (print || !assignTarget)
+            appendLine(`[1] ${v.length} ${cols}`, 't-num');
+          return [v.length, cols];
+        }
+
+        // names / colnames
+        const nmM = e.match(/^(?:names|colnames)\((\w+)\)$/);
+        if (nmM) {
+          const v = rVars[nmM[1]] || [{}];
+          const cols = Object.keys(v[0] || {});
+          if (print || !assignTarget)
+            appendLine(
+              ` [1] ${cols.map((c) => '"' + c + '"').join(' ')}`,
+              't-hi',
+            );
+          return cols;
+        }
+
+        // head
+        const headM = e.match(/^head\((\w+)(?:,\s*(\d+))?\)$/);
+        if (headM) {
+          const v = rVars[headM[1]] || [];
+          const n = headM[2] ? +headM[2] : 6;
+          const rows = v.slice(0, n);
+          const cols = Object.keys(rows[0] || {});
+          if (print || !assignTarget) {
+            appendRaw(
+              '<span class="t-head">' +
+                esc(formatTable(rows, cols, n)) +
+                '</span>',
+            );
+          }
+          return rows;
+        }
+
+        // tail
+        const tailM = e.match(/^tail\((\w+)(?:,\s*(\d+))?\)$/);
+        if (tailM) {
+          const v = rVars[tailM[1]] || [];
+          const n = tailM[2] ? +tailM[2] : 6;
+          const rows = v.slice(-n);
+          const cols = Object.keys(rows[0] || {});
+          if (print || !assignTarget) {
+            appendRaw(
+              '<span class="t-head">' +
+                esc(formatTable(rows, cols, n)) +
+                '</span>',
+            );
+          }
+          return rows;
+        }
+
+        // str
+        const strM = e.match(/^str\((\w+)\)$/);
+        if (strM) {
+          const v = rVars[strM[1]] || [];
+          const cols = Object.keys(v[0] || {});
+          appendLine(
+            `'data.frame': ${v.length} obs. de ${cols.length} variables:`,
+            't-head',
+          );
+          cols.forEach((c) => {
+            const vals = v.map((r) => r[c]);
+            const type = typeof vals[0] === 'number' ? 'num' : 'chr';
+            const samp = vals
+              .slice(0, 5)
+              .map((x) => (type === 'num' ? x : '"' + x + '"'))
+              .join(' ');
+            appendLine(` $ ${c.padEnd(14)}: ${type} ${samp} ...`);
+          });
+          return;
+        }
+
+        // summary(df)
+        const sumDfM = e.match(/^summary\((\w+)\)$/);
+        if (sumDfM) {
+          const v = rVars[sumDfM[1]] || [];
+          if (!v.length) {
+            appendLine('NULL', 't-err');
+            return;
+          }
+          const cols = Object.keys(v[0]);
+          appendLine('Resumen estadístico:', 't-head');
+          cols.forEach((c) => {
+            const vals = v.map((r) => r[c]);
+            const nums = vals.map(Number).filter((x) => !isNaN(x));
+            if (nums.length === v.length) {
+              const st = summaryStats(nums);
+              appendLine(
+                `${c.padEnd(14)}: Min=${fmt(st.min, 2)}  Q1=${fmt(st.q1, 2)}  Mediana=${fmt(st.median, 2)}  Media=${fmt(st.mean, 2)}  Q3=${fmt(st.q3, 2)}  Max=${fmt(st.max, 2)}`,
+              );
+            } else {
+              const freq = {};
+              vals.forEach((x) => {
+                freq[x] = (freq[x] || 0) + 1;
+              });
+              const top = Object.entries(freq)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 4)
+                .map(([k, n]) => `${k}:${n}`)
+                .join('  ');
+              appendLine(`${c.padEnd(14)}: ${top}`);
+            }
+          });
+          return;
+        }
+
+        // mean / median / sd / var / min / max / length / sum
+        const statM = e.match(
+          /^(mean|median|sd|var|min|max|length|sum|range)\((.+?)\)$/,
+        );
+        if (statM) {
+          const fn = statM[1];
+          const arg = statM[2].trim();
+          let vals = resolveVal(arg);
+          if (!vals) {
+            appendLine(`Error: objeto '${arg}' no encontrado`, 't-err');
+            return;
+          }
+          if (!Array.isArray(vals)) vals = [vals];
+          const nums = vals.map(Number).filter((v) => !isNaN(v));
+          if (!nums.length) {
+            appendLine('NA', 't-err');
+            return;
+          }
+          let res;
+          switch (fn) {
+            case 'mean':
+              res = nums.reduce((a, b) => a + b) / nums.length;
+              break;
+            case 'median':
+              const s = [...nums].sort((a, b) => a - b);
+              res =
+                s.length % 2
+                  ? s[(s.length - 1) / 2]
+                  : (s[s.length / 2 - 1] + s[s.length / 2]) / 2;
+              break;
+            case 'sd':
+              const m = nums.reduce((a, b) => a + b) / nums.length;
+              res = Math.sqrt(
+                nums.reduce((a, v) => a + (v - m) ** 2, 0) / (nums.length - 1),
+              );
+              break;
+            case 'var':
+              const mv = nums.reduce((a, b) => a + b) / nums.length;
+              res =
+                nums.reduce((a, v) => a + (v - mv) ** 2, 0) / (nums.length - 1);
+              break;
+            case 'min':
+              res = Math.min(...nums);
+              break;
+            case 'max':
+              res = Math.max(...nums);
+              break;
+            case 'length':
+              res = nums.length;
+              break;
+            case 'sum':
+              res = nums.reduce((a, b) => a + b, 0);
+              break;
+            case 'range':
+              res = `${Math.min(...nums)} ${Math.max(...nums)}`;
+              break;
+          }
+          if (print || !assignTarget)
+            appendLine(
+              `[1] ${typeof res === 'number' ? res.toFixed(4) : res}`,
+              't-num',
+            );
+          return res;
+        }
+
+        // cor(x, y)
+        const corM = e.match(/^cor\((.+?),\s*(.+?)\)$/);
+        if (corM) {
+          let x = resolveVal(corM[1]);
+          let y = resolveVal(corM[2]);
+          if (!Array.isArray(x) || !Array.isArray(y)) {
+            appendLine('Error: argumentos no válidos', 't-err');
+            return;
+          }
+          const n = Math.min(x.length, y.length);
+          const xn = x.slice(0, n).map(Number);
+          const yn = y.slice(0, n).map(Number);
+          const mx = xn.reduce((a, b) => a + b) / n;
+          const my = yn.reduce((a, b) => a + b) / n;
+          const num = xn.reduce((a, v, i) => a + (v - mx) * (yn[i] - my), 0);
+          const dx = Math.sqrt(xn.reduce((a, v) => a + (v - mx) ** 2, 0));
+          const dy = Math.sqrt(yn.reduce((a, v) => a + (v - my) ** 2, 0));
+          const r = num / (dx * dy);
+          if (print || !assignTarget)
+            appendLine(`[1] ${r.toFixed(6)}`, 't-num');
+          return r;
+        }
+
+        // table(x) or table(x, y)
+        const tabM = e.match(/^table\((.+?)(?:,\s*(.+?))?\)$/);
+        if (tabM) {
+          const a = resolveVal(tabM[1]);
+          if (!Array.isArray(a)) {
+            appendLine('Error: argumento inválido', 't-err');
+            return;
+          }
+          if (!tabM[2]) {
+            const freq = {};
+            a.forEach((v) => {
+              freq[v] = (freq[v] || 0) + 1;
+            });
+            const keys = Object.keys(freq).sort();
+            appendLine(keys.join('  '), 't-head');
+            appendLine(
+              keys.map((k) => String(freq[k]).padStart(k.length)).join('  '),
+              't-num',
+            );
+          } else {
+            const b = resolveVal(tabM[2]);
+            const rk = [...new Set(a)].sort();
+            const ck = [...new Set(b)].sort();
+            appendLine('     ' + ck.join('  '), 't-head');
+            rk.forEach((r) => {
+              const row = ck.map(
+                (c) => a.filter((x, i) => x === r && b[i] === c).length,
+              );
+              appendLine(`${r.padEnd(5)}${row.join('  ')}`, 't-num');
+            });
+          }
+          return;
+        }
+
+        // t.test(col ~ group)
+        const ttM = e.match(/^t\.test\((.+?)\s*~\s*(.+?)\)$/);
+        if (ttM) {
+          let vals = resolveVal(ttM[1]);
+          let grps = resolveVal(ttM[2]);
+          if (!Array.isArray(vals) || !Array.isArray(grps)) {
+            appendLine('Error', 't-err');
+            return;
+          }
+          const groups = [...new Set(grps)].sort();
+          if (groups.length < 2) {
+            appendLine('Error: necesitas al menos 2 grupos', 't-err');
+            return;
+          }
+          const g1 = vals
+            .filter((_, i) => grps[i] === groups[0])
+            .map(Number)
+            .filter((v) => !isNaN(v));
+          const g2 = vals
+            .filter((_, i) => grps[i] === groups[1])
+            .map(Number)
+            .filter((v) => !isNaN(v));
+          const m1 = g1.reduce((a, b) => a + b) / g1.length;
+          const m2 = g2.reduce((a, b) => a + b) / g2.length;
+          const v1 =
+            g1.reduce((a, b) => a + (b - m1) ** 2, 0) / (g1.length - 1);
+          const v2 =
+            g2.reduce((a, b) => a + (b - m2) ** 2, 0) / (g2.length - 1);
+          const se = Math.sqrt(v1 / g1.length + v2 / g2.length);
+          const t = (m1 - m2) / se;
+          const df = Math.round(
+            (v1 / g1.length + v2 / g2.length) ** 2 /
+              ((v1 / g1.length) ** 2 / (g1.length - 1) +
+                (v2 / g2.length) ** 2 / (g2.length - 1)),
+          );
+          const pApprox =
+            2 * (1 - Math.min(0.9999, Math.abs(t) / Math.sqrt(df + t * t)));
+          appendLine(`\n  Welch Two Sample t-test\n`, 't-head');
+          appendLine(
+            `  t = ${t.toFixed(4)}, df = ${df}, p-value = ${pApprox.toFixed(4)}`,
+            't-num',
+          );
+          appendLine(
+            `  Grupo ${groups[0]}: media = ${m1.toFixed(3)}, n = ${g1.length}`,
+          );
+          appendLine(
+            `  Grupo ${groups[1]}: media = ${m2.toFixed(3)}, n = ${g2.length}`,
+          );
+          appendLine(
+            `  ${pApprox < 0.05 ? '✓ Diferencia estadísticamente significativa (p<0.05)' : '✗ Sin diferencia significativa (p≥0.05)'}`,
+            pApprox < 0.05 ? 't-success' : 't-err',
+          );
+          return;
+        }
+
+        // chisq.test
+        const chiM = e.match(/^chisq\.test\(table\((.+?),\s*(.+?)\)\)$/);
+        if (chiM) {
+          const a = resolveVal(chiM[1]);
+          const b = resolveVal(chiM[2]);
+          const rk = [...new Set(a)].sort();
+          const ck = [...new Set(b)].sort();
+          let chi2 = 0;
+          const n = a.length;
+          rk.forEach((r) => {
+            ck.forEach((c) => {
+              const obs = a.filter((x, i) => x === r && b[i] === c).length;
+              const er =
+                (a.filter((x) => x === r).length *
+                  b.filter((x) => x === c).length) /
+                n;
+              if (er > 0) chi2 += (obs - er) ** 2 / er;
+            });
+          });
+          const df = (rk.length - 1) * (ck.length - 1);
+          const p =
+            df === 1
+              ? Math.exp(-chi2 / 2) * (1 + chi2 / 2) * 0.5
+              : 1 - Math.min(1, chi2 / (chi2 + df));
+          appendLine(`\n  Chi-cuadrado de Pearson\n`, 't-head');
+          appendLine(
+            `  X-squared = ${chi2.toFixed(4)}, df = ${df}, p-value = ${p.toFixed(4)}`,
+            't-num',
+          );
+          appendLine(
+            `  ${p < 0.05 ? '✓ Asociación estadísticamente significativa (p<0.05)' : '✗ Sin asociación significativa (p≥0.05)'}`,
+            p < 0.05 ? 't-success' : 't-err',
+          );
+          return;
+        }
+
+        // lm(y ~ x, data=var)
+        const lmM = e.match(
+          /^lm\((\w+)\s*~\s*([\w\s\+]+)(?:,\s*data\s*=\s*(\w+))?\)$/,
+        );
+        if (lmM) {
+          const yCol = lmM[1].trim();
+          const xCols = lmM[2]
+            .trim()
+            .split('+')
+            .map((s) => s.trim());
+          const dnm =
+            lmM[3] ||
+            Object.keys(rVars).find((k) => Array.isArray(rVars[k])) ||
+            'datos';
+          const df = rVars[dnm] || [];
+          const y = df.map((r) => Number(r[yCol])).filter((v) => !isNaN(v));
+          if (!y.length) {
+            appendLine('Error: variable dependiente no encontrada', 't-err');
+            return;
+          }
+          // Simple SLR
+          const xCol = xCols[0];
+          const x = df.map((r) => Number(r[xCol]));
+          const n = Math.min(x.length, y.length);
+          const mx = x.reduce((a, b) => a + b) / n;
+          const my = y.reduce((a, b) => a + b) / n;
+          const b1 =
+            x.reduce((a, v, i) => a + (v - mx) * (y[i] - my), 0) /
+            x.reduce((a, v) => a + (v - mx) ** 2, 0);
+          const b0 = my - b1 * mx;
+          const yhat = x.map((v) => b0 + b1 * v);
+          const ss_res = y.reduce((a, v, i) => a + (v - yhat[i]) ** 2, 0);
+          const ss_tot = y.reduce((a, v) => a + (v - my) ** 2, 0);
+          const r2 = 1 - ss_res / ss_tot;
+          const se = Math.sqrt(ss_res / (n - 2));
+          const se_b1 =
+            se / Math.sqrt(x.reduce((a, v) => a + (v - mx) ** 2, 0));
+          const t_b1 = b1 / se_b1;
+          const p_b1 =
+            2 *
+            (1 -
+              Math.min(
+                0.9999,
+                Math.abs(t_b1) / Math.sqrt(n - 2 + t_b1 * t_b1),
+              ));
+          const result = {
+            b0,
+            b1,
+            r2,
+            se,
+            formula: `${yCol} ~ ${xCols.join(' + ')}`,
+          };
+          appendLine(
+            `\nCall: lm(formula = ${yCol} ~ ${xCols.join(' + ')})\n`,
+            't-head',
+          );
+          appendLine('Coefficients:', 't-head');
+          appendLine(
+            `  (Intercept)   ${b0.toFixed(4).padStart(10)}   SE=${(se * 1.2).toFixed(4)}`,
+          );
+          appendLine(
+            `  ${xCol.padEnd(13)} ${b1.toFixed(4).padStart(10)}   SE=${se_b1.toFixed(4)}   t=${t_b1.toFixed(3)}   p=${p_b1.toFixed(4)}`,
+          );
+          appendLine(
+            `\nR²: ${r2.toFixed(4)}   RSE: ${se.toFixed(4)}   n: ${n}`,
+            't-num',
+          );
+          if (assignTarget) rVars[assignTarget] = result;
+          return result;
+        }
+
+        // summary(lm_object)
+        const sumLmM = e.match(/^summary\((\w+)\)$/);
+        if (sumLmM && rVars[sumLmM[1]] && rVars[sumLmM[1]].formula) {
+          const m = rVars[sumLmM[1]];
+          appendLine(`Call: lm(formula = ${m.formula})`, 't-head');
+          appendLine(`Coefficients:`, 't-head');
+          appendLine(`(Intercept): ${m.b0.toFixed(4)}`);
+          appendLine(`Pendiente  : ${m.b1.toFixed(4)}`);
+          appendLine(`Residual standard error: ${m.se.toFixed(4)}`);
+          appendLine(`Multiple R-squared: ${m.r2.toFixed(4)}`, 't-num');
+          return;
+        }
+
+        // subset
+        const subM = e.match(/^subset\((\w+),\s*(.+)\)$/);
+        if (subM) {
+          const df = rVars[subM[1]] || [];
+          const cond = subM[2].trim();
+          const condM = cond.match(
+            /^(\w+)\s*(==|!=|>|<|>=|<=)\s*["']?(.+?)["']?$/,
+          );
+          if (!condM) {
+            appendLine(
+              'Condición no soportada (usa: col == "val" o col > n)',
+              't-err',
+            );
+            return;
+          }
+          const [, col, op, raw] = condM;
+          const vnum = Number(raw);
+          const useNum = !isNaN(vnum);
+          const filtered = df.filter((r) => {
+            const rv = r[col];
+            const rn = Number(rv);
+            switch (op) {
+              case '==':
+                return useNum ? rn === vnum : rv === raw;
+              case '!=':
+                return useNum ? rn !== vnum : rv !== raw;
+              case '>':
+                return rn > vnum;
+              case '<':
+                return rn < vnum;
+              case '>=':
+                return rn >= vnum;
+              case '<=':
+                return rn <= vnum;
+            }
+          });
+          appendLine(
+            `data.frame: ${filtered.length} observaciones filtradas`,
+            't-success',
+          );
+          if (assignTarget) return filtered;
+          const cols = Object.keys(filtered[0] || {});
+          appendRaw(
+            '<span class="t-head">' +
+              esc(formatTable(filtered, cols, 6)) +
+              '</span>',
+          );
+          return filtered;
+        }
+
+        // hist(var$col)
+        const histM = e.match(/^hist\((.+?)(?:,.*?)?\)$/);
+        if (histM) {
+          const vals = resolveVal(histM[1]);
+          if (!vals) {
+            appendLine('Error: columna no encontrada', 't-err');
+            return;
+          }
+          const colName = histM[1].includes('$')
+            ? histM[1].split('$')[1]
+            : histM[1];
+          appendLine(`✓ Histograma de ${histM[1]}`, 't-success');
+          makeHist(vals, colName, '#75baff');
+          return;
+        }
+
+        // boxplot(col ~ group)
+        const bpM = e.match(/^boxplot\((.+?)\s*~\s*(.+?)(?:,.*?)?\)$/);
+        if (bpM) {
+          const yArg = bpM[1].trim();
+          const xArg = bpM[2].trim();
+          const yCols = yArg.includes('$') ? yArg.split('$')[1] : yArg;
+          const xCols = xArg.includes('$') ? xArg.split('$')[1] : xArg;
+          const dfName = yArg.includes('$')
+            ? yArg.split('$')[0]
+            : Object.keys(rVars).find((k) => Array.isArray(rVars[k])) ||
+              'datos';
+          const df = rVars[dfName] || DS;
+          appendLine(`✓ Boxplot: ${yCols} por ${xCols}`, 't-success');
+          makeBoxplot(df, yCols, xCols, '#ff9f43');
+          return;
+        }
+
+        // plot(x, y)
+        const plotM = e.match(/^plot\((.+?),\s*(.+?)(?:,.*?)?\)$/);
+        if (plotM) {
+          const xa = plotM[1].trim();
+          const ya = plotM[2].trim();
+          const xc = xa.includes('$') ? xa.split('$')[1] : xa;
+          const yc = ya.includes('$') ? ya.split('$')[1] : ya;
+          const dfName = xa.includes('$')
+            ? xa.split('$')[0]
+            : Object.keys(rVars).find((k) => Array.isArray(rVars[k])) ||
+              'datos';
+          const df = rVars[dfName] || DS;
+          appendLine(`✓ Dispersión: ${xc} vs ${yc}`, 't-success');
+          makeScatter(df, xc, yc);
+          return;
+        }
+
+        // print var or $
+        const dolM = e.match(/^(\w+)\$(\w+)$/);
+        if (dolM) {
+          const vals = getCol(dolM[1], dolM[2]);
+          appendLine(
+            ` [1] ${vals.slice(0, 20).join(' ')}${vals.length > 20 ? '...' : ''}`,
+            't-num',
+          );
+          return vals;
+        }
+
+        // bare variable name
+        if (/^\w+$/.test(e) && rVars[e] !== undefined) {
+          const v = rVars[e];
+          if (Array.isArray(v)) {
+            const cols = Object.keys(v[0] || {});
+            appendRaw(
+              '<span class="t-head">' + esc(formatTable(v, cols)) + '</span>',
+            );
+          } else if (typeof v === 'object')
+            appendLine(JSON.stringify(v), 't-hi');
+          else appendLine(`[1] ${v}`, 't-num');
+          return v;
+        }
+
+        appendLine(
+          `Error: objeto '${e}' no encontrado o comando no reconocido`,
+          't-err',
+        );
+      }
+
+      /* ======================================================
+   8. PYTHON INTERPRETER
+====================================================== */
+      let pyImported = {};
+      function runPython(code) {
+        const lines = code.split('\n');
+        lines.forEach((rawLine) => {
+          const line = rawLine.trim();
+          if (!line || line.startsWith('#')) {
+            if (line.startsWith('#')) appendLine(line, 't-comment');
+            return;
+          }
+          showPrompt(rawLine, 'py');
+          try {
+            interpretPython(line);
+          } catch (e) {
+            appendLine('Error: ' + e.message, 't-err');
+          }
+        });
+        scrollOut();
+      }
+
+      function interpretPython(line) {
+        // imports
+        if (/^import\s+pandas\s+as\s+pd/.test(line)) {
+          pyImported.pd = true;
+          appendLine('# pandas importado ✓', 't-comment');
+          return;
+        }
+        if (/^import\s+numpy\s+as\s+np/.test(line)) {
+          pyImported.np = true;
+          appendLine('# numpy importado ✓', 't-comment');
+          return;
+        }
+        if (/^import\s+matplotlib/.test(line)) {
+          pyImported.plt = true;
+          appendLine('# matplotlib importado ✓', 't-comment');
+          return;
+        }
+        if (/^from\s+scipy/.test(line)) {
+          pyImported.scipy = true;
+          appendLine('# scipy importado ✓', 't-comment');
+          return;
+        }
+
+        // df = pd.read_csv(...)
+        const readM = line.match(
+          /^(\w+)\s*=\s*pd\.read_csv\(["']chimborazo\.csv["']\)/,
+        );
+        if (readM) {
+          pyVars[readM[1]] = DS;
+          pyVars['__dfName'] = readM[1];
+          appendLine(
+            `✓ DataFrame cargado: ${DS.length} filas × ${Object.keys(DS[0]).length} columnas`,
+            't-success',
+          );
+          return;
+        }
+
+        // resolve df var
+        function getDF(name) {
+          return pyVars[name] || null;
+        }
+        function guessDF() {
+          return pyVars[pyVars['__dfName']] || null;
+        }
+
+        // df.head() / df.tail()
+        const htM = line.match(/^(\w+)\.(head|tail)\((\d+)?\)$/);
+        if (htM) {
+          const df = getDF(htM[1]);
+          if (!df) {
+            appendLine(
+              'NameError: name "' + htM[1] + '" is not defined',
+              't-err',
+            );
+            return;
+          }
+          const n = htM[3] ? +htM[3] : 5;
+          const rows = htM[2] === 'head' ? df.slice(0, n) : df.slice(-n);
+          const cols = Object.keys(rows[0]);
+          appendRaw(
+            '<span class="t-py">' + esc(formatTable(rows, cols, n)) + '</span>',
+          );
+          return;
+        }
+
+        // info / dtypes
+        const infoM = line.match(/^(\w+)\.(info|dtypes)\(\)$/);
+        if (infoM) {
+          const df = getDF(infoM[1]);
+          if (!df) {
+            appendLine(
+              'NameError: name "' + infoM[1] + '" is not defined',
+              't-err',
+            );
+            return;
+          }
+          const cols = Object.keys(df[0]);
+          if (infoM[2] === 'dtypes') {
+            cols.forEach((c) => {
+              const type = typeof df[0][c] === 'number' ? 'float64' : 'object';
+              appendLine(`${c.padEnd(15)} ${type}`, 't-py');
+            });
+          } else {
+            appendLine(`<class 'pandas.core.frame.DataFrame'>`, 't-py');
+            appendLine(
+              `RangeIndex: ${df.length} entries, 0 to ${df.length - 1}`,
+              't-py',
+            );
+            appendLine(`Data columns (total ${cols.length} columns):`, 't-py');
+            appendLine(` #   Column        Non-Null Count  Dtype`, 't-py');
+            appendLine(`---  ------        --------------  -----`, 't-py');
+            cols.forEach((c, i) => {
+              const type = typeof df[0][c] === 'number' ? 'float64' : 'object';
+              appendLine(
+                ` ${String(i).padEnd(2)}  ${c.padEnd(13)} ${df.length} non-null    ${type}`,
+                't-py',
+              );
+            });
+          }
+          return;
+        }
+
+        // describe
+        const descM = line.match(/^(\w+)\.describe\(\)$/);
+        if (descM) {
+          const df = getDF(descM[1]);
+          if (!df) {
+            appendLine(
+              'NameError: name "' + descM[1] + '" is not defined',
+              't-err',
+            );
+            return;
+          }
+          const cols = Object.keys(df[0]).filter(
+            (c) => typeof df[0][c] === 'number',
+          );
+          const stats = [
+            'count',
+            'mean',
+            'std',
+            'min',
+            '25%',
+            '50%',
+            '75%',
+            'max',
+          ];
+          const tableRows = stats.map((stat) => {
+            const row = { metric: stat };
+            cols.forEach((c) => {
+              const vals = df.map((r) => r[c]);
+              const s = summaryStats(vals);
+              if (stat === 'count') row[c] = s.n;
+              else if (stat === 'mean') row[c] = +s.mean.toFixed(3);
+              else if (stat === 'std') row[c] = +s.sd.toFixed(3);
+              else if (stat === 'min') row[c] = s.min;
+              else if (stat === '25%') row[c] = s.q1;
+              else if (stat === '50%') row[c] = s.median;
+              else if (stat === '75%') row[c] = s.q3;
+              else if (stat === 'max') row[c] = s.max;
+            });
+            return row;
+          });
+          appendRaw(
+            '<span class="t-py">' +
+              esc(formatTable(tableRows, ['metric', ...cols])) +
+              '</span>',
+          );
+          return;
+        }
+
+        // column describe: df['col'].describe()
+        const colDescM = line.match(/^(\w+)\[["'](\w+)["']\]\.describe\(\)$/);
+        if (colDescM) {
+          const df = getDF(colDescM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col = colDescM[2];
+          const vals = df.map((r) => r[col]);
+          const s = summaryStats(vals);
+          if (s) {
+            appendLine(`count    ${s.n}.000000`, 't-py');
+            appendLine(`mean     ${s.mean.toFixed(6)}`, 't-py');
+            appendLine(`std      ${s.sd.toFixed(6)}`, 't-py');
+            appendLine(`min      ${s.min.toFixed(6)}`, 't-py');
+            appendLine(`25%      ${s.q1.toFixed(6)}`, 't-py');
+            appendLine(`50%      ${s.median.toFixed(6)}`, 't-py');
+            appendLine(`75%      ${s.q3.toFixed(6)}`, 't-py');
+            appendLine(`max      ${s.max.toFixed(6)}`, 't-py');
+          } else {
+            const freq = {};
+            vals.forEach((v) => {
+              freq[v] = (freq[v] || 0) + 1;
+            });
+            const top = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+            appendLine(`count    ${vals.length}`, 't-py');
+            appendLine(`unique   ${Object.keys(freq).length}`, 't-py');
+            appendLine(`top      ${top[0][0]}`, 't-py');
+            appendLine(`freq     ${top[0][1]}`, 't-py');
+          }
+          return;
+        }
+
+        // column stat: df['col'].mean()
+        const colStatM = line.match(
+          /^(\w+)\[["'](\w+)["']\]\.(mean|median|std|var|min|max|sum|count)\(\)$/,
+        );
+        if (colStatM) {
+          const df = getDF(colStatM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col = colStatM[2];
+          const fn = colStatM[3];
+          const vals = df.map((r) => r[col]);
+          const nums = vals.map(Number).filter((v) => !isNaN(v));
+          let res;
+          if (fn === 'mean') res = nums.reduce((a, b) => a + b) / nums.length;
+          else if (fn === 'median') {
+            const s = [...nums].sort((a, b) => a - b);
+            res =
+              s.length % 2
+                ? s[(s.length - 1) / 2]
+                : (s[s.length / 2 - 1] + s[s.length / 2]) / 2;
+          } else if (fn === 'std') {
+            const m = nums.reduce((a, b) => a + b) / nums.length;
+            res = Math.sqrt(
+              nums.reduce((a, v) => a + (v - m) ** 2, 0) / (nums.length - 1),
+            );
+          } else if (fn === 'var') {
+            const m = nums.reduce((a, b) => a + b) / nums.length;
+            res =
+              nums.reduce((a, v) => a + (v - m) ** 2, 0) / (nums.length - 1);
+          } else if (fn === 'min') res = Math.min(...nums);
+          else if (fn === 'max') res = Math.max(...nums);
+          else if (fn === 'sum') res = nums.reduce((a, b) => a + b, 0);
+          else if (fn === 'count') res = nums.length;
+          appendLine(res.toFixed(6), 't-py');
+          return;
+        }
+
+        // value_counts
+        const vcM = line.match(/^(\w+)\[["'](\w+)["']\]\.value_counts\(\)$/);
+        if (vcM) {
+          const df = getDF(vcM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col = vcM[2];
+          const vals = df.map((r) => r[col]);
+          const freq = {};
+          vals.forEach((v) => {
+            freq[v] = (freq[v] || 0) + 1;
+          });
+          Object.entries(freq)
+            .sort((a, b) => b[1] - a[1])
+            .forEach(([k, n]) => {
+              appendLine(`${k.padEnd(15)} ${n}`, 't-py');
+            });
+          return;
+        }
+
+        // crosstab
+        const crossM = line.match(
+          /^pd\.crosstab\((\w+)\[["'](\w+)["']\],\s*(\w+)\[["'](\w+)["']\]\)$/,
+        );
+        if (crossM) {
+          const df = getDF(crossM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col1 = crossM[2];
+          const col2 = crossM[4];
+          const vals1 = df.map((r) => r[col1]);
+          const vals2 = df.map((r) => r[col2]);
+          const rk = [...new Set(vals1)].sort();
+          const ck = [...new Set(vals2)].sort();
+          const rows = rk.map((r) => {
+            const row = { [col1]: r };
+            ck.forEach((c) => {
+              row[c] = df.filter((x) => x[col1] === r && x[col2] === c).length;
+            });
+            return row;
+          });
+          appendRaw(
+            '<span class="t-py">' +
+              esc(formatTable(rows, [col1, ...ck])) +
+              '</span>',
+          );
+          return;
+        }
+
+        // groupby mean
+        const gbMeanM = line.match(
+          /^(\w+)\.groupby\(["'](\w+)["']\)\[["'](\w+)["']\]\.mean\(\)$/,
+        );
+        if (gbMeanM) {
+          const df = getDF(gbMeanM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col1 = gbMeanM[2];
+          const col2 = gbMeanM[3];
+          const gkeys = [...new Set(df.map((r) => r[col1]))].sort();
+          gkeys.forEach((g) => {
+            const vals = df
+              .filter((r) => r[col1] === g)
+              .map((r) => Number(r[col2]))
+              .filter((v) => !isNaN(v));
+            const mean = vals.length
+              ? vals.reduce((a, b) => a + b, 0) / vals.length
+              : 0;
+            appendLine(`${g.padEnd(15)} ${mean.toFixed(6)}`, 't-py');
+          });
+          makeBoxplot(df, col2, col1, '#69c472');
+          return;
+        }
+
+        // groupby count / size
+        const gbCountM = line.match(
+          /^(\w+)\.groupby\(["'](\w+)["']\)\[["'](\w+)["']\]\.(count|size)\(\)$/,
+        );
+        if (gbCountM) {
+          const df = getDF(gbCountM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col1 = gbCountM[2];
+          const col2 = gbCountM[3];
+          const gkeys = [...new Set(df.map((r) => r[col1]))].sort();
+          gkeys.forEach((g) => {
+            const count = df.filter(
+              (r) => r[col1] === g && r[col2] !== undefined && r[col2] !== null,
+            ).length;
+            appendLine(`${g.padEnd(15)} ${count}`, 't-py');
+          });
+          return;
+        }
+
+        // correlation between columns
+        const colCorrM = line.match(
+          /^(\w+)\[["'](\w+)["']\]\.corr\((\w+)\[["'](\w+)["']\]\)$/,
+        );
+        if (colCorrM) {
+          const df = getDF(colCorrM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col1 = colCorrM[2];
+          const col2 = colCorrM[4];
+          const x = df.map((r) => Number(r[col1])).filter((v) => !isNaN(v));
+          const y = df.map((r) => Number(r[col2])).filter((v) => !isNaN(v));
+          const n = Math.min(x.length, y.length);
+          const mx = x.reduce((a, b) => a + b) / n;
+          const my = y.reduce((a, b) => a + b) / n;
+          const num = x.reduce((a, v, i) => a + (v - mx) * (y[i] - my), 0);
+          const dx = Math.sqrt(x.reduce((a, v) => a + (v - mx) ** 2, 0));
+          const dy = Math.sqrt(y.reduce((a, v) => a + (v - my) ** 2, 0));
+          const r = num / (dx * dy);
+          appendLine(r.toFixed(6), 't-py');
+          return;
+        }
+
+        // corr matrix
+        const corrMatrixM = line.match(/^(\w+)\.corr\(\)$/);
+        if (corrMatrixM) {
+          const df = getDF(corrMatrixM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const numCols = Object.keys(df[0]).filter(
+            (c) => typeof df[0][c] === 'number',
+          );
+          const rows = numCols.map((c1) => {
+            const row = { variable: c1 };
+            numCols.forEach((c2) => {
+              const x = df.map((r) => Number(r[c1]));
+              const y = df.map((r) => Number(r[c2]));
+              const n = x.length;
+              const mx = x.reduce((a, b) => a + b) / n;
+              const my = y.reduce((a, b) => a + b) / n;
+              const num = x.reduce((a, v, i) => a + (v - mx) * (y[i] - my), 0);
+              const dx = Math.sqrt(x.reduce((a, v) => a + (v - mx) ** 2, 0));
+              const dy = Math.sqrt(y.reduce((a, v) => a + (v - my) ** 2, 0));
+              row[c2] = dx * dy > 0 ? (num / (dx * dy)).toFixed(4) : '1.0000';
+            });
+            return row;
+          });
+          appendRaw(
+            '<span class="t-py">' +
+              esc(formatTable(rows, ['variable', ...numCols])) +
+              '</span>',
+          );
+          return;
+        }
+
+        // filter rows with assignment: sub = df[df['col'] > n]
+        const filterAsgn = line.match(
+          /^(\w+)\s*=\s*(\w+)\[\2\[["'](\w+)["']\]\s*(==|!=|>|<|>=|<=)\s*["']?(.+?)["']?\]$/,
+        );
+        if (filterAsgn) {
+          const vn = filterAsgn[1];
+          const dfName = filterAsgn[2];
+          const col = filterAsgn[3];
+          const op = filterAsgn[4];
+          const raw = filterAsgn[5];
+          const df = getDF(dfName);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const vnum = Number(raw);
+          const useNum = !isNaN(vnum);
+          const filtered = df.filter((r) => {
+            const rv = r[col];
+            const rn = Number(rv);
+            switch (op) {
+              case '==':
+                return useNum ? rn === vnum : rv === raw;
+              case '!=':
+                return useNum ? rn !== vnum : rv !== raw;
+              case '>':
+                return rn > vnum;
+              case '<':
+                return rn < vnum;
+              case '>=':
+                return rn >= vnum;
+              case '<=':
+                return rn <= vnum;
+            }
+          });
+          pyVars[vn] = filtered;
+          appendLine(
+            `✓ subset guardado en variable '${vn}': ${filtered.length} filas`,
+            't-success',
+          );
+          return;
+        }
+
+        // bare filter: df[df['col'] > n]
+        const filterM = line.match(
+          /^(\w+)\[\1\[["'](\w+)["']\]\s*(==|!=|>|<|>=|<=)\s*["']?(.+?)["']?\]$/,
+        );
+        if (filterM) {
+          const dfName = filterM[1];
+          const col = filterM[2];
+          const op = filterM[3];
+          const raw = filterM[4];
+          const df = getDF(dfName);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const vnum = Number(raw);
+          const useNum = !isNaN(vnum);
+          const filtered = df.filter((r) => {
+            const rv = r[col];
+            const rn = Number(rv);
+            switch (op) {
+              case '==':
+                return useNum ? rn === vnum : rv === raw;
+              case '!=':
+                return useNum ? rn !== vnum : rv !== raw;
+              case '>':
+                return rn > vnum;
+              case '<':
+                return rn < vnum;
+              case '>=':
+                return rn >= vnum;
+              case '<=':
+                return rn <= vnum;
+            }
+          });
+          const cols = Object.keys(filtered[0] || {});
+          appendRaw(
+            '<span class="t-py">' +
+              esc(formatTable(filtered, cols, 10)) +
+              '</span>',
+          );
+          return;
+        }
+
+        // charts
+        const colHistM = line.match(/^(\w+)\[["'](\w+)["']\]\.hist\(\)$/);
+        if (colHistM) {
+          const df = getDF(colHistM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col = colHistM[2];
+          const vals = df.map((r) => r[col]);
+          makeHist(vals, col, '#69c472');
+          appendLine(
+            `✓ matplotlib.pyplot.hist() generado para ${col}`,
+            't-success',
+          );
+          return;
+        }
+        const scatterM = line.match(
+          /^(\w+)\.plot\.scatter\(x=["'](\w+)["'],\s*y=["'](\w+)["']\)$/,
+        );
+        if (scatterM) {
+          const df = getDF(scatterM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const xCol = scatterM[2];
+          const yCol = scatterM[3];
+          makeScatter(df, xCol, yCol);
+          appendLine(
+            `✓ matplotlib.pyplot.scatter() generado para ${xCol} vs ${yCol}`,
+            't-success',
+          );
+          return;
+        }
+        const boxplotM = line.match(
+          /^(\w+)\.boxplot\(column=["'](\w+)["'],\s*by=["'](\w+)["']\)$/,
+        );
+        if (boxplotM) {
+          const df = getDF(boxplotM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col = boxplotM[2];
+          const byCol = boxplotM[3];
+          makeBoxplot(df, col, byCol, '#69c472');
+          appendLine(
+            `✓ boxplot generado: ${col} agrupado por ${byCol}`,
+            't-success',
+          );
+          return;
+        }
+
+        // column name slice: df['col']
+        const colBareM = line.match(/^(\w+)\[["'](\w+)["']\]$/);
+        if (colBareM) {
+          const df = getDF(colBareM[1]);
+          if (!df) {
+            appendLine('NameError', 't-err');
+            return;
+          }
+          const col = colBareM[2];
+          const vals = df.map((r) => r[col]);
+          appendLine(
+            `Name: ${col}, Length: ${vals.length}, dtype: ${typeof vals[0] === 'number' ? 'float64' : 'object'}`,
+            't-py',
+          );
+          appendLine(
+            `[${vals.slice(0, 10).join(', ')}${vals.length > 10 ? ', ...' : ''}]`,
+            't-py',
+          );
+          return;
+        }
+
+        // bare variable
+        if (/^\w+$/.test(line) && pyVars[line] !== undefined) {
+          const df = pyVars[line];
+          if (Array.isArray(df)) {
+            const cols = Object.keys(df[0] || {});
+            appendRaw(
+              '<span class="t-py">' + esc(formatTable(df, cols)) + '</span>',
+            );
+          } else {
+            appendLine(JSON.stringify(df), 't-py');
+          }
+          return;
+        }
+
+        appendLine(
+          `Error: name '${line}' is not defined or command not recognized`,
+          't-err',
+        );
+      }
+
+      /* ======================================================
+   9. SQL INTERPRETER
+====================================================== */
+      function runSQL(code) {
+        const lines = code.split('\n');
+        lines.forEach((rawLine) => {
+          const line = rawLine.trim();
+          if (!line || line.startsWith('--')) {
+            if (line.startsWith('--')) appendLine(line, 't-comment');
+            return;
+          }
+          showPrompt(rawLine, 'sql');
+          try {
+            interpretSQL(line);
+          } catch (e) {
+            appendLine('Error: ' + e.message, 't-err');
+          }
+        });
+        scrollOut();
+      }
+
+      function interpretSQL(line) {
+        const sqlRegex =
+          /^\s*SELECT\s+(.*?)\s+FROM\s+(\w+)(?:\s+WHERE\s+(.*?))?(?:\s+GROUP\s+BY\s+(.*?))?(?:\s+ORDER\s+BY\s+(.*?))?(?:\s+LIMIT\s+(\d+))?\s*;?\s*$/i;
+        const match = line.match(sqlRegex);
+        if (!match) {
+          appendLine(
+            'Syntax Error: SQL query format not recognized. Use: SELECT cols FROM table [WHERE cond] [GROUP BY col] [ORDER BY col] [LIMIT n];',
+            't-err',
+          );
+          return;
+        }
+
+        const selectColsRaw = match[1].trim();
+        const tableName = match[2].trim().toLowerCase();
+        const whereClause = match[3] ? match[3].trim() : null;
+        const groupByClause = match[4] ? match[4].trim() : null;
+        const orderByClause = match[5] ? match[5].trim() : null;
+        const limitVal = match[6] ? parseInt(match[6]) : null;
+
+        if (tableName !== 'chimborazo') {
+          appendLine(
+            `TableError: Table '${tableName}' not found. Use 'chimborazo'`,
+            't-err',
+          );
+          return;
+        }
+
+        let rows = [...DS];
+
+        // 1. WHERE
+        if (whereClause) {
+          const condRegex =
+            /(\w+)\s*(=|!=|<>|>|<|>=|<=|like)\s*["']?([^"']+)["']?/i;
+          const condMatch = whereClause.match(condRegex);
+          if (!condMatch) {
+            appendLine(
+              "SQL Error: WHERE clause format not supported. Use: edad > 50, or canton = 'Riobamba'",
+              't-err',
+            );
+            return;
+          }
+          const col = condMatch[1];
+          let op = condMatch[2].toLowerCase();
+          if (op === '<>') op = '!=';
+          const rawVal = condMatch[3];
+          const valNum = Number(rawVal);
+          const isNum = !isNaN(valNum);
+
+          rows = rows.filter((r) => {
+            const rv = r[col];
+            if (rv === undefined) return false;
+            const rn = Number(rv);
+            if (op === 'like') {
+              return String(rv)
+                .toLowerCase()
+                .startsWith(rawVal.replace('%', '').toLowerCase());
+            }
+            switch (op) {
+              case '=':
+                return isNum ? rn === valNum : String(rv) === rawVal;
+              case '!=':
+                return isNum ? rn !== valNum : String(rv) !== rawVal;
+              case '>':
+                return rn > valNum;
+              case '<':
+                return rn < valNum;
+              case '>=':
+                return rn >= valNum;
+              case '<=':
+                return rn <= valNum;
+            }
+            return false;
+          });
+        }
+
+        // Parse columns
+        const selectItems = selectColsRaw.split(',').map((s) => {
+          const sTrim = s.trim();
+          const aggMatch = sTrim.match(/^(AVG|COUNT|SUM|MIN|MAX)\((.*?)\)$/i);
+          if (aggMatch) {
+            return {
+              type: 'agg',
+              fn: aggMatch[1].toUpperCase(),
+              col: aggMatch[2].trim(),
+              alias: sTrim,
+            };
+          }
+          return {
+            type: 'col',
+            col: sTrim,
+            alias: sTrim,
+          };
+        });
+
+        // 2. GROUP BY
+        if (groupByClause) {
+          const groupCol = groupByClause;
+          const groups = {};
+          rows.forEach((r) => {
+            const gk = r[groupCol] ?? 'NULL';
+            if (!groups[gk]) groups[gk] = [];
+            groups[gk].push(r);
+          });
+
+          let groupedRows = Object.entries(groups).map(([gk, gRows]) => {
+            const newRow = { [groupCol]: gk };
+            selectItems.forEach((item) => {
+              if (item.type === 'agg') {
+                const fn = item.fn;
+                const colName = item.col;
+                const numericVals = gRows
+                  .map((r) => Number(r[colName]))
+                  .filter((v) => !isNaN(v));
+                if (fn === 'COUNT') {
+                  newRow[item.alias] =
+                    colName === '*' ? gRows.length : numericVals.length;
+                } else if (fn === 'AVG') {
+                  newRow[item.alias] = numericVals.length
+                    ? +(
+                        numericVals.reduce((a, b) => a + b) / numericVals.length
+                      ).toFixed(3)
+                    : 0;
+                } else if (fn === 'SUM') {
+                  newRow[item.alias] = numericVals.reduce((a, b) => a + b, 0);
+                } else if (fn === 'MIN') {
+                  newRow[item.alias] = numericVals.length
+                    ? Math.min(...numericVals)
+                    : null;
+                } else if (fn === 'MAX') {
+                  newRow[item.alias] = numericVals.length
+                    ? Math.max(...numericVals)
+                    : null;
+                }
+              } else {
+                if (item.col !== groupCol) {
+                  newRow[item.alias] = gRows[0][item.col] ?? 'NA';
+                }
+              }
+            });
+            return newRow;
+          });
+
+          // 3. ORDER BY
+          if (orderByClause) {
+            const parts = orderByClause.split(/\s+/);
+            const sortCol = parts[0];
+            const desc = parts[1] && parts[1].toUpperCase() === 'DESC';
+            groupedRows.sort((a, b) => {
+              const va = a[sortCol];
+              const vb = b[sortCol];
+              if (typeof va === 'number' && typeof vb === 'number') {
+                return desc ? vb - va : va - vb;
+              }
+              return desc
+                ? String(vb).localeCompare(String(va))
+                : String(va).localeCompare(String(vb));
+            });
+          }
+
+          // 4. LIMIT
+          if (limitVal !== null) {
+            groupedRows = groupedRows.slice(0, limitVal);
+          }
+
+          const headers = selectItems.map((item) => item.alias);
+          appendRaw(
+            '<span class="t-sql">' +
+              esc(formatTable(groupedRows, headers)) +
+              '</span>',
+          );
+
+          // Auto Charting
+          const aggItem = selectItems.find((item) => item.type === 'agg');
+          if (aggItem) {
+            const labels = groupedRows.map((r) => r[groupCol]);
+            const dataPoints = groupedRows.map((r) => r[aggItem.alias]);
+            makeBar(
+              labels,
+              dataPoints,
+              `${aggItem.alias} por ${groupCol}`,
+              '#c07bff',
+            );
+            appendLine(
+              `✓ Gráfico automático generado para ${aggItem.alias} por ${groupCol}`,
+              't-success',
+            );
+          }
+          return;
+        }
+
+        // Plain SELECT
+        let resultRows = rows.map((r) => {
+          const newRow = {};
+          selectItems.forEach((item) => {
+            if (item.type === 'agg') {
+              const fn = item.fn;
+              const colName = item.col;
+              const numericVals = rows
+                .map((x) => Number(x[colName]))
+                .filter((v) => !isNaN(v));
+              if (fn === 'COUNT') {
+                newRow[item.alias] =
+                  colName === '*' ? rows.length : numericVals.length;
+              } else if (fn === 'AVG') {
+                newRow[item.alias] = numericVals.length
+                  ? +(
+                      numericVals.reduce((a, b) => a + b) / numericVals.length
+                    ).toFixed(3)
+                  : 0;
+              } else if (fn === 'SUM') {
+                newRow[item.alias] = numericVals.reduce((a, b) => a + b, 0);
+              } else if (fn === 'MIN') {
+                newRow[item.alias] = numericVals.length
+                  ? Math.min(...numericVals)
+                  : null;
+              } else if (fn === 'MAX') {
+                newRow[item.alias] = numericVals.length
+                  ? Math.max(...numericVals)
+                  : null;
+              }
+            } else {
+              newRow[item.alias] = r[item.col] ?? 'NA';
+            }
+          });
+          return newRow;
+        });
+
+        const hasOnlyAggs = selectItems.every((item) => item.type === 'agg');
+        if (hasOnlyAggs && resultRows.length > 0) {
+          resultRows = [resultRows[0]];
+        }
+
+        // 3. ORDER BY
+        if (orderByClause && !hasOnlyAggs) {
+          const parts = orderByClause.split(/\s+/);
+          const sortCol = parts[0];
+          const desc = parts[1] && parts[1].toUpperCase() === 'DESC';
+          resultRows.sort((a, b) => {
+            const va = a[sortCol];
+            const vb = b[sortCol];
+            if (typeof va === 'number' && typeof vb === 'number') {
+              return desc ? vb - va : va - vb;
+            }
+            return desc
+              ? String(vb).localeCompare(String(va))
+              : String(va).localeCompare(String(vb));
+          });
+        }
+
+        // 4. LIMIT
+        if (limitVal !== null) {
+          resultRows = resultRows.slice(0, limitVal);
+        }
+
+        const headers = selectItems.map((item) => item.alias);
+        appendRaw(
+          '<span class="t-sql">' +
+            esc(formatTable(resultRows, headers)) +
+            '</span>',
+        );
+      }
+
+      /* ======================================================
+   10. LATEX INTERPRETER
+====================================================== */
+      function runLaTeX(code) {
+        showPrompt(code, 'tex');
+        try {
+          interpretLaTeX(code);
+        } catch (e) {
+          appendLine('Error en LaTeX: ' + e.message, 't-err');
+        }
+        scrollOut();
+      }
+
+      function interpretLaTeX(code) {
+        let out = '';
+        // Formulas
+        const mathRegex =
+          /\$\$([\s\S]+?)\$\$|\$([\s\S]+?)\$|\\begin\{equation\}([\s\S]+?)\\end\{equation\}/g;
+        let formulaMatch;
+        let formulasFound = [];
+        while ((formulaMatch = mathRegex.exec(code)) !== null) {
+          const f = formulaMatch[1] || formulaMatch[2] || formulaMatch[3];
+          formulasFound.push(f.trim());
+        }
+
+        if (formulasFound.length > 0) {
+          out +=
+            '\n<span class="t-hi">Fórmulas Matemáticas Detectadas:</span>\n';
+          formulasFound.forEach((f, idx) => {
+            let pretty = f
+              .replace(/\\bar\{x\}/g, 'x̄ (Media)')
+              .replace(/\\mu/g, 'μ (Media poblacional)')
+              .replace(/\\sigma/g, 'σ (Desviación estándar)')
+              .replace(/\\alpha/g, 'α (Significancia)')
+              .replace(/\\beta_0/g, 'β₀ (Intercepto)')
+              .replace(/\\beta_1/g, 'β₁ (Pendiente)')
+              .replace(/\\chi\^2/g, 'χ² (Chi-cuadrado)')
+              .replace(/\\sum/g, '∑')
+              .replace(/\\frac\{([\s\S]+?)\}\{([\s\S]+?)\}/g, '($1 / $2)')
+              .replace(/\\sqrt\{([\s\S]+?)\}/g, '√($1)')
+              .replace(/\\approx/g, '≈')
+              .replace(/\\le/g, '≤')
+              .replace(/\\ge/g, '≥')
+              .replace(/\\ne/g, '≠')
+              .replace(/\\times/g, '×');
+            out += `  [Eq ${idx + 1}]: ${pretty}\n`;
+          });
+          out += '\n';
+        }
+
+        // Tabular
+        const tabRegex =
+          /\\begin\{tabular\}\{([\w|]+)\}([\s\S]+?)\\end\{tabular\}/;
+        const tabMatch = code.match(tabRegex);
+        if (tabMatch) {
+          const body = tabMatch[2];
+          const rows = body
+            .split('\\\\')
+            .map((r) => r.trim())
+            .filter((r) => r.length > 0 && !r.startsWith('\\hline'));
+
+          const parsedRows = rows.map((r) => {
+            return r.split('&').map((cell) => {
+              return cell
+                .replace(/\\textbf\{([\s\S]+?)\}/g, '$1')
+                .replace(/\\textit\{([\s\S]+?)\}/g, '$1')
+                .replace(/\\hline/g, '')
+                .replace(/\\%/g, '%')
+                .replace(/\\&/g, '&')
+                .trim();
+            });
+          });
+
+          if (parsedRows.length > 0) {
+            const colWidths = [];
+            parsedRows.forEach((row) => {
+              row.forEach((cell, i) => {
+                colWidths[i] = Math.max(colWidths[i] || 0, cell.length);
+              });
+            });
+
+            out += '<span class="t-head">Tabla renderizada en ASCII:</span>\n';
+            out +=
+              '+' + colWidths.map((w) => '-'.repeat(w + 2)).join('+') + '+\n';
+            parsedRows.forEach((row, rIdx) => {
+              const line = row
+                .map((cell, i) => {
+                  return ' ' + cell.padEnd(colWidths[i]) + ' ';
+                })
+                .join('|');
+              out += '|' + line + '|\n';
+              if (rIdx === 0) {
+                out +=
+                  '+' +
+                  colWidths.map((w) => '='.repeat(w + 2)).join('+') +
+                  '+\n';
+              } else {
+                out +=
+                  '+' +
+                  colWidths.map((w) => '-'.repeat(w + 2)).join('+') +
+                  '+\n';
+              }
+            });
+          }
+        }
+
+        if (out === '') {
+          out =
+            'LaTeX compilado sin resultados visuales. Escribe una tabla (\\begin{tabular}...\\end{tabular}) o una fórmula ($...$ o \\begin{equation}...\\end{equation})';
+        }
+        appendRaw(out);
+      }
+
+      /* ======================================================
+   11. BASH INTERPRETER (TERMINAL)
+====================================================== */
+      function runTerminal(code) {
+        const lines = code.split('\n');
+        lines.forEach((rawLine) => {
+          const line = rawLine.trim();
+          if (!line || line.startsWith('#')) {
+            if (line.startsWith('#')) appendLine(line, 't-comment');
+            return;
+          }
+          showPrompt(rawLine, 'bash');
+          try {
+            interpretTerminal(line);
+          } catch (e) {
+            appendLine('Error: ' + e.message, 't-err');
+          }
+        });
+        scrollOut();
+      }
+
+      function interpretTerminal(line) {
+        const parts = line.split(/\s+/);
+        const cmd = parts[0];
+        const args = parts.slice(1);
+
+        if (cmd === 'ls') {
+          appendLine(
+            'chimborazo.csv   pico-planificacion.txt   analisis_descriptivo.R   dashboard.py',
+            't-success',
+          );
+          return;
+        }
+        if (cmd === 'pwd') {
+          appendLine('/home/student/medicina_y_datos/codigo_estadistico');
+          return;
+        }
+        if (cmd === 'clear') {
+          clearOutput();
+          return;
+        }
+        if (cmd === 'cat') {
+          if (!args[0]) {
+            appendLine('Error: cat requiere un archivo', 't-err');
+            return;
+          }
+          const filename = args[0];
+          if (filename === 'chimborazo.csv') {
+            let csv =
+              'id,canton,parroquia,etnia,edad,sexo,peso,talla,imc,hemoglobina,glucosa,pres_sis,pres_dias,cintura,colesterol,trigliceridos,anemia,dm2,hta,obesidad\n';
+            DS.slice(0, 15).forEach((r) => {
+              csv += `${r.id},"${r.canton}","${r.parroquia}","${r.etnia}",${r.edad},"${r.sexo}",${r.peso},${r.talla},${r.imc},${r.hemoglobina},${r.glucosa},${r.pres_sis},${r.pres_dias},${r.cintura},${r.colesterol},${r.trigliceridos},"${r.anemia}","${r.dm2}","${r.hta}","${r.obesidad}"\n`;
+            });
+            csv += '... [105 filas adicionales truncated]';
+            appendLine(csv);
+          } else if (filename === 'pico-planificacion.txt') {
+            appendLine(`Población (P): Pacientes de la provincia de Chimborazo con factores de riesgo cardiovascular.
+Intervención (I): Comparación por sexo (Femenino vs Masculino) o por zona (Rural vs Urbana).
+Comparador (C): Sin intervención específica / comparación mutua.
+Outcome (O): Prevalencia de anemia, prevalencia de diabetes, niveles de hemoglobina y presión sistólica.
+
+Diccionario de Datos chimborazo.csv:
+- id: Identificador único del paciente
+- canton: Cantón de residencia
+- edad: Edad en años
+- sexo: F o M
+- imc: Índice de Masa Corporal
+- hemoglobina: Nivel de hemoglobina en g/dL
+- glucosa: Glucosa basal en mg/dL
+- pres_sis: Presión arterial sistólica en mmHg
+- anemia: Si o No
+- dm2: Diabetes tipo 2 (Si o No)
+- hta: Hipertensión arterial (Si o No)`);
+          } else if (filename === 'analisis_descriptivo.R') {
+            appendLine(`datos <- read.csv("chimborazo.csv")
+# Media y Desviación Estándar de la Edad
+mean(datos$edad)
+sd(datos$edad)
+# Tabla de contingencia anemia y sexo
+table(datos$anemia, datos$sexo)
+# ANOVA o prueba T de IMC por canton
+boxplot(imc ~ canton, data=datos)`);
+          } else if (filename === 'dashboard.py') {
+            appendLine(`import pandas as pd
+df = pd.read_csv("chimborazo.csv")
+print(df.groupby('canton')['imc'].mean())
+df.plot.scatter(x='imc', y='pres_sis')`);
+          } else {
+            appendLine(
+              `cat: ${filename}: No existe el archivo o directorio`,
+              't-err',
+            );
+          }
+          return;
+        }
+        if (cmd === 'head') {
+          let filename = args[0];
+          let n = 10;
+          if (filename === '-n' && args[1]) {
+            n = parseInt(args[1]);
+            filename = args[2];
+          }
+          if (!filename) {
+            appendLine('Error: head requiere un archivo', 't-err');
+            return;
+          }
+          if (filename === 'chimborazo.csv') {
+            let csv =
+              'id,canton,parroquia,etnia,edad,sexo,peso,talla,imc,hemoglobina,glucosa,pres_sis,pres_dias,cintura,colesterol,trigliceridos,anemia,dm2,hta,obesidad\n';
+            DS.slice(0, n - 1).forEach((r) => {
+              csv += `${r.id},"${r.canton}","${r.parroquia}","${r.etnia}",${r.edad},"${r.sexo}",${r.peso},${r.talla},${r.imc},${r.hemoglobina},${r.glucosa},${r.pres_sis},${r.pres_dias},${r.cintura},${r.colesterol},${r.trigliceridos},"${r.anemia}","${r.dm2}","${r.hta}","${r.obesidad}"\n`;
+            });
+            appendLine(csv);
+          } else {
+            appendLine(
+              `head: ${filename}: No existe el archivo o directorio`,
+              't-err',
+            );
+          }
+          return;
+        }
+        if (cmd === 'wc') {
+          if (args[0] === '-l' && args[1] === 'chimborazo.csv') {
+            appendLine('121 chimborazo.csv');
+            return;
+          }
+          appendLine(
+            'Error: Comando wc no soportado con esos argumentos. Usa: wc -l chimborazo.csv',
+            't-err',
+          );
+          return;
+        }
+        if (cmd === 'help') {
+          appendLine(
+            'Comandos bash disponibles:\n  ls         Lista archivos\n  pwd        Ruta actual\n  cat [file] Muestra contenido de un archivo\n  head [file] Muestra las primeras líneas de un archivo\n  wc -l [file] Cuenta el número de líneas\n  clear      Limpia la pantalla',
+          );
+          return;
+        }
+        appendLine(
+          `bash: ${cmd}: orden no encontrada. Escribe 'help' para ver los comandos.`,
+          't-err',
+        );
+      }
+
+      /* ======================================================
+   12. RUN TRIGGER & SHORTCUTS
+====================================================== */
+      function runCode() {
+        const code = document.getElementById('codeEditor').value;
+        if (currentLang === 'r') runR(code);
+        else if (currentLang === 'py') runPython(code);
+        else if (currentLang === 'sql') runSQL(code);
+        else if (currentLang === 'tex') runLaTeX(code);
+        else if (currentLang === 'bash') runTerminal(code);
+      }
+
+      document
+        .getElementById('codeEditor')
+        .addEventListener('keydown', function (e) {
+          if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            runCode();
+          }
+        });
+
+      /* ======================================================
+   13. MISSIONS DATA
+====================================================== */
+      const missions = [
+        {
+          num: 1,
+          name: 'Cargar y dimensionar',
+          lang: 'R',
+          desc: 'Carga la base de datos de Chimborazo en R y averigua el número de observaciones (filas) y variables (columnas).',
+          code: 'datos <- read.csv("chimborazo.csv")\ndim(datos)\nnrow(datos)',
+        },
+        {
+          num: 2,
+          name: 'Resumen estadístico de IMC',
+          lang: 'Python',
+          desc: 'Carga los datos en un DataFrame de pandas y obtén un resumen descriptivo completo del Índice de Masa Corporal (IMC).',
+          code: 'import pandas as pd\ndf = pd.read_csv("chimborazo.csv")\ndf[\'imc\'].describe()',
+        },
+        {
+          num: 3,
+          name: 'Distribución del IMC',
+          lang: 'R',
+          desc: 'Genera un histograma para evaluar visualmente si la distribución del IMC en esta cohorte es simétrica o presenta sesgo.',
+          code: 'datos <- read.csv("chimborazo.csv")\nhist(datos$imc)',
+        },
+        {
+          num: 4,
+          name: 'Prevalencia de Anemia',
+          lang: 'SQL',
+          desc: 'Usa SQL para calcular la frecuencia de anemia en los pacientes evaluados en Chimborazo.',
+          code: 'SELECT anemia, COUNT(*) FROM chimborazo GROUP BY anemia;',
+        },
+        {
+          num: 5,
+          name: 'Welch T-Test por Sexo',
+          lang: 'R',
+          desc: 'Compara los niveles de hemoglobina entre mujeres y hombres usando un boxplot y una prueba t de Welch.',
+          code: 'datos <- read.csv("chimborazo.csv")\nboxplot(hemoglobina ~ sexo)\nt.test(hemoglobina ~ sexo)',
+        },
+        {
+          num: 6,
+          name: 'Asociación comorbilidades',
+          lang: 'SQL',
+          desc: 'Agrupa por presencia de Diabetes Mellitus tipo 2 (dm2) e Hipertensión (hta) para ver la distribución conjunta de comorbilidades.',
+          code: 'SELECT dm2, hta, COUNT(*) FROM chimborazo GROUP BY dm2, hta;',
+        },
+        {
+          num: 7,
+          name: 'Correlación Glucosa vs Edad',
+          lang: 'Python',
+          desc: 'Calcula el coeficiente de correlación de Pearson y crea un gráfico de dispersión para analizar la relación entre edad y glucosa.',
+          code: "import pandas as pd\ndf = pd.read_csv(\"chimborazo.csv\")\ndf.plot.scatter(x='edad', y='glucosa')\ndf['edad'].corr(df['glucosa'])",
+        },
+        {
+          num: 8,
+          name: 'Regresión Lineal Simple',
+          lang: 'R',
+          desc: 'Aplica un modelo de regresión lineal para predecir la presión sistólica basada en el IMC de los pacientes y revisa los coeficientes.',
+          code: 'datos <- read.csv("chimborazo.csv")\nmodelo <- lm(pres_sis ~ imc, data=datos)\nsummary(modelo)',
+        },
+      ];
+
+      function renderMissions() {
+        const grid = document.getElementById('missionGrid');
+        grid.innerHTML = '';
+        missions.forEach((m) => {
+          const card = document.createElement('div');
+          card.className = 'mission-card';
+          const color = langMeta[m.lang.toLowerCase()].color;
+          card.innerHTML = `
+      <div class="mission-header" onclick="toggleMission(${m.num})">
+        <div>
+          <span class="mission-num">Misión 0${m.num}</span>
+          <h3 class="mission-name">${esc(m.name)}</h3>
+        </div>
+        <span class="mission-lang" style="color: ${color}; border-color: ${color}">${m.lang}</span>
+      </div>
+      <div class="mission-body" id="mission-body-${m.num}">
+        <p class="mission-desc">${esc(m.desc)}</p>
+        <pre class="mission-code">${highlightCode(m.code, m.lang.toLowerCase())}</pre>
+        <button class="btn-load-mission" onclick="loadMissionCode(${m.num})">Cargar código</button>
+      </div>
+    `;
+          grid.appendChild(card);
+        });
+      }
+
+      function toggleMission(num) {
+        const el = document.getElementById(`mission-body-${num}`);
+        const isOpen = el.classList.contains('open');
+        document
+          .querySelectorAll('.mission-body')
+          .forEach((b) => b.classList.remove('open'));
+        if (!isOpen) {
+          el.classList.add('open');
+        }
+      }
+
+      function loadMissionCode(num) {
+        const m = missions.find((x) => x.num === num);
+        if (m) {
+          switchLang(m.lang.toLowerCase());
+          document.getElementById('codeEditor').value = m.code;
+          appendLine(`\n# Misión ${m.num} cargada: ${m.name}`, 't-comment');
+          appendLine(
+            `# Presiona ▶ Ejecutar o Ctrl+Enter para correr el código`,
+            't-comment',
+          );
+          scrollOut();
+        }
+      }
+
+      function highlightCode(code, lang) {
+        if (lang === 'r') {
+          return esc(code)
+            .replace(
+              /(datos|read\.csv|dim|nrow|str|summary|mean|sd|table|cor|t\.test|chisq\.test|lm|subset|hist|boxplot|plot)/g,
+              '<span class="c-fn">$1</span>',
+            )
+            .replace(/(<-|=)/g, '<span class="c-kw">$1</span>')
+            .replace(
+              /("chimborazo\.csv"|"[a-zA-Z0-9]+") /g,
+              '<span class="c-str">$1</span>',
+            );
+        }
+        if (lang === 'py') {
+          return esc(code)
+            .replace(/(import|as|print)/g, '<span class="c-kw">$1</span>')
+            .replace(
+              /(pd|df|read_csv|describe|info|value_counts|groupby|mean|std|corr|plot|scatter|boxplot)/g,
+              '<span class="c-fn">$1</span>',
+            )
+            .replace(
+              /("chimborazo\.csv"|"[a-zA-Z0-9]+") /g,
+              '<span class="c-str">$1</span>',
+            );
+        }
+        if (lang === 'sql') {
+          return esc(code).replace(
+            /(SELECT|FROM|WHERE|GROUP BY|ORDER BY|LIMIT|AVG|COUNT)/gi,
+            '<span class="c-kw">$1</span>',
+          );
+        }
+        return esc(code);
+      }
+
+      /* ======================================================
+   14. QUICK REFERENCE DATA
+====================================================== */
+      const quickRef = {
+        r: [
+          {
+            cmd: 'datos <- read.csv("chimborazo.csv")',
+            desc: 'Carga el dataset',
+          },
+          { cmd: 'head(datos, 10)', desc: 'Muestra primeras 10 filas' },
+          { cmd: 'str(datos)', desc: 'Estructura del data.frame' },
+          { cmd: 'summary(datos)', desc: 'Resumen descriptivo general' },
+          { cmd: 'mean(datos$imc)', desc: 'Media aritmética' },
+          { cmd: 'sd(datos$hemoglobina)', desc: 'Desviación estándar' },
+          {
+            cmd: 'table(datos$anemia, datos$sexo)',
+            desc: 'Tabla cruzada de frecuencias',
+          },
+          {
+            cmd: 'cor(datos$edad, datos$glucosa)',
+            desc: 'Correlación de Pearson',
+          },
+          {
+            cmd: 't.test(hemoglobina ~ sexo)',
+            desc: 'Prueba T para comparar medias',
+          },
+          {
+            cmd: 'chisq.test(table(datos$dm2, datos$hta))',
+            desc: 'Asociación (Chi-cuadrado)',
+          },
+          {
+            cmd: 'modelo <- lm(pres_sis ~ imc, data=datos)\nsummary(modelo)',
+            desc: 'Regresión lineal simple',
+          },
+          {
+            cmd: 'subset(datos, imc > 30)',
+            desc: 'Filtra observaciones (ej. obesos)',
+          },
+          { cmd: 'hist(datos$imc)', desc: 'Dibuja histograma' },
+          {
+            cmd: 'boxplot(hemoglobina ~ sexo)',
+            desc: 'Dibuja diagrama de cajas',
+          },
+          { cmd: 'plot(datos$edad, datos$glucosa)', desc: 'Dibuja dispersión' },
+        ],
+        py: [
+          {
+            cmd: 'import pandas as pd\ndf = pd.read_csv("chimborazo.csv")',
+            desc: 'Carga pandas y el dataset',
+          },
+          { cmd: 'df.head(10)', desc: 'Primeras 10 filas' },
+          { cmd: 'df.info()', desc: 'Información y tipos de datos' },
+          { cmd: 'df.describe()', desc: 'Resumen de variables numéricas' },
+          {
+            cmd: "df['anemia'].value_counts()",
+            desc: 'Frecuencia de categorías',
+          },
+          {
+            cmd: "df.groupby('sexo')['hemoglobina'].mean()",
+            desc: 'Medias agrupadas',
+          },
+          { cmd: "df['edad'].corr(df['glucosa'])", desc: 'Correlación' },
+          { cmd: "df[df['imc'] > 30]", desc: 'Filtrar por condición' },
+          { cmd: "df['imc'].hist()", desc: 'Gráfica de histograma' },
+          {
+            cmd: "df.plot.scatter(x='edad', y='glucosa')",
+            desc: 'Gráfica de dispersión',
+          },
+          {
+            cmd: "df.boxplot(column='imc', by='sexo')",
+            desc: 'Gráfica de boxplot',
+          },
+        ],
+        sql: [
+          {
+            cmd: 'SELECT * FROM chimborazo LIMIT 10;',
+            desc: 'Muestra primeras 10 filas',
+          },
+          {
+            cmd: 'SELECT canton, COUNT(*), AVG(imc) FROM chimborazo GROUP BY canton;',
+            desc: 'Agrupación y medias (gráfico auto)',
+          },
+          {
+            cmd: "SELECT * FROM chimborazo WHERE edad > 60 AND anemia = 'Si';",
+            desc: 'Filtrado condicional',
+          },
+        ],
+        tex: [
+          {
+            cmd: '\\begin{table}[h]\n\\centering\n\\begin{tabular}{lrr}\n\\hline\n\\textbf{Variable} & \\textbf{Media} & \\textbf{DE} \\\\\n\\hline\nEdad & 42.1 & 13.0 \\\\\nIMC & 27.3 & 4.1 \\\\\n\\hline\n\\end{tabular}\n\\end{table}',
+            desc: 'Plantilla de tabla formal',
+          },
+          {
+            cmd: 'La media poblacional de la glucosa es $\\mu = 96$ mg/dL y la desviación es $\\sigma = 22$.',
+            desc: 'Ecuación matemática en texto',
+          },
+          {
+            cmd: 'El modelo de regresión es: $$pres\\_sis = \\beta_0 + \\beta_1 \\times imc$$ donde $\\chi^2$ indica...',
+            desc: 'Fórmula matemática en bloque',
+          },
+        ],
+        bash: [
+          { cmd: 'ls', desc: 'Lista los archivos en el servidor' },
+          { cmd: 'pwd', desc: 'Muestra el directorio actual' },
+          {
+            cmd: 'cat pico-planificacion.txt',
+            desc: 'Muestra guía de planificación PICO',
+          },
+          {
+            cmd: 'head -n 5 chimborazo.csv',
+            desc: 'Muestra las primeras 5 líneas de datos',
+          },
+          {
+            cmd: 'wc -l chimborazo.csv',
+            desc: 'Cuenta las observaciones del CSV',
+          },
+        ],
+      };
+
+      function renderQuickRef() {
+        const grid = document.getElementById('refGrid');
+        grid.innerHTML = '';
+        const cmds = quickRef[currentLang] || [];
+        cmds.forEach((item) => {
+          const card = document.createElement('div');
+          card.className = 'ref-card';
+          card.innerHTML = `
+      <div class="ref-lang" style="color: ${langMeta[currentLang].color}">${currentLang.toUpperCase()}</div>
+      <div class="ref-cmd" onclick="insertCommand(\`${item.cmd.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`)">${esc(item.cmd.split('\n')[0])}${item.cmd.includes('\n') ? '...' : ''}</div>
+      <div class="ref-desc">${esc(item.desc)}</div>
+    `;
+          grid.appendChild(card);
+        });
+      }
+
+      function insertCommand(cmd) {
+        const ed = document.getElementById('codeEditor');
+        const start = ed.selectionStart;
+        const end = ed.selectionEnd;
+        const text = ed.value;
+        ed.value = text.substring(0, start) + cmd + text.substring(end);
+        ed.focus();
+        ed.selectionStart = ed.selectionEnd = start + cmd.length;
+      }
+
+      /* ======================================================
+   15. INITIALIZATION
+====================================================== */
+      renderMissions();
+      renderQuickRef();
+    </script>
+  </body>
+</html>
