@@ -2638,23 +2638,36 @@
         }
 
         // Parse columns
-        const selectItems = selectColsRaw.split(',').map((s) => {
-          const sTrim = s.trim();
-          const aggMatch = sTrim.match(/^(AVG|COUNT|SUM|MIN|MAX)\((.*?)\)$/i);
-          if (aggMatch) {
+        const selectItems = selectColsRaw
+          .split(',')
+          .map((s) => {
+            const sTrim = s.trim();
+            const aggMatch = sTrim.match(/^(AVG|COUNT|SUM|MIN|MAX)\((.*?)\)$/i);
+            if (aggMatch) {
+              return {
+                type: 'agg',
+                fn: aggMatch[1].toUpperCase(),
+                col: aggMatch[2].trim(),
+                alias: sTrim,
+              };
+            }
             return {
-              type: 'agg',
-              fn: aggMatch[1].toUpperCase(),
-              col: aggMatch[2].trim(),
+              type: 'col',
+              col: sTrim,
               alias: sTrim,
             };
-          }
-          return {
-            type: 'col',
-            col: sTrim,
-            alias: sTrim,
-          };
-        });
+          })
+          .flatMap((item) => {
+            if (item.type === 'col' && item.col === '*') {
+              const allCols = Object.keys(rows[0] || {});
+              return allCols.map((col) => ({
+                type: 'col',
+                col: col,
+                alias: col,
+              }));
+            }
+            return [item];
+          });
 
         // 2. GROUP BY
         if (groupByClause) {
