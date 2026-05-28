@@ -1339,6 +1339,23 @@
             return;
           }
           showPrompt(rawLine, 'r');
+
+          // Cross-language detection
+          if (/import\s+pandas|pd\.|df\[|df\./.test(line)) {
+            appendLine(
+              "Error: Detectamos código de Python. Cambia a la pestaña 'Python' arriba del editor para ejecutar este código.",
+              't-err',
+            );
+            return;
+          }
+          if (/SELECT\s+.*?FROM/i.test(line)) {
+            appendLine(
+              "Error: Detectamos una consulta SQL. Cambia a la pestaña 'SQL' arriba del editor para ejecutar este código.",
+              't-err',
+            );
+            return;
+          }
+
           try {
             interpretR(line);
           } catch (e) {
@@ -1364,7 +1381,7 @@
         const e = expr.trim();
 
         // read.csv
-        if (/^read\.csv\(["']chimborazo\.csv["']\)$/.test(e)) {
+        if (/^read[._-]csv\s*\(\s*["']chimborazo\.csv["']\s*\)$/.test(e)) {
           rVars['__loaded'] = true;
           const result = [...DS];
           if (assignTarget) {
@@ -1377,7 +1394,7 @@
         }
 
         // nrow
-        const nrowM = e.match(/^nrow\((\w+)\)$/);
+        const nrowM = e.match(/^nrow\s*\(\s*(\w+)\s*\)$/);
         if (nrowM) {
           const v = rVars[nrowM[1]] || [];
           if (print || !assignTarget) appendLine(`[1] ${v.length}`, 't-num');
@@ -1385,7 +1402,7 @@
         }
 
         // ncol
-        const ncolM = e.match(/^ncol\((\w+)\)$/);
+        const ncolM = e.match(/^ncol\s*\(\s*(\w+)\s*\)$/);
         if (ncolM) {
           const v = rVars[ncolM[1]] || [{}];
           if (print || !assignTarget)
@@ -1394,7 +1411,7 @@
         }
 
         // dim
-        const dimM = e.match(/^dim\((\w+)\)$/);
+        const dimM = e.match(/^dim\s*\(\s*(\w+)\s*\)$/);
         if (dimM) {
           const v = rVars[dimM[1]] || [];
           const cols = Object.keys(v[0] || {}).length;
@@ -1404,7 +1421,7 @@
         }
 
         // names / colnames
-        const nmM = e.match(/^(?:names|colnames)\((\w+)\)$/);
+        const nmM = e.match(/^(?:names|colnames)\s*\(\s*(\w+)\s*\)$/);
         if (nmM) {
           const v = rVars[nmM[1]] || [{}];
           const cols = Object.keys(v[0] || {});
@@ -1417,7 +1434,7 @@
         }
 
         // head
-        const headM = e.match(/^head\((\w+)(?:,\s*(\d+))?\)$/);
+        const headM = e.match(/^head\s*\(\s*(\w+)(?:,\s*(\d+))?\s*\)$/);
         if (headM) {
           const v = rVars[headM[1]] || [];
           const n = headM[2] ? +headM[2] : 6;
@@ -1434,7 +1451,7 @@
         }
 
         // tail
-        const tailM = e.match(/^tail\((\w+)(?:,\s*(\d+))?\)$/);
+        const tailM = e.match(/^tail\s*\(\s*(\w+)(?:,\s*(\d+))?\s*\)$/);
         if (tailM) {
           const v = rVars[tailM[1]] || [];
           const n = tailM[2] ? +tailM[2] : 6;
@@ -1451,7 +1468,7 @@
         }
 
         // str
-        const strM = e.match(/^str\((\w+)\)$/);
+        const strM = e.match(/^str\s*\(\s*(\w+)\s*\)$/);
         if (strM) {
           const v = rVars[strM[1]] || [];
           const cols = Object.keys(v[0] || {});
@@ -1472,7 +1489,7 @@
         }
 
         // summary(df)
-        const sumDfM = e.match(/^summary\((\w+)\)$/);
+        const sumDfM = e.match(/^summary\s*\(\s*(\w+)\s*\)$/);
         if (sumDfM) {
           const v = rVars[sumDfM[1]] || [];
           if (!v.length) {
@@ -1954,6 +1971,22 @@
             .filter((p) => p.length > 0);
 
           parts.forEach((part) => {
+            // Cross-language detection
+            if (/datos\s*<-|read\.csv|datos\$|t\.test|chisq\.test/.test(part)) {
+              appendLine(
+                "Error: Detectamos código de R. Cambia a la pestaña 'R' arriba del editor para ejecutar este código.",
+                't-err',
+              );
+              return;
+            }
+            if (/SELECT\s+.*?FROM/i.test(part)) {
+              appendLine(
+                "Error: Detectamos una consulta SQL. Cambia a la pestaña 'SQL' arriba del editor para ejecutar este código.",
+                't-err',
+              );
+              return;
+            }
+
             try {
               interpretPython(part);
             } catch (e) {
@@ -1989,7 +2022,7 @@
 
         // df = pd.read_csv(...)
         const readM = line.match(
-          /^(\w+)\s*=\s*pd\.read_csv\(["']chimborazo\.csv["']\)/,
+          /^(\w+)\s*=\s*pd\.read[-_.]csv\s*\(\s*["']chimborazo\.csv["']\s*\)/,
         );
         if (readM) {
           pyVars[readM[1]] = DS;
@@ -2600,6 +2633,20 @@
 
         queries.forEach((query) => {
           showPrompt(query + ';', 'sql');
+
+          // Cross-language detection
+          if (
+            /datos\s*<-|read\.csv|datos\$|t\.test|chisq\.test|import\s+pandas|pd\.|df\[|df\./.test(
+              query,
+            )
+          ) {
+            appendLine(
+              'Error: Detectamos código de programación (R o Python). Cambia a la pestaña correspondiente arriba del editor para ejecutar este código.',
+              't-err',
+            );
+            return;
+          }
+
           try {
             interpretSQL(query);
           } catch (e) {
