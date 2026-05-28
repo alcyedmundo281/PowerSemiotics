@@ -1940,17 +1940,26 @@
       function runPython(code) {
         const lines = code.split('\n');
         lines.forEach((rawLine) => {
-          const line = rawLine.trim();
-          if (!line || line.startsWith('#')) {
-            if (line.startsWith('#')) appendLine(line, 't-comment');
+          const trimmedLine = rawLine.trim();
+          if (!trimmedLine || trimmedLine.startsWith('#')) {
+            if (trimmedLine.startsWith('#'))
+              appendLine(trimmedLine, 't-comment');
             return;
           }
+
           showPrompt(rawLine, 'py');
-          try {
-            interpretPython(line);
-          } catch (e) {
-            appendLine('Error: ' + e.message, 't-err');
-          }
+          const parts = trimmedLine
+            .split(';')
+            .map((p) => p.trim())
+            .filter((p) => p.length > 0);
+
+          parts.forEach((part) => {
+            try {
+              interpretPython(part);
+            } catch (e) {
+              appendLine('Error: ' + e.message, 't-err');
+            }
+          });
         });
         scrollOut();
       }
@@ -2110,7 +2119,10 @@
         if (colDescM) {
           const df = getDF(colDescM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + colDescM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col = colDescM[2];
@@ -2146,7 +2158,10 @@
         if (colStatM) {
           const df = getDF(colStatM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + colStatM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col = colStatM[2];
@@ -2183,7 +2198,10 @@
         if (vcM) {
           const df = getDF(vcM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + vcM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col = vcM[2];
@@ -2207,7 +2225,10 @@
         if (crossM) {
           const df = getDF(crossM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + crossM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col1 = crossM[2];
@@ -2238,7 +2259,10 @@
         if (gbMeanM) {
           const df = getDF(gbMeanM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + gbMeanM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col1 = gbMeanM[2];
@@ -2265,7 +2289,10 @@
         if (gbCountM) {
           const df = getDF(gbCountM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + gbCountM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col1 = gbCountM[2];
@@ -2287,7 +2314,10 @@
         if (colCorrM) {
           const df = getDF(colCorrM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + colCorrM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col1 = colCorrM[2];
@@ -2310,7 +2340,10 @@
         if (corrMatrixM) {
           const df = getDF(corrMatrixM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + corrMatrixM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const numCols = Object.keys(df[0]).filter(
@@ -2351,7 +2384,10 @@
           const raw = filterAsgn[5];
           const df = getDF(dfName);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + dfName + "' is not defined",
+              't-err',
+            );
             return;
           }
           const vnum = Number(raw);
@@ -2393,7 +2429,10 @@
           const raw = filterM[4];
           const df = getDF(dfName);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + dfName + "' is not defined",
+              't-err',
+            );
             return;
           }
           const vnum = Number(raw);
@@ -2430,7 +2469,10 @@
         if (colHistM) {
           const df = getDF(colHistM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + colHistM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col = colHistM[2];
@@ -2448,7 +2490,10 @@
         if (scatterM) {
           const df = getDF(scatterM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + scatterM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const xCol = scatterM[2];
@@ -2466,7 +2511,10 @@
         if (boxplotM) {
           const df = getDF(boxplotM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + boxplotM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col = boxplotM[2];
@@ -2484,7 +2532,10 @@
         if (colBareM) {
           const df = getDF(colBareM[1]);
           if (!df) {
-            appendLine('NameError', 't-err');
+            appendLine(
+              "NameError: name '" + colBareM[1] + "' is not defined",
+              't-err',
+            );
             return;
           }
           const col = colBareM[2];
