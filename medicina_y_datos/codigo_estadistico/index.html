@@ -2525,15 +2525,32 @@
 ====================================================== */
       function runSQL(code) {
         const lines = code.split('\n');
+        let sqlAccumulator = '';
         lines.forEach((rawLine) => {
-          const line = rawLine.trim();
-          if (!line || line.startsWith('--')) {
-            if (line.startsWith('--')) appendLine(line, 't-comment');
+          const trimmed = rawLine.trim();
+          if (trimmed.startsWith('--')) {
+            appendLine(trimmed, 't-comment');
             return;
           }
-          showPrompt(rawLine, 'sql');
+          if (trimmed) {
+            sqlAccumulator += ' ' + trimmed;
+          }
+        });
+
+        const queries = sqlAccumulator
+          .split(';')
+          .map((q) => q.trim())
+          .filter((q) => q.length > 0);
+
+        if (queries.length === 0) {
+          scrollOut();
+          return;
+        }
+
+        queries.forEach((query) => {
+          showPrompt(query + ';', 'sql');
           try {
-            interpretSQL(line);
+            interpretSQL(query);
           } catch (e) {
             appendLine('Error: ' + e.message, 't-err');
           }
@@ -2572,48 +2589,52 @@
 
         // 1. WHERE
         if (whereClause) {
-          const condRegex =
-            /(\w+)\s*(=|!=|<>|>|<|>=|<=|like)\s*["']?([^"']+)["']?/i;
-          const condMatch = whereClause.match(condRegex);
-          if (!condMatch) {
-            appendLine(
-              "SQL Error: WHERE clause format not supported. Use: edad > 50, or canton = 'Riobamba'",
-              't-err',
-            );
-            return;
-          }
-          const col = condMatch[1];
-          let op = condMatch[2].toLowerCase();
-          if (op === '<>') op = '!=';
-          const rawVal = condMatch[3];
-          const valNum = Number(rawVal);
-          const isNum = !isNaN(valNum);
+          const conditions = whereClause.split(/\s+AND\s+/i);
+          for (let i = 0; i < conditions.length; i++) {
+            const cond = conditions[i].trim();
+            const condRegex =
+              /(\w+)\s*(=|!=|<>|>|<|>=|<=|like)\s*["']?([^"']+)["']?/i;
+            const condMatch = cond.match(condRegex);
+            if (!condMatch) {
+              appendLine(
+                "SQL Error: WHERE clause format not supported. Use: edad > 50, or canton = 'Riobamba'",
+                't-err',
+              );
+              return;
+            }
+            const col = condMatch[1];
+            let op = condMatch[2].toLowerCase();
+            if (op === '<>') op = '!=';
+            const rawVal = condMatch[3];
+            const valNum = Number(rawVal);
+            const isNum = !isNaN(valNum);
 
-          rows = rows.filter((r) => {
-            const rv = r[col];
-            if (rv === undefined) return false;
-            const rn = Number(rv);
-            if (op === 'like') {
-              return String(rv)
-                .toLowerCase()
-                .startsWith(rawVal.replace('%', '').toLowerCase());
-            }
-            switch (op) {
-              case '=':
-                return isNum ? rn === valNum : String(rv) === rawVal;
-              case '!=':
-                return isNum ? rn !== valNum : String(rv) !== rawVal;
-              case '>':
-                return rn > valNum;
-              case '<':
-                return rn < valNum;
-              case '>=':
-                return rn >= valNum;
-              case '<=':
-                return rn <= valNum;
-            }
-            return false;
-          });
+            rows = rows.filter((r) => {
+              const rv = r[col];
+              if (rv === undefined) return false;
+              const rn = Number(rv);
+              if (op === 'like') {
+                return String(rv)
+                  .toLowerCase()
+                  .startsWith(rawVal.replace('%', '').toLowerCase());
+              }
+              switch (op) {
+                case '=':
+                  return isNum ? rn === valNum : String(rv) === rawVal;
+                case '!=':
+                  return isNum ? rn !== valNum : String(rv) !== rawVal;
+                case '>':
+                  return rn > valNum;
+                case '<':
+                  return rn < valNum;
+                case '>=':
+                  return rn >= valNum;
+                case '<=':
+                  return rn <= valNum;
+              }
+              return false;
+            });
+          }
         }
 
         // Parse columns
