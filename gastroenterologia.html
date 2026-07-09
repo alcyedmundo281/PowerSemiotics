@@ -325,17 +325,7 @@
     </div>
 
     <div id="auth-options" class="space-y-4">
-      <button type="button" onclick="signInWithGoogle()"
-        class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-bold py-3 rounded-xl shadow-sm hover:bg-gray-50 transition-all">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google">
-        CONTINUAR CON GOOGLE
-      </button>
 
-      <div class="relative flex items-center py-4">
-        <div class="flex-grow border-t border-gray-200"></div>
-        <span class="flex-shrink mx-4 text-gray-400 text-[10px] font-bold uppercase tracking-widest">O con email</span>
-        <div class="flex-grow border-t border-gray-200"></div>
-      </div>
 
       <div class="space-y-3">
         <input type="email" id="login-email"
@@ -404,24 +394,6 @@
       sessionStorage.setItem('redirectAfterLogin', targetUrl);
       toggleAuthModal();
     }
-  }
-
-  async function signInWithGoogle() {
-    if (!supabaseClient) return;
-
-    // Get redirect target or default to current page
-    const redirectTo = sessionStorage.getItem('redirectAfterLogin')
-      ? new URL(sessionStorage.getItem('redirectAfterLogin'), window.location.origin).href
-      : window.location.href;
-
-    const { error } = await supabaseClient.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: redirectTo
-      }
-    });
-
-    if (error) showError(error.message);
   }
 
   async function handleMagicLink() {
