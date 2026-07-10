@@ -1,443 +1,267 @@
 <!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neurología - Powersemiotics</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neurología - Powersemiotics</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="assets/tailwind.css" rel="stylesheet" />
+  </head>
 
-  <link href="assets/tailwind.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    window.SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
-    window.SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
-    window.supabaseClient = null;
+  <body class="font-sans bg-gray-50 text-gray-800">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="index.html" class="flex items-center space-x-2">
+          <img
+            src="assets/images/logo.png"
+            alt="Logo de Powersemiotics"
+            class="h-8 w-8"
+          />
+          <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="neurologia.html" class="text-indigo-800 font-semibold"
+            >Neurología</a
+          >
+        </div>
+      </nav>
+    </header>
 
-    function toggleAuthModal() {
-      const modal = document.getElementById('auth-modal');
-      if (modal) modal.classList.toggle('hidden');
-      else console.error("No se encontró el modal de autenticación");
-    }
-
-    async function handleLogout() {
-      if (window.supabaseClient) {
-        await window.supabaseClient.auth.signOut();
-        window.location.reload();
-      }
-    }
-  </script>
-</head>
-
-<body class="font-sans bg-gray-50 text-gray-800">
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="index.html" class="flex items-center space-x-2">
-        <img src="assets/images/logo.png" alt="Logo de Powersemiotics" class="h-8 w-8" />
-        <span class="text-2xl font-bold gradient-text">Powersemiotics</span>
-      </a>
-      <div class="flex items-center gap-4">
-        <a href="neurologia.html" class="text-indigo-800 font-semibold">Neurología</a>
-        <button id="auth-btn" type="button" onclick="toggleAuthModal()"
-          class="px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary-hover transition-all">
-          Iniciar Sesión
-        </button>
-        <span id="user-email" class="hidden text-sm font-medium text-gray-600 italic"></span>
+    <main class="container mx-auto px-6 py-16">
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          Módulos de Neurología
+        </h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Explora nuestros cursos interactivos sobre el diagnóstico y manejo de
+          las principales patologías neurológicas.
+        </p>
       </div>
-    </nav>
-  </header>
-
-  <!-- Auth Modal -->
-  <div id="auth-modal"
-    class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 transform transition-all">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-2xl font-bold text-gray-900">Acceso Estudiantes</h3>
-        <button onclick="toggleAuthModal()" class="text-gray-400 hover:text-gray-600">
-          <i class="fas fa-times text-xl"></i>
-        </button>
-      </div>
-      <div id="auth-options" class="space-y-4">
-        <div class="space-y-3">
-          <input type="email" id="login-email"
-            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
-            placeholder="tu@email.com">
-          <button type="button" onclick="handleMagicLink()" id="btn-magic-link"
-            class="w-full bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary-hover transition-all">
-            Enviar Enlace Mágico
-          </button>
-        </div>
-      </div>
-      <p id="auth-status" class="hidden mt-4 text-center text-sm font-bold"></p>
-    </div>
-  </div>
-
-  <main class="container mx-auto px-6 py-16">
-    <div class="text-center mb-16">
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-        Módulos de Neurología
-      </h1>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-        Explora nuestros cursos interactivos sobre el diagnóstico y manejo de
-        las principales patologías neurológicas.
-      </p>
-    </div>
-
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <a href="neurologia/examen-neurologico-parte-1.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-user-doctor text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Módulo: Examen Neurológico I
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Guion clínico para la entrevista neurológica breve, estado mental y
-          evaluación de pares craneales prioritarios.
-        </p>
-      </a>
-
-      <a href="neurologia/examen-neurologico-parte-2.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-user-doctor text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Módulo: Examen Neurológico II
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Pares craneales (VII-XII), sistema motor (fuerza, tono, reflejos,
-          trofismo) y sistema sensitivo.
-        </p>
-      </a>
-
-      <a href="neurologia/neuropatias.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-network-wired text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Módulo: Neuropatías Periféricas
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Enfoque integral desde la fisiopatología hasta la práctica clínica
-          en el contexto ecuatoriano.
-        </p>
-      </a>
-      <a href="neurologia/cefaleas/index.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-head-side-virus text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">Módulo: Cefaleas</h2>
-        <p class="text-gray-600 text-md mt-2">
-          Un curso interactivo para el abordaje diagnóstico y manejo de las
-          cefaleas primarias más importantes.
-        </p>
-      </a>
 
       <div
-        class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden relative group hover:border-cyan-500/50 transition-all shadow-lg hover:shadow-cyan-900/20">
-
-        <div id="epilepsia-lock-msg"
-          class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-6 hidden">
-          <div class="bg-slate-800 p-3 rounded-full mb-3">
-            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
-              </path>
-            </svg>
+        class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        <a
+          href="neurologia/examen-neurologico-parte-1.html"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-user-doctor text-4xl gradient-text"></i>
           </div>
-          <p class="text-white font-bold text-lg mb-1">Acceso Restringido</p>
-          <p class="text-slate-400 text-sm mb-4">Inicia sesión para acceder a la Masterclass.</p>
-          <button onclick="toggleAuthModal()"
-            class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-sm font-bold transition shadow-lg shadow-cyan-500/25">Conectar</button>
-        </div>
-
-        <div class="p-8">
-          <div class="flex justify-between items-start mb-4">
-            <div
-              class="uppercase tracking-widest text-[10px] text-cyan-400 font-bold bg-cyan-950/30 px-2 py-1 rounded border border-cyan-500/20">
-              Módulo Interactivo</div>
-            <span class="text-slate-500 text-xs font-mono">2h 30m</span>
-          </div>
-
-          <a href="neurologia/epilepsia-ii/index.html" id="card-epilepsia"
-            class="block mt-1 text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
-            Epilepsias: Fundamentos y Manejo Avanzado
-          </a>
-
-          <p class="mt-3 text-slate-400 leading-relaxed text-sm">
-            Curso integral que abarca desde la etiología (Mnemotecnia VITAMIN) y fisiopatología hasta el manejo del
-            status epiléptico. Incluye nueva Masterclass gamificada.
+          <h2 class="text-2xl font-bold text-gray-800">
+            Módulo: Examen Neurológico I
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Guion clínico para la entrevista neurológica breve, estado mental y
+            evaluación de pares craneales prioritarios.
           </p>
+        </a>
+
+        <a
+          href="neurologia/examen-neurologico-parte-2.html"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-user-doctor text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Módulo: Examen Neurológico II
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Pares craneales (VII-XII), sistema motor (fuerza, tono, reflejos,
+            trofismo) y sistema sensitivo.
+          </p>
+        </a>
+
+        <a
+          href="neurologia/neuropatias.html"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-network-wired text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Módulo: Neuropatías Periféricas
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Enfoque integral desde la fisiopatología hasta la práctica clínica
+            en el contexto ecuatoriano.
+          </p>
+        </a>
+        <a
+          href="neurologia/cefaleas/index.html"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-head-side-virus text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">Módulo: Cefaleas</h2>
+          <p class="text-gray-600 text-md mt-2">
+            Un curso interactivo para el abordaje diagnóstico y manejo de las
+            cefaleas primarias más importantes.
+          </p>
+        </a>
+
+        <div
+          class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden relative group hover:border-cyan-500/50 transition-all shadow-lg hover:shadow-cyan-900/20"
+        >
+          <div class="p-8">
+            <div class="flex justify-between items-start mb-4">
+              <div
+                class="uppercase tracking-widest text-[10px] text-cyan-400 font-bold bg-cyan-950/30 px-2 py-1 rounded border border-cyan-500/20"
+              >
+                Módulo Interactivo
+              </div>
+              <span class="text-slate-500 text-xs font-mono">2h 30m</span>
+            </div>
+
+            <a
+              href="neurologia/epilepsia-ii/index.html"
+              id="card-epilepsia"
+              class="block mt-1 text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors"
+            >
+              Epilepsias: Fundamentos y Manejo Avanzado
+            </a>
+
+            <p class="mt-3 text-slate-400 leading-relaxed text-sm">
+              Curso integral que abarca desde la etiología (Mnemotecnia VITAMIN)
+              y fisiopatología hasta el manejo del status epiléptico. Incluye
+              nueva Masterclass gamificada.
+            </p>
+          </div>
+
+          <div class="px-8 pb-6 pt-0 flex gap-2">
+            <span
+              class="inline-block bg-slate-800 rounded-lg px-3 py-1 text-xs font-medium text-slate-400 border border-slate-700"
+              >#Urgencias</span
+            >
+            <span
+              class="inline-block bg-cyan-900/20 rounded-lg px-3 py-1 text-xs font-medium text-cyan-400 border border-cyan-500/20"
+              >#NinjaNerd</span
+            >
+          </div>
         </div>
 
-        <div class="px-8 pb-6 pt-0 flex gap-2">
-          <span
-            class="inline-block bg-slate-800 rounded-lg px-3 py-1 text-xs font-medium text-slate-400 border border-slate-700">#Urgencias</span>
-          <span
-            class="inline-block bg-cyan-900/20 rounded-lg px-3 py-1 text-xs font-medium text-cyan-400 border border-cyan-500/20">#NinjaNerd</span>
-        </div>
+        <a
+          href="neurologia/trastornos-movimiento-1.html"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-walking text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Módulo: Trastornos del Movimiento I
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Fundamentos de la Enfermedad de Parkinson, desde la fisiopatología
+            hasta el diagnóstico clínico.
+          </p>
+        </a>
+
+        <a
+          href="neurologia/trastornos-movimiento-2.html"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-sitemap text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Módulo: Trastornos del Movimiento II
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Diagnóstico diferencial de los parkinsonismos atípicos y otras
+            hipercinesias en atención primaria.
+          </p>
+        </a>
+
+        <a
+          href="neurologia/enfermedades_desmielinizantes.html"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-brain text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Módulo: Enfermedades Desmielinizantes
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Diagnóstico diferencial de la Esclerosis Múltiple, Neuromielitis
+            Óptica (TENMO) y MOGAD.
+          </p>
+        </a>
+
+        <a
+          href="neurologia/neuromusculares.html"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex items-center mb-4">
+            <i class="fas fa-notes-medical text-4xl gradient-text"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Módulo: Enfermedades Neuromusculares
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Análisis de MG, DMD/DMB y MII, con simuladores y actividades para
+            estudiantes de medicina.
+          </p>
+        </a>
+
+        <!-- Módulo ACV Unified Dashboard -->
+        <a
+          href="neurologia/acv.html"
+          id="card-acv"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex justify-between items-start mb-4">
+            <i class="fas fa-brain text-4xl gradient-text"></i>
+            <span
+              class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-indigo-200"
+              >Mapeo & Simulador</span
+            >
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            ACV Unified Dashboard
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Simulador interactivo de diagnóstico territorial, manejo agudo (TNK)
+            y escala NIHSS.
+          </p>
+        </a>
+
+        <!-- Módulo NeuroQuest ACV -->
+        <a
+          href="neurologia/acv-isquemico.html"
+          id="card-acv-isquemico"
+          class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect"
+        >
+          <div class="flex justify-between items-start mb-4">
+            <i class="fas fa-graduation-cap text-4xl gradient-text"></i>
+            <span
+              class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-blue-200"
+              >Nuevo: NeuroQuest</span
+            >
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Protocolo ACV Isquémico
+          </h2>
+          <p class="text-gray-600 text-md mt-2">
+            Academia interactiva y simulación clínica de código ictus basada en
+            guías 2025.
+          </p>
+        </a>
       </div>
+    </main>
 
-      <a href="neurologia/trastornos-movimiento-1.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-walking text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Módulo: Trastornos del Movimiento I
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Fundamentos de la Enfermedad de Parkinson, desde la fisiopatología
-          hasta el diagnóstico clínico.
-        </p>
-      </a>
-
-      <a href="neurologia/trastornos-movimiento-2.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-sitemap text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Módulo: Trastornos del Movimiento II
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Diagnóstico diferencial de los parkinsonismos atípicos y otras
-          hipercinesias en atención primaria.
-        </p>
-      </a>
-
-      <a href="neurologia/enfermedades_desmielinizantes.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-brain text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Módulo: Enfermedades Desmielinizantes
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Diagnóstico diferencial de la Esclerosis Múltiple, Neuromielitis
-          Óptica (TENMO) y MOGAD.
-        </p>
-      </a>
-
-      <a href="neurologia/neuromusculares.html"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect">
-        <div class="flex items-center mb-4">
-          <i class="fas fa-notes-medical text-4xl gradient-text"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Módulo: Enfermedades Neuromusculares
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Análisis de MG, DMD/DMB y MII, con simuladores y actividades para
-          estudiantes de medicina.
-        </p>
-      </a>
-
-      <!-- Módulo ACV Unified Dashboard -->
-      <a href="neurologia/acv.html" id="card-acv"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect opacity-50 pointer-events-none">
-        <div class="flex justify-between items-start mb-4">
-          <i class="fas fa-brain text-4xl gradient-text"></i>
-          <span
-            class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-indigo-200">Mapeo
-            & Simulador</span>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          ACV Unified Dashboard
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Simulador interactivo de diagnóstico territorial, manejo agudo (TNK) y escala NIHSS.
-        </p>
-        <div id="acv-lock-msg" class="mt-4 text-xs font-bold text-red-500 flex items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-lock"></i>
-            Inicia sesión para acceder
-          </div>
-          <button onclick="event.preventDefault(); toggleAuthModal()" class="text-primary hover:underline">Entrar aquí
-            &rarr;</button>
-        </div>
-      </a>
-
-      <!-- Módulo NeuroQuest ACV -->
-      <a href="neurologia/acv-isquemico.html" id="card-acv-isquemico"
-        class="block w-full bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 group card-hover-effect opacity-50 pointer-events-none">
-        <div class="flex justify-between items-start mb-4">
-          <i class="fas fa-graduation-cap text-4xl gradient-text"></i>
-          <span
-            class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded-full border border-blue-200">Nuevo:
-            NeuroQuest</span>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800">
-          Protocolo ACV Isquémico
-        </h2>
-        <p class="text-gray-600 text-md mt-2">
-          Academia interactiva y simulación clínica de código ictus basada en guías 2025.
-        </p>
-        <div id="acv-isquemico-lock-msg"
-          class="mt-4 text-xs font-bold text-red-500 flex items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-lock"></i>
-            Inicia sesión para acceder
-          </div>
-          <button onclick="event.preventDefault(); toggleAuthModal()" class="text-primary hover:underline">Entrar aquí
-            &rarr;</button>
-        </div>
-      </a>
-    </div>
-  </main>
-
-  <footer class="bg-white mt-20">
-    <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-      <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
-    </div>
-  </footer>
-
-  <!-- Supabase Session Logic -->
-  <script>
-    // Make toggleAuthModal globally accessible
-    function toggleAuthModal() {
-      const modal = document.getElementById('auth-modal');
-      if (modal) {
-        modal.classList.toggle('hidden');
-      } else {
-        console.warn("Auth modal not found.");
-      }
-    }
-
-    // Supabase configuration (made global for easier access in scripts)
-    window.SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
-    window.SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
-    window.supabaseClient = null; // Will be initialized later
-
-    async function initAuth() {
-      try {
-        if (!window.supabase) {
-          console.error("Biblioteca Supabase no cargada. Asegúrate de que el script de Supabase esté en el <head> con 'defer'.");
-          return;
-        }
-        if (window.SUPABASE_URL.includes("your-project")) {
-          console.warn("Supabase URL no configurada. Saltando inicialización de Auth.");
-          return;
-        }
-
-        window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-        const { data: { session } } = await window.supabaseClient.auth.getSession();
-        console.log("Supabase session checked:", session ? "active" : "none");
-        updateUI(session);
-      } catch (e) {
-        console.error("Error inicializando Auth:", e);
-      }
-    }
-
-    function updateUI(session) {
-      const lockedCards = [
-        { card: 'card-acv', msg: 'acv-lock-msg' },
-        { card: 'card-acv-isquemico', msg: 'acv-isquemico-lock-msg' },
-        { card: 'card-epilepsia', msg: 'epilepsia-lock-msg' }
-      ];
-
-      const authBtn = document.getElementById('auth-btn');
-      const userEmail = document.getElementById('user-email');
-
-      if (!authBtn) {
-        console.warn("Auth button not found, cannot update UI.");
-        return;
-      }
-
-      if (session) {
-        lockedCards.forEach(item => {
-          const card = document.getElementById(item.card);
-          const msg = document.getElementById(item.msg);
-          if (card) card.classList.remove('opacity-50', 'pointer-events-none');
-          if (msg) {
-            msg.innerHTML = '<i class="fas fa-check-circle text-success"></i> <span class="text-success">Sesión activa: Módulo desbloqueado</span>';
-          }
-        });
-
-        authBtn.innerText = "Cerrar Sesión";
-        authBtn.onclick = handleLogout;
-        if (userEmail) {
-          userEmail.innerText = session.user.email;
-          userEmail.classList.remove('hidden');
-        }
-        console.log("UI updated: User logged in.");
-      } else {
-        lockedCards.forEach(item => {
-          const card = document.getElementById(item.card);
-          if (card) card.classList.add('opacity-50', 'pointer-events-none');
-          // No es necesario resetear el mensaje de lock ya que por defecto está bloqueado
-        });
-
-        authBtn.innerText = "Iniciar Sesión";
-        authBtn.onclick = toggleAuthModal;
-        if (userEmail) userEmail.classList.add('hidden');
-        console.log("UI updated: User logged out.");
-      }
-    }
-
-    async function handleLogout() {
-      if (!window.supabaseClient) {
-        console.error("Supabase client not initialized for logout.");
-        return;
-      }
-      await window.supabaseClient.auth.signOut();
-      console.log("User logged out, reloading page.");
-      window.location.reload();
-    }
-
-    async function handleMagicLink() {
-      const email = document.getElementById('login-email').value;
-      const statusEl = document.getElementById('auth-status');
-
-      if (!window.supabaseClient) {
-        statusEl.innerText = "Error: Supabase no inicializado.";
-        statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
-        statusEl.classList.remove('hidden');
-        console.error("Supabase client not initialized for magic link.");
-        return;
-      }
-
-      if (!email) {
-        statusEl.innerText = "Por favor, ingresa tu correo primero.";
-        statusEl.className = "mt-4 text-center text-sm font-bold text-orange-500";
-        statusEl.classList.remove('hidden');
-        return;
-      }
-
-      const btnMagic = document.getElementById('btn-magic-link');
-      if (btnMagic) {
-        btnMagic.disabled = true;
-        btnMagic.innerText = "Enviando...";
-      }
-
-      const { error } = await window.supabaseClient.auth.signInWithOtp({
-        email,
-        options: { emailRedirectTo: window.location.href }
-      });
-
-      if (error) {
-        statusEl.innerText = "Error: " + error.message;
-        statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
-        console.error("Magic link failed:", error.message);
-      } else {
-        statusEl.innerText = "¡Enlace enviado! Revisa tu email.";
-        statusEl.className = "mt-4 text-center text-sm font-bold text-green-500";
-        console.log("Magic link sent to:", email);
-      }
-      statusEl.classList.remove('hidden');
-      if (btnMagic) {
-        btnMagic.disabled = false;
-        btnMagic.innerText = "RECIBIR ENLACE POR EMAIL";
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', initAuth);
-  </script>
-</body>
-
+    <footer class="bg-white mt-20">
+      <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+        <p>&copy; 2025 Powersemiotics. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </body>
 </html>
