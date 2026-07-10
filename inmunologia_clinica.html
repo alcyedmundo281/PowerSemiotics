@@ -8,25 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <link href="assets/tailwind.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        window.SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
-        window.SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
-        window.supabaseClient = null;
 
-        function toggleAuthModal() {
-            const modal = document.getElementById('auth-modal');
-            if (modal) modal.classList.toggle('hidden');
-            else console.error("No se encontró el modal de autenticación");
-        }
-
-        async function handleLogout() {
-            if (window.supabaseClient) {
-                await window.supabaseClient.auth.signOut();
-                window.location.reload();
-            }
-        }
-    </script>
 </head>
 
 <body class="font-sans bg-gray-50 text-gray-800">
@@ -38,39 +20,10 @@
             </a>
             <div class="flex items-center gap-4">
                 <a href="inmunologia_clinica.html" class="text-indigo-800 font-semibold">Inmunología</a>
-                <button id="auth-btn" type="button" onclick="toggleAuthModal()"
-                    class="px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary-hover transition-all">
-                    Iniciar Sesión
-                </button>
-                <span id="user-email" class="hidden text-sm font-medium text-gray-600 italic"></span>
             </div>
         </nav>
     </header>
 
-    <!-- Auth Modal -->
-    <div id="auth-modal"
-        class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 transform transition-all">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-900">Acceso Estudiantes</h3>
-                <button onclick="toggleAuthModal()" class="text-gray-400 hover:text-gray-600">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <div id="auth-options" class="space-y-4">
-                <div class="space-y-3">
-                    <input type="email" id="login-email"
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
-                        placeholder="tu@email.com">
-                    <button type="button" onclick="handleMagicLink()" id="btn-magic-link"
-                        class="w-full bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary-hover transition-all">
-                        Enviar Enlace Mágico
-                    </button>
-                </div>
-            </div>
-            <p id="auth-status" class="hidden mt-4 text-center text-sm font-bold"></p>
-        </div>
-    </div>
 
     <main class="container mx-auto px-6 py-16">
         <div class="text-center mb-16">
@@ -158,78 +111,6 @@
         </div>
     </footer>
 
-    <!-- Supabase Session Logic -->
-    <script>
-        function toggleAuthModal() {
-            const modal = document.getElementById('auth-modal');
-            if (modal) {
-                modal.classList.toggle('hidden');
-            }
-        }
-
-        window.SUPABASE_URL = "https://dyfjawopnbkjrjsnhbyn.supabase.co";
-        window.SUPABASE_ANON_KEY = "sb_publishable_9fyCTrHL9ArHojgrTMSX1A_UlwZSOCa";
-        window.supabaseClient = null;
-
-        async function initAuth() {
-            try {
-                if (!window.supabase) return;
-                window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-                const { data: { session } } = await window.supabaseClient.auth.getSession();
-                updateUI(session);
-            } catch (e) {
-                console.error("Error inicializando Auth:", e);
-            }
-        }
-
-        function updateUI(session) {
-            const authBtn = document.getElementById('auth-btn');
-            const userEmail = document.getElementById('user-email');
-
-            if (!authBtn) return;
-
-            if (session) {
-                authBtn.innerText = "Cerrar Sesión";
-                authBtn.onclick = handleLogout;
-                if (userEmail) {
-                    userEmail.innerText = session.user.email;
-                    userEmail.classList.remove('hidden');
-                }
-            } else {
-                authBtn.innerText = "Iniciar Sesión";
-                authBtn.onclick = toggleAuthModal;
-                if (userEmail) userEmail.classList.add('hidden');
-            }
-        }
-
-        async function handleLogout() {
-            if (!window.supabaseClient) return;
-            await window.supabaseClient.auth.signOut();
-            window.location.reload();
-        }
-
-        async function handleMagicLink() {
-            const email = document.getElementById('login-email').value;
-            const statusEl = document.getElementById('auth-status');
-            if (!window.supabaseClient || !email) return;
-
-            const { error } = await window.supabaseClient.auth.signInWithOtp({
-                email,
-                options: { emailRedirectTo: window.location.href }
-            });
-
-            if (error) {
-                statusEl.innerText = "Error: " + error.message;
-                statusEl.className = "mt-4 text-center text-sm font-bold text-red-500";
-            } else {
-                statusEl.innerText = "¡Enlace enviado! Revisa tu email.";
-                statusEl.className = "mt-4 text-center text-sm font-bold text-green-500";
-            }
-            statusEl.classList.remove('hidden');
-        }
-
-        document.addEventListener('DOMContentLoaded', initAuth);
-    </script>
 </body>
 
 </html>

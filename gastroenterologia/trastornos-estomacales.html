@@ -114,10 +114,6 @@
             <a href="../gastroenterologia.html"
                 class="hidden md:flex text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">Hub
                 (Inicio)</a>
-            <button id="header-auth-btn" onclick="handleSignOut()"
-                class="px-4 py-2 rounded-full bg-slate-900 dark:bg-slate-700 text-white text-sm font-bold shadow-md hover:bg-primary transition-all">
-                Cerrar Sesión
-            </button>
             <button
                 class="flex size-10 cursor-pointer items-center justify-center rounded-lg bg-background-light dark:bg-border-dark text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors"
                 onclick="document.documentElement.classList.toggle('dark')">
@@ -642,22 +638,6 @@
         } catch (e) {
             console.error("Error init Supabase", e);
         }
-
-        async function handleSignOut() {
-            if (!supabaseClient) return;
-            await supabaseClient.auth.signOut();
-            window.location.href = '../gastroenterologia.html';
-        }
-
-        async function checkSession() {
-            if (!supabaseClient) return;
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                window.location.href = '../gastroenterologia.html';
-                return;
-            }
-        }
-        checkSession();
     </script>
 </body>
 
