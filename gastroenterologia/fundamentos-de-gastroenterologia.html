@@ -82,7 +82,7 @@
         <!-- Badges Status Dashboard -->
         <div class="flex items-center gap-3 bg-slate-950/60 px-4 py-2 rounded-xl border border-slate-800/80 shadow-inner">
           <span class="text-xs text-slate-400 font-bold uppercase tracking-wider mr-1">Insignias:</span>
-          
+
           <div id="badge-anatomy" class="flex items-center gap-1.5 opacity-40 grayscale transition-all duration-500" title="Insignia Explorador Anatómico">
             <div class="w-8 h-8 rounded-lg bg-emerald-950/50 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-md">
               <i class="fas fa-child-anatomy text-sm"></i>
@@ -146,12 +146,12 @@
 
     <!-- Main Workspace Container -->
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 py-8 flex flex-col lg:flex-row gap-8">
-      
+
       <!-- Side Navigation Menu -->
       <aside class="w-full lg:w-72 flex-shrink-0">
         <div class="bg-slate-900 rounded-2xl border border-slate-800 p-4 sticky top-28 space-y-2">
           <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-3 mb-4">Etapas de Misión</h3>
-          
+
           <button id="tab-btn-intro" onclick="switchTab('intro')" class="w-full text-left px-4 py-3 rounded-xl flex items-center justify-between text-indigo-400 bg-slate-950 border border-indigo-500/20 font-semibold transition-all">
             <span class="flex items-center gap-3">
               <i class="fas fa-book-open text-sm"></i>
@@ -196,7 +196,7 @@
 
       <!-- Active Content Card -->
       <section class="flex-grow bg-slate-900 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-xl min-h-[500px]">
-        
+
         <!-- ==================== TAB 0: INTRO & SYLLABUS ==================== -->
         <div id="tab-content-intro" class="space-y-6">
           <div class="border-b border-slate-800 pb-4">
@@ -207,7 +207,7 @@
 
           <div class="prose prose-invert max-w-none text-slate-300 space-y-4">
             <p>
-              El tubo digestivo es una sofisticada barrera selectiva y fábrica química. Como médico en formación de la Universidad Central del Ecuador, su misión es descifrar las bases fisiopatológicas que aquejan a nuestro **Paciente Cero (Sr. X)**. 
+              El tubo digestivo es una sofisticada barrera selectiva y fábrica química. Como médico en formación de la Universidad Central del Ecuador, su misión es descifrar las bases fisiopatológicas que aquejan a nuestro **Paciente Cero (Sr. X)**.
             </p>
             <p>
               A lo largo de este simulador interactivo, estudiará la anatomía espacial superior, el control de la secreción ácida y enzimática, y la ecología microbiana. Sus respuestas determinarán el éxito en la resolución de este caso clínico real.
@@ -311,7 +311,7 @@
 
                 <!-- Background torso outline -->
                 <path d="M 60 10 C 60 10, 220 10, 220 10 C 240 10, 250 50, 250 80 C 250 150, 220 280, 220 280 L 60 280 C 60 280, 30 150, 30 80 C 30 50, 40 10, 60 10 Z" fill="#0f172a" stroke="#1e293b" stroke-width="2" />
-                
+
                 <!-- Esophagus -->
                 <path id="svg-esofago" class="organ-path" d="M 135 10 L 135 80 L 145 80 L 145 10 Z" fill="#334155" stroke="#475569" stroke-width="1" />
 
@@ -422,7 +422,7 @@
             <!-- Left Side: Simulator Visual -->
             <div class="md:col-span-1 bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col items-center justify-between min-h-[360px]">
               <span class="text-[10px] font-mono text-slate-500 self-start uppercase">Visualizador de Motilidad</span>
-              
+
               <!-- Tube Flow Visual -->
               <div class="w-16 bg-slate-900 h-64 rounded-full border border-slate-800 relative flex flex-col justify-between items-center py-4 my-4 overflow-hidden">
                 <!-- Esophagus section -->
@@ -460,7 +460,7 @@
 
             <!-- Right Side: Checkpoint questions -->
             <div class="md:col-span-2 space-y-4 flex flex-col justify-center">
-              
+
               <!-- Placeholder instructions -->
               <div id="phys-instruction-box" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl text-center space-y-4">
                 <i class="fas fa-circle-play text-4xl text-indigo-400"></i>
@@ -518,10 +518,10 @@
 
           <!-- Microbiome Ecosystem Status Monitor -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-950 p-6 rounded-2xl border border-slate-800">
-            
+
             <div class="md:col-span-1 space-y-4 flex flex-col justify-center">
               <span class="text-xs font-bold text-slate-400 uppercase tracking-widest"><i class="fas fa-heart-pulse text-rose-500 mr-1.5"></i>Ecosistema Status</span>
-              
+
               <!-- Diversity ring gauge -->
               <div class="flex flex-col items-center justify-center p-3 bg-slate-900/60 rounded-xl border border-slate-800/80">
                 <span id="microbiome-diversity-num" class="text-3xl font-display font-extrabold text-cyan-400">75%</span>
@@ -532,7 +532,7 @@
             <!-- Detailed population tracks -->
             <div class="md:col-span-2 space-y-3">
               <span class="text-xs font-bold text-slate-400 uppercase tracking-widest"><i class="fas fa-chart-bar text-cyan-500 mr-1.5"></i>Poblaciones Bacterianas</span>
-              
+
               <!-- Bacteroidetes -->
               <div class="space-y-1">
                 <div class="flex justify-between text-xs font-semibold">
@@ -705,7 +705,7 @@
 
             <div class="space-y-2 pt-2">
               <label for="eval-reflections" class="text-xs font-bold text-slate-400 uppercase tracking-wider">Reflexiones de Aprendizaje y Compromiso de Mejora:</label>
-              <textarea id="eval-reflections" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-800 bg-slate-900 text-slate-100 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none" placeholder="Escriba aquí sus observaciones y compromisos..."></button>
+              <textarea id="eval-reflections" rows="3" class="w-full px-4 py-3 rounded-xl border border-slate-800 bg-slate-900 text-slate-100 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all outline-none" placeholder="Escriba aquí sus observaciones y compromisos..."></textarea>
             </div>
 
             <!-- Submit progress button -->
@@ -735,7 +735,7 @@
       let identifiedOrgans = new Set();
       const scanOrder = ['estomago', 'higado', 'vesicula', 'pancreas', 'duodeno'];
       let currentScanIndex = 0;
-      
+
       let matchedPairs = new Set();
       let currentSelectedLabel = null;
 
@@ -779,6 +779,13 @@
       let cdiff = 5;
       let completedScenarios = 0;
 
+      // Maps internal badge keys to the nav indicator element suffixes
+      const navBadgeMap = {
+        anatomy: 'anatomy',
+        chemistry: 'physiology',
+        eco: 'microbiota'
+      };
+
       // Main tab switcher
       function switchTab(tabId) {
         // Hide all contents
@@ -799,7 +806,7 @@
         const panel = document.getElementById('case-details-panel');
         const icon = document.getElementById('toggle-case-icon');
         const text = document.getElementById('toggle-case-text');
-        
+
         if (panel.classList.contains('hidden')) {
           panel.classList.remove('hidden');
           icon.className = 'fas fa-chevron-up';
@@ -830,24 +837,24 @@
       function clickOrgan(organId) {
         const target = scanOrder[currentScanIndex];
         const feedback = document.getElementById('scanner-feedback');
-        
+
         if (organId === target) {
           // Correct click
           identifiedOrgans.add(organId);
           document.getElementById(`svg-${organId}`).setAttribute('fill-opacity', '0.6');
           document.getElementById(`svg-${organId}`).classList.add('glow-active');
-          
+
           feedback.innerText = "¡Correcto! Estructura localizada.";
           feedback.className = "p-3 rounded-lg text-sm font-bold text-center bg-emerald-950/40 text-emerald-400 border border-emerald-500/20";
           feedback.classList.remove('hidden');
-          
+
           currentScanIndex++;
-          
+
           // Update progress
           const progressPercent = (currentScanIndex / 5) * 100;
           document.getElementById('scanner-progress-bar').style.width = `${progressPercent}%`;
           document.getElementById('scanner-progress-text').innerText = `${currentScanIndex} / 5`;
-          
+
           if (currentScanIndex < 5) {
             // Set next target
             const nextTarget = scanOrder[currentScanIndex];
@@ -862,7 +869,7 @@
             // Finished Phase A
             document.getElementById('scanner-prompt-box').classList.add('hidden');
             document.getElementById('anatomy-step2-btn').disabled = false;
-            
+
             // Auto route to phase b
             setTimeout(() => {
               toggleAnatomyStep(2);
@@ -897,12 +904,12 @@
             document.getElementById(`match-lbl-${id}`).classList.remove('border-indigo-500', 'bg-indigo-950/20');
             document.getElementById(`match-lbl-${id}`).classList.add('border-emerald-500/40', 'bg-emerald-950/10', 'text-emerald-400');
             document.getElementById(`match-lbl-${id}`).querySelector('.status-icon').innerHTML = '<i class="fas fa-check-circle text-emerald-400"></i>';
-            
+
             document.getElementById(`match-val-${id}`).classList.add('border-emerald-500/40', 'bg-emerald-950/10', 'text-emerald-400');
             document.getElementById(`match-val-${id}`).querySelector('.status-icon').innerHTML = '<i class="fas fa-check-circle text-emerald-400"></i>';
-            
+
             currentSelectedLabel = null;
-            
+
             // Check if all matched
             if (matchedPairs.size === 5) {
               document.getElementById('anatomy-complete-alert').classList.remove('hidden');
@@ -924,11 +931,14 @@
         const badge = document.getElementById(`badge-${badgeId}`);
         badge.classList.remove('opacity-40', 'grayscale');
         badge.classList.add('glow-active');
-        
-        // Unlock nav progress indicator
-        const nav = document.getElementById(`nav-badge-${badgeId}`);
-        nav.innerText = "COMP";
-        nav.className = "text-[9px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold";
+
+        // Unlock nav progress indicator (nav element suffix may differ from badge key)
+        const navSuffix = navBadgeMap[badgeId] || badgeId;
+        const nav = document.getElementById(`nav-badge-${navSuffix}`);
+        if (nav) {
+          nav.innerText = "COMP";
+          nav.className = "text-[9px] bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded font-mono font-bold";
+        }
 
         // Enable next nav buttons
         if (badgeId === 'anatomy') {
@@ -947,11 +957,11 @@
         document.getElementById('btn-start-phys').innerText = "Simulador en Marcha";
         document.getElementById('phys-instruction-box').classList.add('hidden');
         document.getElementById('phys-success-box').classList.add('hidden');
-        
+
         // Animate bolus to esophagus
         resetBolusUI();
         document.getElementById('bolus-pos-esophagus').className = 'w-6 h-6 rounded-full bg-amber-400 border-2 border-white z-10 transition-all duration-500 shadow-[0_0_10px_rgba(245,158,11,0.8)]';
-        
+
         setTimeout(() => {
           triggerPhysQuestion('les');
         }, 1000);
@@ -970,7 +980,7 @@
         const qTitle = document.getElementById('phys-question-title');
         const optionsCont = document.getElementById('phys-options-container');
         const feedback = document.getElementById('phys-feedback');
-        
+
         feedback.classList.add('hidden');
         qBox.classList.remove('hidden');
 
@@ -988,7 +998,7 @@
 
         qTitle.innerText = activeQ.title;
         optionsCont.innerHTML = '';
-        
+
         activeQ.options.forEach((opt, idx) => {
           const btn = document.createElement('button');
           btn.className = 'w-full p-3 bg-slate-900 border border-slate-850 rounded-xl text-left hover:border-slate-700 transition-all text-xs font-semibold leading-relaxed';
@@ -1000,7 +1010,7 @@
 
       function checkPhysAnswer(isCorrect, checkpointId, buttonEl) {
         const feedback = document.getElementById('phys-feedback');
-        
+
         if (isCorrect) {
           buttonEl.className = 'w-full p-3 bg-emerald-950 border border-emerald-500/50 rounded-xl text-left text-emerald-400 text-xs font-bold leading-relaxed';
           feedback.innerText = "¡Respuesta correcta! Esfínter desbloqueado.";
@@ -1024,7 +1034,7 @@
           // Open LES, move to stomach
           document.getElementById('sphincter-les').className = 'w-full h-1 bg-emerald-500/30 border-y border-emerald-500/50 flex justify-center items-center';
           document.getElementById('bolus-pos-esophagus').className = 'w-5 h-5 rounded-full bg-slate-800 border border-slate-700 z-10 transition-all duration-500';
-          
+
           setTimeout(() => {
             document.getElementById('bolus-pos-stomach').className = 'w-6 h-6 rounded-full bg-amber-400 border-2 border-white z-10 transition-all duration-500 shadow-[0_0_10px_rgba(245,158,11,0.8)]';
           }, 400);
@@ -1037,7 +1047,7 @@
           // Open pylorus, move to duodenum
           document.getElementById('sphincter-pylorus').className = 'w-full h-1 bg-emerald-500/30 border-y border-emerald-500/50 flex justify-center items-center';
           document.getElementById('bolus-pos-stomach').className = 'w-5 h-5 rounded-full bg-slate-800 border border-slate-700 z-10 transition-all duration-500';
-          
+
           setTimeout(() => {
             document.getElementById('bolus-pos-duodenum').className = 'w-6 h-6 rounded-full bg-amber-400 border-2 border-white z-10 transition-all duration-500 shadow-[0_0_10px_rgba(245,158,11,0.8)]';
           }, 400);
@@ -1050,10 +1060,11 @@
           // Completed simulation
           document.getElementById('bolus-pos-duodenum').className = 'w-5 h-5 rounded-full bg-slate-800 border border-slate-700 z-10 transition-all duration-500';
           document.getElementById('phys-success-box').classList.remove('hidden');
-          
+          document.getElementById('physiology-badge-status').classList.remove('hidden');
+
           document.getElementById('btn-start-phys').disabled = false;
           document.getElementById('btn-start-phys').innerText = "Reiniciar Simulación";
-          
+
           unlockBadge('chemistry');
         }
       }
@@ -1064,7 +1075,7 @@
         const feedbackBox = document.getElementById('scenario-feedback-box');
         const feedbackText = document.getElementById('scenario-feedback-text');
         const choicesDiv = document.getElementById('scenario-choices');
-        
+
         choicesDiv.classList.add('pointer-events-none', 'opacity-50');
 
         if (scenarioIndex === 1) {
@@ -1108,7 +1119,7 @@
 
       function updateMicrobiomeUI() {
         document.getElementById('microbiome-diversity-num').innerText = `${diversity}%`;
-        
+
         document.getElementById('microbiome-bact-num').innerText = `${bacteroidetes}%`;
         document.getElementById('microbiome-bact-bar').style.width = `${bacteroidetes}%`;
 
@@ -1122,7 +1133,7 @@
       function nextScenario() {
         const feedbackBox = document.getElementById('scenario-feedback-box');
         const choicesDiv = document.getElementById('scenario-choices');
-        
+
         feedbackBox.classList.add('hidden');
         choicesDiv.classList.remove('pointer-events-none', 'opacity-50');
 
@@ -1130,7 +1141,7 @@
           scenarioIndex = 2;
           document.getElementById('scenario-number').innerText = "Escenario 2 de 2";
           document.getElementById('scenario-question').innerText = "Meses después, el paciente adquiere una infección de amígdalas y se le prescribe amoxicilina con ácido clavulánico por 7 días. Ante la mejoría sintomática al tercer día, ¿qué conducta terapéutica sugiere?";
-          
+
           // Re-populate choices
           choicesDiv.innerHTML = `
             <button onclick="chooseScenarioOption(1)" class="p-4 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 rounded-xl text-left transition-all">
@@ -1146,6 +1157,7 @@
           // Finished microbiota
           document.getElementById('micro-scenario-box').classList.add('hidden');
           document.getElementById('micro-success-box').classList.remove('hidden');
+          document.getElementById('microbiota-badge-status').classList.remove('hidden');
           unlockBadge('eco');
         }
       }
@@ -1155,7 +1167,7 @@
       function toggleAccordion(id) {
         const panel = document.getElementById(id);
         const icon = document.getElementById(`${id}-icon`);
-        
+
         if (panel.classList.contains('hidden')) {
           panel.classList.remove('hidden');
           icon.className = 'fas fa-chevron-up text-slate-400';
@@ -1185,8 +1197,12 @@
           checkedSkills: [chk1, chk2, chk3]
         };
 
-        localStorage.setItem('gastro_foundations_progress', JSON.stringify(progressReport));
-        
+        try {
+          localStorage.setItem('gastro_foundations_progress', JSON.stringify(progressReport));
+        } catch (e) {
+          // localStorage may be unavailable (private mode / sandbox); fail gracefully
+        }
+
         // Show success
         document.getElementById('eval-success-alert').classList.remove('hidden');
       }
