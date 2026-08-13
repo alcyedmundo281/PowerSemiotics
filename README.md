@@ -38,8 +38,9 @@ También puede consultarse en la web:
 Ahí está lo que no sobrevivió a la migración y no existe en los repositorios
 nuevos:
 
-- `ai_dashboard.html`, el panel de consultas a un modelo de lenguaje, y su
-  `assets/ask-ai.js`
+- `ai_dashboard.html`, el panel de consultas a un modelo de lenguaje. Su script
+  acompañante, `assets/ask-ai.js`, es anterior a esta etiqueta: se retiró en
+  `7558e66`, así que hay que buscarlo en el commit padre de ese
 - la integración con Supabase de tres páginas, con su `supabase_schema.sql`
 - las maquetas `stitch_*` y los artefactos de verificación `jules-scratch/`
 - la versión de las páginas anterior al autoalojamiento, cuando aún cargaban
