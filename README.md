@@ -1,62 +1,54 @@
-# PowerSemiotics
+# PowerSemiotics — archivo histórico
 
-Power Semiotics Official WebSite
+**Este repositorio ya no publica nada.** Se conserva por su historial.
 
-## Development
+Hasta agosto de 2026 fue todo `powersemiotics.com`: la portada corporativa y,
+colgando de ella, la obra escrita completa. En agosto de 2026 el sitio se dividió
+en dos y este repositorio quedó vacío de contenido.
 
-### Formatting and Linting
+## Dónde vive ahora cada cosa
 
-Install dependencies:
+| Qué | Repositorio | Se publica en |
+|---|---|---|
+| Portada corporativa | [alcyedmundo281.github.io](https://github.com/alcyedmundo281/alcyedmundo281.github.io) | <https://powersemiotics.com/> |
+| Obra escrita (101 páginas, 6 áreas) | [medsemiotics](https://github.com/alcyedmundo281/medsemiotics) | <https://powersemiotics.com/medsemiotics/> |
 
-```bash
-npm install
-```
+El dominio propio pasó de este repositorio al del sitio de usuario. Ese cambio es
+lo que permite que `medsemiotics`, como repositorio de proyecto, se sirva bajo
+`/medsemiotics/`: un dominio configurado sobre un repositorio de proyecto sirve
+solo ese repositorio, mientras que si se configura sobre el sitio de usuario, los
+demás repositorios cuelgan de él como subrutas.
 
-Format HTML and JavaScript files:
+Las URL anteriores no se han perdido: el sitio de usuario incluye un `404.html`
+que redirige a `/medsemiotics/` las 121 direcciones que se mudaron, conservando
+parámetros y fragmento.
 
-```bash
-npm run format
-```
+## Consultar el estado anterior
 
-Lint JavaScript files:
-
-```bash
-npm run lint
-```
-
-### Run Locally
-
-Launch a simple static server to preview the site:
-
-```bash
-npm start
-```
-
-Then open [http://localhost:8080/neurologia-autoevaluacion.html](http://localhost:8080/neurologia-autoevaluacion.html) or [http://localhost:8080/gastroenterologia-autoevaluacion.html](http://localhost:8080/gastroenterologia-autoevaluacion.html) in your browser.
-
-### Variables de entorno
-
-1. Copia el archivo `.env.example` a `.env`:
+La etiqueta **`archivo-pre-migracion`** conserva el árbol íntegro previo al
+reparto: 222 archivos, 106 páginas, 20 MB.
 
 ```bash
-cp .env.example .env
+git checkout archivo-pre-migracion
 ```
 
-2. Edita `.env` y asigna tu clave de OpenAI:
+También puede consultarse en la web:
+<https://github.com/alcyedmundo281/PowerSemiotics/tree/archivo-pre-migracion>
 
-```bash
-OPENAI_API_KEY=tu_clave_openai
-```
+Ahí está lo que no sobrevivió a la migración y no existe en los repositorios
+nuevos:
 
-El servidor leerá esta clave al iniciarse para comunicarse con la API de OpenAI.
+- `ai_dashboard.html`, el panel de consultas a un modelo de lenguaje, y su
+  `assets/ask-ai.js`
+- la integración con Supabase de tres páginas, con su `supabase_schema.sql`
+- las maquetas `stitch_*` y los artefactos de verificación `jules-scratch/`
+- la versión de las páginas anterior al autoalojamiento, cuando aún cargaban
+  Tailwind, React, Babel, Font Awesome y las fuentes desde CDN
 
-### Naming Conventions
+## Por qué se dividió
 
-All directories and files use **kebab-case** (lowercase words separated by hyphens).
-This keeps URLs consistent and easy to read.
-
-## Merge guidance for neurologia exam page
-To avoid manual merge decisions when syncing changes to `neurologia/examen-neurologico-parte-2.html` and its supporting package manifests, the repository now ships with a `.gitattributes` file that forces Git to keep the version from the feature branch. If you intentionally need the other side of the merge, run `git checkout --theirs` (or `--ours`) manually before committing.
-
-### ¿Qué opción elegir en GitHub?
-Si GitHub vuelve a mostrar un mensaje de conflicto con botones como **Accept current change**, **Accept incoming change** o **Accept both changes**, selecciona siempre **Accept incoming change**. Esa opción conserva la versión del feature branch, que es la misma que protege `.gitattributes`, y garantiza que no tengas que revisar código para decidir.
+La obra escrita y la presentación corporativa tenían ritmos de cambio y públicos
+distintos, y convivían en un mismo árbol donde cada retoque de la portada tocaba
+el mismo repositorio que los módulos de estudio. Separarlas permitió además
+publicar el contenido con licencia e identificador propios: `medsemiotics` se
+distribuye bajo CC BY-SA 4.0 y tiene su propio DOI.
