@@ -165,7 +165,7 @@
               <i class="fas fa-child-anatomy text-sm text-emerald-400"></i>
               <span>1. Lab Anatómico</span>
             </span>
-            <span id="nav-badge-anatomy" class="text-[9px] bg-slate-950 text-slate-500 px-2 py-0.5 rounded font-mono">BLOQ</span>
+            <span id="nav-badge-anatomy" class="text-[9px] bg-slate-950 text-slate-500 px-2 py-0.5 rounded font-mono">PENDIENTE</span>
           </button>
 
           <button id="tab-btn-physiology" onclick="switchTab('physiology')" class="w-full text-left px-4 py-3 rounded-xl flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 font-medium transition-all">
@@ -173,7 +173,7 @@
               <i class="fas fa-flask text-sm text-amber-400"></i>
               <span>2. Fábrica Química</span>
             </span>
-            <span id="nav-badge-physiology" class="text-[9px] bg-slate-950 text-slate-500 px-2 py-0.5 rounded font-mono">BLOQ</span>
+            <span id="nav-badge-physiology" class="text-[9px] bg-slate-950 text-slate-500 px-2 py-0.5 rounded font-mono">PENDIENTE</span>
           </button>
 
           <button id="tab-btn-microbiota" onclick="switchTab('microbiota')" class="w-full text-left px-4 py-3 rounded-xl flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 font-medium transition-all">
@@ -181,7 +181,7 @@
               <i class="fas fa-bacteria text-sm text-cyan-400"></i>
               <span>3. Ecosistema Oculto</span>
             </span>
-            <span id="nav-badge-microbiota" class="text-[9px] bg-slate-950 text-slate-500 px-2 py-0.5 rounded font-mono">BLOQ</span>
+            <span id="nav-badge-microbiota" class="text-[9px] bg-slate-950 text-slate-500 px-2 py-0.5 rounded font-mono">PENDIENTE</span>
           </button>
 
           <button id="tab-btn-evaluation" onclick="switchTab('evaluation')" class="w-full text-left px-4 py-3 rounded-xl flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 font-medium transition-all">
@@ -257,8 +257,8 @@
             <button id="anatomy-step1-btn" onclick="toggleAnatomyStep(1)" class="px-4 py-2 border-b-2 border-emerald-500 text-emerald-400 font-semibold text-sm">
               Fase A: Escáner de Órganos
             </button>
-            <button id="anatomy-step2-btn" onclick="toggleAnatomyStep(2)" class="px-4 py-2 text-slate-400 hover:text-slate-200 font-medium text-sm transition-colors" disabled>
-              <i class="fas fa-lock mr-1"></i> Fase B: Reconstrucción Funcional
+            <button id="anatomy-step2-btn" onclick="toggleAnatomyStep(2)" class="px-4 py-2 text-slate-400 hover:text-slate-200 font-medium text-sm transition-colors">
+              Fase B: Reconstrucción Funcional
             </button>
           </div>
 
@@ -294,6 +294,18 @@
 
               <!-- feedback alert -->
               <div id="scanner-feedback" class="hidden p-3 rounded-lg text-sm font-bold text-center"></div>
+
+              <!-- Fallback Selector Buttons -->
+              <div class="mt-4 p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-2">
+                <p class="text-xs text-slate-400 font-semibold"><i class="fas fa-hand-pointer mr-1 text-emerald-400"></i>Opción alternativa: Pulse el órgano correspondiente si no puede hacer clic en la imagen:</p>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-[10px]">
+                  <button type="button" onclick="clickOrgan('higado')" class="p-2 bg-slate-900 hover:bg-slate-850 hover:text-emerald-400 border border-slate-800 rounded font-bold transition-all text-center">Hígado</button>
+                  <button type="button" onclick="clickOrgan('estomago')" class="p-2 bg-slate-900 hover:bg-slate-850 hover:text-emerald-400 border border-slate-800 rounded font-bold transition-all text-center">Estómago</button>
+                  <button type="button" onclick="clickOrgan('vesicula')" class="p-2 bg-slate-900 hover:bg-slate-850 hover:text-emerald-400 border border-slate-800 rounded font-bold transition-all text-center">Vesícula Biliar</button>
+                  <button type="button" onclick="clickOrgan('pancreas')" class="p-2 bg-slate-900 hover:bg-slate-850 hover:text-emerald-400 border border-slate-800 rounded font-bold transition-all text-center">Páncreas</button>
+                  <button type="button" onclick="clickOrgan('duodeno')" class="p-2 bg-slate-900 hover:bg-slate-850 hover:text-emerald-400 border border-slate-800 rounded font-bold transition-all text-center">Duodeno</button>
+                </div>
+              </div>
             </div>
 
             <!-- SVG Scanner Canvas -->
@@ -390,6 +402,13 @@
               </div>
             </div>
 
+            <!-- Skip Option -->
+            <div class="text-right pt-2 border-t border-slate-800/40">
+              <button type="button" onclick="skipAnatomyGame()" class="text-xs text-slate-500 hover:text-emerald-400 transition-colors underline bg-transparent border-0 cursor-pointer">
+                Saltar esta actividad e ir a la siguiente &rarr;
+              </button>
+            </div>
+
             <!-- Complete actions -->
             <div id="anatomy-complete-alert" class="hidden p-5 bg-emerald-950/40 border border-emerald-500/20 text-emerald-400 rounded-xl text-center font-bold">
               <i class="fas fa-medal text-xl mb-2 block text-emerald-400"></i>
@@ -451,9 +470,12 @@
               </div>
 
               <!-- Control buttons -->
-              <div class="w-full">
+              <div class="w-full space-y-2">
                 <button id="btn-start-phys" onclick="startPhysiologySim()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs transition-all flex items-center justify-center gap-2">
                   <i class="fas fa-play"></i> Iniciar Simulación
+                </button>
+                <button type="button" onclick="skipPhysiologySim()" class="w-full py-2 bg-slate-950 hover:bg-slate-800 text-slate-400 border border-slate-800/80 rounded-lg text-[10px] font-bold transition-all text-center">
+                  Saltar Simulación
                 </button>
               </div>
             </div>
@@ -571,9 +593,14 @@
           <!-- Scenario panel -->
           <div id="micro-scenario-box" class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-4">
             <!-- Title -->
-            <div class="flex items-center gap-2 text-indigo-400 border-b border-slate-800 pb-2">
-              <i class="fas fa-briefcase-medical"></i>
-              <span id="scenario-number" class="text-xs font-bold uppercase tracking-wider">Escenario 1 de 2</span>
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2 text-indigo-400">
+                <i class="fas fa-briefcase-medical"></i>
+                <span id="scenario-number" class="text-xs font-bold uppercase tracking-wider">Escenario 1 de 2</span>
+              </div>
+              <button type="button" onclick="skipMicrobiotaGame()" class="text-[10px] text-slate-500 hover:text-cyan-400 transition-colors underline bg-transparent border-0 cursor-pointer">
+                Saltar Misión
+              </button>
             </div>
 
             <!-- Question and choices -->
@@ -1191,11 +1218,41 @@
         document.getElementById('eval-success-alert').classList.remove('hidden');
       }
 
+      function skipAnatomyGame() {
+        scanOrder.forEach(org => identifiedOrgans.add(org));
+        currentScanIndex = 5;
+        scanOrder.forEach(org => matchedPairs.add(org));
+        
+        document.getElementById('anatomy-step2-btn').disabled = false;
+        document.getElementById('anatomy-complete-alert').classList.remove('hidden');
+        
+        scanOrder.forEach(org => {
+          const el = document.getElementById(`svg-${org}`);
+          if (el) {
+            el.setAttribute('fill-opacity', '0.6');
+            el.classList.add('glow-active');
+          }
+        });
+        unlockBadge('anatomy');
+      }
+
+      function skipPhysiologySim() {
+        resetBolusUI();
+        document.getElementById('phys-question-box').classList.add('hidden');
+        document.getElementById('phys-instruction-box').classList.add('hidden');
+        document.getElementById('phys-success-box').classList.remove('hidden');
+        unlockBadge('chemistry');
+      }
+
+      function skipMicrobiotaGame() {
+        document.getElementById('micro-scenario-box').classList.add('hidden');
+        document.getElementById('micro-success-box').classList.remove('hidden');
+        unlockBadge('eco');
+      }
+
       // Initialize defaults
       document.addEventListener('DOMContentLoaded', () => {
-        // Initially disable locked tabs
-        document.getElementById('tab-btn-physiology').disabled = true;
-        document.getElementById('tab-btn-microbiota').disabled = true;
+        // All tabs are unlocked for free navigation by default
       });
     </script>
   </body>
